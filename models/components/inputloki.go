@@ -107,6 +107,14 @@ type InputLoki struct {
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitempty"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitempty"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
+	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputLoki) MarshalJSON() ([]byte, error) {
@@ -405,4 +413,32 @@ func (i *InputLoki) GetOauthHeaders() []ItemsTypeOauthHeaders {
 		return nil
 	}
 	return i.OauthHeaders
+}
+
+func (i *InputLoki) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputLoki) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+func (i *InputLoki) GetTemplateLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateLoginURL
+}
+
+func (i *InputLoki) GetTemplateSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSecret
 }

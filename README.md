@@ -178,6 +178,13 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Get](docs/sdks/collectors/README.md#get) - Get a Collector
 * [Update](docs/sdks/collectors/README.md#update) - Update a Collector
 
+### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
+
+* [Create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+* [Delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
+* [Get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
+* [Update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
+
 ### [Destinations](docs/sdks/destinations/README.md)
 
 * [List](docs/sdks/destinations/README.md#list) - List all Destinations
@@ -208,7 +215,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 * [Update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 * [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
-* [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
+* [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
 
 #### [Groups.Acl](docs/sdks/acl/README.md)
 

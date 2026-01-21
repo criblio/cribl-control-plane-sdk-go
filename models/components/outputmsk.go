@@ -143,6 +143,18 @@ type OutputMsk struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputMskPqControls      `json:"pqControls,omitempty"`
+	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
+	TemplateTopic *string `json:"__template_topic,omitempty"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitempty"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
+	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputMsk) MarshalJSON() ([]byte, error) {
@@ -518,4 +530,46 @@ func (o *OutputMsk) GetPqControls() *OutputMskPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputMsk) GetTemplateTopic() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTopic
+}
+
+func (o *OutputMsk) GetTemplateAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAwsSecretKey
+}
+
+func (o *OutputMsk) GetTemplateRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRegion
+}
+
+func (o *OutputMsk) GetTemplateAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAssumeRoleArn
+}
+
+func (o *OutputMsk) GetTemplateAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAssumeRoleExternalID
+}
+
+func (o *OutputMsk) GetTemplateAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAwsAPIKey
 }

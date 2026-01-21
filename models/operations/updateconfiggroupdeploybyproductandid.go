@@ -7,9 +7,9 @@ import (
 )
 
 type UpdateConfigGroupDeployByProductAndIDRequest struct {
-	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+	// Name of the Cribl product to deploy commits to the Worker Groups, Outpost Groups, or Edge Fleets for.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// The <code>id</code> of the target Worker Group or Edge Fleet for commit deployment.
+	// The <code>id</code> of the target Worker Group, Outpost Group, or Edge Fleet for commit deployment.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// DeployRequest object
 	DeployRequest components.DeployRequest `request:"mediaType=application/json"`
