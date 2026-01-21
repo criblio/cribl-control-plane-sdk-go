@@ -18,3 +18,5 @@
 | `Output`                 | **string*                | :heavy_minus_sign:       | N/A                      |
 | `OutputExpression`       | **string*                | :heavy_minus_sign:       | N/A                      |
 | `Pipeline`               | *string*                 | :heavy_check_mark:       | N/A                      |
+| `ToGroupContext`         | **bool*                  | :heavy_minus_sign:       | N/A                      |
+| `ToPackContext`          | **bool*                  | :heavy_minus_sign:       | N/A                      |

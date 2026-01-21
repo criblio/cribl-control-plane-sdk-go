@@ -1280,8 +1280,8 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 
 }
 
-// Deploy commits to a Worker Group or Edge Fleet
-// Deploy commits to the specified Worker Group or Edge Fleet.
+// Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
+// Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
 func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id string, deployRequest components.DeployRequest, opts ...operations.Option) (*operations.UpdateConfigGroupDeployByProductAndIDResponse, error) {
 	request := operations.UpdateConfigGroupDeployByProductAndIDRequest{
 		Product:       product,
