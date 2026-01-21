@@ -37,6 +37,10 @@ type CollectorScript struct {
 	// Collector type
 	Type CollectorScriptType `json:"type"`
 	Conf ScriptCollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `json:"destructive,omitempty"`
+	// Character encoding to use when parsing ingested data.
+	Encoding *string `json:"encoding,omitempty"`
 }
 
 func (c CollectorScript) MarshalJSON() ([]byte, error) {
@@ -62,4 +66,18 @@ func (c *CollectorScript) GetConf() ScriptCollectorConf {
 		return ScriptCollectorConf{}
 	}
 	return c.Conf
+}
+
+func (c *CollectorScript) GetDestructive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Destructive
+}
+
+func (c *CollectorScript) GetEncoding() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Encoding
 }

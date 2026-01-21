@@ -37,6 +37,10 @@ type CollectorGoogleCloudStorage struct {
 	// Collector type
 	Type CollectorGoogleCloudStorageType `json:"type"`
 	Conf GoogleCloudStorageCollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `json:"destructive,omitempty"`
+	// Character encoding to use when parsing ingested data.
+	Encoding *string `json:"encoding,omitempty"`
 }
 
 func (c CollectorGoogleCloudStorage) MarshalJSON() ([]byte, error) {
@@ -74,4 +78,18 @@ func (c *CollectorGoogleCloudStorage) GetConfManual() *GoogleCloudStorageAuthTyp
 
 func (c *CollectorGoogleCloudStorage) GetConfSecret() *GoogleCloudStorageAuthTypeSecret {
 	return c.GetConf().GoogleCloudStorageAuthTypeSecret
+}
+
+func (c *CollectorGoogleCloudStorage) GetDestructive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Destructive
+}
+
+func (c *CollectorGoogleCloudStorage) GetEncoding() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Encoding
 }

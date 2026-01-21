@@ -1,0 +1,23 @@
+# HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPGet(components.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPPost(components.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPPostWithBody(components.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+

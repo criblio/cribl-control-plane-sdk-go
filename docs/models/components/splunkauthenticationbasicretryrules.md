@@ -1,15 +1,23 @@
 # SplunkAuthenticationBasicRetryRules
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                          | Type                                                                                                                                           | Required                                                                                                                                       | Description                                                                                                                                    |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Type`                                                                                                                                         | [components.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../../models/components/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                                             | The algorithm to use when performing HTTP retries                                                                                              |
-| `Interval`                                                                                                                                     | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Limit`                                                                                                                                        | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Multiplier`                                                                                                                                   | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Codes`                                                                                                                                        | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `EnableHeader`                                                                                                                                 | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `RetryConnectTimeout`                                                                                                                          | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `RetryConnectReset`                                                                                                                            | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
+### SplunkAuthenticationBasicSplunkRetryRulesTypeNone
+
+```go
+splunkAuthenticationBasicRetryRules := components.CreateSplunkAuthenticationBasicRetryRulesNone(components.SplunkAuthenticationBasicSplunkRetryRulesTypeNone{/* values here */})
+```
+
+### SplunkAuthenticationBasicSplunkRetryRulesTypeStatic
+
+```go
+splunkAuthenticationBasicRetryRules := components.CreateSplunkAuthenticationBasicRetryRulesStatic(components.SplunkAuthenticationBasicSplunkRetryRulesTypeStatic{/* values here */})
+```
+
+### SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
+
+```go
+splunkAuthenticationBasicRetryRules := components.CreateSplunkAuthenticationBasicRetryRulesBackoff(components.SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff{/* values here */})
+```
+
