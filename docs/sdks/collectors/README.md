@@ -95,6 +95,8 @@ func main() {
                             },
                         },
                     },
+                    Destructive: criblcontrolplanesdkgo.Pointer(true),
+                    Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
             Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
@@ -432,6 +434,8 @@ func main() {
                             DisableTimeFilter: criblcontrolplanesdkgo.Pointer(true),
                         },
                     ),
+                    Destructive: criblcontrolplanesdkgo.Pointer(true),
+                    Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
             Input: &components.TypeCollectionWithBreakerRulesetsConstraint{

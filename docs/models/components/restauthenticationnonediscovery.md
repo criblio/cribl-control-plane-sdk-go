@@ -1,8 +1,29 @@
 # RestAuthenticationNoneDiscovery
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `DiscoverType`                                                                                                             | [components.RestAuthenticationNoneDiscoverType](../../models/components/restauthenticationnonediscovertype.md)             | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+### RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP
+
+```go
+restAuthenticationNoneDiscovery := components.CreateRestAuthenticationNoneDiscoveryHTTP(components.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON
+
+```go
+restAuthenticationNoneDiscovery := components.CreateRestAuthenticationNoneDiscoveryJSON(components.RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### RestAuthenticationNoneRestDiscoveryDiscoverTypeList
+
+```go
+restAuthenticationNoneDiscovery := components.CreateRestAuthenticationNoneDiscoveryList(components.RestAuthenticationNoneRestDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### RestAuthenticationNoneRestDiscoveryDiscoverTypeNone
+
+```go
+restAuthenticationNoneDiscovery := components.CreateRestAuthenticationNoneDiscoveryNone(components.RestAuthenticationNoneRestDiscoveryDiscoverTypeNone{/* values here */})
+```
+

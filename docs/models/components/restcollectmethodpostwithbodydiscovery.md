@@ -1,8 +1,29 @@
 # RestCollectMethodPostWithBodyDiscovery
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `DiscoverType`                                                                                                               | [components.RestCollectMethodPostWithBodyDiscoverType](../../models/components/restcollectmethodpostwithbodydiscovertype.md) | :heavy_check_mark:                                                                                                           | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.   |
+### RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP
+
+```go
+restCollectMethodPostWithBodyDiscovery := components.CreateRestCollectMethodPostWithBodyDiscoveryHTTP(components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON
+
+```go
+restCollectMethodPostWithBodyDiscovery := components.CreateRestCollectMethodPostWithBodyDiscoveryJSON(components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList
+
+```go
+restCollectMethodPostWithBodyDiscovery := components.CreateRestCollectMethodPostWithBodyDiscoveryList(components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone
+
+```go
+restCollectMethodPostWithBodyDiscovery := components.CreateRestCollectMethodPostWithBodyDiscoveryNone(components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone{/* values here */})
+```
+

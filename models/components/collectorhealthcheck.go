@@ -37,6 +37,10 @@ type CollectorHealthCheck struct {
 	// Collector type
 	Type CollectorHealthCheckType `json:"type"`
 	Conf HealthCheckCollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `json:"destructive,omitempty"`
+	// Character encoding to use when parsing ingested data.
+	Encoding *string `json:"encoding,omitempty"`
 }
 
 func (c CollectorHealthCheck) MarshalJSON() ([]byte, error) {
@@ -90,4 +94,18 @@ func (c *CollectorHealthCheck) GetConfOauth() *HealthCheckAuthenticationOauth {
 
 func (c *CollectorHealthCheck) GetConfOauthSecret() *HealthCheckAuthenticationOauthSecret {
 	return c.GetConf().HealthCheckAuthenticationOauthSecret
+}
+
+func (c *CollectorHealthCheck) GetDestructive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Destructive
+}
+
+func (c *CollectorHealthCheck) GetEncoding() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Encoding
 }
