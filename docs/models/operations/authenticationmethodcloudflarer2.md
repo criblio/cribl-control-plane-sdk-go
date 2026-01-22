@@ -9,4 +9,3 @@ AWS authentication method. Choose Auto to use IAM roles.
 | ---------------------------------------- | ---------------------------------------- |
 | `AuthenticationMethodCloudflareR2Auto`   | auto                                     |
 | `AuthenticationMethodCloudflareR2Secret` | secret                                   |
-| `AuthenticationMethodCloudflareR2Manual` | manual                                   |

@@ -38,7 +38,6 @@ type AuthTokenAuthenticationMethod string
 
 const (
 	AuthTokenAuthenticationMethodSecret AuthTokenAuthenticationMethod = "secret"
-	AuthTokenAuthenticationMethodManual AuthTokenAuthenticationMethod = "manual"
 )
 
 func (e AuthTokenAuthenticationMethod) ToPointer() *AuthTokenAuthenticationMethod {
@@ -49,7 +48,7 @@ func (e AuthTokenAuthenticationMethod) ToPointer() *AuthTokenAuthenticationMetho
 func (e *AuthTokenAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "secret", "manual":
+		case "secret":
 			return true
 		}
 	}
@@ -61,8 +60,7 @@ type AuthTokenCloudflareHec struct {
 	AuthType *AuthTokenAuthenticationMethod `json:"authType,omitempty"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitempty"`
-	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       *string `json:"token,omitempty"`
+	Token       any     `json:"token,omitempty"`
 	Enabled     *bool   `json:"enabled,omitempty"`
 	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -96,7 +94,7 @@ func (a *AuthTokenCloudflareHec) GetTokenSecret() *string {
 	return a.TokenSecret
 }
 
-func (a *AuthTokenCloudflareHec) GetToken() *string {
+func (a *AuthTokenCloudflareHec) GetToken() any {
 	if a == nil {
 		return nil
 	}
@@ -6524,32 +6522,12 @@ type InputOpenTelemetry struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Enable to extract each incoming log record to a separate event
 	ExtractLogs *bool `json:"extractLogs,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -6822,62 +6800,6 @@ func (i *InputOpenTelemetry) GetTextSecret() *string {
 	return i.TextSecret
 }
 
-func (i *InputOpenTelemetry) GetLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.LoginURL
-}
-
-func (i *InputOpenTelemetry) GetSecretParamName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SecretParamName
-}
-
-func (i *InputOpenTelemetry) GetSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Secret
-}
-
-func (i *InputOpenTelemetry) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputOpenTelemetry) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputOpenTelemetry) GetOauthParams() []components.ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputOpenTelemetry) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
-}
-
 func (i *InputOpenTelemetry) GetExtractLogs() *bool {
 	if i == nil {
 		return nil
@@ -6897,20 +6819,6 @@ func (i *InputOpenTelemetry) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
-}
-
-func (i *InputOpenTelemetry) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputOpenTelemetry) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
 }
 
 type CreateInputTypeSnmp string
@@ -18433,32 +18341,12 @@ type InputPrometheusRw struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitempty"`
 	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
 	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputPrometheusRw) MarshalJSON() ([]byte, error) {
@@ -18703,62 +18591,6 @@ func (i *InputPrometheusRw) GetTextSecret() *string {
 	return i.TextSecret
 }
 
-func (i *InputPrometheusRw) GetLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.LoginURL
-}
-
-func (i *InputPrometheusRw) GetSecretParamName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SecretParamName
-}
-
-func (i *InputPrometheusRw) GetSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Secret
-}
-
-func (i *InputPrometheusRw) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputPrometheusRw) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputPrometheusRw) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputPrometheusRw) GetOauthParams() []components.ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputPrometheusRw) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
-}
-
 func (i *InputPrometheusRw) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -18778,20 +18610,6 @@ func (i *InputPrometheusRw) GetTemplatePrometheusAPI() *string {
 		return nil
 	}
 	return i.TemplatePrometheusAPI
-}
-
-func (i *InputPrometheusRw) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputPrometheusRw) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
 }
 
 type CreateInputTypeLoki string
@@ -18877,30 +18695,10 @@ type InputLoki struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputLoki) MarshalJSON() ([]byte, error) {
@@ -19145,62 +18943,6 @@ func (i *InputLoki) GetTextSecret() *string {
 	return i.TextSecret
 }
 
-func (i *InputLoki) GetLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.LoginURL
-}
-
-func (i *InputLoki) GetSecretParamName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SecretParamName
-}
-
-func (i *InputLoki) GetSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Secret
-}
-
-func (i *InputLoki) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputLoki) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputLoki) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputLoki) GetOauthParams() []components.ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputLoki) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
-}
-
 func (i *InputLoki) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -19213,20 +18955,6 @@ func (i *InputLoki) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
-}
-
-func (i *InputLoki) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputLoki) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
 }
 
 type InputGrafanaType2 string
@@ -19263,26 +18991,6 @@ type PrometheusAuth2 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (p PrometheusAuth2) MarshalJSON() ([]byte, error) {
@@ -19338,76 +19046,6 @@ func (p *PrometheusAuth2) GetTextSecret() *string {
 	return p.TextSecret
 }
 
-func (p *PrometheusAuth2) GetLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.LoginURL
-}
-
-func (p *PrometheusAuth2) GetSecretParamName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.SecretParamName
-}
-
-func (p *PrometheusAuth2) GetSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Secret
-}
-
-func (p *PrometheusAuth2) GetTokenAttributeName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TokenAttributeName
-}
-
-func (p *PrometheusAuth2) GetAuthHeaderExpr() *string {
-	if p == nil {
-		return nil
-	}
-	return p.AuthHeaderExpr
-}
-
-func (p *PrometheusAuth2) GetTokenTimeoutSecs() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.TokenTimeoutSecs
-}
-
-func (p *PrometheusAuth2) GetOauthParams() []components.ItemsTypeOauthParams {
-	if p == nil {
-		return nil
-	}
-	return p.OauthParams
-}
-
-func (p *PrometheusAuth2) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if p == nil {
-		return nil
-	}
-	return p.OauthHeaders
-}
-
-func (p *PrometheusAuth2) GetTemplateLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateLoginURL
-}
-
-func (p *PrometheusAuth2) GetTemplateSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateSecret
-}
-
 type LokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
@@ -19419,26 +19057,6 @@ type LokiAuth2 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (l LokiAuth2) MarshalJSON() ([]byte, error) {
@@ -19492,76 +19110,6 @@ func (l *LokiAuth2) GetTextSecret() *string {
 		return nil
 	}
 	return l.TextSecret
-}
-
-func (l *LokiAuth2) GetLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.LoginURL
-}
-
-func (l *LokiAuth2) GetSecretParamName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.SecretParamName
-}
-
-func (l *LokiAuth2) GetSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Secret
-}
-
-func (l *LokiAuth2) GetTokenAttributeName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TokenAttributeName
-}
-
-func (l *LokiAuth2) GetAuthHeaderExpr() *string {
-	if l == nil {
-		return nil
-	}
-	return l.AuthHeaderExpr
-}
-
-func (l *LokiAuth2) GetTokenTimeoutSecs() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.TokenTimeoutSecs
-}
-
-func (l *LokiAuth2) GetOauthParams() []components.ItemsTypeOauthParams {
-	if l == nil {
-		return nil
-	}
-	return l.OauthParams
-}
-
-func (l *LokiAuth2) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if l == nil {
-		return nil
-	}
-	return l.OauthHeaders
-}
-
-func (l *LokiAuth2) GetTemplateLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateLoginURL
-}
-
-func (l *LokiAuth2) GetTemplateSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateSecret
 }
 
 type InputGrafanaGrafana2 struct {
@@ -19893,26 +19441,6 @@ type PrometheusAuth1 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (p PrometheusAuth1) MarshalJSON() ([]byte, error) {
@@ -19968,76 +19496,6 @@ func (p *PrometheusAuth1) GetTextSecret() *string {
 	return p.TextSecret
 }
 
-func (p *PrometheusAuth1) GetLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.LoginURL
-}
-
-func (p *PrometheusAuth1) GetSecretParamName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.SecretParamName
-}
-
-func (p *PrometheusAuth1) GetSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Secret
-}
-
-func (p *PrometheusAuth1) GetTokenAttributeName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TokenAttributeName
-}
-
-func (p *PrometheusAuth1) GetAuthHeaderExpr() *string {
-	if p == nil {
-		return nil
-	}
-	return p.AuthHeaderExpr
-}
-
-func (p *PrometheusAuth1) GetTokenTimeoutSecs() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.TokenTimeoutSecs
-}
-
-func (p *PrometheusAuth1) GetOauthParams() []components.ItemsTypeOauthParams {
-	if p == nil {
-		return nil
-	}
-	return p.OauthParams
-}
-
-func (p *PrometheusAuth1) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if p == nil {
-		return nil
-	}
-	return p.OauthHeaders
-}
-
-func (p *PrometheusAuth1) GetTemplateLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateLoginURL
-}
-
-func (p *PrometheusAuth1) GetTemplateSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateSecret
-}
-
 type LokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
@@ -20049,26 +19507,6 @@ type LokiAuth1 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (l LokiAuth1) MarshalJSON() ([]byte, error) {
@@ -20122,76 +19560,6 @@ func (l *LokiAuth1) GetTextSecret() *string {
 		return nil
 	}
 	return l.TextSecret
-}
-
-func (l *LokiAuth1) GetLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.LoginURL
-}
-
-func (l *LokiAuth1) GetSecretParamName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.SecretParamName
-}
-
-func (l *LokiAuth1) GetSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Secret
-}
-
-func (l *LokiAuth1) GetTokenAttributeName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TokenAttributeName
-}
-
-func (l *LokiAuth1) GetAuthHeaderExpr() *string {
-	if l == nil {
-		return nil
-	}
-	return l.AuthHeaderExpr
-}
-
-func (l *LokiAuth1) GetTokenTimeoutSecs() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.TokenTimeoutSecs
-}
-
-func (l *LokiAuth1) GetOauthParams() []components.ItemsTypeOauthParams {
-	if l == nil {
-		return nil
-	}
-	return l.OauthParams
-}
-
-func (l *LokiAuth1) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if l == nil {
-		return nil
-	}
-	return l.OauthHeaders
-}
-
-func (l *LokiAuth1) GetTemplateLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateLoginURL
-}
-
-func (l *LokiAuth1) GetTemplateSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateSecret
 }
 
 type InputGrafanaGrafana1 struct {
@@ -22411,12 +21779,16 @@ func (e *LogLevelSplunkSearch) IsExact() bool {
 type AuthenticationTypeSplunkSearch string
 
 const (
-	AuthenticationTypeSplunkSearchNone              AuthenticationTypeSplunkSearch = "none"
-	AuthenticationTypeSplunkSearchBasic             AuthenticationTypeSplunkSearch = "basic"
+	// AuthenticationTypeSplunkSearchNone None
+	AuthenticationTypeSplunkSearchNone AuthenticationTypeSplunkSearch = "none"
+	// AuthenticationTypeSplunkSearchBasic Basic
+	AuthenticationTypeSplunkSearchBasic AuthenticationTypeSplunkSearch = "basic"
+	// AuthenticationTypeSplunkSearchCredentialsSecret Basic (credentials secret)
 	AuthenticationTypeSplunkSearchCredentialsSecret AuthenticationTypeSplunkSearch = "credentialsSecret"
-	AuthenticationTypeSplunkSearchToken             AuthenticationTypeSplunkSearch = "token"
-	AuthenticationTypeSplunkSearchTextSecret        AuthenticationTypeSplunkSearch = "textSecret"
-	AuthenticationTypeSplunkSearchOauth             AuthenticationTypeSplunkSearch = "oauth"
+	// AuthenticationTypeSplunkSearchToken Token
+	AuthenticationTypeSplunkSearchToken AuthenticationTypeSplunkSearch = "token"
+	// AuthenticationTypeSplunkSearchTextSecret Token (text secret)
+	AuthenticationTypeSplunkSearchTextSecret AuthenticationTypeSplunkSearch = "textSecret"
 )
 
 func (e AuthenticationTypeSplunkSearch) ToPointer() *AuthenticationTypeSplunkSearch {
@@ -22427,7 +21799,7 @@ func (e AuthenticationTypeSplunkSearch) ToPointer() *AuthenticationTypeSplunkSea
 func (e *AuthenticationTypeSplunkSearch) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
 			return true
 		}
 	}
@@ -22508,26 +21880,6 @@ type InputSplunkSearch struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
@@ -22819,76 +22171,6 @@ func (i *InputSplunkSearch) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
-}
-
-func (i *InputSplunkSearch) GetLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.LoginURL
-}
-
-func (i *InputSplunkSearch) GetSecretParamName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SecretParamName
-}
-
-func (i *InputSplunkSearch) GetSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Secret
-}
-
-func (i *InputSplunkSearch) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputSplunkSearch) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputSplunkSearch) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputSplunkSearch) GetOauthParams() []components.ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputSplunkSearch) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
-}
-
-func (i *InputSplunkSearch) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputSplunkSearch) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
 }
 
 type CreateInputTypeSplunk string

@@ -122,12 +122,16 @@ func (e *InputSplunkSearchLogLevel) IsExact() bool {
 type InputSplunkSearchAuthenticationType string
 
 const (
-	InputSplunkSearchAuthenticationTypeNone              InputSplunkSearchAuthenticationType = "none"
-	InputSplunkSearchAuthenticationTypeBasic             InputSplunkSearchAuthenticationType = "basic"
+	// InputSplunkSearchAuthenticationTypeNone None
+	InputSplunkSearchAuthenticationTypeNone InputSplunkSearchAuthenticationType = "none"
+	// InputSplunkSearchAuthenticationTypeBasic Basic
+	InputSplunkSearchAuthenticationTypeBasic InputSplunkSearchAuthenticationType = "basic"
+	// InputSplunkSearchAuthenticationTypeCredentialsSecret Basic (credentials secret)
 	InputSplunkSearchAuthenticationTypeCredentialsSecret InputSplunkSearchAuthenticationType = "credentialsSecret"
-	InputSplunkSearchAuthenticationTypeToken             InputSplunkSearchAuthenticationType = "token"
-	InputSplunkSearchAuthenticationTypeTextSecret        InputSplunkSearchAuthenticationType = "textSecret"
-	InputSplunkSearchAuthenticationTypeOauth             InputSplunkSearchAuthenticationType = "oauth"
+	// InputSplunkSearchAuthenticationTypeToken Token
+	InputSplunkSearchAuthenticationTypeToken InputSplunkSearchAuthenticationType = "token"
+	// InputSplunkSearchAuthenticationTypeTextSecret Token (text secret)
+	InputSplunkSearchAuthenticationTypeTextSecret InputSplunkSearchAuthenticationType = "textSecret"
 )
 
 func (e InputSplunkSearchAuthenticationType) ToPointer() *InputSplunkSearchAuthenticationType {
@@ -138,7 +142,7 @@ func (e InputSplunkSearchAuthenticationType) ToPointer() *InputSplunkSearchAuthe
 func (e *InputSplunkSearchAuthenticationType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
 			return true
 		}
 	}
@@ -219,26 +223,6 @@ type InputSplunkSearch struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
@@ -530,74 +514,4 @@ func (i *InputSplunkSearch) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
-}
-
-func (i *InputSplunkSearch) GetLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.LoginURL
-}
-
-func (i *InputSplunkSearch) GetSecretParamName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SecretParamName
-}
-
-func (i *InputSplunkSearch) GetSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Secret
-}
-
-func (i *InputSplunkSearch) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputSplunkSearch) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputSplunkSearch) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputSplunkSearch) GetOauthParams() []ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputSplunkSearch) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
-}
-
-func (i *InputSplunkSearch) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputSplunkSearch) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
 }

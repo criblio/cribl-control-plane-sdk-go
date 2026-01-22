@@ -6,12 +6,16 @@ package components
 type AuthenticationTypeOptionsLokiAuth string
 
 const (
-	AuthenticationTypeOptionsLokiAuthNone              AuthenticationTypeOptionsLokiAuth = "none"
-	AuthenticationTypeOptionsLokiAuthBasic             AuthenticationTypeOptionsLokiAuth = "basic"
+	// AuthenticationTypeOptionsLokiAuthNone None
+	AuthenticationTypeOptionsLokiAuthNone AuthenticationTypeOptionsLokiAuth = "none"
+	// AuthenticationTypeOptionsLokiAuthBasic Basic
+	AuthenticationTypeOptionsLokiAuthBasic AuthenticationTypeOptionsLokiAuth = "basic"
+	// AuthenticationTypeOptionsLokiAuthCredentialsSecret Basic (credentials secret)
 	AuthenticationTypeOptionsLokiAuthCredentialsSecret AuthenticationTypeOptionsLokiAuth = "credentialsSecret"
-	AuthenticationTypeOptionsLokiAuthToken             AuthenticationTypeOptionsLokiAuth = "token"
-	AuthenticationTypeOptionsLokiAuthTextSecret        AuthenticationTypeOptionsLokiAuth = "textSecret"
-	AuthenticationTypeOptionsLokiAuthOauth             AuthenticationTypeOptionsLokiAuth = "oauth"
+	// AuthenticationTypeOptionsLokiAuthToken Token
+	AuthenticationTypeOptionsLokiAuthToken AuthenticationTypeOptionsLokiAuth = "token"
+	// AuthenticationTypeOptionsLokiAuthTextSecret Token (text secret)
+	AuthenticationTypeOptionsLokiAuthTextSecret AuthenticationTypeOptionsLokiAuth = "textSecret"
 )
 
 func (e AuthenticationTypeOptionsLokiAuth) ToPointer() *AuthenticationTypeOptionsLokiAuth {
@@ -22,7 +26,7 @@ func (e AuthenticationTypeOptionsLokiAuth) ToPointer() *AuthenticationTypeOption
 func (e *AuthenticationTypeOptionsLokiAuth) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
 			return true
 		}
 	}

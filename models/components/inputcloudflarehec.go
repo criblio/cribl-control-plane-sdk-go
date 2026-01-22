@@ -36,7 +36,6 @@ type InputCloudflareHecAuthenticationMethod string
 
 const (
 	InputCloudflareHecAuthenticationMethodSecret InputCloudflareHecAuthenticationMethod = "secret"
-	InputCloudflareHecAuthenticationMethodManual InputCloudflareHecAuthenticationMethod = "manual"
 )
 
 func (e InputCloudflareHecAuthenticationMethod) ToPointer() *InputCloudflareHecAuthenticationMethod {
@@ -47,7 +46,7 @@ func (e InputCloudflareHecAuthenticationMethod) ToPointer() *InputCloudflareHecA
 func (e *InputCloudflareHecAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "secret", "manual":
+		case "secret":
 			return true
 		}
 	}
@@ -59,8 +58,7 @@ type InputCloudflareHecAuthToken struct {
 	AuthType *InputCloudflareHecAuthenticationMethod `json:"authType,omitempty"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitempty"`
-	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       *string `json:"token,omitempty"`
+	Token       any     `json:"token,omitempty"`
 	Enabled     *bool   `json:"enabled,omitempty"`
 	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -94,7 +92,7 @@ func (i *InputCloudflareHecAuthToken) GetTokenSecret() *string {
 	return i.TokenSecret
 }
 
-func (i *InputCloudflareHecAuthToken) GetToken() *string {
+func (i *InputCloudflareHecAuthToken) GetToken() any {
 	if i == nil {
 		return nil
 	}

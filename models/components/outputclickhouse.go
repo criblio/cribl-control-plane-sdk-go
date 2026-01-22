@@ -34,13 +34,14 @@ func (e *OutputClickHouseType) UnmarshalJSON(data []byte) error {
 type OutputClickHouseAuthenticationType string
 
 const (
-	OutputClickHouseAuthenticationTypeNone               OutputClickHouseAuthenticationType = "none"
-	OutputClickHouseAuthenticationTypeBasic              OutputClickHouseAuthenticationType = "basic"
-	OutputClickHouseAuthenticationTypeCredentialsSecret  OutputClickHouseAuthenticationType = "credentialsSecret"
+	// OutputClickHouseAuthenticationTypeNone None
+	OutputClickHouseAuthenticationTypeNone OutputClickHouseAuthenticationType = "none"
+	// OutputClickHouseAuthenticationTypeBasic Basic
+	OutputClickHouseAuthenticationTypeBasic OutputClickHouseAuthenticationType = "basic"
+	// OutputClickHouseAuthenticationTypeCredentialsSecret Basic (credentials secret)
+	OutputClickHouseAuthenticationTypeCredentialsSecret OutputClickHouseAuthenticationType = "credentialsSecret"
+	// OutputClickHouseAuthenticationTypeSslUserCertificate SSL User Certificate
 	OutputClickHouseAuthenticationTypeSslUserCertificate OutputClickHouseAuthenticationType = "sslUserCertificate"
-	OutputClickHouseAuthenticationTypeToken              OutputClickHouseAuthenticationType = "token"
-	OutputClickHouseAuthenticationTypeTextSecret         OutputClickHouseAuthenticationType = "textSecret"
-	OutputClickHouseAuthenticationTypeOauth              OutputClickHouseAuthenticationType = "oauth"
 )
 
 func (e OutputClickHouseAuthenticationType) ToPointer() *OutputClickHouseAuthenticationType {
@@ -51,7 +52,7 @@ func (e OutputClickHouseAuthenticationType) ToPointer() *OutputClickHouseAuthent
 func (e *OutputClickHouseAuthenticationType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "sslUserCertificate", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "sslUserCertificate":
 			return true
 		}
 	}
@@ -295,28 +296,8 @@ type OutputClickHouse struct {
 	Description    *string                      `json:"description,omitempty"`
 	Username       *string                      `json:"username,omitempty"`
 	Password       *string                      `json:"password,omitempty"`
-	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Username for certificate authentication
 	SQLUsername *string `json:"sqlUsername,omitempty"`
 	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
@@ -353,10 +334,6 @@ type OutputClickHouse struct {
 	TemplateDatabase *string `json:"__template_database,omitempty"`
 	// Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
 	TemplateTableName *string `json:"__template_tableName,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
@@ -608,81 +585,11 @@ func (o *OutputClickHouse) GetPassword() *string {
 	return o.Password
 }
 
-func (o *OutputClickHouse) GetToken() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Token
-}
-
 func (o *OutputClickHouse) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
-}
-
-func (o *OutputClickHouse) GetTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TextSecret
-}
-
-func (o *OutputClickHouse) GetLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.LoginURL
-}
-
-func (o *OutputClickHouse) GetSecretParamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SecretParamName
-}
-
-func (o *OutputClickHouse) GetSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Secret
-}
-
-func (o *OutputClickHouse) GetTokenAttributeName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenAttributeName
-}
-
-func (o *OutputClickHouse) GetAuthHeaderExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AuthHeaderExpr
-}
-
-func (o *OutputClickHouse) GetTokenTimeoutSecs() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TokenTimeoutSecs
-}
-
-func (o *OutputClickHouse) GetOauthParams() []ItemsTypeOauthParams {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputClickHouse) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if o == nil {
-		return nil
-	}
-	return o.OauthHeaders
 }
 
 func (o *OutputClickHouse) GetSQLUsername() *string {
@@ -816,18 +723,4 @@ func (o *OutputClickHouse) GetTemplateTableName() *string {
 		return nil
 	}
 	return o.TemplateTableName
-}
-
-func (o *OutputClickHouse) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputClickHouse) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
 }

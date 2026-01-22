@@ -12,4 +12,3 @@ Loki logs authentication type
 | `AuthenticationTypeOptionsLokiAuthCredentialsSecret` | credentialsSecret                                    |
 | `AuthenticationTypeOptionsLokiAuthToken`             | token                                                |
 | `AuthenticationTypeOptionsLokiAuthTextSecret`        | textSecret                                           |
-| `AuthenticationTypeOptionsLokiAuthOauth`             | oauth                                                |

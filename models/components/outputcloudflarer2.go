@@ -35,9 +35,10 @@ func (e *OutputCloudflareR2Type) UnmarshalJSON(data []byte) error {
 type OutputCloudflareR2AuthenticationMethod string
 
 const (
-	OutputCloudflareR2AuthenticationMethodAuto   OutputCloudflareR2AuthenticationMethod = "auto"
+	// OutputCloudflareR2AuthenticationMethodAuto Auto
+	OutputCloudflareR2AuthenticationMethodAuto OutputCloudflareR2AuthenticationMethod = "auto"
+	// OutputCloudflareR2AuthenticationMethodSecret Secret Key pair
 	OutputCloudflareR2AuthenticationMethodSecret OutputCloudflareR2AuthenticationMethod = "secret"
-	OutputCloudflareR2AuthenticationMethodManual OutputCloudflareR2AuthenticationMethod = "manual"
 )
 
 func (e OutputCloudflareR2AuthenticationMethod) ToPointer() *OutputCloudflareR2AuthenticationMethod {
@@ -48,7 +49,7 @@ func (e OutputCloudflareR2AuthenticationMethod) ToPointer() *OutputCloudflareR2A
 func (e *OutputCloudflareR2AuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "secret", "manual":
+		case "auto", "secret":
 			return true
 		}
 	}
@@ -129,8 +130,6 @@ type OutputCloudflareR2 struct {
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
 	Description            *string  `json:"description,omitempty"`
-	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -171,8 +170,6 @@ type OutputCloudflareR2 struct {
 	TemplateBucket *string `json:"__template_bucket,omitempty"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputCloudflareR2) MarshalJSON() ([]byte, error) {
@@ -459,13 +456,6 @@ func (o *OutputCloudflareR2) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputCloudflareR2) GetAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAPIKey
-}
-
 func (o *OutputCloudflareR2) GetAwsSecret() *string {
 	if o == nil {
 		return nil
@@ -604,11 +594,4 @@ func (o *OutputCloudflareR2) GetTemplateFormat() *string {
 		return nil
 	}
 	return o.TemplateFormat
-}
-
-func (o *OutputCloudflareR2) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }

@@ -37,9 +37,10 @@ func (e *TypeCloudflareR2) UnmarshalJSON(data []byte) error {
 type AuthenticationMethodCloudflareR2 string
 
 const (
-	AuthenticationMethodCloudflareR2Auto   AuthenticationMethodCloudflareR2 = "auto"
+	// AuthenticationMethodCloudflareR2Auto Auto
+	AuthenticationMethodCloudflareR2Auto AuthenticationMethodCloudflareR2 = "auto"
+	// AuthenticationMethodCloudflareR2Secret Secret Key pair
 	AuthenticationMethodCloudflareR2Secret AuthenticationMethodCloudflareR2 = "secret"
-	AuthenticationMethodCloudflareR2Manual AuthenticationMethodCloudflareR2 = "manual"
 )
 
 func (e AuthenticationMethodCloudflareR2) ToPointer() *AuthenticationMethodCloudflareR2 {
@@ -50,7 +51,7 @@ func (e AuthenticationMethodCloudflareR2) ToPointer() *AuthenticationMethodCloud
 func (e *AuthenticationMethodCloudflareR2) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "secret", "manual":
+		case "auto", "secret":
 			return true
 		}
 	}
@@ -131,8 +132,6 @@ type OutputCloudflareR2 struct {
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
 	Description            *string  `json:"description,omitempty"`
-	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -173,8 +172,6 @@ type OutputCloudflareR2 struct {
 	TemplateBucket *string `json:"__template_bucket,omitempty"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputCloudflareR2) MarshalJSON() ([]byte, error) {
@@ -461,13 +458,6 @@ func (o *OutputCloudflareR2) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputCloudflareR2) GetAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAPIKey
-}
-
 func (o *OutputCloudflareR2) GetAwsSecret() *string {
 	if o == nil {
 		return nil
@@ -606,13 +596,6 @@ func (o *OutputCloudflareR2) GetTemplateFormat() *string {
 		return nil
 	}
 	return o.TemplateFormat
-}
-
-func (o *OutputCloudflareR2) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }
 
 type TypeMicrosoftFabric string
@@ -4538,13 +4521,14 @@ func (e *TypeClickHouse) UnmarshalJSON(data []byte) error {
 type AuthenticationTypeClickHouse string
 
 const (
-	AuthenticationTypeClickHouseNone               AuthenticationTypeClickHouse = "none"
-	AuthenticationTypeClickHouseBasic              AuthenticationTypeClickHouse = "basic"
-	AuthenticationTypeClickHouseCredentialsSecret  AuthenticationTypeClickHouse = "credentialsSecret"
+	// AuthenticationTypeClickHouseNone None
+	AuthenticationTypeClickHouseNone AuthenticationTypeClickHouse = "none"
+	// AuthenticationTypeClickHouseBasic Basic
+	AuthenticationTypeClickHouseBasic AuthenticationTypeClickHouse = "basic"
+	// AuthenticationTypeClickHouseCredentialsSecret Basic (credentials secret)
+	AuthenticationTypeClickHouseCredentialsSecret AuthenticationTypeClickHouse = "credentialsSecret"
+	// AuthenticationTypeClickHouseSslUserCertificate SSL User Certificate
 	AuthenticationTypeClickHouseSslUserCertificate AuthenticationTypeClickHouse = "sslUserCertificate"
-	AuthenticationTypeClickHouseToken              AuthenticationTypeClickHouse = "token"
-	AuthenticationTypeClickHouseTextSecret         AuthenticationTypeClickHouse = "textSecret"
-	AuthenticationTypeClickHouseOauth              AuthenticationTypeClickHouse = "oauth"
 )
 
 func (e AuthenticationTypeClickHouse) ToPointer() *AuthenticationTypeClickHouse {
@@ -4555,7 +4539,7 @@ func (e AuthenticationTypeClickHouse) ToPointer() *AuthenticationTypeClickHouse 
 func (e *AuthenticationTypeClickHouse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "sslUserCertificate", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "sslUserCertificate":
 			return true
 		}
 	}
@@ -4799,28 +4783,8 @@ type OutputClickHouse struct {
 	Description    *string                                 `json:"description,omitempty"`
 	Username       *string                                 `json:"username,omitempty"`
 	Password       *string                                 `json:"password,omitempty"`
-	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Username for certificate authentication
 	SQLUsername *string `json:"sqlUsername,omitempty"`
 	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
@@ -4857,10 +4821,6 @@ type OutputClickHouse struct {
 	TemplateDatabase *string `json:"__template_database,omitempty"`
 	// Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
 	TemplateTableName *string `json:"__template_tableName,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
@@ -5112,81 +5072,11 @@ func (o *OutputClickHouse) GetPassword() *string {
 	return o.Password
 }
 
-func (o *OutputClickHouse) GetToken() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Token
-}
-
 func (o *OutputClickHouse) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
-}
-
-func (o *OutputClickHouse) GetTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TextSecret
-}
-
-func (o *OutputClickHouse) GetLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.LoginURL
-}
-
-func (o *OutputClickHouse) GetSecretParamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SecretParamName
-}
-
-func (o *OutputClickHouse) GetSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Secret
-}
-
-func (o *OutputClickHouse) GetTokenAttributeName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenAttributeName
-}
-
-func (o *OutputClickHouse) GetAuthHeaderExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AuthHeaderExpr
-}
-
-func (o *OutputClickHouse) GetTokenTimeoutSecs() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TokenTimeoutSecs
-}
-
-func (o *OutputClickHouse) GetOauthParams() []components.ItemsTypeOauthParams {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputClickHouse) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if o == nil {
-		return nil
-	}
-	return o.OauthHeaders
 }
 
 func (o *OutputClickHouse) GetSQLUsername() *string {
@@ -5320,20 +5210,6 @@ func (o *OutputClickHouse) GetTemplateTableName() *string {
 		return nil
 	}
 	return o.TemplateTableName
-}
-
-func (o *OutputClickHouse) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputClickHouse) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
 }
 
 type TypeDiskSpool string
@@ -10507,22 +10383,6 @@ type OutputOpenTelemetry struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
@@ -10560,10 +10420,6 @@ type OutputOpenTelemetry struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsOpenTelemetry             `json:"pqControls,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -10794,62 +10650,6 @@ func (o *OutputOpenTelemetry) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputOpenTelemetry) GetLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.LoginURL
-}
-
-func (o *OutputOpenTelemetry) GetSecretParamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SecretParamName
-}
-
-func (o *OutputOpenTelemetry) GetSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Secret
-}
-
-func (o *OutputOpenTelemetry) GetTokenAttributeName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenAttributeName
-}
-
-func (o *OutputOpenTelemetry) GetAuthHeaderExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AuthHeaderExpr
-}
-
-func (o *OutputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TokenTimeoutSecs
-}
-
-func (o *OutputOpenTelemetry) GetOauthParams() []components.ItemsTypeOauthParams {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputOpenTelemetry) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if o == nil {
-		return nil
-	}
-	return o.OauthHeaders
-}
-
 func (o *OutputOpenTelemetry) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
@@ -10981,20 +10781,6 @@ func (o *OutputOpenTelemetry) GetPqControls() *PqControlsOpenTelemetry {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputOpenTelemetry) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputOpenTelemetry) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
 }
 
 type TypeRing string
@@ -11298,28 +11084,8 @@ type OutputPrometheus struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputPrometheus) MarshalJSON() ([]byte, error) {
@@ -11627,81 +11393,11 @@ func (o *OutputPrometheus) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputPrometheus) GetLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.LoginURL
-}
-
-func (o *OutputPrometheus) GetSecretParamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SecretParamName
-}
-
-func (o *OutputPrometheus) GetSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Secret
-}
-
-func (o *OutputPrometheus) GetTokenAttributeName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenAttributeName
-}
-
-func (o *OutputPrometheus) GetAuthHeaderExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AuthHeaderExpr
-}
-
-func (o *OutputPrometheus) GetTokenTimeoutSecs() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TokenTimeoutSecs
-}
-
-func (o *OutputPrometheus) GetOauthParams() []components.ItemsTypeOauthParams {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputPrometheus) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if o == nil {
-		return nil
-	}
-	return o.OauthHeaders
-}
-
 func (o *OutputPrometheus) GetTemplateURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateURL
-}
-
-func (o *OutputPrometheus) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputPrometheus) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
 }
 
 type CreateOutputTypeLoki string
@@ -17321,12 +17017,16 @@ func (e *TimestampPrecision) IsExact() bool {
 type AuthenticationTypeInfluxdb string
 
 const (
-	AuthenticationTypeInfluxdbNone              AuthenticationTypeInfluxdb = "none"
-	AuthenticationTypeInfluxdbBasic             AuthenticationTypeInfluxdb = "basic"
+	// AuthenticationTypeInfluxdbNone None
+	AuthenticationTypeInfluxdbNone AuthenticationTypeInfluxdb = "none"
+	// AuthenticationTypeInfluxdbBasic Basic
+	AuthenticationTypeInfluxdbBasic AuthenticationTypeInfluxdb = "basic"
+	// AuthenticationTypeInfluxdbCredentialsSecret Basic (credentials secret)
 	AuthenticationTypeInfluxdbCredentialsSecret AuthenticationTypeInfluxdb = "credentialsSecret"
-	AuthenticationTypeInfluxdbToken             AuthenticationTypeInfluxdb = "token"
-	AuthenticationTypeInfluxdbTextSecret        AuthenticationTypeInfluxdb = "textSecret"
-	AuthenticationTypeInfluxdbOauth             AuthenticationTypeInfluxdb = "oauth"
+	// AuthenticationTypeInfluxdbToken Token
+	AuthenticationTypeInfluxdbToken AuthenticationTypeInfluxdb = "token"
+	// AuthenticationTypeInfluxdbTextSecret Token (text secret)
+	AuthenticationTypeInfluxdbTextSecret AuthenticationTypeInfluxdb = "textSecret"
 )
 
 func (e AuthenticationTypeInfluxdb) ToPointer() *AuthenticationTypeInfluxdb {
@@ -17337,7 +17037,7 @@ func (e AuthenticationTypeInfluxdb) ToPointer() *AuthenticationTypeInfluxdb {
 func (e *AuthenticationTypeInfluxdb) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
 			return true
 		}
 	}
@@ -17449,32 +17149,12 @@ type OutputInfluxdb struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitempty"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
 	TemplateDatabase *string `json:"__template_database,omitempty"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputInfluxdb) MarshalJSON() ([]byte, error) {
@@ -17817,62 +17497,6 @@ func (o *OutputInfluxdb) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputInfluxdb) GetLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.LoginURL
-}
-
-func (o *OutputInfluxdb) GetSecretParamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SecretParamName
-}
-
-func (o *OutputInfluxdb) GetSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Secret
-}
-
-func (o *OutputInfluxdb) GetTokenAttributeName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenAttributeName
-}
-
-func (o *OutputInfluxdb) GetAuthHeaderExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AuthHeaderExpr
-}
-
-func (o *OutputInfluxdb) GetTokenTimeoutSecs() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TokenTimeoutSecs
-}
-
-func (o *OutputInfluxdb) GetOauthParams() []components.ItemsTypeOauthParams {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputInfluxdb) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if o == nil {
-		return nil
-	}
-	return o.OauthHeaders
-}
-
 func (o *OutputInfluxdb) GetTemplateURL() *string {
 	if o == nil {
 		return nil
@@ -17892,20 +17516,6 @@ func (o *OutputInfluxdb) GetTemplateBucket() *string {
 		return nil
 	}
 	return o.TemplateBucket
-}
-
-func (o *OutputInfluxdb) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputInfluxdb) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
 }
 
 type TypeNewrelicEvents string
@@ -32867,6 +32477,70 @@ func (p *PqControlsWebhook) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+type OauthParam struct {
+	// OAuth parameter name
+	Name string `json:"name"`
+	// OAuth parameter value
+	Value string `json:"value"`
+}
+
+func (o OauthParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OauthParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OauthParam) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *OauthParam) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+type OauthHeader struct {
+	// OAuth header name
+	Name string `json:"name"`
+	// OAuth header value
+	Value string `json:"value"`
+}
+
+func (o OauthHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OauthHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OauthHeader) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *OauthHeader) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
 type URLWebhook struct {
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
@@ -33023,9 +32697,9 @@ type OutputWebhook struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []OauthParam `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	OauthHeaders []OauthHeader `json:"oauthHeaders,omitempty"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitempty"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -33467,14 +33141,14 @@ func (o *OutputWebhook) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputWebhook) GetOauthParams() []components.ItemsTypeOauthParams {
+func (o *OutputWebhook) GetOauthParams() []OauthParam {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputWebhook) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
+func (o *OutputWebhook) GetOauthHeaders() []OauthHeader {
 	if o == nil {
 		return nil
 	}
