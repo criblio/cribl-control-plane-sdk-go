@@ -490,7 +490,7 @@ type InputSystemState struct {
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
-	// Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitempty"`
 	Description                *string `json:"description,omitempty"`
 }
