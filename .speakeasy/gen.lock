@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 890ba50f663b54189c0c2735f43ae9fb
-  docVersion: 4.17.0-alpha.1768950205651-63783523
+  docChecksum: d2a9a5b1bb8ed71fdeb0fe288aad9ee4
+  docVersion: 4.17.0-alpha.1769036671763-cea13d5f
   speakeasyVersion: 1.690.0
   generationVersion: 2.797.1
-  releaseVersion: 0.5.0-beta.31
-  configChecksum: 0ae5df2ca04fdbbef681b00d55bee8ed
+  releaseVersion: 0.5.0-beta.32
+  configChecksum: 2d778ad635d3d9962f912418f46c2132
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 422f67d6-98ac-43f2-a390-6ac3295d3bfd
-  pristine_commit_hash: 9457b72034d1f358090450cdbe25e4a644c00578
-  pristine_tree_hash: 6b43a88ffdff29a62139d8ae09e85dfd7d89a3b9
+  generation_id: ae8a00e2-e799-4f6c-9739-000d752eee95
+  pristine_commit_hash: 35f6ae87ea1b7fcd473d0dd76635cc846f4903b1
+  pristine_tree_hash: bc07f41bacb85df56b2dc5d601a089e1d560f6f4
 features:
   go:
     additionalDependencies: 0.1.0
@@ -89,8 +89,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:fc809f9a2538608b65b12a341838c1118ef1a272
-    pristine_git_object: ffcce1ed0e8b0a407c8e8416feeaa09bb790d62a
+    last_write_checksum: sha1:edcb621c605e3d5932b24bb6bfc6a23a77790fd9
+    pristine_git_object: 3e2e40ffd278c669eb090fda4e22e9663ebb050b
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -2713,8 +2713,8 @@ trackedFiles:
     pristine_git_object: ffd68c6ba75eceff7c7f9cacd2126c1402155dd3
   docs/models/components/inputsystemstate.md:
     id: 8c02b42462e4
-    last_write_checksum: sha1:2c06992ef23d58c77f27c95a25e7eaeca9e577cb
-    pristine_git_object: 2fe696d0e1e1f27226eb0f40d8bf866b0047ca1b
+    last_write_checksum: sha1:7243fbded2a374a48e837621257c0c45174de6d8
+    pristine_git_object: abd50b51e71f3cec33e10c897871a2b359c87bb4
   docs/models/components/inputsystemstatepersistence.md:
     id: 26241a592b0e
     last_write_checksum: sha1:141f3bbdff71898103543db4a7d90c4f93e507a3
@@ -5653,8 +5653,8 @@ trackedFiles:
     pristine_git_object: 820d6d9c575b1805fa34f992717ef9563f589429
   docs/models/components/routeconf.md:
     id: f24f50e64b9e
-    last_write_checksum: sha1:7997fff8f8bf82307ec6f3e0c0e464b43a803fcf
-    pristine_git_object: 3ae44f8c611ef6b7bd781c113fcb521732d9861d
+    last_write_checksum: sha1:109d35260939263dfbcba8389394ed157044444f
+    pristine_git_object: 03ab9e523a84079424a1d0a60cb3b873d3644c4e
   docs/models/components/routes.md:
     id: 419f2a2307d0
     last_write_checksum: sha1:457dd6773239e7c46231f57e790182cc660cec07
@@ -6147,6 +6147,10 @@ trackedFiles:
     id: 6b01d6776a4e
     last_write_checksum: sha1:379a64f8ce959001db3a2ea738e511ef079a4061
     pristine_git_object: be6b43fd781094fb2744c5872d3f4c76ca938434
+  docs/models/components/targetcontext.md:
+    id: f774fe793a18
+    last_write_checksum: sha1:a02a3c83a6ead0f4c9887c1eb2956a6c4dccc6cb
+    pristine_git_object: 4612a872347bc0471e609126793a5d336d628f76
   docs/models/components/teamaccesscontrollist.md:
     id: 3055b7580cf9
     last_write_checksum: sha1:f289085eb5b01229fd8cdd3b9be8e8db1bd61376
@@ -7533,8 +7537,8 @@ trackedFiles:
     pristine_git_object: 8ef4db1e9b3a337d77c4ffc9853cd8e67fa5ad3f
   docs/models/operations/inputsystemstate.md:
     id: ecce04d2c080
-    last_write_checksum: sha1:c66583d6f8b73af8677b37d43223f1224189f95f
-    pristine_git_object: 1c6d4b38d552512734c4292d1c6751460a11f3af
+    last_write_checksum: sha1:e4d4e77f9282858900fe53b784e6565ac787cc96
+    pristine_git_object: 068aedc5364a16acdc7dfbf2cea11d29983fff92
   docs/models/operations/inputtcp.md:
     id: 9b28f503ca45
     last_write_checksum: sha1:ce5d27e710a66b3e45243afc2c99afda96421246
@@ -8937,8 +8941,8 @@ trackedFiles:
     pristine_git_object: 191cdb263c1b1e5a03ca32a40048df7b95a666db
   docs/sdks/routes/README.md:
     id: 8eceb878c9af
-    last_write_checksum: sha1:445df001d06b33d0fb1beb9427592d8bfc7321a3
-    pristine_git_object: 17ac74f464b092b50dd6a2239d8e838fc1ec06ca
+    last_write_checksum: sha1:962a98f8767680d1c390e8f5e8c12852ae0e9183
+    pristine_git_object: 14936e02ab9e88234645f8fef06176f4d7b3e81b
   docs/sdks/samples/README.md:
     id: 2b3e67e9f9a5
     last_write_checksum: sha1:fcdcfc856d535e129ef89b54366e4400dd720d57
@@ -10277,8 +10281,8 @@ trackedFiles:
     pristine_git_object: 67551df0d1108450677fcdd2bffb04696060f3e4
   models/components/inputsystemstate.go:
     id: 83cd468f4ae8
-    last_write_checksum: sha1:1df73f036f4a0758f4bb7565d73f044361b4672b
-    pristine_git_object: 7ce36b14fe13b80f36b2d23c058992d6d2f1a3d3
+    last_write_checksum: sha1:7e84f443c3b8af1afda7cdb1454cc016b43e9ae1
+    pristine_git_object: 6058f13652a3e4ff48ab309e150bd50e0900f3cb
   models/components/inputtcp.go:
     id: e3a63e891247
     last_write_checksum: sha1:f06438a15b499e9d0dc369f96e8ed891b0cc185e
@@ -11261,8 +11265,8 @@ trackedFiles:
     pristine_git_object: 2c28a6703608ac873d0d478ab1374cd6b56fa56e
   models/components/routeconf.go:
     id: aaad7e3e9c86
-    last_write_checksum: sha1:4533cc10a67fcb677ebacc97ff08c48fdca6d233
-    pristine_git_object: 68876833f4e2a78cfaa78e1d97253e94fdd8336e
+    last_write_checksum: sha1:ecc3998ea17069df9d441fafdb89fba6633dfd36
+    pristine_git_object: efb13df562c826ee9fe531e309cbf0ac787da4ad
   models/components/routes.go:
     id: 0bf1aa6a0d34
     last_write_checksum: sha1:df74e71bdd0b44cd2cebae0c75b69984b409b2f8
@@ -11427,6 +11431,10 @@ trackedFiles:
     id: 0af53baad1aa
     last_write_checksum: sha1:c98f77608b07ccb26da101f081c1900ac5d48207
     pristine_git_object: a362426ee14fa181a4d250688cb8816281f1b638
+  models/components/targetcontext.go:
+    id: 438ace5cd000
+    last_write_checksum: sha1:78f66afe2dee5e1e96edc0d04f26a05dc71e4607
+    pristine_git_object: 7a7f1ec845712ca7195577ecd1fba60022cea53b
   models/components/teamaccesscontrollist.go:
     id: 10333bcc05f7
     last_write_checksum: sha1:f7f92399aff2c43022d0fb6ad330f229f0675378
@@ -11529,8 +11537,8 @@ trackedFiles:
     pristine_git_object: aa9e75797275e5270638f09a435ae91af152113a
   models/operations/createinput.go:
     id: c604df8e9fa1
-    last_write_checksum: sha1:23589e41c9364faa94b82e3e99cce5e82a4169ec
-    pristine_git_object: 4be64d40cd6c95a5b40f398d0c79841dfafb230d
+    last_write_checksum: sha1:d11574e05332eda72e9c194f5f562993dabd1253
+    pristine_git_object: fee1140d7d4d9bce7fac93cbef83bda5e4c2b6c5
   models/operations/createinputhectokenbyid.go:
     id: cd5aa65c4690
     last_write_checksum: sha1:fa691706ebdbf9350fd8fe7c1ca129042ad930d8
@@ -14641,7 +14649,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: [{"clones": [{"key": "<value>"}, {}], "context": "<value>", "description": "Route new logs to main pipeline", "disabled": true, "enableOutputExpression": true, "filter": "source == \"new.log\"", "final": true, "groupId": "<id>", "id": "route-new", "name": "new-route", "output": "<value>", "outputExpression": "<value>", "pipeline": "main", "toGroupContext": true, "toPackContext": true}]
+        application/json: [{"clones": [{"key": "<value>"}, {}], "context": "<value>", "description": "Route new logs to main pipeline", "disabled": true, "enableOutputExpression": true, "filter": "source == \"new.log\"", "final": true, "groupId": "<id>", "id": "route-new", "name": "new-route", "output": "<value>", "outputExpression": "<value>", "pipeline": "main", "targetContext": "group"}]
       responses:
         "200":
           application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
@@ -14652,7 +14660,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route audit logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"audit.log\"", "final": false, "groupId": "<id>", "id": "route-audit", "name": "audit", "output": "default", "outputExpression": "<value>", "pipeline": "main", "toGroupContext": true, "toPackContext": true}, {"clones": [{}, {}, {}], "context": "<value>", "description": "Route security logs", "disabled": true, "enableOutputExpression": false, "filter": "source == \"security.log\"", "final": false, "groupId": "<id>", "id": "route-security", "name": "security", "output": "devnull", "outputExpression": "<value>", "pipeline": "passthru", "toGroupContext": true, "toPackContext": true}]
+        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route audit logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"audit.log\"", "final": false, "groupId": "<id>", "id": "route-audit", "name": "audit", "output": "default", "outputExpression": "<value>", "pipeline": "main", "targetContext": "group"}, {"clones": [{}, {}, {}], "context": "<value>", "description": "Route security logs", "disabled": true, "enableOutputExpression": false, "filter": "source == \"security.log\"", "final": false, "groupId": "<id>", "id": "route-security", "name": "security", "output": "devnull", "outputExpression": "<value>", "pipeline": "passthru", "targetContext": "group"}]
       responses:
         "200":
           application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
@@ -14663,7 +14671,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route with dynamic Destination based on environment", "disabled": false, "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "groupId": "<id>", "id": "route-dynamic-append", "name": "dynamic-append", "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "toGroupContext": true, "toPackContext": true}]
+        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route with dynamic Destination based on environment", "disabled": false, "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "groupId": "<id>", "id": "route-dynamic-append", "name": "dynamic-append", "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "targetContext": "group"}]
       responses:
         "200":
           application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
@@ -16817,6 +16825,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody.[]` **Changed** **Breaking** :warning:\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
