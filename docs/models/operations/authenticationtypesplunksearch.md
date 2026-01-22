@@ -12,4 +12,3 @@ Splunk Search authentication type
 | `AuthenticationTypeSplunkSearchCredentialsSecret` | credentialsSecret                                 |
 | `AuthenticationTypeSplunkSearchToken`             | token                                             |
 | `AuthenticationTypeSplunkSearchTextSecret`        | textSecret                                        |
-| `AuthenticationTypeSplunkSearchOauth`             | oauth                                             |
