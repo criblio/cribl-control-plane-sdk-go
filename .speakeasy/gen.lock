@@ -5,14 +5,14 @@ management:
   docVersion: 4.16.0-alpha.1769021190029-fa2dbe7b
   speakeasyVersion: 1.690.0
   generationVersion: 2.797.1
-  releaseVersion: 0.5.0-alpha.12
-  configChecksum: 45d8af42bda8691dcc2c08627a9fcbaa
+  releaseVersion: 0.5.0-alpha.13
+  configChecksum: 746d4ab3421d6850313b6e44bf000e86
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: e904dfc0-5b13-4190-a220-0e69e2eb6146
-  pristine_commit_hash: aae9efe606fc14bcbff9116273062a6995cc9232
-  pristine_tree_hash: 8d01cb55e6dc27024ab9d8c29355f7934e007097
+  generation_id: 066105f1-3be7-4d82-875a-30284734e5a0
+  pristine_commit_hash: e144b61f1a0f4d84bca62b58684689d60bd6d1e9
+  pristine_tree_hash: 8f07685a1f21f98d61191fc3abbda8a2eca98729
 features:
   go:
     additionalDependencies: 0.1.0
@@ -89,8 +89,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:4f321f9bda1d4708b8f49e30c2fae00a5a87f0a4
-    pristine_git_object: f15ff44178f1da0dbdf8f750c49eac551aef51b2
+    last_write_checksum: sha1:d7bc98c5f49091121ca417be0512e1124a4d1835
+    pristine_git_object: 0ca7bb2204ea19aa7c23a10229d14d5034cc4265
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:fb9fb4234425ef1804e96656c03496b13175c97c
@@ -18985,7 +18985,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.SavedJob.[savedJobCollection].Collector` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[savedJobCollection].Collector` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Collectors.List()`:  `response.Items.[].[savedJobCollection].Collector` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items.[].[savedJobCollection].Collector` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Collectors.Get()`:  `response.Items.[].[savedJobCollection].Collector` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.[savedJobCollection].Collector` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[savedJobCollection].Collector` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Args.[runnableJobCollection].Collector` **Changed** **Breaking** :warning:\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
