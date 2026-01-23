@@ -359,7 +359,7 @@ func main() {
 	res, err := s.System.Captures.Get(ctx, components.CaptureParams{
 		Duration:        5,
 		Filter:          "true",
-		Level:           components.CaptureLevelZero,
+		Level:           components.CaptureLevelBeforePreProcessingPipeline,
 		MaxEvents:       100,
 		StepDuration:    criblcontrolplanesdkgo.Pointer[int64](571732),
 		WorkerID:        criblcontrolplanesdkgo.Pointer("<id>"),

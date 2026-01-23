@@ -6,8 +6,9 @@ type CaptureParams struct {
 	// Amount of time to keep capture open, in seconds
 	Duration float64 `json:"duration"`
 	// Filter expression to capture events
-	Filter string       `json:"filter"`
-	Level  CaptureLevel `json:"level"`
+	Filter string `json:"filter"`
+	// Where to capture events
+	Level CaptureLevel `json:"level"`
 	// Maximum number of events to capture
 	MaxEvents int64 `json:"maxEvents"`
 	// How long to wait before increasing the capture sample size. Specify 1 second or longer

@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: bdc391cec3199f35cb5cea1743e5292e
-  docVersion: 4.17.0-alpha.1769169530782-9b0ac136
+  docChecksum: 0a929808b3f42322238fc48fc29265a4
+  docVersion: 4.17.0-alpha.1769172490386-4598bb48
   speakeasyVersion: 1.693.0
   generationVersion: 2.798.0
-  releaseVersion: 0.5.0-rc.34
-  configChecksum: 5e5ddf3931bb616a050c6a5ef4506450
+  releaseVersion: 0.5.0-rc.35
+  configChecksum: 4bdd8b82586c3f551f98a9ca1018f3cd
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 53c9c8c9-53c2-4ad1-98cb-53241e9a0b0f
-  pristine_commit_hash: ea06581fa15da3cf43fd60f7d6ca247adeeedb64
-  pristine_tree_hash: 2a80d917d28871d7755c35084c1f6dc6acd5fded
+  generation_id: a2b2542c-12fe-45a0-a88b-b1b0ade36185
+  pristine_commit_hash: b0935adf36f9a5598e54969c5dce77d398ea17a0
+  pristine_tree_hash: 06257487e6c99a272131daf8aa190402f337f738
 features:
   go:
     additionalDependencies: 0.1.0
@@ -95,8 +95,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:9a1f9b23d554584e93ff7215d6ffb68655d86a19
-    pristine_git_object: 68b3d0a6da8b0dbebcbd20c2ad1c7b0a1f7d415e
+    last_write_checksum: sha1:8a364d3cba9550607d0660dd73f21f8b9db5c0b6
+    pristine_git_object: 59f61790cdf90563ff4d3e254f1ad668ecfd19b4
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -355,12 +355,12 @@ trackedFiles:
     pristine_git_object: ef8e57e839f34809b55eeb7806b9d64386d48090
   docs/models/components/capturelevel.md:
     id: b5c08e35e1c1
-    last_write_checksum: sha1:a60a015d4168108ff1eeff98b0a3e9471a59fa4c
-    pristine_git_object: 470573fe9af364b6b99b527e955fa4aaba7a56f4
+    last_write_checksum: sha1:a4d9a5faed2362ac2f89ce36959ce47579e505a6
+    pristine_git_object: 633efc44d31004c3f33b5568f07efcd9ea7b1788
   docs/models/components/captureparams.md:
     id: f55343965623
-    last_write_checksum: sha1:7a96759bf3cf1eabe293f9478a3c36298cbbe7cf
-    pristine_git_object: c33a36b4f5eb947a370cb11902c4cdb8d70516c7
+    last_write_checksum: sha1:b83e6a7eb47e4e81b169b3425507f4c0d47b62e9
+    pristine_git_object: 1b7e9f04ba099a99bba82eb1413efca23f49f922
   docs/models/components/capturesettings.md:
     id: 9e62b6cd079d
     last_write_checksum: sha1:66cd9148cde31441552e539b1d2d16c39829d5ad
@@ -11399,8 +11399,8 @@ trackedFiles:
     pristine_git_object: 9a4fa7fb316ca83ff559bbafe3ee23cab40b3286
   docs/sdks/captures/README.md:
     id: 7598191d8c6a
-    last_write_checksum: sha1:a80a7953dd048c0c793bc78d2b670b104ad0cc79
-    pristine_git_object: 134b37edab825f95f24ccf4be6dcf7e8c9db8f3a
+    last_write_checksum: sha1:8c03ae66a53f1d36e247189966cc1413cf454df1
+    pristine_git_object: 9c83912b58cf8e9c4f5ed312ea1431ae031f8d1f
   docs/sdks/collectors/README.md:
     id: b8ecaf222c71
     last_write_checksum: sha1:d3cf1cdcda00c259990d5c5091af55362c555baf
@@ -11751,12 +11751,12 @@ trackedFiles:
     pristine_git_object: c6a28176159bc6c056c81141a55b77c61166d083
   models/components/capturelevel.go:
     id: 5e3209a9368d
-    last_write_checksum: sha1:b3476d4f265197f673bb2f6cda18ddf4f1a3e67c
-    pristine_git_object: 6e434e6cb4fbd0ccc4cef766b57327cf6b680695
+    last_write_checksum: sha1:f2fb878d1a1159b38a24f2e4973aba97b42f24e6
+    pristine_git_object: f36b690fb08cc9029e591b976c4bd0c7e595d6d5
   models/components/captureparams.go:
     id: d908e7c0ba7d
-    last_write_checksum: sha1:657d68ac3ec9e382cb566284278856b60a4aee93
-    pristine_git_object: d0dc9f7872b52f16a4ae805c633cb1ba0dfb1829
+    last_write_checksum: sha1:a035e426f5893ca4f59c3682bc18075b636f8db6
+    pristine_git_object: 1b6ef351ef8cf1a4d754e4af5308e195e808ef93
   models/components/certificatetypeazureblobauthtypeclientcert.go:
     id: 9196e5fc4b85
     last_write_checksum: sha1:cdeca90fd58de021426306f241754c21314c5cec
@@ -19383,9 +19383,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## Go SDK Changes:
-  * `CriblControlPlane.System.Captures.Get()`: **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
