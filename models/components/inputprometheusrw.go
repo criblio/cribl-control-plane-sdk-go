@@ -91,32 +91,12 @@ type InputPrometheusRw struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitempty"`
 	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
 	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputPrometheusRw) MarshalJSON() ([]byte, error) {
@@ -361,62 +341,6 @@ func (i *InputPrometheusRw) GetTextSecret() *string {
 	return i.TextSecret
 }
 
-func (i *InputPrometheusRw) GetLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.LoginURL
-}
-
-func (i *InputPrometheusRw) GetSecretParamName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SecretParamName
-}
-
-func (i *InputPrometheusRw) GetSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Secret
-}
-
-func (i *InputPrometheusRw) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputPrometheusRw) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputPrometheusRw) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputPrometheusRw) GetOauthParams() []ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputPrometheusRw) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
-}
-
 func (i *InputPrometheusRw) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -436,18 +360,4 @@ func (i *InputPrometheusRw) GetTemplatePrometheusAPI() *string {
 		return nil
 	}
 	return i.TemplatePrometheusAPI
-}
-
-func (i *InputPrometheusRw) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputPrometheusRw) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
 }

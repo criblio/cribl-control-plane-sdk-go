@@ -12,4 +12,3 @@ InfluxDB authentication type
 | `AuthenticationTypeInfluxdbCredentialsSecret` | credentialsSecret                             |
 | `AuthenticationTypeInfluxdbToken`             | token                                         |
 | `AuthenticationTypeInfluxdbTextSecret`        | textSecret                                    |
-| `AuthenticationTypeInfluxdbOauth`             | oauth                                         |
