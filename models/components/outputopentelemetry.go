@@ -129,22 +129,6 @@ type OutputOpenTelemetry struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
@@ -182,10 +166,6 @@ type OutputOpenTelemetry struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputOpenTelemetryPqControls `json:"pqControls,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -416,62 +396,6 @@ func (o *OutputOpenTelemetry) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputOpenTelemetry) GetLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.LoginURL
-}
-
-func (o *OutputOpenTelemetry) GetSecretParamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SecretParamName
-}
-
-func (o *OutputOpenTelemetry) GetSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Secret
-}
-
-func (o *OutputOpenTelemetry) GetTokenAttributeName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenAttributeName
-}
-
-func (o *OutputOpenTelemetry) GetAuthHeaderExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AuthHeaderExpr
-}
-
-func (o *OutputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TokenTimeoutSecs
-}
-
-func (o *OutputOpenTelemetry) GetOauthParams() []ItemsTypeOauthParams {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputOpenTelemetry) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if o == nil {
-		return nil
-	}
-	return o.OauthHeaders
-}
-
 func (o *OutputOpenTelemetry) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
@@ -603,18 +527,4 @@ func (o *OutputOpenTelemetry) GetPqControls() *OutputOpenTelemetryPqControls {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputOpenTelemetry) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputOpenTelemetry) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
 }

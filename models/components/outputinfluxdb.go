@@ -68,12 +68,16 @@ func (e *TimestampPrecision) IsExact() bool {
 type OutputInfluxdbAuthenticationType string
 
 const (
-	OutputInfluxdbAuthenticationTypeNone              OutputInfluxdbAuthenticationType = "none"
-	OutputInfluxdbAuthenticationTypeBasic             OutputInfluxdbAuthenticationType = "basic"
+	// OutputInfluxdbAuthenticationTypeNone None
+	OutputInfluxdbAuthenticationTypeNone OutputInfluxdbAuthenticationType = "none"
+	// OutputInfluxdbAuthenticationTypeBasic Basic
+	OutputInfluxdbAuthenticationTypeBasic OutputInfluxdbAuthenticationType = "basic"
+	// OutputInfluxdbAuthenticationTypeCredentialsSecret Basic (credentials secret)
 	OutputInfluxdbAuthenticationTypeCredentialsSecret OutputInfluxdbAuthenticationType = "credentialsSecret"
-	OutputInfluxdbAuthenticationTypeToken             OutputInfluxdbAuthenticationType = "token"
-	OutputInfluxdbAuthenticationTypeTextSecret        OutputInfluxdbAuthenticationType = "textSecret"
-	OutputInfluxdbAuthenticationTypeOauth             OutputInfluxdbAuthenticationType = "oauth"
+	// OutputInfluxdbAuthenticationTypeToken Token
+	OutputInfluxdbAuthenticationTypeToken OutputInfluxdbAuthenticationType = "token"
+	// OutputInfluxdbAuthenticationTypeTextSecret Token (text secret)
+	OutputInfluxdbAuthenticationTypeTextSecret OutputInfluxdbAuthenticationType = "textSecret"
 )
 
 func (e OutputInfluxdbAuthenticationType) ToPointer() *OutputInfluxdbAuthenticationType {
@@ -84,7 +88,7 @@ func (e OutputInfluxdbAuthenticationType) ToPointer() *OutputInfluxdbAuthenticat
 func (e *OutputInfluxdbAuthenticationType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
 			return true
 		}
 	}
@@ -196,32 +200,12 @@ type OutputInfluxdb struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitempty"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
 	TemplateDatabase *string `json:"__template_database,omitempty"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputInfluxdb) MarshalJSON() ([]byte, error) {
@@ -564,62 +548,6 @@ func (o *OutputInfluxdb) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputInfluxdb) GetLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.LoginURL
-}
-
-func (o *OutputInfluxdb) GetSecretParamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SecretParamName
-}
-
-func (o *OutputInfluxdb) GetSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Secret
-}
-
-func (o *OutputInfluxdb) GetTokenAttributeName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenAttributeName
-}
-
-func (o *OutputInfluxdb) GetAuthHeaderExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AuthHeaderExpr
-}
-
-func (o *OutputInfluxdb) GetTokenTimeoutSecs() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TokenTimeoutSecs
-}
-
-func (o *OutputInfluxdb) GetOauthParams() []ItemsTypeOauthParams {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputInfluxdb) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if o == nil {
-		return nil
-	}
-	return o.OauthHeaders
-}
-
 func (o *OutputInfluxdb) GetTemplateURL() *string {
 	if o == nil {
 		return nil
@@ -639,18 +567,4 @@ func (o *OutputInfluxdb) GetTemplateBucket() *string {
 		return nil
 	}
 	return o.TemplateBucket
-}
-
-func (o *OutputInfluxdb) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputInfluxdb) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
 }
