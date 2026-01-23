@@ -1,24 +1,25 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 25a634d8909f451d95cc8d4d58563115
-  docVersion: 4.17.0-alpha.1769107340736-3db72926
+  docChecksum: 19f6833f30c8b451c9e03b5981a67a19
+  docVersion: 4.17.0-alpha.1769165668083-8c245a63
   speakeasyVersion: 1.693.0
   generationVersion: 2.798.0
-  releaseVersion: 0.5.0-rc.32
-  configChecksum: 0cd8a07eea7132ca43a14958038752fd
+  releaseVersion: 0.5.0-rc.33
+  configChecksum: c27c8409ce3e4bee05db8779d55ee606
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: d8d99bf8-71b1-4885-a671-61fd34fbd281
-  pristine_commit_hash: 6f8e7a05b769e6296ce5d7e648eb9fbd2cedb8eb
-  pristine_tree_hash: 7bb390d965b872650197517d9dde8f39bc60d912
+  generation_id: f8a40919-34a3-487b-9e00-964e827324f1
+  pristine_commit_hash: 0b7f17dced05e909dc72e5288c5aa82a7cd17574
+  pristine_tree_hash: e94be46f39ef7f42f91bef1333e2af49cf8e7bf5
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     core: 3.13.10
     defaultEnabledRetries: 0.2.0
+    deprecations: 2.81.3
     devContainers: 2.90.0
     enums: 2.82.1
     envVarSecurityUsage: 0.3.2
@@ -89,8 +90,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:4d8722ff24f2fdf61fad9039ae31e4d9c67bb9bf
-    pristine_git_object: d6e3140d5b3494917736f916f70e437d15381161
+    last_write_checksum: sha1:f02a79eb85972e92d5eb4b5d25b7f97acf65ad04
+    pristine_git_object: aa3040444e4c42f3ee8e6b7cb22c572aef744353
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -525,8 +526,8 @@ trackedFiles:
     pristine_git_object: a6ef0736717eedd0fc0520e7d1c40084e39ceb70
   docs/models/components/configgroup.md:
     id: 686e29f1da3d
-    last_write_checksum: sha1:331777a428fd034aa74d84b878edd98a87001bae
-    pristine_git_object: 231bf53f1ac14f2ccbe9669875bd27a1ed434738
+    last_write_checksum: sha1:3eaca00c1b07aef3ede7c90b1ae03b75efef24ab
+    pristine_git_object: 2991631ab65f54e2a90085c6e74490239171168d
   docs/models/components/configgroupcloud.md:
     id: 83a052971175
     last_write_checksum: sha1:5e437a813d96584f671f31f4b43a42927000bbe9
@@ -885,8 +886,8 @@ trackedFiles:
     pristine_git_object: afb445a69d12c26ec2168eaade65b3dc998c18f5
   docs/models/components/estimatedingestrateoptionsconfiggroup.md:
     id: 4f58ead5b5a5
-    last_write_checksum: sha1:c393511e612d6f8a288a4a62f61dd3b58018ab0a
-    pristine_git_object: ecc3bb2ba3492643b8740e7069a4e042ea6d92aa
+    last_write_checksum: sha1:56c34f1fa03e5def8876a5b7e56009661431e4ea
+    pristine_git_object: c0d4882df6992240cd4f8a69f01f0fa0c812be1d
   docs/models/components/eventbreakerrulefields.md:
     id: 831c500f3036
     last_write_checksum: sha1:c059cee28c54aa62ca179ad4c9f376c0960760c2
@@ -1749,8 +1750,8 @@ trackedFiles:
     pristine_git_object: 7c36dbc3bfed54368cb4904640180b994515e7d8
   docs/models/components/groupcreaterequest.md:
     id: 33425c54dd83
-    last_write_checksum: sha1:e39e81531be6c7f10139759c8c2d1fe903b6a233
-    pristine_git_object: 1ed15caeb3ac6d35794264a19633a40487262d72
+    last_write_checksum: sha1:e846ebfd9e09924a09ef3f1f2057225263b28716
+    pristine_git_object: de9b78c6b8ace1765a033c8b8d275c62ff2ec8ed
   docs/models/components/groups.md:
     id: ad7be802c0e8
     last_write_checksum: sha1:87320f4ccaca07602f48b1da9412e4020ff8eee5
@@ -4869,8 +4870,12 @@ trackedFiles:
     pristine_git_object: b8fa27522f7bd63fd28c577344d5c11ad4e265d2
   docs/models/components/outputwizhec.md:
     id: 0408e0f40663
-    last_write_checksum: sha1:548ac8e55cad5101041f6168f795671dde2f39a9
-    pristine_git_object: 005b36b92a4aab70f444ee17ebbcb5dc4779ac32
+    last_write_checksum: sha1:710a1d4ce0d78b50a6178d9792798c1c703be56a
+    pristine_git_object: d358ac9795d508b7b7d552205d8aecce3edf1932
+  docs/models/components/outputwizhecpqcontrols.md:
+    id: a52611911be5
+    last_write_checksum: sha1:e6f6a3aa150b57304c4a966836753c562b6fb9cd
+    pristine_git_object: 5cac5c4d9a55a9b37cb796c587bad217be0322c5
   docs/models/components/outputwizhectype.md:
     id: d8bff5177107
     last_write_checksum: sha1:1c83c365103fbab1584c426098f77c494e9ddc71
@@ -10501,8 +10506,8 @@ trackedFiles:
     pristine_git_object: 45ea5bec81daabbeb8b3e992ba11ae0d66bfade9
   docs/models/operations/outputwizhec.md:
     id: f60d65cd8f5b
-    last_write_checksum: sha1:9958a4797c929a457ff59bb4fc9a9ff282928aaa
-    pristine_git_object: 74bcd3e0a42fcc414f063f54eb8af65109628c6b
+    last_write_checksum: sha1:ccedd54025520b5a58e88fad2bb208230af824c6
+    pristine_git_object: 2165b9b65c197df44e1708f7d6ad1b9f8e54f1f5
   docs/models/operations/outputxsiam.md:
     id: 45959a42d89d
     last_write_checksum: sha1:d9529c57d2356bbde21ef299721182a3f758d7ce
@@ -10731,6 +10736,10 @@ trackedFiles:
     id: 08ed4992dc6a
     last_write_checksum: sha1:caa43dfd007490c922efca5e1a06e5c128d927f8
     pristine_git_object: 48c3ecd3683efde28cbe38db56854ffcb1b19ea3
+  docs/models/operations/pqcontrolswizhec.md:
+    id: 5c15148ce19e
+    last_write_checksum: sha1:b4cff84dece756c1aab0006808060b62efc49421
+    pristine_git_object: 71eb2cb32ed310f872f8496cd1d1677e90b85e02
   docs/models/operations/pqcontrolsxsiam.md:
     id: 35a667fbfb46
     last_write_checksum: sha1:ae9d5d49a76715bbfdeb3255aacc2cc8f34e4838
@@ -11817,8 +11826,8 @@ trackedFiles:
     pristine_git_object: 6a3af4ea1c6ea9f58e4d00182e5f02a7d01099c4
   models/components/configgroup.go:
     id: 21d4b454bbc7
-    last_write_checksum: sha1:5d13be8a18fa1f45ac8aa2a57ad113f2ab1c24c2
-    pristine_git_object: 53882b0d6e915f1eae10207340acf1b56b793f10
+    last_write_checksum: sha1:c07aab1e8bed1db8102113d398465a676210bec3
+    pristine_git_object: a6dc479b94bba0c2287c724a360ab3a08e1978a6
   models/components/configgroupcloud.go:
     id: e654f9cb7f7c
     last_write_checksum: sha1:64cb6004191f72fe280c02e5ca61d86d85823045
@@ -12061,8 +12070,8 @@ trackedFiles:
     pristine_git_object: 769456c3cd0da43b6ab08f8a6d9861aa1322cc22
   models/components/estimatedingestrateoptionsconfiggroup.go:
     id: bfde1a433b86
-    last_write_checksum: sha1:798a4487daad0f2e02ff1577d27c6ad11f4140f2
-    pristine_git_object: 3ba312f1860fcb52f010435e26d55497768b2342
+    last_write_checksum: sha1:a060ecdabcbec2c6567f43559a1fada4a5e00c85
+    pristine_git_object: 62cbb3e3146c5a14a051f252ea36fbbccc6e9ed8
   models/components/eventbreakerrulefields.go:
     id: 8a8bf5ef7566
     last_write_checksum: sha1:6e4ef52a9fd72fa6b6b4ac137b2bef998ca6226a
@@ -12533,8 +12542,8 @@ trackedFiles:
     pristine_git_object: a752822b7dcb4527633c4c461149142512450b4f
   models/components/groupcreaterequest.go:
     id: ec6140941726
-    last_write_checksum: sha1:cf6e0caecd679017da4ca3fa1f3dc9d46ea8de47
-    pristine_git_object: ad14ee4a35199cc0f5d71d7c6510212c75881a93
+    last_write_checksum: sha1:9c9e0b53e958ce1e5074f00b14c62c41b55fae65
+    pristine_git_object: de61269b017f2e25e6886eaae3cbd85e2059c685
   models/components/hbcriblinfo.go:
     id: 40b76fcca6c6
     last_write_checksum: sha1:4015fb1b6e2f031a39b9b930238016a6b8adbb8d
@@ -13349,8 +13358,8 @@ trackedFiles:
     pristine_git_object: ca5b32804ab0390904655798021f6ae4e65e85e3
   models/components/outputwizhec.go:
     id: dafb57053b88
-    last_write_checksum: sha1:e3be4aa24813e34734d32a40243fd28e3a5e76ec
-    pristine_git_object: d37cd99adaa8e86ea4ab65e731b218ee9d153d52
+    last_write_checksum: sha1:da2c992e3bd6eb1eaab71f20146629d75276092a
+    pristine_git_object: 5d6032ef17e9372cd782e466f4532bfdc541c5f7
   models/components/outputxsiam.go:
     id: 85195f50ee4a
     last_write_checksum: sha1:d7bb0ce7a23cddd3833d668c9cc81951e897e9b7
@@ -14037,8 +14046,8 @@ trackedFiles:
     pristine_git_object: 1a16a65bfb1bcaad581115d642956bdb8a05c401
   models/operations/createoutput.go:
     id: 60f055d92a1e
-    last_write_checksum: sha1:67f871c8df27f7fc035f0bf27555e82f423f07cf
-    pristine_git_object: 2300b127a6693fe8d729565526ee1e2b514d2b4e
+    last_write_checksum: sha1:47c6b13c0077a3e82debe661ef4c24df1896ef85
+    pristine_git_object: c3609047239485941ce93a527415060022f6a900
   models/operations/createoutputtestbyid.go:
     id: 1f7d3ecc9fe0
     last_write_checksum: sha1:78111c8ddb3dae10d0ad23b5bb0490644d58f9b1
@@ -16221,7 +16230,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesWizHec:
       requestBody:
-        application/json: {"id": "wiz-hec-output", "type": "wiz_hec", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "loadBalanced": true, "nextQueue": "indexQueue", "tcpRouting": "nowhere", "tls": {"disabled": true, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1.1", "maxVersion": "TLSv1"}, "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>"], "enableMultiMetrics": false, "authType": "manual", "responseRetrySettings": [{"httpStatus": 7295.73, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "onBackpressure": "block", "wiz_connector_id": "00000000-0000-0000-0000-000000000000", "wiz_environment": "test", "data_center": "us1", "wiz_sourcetype": "placeholder", "description": "hourly about into", "token": "<value>", "textSecret": "<value>", "__template_wiz_environment": "<value>", "__template_data_center": "<value>", "__template_wiz_sourcetype": "<value>"}
+        application/json: {"id": "wiz-hec-output", "type": "wiz_hec", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "loadBalanced": true, "nextQueue": "indexQueue", "tcpRouting": "nowhere", "tls": {"disabled": true, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1.1", "maxVersion": "TLSv1"}, "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>"], "enableMultiMetrics": false, "authType": "manual", "responseRetrySettings": [{"httpStatus": 7295.73, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "onBackpressure": "block", "wiz_connector_id": "00000000-0000-0000-0000-000000000000", "wiz_environment": "test", "data_center": "us1", "wiz_sourcetype": "placeholder", "description": "hourly about into", "pqStrictOrdering": true, "pqRatePerSec": 2614.76, "pqMode": "always", "pqMaxBufferSize": 7295.73, "pqMaxBackpressureSec": 166.54, "pqMaxFileSize": "<value>", "pqMaxSize": "<value>", "pqPath": "<value>", "pqCompress": "gzip", "pqOnBackpressure": "block", "pqControls": {}, "token": "<value>", "textSecret": "<value>", "__template_wiz_environment": "<value>", "__template_data_center": "<value>", "__template_wiz_sourcetype": "<value>"}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -17002,7 +17011,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "wiz-hec-output", "type": "wiz_hec", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "loadBalanced": true, "nextQueue": "indexQueue", "tcpRouting": "nowhere", "tls": {"disabled": true, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.2"}, "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "enableMultiMetrics": false, "authType": "manual", "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "onBackpressure": "block", "wiz_connector_id": "00000000-0000-0000-0000-000000000000", "wiz_environment": "test", "data_center": "us1", "wiz_sourcetype": "placeholder", "description": "phooey positively a consequently meh until", "token": "<value>", "textSecret": "<value>", "__template_wiz_environment": "<value>", "__template_data_center": "<value>", "__template_wiz_sourcetype": "<value>"}
+        application/json: {"id": "wiz-hec-output", "type": "wiz_hec", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "loadBalanced": true, "nextQueue": "indexQueue", "tcpRouting": "nowhere", "tls": {"disabled": true, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.2"}, "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "enableMultiMetrics": false, "authType": "manual", "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "onBackpressure": "block", "wiz_connector_id": "00000000-0000-0000-0000-000000000000", "wiz_environment": "test", "data_center": "us1", "wiz_sourcetype": "placeholder", "description": "phooey positively a consequently meh until", "pqStrictOrdering": true, "pqRatePerSec": 6434.77, "pqMode": "error", "pqMaxBufferSize": 2924.72, "pqMaxBackpressureSec": 4562.74, "pqMaxFileSize": "<value>", "pqMaxSize": "<value>", "pqPath": "<value>", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}, "token": "<value>", "textSecret": "<value>", "__template_wiz_environment": "<value>", "__template_data_center": "<value>", "__template_wiz_sourcetype": "<value>"}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}, "__template_apiVersion": "<value>", "__template_region": "<value>", "__template_customerId": "<id>"}]}
@@ -18475,7 +18484,7 @@ examples:
         path:
           product: "edge"
       requestBody:
-        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 393.49, "description": "ack before fondly scent because gee without where exactly", "estimatedIngestRate": 7168, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5613.31, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3050.1, "workerRemoteAccess": false}
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 393.49, "description": "ack before fondly scent because gee without where exactly", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5613.31, "inherits": "<value>", "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3050.1, "workerRemoteAccess": false}
       responses:
         "200":
           application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
@@ -18497,7 +18506,7 @@ examples:
         path:
           product: "edge"
       requestBody:
-        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9081.3, "description": "Worker group in customer-managed deployment", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatOnPremIanWg", "incompatibleWorkerCount": 7060.3, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatOnPremIanWg", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1230.11, "workerRemoteAccess": true}
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9081.3, "description": "Worker group in customer-managed deployment", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatOnPremIanWg", "incompatibleWorkerCount": 7060.3, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatOnPremIanWg", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1230.11, "workerRemoteAccess": true}
       responses:
         "200":
           application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
@@ -18519,7 +18528,7 @@ examples:
         path:
           product: "edge"
       requestBody:
-        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9605.18, "description": "Create a new Edge Fleet", "estimatedIngestRate": 7168, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatIanEdgeFleet", "incompatibleWorkerCount": 9429.96, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatIanEdgeFleet", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3096.3, "workerRemoteAccess": true}
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9605.18, "description": "Create a new Edge Fleet", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatIanEdgeFleet", "incompatibleWorkerCount": 9429.96, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatIanEdgeFleet", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3096.3, "workerRemoteAccess": true}
       responses:
         "200":
           application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
@@ -18545,7 +18554,7 @@ examples:
           product: "stream"
           id: "<id>"
       requestBody:
-        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7451.49, "description": "verbally feminize harmful prance really", "estimatedIngestRate": 13312, "git": {"commit": "<value>", "localChanges": 776.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1557.82, "workerRemoteAccess": false}
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7451.49, "description": "verbally feminize harmful prance really", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 776.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1557.82, "workerRemoteAccess": false}
       responses:
         "200":
           application/json: {"count": 214805, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6038.43, "description": "pants sugary tricky drat", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 776.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 5750.42, "workerRemoteAccess": true}]}
@@ -19307,7 +19316,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody.[]` **Changed** **Breaking** :warning:\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[wizHec]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[wizHec]` **Changed**\n  *  `response.Items.[].[wizHec]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[wizHec]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[wizHec]` **Changed**\n  *  `response.Items.[].[wizHec]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[wizHec]` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
