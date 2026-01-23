@@ -37,6 +37,10 @@ type CollectorCriblLake struct {
 	// Collector type
 	Type CollectorCriblLakeType `json:"type"`
 	Conf CriblLakeCollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `json:"destructive,omitempty"`
+	// Character encoding to use when parsing ingested data.
+	Encoding *string `json:"encoding,omitempty"`
 }
 
 func (c CollectorCriblLake) MarshalJSON() ([]byte, error) {
@@ -62,4 +66,18 @@ func (c *CollectorCriblLake) GetConf() CriblLakeCollectorConf {
 		return CriblLakeCollectorConf{}
 	}
 	return c.Conf
+}
+
+func (c *CollectorCriblLake) GetDestructive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Destructive
+}
+
+func (c *CollectorCriblLake) GetEncoding() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Encoding
 }

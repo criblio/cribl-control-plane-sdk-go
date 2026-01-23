@@ -95,6 +95,8 @@ func main() {
                             },
                         },
                     },
+                    Destructive: criblcontrolplanesdkgo.Pointer(true),
+                    Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
             Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
@@ -411,6 +413,8 @@ func main() {
                             },
                         },
                     },
+                    Destructive: criblcontrolplanesdkgo.Pointer(true),
+                    Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
             Input: &components.TypeCollectionWithBreakerRulesetsConstraint{

@@ -37,6 +37,10 @@ type CollectorS3 struct {
 	// Collector type
 	Type CollectorS3Type `json:"type"`
 	Conf S3CollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `json:"destructive,omitempty"`
+	// Character encoding to use when parsing ingested data.
+	Encoding *string `json:"encoding,omitempty"`
 }
 
 func (c CollectorS3) MarshalJSON() ([]byte, error) {
@@ -74,4 +78,18 @@ func (c *CollectorS3) GetConfManual() *S3AwsAuthenticationMethodManual {
 
 func (c *CollectorS3) GetConfSecret() *S3AwsAuthenticationMethodSecret {
 	return c.GetConf().S3AwsAuthenticationMethodSecret
+}
+
+func (c *CollectorS3) GetDestructive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Destructive
+}
+
+func (c *CollectorS3) GetEncoding() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Encoding
 }

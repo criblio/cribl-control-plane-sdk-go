@@ -1,13 +1,23 @@
 # HealthCheckAuthenticationOauthSecretRetryRules
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                          | Type                                                                                                                                           | Required                                                                                                                                       | Description                                                                                                                                    |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Type`                                                                                                                                         | [components.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../../models/components/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                                             | The algorithm to use when performing HTTP retries                                                                                              |
-| `Interval`                                                                                                                                     | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Limit`                                                                                                                                        | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Multiplier`                                                                                                                                   | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Codes`                                                                                                                                        | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `EnableHeader`                                                                                                                                 | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
+### HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone
+
+```go
+healthCheckAuthenticationOauthSecretRetryRules := components.CreateHealthCheckAuthenticationOauthSecretRetryRulesNone(components.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone{/* values here */})
+```
+
+### HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
+
+```go
+healthCheckAuthenticationOauthSecretRetryRules := components.CreateHealthCheckAuthenticationOauthSecretRetryRulesStatic(components.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic{/* values here */})
+```
+
+### HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
+
+```go
+healthCheckAuthenticationOauthSecretRetryRules := components.CreateHealthCheckAuthenticationOauthSecretRetryRulesBackoff(components.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff{/* values here */})
+```
+
