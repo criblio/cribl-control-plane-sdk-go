@@ -37,6 +37,10 @@ type CollectorDatabase struct {
 	// Collector type
 	Type CollectorDatabaseType `json:"type"`
 	Conf DatabaseCollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `json:"destructive,omitempty"`
+	// Character encoding to use when parsing ingested data.
+	Encoding *string `json:"encoding,omitempty"`
 }
 
 func (c CollectorDatabase) MarshalJSON() ([]byte, error) {
@@ -62,4 +66,18 @@ func (c *CollectorDatabase) GetConf() DatabaseCollectorConf {
 		return DatabaseCollectorConf{}
 	}
 	return c.Conf
+}
+
+func (c *CollectorDatabase) GetDestructive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Destructive
+}
+
+func (c *CollectorDatabase) GetEncoding() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Encoding
 }

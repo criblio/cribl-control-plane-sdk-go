@@ -267,7 +267,7 @@ func main() {
 * [Get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 * [Update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 * [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
-* [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
+* [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
 
 #### [Groups.Acl](docs/sdks/acl/README.md)
 

@@ -1,0 +1,29 @@
+# RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPGet(components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPPost(components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPPostWithBody(components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
+
+```go
+restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPOther(components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther{/* values here */})
+```
+

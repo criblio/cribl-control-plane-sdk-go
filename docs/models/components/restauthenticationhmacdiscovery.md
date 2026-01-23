@@ -1,8 +1,29 @@
 # RestAuthenticationHmacDiscovery
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `DiscoverType`                                                                                                             | [components.RestAuthenticationHmacDiscoverType](../../models/components/restauthenticationhmacdiscovertype.md)             | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+### RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP
+
+```go
+restAuthenticationHmacDiscovery := components.CreateRestAuthenticationHmacDiscoveryHTTP(components.RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### RestAuthenticationHmacRestDiscoveryDiscoverTypeJSON
+
+```go
+restAuthenticationHmacDiscovery := components.CreateRestAuthenticationHmacDiscoveryJSON(components.RestAuthenticationHmacRestDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### RestAuthenticationHmacRestDiscoveryDiscoverTypeList
+
+```go
+restAuthenticationHmacDiscovery := components.CreateRestAuthenticationHmacDiscoveryList(components.RestAuthenticationHmacRestDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### RestAuthenticationHmacRestDiscoveryDiscoverTypeNone
+
+```go
+restAuthenticationHmacDiscovery := components.CreateRestAuthenticationHmacDiscoveryNone(components.RestAuthenticationHmacRestDiscoveryDiscoverTypeNone{/* values here */})
+```
+

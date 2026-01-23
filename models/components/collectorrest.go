@@ -37,6 +37,10 @@ type CollectorRest struct {
 	// Collector type
 	Type CollectorRestType `json:"type"`
 	Conf RestCollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `json:"destructive,omitempty"`
+	// Character encoding to use when parsing ingested data.
+	Encoding *string `json:"encoding,omitempty"`
 }
 
 func (c CollectorRest) MarshalJSON() ([]byte, error) {
@@ -102,4 +106,18 @@ func (c *CollectorRest) GetConfGoogleOauthSecret() *RestAuthenticationGoogleOaut
 
 func (c *CollectorRest) GetConfHmac() *RestAuthenticationHmac {
 	return c.GetConf().RestAuthenticationHmac
+}
+
+func (c *CollectorRest) GetDestructive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Destructive
+}
+
+func (c *CollectorRest) GetEncoding() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Encoding
 }

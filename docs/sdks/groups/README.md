@@ -11,7 +11,7 @@ Actions related to Groups
 * [Get](#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 * [Update](#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 * [Delete](#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
-* [Deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
+* [Deploy](#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
 
 ## List
 
@@ -409,7 +409,7 @@ func main() {
 
 ## Deploy
 
-Deploy commits to the specified Worker Group or Edge Fleet.
+Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -455,13 +455,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `ctx`                                                                               | [context.Context](https://pkg.go.dev/context#Context)                               | :heavy_check_mark:                                                                  | The context to use for the request.                                                 |
-| `product`                                                                           | [components.ProductsCore](../../models/components/productscore.md)                  | :heavy_check_mark:                                                                  | Name of the Cribl product to get the Worker Groups or Edge Fleets for.              |
-| `id`                                                                                | *string*                                                                            | :heavy_check_mark:                                                                  | The <code>id</code> of the target Worker Group or Edge Fleet for commit deployment. |
-| `deployRequest`                                                                     | [components.DeployRequest](../../models/components/deployrequest.md)                | :heavy_check_mark:                                                                  | DeployRequest object                                                                |
-| `opts`                                                                              | [][operations.Option](../../models/operations/option.md)                            | :heavy_minus_sign:                                                                  | The options for this request.                                                       |
+| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                                 | :heavy_check_mark:                                                                                    | The context to use for the request.                                                                   |
+| `product`                                                                                             | [components.ProductsCore](../../models/components/productscore.md)                                    | :heavy_check_mark:                                                                                    | Name of the Cribl product to deploy commits to the Worker Groups, Outpost Groups, or Edge Fleets for. |
+| `id`                                                                                                  | *string*                                                                                              | :heavy_check_mark:                                                                                    | The <code>id</code> of the target Worker Group, Outpost Group, or Edge Fleet for commit deployment.   |
+| `deployRequest`                                                                                       | [components.DeployRequest](../../models/components/deployrequest.md)                                  | :heavy_check_mark:                                                                                    | DeployRequest object                                                                                  |
+| `opts`                                                                                                | [][operations.Option](../../models/operations/option.md)                                              | :heavy_minus_sign:                                                                                    | The options for this request.                                                                         |
 
 ### Response
 

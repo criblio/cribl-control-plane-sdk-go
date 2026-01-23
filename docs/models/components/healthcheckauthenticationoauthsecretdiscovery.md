@@ -1,8 +1,29 @@
 # HealthCheckAuthenticationOauthSecretDiscovery
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `DiscoverType`                                                                                                                                                                                                                                                                                                                                               | [components.HealthCheckAuthenticationOauthSecretDiscoverType](../../models/components/healthcheckauthenticationoauthsecretdiscovertype.md)                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task. |
+### HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP
+
+```go
+healthCheckAuthenticationOauthSecretDiscovery := components.CreateHealthCheckAuthenticationOauthSecretDiscoveryHTTP(components.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON
+
+```go
+healthCheckAuthenticationOauthSecretDiscovery := components.CreateHealthCheckAuthenticationOauthSecretDiscoveryJSON(components.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList
+
+```go
+healthCheckAuthenticationOauthSecretDiscovery := components.CreateHealthCheckAuthenticationOauthSecretDiscoveryList(components.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone
+
+```go
+healthCheckAuthenticationOauthSecretDiscovery := components.CreateHealthCheckAuthenticationOauthSecretDiscoveryNone(components.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone{/* values here */})
+```
+
