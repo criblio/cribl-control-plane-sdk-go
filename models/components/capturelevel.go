@@ -2,13 +2,18 @@
 
 package components
 
+// CaptureLevel - Where to capture events
 type CaptureLevel int64
 
 const (
-	CaptureLevelZero  CaptureLevel = 0
-	CaptureLevelOne   CaptureLevel = 1
-	CaptureLevelTwo   CaptureLevel = 2
-	CaptureLevelThree CaptureLevel = 3
+	// CaptureLevelBeforePreProcessingPipeline 1. Before pre-processing Pipeline
+	CaptureLevelBeforePreProcessingPipeline CaptureLevel = 0
+	// CaptureLevelBeforeRoutes 2. Before the Routes
+	CaptureLevelBeforeRoutes CaptureLevel = 1
+	// CaptureLevelBeforePostProcessingPipeline 3. Before post-processing Pipeline
+	CaptureLevelBeforePostProcessingPipeline CaptureLevel = 2
+	// CaptureLevelBeforeDestination 4. Before the Destination
+	CaptureLevelBeforeDestination CaptureLevel = 3
 )
 
 func (e CaptureLevel) ToPointer() *CaptureLevel {

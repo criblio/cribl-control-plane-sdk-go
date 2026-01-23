@@ -1,11 +1,13 @@
 # CaptureLevel
 
+Where to capture events
+
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `CaptureLevelZero`  | 0                   |
-| `CaptureLevelOne`   | 1                   |
-| `CaptureLevelTwo`   | 2                   |
-| `CaptureLevelThree` | 3                   |
+| Name                                       | Value                                      |
+| ------------------------------------------ | ------------------------------------------ |
+| `CaptureLevelBeforePreProcessingPipeline`  | 0                                          |
+| `CaptureLevelBeforeRoutes`                 | 1                                          |
+| `CaptureLevelBeforePostProcessingPipeline` | 2                                          |
+| `CaptureLevelBeforeDestination`            | 3                                          |
