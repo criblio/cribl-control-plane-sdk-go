@@ -290,7 +290,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [System.Captures](docs/sdks/captures/README.md)
 
-* [Get](docs/sdks/captures/README.md#get) - Capture live incoming data
+* [Create](docs/sdks/captures/README.md#create) - Capture live incoming data
 
 ### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
@@ -356,7 +356,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.System.Captures.Get(ctx, components.CaptureParams{
+	res, err := s.System.Captures.Create(ctx, components.CaptureParams{
 		Duration:        5,
 		Filter:          "true",
 		Level:           components.CaptureLevelBeforePreProcessingPipeline,
