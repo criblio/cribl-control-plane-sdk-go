@@ -2,9 +2,6 @@
 
 package components
 
-type LastMetrics struct {
-}
-
 type MasterWorkerEntryType string
 
 const (
@@ -46,7 +43,7 @@ type MasterWorkerEntry struct {
 	Group             string                    `json:"group"`
 	ID                string                    `json:"id"`
 	Info              NodeProvidedInfo          `json:"info"`
-	LastMetrics       *LastMetrics              `json:"lastMetrics,omitempty"`
+	LastMetrics       map[string]any            `json:"lastMetrics,omitempty"`
 	LastMsgTime       float64                   `json:"lastMsgTime"`
 	Metadata          *HeartbeatMetadata        `json:"metadata,omitempty"`
 	NodeUpgradeStatus *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitempty"`
@@ -98,7 +95,7 @@ func (m *MasterWorkerEntry) GetInfo() NodeProvidedInfo {
 	return m.Info
 }
 
-func (m *MasterWorkerEntry) GetLastMetrics() *LastMetrics {
+func (m *MasterWorkerEntry) GetLastMetrics() map[string]any {
 	if m == nil {
 		return nil
 	}

@@ -10,7 +10,7 @@ type UpdatePipelineByIDRequest struct {
 	// The <code>id</code> of the Pipeline to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Pipeline object
-	Pipeline components.Pipeline `request:"mediaType=application/json"`
+	Pipeline components.PipelineInput `request:"mediaType=application/json"`
 }
 
 func (u *UpdatePipelineByIDRequest) GetID() string {
@@ -20,38 +20,17 @@ func (u *UpdatePipelineByIDRequest) GetID() string {
 	return u.ID
 }
 
-func (u *UpdatePipelineByIDRequest) GetPipeline() components.Pipeline {
+func (u *UpdatePipelineByIDRequest) GetPipeline() components.PipelineInput {
 	if u == nil {
-		return components.Pipeline{}
+		return components.PipelineInput{}
 	}
 	return u.Pipeline
-}
-
-// UpdatePipelineByIDResponseBody - a list of Pipeline objects
-type UpdatePipelineByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                `json:"count,omitempty"`
-	Items []components.Pipeline `json:"items,omitempty"`
-}
-
-func (u *UpdatePipelineByIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
-}
-
-func (u *UpdatePipelineByIDResponseBody) GetItems() []components.Pipeline {
-	if u == nil {
-		return nil
-	}
-	return u.Items
 }
 
 type UpdatePipelineByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Pipeline objects
-	Object *UpdatePipelineByIDResponseBody
+	CountedPipeline *components.CountedPipeline
 }
 
 func (u *UpdatePipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (u *UpdatePipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return u.HTTPMeta
 }
 
-func (u *UpdatePipelineByIDResponse) GetObject() *UpdatePipelineByIDResponseBody {
+func (u *UpdatePipelineByIDResponse) GetCountedPipeline() *components.CountedPipeline {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedPipeline
 }

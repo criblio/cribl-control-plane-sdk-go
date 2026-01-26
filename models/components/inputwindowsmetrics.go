@@ -31,214 +31,6 @@ func (e *InputWindowsMetricsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputWindowsMetricsConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputWindowsMetricsConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWindowsMetricsConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputWindowsMetricsPqMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputWindowsMetricsPqMode string
-
-const (
-	// InputWindowsMetricsPqModeSmart Smart
-	InputWindowsMetricsPqModeSmart InputWindowsMetricsPqMode = "smart"
-	// InputWindowsMetricsPqModeAlways Always On
-	InputWindowsMetricsPqModeAlways InputWindowsMetricsPqMode = "always"
-)
-
-func (e InputWindowsMetricsPqMode) ToPointer() *InputWindowsMetricsPqMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWindowsMetricsPqMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputWindowsMetricsCompression - Codec to use to compress the persisted data
-type InputWindowsMetricsCompression string
-
-const (
-	// InputWindowsMetricsCompressionNone None
-	InputWindowsMetricsCompressionNone InputWindowsMetricsCompression = "none"
-	// InputWindowsMetricsCompressionGzip Gzip
-	InputWindowsMetricsCompressionGzip InputWindowsMetricsCompression = "gzip"
-)
-
-func (e InputWindowsMetricsCompression) ToPointer() *InputWindowsMetricsCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWindowsMetricsCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputWindowsMetricsPqControls struct {
-}
-
-func (i InputWindowsMetricsPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputWindowsMetricsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputWindowsMetricsPqMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputWindowsMetricsCompression `default:"none" json:"compress"`
-	PqControls *InputWindowsMetricsPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputWindowsMetricsPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsPq) GetMode() *InputWindowsMetricsPqMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputWindowsMetricsPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputWindowsMetricsPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputWindowsMetricsPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputWindowsMetricsPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputWindowsMetricsPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputWindowsMetricsPq) GetCompress() *InputWindowsMetricsCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputWindowsMetricsPq) GetPqControls() *InputWindowsMetricsPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputWindowsMetricsHostMode - Select level of detail for host metrics
-type InputWindowsMetricsHostMode string
-
-const (
-	// InputWindowsMetricsHostModeBasic Basic
-	InputWindowsMetricsHostModeBasic InputWindowsMetricsHostMode = "basic"
-	// InputWindowsMetricsHostModeAll All
-	InputWindowsMetricsHostModeAll InputWindowsMetricsHostMode = "all"
-	// InputWindowsMetricsHostModeCustom Custom
-	InputWindowsMetricsHostModeCustom InputWindowsMetricsHostMode = "custom"
-	// InputWindowsMetricsHostModeDisabled Disabled
-	InputWindowsMetricsHostModeDisabled InputWindowsMetricsHostMode = "disabled"
-)
-
-func (e InputWindowsMetricsHostMode) ToPointer() *InputWindowsMetricsHostMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWindowsMetricsHostMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "basic", "all", "custom", "disabled":
-			return true
-		}
-	}
-	return false
-}
-
 // InputWindowsMetricsSystemMode - Select the level of details for system metrics
 type InputWindowsMetricsSystemMode string
 
@@ -270,9 +62,9 @@ func (e *InputWindowsMetricsSystemMode) IsExact() bool {
 
 type InputWindowsMetricsSystem struct {
 	// Select the level of details for system metrics
-	Mode *InputWindowsMetricsSystemMode `default:"basic" json:"mode"`
+	Mode *InputWindowsMetricsSystemMode `json:"mode,omitempty"`
 	// Generate metrics for all system information
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 }
 
 func (i InputWindowsMetricsSystem) MarshalJSON() ([]byte, error) {
@@ -331,13 +123,13 @@ func (e *InputWindowsMetricsCPUMode) IsExact() bool {
 
 type InputWindowsMetricsCPU struct {
 	// Select the level of details for CPU metrics
-	Mode *InputWindowsMetricsCPUMode `default:"basic" json:"mode"`
+	Mode *InputWindowsMetricsCPUMode `json:"mode,omitempty"`
 	// Generate metrics for each CPU
-	PerCPU *bool `default:"false" json:"perCpu"`
+	PerCPU *bool `json:"perCpu,omitempty"`
 	// Generate metrics for all CPU states
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 	// Generate raw, monotonic CPU time counters
-	Time *bool `default:"false" json:"time"`
+	Time *bool `json:"time,omitempty"`
 }
 
 func (i InputWindowsMetricsCPU) MarshalJSON() ([]byte, error) {
@@ -410,9 +202,9 @@ func (e *InputWindowsMetricsMemoryMode) IsExact() bool {
 
 type InputWindowsMetricsMemory struct {
 	// Select the level of details for memory metrics
-	Mode *InputWindowsMetricsMemoryMode `default:"basic" json:"mode"`
+	Mode *InputWindowsMetricsMemoryMode `json:"mode,omitempty"`
 	// Generate metrics for all memory states
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 }
 
 func (i InputWindowsMetricsMemory) MarshalJSON() ([]byte, error) {
@@ -471,15 +263,15 @@ func (e *InputWindowsMetricsNetworkMode) IsExact() bool {
 
 type InputWindowsMetricsNetwork struct {
 	// Select the level of details for network metrics
-	Mode *InputWindowsMetricsNetworkMode `default:"basic" json:"mode"`
+	Mode *InputWindowsMetricsNetworkMode `json:"mode,omitempty"`
 	// Generate full network metrics
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
-	Protocols *bool `default:"false" json:"protocols"`
+	Protocols *bool `json:"protocols,omitempty"`
 	// Network interfaces to include/exclude. All interfaces are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Generate separate metrics for each interface
-	PerInterface *bool `default:"false" json:"perInterface"`
+	PerInterface *bool `json:"perInterface,omitempty"`
 }
 
 func (i InputWindowsMetricsNetwork) MarshalJSON() ([]byte, error) {
@@ -559,11 +351,11 @@ func (e *InputWindowsMetricsDiskMode) IsExact() bool {
 
 type InputWindowsMetricsDisk struct {
 	// Select the level of details for disk metrics
-	Mode *InputWindowsMetricsDiskMode `default:"basic" json:"mode"`
+	Mode *InputWindowsMetricsDiskMode `json:"mode,omitempty"`
 	// Generate separate metrics for each volume
-	PerVolume *bool `default:"false" json:"perVolume"`
+	PerVolume *bool `json:"perVolume,omitempty"`
 	// Generate full disk metrics
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
 	Volumes []string `json:"volumes,omitempty"`
 }
@@ -663,8 +455,8 @@ func (i *InputWindowsMetricsCustom) GetDisk() *InputWindowsMetricsDisk {
 
 type InputWindowsMetricsHost struct {
 	// Select level of detail for host metrics
-	Mode   *InputWindowsMetricsHostMode `default:"basic" json:"mode"`
-	Custom *InputWindowsMetricsCustom   `json:"custom,omitempty"`
+	Mode   *ModeOptionsHost           `json:"mode,omitempty"`
+	Custom *InputWindowsMetricsCustom `json:"custom,omitempty"`
 }
 
 func (i InputWindowsMetricsHost) MarshalJSON() ([]byte, error) {
@@ -678,7 +470,7 @@ func (i *InputWindowsMetricsHost) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputWindowsMetricsHost) GetMode() *InputWindowsMetricsHostMode {
+func (i *InputWindowsMetricsHost) GetMode() *ModeOptionsHost {
 	if i == nil {
 		return nil
 	}
@@ -692,132 +484,18 @@ func (i *InputWindowsMetricsHost) GetCustom() *InputWindowsMetricsCustom {
 	return i.Custom
 }
 
-type InputWindowsMetricsSet struct {
-	Name            string `json:"name"`
-	Filter          string `json:"filter"`
-	IncludeChildren *bool  `default:"false" json:"includeChildren"`
-}
-
-func (i InputWindowsMetricsSet) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsSet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "filter"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsSet) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputWindowsMetricsSet) GetFilter() string {
-	if i == nil {
-		return ""
-	}
-	return i.Filter
-}
-
-func (i *InputWindowsMetricsSet) GetIncludeChildren() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IncludeChildren
-}
-
-type InputWindowsMetricsProcess struct {
-	// Configure sets to collect process metrics
-	Sets []InputWindowsMetricsSet `json:"sets,omitempty"`
-}
-
-func (i InputWindowsMetricsProcess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsProcess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsProcess) GetSets() []InputWindowsMetricsSet {
-	if i == nil {
-		return nil
-	}
-	return i.Sets
-}
-
-type InputWindowsMetricsMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputWindowsMetricsMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputWindowsMetricsMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputWindowsMetricsDataCompressionFormat string
-
-const (
-	InputWindowsMetricsDataCompressionFormatNone InputWindowsMetricsDataCompressionFormat = "none"
-	InputWindowsMetricsDataCompressionFormatGzip InputWindowsMetricsDataCompressionFormat = "gzip"
-)
-
-func (e InputWindowsMetricsDataCompressionFormat) ToPointer() *InputWindowsMetricsDataCompressionFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWindowsMetricsDataCompressionFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
 type InputWindowsMetricsPersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `default:"false" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 	// Time span for each file bucket
-	TimeWindow *string `default:"10m" json:"timeWindow"`
+	TimeWindow *string `json:"timeWindow,omitempty"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
+	MaxDataSize *string `json:"maxDataSize,omitempty"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                   `default:"24h" json:"maxDataTime"`
-	Compress    *InputWindowsMetricsDataCompressionFormat `default:"gzip" json:"compress"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/windows_metrics
-	DestPath *string `default:"$CRIBL_HOME/state/windows_metrics" json:"destPath"`
+	DestPath *string `json:"destPath,omitempty"`
 }
 
 func (i InputWindowsMetricsPersistence) MarshalJSON() ([]byte, error) {
@@ -859,7 +537,7 @@ func (i *InputWindowsMetricsPersistence) GetMaxDataTime() *string {
 	return i.MaxDataTime
 }
 
-func (i *InputWindowsMetricsPersistence) GetCompress() *InputWindowsMetricsDataCompressionFormat {
+func (i *InputWindowsMetricsPersistence) GetCompress() *DataCompressionFormatOptionsPersistence {
 	if i == nil {
 		return nil
 	}
@@ -877,29 +555,29 @@ type InputWindowsMetrics struct {
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputWindowsMetricsType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
+	Disabled *bool                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputWindowsMetricsConnection `json:"connections,omitempty"`
-	Pq          *InputWindowsMetricsPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval *float64                    `default:"10" json:"interval"`
-	Host     *InputWindowsMetricsHost    `json:"host,omitempty"`
-	Process  *InputWindowsMetricsProcess `json:"process,omitempty"`
+	Interval *float64                 `json:"interval,omitempty"`
+	Host     *InputWindowsMetricsHost `json:"host,omitempty"`
+	Process  *ProcessType             `json:"process,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []InputWindowsMetricsMetadatum  `json:"metadata,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
 	Description         *string `json:"description,omitempty"`
 }
 
@@ -970,14 +648,14 @@ func (i *InputWindowsMetrics) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputWindowsMetrics) GetConnections() []InputWindowsMetricsConnection {
+func (i *InputWindowsMetrics) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWindowsMetrics) GetPq() *InputWindowsMetricsPq {
+func (i *InputWindowsMetrics) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -998,14 +676,14 @@ func (i *InputWindowsMetrics) GetHost() *InputWindowsMetricsHost {
 	return i.Host
 }
 
-func (i *InputWindowsMetrics) GetProcess() *InputWindowsMetricsProcess {
+func (i *InputWindowsMetrics) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
 	return i.Process
 }
 
-func (i *InputWindowsMetrics) GetMetadata() []InputWindowsMetricsMetadatum {
+func (i *InputWindowsMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

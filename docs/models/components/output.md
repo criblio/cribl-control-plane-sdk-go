@@ -51,6 +51,12 @@ output := components.CreateOutputSplunkLb(components.OutputSplunkLb{/* values he
 output := components.CreateOutputSplunkHec(components.OutputSplunkHec{/* values here */})
 ```
 
+### OutputWizHec
+
+```go
+output := components.CreateOutputWizHec(components.OutputWizHec{/* values here */})
+```
+
 ### OutputTcpjson
 
 ```go
@@ -313,6 +319,12 @@ output := components.CreateOutputCriblTCP(components.OutputCriblTCP{/* values he
 
 ```go
 output := components.CreateOutputCriblHTTP(components.OutputCriblHTTP{/* values here */})
+```
+
+### OutputCriblSearchEngine
+
+```go
+output := components.CreateOutputCriblSearchEngine(components.OutputCriblSearchEngine{/* values here */})
 ```
 
 ### OutputHumioHec

@@ -31,390 +31,6 @@ func (e *OutputTcpjsonType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputTcpjsonCompression - Codec to use to compress the data before sending
-type OutputTcpjsonCompression string
-
-const (
-	// OutputTcpjsonCompressionNone None
-	OutputTcpjsonCompressionNone OutputTcpjsonCompression = "none"
-	// OutputTcpjsonCompressionGzip Gzip
-	OutputTcpjsonCompressionGzip OutputTcpjsonCompression = "gzip"
-)
-
-func (e OutputTcpjsonCompression) ToPointer() *OutputTcpjsonCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputTcpjsonCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputTcpjsonMinimumTLSVersion string
-
-const (
-	OutputTcpjsonMinimumTLSVersionTlSv1  OutputTcpjsonMinimumTLSVersion = "TLSv1"
-	OutputTcpjsonMinimumTLSVersionTlSv11 OutputTcpjsonMinimumTLSVersion = "TLSv1.1"
-	OutputTcpjsonMinimumTLSVersionTlSv12 OutputTcpjsonMinimumTLSVersion = "TLSv1.2"
-	OutputTcpjsonMinimumTLSVersionTlSv13 OutputTcpjsonMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputTcpjsonMinimumTLSVersion) ToPointer() *OutputTcpjsonMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputTcpjsonMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputTcpjsonMaximumTLSVersion string
-
-const (
-	OutputTcpjsonMaximumTLSVersionTlSv1  OutputTcpjsonMaximumTLSVersion = "TLSv1"
-	OutputTcpjsonMaximumTLSVersionTlSv11 OutputTcpjsonMaximumTLSVersion = "TLSv1.1"
-	OutputTcpjsonMaximumTLSVersionTlSv12 OutputTcpjsonMaximumTLSVersion = "TLSv1.2"
-	OutputTcpjsonMaximumTLSVersionTlSv13 OutputTcpjsonMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputTcpjsonMaximumTLSVersion) ToPointer() *OutputTcpjsonMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputTcpjsonMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputTcpjsonTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                         `json:"passphrase,omitempty"`
-	MinVersion *OutputTcpjsonMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputTcpjsonMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputTcpjsonTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetMinVersion() *OutputTcpjsonMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputTcpjsonTLSSettingsClientSide) GetMaxVersion() *OutputTcpjsonMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputTcpjsonBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputTcpjsonBackpressureBehavior string
-
-const (
-	// OutputTcpjsonBackpressureBehaviorBlock Block
-	OutputTcpjsonBackpressureBehaviorBlock OutputTcpjsonBackpressureBehavior = "block"
-	// OutputTcpjsonBackpressureBehaviorDrop Drop
-	OutputTcpjsonBackpressureBehaviorDrop OutputTcpjsonBackpressureBehavior = "drop"
-	// OutputTcpjsonBackpressureBehaviorQueue Persistent Queue
-	OutputTcpjsonBackpressureBehaviorQueue OutputTcpjsonBackpressureBehavior = "queue"
-)
-
-func (e OutputTcpjsonBackpressureBehavior) ToPointer() *OutputTcpjsonBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputTcpjsonBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputTcpjsonAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type OutputTcpjsonAuthenticationMethod string
-
-const (
-	OutputTcpjsonAuthenticationMethodManual OutputTcpjsonAuthenticationMethod = "manual"
-	OutputTcpjsonAuthenticationMethodSecret OutputTcpjsonAuthenticationMethod = "secret"
-)
-
-func (e OutputTcpjsonAuthenticationMethod) ToPointer() *OutputTcpjsonAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputTcpjsonAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputTcpjsonTLS - Whether to inherit TLS configs from group setting or disable TLS
-type OutputTcpjsonTLS string
-
-const (
-	OutputTcpjsonTLSInherit OutputTcpjsonTLS = "inherit"
-	OutputTcpjsonTLSOff     OutputTcpjsonTLS = "off"
-)
-
-func (e OutputTcpjsonTLS) ToPointer() *OutputTcpjsonTLS {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputTcpjsonTLS) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "inherit", "off":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputTcpjsonHost struct {
-	// The hostname of the receiver
-	Host string `json:"host"`
-	// The port to connect to on the provided host
-	Port float64 `json:"port"`
-	// Whether to inherit TLS configs from group setting or disable TLS
-	TLS *OutputTcpjsonTLS `default:"inherit" json:"tls"`
-	// Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-	Servername *string `json:"servername,omitempty"`
-	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
-}
-
-func (o OutputTcpjsonHost) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputTcpjsonHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputTcpjsonHost) GetHost() string {
-	if o == nil {
-		return ""
-	}
-	return o.Host
-}
-
-func (o *OutputTcpjsonHost) GetPort() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.Port
-}
-
-func (o *OutputTcpjsonHost) GetTLS() *OutputTcpjsonTLS {
-	if o == nil {
-		return nil
-	}
-	return o.TLS
-}
-
-func (o *OutputTcpjsonHost) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputTcpjsonHost) GetWeight() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Weight
-}
-
-// OutputTcpjsonMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputTcpjsonMode string
-
-const (
-	// OutputTcpjsonModeError Error
-	OutputTcpjsonModeError OutputTcpjsonMode = "error"
-	// OutputTcpjsonModeAlways Backpressure
-	OutputTcpjsonModeAlways OutputTcpjsonMode = "always"
-	// OutputTcpjsonModeBackpressure Always On
-	OutputTcpjsonModeBackpressure OutputTcpjsonMode = "backpressure"
-)
-
-func (e OutputTcpjsonMode) ToPointer() *OutputTcpjsonMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputTcpjsonMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputTcpjsonPqCompressCompression - Codec to use to compress the persisted data
-type OutputTcpjsonPqCompressCompression string
-
-const (
-	// OutputTcpjsonPqCompressCompressionNone None
-	OutputTcpjsonPqCompressCompressionNone OutputTcpjsonPqCompressCompression = "none"
-	// OutputTcpjsonPqCompressCompressionGzip Gzip
-	OutputTcpjsonPqCompressCompressionGzip OutputTcpjsonPqCompressCompression = "gzip"
-)
-
-func (e OutputTcpjsonPqCompressCompression) ToPointer() *OutputTcpjsonPqCompressCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputTcpjsonPqCompressCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputTcpjsonQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputTcpjsonQueueFullBehavior string
-
-const (
-	// OutputTcpjsonQueueFullBehaviorBlock Block
-	OutputTcpjsonQueueFullBehaviorBlock OutputTcpjsonQueueFullBehavior = "block"
-	// OutputTcpjsonQueueFullBehaviorDrop Drop new data
-	OutputTcpjsonQueueFullBehaviorDrop OutputTcpjsonQueueFullBehavior = "drop"
-)
-
-func (e OutputTcpjsonQueueFullBehavior) ToPointer() *OutputTcpjsonQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputTcpjsonQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputTcpjsonPqControls struct {
 }
 
@@ -442,64 +58,64 @@ type OutputTcpjson struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Use load-balanced destinations
-	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	LoadBalanced *bool `json:"loadBalanced,omitempty"`
 	// Codec to use to compress the data before sending
-	Compression *OutputTcpjsonCompression `default:"gzip" json:"compression"`
+	Compression *CompressionOptions1 `json:"compression,omitempty"`
 	// Use to troubleshoot issues with sending data
-	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	LogFailedRequests *bool `json:"logFailedRequests,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string                             `default:"0" json:"throttleRatePerSec"`
-	TLS                *OutputTcpjsonTLSSettingsClientSide `json:"tls,omitempty"`
+	ThrottleRatePerSec *string                                       `json:"throttleRatePerSec,omitempty"`
+	TLS                *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64 `default:"60000" json:"writeTimeout"`
+	WriteTimeout *float64 `json:"writeTimeout,omitempty"`
 	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
-	TokenTTLMinutes *float64 `default:"60" json:"tokenTTLMinutes"`
+	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitempty"`
 	// Upon connection, send a header-like record containing the auth token and other metadata.This record will not contain an actual event – only subsequent records will.
-	SendHeader *bool `default:"true" json:"sendHeader"`
+	SendHeader *bool `json:"sendHeader,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputTcpjsonBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *OutputTcpjsonAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                            `json:"description,omitempty"`
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	Description *string                                     `json:"description,omitempty"`
 	// The hostname of the receiver
 	Host *string `json:"host,omitempty"`
 	// The port to connect to on the provided host
 	Port *float64 `json:"port,omitempty"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool `default:"false" json:"excludeSelf"`
+	ExcludeSelf *bool `json:"excludeSelf,omitempty"`
 	// Set of hosts to load-balance data to
-	Hosts []OutputTcpjsonHost `json:"hosts,omitempty"`
+	Hosts []ItemsTypeHosts `json:"hosts,omitempty"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
 	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
 	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
-	MaxConcurrentSenders *float64 `default:"0" json:"maxConcurrentSenders"`
+	MaxConcurrentSenders *float64 `json:"maxConcurrentSenders,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputTcpjsonMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputTcpjsonPqCompressCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputTcpjsonQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputTcpjsonPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
+	PqControls       *OutputTcpjsonPqControls  `json:"pqControls,omitempty"`
 	// Optional authentication token to include as part of the connection header
-	AuthToken *string `default:"" json:"authToken"`
+	AuthToken *string `json:"authToken,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
 }
@@ -564,7 +180,7 @@ func (o *OutputTcpjson) GetLoadBalanced() *bool {
 	return o.LoadBalanced
 }
 
-func (o *OutputTcpjson) GetCompression() *OutputTcpjsonCompression {
+func (o *OutputTcpjson) GetCompression() *CompressionOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -585,7 +201,7 @@ func (o *OutputTcpjson) GetThrottleRatePerSec() *string {
 	return o.ThrottleRatePerSec
 }
 
-func (o *OutputTcpjson) GetTLS() *OutputTcpjsonTLSSettingsClientSide {
+func (o *OutputTcpjson) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if o == nil {
 		return nil
 	}
@@ -620,14 +236,14 @@ func (o *OutputTcpjson) GetSendHeader() *bool {
 	return o.SendHeader
 }
 
-func (o *OutputTcpjson) GetOnBackpressure() *OutputTcpjsonBackpressureBehavior {
+func (o *OutputTcpjson) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputTcpjson) GetAuthType() *OutputTcpjsonAuthenticationMethod {
+func (o *OutputTcpjson) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if o == nil {
 		return nil
 	}
@@ -662,7 +278,7 @@ func (o *OutputTcpjson) GetExcludeSelf() *bool {
 	return o.ExcludeSelf
 }
 
-func (o *OutputTcpjson) GetHosts() []OutputTcpjsonHost {
+func (o *OutputTcpjson) GetHosts() []ItemsTypeHosts {
 	if o == nil {
 		return nil
 	}
@@ -704,7 +320,7 @@ func (o *OutputTcpjson) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputTcpjson) GetPqMode() *OutputTcpjsonMode {
+func (o *OutputTcpjson) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -746,14 +362,14 @@ func (o *OutputTcpjson) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputTcpjson) GetPqCompress() *OutputTcpjsonPqCompressCompression {
+func (o *OutputTcpjson) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputTcpjson) GetPqOnBackpressure() *OutputTcpjsonQueueFullBehavior {
+func (o *OutputTcpjson) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

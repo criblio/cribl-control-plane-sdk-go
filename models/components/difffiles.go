@@ -8,195 +8,13 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type Line3 struct {
-	Content   string  `json:"content"`
-	NewNumber float64 `json:"newNumber"`
-	OldNumber float64 `json:"oldNumber"`
-}
-
-func (l Line3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *Line3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"content", "newNumber", "oldNumber"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *Line3) GetContent() string {
-	if l == nil {
-		return ""
-	}
-	return l.Content
-}
-
-func (l *Line3) GetNewNumber() float64 {
-	if l == nil {
-		return 0.0
-	}
-	return l.NewNumber
-}
-
-func (l *Line3) GetOldNumber() float64 {
-	if l == nil {
-		return 0.0
-	}
-	return l.OldNumber
-}
-
-type Line2 struct {
-	Content   string  `json:"content"`
-	NewNumber float64 `json:"newNumber"`
-}
-
-func (l Line2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *Line2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"content", "newNumber"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *Line2) GetContent() string {
-	if l == nil {
-		return ""
-	}
-	return l.Content
-}
-
-func (l *Line2) GetNewNumber() float64 {
-	if l == nil {
-		return 0.0
-	}
-	return l.NewNumber
-}
-
-type Line1 struct {
-	Content   string  `json:"content"`
-	OldNumber float64 `json:"oldNumber"`
-}
-
-func (l Line1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *Line1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"content", "oldNumber"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *Line1) GetContent() string {
-	if l == nil {
-		return ""
-	}
-	return l.Content
-}
-
-func (l *Line1) GetOldNumber() float64 {
-	if l == nil {
-		return 0.0
-	}
-	return l.OldNumber
-}
-
-type LineUnionType string
-
-const (
-	LineUnionTypeLine1 LineUnionType = "line_1"
-	LineUnionTypeLine2 LineUnionType = "line_2"
-	LineUnionTypeLine3 LineUnionType = "line_3"
-)
-
-type LineUnion struct {
-	Line1 *Line1 `queryParam:"inline,name=line" union:"member"`
-	Line2 *Line2 `queryParam:"inline,name=line" union:"member"`
-	Line3 *Line3 `queryParam:"inline,name=line" union:"member"`
-
-	Type LineUnionType
-}
-
-func CreateLineUnionLine1(line1 Line1) LineUnion {
-	typ := LineUnionTypeLine1
-
-	return LineUnion{
-		Line1: &line1,
-		Type:  typ,
-	}
-}
-
-func CreateLineUnionLine2(line2 Line2) LineUnion {
-	typ := LineUnionTypeLine2
-
-	return LineUnion{
-		Line2: &line2,
-		Type:  typ,
-	}
-}
-
-func CreateLineUnionLine3(line3 Line3) LineUnion {
-	typ := LineUnionTypeLine3
-
-	return LineUnion{
-		Line3: &line3,
-		Type:  typ,
-	}
-}
-
-func (u *LineUnion) UnmarshalJSON(data []byte) error {
-
-	var line3 Line3 = Line3{}
-	if err := utils.UnmarshalJSON(data, &line3, "", true, nil); err == nil {
-		u.Line3 = &line3
-		u.Type = LineUnionTypeLine3
-		return nil
-	}
-
-	var line1 Line1 = Line1{}
-	if err := utils.UnmarshalJSON(data, &line1, "", true, nil); err == nil {
-		u.Line1 = &line1
-		u.Type = LineUnionTypeLine1
-		return nil
-	}
-
-	var line2 Line2 = Line2{}
-	if err := utils.UnmarshalJSON(data, &line2, "", true, nil); err == nil {
-		u.Line2 = &line2
-		u.Type = LineUnionTypeLine2
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for LineUnion", string(data))
-}
-
-func (u LineUnion) MarshalJSON() ([]byte, error) {
-	if u.Line1 != nil {
-		return utils.MarshalJSON(u.Line1, "", true)
-	}
-
-	if u.Line2 != nil {
-		return utils.MarshalJSON(u.Line2, "", true)
-	}
-
-	if u.Line3 != nil {
-		return utils.MarshalJSON(u.Line3, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type LineUnion: all fields are null")
-}
-
 type Block struct {
-	Header        string      `json:"header"`
-	Lines         []LineUnion `json:"lines"`
-	NewStartLine  float64     `json:"newStartLine"`
-	OldStartLine  float64     `json:"oldStartLine"`
-	OldStartLine2 *float64    `json:"oldStartLine2,omitempty"`
+	Header string `json:"header"`
+	// Diff Line
+	Lines         []DiffLine `json:"lines"`
+	NewStartLine  float64    `json:"newStartLine"`
+	OldStartLine  float64    `json:"oldStartLine"`
+	OldStartLine2 *float64   `json:"oldStartLine2,omitempty"`
 }
 
 func (b *Block) GetHeader() string {
@@ -206,9 +24,9 @@ func (b *Block) GetHeader() string {
 	return b.Header
 }
 
-func (b *Block) GetLines() []LineUnion {
+func (b *Block) GetLines() []DiffLine {
 	if b == nil {
-		return []LineUnion{}
+		return []DiffLine{}
 	}
 	return b.Lines
 }
@@ -242,8 +60,8 @@ const (
 )
 
 type ChecksumBefore struct {
-	Str        *string  `queryParam:"inline,name=checksumBefore" union:"member"`
-	ArrayOfStr []string `queryParam:"inline,name=checksumBefore" union:"member"`
+	Str        *string  `queryParam:"inline" union:"member"`
+	ArrayOfStr []string `queryParam:"inline" union:"member"`
 
 	Type ChecksumBeforeType
 }
@@ -305,8 +123,8 @@ const (
 )
 
 type OldMode struct {
-	Str        *string  `queryParam:"inline,name=oldMode" union:"member"`
-	ArrayOfStr []string `queryParam:"inline,name=oldMode" union:"member"`
+	Str        *string  `queryParam:"inline" union:"member"`
+	ArrayOfStr []string `queryParam:"inline" union:"member"`
 
 	Type OldModeType
 }

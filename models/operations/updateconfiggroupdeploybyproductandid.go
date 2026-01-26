@@ -7,9 +7,9 @@ import (
 )
 
 type UpdateConfigGroupDeployByProductAndIDRequest struct {
-	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+	// Name of the Cribl product to deploy commits to the Worker Groups, Outpost Groups, or Edge Fleets for.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// The <code>id</code> of the target Worker Group or Edge Fleet for commit deployment.
+	// The <code>id</code> of the target Worker Group, Outpost Group, or Edge Fleet for commit deployment.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// DeployRequest object
 	DeployRequest components.DeployRequest `request:"mediaType=application/json"`
@@ -36,31 +36,10 @@ func (u *UpdateConfigGroupDeployByProductAndIDRequest) GetDeployRequest() compon
 	return u.DeployRequest
 }
 
-// UpdateConfigGroupDeployByProductAndIDResponseBody - a list of ConfigGroup objects
-type UpdateConfigGroupDeployByProductAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                   `json:"count,omitempty"`
-	Items []components.ConfigGroup `json:"items,omitempty"`
-}
-
-func (u *UpdateConfigGroupDeployByProductAndIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
-}
-
-func (u *UpdateConfigGroupDeployByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
-	if u == nil {
-		return nil
-	}
-	return u.Items
-}
-
 type UpdateConfigGroupDeployByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of ConfigGroup objects
-	Object *UpdateConfigGroupDeployByProductAndIDResponseBody
+	CountedConfigGroup *components.CountedConfigGroup
 }
 
 func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -70,9 +49,9 @@ func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetHTTPMeta() components
 	return u.HTTPMeta
 }
 
-func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetObject() *UpdateConfigGroupDeployByProductAndIDResponseBody {
+func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetCountedConfigGroup() *components.CountedConfigGroup {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedConfigGroup
 }

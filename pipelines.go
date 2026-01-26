@@ -99,6 +99,16 @@ func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*opera
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -108,10 +118,6 @@ func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*opera
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -201,12 +207,12 @@ func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*opera
 				return nil, err
 			}
 
-			var out operations.ListPipelineResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -267,7 +273,7 @@ func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*opera
 
 // Create a Pipeline
 // Create a new Pipeline.
-func (s *Pipelines) Create(ctx context.Context, request components.Pipeline, opts ...operations.Option) (*operations.CreatePipelineResponse, error) {
+func (s *Pipelines) Create(ctx context.Context, request components.PipelineInput, opts ...operations.Option) (*operations.CreatePipelineResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -339,6 +345,16 @@ func (s *Pipelines) Create(ctx context.Context, request components.Pipeline, opt
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -348,10 +364,6 @@ func (s *Pipelines) Create(ctx context.Context, request components.Pipeline, opt
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -441,12 +453,12 @@ func (s *Pipelines) Create(ctx context.Context, request components.Pipeline, opt
 				return nil, err
 			}
 
-			var out operations.CreatePipelineResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -576,6 +588,16 @@ func (s *Pipelines) Get(ctx context.Context, id string, opts ...operations.Optio
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -585,10 +607,6 @@ func (s *Pipelines) Get(ctx context.Context, id string, opts ...operations.Optio
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -678,12 +696,12 @@ func (s *Pipelines) Get(ctx context.Context, id string, opts ...operations.Optio
 				return nil, err
 			}
 
-			var out operations.GetPipelineByIDResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -744,7 +762,7 @@ func (s *Pipelines) Get(ctx context.Context, id string, opts ...operations.Optio
 
 // Update a Pipeline
 // Update the specified Pipeline.</br></br>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
-func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.Pipeline, opts ...operations.Option) (*operations.UpdatePipelineByIDResponse, error) {
+func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.PipelineInput, opts ...operations.Option) (*operations.UpdatePipelineByIDResponse, error) {
 	request := operations.UpdatePipelineByIDRequest{
 		ID:       id,
 		Pipeline: pipeline,
@@ -821,6 +839,16 @@ func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.P
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -830,10 +858,6 @@ func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.P
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -923,12 +947,12 @@ func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.P
 				return nil, err
 			}
 
-			var out operations.UpdatePipelineByIDResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1058,6 +1082,16 @@ func (s *Pipelines) Delete(ctx context.Context, id string, opts ...operations.Op
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -1067,10 +1101,6 @@ func (s *Pipelines) Delete(ctx context.Context, id string, opts ...operations.Op
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -1160,12 +1190,12 @@ func (s *Pipelines) Delete(ctx context.Context, id string, opts ...operations.Op
 				return nil, err
 			}
 
-			var out operations.DeletePipelineByIDResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

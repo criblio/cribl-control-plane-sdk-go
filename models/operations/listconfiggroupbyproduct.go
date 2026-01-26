@@ -7,17 +7,10 @@ import (
 )
 
 type ListConfigGroupByProductRequest struct {
+	// Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
 	Fields *string `queryParam:"style=form,explode=true,name=fields"`
-	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-}
-
-func (l *ListConfigGroupByProductRequest) GetFields() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Fields
 }
 
 func (l *ListConfigGroupByProductRequest) GetProduct() components.ProductsCore {
@@ -27,31 +20,17 @@ func (l *ListConfigGroupByProductRequest) GetProduct() components.ProductsCore {
 	return l.Product
 }
 
-// ListConfigGroupByProductResponseBody - a list of ConfigGroup objects
-type ListConfigGroupByProductResponseBody struct {
-	// number of items present in the items array
-	Count *int64                   `json:"count,omitempty"`
-	Items []components.ConfigGroup `json:"items,omitempty"`
-}
-
-func (l *ListConfigGroupByProductResponseBody) GetCount() *int64 {
+func (l *ListConfigGroupByProductRequest) GetFields() *string {
 	if l == nil {
 		return nil
 	}
-	return l.Count
-}
-
-func (l *ListConfigGroupByProductResponseBody) GetItems() []components.ConfigGroup {
-	if l == nil {
-		return nil
-	}
-	return l.Items
+	return l.Fields
 }
 
 type ListConfigGroupByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of ConfigGroup objects
-	Object *ListConfigGroupByProductResponseBody
+	CountedConfigGroup *components.CountedConfigGroup
 }
 
 func (l *ListConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (l *ListConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata
 	return l.HTTPMeta
 }
 
-func (l *ListConfigGroupByProductResponse) GetObject() *ListConfigGroupByProductResponseBody {
+func (l *ListConfigGroupByProductResponse) GetCountedConfigGroup() *components.CountedConfigGroup {
 	if l == nil {
 		return nil
 	}
-	return l.Object
+	return l.CountedConfigGroup
 }

@@ -1,0 +1,29 @@
+# RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP := components.CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPGet(components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP := components.CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPPost(components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP := components.CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPPostWithBody(components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+
+### RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
+
+```go
+restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP := components.CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPOther(components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther{/* values here */})
+```
+

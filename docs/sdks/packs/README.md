@@ -51,7 +51,7 @@ func main() {
             Author: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("and banish crossly abacus"),
             Source: criblcontrolplanesdkgo.Pointer("https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl"),
-            Tags: &components.PackRequestBodyTags1{
+            Tags: &components.TagsTypePackInstallInfo{
                 DataType: []string{
                     "double",
                     "boolean",
@@ -60,13 +60,13 @@ func main() {
                     "delectable-transom.com",
                     "radiant-sightseeing.info",
                 },
-                Technology: []string{
-                    "<value 1>",
-                },
                 Streamtags: []string{
                     "<value 1>",
                     "<value 2>",
                     "<value 3>",
+                },
+                Technology: []string{
+                    "<value 1>",
                 },
             },
             AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(true),
@@ -76,7 +76,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackInstallInfo != nil {
         // handle response
     }
 }
@@ -133,7 +133,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackInfo != nil {
         // handle response
     }
 }
@@ -253,7 +253,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackUninstallInfo != nil {
         // handle response
     }
 }
@@ -310,7 +310,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackInfo != nil {
         // handle response
     }
 }
@@ -372,7 +372,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackInfo != nil {
         // handle response
     }
 }

@@ -1,0 +1,23 @@
+# HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPGet(components.HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPPost(components.HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPPostWithBody(components.HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+

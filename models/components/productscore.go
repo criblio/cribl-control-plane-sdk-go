@@ -5,8 +5,9 @@ package components
 type ProductsCore string
 
 const (
-	ProductsCoreStream ProductsCore = "stream"
-	ProductsCoreEdge   ProductsCore = "edge"
+	ProductsCoreStream  ProductsCore = "stream"
+	ProductsCoreEdge    ProductsCore = "edge"
+	ProductsCoreOutpost ProductsCore = "outpost"
 )
 
 func (e ProductsCore) ToPointer() *ProductsCore {
@@ -17,7 +18,7 @@ func (e ProductsCore) ToPointer() *ProductsCore {
 func (e *ProductsCore) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "stream", "edge":
+		case "stream", "edge", "outpost":
 			return true
 		}
 	}
