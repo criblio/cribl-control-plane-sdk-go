@@ -31,185 +31,6 @@ func (e *InputPrometheusType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputPrometheusConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputPrometheusConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputPrometheusConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputPrometheusConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputPrometheusConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputPrometheusMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputPrometheusMode string
-
-const (
-	// InputPrometheusModeSmart Smart
-	InputPrometheusModeSmart InputPrometheusMode = "smart"
-	// InputPrometheusModeAlways Always On
-	InputPrometheusModeAlways InputPrometheusMode = "always"
-)
-
-func (e InputPrometheusMode) ToPointer() *InputPrometheusMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputPrometheusMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputPrometheusCompression - Codec to use to compress the persisted data
-type InputPrometheusCompression string
-
-const (
-	// InputPrometheusCompressionNone None
-	InputPrometheusCompressionNone InputPrometheusCompression = "none"
-	// InputPrometheusCompressionGzip Gzip
-	InputPrometheusCompressionGzip InputPrometheusCompression = "gzip"
-)
-
-func (e InputPrometheusCompression) ToPointer() *InputPrometheusCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputPrometheusCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputPrometheusPqControls struct {
-}
-
-func (i InputPrometheusPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputPrometheusPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputPrometheusPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputPrometheusMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputPrometheusCompression `default:"none" json:"compress"`
-	PqControls *InputPrometheusPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputPrometheusPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputPrometheusPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputPrometheusPq) GetMode() *InputPrometheusMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputPrometheusPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputPrometheusPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputPrometheusPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputPrometheusPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputPrometheusPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputPrometheusPq) GetCompress() *InputPrometheusCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputPrometheusPq) GetPqControls() *InputPrometheusPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
 // InputPrometheusDiscoveryType - Target discovery mechanism. Use static to manually enter a list of targets.
 type InputPrometheusDiscoveryType string
 
@@ -237,7 +58,7 @@ func (e *InputPrometheusDiscoveryType) IsExact() bool {
 	return false
 }
 
-// InputPrometheusLogLevel - Collector runtime Log Level
+// InputPrometheusLogLevel - Collector runtime log level
 type InputPrometheusLogLevel string
 
 const (
@@ -256,84 +77,6 @@ func (e *InputPrometheusLogLevel) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "error", "warn", "info", "debug":
-			return true
-		}
-	}
-	return false
-}
-
-type InputPrometheusMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputPrometheusMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputPrometheusMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputPrometheusMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputPrometheusMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-// InputPrometheusAuthTypeAuthenticationMethod - Enter credentials directly, or select a stored secret
-type InputPrometheusAuthTypeAuthenticationMethod string
-
-const (
-	InputPrometheusAuthTypeAuthenticationMethodManual InputPrometheusAuthTypeAuthenticationMethod = "manual"
-	InputPrometheusAuthTypeAuthenticationMethodSecret InputPrometheusAuthTypeAuthenticationMethod = "secret"
-)
-
-func (e InputPrometheusAuthTypeAuthenticationMethod) ToPointer() *InputPrometheusAuthTypeAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputPrometheusAuthTypeAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// InputPrometheusRecordType - DNS Record type to resolve
-type InputPrometheusRecordType string
-
-const (
-	InputPrometheusRecordTypeSrv  InputPrometheusRecordType = "SRV"
-	InputPrometheusRecordTypeA    InputPrometheusRecordType = "A"
-	InputPrometheusRecordTypeAaaa InputPrometheusRecordType = "AAAA"
-)
-
-func (e InputPrometheusRecordType) ToPointer() *InputPrometheusRecordType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputPrometheusRecordType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "SRV", "A", "AAAA":
 			return true
 		}
 	}
@@ -363,169 +106,89 @@ func (e *MetricsProtocol) IsExact() bool {
 	return false
 }
 
-// InputPrometheusAwsAuthenticationMethodAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type InputPrometheusAwsAuthenticationMethodAuthenticationMethod string
-
-const (
-	// InputPrometheusAwsAuthenticationMethodAuthenticationMethodAuto Auto
-	InputPrometheusAwsAuthenticationMethodAuthenticationMethodAuto InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
-	// InputPrometheusAwsAuthenticationMethodAuthenticationMethodManual Manual
-	InputPrometheusAwsAuthenticationMethodAuthenticationMethodManual InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "manual"
-	// InputPrometheusAwsAuthenticationMethodAuthenticationMethodSecret Secret Key pair
-	InputPrometheusAwsAuthenticationMethodAuthenticationMethodSecret InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "secret"
-)
-
-func (e InputPrometheusAwsAuthenticationMethodAuthenticationMethod) ToPointer() *InputPrometheusAwsAuthenticationMethodAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputPrometheusAwsAuthenticationMethodAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type InputPrometheusSearchFilter struct {
-	// Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
-	Name string `json:"Name"`
-	// Search Filter Values, if empty only "running" EC2 instances will be returned
-	Values []string `json:"Values"`
-}
-
-func (i InputPrometheusSearchFilter) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputPrometheusSearchFilter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"Name", "Values"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputPrometheusSearchFilter) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputPrometheusSearchFilter) GetValues() []string {
-	if i == nil {
-		return []string{}
-	}
-	return i.Values
-}
-
-// InputPrometheusSignatureVersion - Signature version to use for signing EC2 requests
-type InputPrometheusSignatureVersion string
-
-const (
-	InputPrometheusSignatureVersionV2 InputPrometheusSignatureVersion = "v2"
-	InputPrometheusSignatureVersionV4 InputPrometheusSignatureVersion = "v4"
-)
-
-func (e InputPrometheusSignatureVersion) ToPointer() *InputPrometheusSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputPrometheusSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type InputPrometheus struct {
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputPrometheusType `json:"type"`
-	Disabled *bool               `default:"false" json:"disabled"`
+	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputPrometheusConnection `json:"connections,omitempty"`
-	Pq          *InputPrometheusPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputPrometheusDiscoveryType `default:"static" json:"discoveryType"`
-	// How often in minutes to scrape targets for metrics, 60 must be evenly divisible by the value or save will fail.
-	Interval *float64 `default:"15" json:"interval"`
-	// Collector runtime Log Level
-	LogLevel *InputPrometheusLogLevel `default:"info" json:"logLevel"`
+	DiscoveryType *InputPrometheusDiscoveryType `json:"discoveryType,omitempty"`
+	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
+	Interval float64 `json:"interval"`
+	// Collector runtime log level
+	LogLevel InputPrometheusLogLevel `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
+	Timeout *float64 `json:"timeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata []InputPrometheusMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *InputPrometheusAuthTypeAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                                      `json:"description,omitempty"`
+	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
+	Description *string                          `json:"description,omitempty"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitempty"`
-	// DNS Record type to resolve
-	RecordType *InputPrometheusRecordType `default:"SRV" json:"recordType"`
-	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	// DNS record type to resolve
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
+	// The port number in the metrics URL for discovered targets
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *MetricsProtocol `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *MetricsProtocol `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *InputPrometheusAwsAuthenticationMethodAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                     `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Use public IP address for discovered targets. Set to false if the private IP address should be used.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
-	// EC2 Instance Search Filter
-	SearchFilter []InputPrometheusSearchFilter `json:"searchFilter,omitempty"`
-	AwsSecretKey *string                       `json:"awsSecretKey,omitempty"`
+	// Use public IP address for discovered targets. Disable to use the private IP address.
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
+	// Filter to apply when searching for EC2 instances
+	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
+	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitempty"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *InputPrometheusSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitempty"`
 	// Password for Prometheus Basic authentication
@@ -539,7 +202,7 @@ func (i InputPrometheus) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputPrometheus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "interval", "logLevel"}); err != nil {
 		return err
 	}
 	return nil
@@ -601,14 +264,14 @@ func (i *InputPrometheus) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputPrometheus) GetConnections() []InputPrometheusConnection {
+func (i *InputPrometheus) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputPrometheus) GetPq() *InputPrometheusPq {
+func (i *InputPrometheus) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -629,16 +292,16 @@ func (i *InputPrometheus) GetDiscoveryType() *InputPrometheusDiscoveryType {
 	return i.DiscoveryType
 }
 
-func (i *InputPrometheus) GetInterval() *float64 {
+func (i *InputPrometheus) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
 
-func (i *InputPrometheus) GetLogLevel() *InputPrometheusLogLevel {
+func (i *InputPrometheus) GetLogLevel() InputPrometheusLogLevel {
 	if i == nil {
-		return nil
+		return InputPrometheusLogLevel("")
 	}
 	return i.LogLevel
 }
@@ -648,6 +311,13 @@ func (i *InputPrometheus) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return i.RejectUnauthorized
+}
+
+func (i *InputPrometheus) GetTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Timeout
 }
 
 func (i *InputPrometheus) GetKeepAliveTime() *float64 {
@@ -685,14 +355,14 @@ func (i *InputPrometheus) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputPrometheus) GetMetadata() []InputPrometheusMetadatum {
+func (i *InputPrometheus) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputPrometheus) GetAuthType() *InputPrometheusAuthTypeAuthenticationMethod {
+func (i *InputPrometheus) GetAuthType() *AuthenticationMethodOptionsSasl {
 	if i == nil {
 		return nil
 	}
@@ -713,7 +383,7 @@ func (i *InputPrometheus) GetTargetList() []string {
 	return i.TargetList
 }
 
-func (i *InputPrometheus) GetRecordType() *InputPrometheusRecordType {
+func (i *InputPrometheus) GetRecordType() *RecordTypeOptions {
 	if i == nil {
 		return nil
 	}
@@ -748,7 +418,7 @@ func (i *InputPrometheus) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputPrometheus) GetAwsAuthenticationMethod() *InputPrometheusAwsAuthenticationMethodAuthenticationMethod {
+func (i *InputPrometheus) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -776,7 +446,7 @@ func (i *InputPrometheus) GetUsePublicIP() *bool {
 	return i.UsePublicIP
 }
 
-func (i *InputPrometheus) GetSearchFilter() []InputPrometheusSearchFilter {
+func (i *InputPrometheus) GetSearchFilter() []ItemsTypeSearchFilter {
 	if i == nil {
 		return nil
 	}
@@ -804,7 +474,7 @@ func (i *InputPrometheus) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputPrometheus) GetSignatureVersion() *InputPrometheusSignatureVersion {
+func (i *InputPrometheus) GetSignatureVersion() *SignatureVersionOptions1 {
 	if i == nil {
 		return nil
 	}

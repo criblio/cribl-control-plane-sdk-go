@@ -7,9 +7,9 @@ import (
 )
 
 type GetConfigGroupConfigVersionByProductAndIDRequest struct {
-	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+	// Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// The <code>id</code> of the Worker Group or Edge Fleet to get the configuration version for.
+	// The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get the configuration version for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
@@ -27,31 +27,10 @@ func (g *GetConfigGroupConfigVersionByProductAndIDRequest) GetID() string {
 	return g.ID
 }
 
-// GetConfigGroupConfigVersionByProductAndIDResponseBody - a list of string objects
-type GetConfigGroupConfigVersionByProductAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64   `json:"count,omitempty"`
-	Items []string `json:"items,omitempty"`
-}
-
-func (g *GetConfigGroupConfigVersionByProductAndIDResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetConfigGroupConfigVersionByProductAndIDResponseBody) GetItems() []string {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetConfigGroupConfigVersionByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of string objects
-	Object *GetConfigGroupConfigVersionByProductAndIDResponseBody
+	CountedString *components.CountedString
 }
 
 func (g *GetConfigGroupConfigVersionByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (g *GetConfigGroupConfigVersionByProductAndIDResponse) GetHTTPMeta() compon
 	return g.HTTPMeta
 }
 
-func (g *GetConfigGroupConfigVersionByProductAndIDResponse) GetObject() *GetConfigGroupConfigVersionByProductAndIDResponseBody {
+func (g *GetConfigGroupConfigVersionByProductAndIDResponse) GetCountedString() *components.CountedString {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedString
 }

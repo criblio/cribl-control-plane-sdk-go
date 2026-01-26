@@ -7,9 +7,9 @@ import (
 )
 
 type GetConfigGroupACLTeamsByProductAndIDRequest struct {
-	// Name of the Cribl product that contains the Worker Group or Edge Fleet.
+	// Name of the Cribl product that contains the Worker Group, Outpost Group, or Edge Fleet.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// The <code>id</code> of the Worker Group or Edge Fleet to get the team ACL for.
+	// The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get the team ACL for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Filter for limiting the response to ACL entries for the specified RBAC resource type.
 	Type *components.RbacResource `queryParam:"style=form,explode=true,name=type"`
@@ -36,31 +36,10 @@ func (g *GetConfigGroupACLTeamsByProductAndIDRequest) GetType() *components.Rbac
 	return g.Type
 }
 
-// GetConfigGroupACLTeamsByProductAndIDResponseBody - a list of TeamAccessControlList objects
-type GetConfigGroupACLTeamsByProductAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                             `json:"count,omitempty"`
-	Items []components.TeamAccessControlList `json:"items,omitempty"`
-}
-
-func (g *GetConfigGroupACLTeamsByProductAndIDResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetConfigGroupACLTeamsByProductAndIDResponseBody) GetItems() []components.TeamAccessControlList {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetConfigGroupACLTeamsByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of TeamAccessControlList objects
-	Object *GetConfigGroupACLTeamsByProductAndIDResponseBody
+	CountedTeamAccessControlList *components.CountedTeamAccessControlList
 }
 
 func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -70,9 +49,9 @@ func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetHTTPMeta() components.
 	return g.HTTPMeta
 }
 
-func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetObject() *GetConfigGroupACLTeamsByProductAndIDResponseBody {
+func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetCountedTeamAccessControlList() *components.CountedTeamAccessControlList {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedTeamAccessControlList
 }

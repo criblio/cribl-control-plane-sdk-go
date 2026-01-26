@@ -31,357 +31,11 @@ func (e *OutputSplunkHecType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputSplunkHecMinimumTLSVersion string
-
-const (
-	OutputSplunkHecMinimumTLSVersionTlSv1  OutputSplunkHecMinimumTLSVersion = "TLSv1"
-	OutputSplunkHecMinimumTLSVersionTlSv11 OutputSplunkHecMinimumTLSVersion = "TLSv1.1"
-	OutputSplunkHecMinimumTLSVersionTlSv12 OutputSplunkHecMinimumTLSVersion = "TLSv1.2"
-	OutputSplunkHecMinimumTLSVersionTlSv13 OutputSplunkHecMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputSplunkHecMinimumTLSVersion) ToPointer() *OutputSplunkHecMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkHecMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputSplunkHecMaximumTLSVersion string
-
-const (
-	OutputSplunkHecMaximumTLSVersionTlSv1  OutputSplunkHecMaximumTLSVersion = "TLSv1"
-	OutputSplunkHecMaximumTLSVersionTlSv11 OutputSplunkHecMaximumTLSVersion = "TLSv1.1"
-	OutputSplunkHecMaximumTLSVersionTlSv12 OutputSplunkHecMaximumTLSVersion = "TLSv1.2"
-	OutputSplunkHecMaximumTLSVersionTlSv13 OutputSplunkHecMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputSplunkHecMaximumTLSVersion) ToPointer() *OutputSplunkHecMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkHecMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputSplunkHecTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                           `json:"passphrase,omitempty"`
-	MinVersion *OutputSplunkHecMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputSplunkHecMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputSplunkHecTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) GetMinVersion() *OutputSplunkHecMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputSplunkHecTLSSettingsClientSide) GetMaxVersion() *OutputSplunkHecMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-type OutputSplunkHecExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputSplunkHecExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkHecExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkHecExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputSplunkHecExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputSplunkHecFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputSplunkHecFailedRequestLoggingMode string
-
-const (
-	// OutputSplunkHecFailedRequestLoggingModePayload Payload
-	OutputSplunkHecFailedRequestLoggingModePayload OutputSplunkHecFailedRequestLoggingMode = "payload"
-	// OutputSplunkHecFailedRequestLoggingModePayloadAndHeaders Payload + Headers
-	OutputSplunkHecFailedRequestLoggingModePayloadAndHeaders OutputSplunkHecFailedRequestLoggingMode = "payloadAndHeaders"
-	// OutputSplunkHecFailedRequestLoggingModeNone None
-	OutputSplunkHecFailedRequestLoggingModeNone OutputSplunkHecFailedRequestLoggingMode = "none"
-)
-
-func (e OutputSplunkHecFailedRequestLoggingMode) ToPointer() *OutputSplunkHecFailedRequestLoggingMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkHecFailedRequestLoggingMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "payload", "payloadAndHeaders", "none":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSplunkHecAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type OutputSplunkHecAuthenticationMethod string
-
-const (
-	OutputSplunkHecAuthenticationMethodManual OutputSplunkHecAuthenticationMethod = "manual"
-	OutputSplunkHecAuthenticationMethodSecret OutputSplunkHecAuthenticationMethod = "secret"
-)
-
-func (e OutputSplunkHecAuthenticationMethod) ToPointer() *OutputSplunkHecAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkHecAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputSplunkHecResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSplunkHecResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputSplunkHecTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSplunkHecTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputSplunkHecBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSplunkHecBackpressureBehavior string
-
-const (
-	// OutputSplunkHecBackpressureBehaviorBlock Block
-	OutputSplunkHecBackpressureBehaviorBlock OutputSplunkHecBackpressureBehavior = "block"
-	// OutputSplunkHecBackpressureBehaviorDrop Drop
-	OutputSplunkHecBackpressureBehaviorDrop OutputSplunkHecBackpressureBehavior = "drop"
-	// OutputSplunkHecBackpressureBehaviorQueue Persistent Queue
-	OutputSplunkHecBackpressureBehaviorQueue OutputSplunkHecBackpressureBehavior = "queue"
-)
-
-func (e OutputSplunkHecBackpressureBehavior) ToPointer() *OutputSplunkHecBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkHecBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputSplunkHecURL struct {
 	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
-	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
+	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
+	Weight *float64 `json:"weight,omitempty"`
 }
 
 func (o OutputSplunkHecURL) MarshalJSON() ([]byte, error) {
@@ -389,15 +43,15 @@ func (o OutputSplunkHecURL) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSplunkHecURL) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"url"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputSplunkHecURL) GetURL() *string {
+func (o *OutputSplunkHecURL) GetURL() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.URL
 }
@@ -407,83 +61,6 @@ func (o *OutputSplunkHecURL) GetWeight() *float64 {
 		return nil
 	}
 	return o.Weight
-}
-
-// OutputSplunkHecMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSplunkHecMode string
-
-const (
-	// OutputSplunkHecModeError Error
-	OutputSplunkHecModeError OutputSplunkHecMode = "error"
-	// OutputSplunkHecModeAlways Backpressure
-	OutputSplunkHecModeAlways OutputSplunkHecMode = "always"
-	// OutputSplunkHecModeBackpressure Always On
-	OutputSplunkHecModeBackpressure OutputSplunkHecMode = "backpressure"
-)
-
-func (e OutputSplunkHecMode) ToPointer() *OutputSplunkHecMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkHecMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSplunkHecCompression - Codec to use to compress the persisted data
-type OutputSplunkHecCompression string
-
-const (
-	// OutputSplunkHecCompressionNone None
-	OutputSplunkHecCompressionNone OutputSplunkHecCompression = "none"
-	// OutputSplunkHecCompressionGzip Gzip
-	OutputSplunkHecCompressionGzip OutputSplunkHecCompression = "gzip"
-)
-
-func (e OutputSplunkHecCompression) ToPointer() *OutputSplunkHecCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkHecCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSplunkHecQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputSplunkHecQueueFullBehavior string
-
-const (
-	// OutputSplunkHecQueueFullBehaviorBlock Block
-	OutputSplunkHecQueueFullBehaviorBlock OutputSplunkHecQueueFullBehavior = "block"
-	// OutputSplunkHecQueueFullBehaviorDrop Drop new data
-	OutputSplunkHecQueueFullBehaviorDrop OutputSplunkHecQueueFullBehavior = "drop"
-)
-
-func (e OutputSplunkHecQueueFullBehavior) ToPointer() *OutputSplunkHecQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkHecQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
 }
 
 type OutputSplunkHecPqControls struct {
@@ -513,82 +90,82 @@ type OutputSplunkHec struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	LoadBalanced *bool `json:"loadBalanced,omitempty"`
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-	NextQueue *string `default:"indexQueue" json:"nextQueue"`
+	NextQueue *string `json:"nextQueue,omitempty"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-	TCPRouting *string                               `default:"nowhere" json:"tcpRouting"`
-	TLS        *OutputSplunkHecTLSSettingsClientSide `json:"tls,omitempty"`
+	TCPRouting *string                     `json:"tcpRouting,omitempty"`
+	TLS        *TLSSettingsClientSideType1 `json:"tls,omitempty"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `default:"5" json:"concurrency"`
+	Concurrency *float64 `json:"concurrency,omitempty"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
 	// Compress the payload body before sending
-	Compress *bool `default:"true" json:"compress"`
+	Compress *bool `json:"compress,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputSplunkHecExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputSplunkHecFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
-	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *OutputSplunkHecAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputSplunkHecResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputSplunkHecTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSplunkHecBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                              `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	Description    *string                      `json:"description,omitempty"`
 	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
-	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
+	URL *string `json:"url,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool                `default:"false" json:"excludeSelf"`
+	ExcludeSelf *bool                `json:"excludeSelf,omitempty"`
 	Urls        []OutputSplunkHecURL `json:"urls,omitempty"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
 	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
 	// Splunk HEC authentication token
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputSplunkHecMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputSplunkHecCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputSplunkHecQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputSplunkHecPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions  `json:"pqOnBackpressure,omitempty"`
+	PqControls       *OutputSplunkHecPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputSplunkHec) MarshalJSON() ([]byte, error) {
@@ -665,7 +242,7 @@ func (o *OutputSplunkHec) GetTCPRouting() *string {
 	return o.TCPRouting
 }
 
-func (o *OutputSplunkHec) GetTLS() *OutputSplunkHecTLSSettingsClientSide {
+func (o *OutputSplunkHec) GetTLS() *TLSSettingsClientSideType1 {
 	if o == nil {
 		return nil
 	}
@@ -721,14 +298,14 @@ func (o *OutputSplunkHec) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputSplunkHec) GetExtraHTTPHeaders() []OutputSplunkHecExtraHTTPHeader {
+func (o *OutputSplunkHec) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if o == nil {
 		return nil
 	}
 	return o.ExtraHTTPHeaders
 }
 
-func (o *OutputSplunkHec) GetFailedRequestLoggingMode() *OutputSplunkHecFailedRequestLoggingMode {
+func (o *OutputSplunkHec) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -749,21 +326,21 @@ func (o *OutputSplunkHec) GetEnableMultiMetrics() *bool {
 	return o.EnableMultiMetrics
 }
 
-func (o *OutputSplunkHec) GetAuthType() *OutputSplunkHecAuthenticationMethod {
+func (o *OutputSplunkHec) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
 }
 
-func (o *OutputSplunkHec) GetResponseRetrySettings() []OutputSplunkHecResponseRetrySetting {
+func (o *OutputSplunkHec) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputSplunkHec) GetTimeoutRetrySettings() *OutputSplunkHecTimeoutRetrySettings {
+func (o *OutputSplunkHec) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
@@ -777,7 +354,7 @@ func (o *OutputSplunkHec) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputSplunkHec) GetOnBackpressure() *OutputSplunkHecBackpressureBehavior {
+func (o *OutputSplunkHec) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -861,7 +438,7 @@ func (o *OutputSplunkHec) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputSplunkHec) GetPqMode() *OutputSplunkHecMode {
+func (o *OutputSplunkHec) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -903,14 +480,14 @@ func (o *OutputSplunkHec) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputSplunkHec) GetPqCompress() *OutputSplunkHecCompression {
+func (o *OutputSplunkHec) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputSplunkHec) GetPqOnBackpressure() *OutputSplunkHecQueueFullBehavior {
+func (o *OutputSplunkHec) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

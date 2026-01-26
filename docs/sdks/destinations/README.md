@@ -44,7 +44,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }
@@ -83,6 +83,7 @@ import(
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -96,10 +97,10 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Create(ctx, components.CreateOutputElasticCloud(
-        components.OutputElasticCloud{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.OutputElasticCloudTypeElasticCloud,
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestTcpjson(
+        operations.OutputTcpjson{
+            ID: "tcpjson-output",
+            Type: operations.CreateOutputTypeTcpjsonTcpjson,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             SystemFields: []string{
                 "<value 1>",
@@ -109,47 +110,63 @@ func main() {
             Streamtags: []string{
                 "<value 1>",
             },
-            URL: "https://probable-rationale.com/",
-            Index: "<value>",
-            ExtraHTTPHeaders: []components.OutputElasticCloudExtraHTTPHeader{
-                components.OutputElasticCloudExtraHTTPHeader{
-                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Value: "<value>",
+            LoadBalanced: criblcontrolplanesdkgo.Pointer(false),
+            Compression: components.CompressionOptions1Gzip.ToPointer(),
+            LogFailedRequests: criblcontrolplanesdkgo.Pointer(true),
+            ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
+            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
+                Disabled: criblcontrolplanesdkgo.Pointer(false),
+                RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
+                Servername: criblcontrolplanesdkgo.Pointer("<value>"),
+                CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
+                CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
+                MinVersion: components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv13.ToPointer(),
+                MaxVersion: components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv13.ToPointer(),
+            },
+            ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](861.22),
+            WriteTimeout: criblcontrolplanesdkgo.Pointer[float64](588.22),
+            TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](3391.17),
+            SendHeader: criblcontrolplanesdkgo.Pointer(true),
+            OnBackpressure: components.BackpressureBehaviorOptionsBlock.ToPointer(),
+            AuthType: components.AuthenticationMethodOptionsAuthTokensItemsManual.ToPointer(),
+            Description: criblcontrolplanesdkgo.Pointer("suckle parsnip even engage lest"),
+            Host: criblcontrolplanesdkgo.Pointer("localhost"),
+            Port: criblcontrolplanesdkgo.Pointer[float64](10090),
+            ExcludeSelf: criblcontrolplanesdkgo.Pointer(true),
+            Hosts: []components.ItemsTypeHosts{
+                components.ItemsTypeHosts{
+                    Host: "proper-prohibition.com",
+                    Port: 7840.9,
+                    TLS: components.TLSOptionsHostsItemsInherit.ToPointer(),
+                    Servername: criblcontrolplanesdkgo.Pointer("<value>"),
+                    Weight: criblcontrolplanesdkgo.Pointer[float64](3441.24),
                 },
             },
-            SafeHeaders: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ExtraParams: []components.OutputElasticCloudExtraParam{
-                components.OutputElasticCloudExtraParam{
-                    Name: "<value>",
-                    Value: "<value>",
-                },
-            },
-            Auth: &components.OutputElasticCloudAuth{
-                Username: criblcontrolplanesdkgo.Pointer("Imogene1"),
-                Password: criblcontrolplanesdkgo.Pointer("tA9DUjJtHSnXqh9"),
-                CredentialsSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-                ManualAPIKey: criblcontrolplanesdkgo.Pointer("<value>"),
-                TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-            },
-            ElasticPipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-            ResponseRetrySettings: []components.OutputElasticCloudResponseRetrySetting{
-                components.OutputElasticCloudResponseRetrySetting{
-                    HTTPStatus: 7295.73,
-                },
-            },
-            TimeoutRetrySettings: &components.OutputElasticCloudTimeoutRetrySettings{},
-            ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Pointer(false),
-            Description: criblcontrolplanesdkgo.Pointer("hourly about into"),
-            PqControls: &components.OutputElasticCloudPqControls{},
+            DNSResolvePeriodSec: criblcontrolplanesdkgo.Pointer[float64](9682.2),
+            LoadBalanceStatsPeriodSec: criblcontrolplanesdkgo.Pointer[float64](6468.68),
+            MaxConcurrentSenders: criblcontrolplanesdkgo.Pointer[float64](2841.6),
+            PqStrictOrdering: criblcontrolplanesdkgo.Pointer(true),
+            PqRatePerSec: criblcontrolplanesdkgo.Pointer[float64](5558.99),
+            PqMode: components.ModeOptionsBackpressure.ToPointer(),
+            PqMaxBufferSize: criblcontrolplanesdkgo.Pointer[float64](7385.62),
+            PqMaxBackpressureSec: criblcontrolplanesdkgo.Pointer[float64](5308.79),
+            PqMaxFileSize: criblcontrolplanesdkgo.Pointer("<value>"),
+            PqMaxSize: criblcontrolplanesdkgo.Pointer("<value>"),
+            PqPath: criblcontrolplanesdkgo.Pointer("<value>"),
+            PqCompress: components.CompressionOptionsPqNone.ToPointer(),
+            PqOnBackpressure: components.QueueFullBehaviorOptionsDrop.ToPointer(),
+            PqControls: &operations.PqControlsTcpjson{},
+            AuthToken: criblcontrolplanesdkgo.Pointer("<value>"),
+            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }
@@ -157,11 +174,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `request`                                                | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | The request object to use for the request.               |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                        | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `ctx`                                                                            | [context.Context](https://pkg.go.dev/context#Context)                            | :heavy_check_mark:                                                               | The context to use for the request.                                              |
+| `request`                                                                        | [operations.CreateOutputRequest](../../models/operations/createoutputrequest.md) | :heavy_check_mark:                                                               | The request object to use for the request.                                       |
+| `opts`                                                                           | [][operations.Option](../../models/operations/option.md)                         | :heavy_minus_sign:                                                               | The options for this request.                                                    |
 
 ### Response
 
@@ -206,7 +223,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }
@@ -259,10 +276,10 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSignalfx(
-        components.OutputSignalfx{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.OutputSignalfxTypeSignalfx,
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputDefault(
+        components.OutputDefault{
+            ID: criblcontrolplanesdkgo.Pointer("default-output"),
+            Type: components.OutputDefaultTypeDefault,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             SystemFields: []string{
                 "<value 1>",
@@ -272,32 +289,13 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            ExtraHTTPHeaders: []components.OutputSignalfxExtraHTTPHeader{
-                components.OutputSignalfxExtraHTTPHeader{
-                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Value: "<value>",
-                },
-            },
-            SafeHeaders: []string{
-                "<value 1>",
-            },
-            ResponseRetrySettings: []components.OutputSignalfxResponseRetrySetting{
-                components.OutputSignalfxResponseRetrySetting{
-                    HTTPStatus: 2924.72,
-                },
-            },
-            TimeoutRetrySettings: &components.OutputSignalfxTimeoutRetrySettings{},
-            ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Pointer(false),
-            Description: criblcontrolplanesdkgo.Pointer("phooey positively a consequently meh until"),
-            Token: criblcontrolplanesdkgo.Pointer("<value>"),
-            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-            PqControls: &components.OutputSignalfxPqControls{},
+            DefaultID: "my-default-output",
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }
@@ -355,7 +353,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }

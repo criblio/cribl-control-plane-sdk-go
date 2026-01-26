@@ -30,8 +30,8 @@ func newTeams(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 	}
 }
 
-// Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
-// Get the Access Control List (ACL) for teams that have permissions on a Worker Group or Edge Fleet for the specified Cribl product.
+// Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+// Get the Access Control List (ACL) for teams that have permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
 func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id string, type_ *components.RbacResource, opts ...operations.Option) (*operations.GetConfigGroupACLTeamsByProductAndIDResponse, error) {
 	request := operations.GetConfigGroupACLTeamsByProductAndIDRequest{
 		Product: product,
@@ -107,6 +107,16 @@ func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id str
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -116,10 +126,6 @@ func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id str
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -209,12 +215,12 @@ func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id str
 				return nil, err
 			}
 
-			var out operations.GetConfigGroupACLTeamsByProductAndIDResponseBody
+			var out components.CountedTeamAccessControlList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedTeamAccessControlList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

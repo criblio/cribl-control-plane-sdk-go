@@ -20,6 +20,7 @@ const (
 	OutputTypeSplunk                 OutputType = "splunk"
 	OutputTypeSplunkLb               OutputType = "splunk_lb"
 	OutputTypeSplunkHec              OutputType = "splunk_hec"
+	OutputTypeWizHec                 OutputType = "wiz_hec"
 	OutputTypeTcpjson                OutputType = "tcpjson"
 	OutputTypeWavefront              OutputType = "wavefront"
 	OutputTypeSignalfx               OutputType = "signalfx"
@@ -64,6 +65,7 @@ const (
 	OutputTypeDataset                OutputType = "dataset"
 	OutputTypeCriblTCP               OutputType = "cribl_tcp"
 	OutputTypeCriblHTTP              OutputType = "cribl_http"
+	OutputTypeCriblSearchEngine      OutputType = "cribl_search_engine"
 	OutputTypeHumioHec               OutputType = "humio_hec"
 	OutputTypeCrowdstrikeNextGenSiem OutputType = "crowdstrike_next_gen_siem"
 	OutputTypeDlS3                   OutputType = "dl_s3"
@@ -83,74 +85,76 @@ const (
 )
 
 type Output struct {
-	OutputDefault                *OutputDefault                `queryParam:"inline,name=Output" union:"member"`
-	OutputWebhook                *OutputWebhook                `queryParam:"inline,name=Output" union:"member"`
-	OutputSentinel               *OutputSentinel               `queryParam:"inline,name=Output" union:"member"`
-	OutputDevnull                *OutputDevnull                `queryParam:"inline,name=Output" union:"member"`
-	OutputSyslog                 *OutputSyslog                 `queryParam:"inline,name=Output" union:"member"`
-	OutputSplunk                 *OutputSplunk                 `queryParam:"inline,name=Output" union:"member"`
-	OutputSplunkLb               *OutputSplunkLb               `queryParam:"inline,name=Output" union:"member"`
-	OutputSplunkHec              *OutputSplunkHec              `queryParam:"inline,name=Output" union:"member"`
-	OutputTcpjson                *OutputTcpjson                `queryParam:"inline,name=Output" union:"member"`
-	OutputWavefront              *OutputWavefront              `queryParam:"inline,name=Output" union:"member"`
-	OutputSignalfx               *OutputSignalfx               `queryParam:"inline,name=Output" union:"member"`
-	OutputFilesystem             *OutputFilesystem             `queryParam:"inline,name=Output" union:"member"`
-	OutputS3                     *OutputS3                     `queryParam:"inline,name=Output" union:"member"`
-	OutputAzureBlob              *OutputAzureBlob              `queryParam:"inline,name=Output" union:"member"`
-	OutputAzureDataExplorer      *OutputAzureDataExplorer      `queryParam:"inline,name=Output" union:"member"`
-	OutputAzureLogs              *OutputAzureLogs              `queryParam:"inline,name=Output" union:"member"`
-	OutputKinesis                *OutputKinesis                `queryParam:"inline,name=Output" union:"member"`
-	OutputHoneycomb              *OutputHoneycomb              `queryParam:"inline,name=Output" union:"member"`
-	OutputAzureEventhub          *OutputAzureEventhub          `queryParam:"inline,name=Output" union:"member"`
-	OutputGoogleChronicle        *OutputGoogleChronicle        `queryParam:"inline,name=Output" union:"member"`
-	OutputGoogleCloudStorage     *OutputGoogleCloudStorage     `queryParam:"inline,name=Output" union:"member"`
-	OutputGoogleCloudLogging     *OutputGoogleCloudLogging     `queryParam:"inline,name=Output" union:"member"`
-	OutputGooglePubsub           *OutputGooglePubsub           `queryParam:"inline,name=Output" union:"member"`
-	OutputExabeam                *OutputExabeam                `queryParam:"inline,name=Output" union:"member"`
-	OutputKafka                  *OutputKafka                  `queryParam:"inline,name=Output" union:"member"`
-	OutputConfluentCloud         *OutputConfluentCloud         `queryParam:"inline,name=Output" union:"member"`
-	OutputMsk                    *OutputMsk                    `queryParam:"inline,name=Output" union:"member"`
-	OutputElastic                *OutputElastic                `queryParam:"inline,name=Output" union:"member"`
-	OutputElasticCloud           *OutputElasticCloud           `queryParam:"inline,name=Output" union:"member"`
-	OutputNewrelic               *OutputNewrelic               `queryParam:"inline,name=Output" union:"member"`
-	OutputNewrelicEvents         *OutputNewrelicEvents         `queryParam:"inline,name=Output" union:"member"`
-	OutputInfluxdb               *OutputInfluxdb               `queryParam:"inline,name=Output" union:"member"`
-	OutputCloudwatch             *OutputCloudwatch             `queryParam:"inline,name=Output" union:"member"`
-	OutputMinio                  *OutputMinio                  `queryParam:"inline,name=Output" union:"member"`
-	OutputStatsd                 *OutputStatsd                 `queryParam:"inline,name=Output" union:"member"`
-	OutputStatsdExt              *OutputStatsdExt              `queryParam:"inline,name=Output" union:"member"`
-	OutputGraphite               *OutputGraphite               `queryParam:"inline,name=Output" union:"member"`
-	OutputRouter                 *OutputRouter                 `queryParam:"inline,name=Output" union:"member"`
-	OutputSns                    *OutputSns                    `queryParam:"inline,name=Output" union:"member"`
-	OutputSqs                    *OutputSqs                    `queryParam:"inline,name=Output" union:"member"`
-	OutputSnmp                   *OutputSnmp                   `queryParam:"inline,name=Output" union:"member"`
-	OutputSumoLogic              *OutputSumoLogic              `queryParam:"inline,name=Output" union:"member"`
-	OutputDatadog                *OutputDatadog                `queryParam:"inline,name=Output" union:"member"`
-	OutputGrafanaCloud           *OutputGrafanaCloud           `queryParam:"inline,name=Output" union:"member"`
-	OutputLoki                   *OutputLoki                   `queryParam:"inline,name=Output" union:"member"`
-	OutputPrometheus             *OutputPrometheus             `queryParam:"inline,name=Output" union:"member"`
-	OutputRing                   *OutputRing                   `queryParam:"inline,name=Output" union:"member"`
-	OutputOpenTelemetry          *OutputOpenTelemetry          `queryParam:"inline,name=Output" union:"member"`
-	OutputServiceNow             *OutputServiceNow             `queryParam:"inline,name=Output" union:"member"`
-	OutputDataset                *OutputDataset                `queryParam:"inline,name=Output" union:"member"`
-	OutputCriblTCP               *OutputCriblTCP               `queryParam:"inline,name=Output" union:"member"`
-	OutputCriblHTTP              *OutputCriblHTTP              `queryParam:"inline,name=Output" union:"member"`
-	OutputHumioHec               *OutputHumioHec               `queryParam:"inline,name=Output" union:"member"`
-	OutputCrowdstrikeNextGenSiem *OutputCrowdstrikeNextGenSiem `queryParam:"inline,name=Output" union:"member"`
-	OutputDlS3                   *OutputDlS3                   `queryParam:"inline,name=Output" union:"member"`
-	OutputSecurityLake           *OutputSecurityLake           `queryParam:"inline,name=Output" union:"member"`
-	OutputCriblLake              *OutputCriblLake              `queryParam:"inline,name=Output" union:"member"`
-	OutputDiskSpool              *OutputDiskSpool              `queryParam:"inline,name=Output" union:"member"`
-	OutputClickHouse             *OutputClickHouse             `queryParam:"inline,name=Output" union:"member"`
-	OutputXsiam                  *OutputXsiam                  `queryParam:"inline,name=Output" union:"member"`
-	OutputNetflow                *OutputNetflow                `queryParam:"inline,name=Output" union:"member"`
-	OutputDynatraceHTTP          *OutputDynatraceHTTP          `queryParam:"inline,name=Output" union:"member"`
-	OutputDynatraceOtlp          *OutputDynatraceOtlp          `queryParam:"inline,name=Output" union:"member"`
-	OutputSentinelOneAiSiem      *OutputSentinelOneAiSiem      `queryParam:"inline,name=Output" union:"member"`
-	OutputChronicle              *OutputChronicle              `queryParam:"inline,name=Output" union:"member"`
-	OutputDatabricks             *OutputDatabricks             `queryParam:"inline,name=Output" union:"member"`
-	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline,name=Output" union:"member"`
-	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline,name=Output" union:"member"`
+	OutputDefault                *OutputDefault                `queryParam:"inline" union:"member"`
+	OutputWebhook                *OutputWebhook                `queryParam:"inline" union:"member"`
+	OutputSentinel               *OutputSentinel               `queryParam:"inline" union:"member"`
+	OutputDevnull                *OutputDevnull                `queryParam:"inline" union:"member"`
+	OutputSyslog                 *OutputSyslog                 `queryParam:"inline" union:"member"`
+	OutputSplunk                 *OutputSplunk                 `queryParam:"inline" union:"member"`
+	OutputSplunkLb               *OutputSplunkLb               `queryParam:"inline" union:"member"`
+	OutputSplunkHec              *OutputSplunkHec              `queryParam:"inline" union:"member"`
+	OutputWizHec                 *OutputWizHec                 `queryParam:"inline" union:"member"`
+	OutputTcpjson                *OutputTcpjson                `queryParam:"inline" union:"member"`
+	OutputWavefront              *OutputWavefront              `queryParam:"inline" union:"member"`
+	OutputSignalfx               *OutputSignalfx               `queryParam:"inline" union:"member"`
+	OutputFilesystem             *OutputFilesystem             `queryParam:"inline" union:"member"`
+	OutputS3                     *OutputS3                     `queryParam:"inline" union:"member"`
+	OutputAzureBlob              *OutputAzureBlob              `queryParam:"inline" union:"member"`
+	OutputAzureDataExplorer      *OutputAzureDataExplorer      `queryParam:"inline" union:"member"`
+	OutputAzureLogs              *OutputAzureLogs              `queryParam:"inline" union:"member"`
+	OutputKinesis                *OutputKinesis                `queryParam:"inline" union:"member"`
+	OutputHoneycomb              *OutputHoneycomb              `queryParam:"inline" union:"member"`
+	OutputAzureEventhub          *OutputAzureEventhub          `queryParam:"inline" union:"member"`
+	OutputGoogleChronicle        *OutputGoogleChronicle        `queryParam:"inline" union:"member"`
+	OutputGoogleCloudStorage     *OutputGoogleCloudStorage     `queryParam:"inline" union:"member"`
+	OutputGoogleCloudLogging     *OutputGoogleCloudLogging     `queryParam:"inline" union:"member"`
+	OutputGooglePubsub           *OutputGooglePubsub           `queryParam:"inline" union:"member"`
+	OutputExabeam                *OutputExabeam                `queryParam:"inline" union:"member"`
+	OutputKafka                  *OutputKafka                  `queryParam:"inline" union:"member"`
+	OutputConfluentCloud         *OutputConfluentCloud         `queryParam:"inline" union:"member"`
+	OutputMsk                    *OutputMsk                    `queryParam:"inline" union:"member"`
+	OutputElastic                *OutputElastic                `queryParam:"inline" union:"member"`
+	OutputElasticCloud           *OutputElasticCloud           `queryParam:"inline" union:"member"`
+	OutputNewrelic               *OutputNewrelic               `queryParam:"inline" union:"member"`
+	OutputNewrelicEvents         *OutputNewrelicEvents         `queryParam:"inline" union:"member"`
+	OutputInfluxdb               *OutputInfluxdb               `queryParam:"inline" union:"member"`
+	OutputCloudwatch             *OutputCloudwatch             `queryParam:"inline" union:"member"`
+	OutputMinio                  *OutputMinio                  `queryParam:"inline" union:"member"`
+	OutputStatsd                 *OutputStatsd                 `queryParam:"inline" union:"member"`
+	OutputStatsdExt              *OutputStatsdExt              `queryParam:"inline" union:"member"`
+	OutputGraphite               *OutputGraphite               `queryParam:"inline" union:"member"`
+	OutputRouter                 *OutputRouter                 `queryParam:"inline" union:"member"`
+	OutputSns                    *OutputSns                    `queryParam:"inline" union:"member"`
+	OutputSqs                    *OutputSqs                    `queryParam:"inline" union:"member"`
+	OutputSnmp                   *OutputSnmp                   `queryParam:"inline" union:"member"`
+	OutputSumoLogic              *OutputSumoLogic              `queryParam:"inline" union:"member"`
+	OutputDatadog                *OutputDatadog                `queryParam:"inline" union:"member"`
+	OutputGrafanaCloud           *OutputGrafanaCloud           `queryParam:"inline" union:"member"`
+	OutputLoki                   *OutputLoki                   `queryParam:"inline" union:"member"`
+	OutputPrometheus             *OutputPrometheus             `queryParam:"inline" union:"member"`
+	OutputRing                   *OutputRing                   `queryParam:"inline" union:"member"`
+	OutputOpenTelemetry          *OutputOpenTelemetry          `queryParam:"inline" union:"member"`
+	OutputServiceNow             *OutputServiceNow             `queryParam:"inline" union:"member"`
+	OutputDataset                *OutputDataset                `queryParam:"inline" union:"member"`
+	OutputCriblTCP               *OutputCriblTCP               `queryParam:"inline" union:"member"`
+	OutputCriblHTTP              *OutputCriblHTTP              `queryParam:"inline" union:"member"`
+	OutputCriblSearchEngine      *OutputCriblSearchEngine      `queryParam:"inline" union:"member"`
+	OutputHumioHec               *OutputHumioHec               `queryParam:"inline" union:"member"`
+	OutputCrowdstrikeNextGenSiem *OutputCrowdstrikeNextGenSiem `queryParam:"inline" union:"member"`
+	OutputDlS3                   *OutputDlS3                   `queryParam:"inline" union:"member"`
+	OutputSecurityLake           *OutputSecurityLake           `queryParam:"inline" union:"member"`
+	OutputCriblLake              *OutputCriblLake              `queryParam:"inline" union:"member"`
+	OutputDiskSpool              *OutputDiskSpool              `queryParam:"inline" union:"member"`
+	OutputClickHouse             *OutputClickHouse             `queryParam:"inline" union:"member"`
+	OutputXsiam                  *OutputXsiam                  `queryParam:"inline" union:"member"`
+	OutputNetflow                *OutputNetflow                `queryParam:"inline" union:"member"`
+	OutputDynatraceHTTP          *OutputDynatraceHTTP          `queryParam:"inline" union:"member"`
+	OutputDynatraceOtlp          *OutputDynatraceOtlp          `queryParam:"inline" union:"member"`
+	OutputSentinelOneAiSiem      *OutputSentinelOneAiSiem      `queryParam:"inline" union:"member"`
+	OutputChronicle              *OutputChronicle              `queryParam:"inline" union:"member"`
+	OutputDatabricks             *OutputDatabricks             `queryParam:"inline" union:"member"`
+	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline" union:"member"`
+	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
 
 	Type OutputType
 }
@@ -248,6 +252,18 @@ func CreateOutputSplunkHec(splunkHec OutputSplunkHec) Output {
 	return Output{
 		OutputSplunkHec: &splunkHec,
 		Type:            typ,
+	}
+}
+
+func CreateOutputWizHec(wizHec OutputWizHec) Output {
+	typ := OutputTypeWizHec
+
+	typStr := OutputWizHecType(typ)
+	wizHec.Type = typStr
+
+	return Output{
+		OutputWizHec: &wizHec,
+		Type:         typ,
 	}
 }
 
@@ -776,6 +792,18 @@ func CreateOutputCriblHTTP(criblHTTP OutputCriblHTTP) Output {
 	}
 }
 
+func CreateOutputCriblSearchEngine(criblSearchEngine OutputCriblSearchEngine) Output {
+	typ := OutputTypeCriblSearchEngine
+
+	typStr := OutputCriblSearchEngineType(typ)
+	criblSearchEngine.Type = typStr
+
+	return Output{
+		OutputCriblSearchEngine: &criblSearchEngine,
+		Type:                    typ,
+	}
+}
+
 func CreateOutputHumioHec(humioHec OutputHumioHec) Output {
 	typ := OutputTypeHumioHec
 
@@ -1051,6 +1079,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 
 		u.OutputSplunkHec = outputSplunkHec
 		u.Type = OutputTypeSplunkHec
+		return nil
+	case "wiz_hec":
+		outputWizHec := new(OutputWizHec)
+		if err := utils.UnmarshalJSON(data, &outputWizHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wiz_hec) type OutputWizHec within Output: %w", string(data), err)
+		}
+
+		u.OutputWizHec = outputWizHec
+		u.Type = OutputTypeWizHec
 		return nil
 	case "tcpjson":
 		outputTcpjson := new(OutputTcpjson)
@@ -1448,6 +1485,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputCriblHTTP = outputCriblHTTP
 		u.Type = OutputTypeCriblHTTP
 		return nil
+	case "cribl_search_engine":
+		outputCriblSearchEngine := new(OutputCriblSearchEngine)
+		if err := utils.UnmarshalJSON(data, &outputCriblSearchEngine, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_search_engine) type OutputCriblSearchEngine within Output: %w", string(data), err)
+		}
+
+		u.OutputCriblSearchEngine = outputCriblSearchEngine
+		u.Type = OutputTypeCriblSearchEngine
+		return nil
 	case "humio_hec":
 		outputHumioHec := new(OutputHumioHec)
 		if err := utils.UnmarshalJSON(data, &outputHumioHec, "", true, nil); err != nil {
@@ -1630,6 +1676,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputSplunkHec, "", true)
 	}
 
+	if u.OutputWizHec != nil {
+		return utils.MarshalJSON(u.OutputWizHec, "", true)
+	}
+
 	if u.OutputTcpjson != nil {
 		return utils.MarshalJSON(u.OutputTcpjson, "", true)
 	}
@@ -1804,6 +1854,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputCriblHTTP != nil {
 		return utils.MarshalJSON(u.OutputCriblHTTP, "", true)
+	}
+
+	if u.OutputCriblSearchEngine != nil {
+		return utils.MarshalJSON(u.OutputCriblSearchEngine, "", true)
 	}
 
 	if u.OutputHumioHec != nil {

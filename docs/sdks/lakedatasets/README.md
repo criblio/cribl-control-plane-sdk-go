@@ -58,7 +58,7 @@ func main() {
         },
         DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
         Description: criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-        Format: components.CriblLakeDatasetFormatDdss.ToPointer(),
+        Format: components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
         HTTPDAUsed: criblcontrolplanesdkgo.Pointer(true),
         ID: "<id>",
         Metrics: &components.LakeDatasetMetrics{
@@ -92,7 +92,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }
@@ -159,7 +159,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }
@@ -216,7 +216,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }
@@ -274,7 +274,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }
@@ -349,7 +349,7 @@ func main() {
         },
         DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](836.59),
         Description: criblcontrolplanesdkgo.Pointer("highlight phew ponder but winding"),
-        Format: components.CriblLakeDatasetUpdateFormatJSON.ToPointer(),
+        Format: components.FormatOptionsCriblLakeDatasetJSON.ToPointer(),
         HTTPDAUsed: criblcontrolplanesdkgo.Pointer(true),
         ID: criblcontrolplanesdkgo.Pointer("<id>"),
         Metrics: &components.LakeDatasetMetrics{
@@ -383,7 +383,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }

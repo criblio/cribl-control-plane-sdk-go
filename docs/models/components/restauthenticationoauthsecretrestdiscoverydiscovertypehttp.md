@@ -1,0 +1,29 @@
+# RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPGet(components.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPPost(components.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPPostWithBody(components.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+
+### RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
+
+```go
+restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPOther(components.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther{/* values here */})
+```
+

@@ -45,49 +45,22 @@ func (c *Config) GetVersion() *string {
 	return c.Version
 }
 
-type DistMode string
-
-const (
-	DistModeEdge             DistMode = "edge"
-	DistModeWorker           DistMode = "worker"
-	DistModeSingle           DistMode = "single"
-	DistModeMaster           DistMode = "master"
-	DistModeManagedEdge      DistMode = "managed-edge"
-	DistModeOutpost          DistMode = "outpost"
-	DistModeSearchSupervisor DistMode = "search-supervisor"
-)
-
-func (e DistMode) ToPointer() *DistMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DistMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "edge", "worker", "single", "master", "managed-edge", "outpost", "search-supervisor":
-			return true
-		}
-	}
-	return false
-}
-
 type HBCriblInfo struct {
-	Config            Config          `json:"config"`
-	DeploymentID      *string         `json:"deploymentId,omitempty"`
-	DisableSNIRouting *bool           `json:"disableSNIRouting,omitempty"`
-	DistMode          DistMode        `json:"distMode"`
-	EdgeNodes         *float64        `json:"edgeNodes,omitempty"`
-	Group             string          `json:"group"`
-	GUID              string          `json:"guid"`
-	InstallType       *string         `json:"installType,omitempty"`
-	LookupVersions    *LookupVersions `json:"lookupVersions,omitempty"`
-	Master            *HBLeaderInfo   `json:"master,omitempty"`
-	Pid               *float64        `json:"pid,omitempty"`
-	SocksEnabled      *bool           `json:"socksEnabled,omitempty"`
-	StartTime         float64         `json:"startTime"`
-	Tags              []string        `json:"tags"`
-	Version           *string         `json:"version,omitempty"`
+	Config            Config                            `json:"config"`
+	DeploymentID      *string                           `json:"deploymentId,omitempty"`
+	DisableSNIRouting *bool                             `json:"disableSNIRouting,omitempty"`
+	DistMode          ModeOptionsInstanceSettingsSchema `json:"distMode"`
+	EdgeNodes         *float64                          `json:"edgeNodes,omitempty"`
+	Group             string                            `json:"group"`
+	GUID              string                            `json:"guid"`
+	InstallType       *string                           `json:"installType,omitempty"`
+	LookupVersions    map[string]map[string]string      `json:"lookupVersions,omitempty"`
+	Master            *HBLeaderInfo                     `json:"master,omitempty"`
+	Pid               *float64                          `json:"pid,omitempty"`
+	SocksEnabled      *bool                             `json:"socksEnabled,omitempty"`
+	StartTime         float64                           `json:"startTime"`
+	Tags              []string                          `json:"tags"`
+	Version           *string                           `json:"version,omitempty"`
 }
 
 func (h *HBCriblInfo) GetConfig() Config {
@@ -111,9 +84,9 @@ func (h *HBCriblInfo) GetDisableSNIRouting() *bool {
 	return h.DisableSNIRouting
 }
 
-func (h *HBCriblInfo) GetDistMode() DistMode {
+func (h *HBCriblInfo) GetDistMode() ModeOptionsInstanceSettingsSchema {
 	if h == nil {
-		return DistMode("")
+		return ModeOptionsInstanceSettingsSchema("")
 	}
 	return h.DistMode
 }
@@ -146,7 +119,7 @@ func (h *HBCriblInfo) GetInstallType() *string {
 	return h.InstallType
 }
 
-func (h *HBCriblInfo) GetLookupVersions() *LookupVersions {
+func (h *HBCriblInfo) GetLookupVersions() map[string]map[string]string {
 	if h == nil {
 		return nil
 	}

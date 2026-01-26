@@ -6,35 +6,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type RoutesGroups struct {
-	Name string `json:"name"`
-	// Short description of this group
-	Description *string `json:"description,omitempty"`
-	// Whether this group is disabled
-	Disabled *bool `json:"disabled,omitempty"`
-}
-
-func (r *RoutesGroups) GetName() string {
-	if r == nil {
-		return ""
-	}
-	return r.Name
-}
-
-func (r *RoutesGroups) GetDescription() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Description
-}
-
-func (r *RoutesGroups) GetDisabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Disabled
-}
-
 type Comment struct {
 	// Optional, short description of this Route's purpose
 	Comment              *string        `json:"comment,omitempty"`
@@ -70,8 +41,8 @@ type Routes struct {
 	// Routes ID
 	ID *string `json:"id,omitempty"`
 	// Pipeline routing rules
-	Routes []RoutesRoute           `json:"routes"`
-	Groups map[string]RoutesGroups `json:"groups,omitempty"`
+	Routes []RoutesRoute                                         `json:"routes"`
+	Groups map[string]AdditionalPropertiesTypePipelineConfGroups `json:"groups,omitempty"`
 	// Comments
 	Comments []Comment `json:"comments,omitempty"`
 }
@@ -90,7 +61,7 @@ func (r *Routes) GetRoutes() []RoutesRoute {
 	return r.Routes
 }
 
-func (r *Routes) GetGroups() map[string]RoutesGroups {
+func (r *Routes) GetGroups() map[string]AdditionalPropertiesTypePipelineConfGroups {
 	if r == nil {
 		return nil
 	}

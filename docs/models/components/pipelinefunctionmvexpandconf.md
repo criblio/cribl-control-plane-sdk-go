@@ -1,0 +1,12 @@
+# PipelineFunctionMvExpandConf
+
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `SourceFields`                                                              | []*string*                                                                  | :heavy_check_mark:                                                          | Array of property-/field-names to expand                                    |
+| `TargetNames`                                                               | []*string*                                                                  | :heavy_minus_sign:                                                          | stores the value as new target field name                                   |
+| `RowLimit`                                                                  | **float64*                                                                  | :heavy_minus_sign:                                                          | max. number of rows generated out of every source events                    |
+| `ItemIndexName`                                                             | **string*                                                                   | :heavy_minus_sign:                                                          | name of an optional index property generated into the output                |
+| `BagExpansionMode`                                                          | [*components.BagExpansionMode](../../models/components/bagexpansionmode.md) | :heavy_minus_sign:                                                          | decides if bag-values are expanded to bags or arrays                        |

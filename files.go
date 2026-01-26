@@ -33,10 +33,10 @@ func newFiles(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 
 // Count - Get a count of files that changed since a commit
 // Get a count of the files that changed since a commit. Default is the latest commit (HEAD).
-func (s *Files) Count(ctx context.Context, groupID *string, id *string, opts ...operations.Option) (*operations.GetVersionCountResponse, error) {
+func (s *Files) Count(ctx context.Context, groupID *string, commit *string, opts ...operations.Option) (*operations.GetVersionCountResponse, error) {
 	request := operations.GetVersionCountRequest{
 		GroupID: groupID,
-		ID:      id,
+		Commit:  commit,
 	}
 
 	o := operations.Options{}
@@ -107,6 +107,16 @@ func (s *Files) Count(ctx context.Context, groupID *string, id *string, opts ...
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -116,10 +126,6 @@ func (s *Files) Count(ctx context.Context, groupID *string, id *string, opts ...
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -209,12 +215,12 @@ func (s *Files) Count(ctx context.Context, groupID *string, id *string, opts ...
 				return nil, err
 			}
 
-			var out operations.GetVersionCountResponseBody
+			var out components.CountedGitCountResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitCountResult = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -275,10 +281,10 @@ func (s *Files) Count(ctx context.Context, groupID *string, id *string, opts ...
 
 // List - Get the names and statuses of files that changed since a commit
 // Get the names and statuses of files that changed since a commit. Default is the latest commit (HEAD).
-func (s *Files) List(ctx context.Context, groupID *string, id *string, opts ...operations.Option) (*operations.GetVersionFilesResponse, error) {
+func (s *Files) List(ctx context.Context, groupID *string, commit *string, opts ...operations.Option) (*operations.GetVersionFilesResponse, error) {
 	request := operations.GetVersionFilesRequest{
 		GroupID: groupID,
-		ID:      id,
+		Commit:  commit,
 	}
 
 	o := operations.Options{}
@@ -349,6 +355,16 @@ func (s *Files) List(ctx context.Context, groupID *string, id *string, opts ...o
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -358,10 +374,6 @@ func (s *Files) List(ctx context.Context, groupID *string, id *string, opts ...o
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -451,12 +463,12 @@ func (s *Files) List(ctx context.Context, groupID *string, id *string, opts ...o
 				return nil, err
 			}
 
-			var out operations.GetVersionFilesResponseBody
+			var out components.CountedGitFilesResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitFilesResponse = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

@@ -54,53 +54,6 @@ func (e *OutputRingDataFormat) IsExact() bool {
 	return false
 }
 
-type OutputRingDataCompressionFormat string
-
-const (
-	OutputRingDataCompressionFormatNone OutputRingDataCompressionFormat = "none"
-	OutputRingDataCompressionFormatGzip OutputRingDataCompressionFormat = "gzip"
-)
-
-func (e OutputRingDataCompressionFormat) ToPointer() *OutputRingDataCompressionFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputRingDataCompressionFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputRingBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputRingBackpressureBehavior string
-
-const (
-	// OutputRingBackpressureBehaviorBlock Block
-	OutputRingBackpressureBehaviorBlock OutputRingBackpressureBehavior = "block"
-	// OutputRingBackpressureBehaviorDrop Drop
-	OutputRingBackpressureBehaviorDrop OutputRingBackpressureBehavior = "drop"
-)
-
-func (e OutputRingBackpressureBehavior) ToPointer() *OutputRingBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputRingBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputRing struct {
 	// Unique ID for this output
 	ID   *string        `json:"id,omitempty"`
@@ -114,19 +67,19 @@ type OutputRing struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Format of the output data.
-	Format *OutputRingDataFormat `default:"json" json:"format"`
+	Format *OutputRingDataFormat `json:"format,omitempty"`
 	// JS expression to define how files are partitioned and organized. If left blank, Cribl Stream will fallback on event.__partition.
 	PartitionExpr *string `json:"partitionExpr,omitempty"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
+	MaxDataSize *string `json:"maxDataSize,omitempty"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                          `default:"24h" json:"maxDataTime"`
-	Compress    *OutputRingDataCompressionFormat `default:"gzip" json:"compress"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
 	DestPath *string `json:"destPath,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputRingBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                         `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
+	Description    *string                       `json:"description,omitempty"`
 }
 
 func (o OutputRing) MarshalJSON() ([]byte, error) {
@@ -210,7 +163,7 @@ func (o *OutputRing) GetMaxDataTime() *string {
 	return o.MaxDataTime
 }
 
-func (o *OutputRing) GetCompress() *OutputRingDataCompressionFormat {
+func (o *OutputRing) GetCompress() *DataCompressionFormatOptionsPersistence {
 	if o == nil {
 		return nil
 	}
@@ -224,7 +177,7 @@ func (o *OutputRing) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputRing) GetOnBackpressure() *OutputRingBackpressureBehavior {
+func (o *OutputRing) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}
