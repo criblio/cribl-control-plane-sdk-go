@@ -31,219 +31,9 @@ func (e *InputSystemStateType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputSystemStateConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSystemStateConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStateConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemStateConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemStateConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSystemStateMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSystemStateMode string
-
-const (
-	// InputSystemStateModeSmart Smart
-	InputSystemStateModeSmart InputSystemStateMode = "smart"
-	// InputSystemStateModeAlways Always On
-	InputSystemStateModeAlways InputSystemStateMode = "always"
-)
-
-func (e InputSystemStateMode) ToPointer() *InputSystemStateMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSystemStateMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputSystemStateCompression - Codec to use to compress the persisted data
-type InputSystemStateCompression string
-
-const (
-	// InputSystemStateCompressionNone None
-	InputSystemStateCompressionNone InputSystemStateCompression = "none"
-	// InputSystemStateCompressionGzip Gzip
-	InputSystemStateCompressionGzip InputSystemStateCompression = "gzip"
-)
-
-func (e InputSystemStateCompression) ToPointer() *InputSystemStateCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSystemStateCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSystemStatePqControls struct {
-}
-
-func (i InputSystemStatePqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStatePqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSystemStatePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSystemStateMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSystemStateCompression `default:"none" json:"compress"`
-	PqControls *InputSystemStatePqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputSystemStatePq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStatePq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemStatePq) GetMode() *InputSystemStateMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSystemStatePq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSystemStatePq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSystemStatePq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSystemStatePq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSystemStatePq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSystemStatePq) GetCompress() *InputSystemStateCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSystemStatePq) GetPqControls() *InputSystemStatePqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputSystemStateMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSystemStateMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStateMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemStateMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSystemStateMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 // HostsFile - Creates events based on entries collected from the hosts file
 type HostsFile struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (h HostsFile) MarshalJSON() ([]byte, error) {
@@ -266,7 +56,7 @@ func (h *HostsFile) GetEnable() *bool {
 
 // Interfaces - Creates events for each of the host’s network interfaces
 type Interfaces struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (i Interfaces) MarshalJSON() ([]byte, error) {
@@ -289,7 +79,7 @@ func (i *Interfaces) GetEnable() *bool {
 
 // DisksAndFileSystems - Creates events for physical disks, partitions, and file systems
 type DisksAndFileSystems struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (d DisksAndFileSystems) MarshalJSON() ([]byte, error) {
@@ -312,7 +102,7 @@ func (d *DisksAndFileSystems) GetEnable() *bool {
 
 // HostInfo - Creates events based on the host system’s current state
 type HostInfo struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (h HostInfo) MarshalJSON() ([]byte, error) {
@@ -335,7 +125,7 @@ func (h *HostInfo) GetEnable() *bool {
 
 // InputSystemStateRoutes - Creates events based on entries collected from the host’s network routes
 type InputSystemStateRoutes struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (i InputSystemStateRoutes) MarshalJSON() ([]byte, error) {
@@ -358,7 +148,7 @@ func (i *InputSystemStateRoutes) GetEnable() *bool {
 
 // DNS - Creates events for DNS resolvers and search entries
 type DNS struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (d DNS) MarshalJSON() ([]byte, error) {
@@ -381,7 +171,7 @@ func (d *DNS) GetEnable() *bool {
 
 // UsersAndGroups - Creates events for local users and groups
 type UsersAndGroups struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (u UsersAndGroups) MarshalJSON() ([]byte, error) {
@@ -404,7 +194,7 @@ func (u *UsersAndGroups) GetEnable() *bool {
 
 // Firewall - Creates events for Firewall rules entries
 type Firewall struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (f Firewall) MarshalJSON() ([]byte, error) {
@@ -427,7 +217,7 @@ func (f *Firewall) GetEnable() *bool {
 
 // Services - Creates events from the list of services
 type Services struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (s Services) MarshalJSON() ([]byte, error) {
@@ -450,7 +240,7 @@ func (s *Services) GetEnable() *bool {
 
 // ListeningPorts - Creates events from list of listening ports
 type ListeningPorts struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (l ListeningPorts) MarshalJSON() ([]byte, error) {
@@ -473,7 +263,7 @@ func (l *ListeningPorts) GetEnable() *bool {
 
 // LoggedInUsers - Creates events from list of logged-in users
 type LoggedInUsers struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (l LoggedInUsers) MarshalJSON() ([]byte, error) {
@@ -607,40 +397,18 @@ func (c *Collectors) GetLoginUsers() *LoggedInUsers {
 	return c.LoginUsers
 }
 
-type InputSystemStateDataCompressionFormat string
-
-const (
-	InputSystemStateDataCompressionFormatNone InputSystemStateDataCompressionFormat = "none"
-	InputSystemStateDataCompressionFormatGzip InputSystemStateDataCompressionFormat = "gzip"
-)
-
-func (e InputSystemStateDataCompressionFormat) ToPointer() *InputSystemStateDataCompressionFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSystemStateDataCompressionFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
 type InputSystemStatePersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `default:"false" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 	// Time span for each file bucket
-	TimeWindow *string `default:"10m" json:"timeWindow"`
+	TimeWindow *string `json:"timeWindow,omitempty"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
+	MaxDataSize *string `json:"maxDataSize,omitempty"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                `default:"24h" json:"maxDataTime"`
-	Compress    *InputSystemStateDataCompressionFormat `default:"none" json:"compress"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
-	DestPath *string `default:"$CRIBL_HOME/state/system_state" json:"destPath"`
+	DestPath *string `json:"destPath,omitempty"`
 }
 
 func (i InputSystemStatePersistence) MarshalJSON() ([]byte, error) {
@@ -682,7 +450,7 @@ func (i *InputSystemStatePersistence) GetMaxDataTime() *string {
 	return i.MaxDataTime
 }
 
-func (i *InputSystemStatePersistence) GetCompress() *InputSystemStateDataCompressionFormat {
+func (i *InputSystemStatePersistence) GetCompress() *DataCompressionFormatOptionsPersistence {
 	if i == nil {
 		return nil
 	}
@@ -700,29 +468,31 @@ type InputSystemState struct {
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSystemStateConnection `json:"connections,omitempty"`
-	Pq          *InputSystemStatePq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `default:"300" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []InputSystemStateMetadatum  `json:"metadata,omitempty"`
-	Collectors  *Collectors                  `json:"collectors,omitempty"`
-	Persistence *InputSystemStatePersistence `json:"persistence,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Collectors  *Collectors                     `json:"collectors,omitempty"`
+	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
-	Description         *string `json:"description,omitempty"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
+	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitempty"`
+	Description                *string `json:"description,omitempty"`
 }
 
 func (i InputSystemState) MarshalJSON() ([]byte, error) {
@@ -792,14 +562,14 @@ func (i *InputSystemState) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSystemState) GetConnections() []InputSystemStateConnection {
+func (i *InputSystemState) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSystemState) GetPq() *InputSystemStatePq {
+func (i *InputSystemState) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -813,7 +583,7 @@ func (i *InputSystemState) GetInterval() *float64 {
 	return i.Interval
 }
 
-func (i *InputSystemState) GetMetadata() []InputSystemStateMetadatum {
+func (i *InputSystemState) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
@@ -839,6 +609,13 @@ func (i *InputSystemState) GetDisableNativeModule() *bool {
 		return nil
 	}
 	return i.DisableNativeModule
+}
+
+func (i *InputSystemState) GetDisableNativeLastLogModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeLastLogModule
 }
 
 func (i *InputSystemState) GetDescription() *string {

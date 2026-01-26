@@ -31,221 +31,6 @@ func (e *OutputCriblLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputCriblLakeSignatureVersion - Signature version to use for signing S3 requests
-type OutputCriblLakeSignatureVersion string
-
-const (
-	OutputCriblLakeSignatureVersionV2 OutputCriblLakeSignatureVersion = "v2"
-	OutputCriblLakeSignatureVersionV4 OutputCriblLakeSignatureVersion = "v4"
-)
-
-func (e OutputCriblLakeSignatureVersion) ToPointer() *OutputCriblLakeSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblLakeObjectACL - Object ACL to assign to uploaded objects
-type OutputCriblLakeObjectACL string
-
-const (
-	// OutputCriblLakeObjectACLPrivate Private
-	OutputCriblLakeObjectACLPrivate OutputCriblLakeObjectACL = "private"
-	// OutputCriblLakeObjectACLPublicRead Public Read Only
-	OutputCriblLakeObjectACLPublicRead OutputCriblLakeObjectACL = "public-read"
-	// OutputCriblLakeObjectACLPublicReadWrite Public Read/Write
-	OutputCriblLakeObjectACLPublicReadWrite OutputCriblLakeObjectACL = "public-read-write"
-	// OutputCriblLakeObjectACLAuthenticatedRead Authenticated Read Only
-	OutputCriblLakeObjectACLAuthenticatedRead OutputCriblLakeObjectACL = "authenticated-read"
-	// OutputCriblLakeObjectACLAwsExecRead AWS EC2 AMI Read Only
-	OutputCriblLakeObjectACLAwsExecRead OutputCriblLakeObjectACL = "aws-exec-read"
-	// OutputCriblLakeObjectACLBucketOwnerRead Bucket Owner Read Only
-	OutputCriblLakeObjectACLBucketOwnerRead OutputCriblLakeObjectACL = "bucket-owner-read"
-	// OutputCriblLakeObjectACLBucketOwnerFullControl Bucket Owner Full Control
-	OutputCriblLakeObjectACLBucketOwnerFullControl OutputCriblLakeObjectACL = "bucket-owner-full-control"
-)
-
-func (e OutputCriblLakeObjectACL) ToPointer() *OutputCriblLakeObjectACL {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeObjectACL) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "private", "public-read", "public-read-write", "authenticated-read", "aws-exec-read", "bucket-owner-read", "bucket-owner-full-control":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblLakeStorageClass - Storage class to select for uploaded objects
-type OutputCriblLakeStorageClass string
-
-const (
-	// OutputCriblLakeStorageClassStandard Standard
-	OutputCriblLakeStorageClassStandard OutputCriblLakeStorageClass = "STANDARD"
-	// OutputCriblLakeStorageClassReducedRedundancy Reduced Redundancy Storage
-	OutputCriblLakeStorageClassReducedRedundancy OutputCriblLakeStorageClass = "REDUCED_REDUNDANCY"
-	// OutputCriblLakeStorageClassStandardIa Standard, Infrequent Access
-	OutputCriblLakeStorageClassStandardIa OutputCriblLakeStorageClass = "STANDARD_IA"
-	// OutputCriblLakeStorageClassOnezoneIa One Zone, Infrequent Access
-	OutputCriblLakeStorageClassOnezoneIa OutputCriblLakeStorageClass = "ONEZONE_IA"
-	// OutputCriblLakeStorageClassIntelligentTiering Intelligent Tiering
-	OutputCriblLakeStorageClassIntelligentTiering OutputCriblLakeStorageClass = "INTELLIGENT_TIERING"
-	// OutputCriblLakeStorageClassGlacier Glacier Flexible Retrieval
-	OutputCriblLakeStorageClassGlacier OutputCriblLakeStorageClass = "GLACIER"
-	// OutputCriblLakeStorageClassGlacierIr Glacier Instant Retrieval
-	OutputCriblLakeStorageClassGlacierIr OutputCriblLakeStorageClass = "GLACIER_IR"
-	// OutputCriblLakeStorageClassDeepArchive Glacier Deep Archive
-	OutputCriblLakeStorageClassDeepArchive OutputCriblLakeStorageClass = "DEEP_ARCHIVE"
-)
-
-func (e OutputCriblLakeStorageClass) ToPointer() *OutputCriblLakeStorageClass {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeStorageClass) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "STANDARD", "REDUCED_REDUNDANCY", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER", "GLACIER_IR", "DEEP_ARCHIVE":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCriblLakeServerSideEncryptionForUploadedObjects string
-
-const (
-	// OutputCriblLakeServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
-	OutputCriblLakeServerSideEncryptionForUploadedObjectsAes256 OutputCriblLakeServerSideEncryptionForUploadedObjects = "AES256"
-	// OutputCriblLakeServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
-	OutputCriblLakeServerSideEncryptionForUploadedObjectsAwsKms OutputCriblLakeServerSideEncryptionForUploadedObjects = "aws:kms"
-)
-
-func (e OutputCriblLakeServerSideEncryptionForUploadedObjects) ToPointer() *OutputCriblLakeServerSideEncryptionForUploadedObjects {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeServerSideEncryptionForUploadedObjects) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "AES256", "aws:kms":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblLakeBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputCriblLakeBackpressureBehavior string
-
-const (
-	// OutputCriblLakeBackpressureBehaviorBlock Block
-	OutputCriblLakeBackpressureBehaviorBlock OutputCriblLakeBackpressureBehavior = "block"
-	// OutputCriblLakeBackpressureBehaviorDrop Drop
-	OutputCriblLakeBackpressureBehaviorDrop OutputCriblLakeBackpressureBehavior = "drop"
-)
-
-func (e OutputCriblLakeBackpressureBehavior) ToPointer() *OutputCriblLakeBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblLakeDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputCriblLakeDiskSpaceProtection string
-
-const (
-	// OutputCriblLakeDiskSpaceProtectionBlock Block
-	OutputCriblLakeDiskSpaceProtectionBlock OutputCriblLakeDiskSpaceProtection = "block"
-	// OutputCriblLakeDiskSpaceProtectionDrop Drop
-	OutputCriblLakeDiskSpaceProtectionDrop OutputCriblLakeDiskSpaceProtection = "drop"
-)
-
-func (e OutputCriblLakeDiskSpaceProtection) ToPointer() *OutputCriblLakeDiskSpaceProtection {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeDiskSpaceProtection) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
-type AwsAuthenticationMethod string
-
-const (
-	AwsAuthenticationMethodAuto    AwsAuthenticationMethod = "auto"
-	AwsAuthenticationMethodAutoRPC AwsAuthenticationMethod = "auto_rpc"
-	AwsAuthenticationMethodManual  AwsAuthenticationMethod = "manual"
-)
-
-func (e AwsAuthenticationMethod) ToPointer() *AwsAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AwsAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "auto_rpc", "manual":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCriblLakeFormat string
-
-const (
-	OutputCriblLakeFormatJSON    OutputCriblLakeFormat = "json"
-	OutputCriblLakeFormatParquet OutputCriblLakeFormat = "parquet"
-	OutputCriblLakeFormatDdss    OutputCriblLakeFormat = "ddss"
-)
-
-func (e OutputCriblLakeFormat) ToPointer() *OutputCriblLakeFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "parquet", "ddss":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputCriblLake struct {
 	// Unique ID for this output
 	ID   *string             `json:"id,omitempty"`
@@ -267,75 +52,76 @@ type OutputCriblLake struct {
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *OutputCriblLakeSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access S3
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath *string `json:"stagePath,omitempty"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
 	// Lake dataset to send the data to.
 	DestPath *string `json:"destPath,omitempty"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *OutputCriblLakeObjectACL `default:"private" json:"objectACL"`
+	ObjectACL *ObjectACLOptions `json:"objectACL,omitempty"`
 	// Storage class to select for uploaded objects
-	StorageClass         *OutputCriblLakeStorageClass                           `json:"storageClass,omitempty"`
-	ServerSideEncryption *OutputCriblLakeServerSideEncryptionForUploadedObjects `json:"serverSideEncryption,omitempty"`
+	StorageClass         *StorageClassOptions                           `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitempty"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
 	KmsKeyID *string `json:"kmsKeyId,omitempty"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string `json:"baseFileName,omitempty"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string `json:"fileNameSuffix,omitempty"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `default:"64" json:"maxFileSizeMB"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
 	// If set, this line will be written to the beginning of each output file
-	HeaderLine *string `default:"" json:"headerLine"`
+	HeaderLine *string `json:"headerLine,omitempty"`
 	// Buffer size used to write to a file
-	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputCriblLakeBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputCriblLakeDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitempty"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `default:"300" json:"maxFileIdleTimeSec"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
 	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                 `default:"100" json:"maxClosingFilesToBackpressure"`
-	AwsAuthenticationMethod       *AwsAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	Format                        *OutputCriblLakeFormat   `json:"format,omitempty"`
+	MaxClosingFilesToBackpressure *float64                       `json:"maxClosingFilesToBackpressure,omitempty"`
+	AwsAuthenticationMethod       *MethodOptionsCredentials      `json:"awsAuthenticationMethod,omitempty"`
+	Format                        *FormatOptionsCriblLakeDataset `json:"format,omitempty"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `default:"1" json:"maxConcurrentFileParts"`
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
 	Description            *string  `json:"description,omitempty"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
 }
 
 func (o OutputCriblLake) MarshalJSON() ([]byte, error) {
@@ -419,7 +205,7 @@ func (o *OutputCriblLake) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputCriblLake) GetSignatureVersion() *OutputCriblLakeSignatureVersion {
+func (o *OutputCriblLake) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if o == nil {
 		return nil
 	}
@@ -489,21 +275,21 @@ func (o *OutputCriblLake) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputCriblLake) GetObjectACL() *OutputCriblLakeObjectACL {
+func (o *OutputCriblLake) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputCriblLake) GetStorageClass() *OutputCriblLakeStorageClass {
+func (o *OutputCriblLake) GetStorageClass() *StorageClassOptions {
 	if o == nil {
 		return nil
 	}
 	return o.StorageClass
 }
 
-func (o *OutputCriblLake) GetServerSideEncryption() *OutputCriblLakeServerSideEncryptionForUploadedObjects {
+func (o *OutputCriblLake) GetServerSideEncryption() *ServerSideEncryptionForUploadedObjectsOptions {
 	if o == nil {
 		return nil
 	}
@@ -566,7 +352,7 @@ func (o *OutputCriblLake) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputCriblLake) GetOnBackpressure() *OutputCriblLakeBackpressureBehavior {
+func (o *OutputCriblLake) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -580,7 +366,7 @@ func (o *OutputCriblLake) GetDeadletterEnabled() *bool {
 	return o.DeadletterEnabled
 }
 
-func (o *OutputCriblLake) GetOnDiskFullBackpressure() *OutputCriblLakeDiskSpaceProtection {
+func (o *OutputCriblLake) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
 	if o == nil {
 		return nil
 	}
@@ -592,6 +378,13 @@ func (o *OutputCriblLake) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputCriblLake) GetRetrySettings() *RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
@@ -622,14 +415,14 @@ func (o *OutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
 	return o.MaxClosingFilesToBackpressure
 }
 
-func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethod {
+func (o *OutputCriblLake) GetAwsAuthenticationMethod() *MethodOptionsCredentials {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputCriblLake) GetFormat() *OutputCriblLakeFormat {
+func (o *OutputCriblLake) GetFormat() *FormatOptionsCriblLakeDataset {
 	if o == nil {
 		return nil
 	}

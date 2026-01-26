@@ -31,361 +31,6 @@ func (e *OutputDlS3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputDlS3AuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputDlS3AuthenticationMethod string
-
-const (
-	// OutputDlS3AuthenticationMethodAuto Auto
-	OutputDlS3AuthenticationMethodAuto OutputDlS3AuthenticationMethod = "auto"
-	// OutputDlS3AuthenticationMethodManual Manual
-	OutputDlS3AuthenticationMethodManual OutputDlS3AuthenticationMethod = "manual"
-	// OutputDlS3AuthenticationMethodSecret Secret Key pair
-	OutputDlS3AuthenticationMethodSecret OutputDlS3AuthenticationMethod = "secret"
-)
-
-func (e OutputDlS3AuthenticationMethod) ToPointer() *OutputDlS3AuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3AuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3SignatureVersion - Signature version to use for signing S3 requests
-type OutputDlS3SignatureVersion string
-
-const (
-	OutputDlS3SignatureVersionV2 OutputDlS3SignatureVersion = "v2"
-	OutputDlS3SignatureVersionV4 OutputDlS3SignatureVersion = "v4"
-)
-
-func (e OutputDlS3SignatureVersion) ToPointer() *OutputDlS3SignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3SignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3ObjectACL - Object ACL to assign to uploaded objects
-type OutputDlS3ObjectACL string
-
-const (
-	// OutputDlS3ObjectACLPrivate Private
-	OutputDlS3ObjectACLPrivate OutputDlS3ObjectACL = "private"
-	// OutputDlS3ObjectACLPublicRead Public Read Only
-	OutputDlS3ObjectACLPublicRead OutputDlS3ObjectACL = "public-read"
-	// OutputDlS3ObjectACLPublicReadWrite Public Read/Write
-	OutputDlS3ObjectACLPublicReadWrite OutputDlS3ObjectACL = "public-read-write"
-	// OutputDlS3ObjectACLAuthenticatedRead Authenticated Read Only
-	OutputDlS3ObjectACLAuthenticatedRead OutputDlS3ObjectACL = "authenticated-read"
-	// OutputDlS3ObjectACLAwsExecRead AWS EC2 AMI Read Only
-	OutputDlS3ObjectACLAwsExecRead OutputDlS3ObjectACL = "aws-exec-read"
-	// OutputDlS3ObjectACLBucketOwnerRead Bucket Owner Read Only
-	OutputDlS3ObjectACLBucketOwnerRead OutputDlS3ObjectACL = "bucket-owner-read"
-	// OutputDlS3ObjectACLBucketOwnerFullControl Bucket Owner Full Control
-	OutputDlS3ObjectACLBucketOwnerFullControl OutputDlS3ObjectACL = "bucket-owner-full-control"
-)
-
-func (e OutputDlS3ObjectACL) ToPointer() *OutputDlS3ObjectACL {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3ObjectACL) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "private", "public-read", "public-read-write", "authenticated-read", "aws-exec-read", "bucket-owner-read", "bucket-owner-full-control":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3StorageClass - Storage class to select for uploaded objects
-type OutputDlS3StorageClass string
-
-const (
-	// OutputDlS3StorageClassStandard Standard
-	OutputDlS3StorageClassStandard OutputDlS3StorageClass = "STANDARD"
-	// OutputDlS3StorageClassReducedRedundancy Reduced Redundancy Storage
-	OutputDlS3StorageClassReducedRedundancy OutputDlS3StorageClass = "REDUCED_REDUNDANCY"
-	// OutputDlS3StorageClassStandardIa Standard, Infrequent Access
-	OutputDlS3StorageClassStandardIa OutputDlS3StorageClass = "STANDARD_IA"
-	// OutputDlS3StorageClassOnezoneIa One Zone, Infrequent Access
-	OutputDlS3StorageClassOnezoneIa OutputDlS3StorageClass = "ONEZONE_IA"
-	// OutputDlS3StorageClassIntelligentTiering Intelligent Tiering
-	OutputDlS3StorageClassIntelligentTiering OutputDlS3StorageClass = "INTELLIGENT_TIERING"
-	// OutputDlS3StorageClassGlacier Glacier Flexible Retrieval
-	OutputDlS3StorageClassGlacier OutputDlS3StorageClass = "GLACIER"
-	// OutputDlS3StorageClassGlacierIr Glacier Instant Retrieval
-	OutputDlS3StorageClassGlacierIr OutputDlS3StorageClass = "GLACIER_IR"
-	// OutputDlS3StorageClassDeepArchive Glacier Deep Archive
-	OutputDlS3StorageClassDeepArchive OutputDlS3StorageClass = "DEEP_ARCHIVE"
-)
-
-func (e OutputDlS3StorageClass) ToPointer() *OutputDlS3StorageClass {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3StorageClass) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "STANDARD", "REDUCED_REDUNDANCY", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER", "GLACIER_IR", "DEEP_ARCHIVE":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputDlS3ServerSideEncryptionForUploadedObjects string
-
-const (
-	// OutputDlS3ServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
-	OutputDlS3ServerSideEncryptionForUploadedObjectsAes256 OutputDlS3ServerSideEncryptionForUploadedObjects = "AES256"
-	// OutputDlS3ServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
-	OutputDlS3ServerSideEncryptionForUploadedObjectsAwsKms OutputDlS3ServerSideEncryptionForUploadedObjects = "aws:kms"
-)
-
-func (e OutputDlS3ServerSideEncryptionForUploadedObjects) ToPointer() *OutputDlS3ServerSideEncryptionForUploadedObjects {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3ServerSideEncryptionForUploadedObjects) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "AES256", "aws:kms":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3DataFormat - Format of the output data
-type OutputDlS3DataFormat string
-
-const (
-	// OutputDlS3DataFormatJSON JSON
-	OutputDlS3DataFormatJSON OutputDlS3DataFormat = "json"
-	// OutputDlS3DataFormatRaw Raw
-	OutputDlS3DataFormatRaw OutputDlS3DataFormat = "raw"
-	// OutputDlS3DataFormatParquet Parquet
-	OutputDlS3DataFormatParquet OutputDlS3DataFormat = "parquet"
-)
-
-func (e OutputDlS3DataFormat) ToPointer() *OutputDlS3DataFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3DataFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "raw", "parquet":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3BackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputDlS3BackpressureBehavior string
-
-const (
-	// OutputDlS3BackpressureBehaviorBlock Block
-	OutputDlS3BackpressureBehaviorBlock OutputDlS3BackpressureBehavior = "block"
-	// OutputDlS3BackpressureBehaviorDrop Drop
-	OutputDlS3BackpressureBehaviorDrop OutputDlS3BackpressureBehavior = "drop"
-)
-
-func (e OutputDlS3BackpressureBehavior) ToPointer() *OutputDlS3BackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3BackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3DiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputDlS3DiskSpaceProtection string
-
-const (
-	// OutputDlS3DiskSpaceProtectionBlock Block
-	OutputDlS3DiskSpaceProtectionBlock OutputDlS3DiskSpaceProtection = "block"
-	// OutputDlS3DiskSpaceProtectionDrop Drop
-	OutputDlS3DiskSpaceProtectionDrop OutputDlS3DiskSpaceProtection = "drop"
-)
-
-func (e OutputDlS3DiskSpaceProtection) ToPointer() *OutputDlS3DiskSpaceProtection {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3DiskSpaceProtection) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3Compression - Data compression format to apply to HTTP content before it is delivered
-type OutputDlS3Compression string
-
-const (
-	OutputDlS3CompressionNone OutputDlS3Compression = "none"
-	OutputDlS3CompressionGzip OutputDlS3Compression = "gzip"
-)
-
-func (e OutputDlS3Compression) ToPointer() *OutputDlS3Compression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3Compression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3CompressionLevel - Compression level to apply before moving files to final destination
-type OutputDlS3CompressionLevel string
-
-const (
-	// OutputDlS3CompressionLevelBestSpeed Best Speed
-	OutputDlS3CompressionLevelBestSpeed OutputDlS3CompressionLevel = "best_speed"
-	// OutputDlS3CompressionLevelNormal Normal
-	OutputDlS3CompressionLevelNormal OutputDlS3CompressionLevel = "normal"
-	// OutputDlS3CompressionLevelBestCompression Best Compression
-	OutputDlS3CompressionLevelBestCompression OutputDlS3CompressionLevel = "best_compression"
-)
-
-func (e OutputDlS3CompressionLevel) ToPointer() *OutputDlS3CompressionLevel {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3CompressionLevel) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "best_speed", "normal", "best_compression":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3ParquetVersion - Determines which data types are supported and how they are represented
-type OutputDlS3ParquetVersion string
-
-const (
-	// OutputDlS3ParquetVersionParquet10 1.0
-	OutputDlS3ParquetVersionParquet10 OutputDlS3ParquetVersion = "PARQUET_1_0"
-	// OutputDlS3ParquetVersionParquet24 2.4
-	OutputDlS3ParquetVersionParquet24 OutputDlS3ParquetVersion = "PARQUET_2_4"
-	// OutputDlS3ParquetVersionParquet26 2.6
-	OutputDlS3ParquetVersionParquet26 OutputDlS3ParquetVersion = "PARQUET_2_6"
-)
-
-func (e OutputDlS3ParquetVersion) ToPointer() *OutputDlS3ParquetVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3ParquetVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputDlS3DataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-type OutputDlS3DataPageVersion string
-
-const (
-	// OutputDlS3DataPageVersionDataPageV1 V1
-	OutputDlS3DataPageVersionDataPageV1 OutputDlS3DataPageVersion = "DATA_PAGE_V1"
-	// OutputDlS3DataPageVersionDataPageV2 V2
-	OutputDlS3DataPageVersionDataPageV2 OutputDlS3DataPageVersion = "DATA_PAGE_V2"
-)
-
-func (e OutputDlS3DataPageVersion) ToPointer() *OutputDlS3DataPageVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDlS3DataPageVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "DATA_PAGE_V1", "DATA_PAGE_V2":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputDlS3KeyValueMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputDlS3KeyValueMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputDlS3KeyValueMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputDlS3KeyValueMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputDlS3KeyValueMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
 type OutputDlS3 struct {
 	// Unique ID for this output
 	ID   *string        `json:"id,omitempty"`
@@ -405,70 +50,71 @@ type OutputDlS3 struct {
 	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputDlS3AuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *OutputDlS3SignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access S3
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-	DestPath *string `default:"" json:"destPath"`
+	DestPath *string `json:"destPath,omitempty"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *OutputDlS3ObjectACL `default:"private" json:"objectACL"`
+	ObjectACL *ObjectACLOptions `json:"objectACL,omitempty"`
 	// Storage class to select for uploaded objects
-	StorageClass         *OutputDlS3StorageClass                           `json:"storageClass,omitempty"`
-	ServerSideEncryption *OutputDlS3ServerSideEncryptionForUploadedObjects `json:"serverSideEncryption,omitempty"`
+	StorageClass         *StorageClassOptions                           `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitempty"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
 	KmsKeyID *string `json:"kmsKeyId,omitempty"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
 	// Format of the output data
-	Format *OutputDlS3DataFormat `default:"json" json:"format"`
+	Format *DataFormatOptions `json:"format,omitempty"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string `json:"baseFileName,omitempty"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string `json:"fileNameSuffix,omitempty"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
 	// If set, this line will be written to the beginning of each output file
-	HeaderLine *string `default:"" json:"headerLine"`
+	HeaderLine *string `json:"headerLine,omitempty"`
 	// Buffer size used to write to a file
-	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputDlS3BackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputDlS3DiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitempty"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
 	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitempty"`
 	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
 	PartitioningFields []string `json:"partitioningFields,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -477,39 +123,39 @@ type OutputDlS3 struct {
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *OutputDlS3Compression `default:"gzip" json:"compress"`
+	Compress *CompressionOptions2 `json:"compress,omitempty"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *OutputDlS3CompressionLevel `default:"best_speed" json:"compressionLevel"`
+	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitempty"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	AutomaticSchema *bool `json:"automaticSchema,omitempty"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
 	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *OutputDlS3ParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *ParquetVersionOptions `json:"parquetVersion,omitempty"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *OutputDlS3DataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *DataPageVersionOptions `json:"parquetDataPageVersion,omitempty"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitempty"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	ParquetPageSize *string `json:"parquetPageSize,omitempty"`
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []OutputDlS3KeyValueMetadatum `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	EnableStatistics *bool `json:"enableStatistics,omitempty"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitempty"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitempty"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
 }
 
 func (o OutputDlS3) MarshalJSON() ([]byte, error) {
@@ -517,7 +163,7 @@ func (o OutputDlS3) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDlS3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "stagePath"}); err != nil {
 		return err
 	}
 	return nil
@@ -586,7 +232,7 @@ func (o *OutputDlS3) GetAwsSecretKey() *string {
 	return o.AwsSecretKey
 }
 
-func (o *OutputDlS3) GetAwsAuthenticationMethod() *OutputDlS3AuthenticationMethod {
+func (o *OutputDlS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if o == nil {
 		return nil
 	}
@@ -600,7 +246,7 @@ func (o *OutputDlS3) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputDlS3) GetSignatureVersion() *OutputDlS3SignatureVersion {
+func (o *OutputDlS3) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if o == nil {
 		return nil
 	}
@@ -649,9 +295,9 @@ func (o *OutputDlS3) GetDurationSeconds() *float64 {
 	return o.DurationSeconds
 }
 
-func (o *OutputDlS3) GetStagePath() *string {
+func (o *OutputDlS3) GetStagePath() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.StagePath
 }
@@ -670,21 +316,21 @@ func (o *OutputDlS3) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputDlS3) GetObjectACL() *OutputDlS3ObjectACL {
+func (o *OutputDlS3) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputDlS3) GetStorageClass() *OutputDlS3StorageClass {
+func (o *OutputDlS3) GetStorageClass() *StorageClassOptions {
 	if o == nil {
 		return nil
 	}
 	return o.StorageClass
 }
 
-func (o *OutputDlS3) GetServerSideEncryption() *OutputDlS3ServerSideEncryptionForUploadedObjects {
+func (o *OutputDlS3) GetServerSideEncryption() *ServerSideEncryptionForUploadedObjectsOptions {
 	if o == nil {
 		return nil
 	}
@@ -705,7 +351,7 @@ func (o *OutputDlS3) GetRemoveEmptyDirs() *bool {
 	return o.RemoveEmptyDirs
 }
 
-func (o *OutputDlS3) GetFormat() *OutputDlS3DataFormat {
+func (o *OutputDlS3) GetFormat() *DataFormatOptions {
 	if o == nil {
 		return nil
 	}
@@ -754,7 +400,7 @@ func (o *OutputDlS3) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputDlS3) GetOnBackpressure() *OutputDlS3BackpressureBehavior {
+func (o *OutputDlS3) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -768,7 +414,7 @@ func (o *OutputDlS3) GetDeadletterEnabled() *bool {
 	return o.DeadletterEnabled
 }
 
-func (o *OutputDlS3) GetOnDiskFullBackpressure() *OutputDlS3DiskSpaceProtection {
+func (o *OutputDlS3) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
 	if o == nil {
 		return nil
 	}
@@ -780,6 +426,13 @@ func (o *OutputDlS3) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputDlS3) GetRetrySettings() *RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputDlS3) GetMaxFileOpenTimeSec() *float64 {
@@ -845,14 +498,14 @@ func (o *OutputDlS3) GetAwsSecret() *string {
 	return o.AwsSecret
 }
 
-func (o *OutputDlS3) GetCompress() *OutputDlS3Compression {
+func (o *OutputDlS3) GetCompress() *CompressionOptions2 {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputDlS3) GetCompressionLevel() *OutputDlS3CompressionLevel {
+func (o *OutputDlS3) GetCompressionLevel() *CompressionLevelOptions {
 	if o == nil {
 		return nil
 	}
@@ -873,14 +526,14 @@ func (o *OutputDlS3) GetParquetSchema() *string {
 	return o.ParquetSchema
 }
 
-func (o *OutputDlS3) GetParquetVersion() *OutputDlS3ParquetVersion {
+func (o *OutputDlS3) GetParquetVersion() *ParquetVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputDlS3) GetParquetDataPageVersion() *OutputDlS3DataPageVersion {
+func (o *OutputDlS3) GetParquetDataPageVersion() *DataPageVersionOptions {
 	if o == nil {
 		return nil
 	}
@@ -908,7 +561,7 @@ func (o *OutputDlS3) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputDlS3) GetKeyValueMetadata() []OutputDlS3KeyValueMetadatum {
+func (o *OutputDlS3) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
 	if o == nil {
 		return nil
 	}

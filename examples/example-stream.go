@@ -29,7 +29,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -61,128 +60,102 @@ func main() {
 		log.Printf("Worker Group doesn't exist yet, will create: %v", err)
 	}
 
-	if getResponse != nil && getResponse.Object != nil &&
-		getResponse.Object.Items != nil &&
-		len(getResponse.Object.Items) > 0 {
+	if getResponse != nil && getResponse.CountedConfigGroup != nil &&
+		getResponse.CountedConfigGroup.Items != nil &&
+		len(getResponse.CountedConfigGroup.Items) > 0 {
 		fmt.Printf("⚠️ Worker Group already exists: %s. Using existing group.\n", WORKER_GROUP_ID)
 	} else {
 		// Create Worker Group
-		myWorkerGroupCreateRequest := components.GroupCreateRequest{
+		myWorkerGroup := components.GroupCreateRequest{
 			ID:          WORKER_GROUP_ID,
 			Description: criblcontrolplanesdkgo.String("My Worker Group"),
 			OnPrem:      criblcontrolplanesdkgo.Bool(true),
 		}
 
-		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, myWorkerGroupCreateRequest)
+		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, myWorkerGroup)
 		if err != nil {
 			log.Printf("Error creating Worker Group: %v", err)
-		} else if createResponse != nil && createResponse.Object != nil {
+		} else if createResponse != nil && createResponse.CountedConfigGroup != nil {
 			fmt.Printf("✅ Worker Group created: %s\n", WORKER_GROUP_ID)
 		}
 	}
 
 	// Create TCP JSON Source
-	tcpJSONConfig := map[string]interface{}{
-		"id":        "my-tcp-json",
-		"type":      "tcpjson",
-		"port":      PORT,
-		"authType":  "manual",
-		"authToken": AUTH_TOKEN,
+	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
+	authToken := AUTH_TOKEN
+	sendToRoutes := true
+	tcpJSONSource := operations.InputTcpjson{
+		ID:           "my-tcp-json",
+		Type:         operations.CreateInputTypeTcpjsonTcpjson,
+		Host:         "0.0.0.0",
+		Port:         float64(PORT),
+		AuthType:     &authType,
+		AuthToken:    &authToken,
+		SendToRoutes: &sendToRoutes,
 	}
-
-	// Convert to components.Input using JSON marshaling/unmarshaling
-	sourceBytes, err := json.Marshal(tcpJSONConfig)
+	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONSource)
+	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
-		log.Printf("Error marshaling TCP JSON Source config: %v", err)
+		log.Printf("Error creating TCP JSON Source: %v", err)
 	} else {
-		var tcpJSONSource components.Input
-		err = json.Unmarshal(sourceBytes, &tcpJSONSource)
-		if err != nil {
-			log.Printf("Error unmarshaling TCP JSON Source config: %v", err)
-		} else {
-			_, err = client.Sources.Create(ctx, tcpJSONSource, operations.WithServerURL(groupURL))
-			if err != nil {
-				log.Printf("Error creating TCP JSON Source: %v", err)
-			} else {
-				fmt.Printf("✅ TCP JSON Source created: my-tcp-json\n")
-			}
-		}
+		fmt.Printf("✅ TCP JSON Source created: my-tcp-json\n")
 	}
 
 	// Create Filesystem Destination
-	fileSystemConfig := map[string]interface{}{
-		"id":             "my-fs-destination",
-		"type":           "filesystem",
-		"destPath":       "/tmp/my-output",
-		"fileNameSuffix": "\".log\"", // JavaScript expression that returns ".log"
+	fileNameSuffix := "\".log\"" // JavaScript expression that returns ".log"
+	fileSystemDestination := operations.OutputFilesystem{
+		ID:             "my-fs-destination",
+		Type:           operations.TypeFilesystemFilesystem,
+		DestPath:       "/tmp/my-output",
+		FileNameSuffix: &fileNameSuffix,
 	}
 
-	// Convert to components.Output using JSON marshaling/unmarshaling
-	destBytes, err := json.Marshal(fileSystemConfig)
+	createOutputRequest := operations.CreateCreateOutputRequestFilesystem(fileSystemDestination)
+	_, err = client.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
-		log.Printf("Error marshaling Filesystem Destination config: %v", err)
+		log.Printf("Error creating Filesystem Destination: %v", err)
 	} else {
-		var fileSystemDestination components.Output
-		err = json.Unmarshal(destBytes, &fileSystemDestination)
-		if err != nil {
-			log.Printf("Error unmarshaling Filesystem Destination config: %v", err)
-		} else {
-			_, err = client.Destinations.Create(ctx, fileSystemDestination, operations.WithServerURL(groupURL))
-			if err != nil {
-				log.Printf("Error creating Filesystem Destination: %v", err)
-			} else {
-				fmt.Printf("✅ Filesystem Destination created: my-fs-destination\n")
-			}
-		}
+		fmt.Printf("✅ Filesystem Destination created: my-fs-destination\n")
 	}
 
 	// Create Pipeline
-	pipelineConf := map[string]interface{}{
-		"asyncFuncTimeout": 1000,
-		"functions": []map[string]interface{}{
-			{
-				"filter": "true",
-				"conf": map[string]interface{}{
-					"remove": []string{"*"},
-					"keep":   []string{"name"},
-				},
-				"id":    "eval",
-				"final": true,
-			},
+	asyncFuncTimeout := int64(1000)
+	filter := "true"
+	final := true
+	evalFunction := components.CreatePipelineFunctionConfInputEval(components.PipelineFunctionEval{
+		Filter: &filter,
+		ID:     components.PipelineFunctionEvalIDEval,
+		Final:  &final,
+		Conf: components.FunctionConfSchemaEval{
+			Remove: []string{"*"},
+			Keep:   []string{"name"},
 		},
+	})
+
+	conf := components.ConfInput{
+		AsyncFuncTimeout: &asyncFuncTimeout,
+		Functions:        []components.PipelineFunctionConfInput{evalFunction},
 	}
 
-	// Convert to components.Conf using JSON marshaling/unmarshaling
-	confBytes, err := json.Marshal(pipelineConf)
-	if err != nil {
-		log.Printf("Error marshaling Pipeline config: %v", err)
-	} else {
-		var conf components.Conf
-		err = json.Unmarshal(confBytes, &conf)
-		if err != nil {
-			log.Printf("Error unmarshaling Pipeline config: %v", err)
-		} else {
-			pipeline := components.Pipeline{
-				ID:   "my-pipeline",
-				Conf: conf,
-			}
+	pipeline := components.PipelineInput{
+		ID:   "my-pipeline",
+		Conf: conf,
+	}
 
-			_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(groupURL))
-			if err != nil {
-				log.Printf("Error creating Pipeline: %v", err)
-			} else {
-				fmt.Printf("✅ Pipeline created: my-pipeline\n")
-			}
-		}
+	_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(groupURL))
+	if err != nil {
+		log.Printf("Error creating Pipeline: %v", err)
+	} else {
+		fmt.Printf("✅ Pipeline created: my-pipeline\n")
 	}
 
 	// Get existing Routes and add new Route
 	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error listing routes: %v", err)
-	} else if routesListResponse.Object != nil && routesListResponse.Object.Items != nil && len(routesListResponse.Object.Items) > 0 {
+	} else if routesListResponse.CountedRoutes != nil && routesListResponse.CountedRoutes.Items != nil && len(routesListResponse.CountedRoutes.Items) > 0 {
 		// Get the first Routes configuration
-		existingRoutes := routesListResponse.Object.Items[0]
+		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route
 		newRoute := components.RoutesRoute{
@@ -226,8 +199,8 @@ func main() {
 	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, &workerGroupID)
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
-	} else if commitResponse.Object != nil && commitResponse.Object.Items != nil && len(commitResponse.Object.Items) > 0 {
-		version := commitResponse.Object.Items[0].Commit
+	} else if commitResponse.CountedGitCommitSummary != nil && commitResponse.CountedGitCommitSummary.Items != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {
+		version := commitResponse.CountedGitCommitSummary.Items[0].Commit
 		fmt.Printf("✅ Committed configuration changes to the group: %s, commit ID: %s\n", WORKER_GROUP_ID, version)
 
 		// Deploy the configuration using DeployRequest

@@ -31,314 +31,6 @@ func (e *OutputHumioHecType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputHumioHecExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputHumioHecExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputHumioHecExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputHumioHecExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputHumioHecExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputHumioHecFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputHumioHecFailedRequestLoggingMode string
-
-const (
-	// OutputHumioHecFailedRequestLoggingModePayload Payload
-	OutputHumioHecFailedRequestLoggingModePayload OutputHumioHecFailedRequestLoggingMode = "payload"
-	// OutputHumioHecFailedRequestLoggingModePayloadAndHeaders Payload + Headers
-	OutputHumioHecFailedRequestLoggingModePayloadAndHeaders OutputHumioHecFailedRequestLoggingMode = "payloadAndHeaders"
-	// OutputHumioHecFailedRequestLoggingModeNone None
-	OutputHumioHecFailedRequestLoggingModeNone OutputHumioHecFailedRequestLoggingMode = "none"
-)
-
-func (e OutputHumioHecFailedRequestLoggingMode) ToPointer() *OutputHumioHecFailedRequestLoggingMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputHumioHecFailedRequestLoggingMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "payload", "payloadAndHeaders", "none":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputHumioHecRequestFormat - When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
-type OutputHumioHecRequestFormat string
-
-const (
-	// OutputHumioHecRequestFormatJSON JSON
-	OutputHumioHecRequestFormatJSON OutputHumioHecRequestFormat = "JSON"
-	// OutputHumioHecRequestFormatRaw Raw
-	OutputHumioHecRequestFormatRaw OutputHumioHecRequestFormat = "raw"
-)
-
-func (e OutputHumioHecRequestFormat) ToPointer() *OutputHumioHecRequestFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputHumioHecRequestFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "JSON", "raw":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputHumioHecAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type OutputHumioHecAuthenticationMethod string
-
-const (
-	OutputHumioHecAuthenticationMethodManual OutputHumioHecAuthenticationMethod = "manual"
-	OutputHumioHecAuthenticationMethodSecret OutputHumioHecAuthenticationMethod = "secret"
-)
-
-func (e OutputHumioHecAuthenticationMethod) ToPointer() *OutputHumioHecAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputHumioHecAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputHumioHecResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputHumioHecResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputHumioHecResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputHumioHecResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputHumioHecResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputHumioHecResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputHumioHecResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputHumioHecTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputHumioHecTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputHumioHecTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputHumioHecTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputHumioHecTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputHumioHecTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputHumioHecTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputHumioHecBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputHumioHecBackpressureBehavior string
-
-const (
-	// OutputHumioHecBackpressureBehaviorBlock Block
-	OutputHumioHecBackpressureBehaviorBlock OutputHumioHecBackpressureBehavior = "block"
-	// OutputHumioHecBackpressureBehaviorDrop Drop
-	OutputHumioHecBackpressureBehaviorDrop OutputHumioHecBackpressureBehavior = "drop"
-	// OutputHumioHecBackpressureBehaviorQueue Persistent Queue
-	OutputHumioHecBackpressureBehaviorQueue OutputHumioHecBackpressureBehavior = "queue"
-)
-
-func (e OutputHumioHecBackpressureBehavior) ToPointer() *OutputHumioHecBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputHumioHecBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputHumioHecMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputHumioHecMode string
-
-const (
-	// OutputHumioHecModeError Error
-	OutputHumioHecModeError OutputHumioHecMode = "error"
-	// OutputHumioHecModeAlways Backpressure
-	OutputHumioHecModeAlways OutputHumioHecMode = "always"
-	// OutputHumioHecModeBackpressure Always On
-	OutputHumioHecModeBackpressure OutputHumioHecMode = "backpressure"
-)
-
-func (e OutputHumioHecMode) ToPointer() *OutputHumioHecMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputHumioHecMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputHumioHecCompression - Codec to use to compress the persisted data
-type OutputHumioHecCompression string
-
-const (
-	// OutputHumioHecCompressionNone None
-	OutputHumioHecCompressionNone OutputHumioHecCompression = "none"
-	// OutputHumioHecCompressionGzip Gzip
-	OutputHumioHecCompressionGzip OutputHumioHecCompression = "gzip"
-)
-
-func (e OutputHumioHecCompression) ToPointer() *OutputHumioHecCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputHumioHecCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputHumioHecQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputHumioHecQueueFullBehavior string
-
-const (
-	// OutputHumioHecQueueFullBehaviorBlock Block
-	OutputHumioHecQueueFullBehaviorBlock OutputHumioHecQueueFullBehavior = "block"
-	// OutputHumioHecQueueFullBehaviorDrop Drop new data
-	OutputHumioHecQueueFullBehaviorDrop OutputHumioHecQueueFullBehavior = "drop"
-)
-
-func (e OutputHumioHecQueueFullBehavior) ToPointer() *OutputHumioHecQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputHumioHecQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputHumioHecPqControls struct {
 }
 
@@ -366,68 +58,68 @@ type OutputHumioHec struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// URL to a CrowdStrike Falcon LogScale endpoint to send events to. Examples: https://cloud.us.humio.com/api/v1/ingest/hec for JSON and https://cloud.us.humio.com/api/v1/ingest/hec/raw for raw
-	URL *string `default:"https://cloud.us.humio.com/api/v1/ingest/hec" json:"url"`
+	URL string `json:"url"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `default:"5" json:"concurrency"`
+	Concurrency *float64 `json:"concurrency,omitempty"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
 	// Compress the payload body before sending
-	Compress *bool `default:"true" json:"compress"`
+	Compress *bool `json:"compress,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputHumioHecExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `default:"true" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputHumioHecFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
-	Format *OutputHumioHecRequestFormat `default:"JSON" json:"format"`
+	Format RequestFormatOptions `json:"format"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *OutputHumioHecAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputHumioHecResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputHumioHecTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputHumioHecBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                             `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	Description    *string                      `json:"description,omitempty"`
 	// CrowdStrike Falcon LogScale authentication token
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputHumioHecMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputHumioHecCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputHumioHecQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputHumioHecPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
+	PqControls       *OutputHumioHecPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputHumioHec) MarshalJSON() ([]byte, error) {
@@ -435,7 +127,7 @@ func (o OutputHumioHec) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputHumioHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "format"}); err != nil {
 		return err
 	}
 	return nil
@@ -483,9 +175,9 @@ func (o *OutputHumioHec) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputHumioHec) GetURL() *string {
+func (o *OutputHumioHec) GetURL() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.URL
 }
@@ -539,7 +231,7 @@ func (o *OutputHumioHec) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputHumioHec) GetExtraHTTPHeaders() []OutputHumioHecExtraHTTPHeader {
+func (o *OutputHumioHec) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if o == nil {
 		return nil
 	}
@@ -553,7 +245,7 @@ func (o *OutputHumioHec) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputHumioHec) GetFailedRequestLoggingMode() *OutputHumioHecFailedRequestLoggingMode {
+func (o *OutputHumioHec) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -567,28 +259,28 @@ func (o *OutputHumioHec) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputHumioHec) GetFormat() *OutputHumioHecRequestFormat {
+func (o *OutputHumioHec) GetFormat() RequestFormatOptions {
 	if o == nil {
-		return nil
+		return RequestFormatOptions("")
 	}
 	return o.Format
 }
 
-func (o *OutputHumioHec) GetAuthType() *OutputHumioHecAuthenticationMethod {
+func (o *OutputHumioHec) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
 }
 
-func (o *OutputHumioHec) GetResponseRetrySettings() []OutputHumioHecResponseRetrySetting {
+func (o *OutputHumioHec) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputHumioHec) GetTimeoutRetrySettings() *OutputHumioHecTimeoutRetrySettings {
+func (o *OutputHumioHec) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
@@ -602,7 +294,7 @@ func (o *OutputHumioHec) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputHumioHec) GetOnBackpressure() *OutputHumioHecBackpressureBehavior {
+func (o *OutputHumioHec) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -644,7 +336,7 @@ func (o *OutputHumioHec) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputHumioHec) GetPqMode() *OutputHumioHecMode {
+func (o *OutputHumioHec) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -686,14 +378,14 @@ func (o *OutputHumioHec) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputHumioHec) GetPqCompress() *OutputHumioHecCompression {
+func (o *OutputHumioHec) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputHumioHec) GetPqOnBackpressure() *OutputHumioHecQueueFullBehavior {
+func (o *OutputHumioHec) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

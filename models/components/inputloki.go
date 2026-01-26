@@ -31,519 +31,60 @@ func (e *InputLokiType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputLokiConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputLokiConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputLokiConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputLokiConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputLokiConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputLokiMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputLokiMode string
-
-const (
-	// InputLokiModeSmart Smart
-	InputLokiModeSmart InputLokiMode = "smart"
-	// InputLokiModeAlways Always On
-	InputLokiModeAlways InputLokiMode = "always"
-)
-
-func (e InputLokiMode) ToPointer() *InputLokiMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputLokiMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputLokiCompression - Codec to use to compress the persisted data
-type InputLokiCompression string
-
-const (
-	// InputLokiCompressionNone None
-	InputLokiCompressionNone InputLokiCompression = "none"
-	// InputLokiCompressionGzip Gzip
-	InputLokiCompressionGzip InputLokiCompression = "gzip"
-)
-
-func (e InputLokiCompression) ToPointer() *InputLokiCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputLokiCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputLokiPqControls struct {
-}
-
-func (i InputLokiPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputLokiPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputLokiPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputLokiMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputLokiCompression `default:"none" json:"compress"`
-	PqControls *InputLokiPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputLokiPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputLokiPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputLokiPq) GetMode() *InputLokiMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputLokiPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputLokiPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputLokiPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputLokiPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputLokiPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputLokiPq) GetCompress() *InputLokiCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputLokiPq) GetPqControls() *InputLokiPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputLokiMinimumTLSVersion string
-
-const (
-	InputLokiMinimumTLSVersionTlSv1  InputLokiMinimumTLSVersion = "TLSv1"
-	InputLokiMinimumTLSVersionTlSv11 InputLokiMinimumTLSVersion = "TLSv1.1"
-	InputLokiMinimumTLSVersionTlSv12 InputLokiMinimumTLSVersion = "TLSv1.2"
-	InputLokiMinimumTLSVersionTlSv13 InputLokiMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputLokiMinimumTLSVersion) ToPointer() *InputLokiMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputLokiMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputLokiMaximumTLSVersion string
-
-const (
-	InputLokiMaximumTLSVersionTlSv1  InputLokiMaximumTLSVersion = "TLSv1"
-	InputLokiMaximumTLSVersionTlSv11 InputLokiMaximumTLSVersion = "TLSv1.1"
-	InputLokiMaximumTLSVersionTlSv12 InputLokiMaximumTLSVersion = "TLSv1.2"
-	InputLokiMaximumTLSVersionTlSv13 InputLokiMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputLokiMaximumTLSVersion) ToPointer() *InputLokiMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputLokiMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputLokiTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                     `json:"caPath,omitempty"`
-	MinVersion *InputLokiMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputLokiMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputLokiTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputLokiTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetMinVersion() *InputLokiMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputLokiTLSSettingsServerSide) GetMaxVersion() *InputLokiMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-// InputLokiAuthenticationType - Loki logs authentication type
-type InputLokiAuthenticationType string
-
-const (
-	InputLokiAuthenticationTypeNone              InputLokiAuthenticationType = "none"
-	InputLokiAuthenticationTypeBasic             InputLokiAuthenticationType = "basic"
-	InputLokiAuthenticationTypeCredentialsSecret InputLokiAuthenticationType = "credentialsSecret"
-	InputLokiAuthenticationTypeToken             InputLokiAuthenticationType = "token"
-	InputLokiAuthenticationTypeTextSecret        InputLokiAuthenticationType = "textSecret"
-	InputLokiAuthenticationTypeOauth             InputLokiAuthenticationType = "oauth"
-)
-
-func (e InputLokiAuthenticationType) ToPointer() *InputLokiAuthenticationType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputLokiAuthenticationType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
-			return true
-		}
-	}
-	return false
-}
-
-type InputLokiMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputLokiMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputLokiMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputLokiMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputLokiMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputLokiOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (i InputLokiOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputLokiOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputLokiOauthParam) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputLokiOauthParam) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputLokiOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (i InputLokiOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputLokiOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputLokiOauthHeader) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputLokiOauthHeader) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputLoki struct {
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputLokiType `json:"type"`
-	Disabled *bool         `default:"false" json:"disabled"`
+	Disabled *bool         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputLokiConnection `json:"connections,omitempty"`
-	Pq          *InputLokiPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port float64                         `json:"port"`
-	TLS  *InputLokiTLSSettingsServerSide `json:"tls,omitempty"`
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'.
-	LokiAPI *string `default:"/loki/api/v1/push" json:"lokiAPI"`
+	LokiAPI string `json:"lokiAPI"`
 	// Loki logs authentication type
-	AuthType *InputLokiAuthenticationType `default:"none" json:"authType"`
+	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []InputLokiMetadatum `json:"metadata,omitempty"`
-	Description *string              `json:"description,omitempty"`
-	Username    *string              `json:"username,omitempty"`
-	Password    *string              `json:"password,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	Username    *string                         `json:"username,omitempty"`
+	Password    *string                         `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -559,13 +100,13 @@ type InputLoki struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []InputLokiOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []InputLokiOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 }
 
 func (i InputLoki) MarshalJSON() ([]byte, error) {
@@ -573,7 +114,7 @@ func (i InputLoki) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputLoki) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port", "lokiAPI"}); err != nil {
 		return err
 	}
 	return nil
@@ -635,23 +176,23 @@ func (i *InputLoki) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputLoki) GetConnections() []InputLokiConnection {
+func (i *InputLoki) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputLoki) GetPq() *InputLokiPq {
+func (i *InputLoki) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputLoki) GetHost() *string {
+func (i *InputLoki) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -663,7 +204,7 @@ func (i *InputLoki) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputLoki) GetTLS() *InputLokiTLSSettingsServerSide {
+func (i *InputLoki) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
@@ -747,21 +288,21 @@ func (i *InputLoki) GetIPDenylistRegex() *string {
 	return i.IPDenylistRegex
 }
 
-func (i *InputLoki) GetLokiAPI() *string {
+func (i *InputLoki) GetLokiAPI() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.LokiAPI
 }
 
-func (i *InputLoki) GetAuthType() *InputLokiAuthenticationType {
+func (i *InputLoki) GetAuthType() *AuthenticationTypeOptionsLokiAuth {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputLoki) GetMetadata() []InputLokiMetadatum {
+func (i *InputLoki) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
@@ -852,14 +393,14 @@ func (i *InputLoki) GetTokenTimeoutSecs() *float64 {
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputLoki) GetOauthParams() []InputLokiOauthParam {
+func (i *InputLoki) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputLoki) GetOauthHeaders() []InputLokiOauthHeader {
+func (i *InputLoki) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
