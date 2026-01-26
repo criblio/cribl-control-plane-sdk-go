@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [Get](#get) - Capture live incoming data
+* [Create](#create) - Capture live incoming data
 
-## Get
+## Create
 
-Capture live incoming data
+Initiate a live data capture from Cribl Workers.Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
 
 ### Example Usage
 
@@ -34,7 +34,7 @@ func main() {
         }),
     )
 
-    res, err := s.System.Captures.Get(ctx, components.CaptureParams{
+    res, err := s.System.Captures.Create(ctx, components.CaptureParams{
         Duration: 5,
         Filter: "true",
         Level: components.CaptureLevelBeforePreProcessingPipeline,
