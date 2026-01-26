@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 833c5e9fa5f9faeb86a89c8d1fed1945
-  docVersion: 4.17.0-alpha.1769209481796-c5a3e381
-  speakeasyVersion: 1.693.0
-  generationVersion: 2.798.0
-  releaseVersion: 0.5.0-beta.36
-  configChecksum: 608fd8b89214b6ac70c5a7e86c5cd2a6
+  docChecksum: c40e16a70be299fd62a92762896a1aff
+  docVersion: 4.17.0-alpha.1769425375939-a0fb3db5
+  speakeasyVersion: 1.697.5
+  generationVersion: 2.799.0
+  releaseVersion: 0.5.0-beta.37
+  configChecksum: bfd14a60c5852266e7f6299f75e0ac50
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 4616c383-e8a0-429b-8ca0-482c3a7c94ac
-  pristine_commit_hash: 56e95b46fc3b4d350b08dc8db53caa148ed70eaa
-  pristine_tree_hash: 819e4a82b09ee9a44af4a707aed5bbe11cec2758
+  generation_id: f59a3faf-98c3-4192-953b-8455645fd912
+  pristine_commit_hash: 530f94528f6663105ea6b2a1401701e55a10c652
+  pristine_tree_hash: fe11d7f27cb19bed628bb5cfdfddb3b8418c17b2
 features:
   go:
     additionalDependencies: 0.1.0
@@ -30,6 +30,7 @@ features:
     groups: 2.81.3
     inputOutputModels: 2.83.0
     intellisenseMarkdownSupport: 0.1.0
+    jsonlResponses: 0.2.0
     nameOverrides: 2.81.2
     nullables: 0.2.1
     oauth2ClientCredentials: 1.1.0
@@ -72,6 +73,10 @@ trackedFiles:
     id: 5ee5cc3c18e8
     last_write_checksum: sha1:63baf294801ca182f956b54a4975b7f5b2ed98a6
     pristine_git_object: 3cb294580082968c59e3c3c26f78b158d6bd78a2
+  captures.go:
+    id: 0f5123ff80de
+    last_write_checksum: sha1:8281e040f6f0b803c438354eed369013580b4a2d
+    pristine_git_object: 3e0613f2f90638306a82d9de5848e71a0f7b016e
   collectors.go:
     id: 7e88ffe1ef22
     last_write_checksum: sha1:e6efbea30f12af27049d54cb9f3e85f03e14f372
@@ -90,8 +95,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:65322dbb273c39c50064b861295d7d120c878e24
-    pristine_git_object: d8c076552e671e19902767b86883dfff5508ba58
+    last_write_checksum: sha1:06857f314166807b86e5bacaf47123d2c00ecd62
+    pristine_git_object: 7278783dfb3e99e96b442b7cb776995d23a8e5e3
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -348,6 +353,14 @@ trackedFiles:
     id: 561922e61535
     last_write_checksum: sha1:544796c51488627a0058316f3e0a6721c08bc2f5
     pristine_git_object: ef8e57e839f34809b55eeb7806b9d64386d48090
+  docs/models/components/capturelevel.md:
+    id: b5c08e35e1c1
+    last_write_checksum: sha1:673f347cfdcc78a77b6fb7103429d8a4fe1633e6
+    pristine_git_object: 33392585113525d333e9255e1bb5fff15108cb5d
+  docs/models/components/captureparams.md:
+    id: f55343965623
+    last_write_checksum: sha1:74cbdbc59968d08eaaf756d7b0938e0ec1da21f4
+    pristine_git_object: 13e844386111fb19c021440b9aef9aba08b9bb68
   docs/models/components/capturesettings.md:
     id: 9e62b6cd079d
     last_write_checksum: sha1:66cd9148cde31441552e539b1d2d16c39829d5ad
@@ -9268,6 +9281,10 @@ trackedFiles:
     id: 4b894c916c54
     last_write_checksum: sha1:6fd14469370c6315e168ac2c12e4ab7986e4973c
     pristine_git_object: c2008d4f9ca033f56fed381ea694c3cdbb72f210
+  docs/models/operations/createsystemcaptureresponse.md:
+    id: def1a752bf71
+    last_write_checksum: sha1:7b182b75dc0ce0ab24979994e4ec85b004f9f610
+    pristine_git_object: 24e839bccdf6e3ffe407318818e84902dd0b8685
   docs/models/operations/createversioncommitrequest.md:
     id: ad3a97c934f2
     last_write_checksum: sha1:5cd37c1f94ce37d61334939723fb7fd98861dc79
@@ -11380,6 +11397,10 @@ trackedFiles:
     id: 26feb5fd088f
     last_write_checksum: sha1:a4c5ad46209fff7f73642a67cff2519f30182f53
     pristine_git_object: 9a4fa7fb316ca83ff559bbafe3ee23cab40b3286
+  docs/sdks/captures/README.md:
+    id: 7598191d8c6a
+    last_write_checksum: sha1:e6781f5a211b81e1f571f0308d4d0cffdb83c1f4
+    pristine_git_object: dc7d6f43f4632c83301b28d3636fbcaee26840f3
   docs/sdks/collectors/README.md:
     id: b8ecaf222c71
     last_write_checksum: sha1:d3cf1cdcda00c259990d5c5091af55362c555baf
@@ -11728,6 +11749,14 @@ trackedFiles:
     id: 5cca5269804c
     last_write_checksum: sha1:4a0f1744c8021d9f81a73891e1eeda6b4d58becc
     pristine_git_object: c6a28176159bc6c056c81141a55b77c61166d083
+  models/components/capturelevel.go:
+    id: 5e3209a9368d
+    last_write_checksum: sha1:df1caf59aa2cad5d6ee7f59221ae0057822c5390
+    pristine_git_object: ae3f67f3b9f21b7c257ff66616749f2ae3251294
+  models/components/captureparams.go:
+    id: d908e7c0ba7d
+    last_write_checksum: sha1:74a4c6010b954b87f84e4bbcac5eba8f30b6eed3
+    pristine_git_object: 590855546769b9161b27f3cc710521a69e119c39
   models/components/certificatetypeazureblobauthtypeclientcert.go:
     id: 9196e5fc4b85
     last_write_checksum: sha1:cdeca90fd58de021426306f241754c21314c5cec
@@ -14068,6 +14097,10 @@ trackedFiles:
     id: a8ea9f1ade37
     last_write_checksum: sha1:cd6afe595dd2a288a1d66766481d769153d34e3e
     pristine_git_object: bdf9e5762301426609e4a39a1412d5e3554ea7e8
+  models/operations/createsystemcapture.go:
+    id: e7a20595b029
+    last_write_checksum: sha1:651c13008380d1d0f2b150817724511c5c86ecfc
+    pristine_git_object: 1d4599ef6ce2130e7e78cb3dfc29102c90b655b9
   models/operations/createversioncommit.go:
     id: a16ff0a83110
     last_write_checksum: sha1:87dd238b21e194433dac57df1961a2a5e1f95371
@@ -14274,8 +14307,8 @@ trackedFiles:
     pristine_git_object: a802fbe4e798ba9fa504e877ce25238142536577
   models/operations/options.go:
     id: d20dd4db9865
-    last_write_checksum: sha1:e4e11906759232e27627ba1bb2d432820cb1d204
-    pristine_git_object: 5cc3aa33db8629f1a58712735ceb4b7b7b9d2076
+    last_write_checksum: sha1:838996979445cc644cd1d17ccaf2bbbdae748c96
+    pristine_git_object: 606398873ed314e24d1a904474f0edfac56c085e
   models/operations/updateconfiggroupbyproductandid.go:
     id: 1938f95400eb
     last_write_checksum: sha1:0a086f1f525c6582358a0316c50df26e8f2d0feb
@@ -14382,8 +14415,8 @@ trackedFiles:
     pristine_git_object: 521d1f734af4749c09c4b1847744617745bab15c
   system.go:
     id: 9bbd1b17a622
-    last_write_checksum: sha1:a240ce0ead172605eb6b762506a082be5a382207
-    pristine_git_object: 978ec76956e8c02437dd738f66918d86d1ff5efc
+    last_write_checksum: sha1:e0b05f5fc542d4059ec59995df9f16a197c3dbed
+    pristine_git_object: 93220b9094cea93a75aac79a2dfaf1f4235ec5e8
   teams.go:
     id: 453642004cde
     last_write_checksum: sha1:510cb47b61be471f3c19b3f07eeaa2ef7a889396
@@ -14404,6 +14437,10 @@ trackedFiles:
     id: 5023aac30a47
     last_write_checksum: sha1:196d050af6450669214e9ae4fd28e56263ae2b5d
     pristine_git_object: 3eff332daa04e34cec5ffb10add670bafd8ac454
+  types/jsonl/jsonl.go:
+    id: 754dad467690
+    last_write_checksum: sha1:2e0b4e57225bcd2109db8f2099d30def00226507
+    pristine_git_object: 0d462fd1e6216e0836c21d412d28431ab48534c9
   types/pointers.go:
     id: 6d0d0a6cb6f3
     last_write_checksum: sha1:fc2275ea006257ba9ba4ff6f2a2cdb6205371eef
@@ -19261,6 +19298,37 @@ examples:
           application/json: {"count": 129463, "items": [{"authType": "<value>", "configObj": "<value>", "connectionString": "<value>", "connectionTimeout": 5919.77, "credsSecrets": "<value>", "databaseType": "postgres", "description": "bah flint rationale pike justly below blowgun aha past", "id": "<id>", "password": "WaF3L54SuWsTJFm", "requestTimeout": 3768.53, "tags": "<value>", "user": "Bailee.Ward"}]}
         "500":
           application/json: {"message": "<value>"}
+  createSystemCapture:
+    CaptureExamplesSimpleExpression:
+      requestBody:
+        application/json: {"duration": 5, "filter": "sourcetype===\"pan:traffic\"", "level": 0, "maxEvents": 100, "stepDuration": 571732, "workerId": "<id>", "workerThreshold": 609412}
+      responses:
+        "500":
+          application/json: {"message": "<value>"}
+    CaptureExamplesCompoundAndExpression:
+      requestBody:
+        application/json: {"duration": 5, "filter": "sourcetype===\"pan:traffic\" && src_zone===\"trusted\"", "level": 0, "maxEvents": 100, "stepDuration": 994184, "workerId": "<id>", "workerThreshold": 771620}
+      responses:
+        "500":
+          application/json: {"message": "<value>"}
+    CaptureExamplesNestedFieldAccess:
+      requestBody:
+        application/json: {"duration": 5, "filter": "sourcetype===\"pan:traffic\" && dest_geoip.country.iso_code === \"US\"", "level": 0, "maxEvents": 100, "stepDuration": 882563, "workerId": "<id>", "workerThreshold": 392678}
+      responses:
+        "500":
+          application/json: {"message": "<value>"}
+    CaptureExamplesComplexFilter:
+      requestBody:
+        application/json: {"duration": 15, "filter": "__inputId.startsWith(\"http:\") && status >= 400 && status < 500", "level": 1, "maxEvents": 500, "stepDuration": 377776, "workerId": "<id>", "workerThreshold": 429562}
+      responses:
+        "500":
+          application/json: {"message": "<value>"}
+    speakeasy-default-create-system-capture:
+      requestBody:
+        application/json: {"duration": 9218.61, "filter": "<value>", "level": 0, "maxEvents": 198581, "stepDuration": 483316, "workerId": "<id>", "workerThreshold": 95395}
+      responses:
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -19326,6 +19394,9 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `CriblControlPlane.System.Captures.Create()`: **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

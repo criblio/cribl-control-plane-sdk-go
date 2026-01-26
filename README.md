@@ -13,6 +13,7 @@ Cribl API Reference: This API Reference lists available REST endpoints, along wi
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
+  * [Json Streaming](#json-streaming)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Custom HTTP Client](#custom-http-client)
@@ -339,6 +340,10 @@ func main() {
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 
+### [System.Captures](docs/sdks/captures/README.md)
+
+* [Create](docs/sdks/captures/README.md#create) - Capture live incoming data
+
 ### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
 * [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
@@ -374,6 +379,61 @@ func main() {
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Json Streaming [jsonl] -->
+## Json Streaming
+
+Json Streaming ([jsonl][jsonl-format] / [x-ndjson][x-ndjson]) content type can be used to stream content from certain operations. These operations expose the stream that can be consumed using a `for` loop in Go. The loop will terminate when the server no longer has any events to send and closes the underlying connection.
+
+Here's an example of consuming a JSONL stream:
+
+```go
+package main
+
+import (
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := criblcontrolplanesdkgo.New(
+		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
+	)
+
+	res, err := s.System.Captures.Create(ctx, components.CaptureParams{
+		Duration:        5,
+		Filter:          "sourcetype===\"pan:traffic\"",
+		Level:           components.CaptureLevelBeforePreProcessingPipeline,
+		MaxEvents:       100,
+		StepDuration:    criblcontrolplanesdkgo.Pointer[int64](571732),
+		WorkerID:        criblcontrolplanesdkgo.Pointer("<id>"),
+		WorkerThreshold: criblcontrolplanesdkgo.Pointer[int64](609412),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.CapturedEvent != nil {
+		for res.CapturedEvent.Next() {
+			event, _ := res.CapturedEvent.Value()
+			log.Print(event)
+			// Handle the event
+		}
+	}
+}
+
+```
+
+[jsonl-format]: https://jsonlines.org/
+[x-ndjson]: https://github.com/ndjson/ndjson-spec
+<!-- End Json Streaming [jsonl] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
