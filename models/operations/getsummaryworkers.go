@@ -6,32 +6,32 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type GetMasterWorkerEntryRequest struct {
+type GetSummaryWorkersRequest struct {
 	// Filter expression to evaluate against Nodes for inclusion in the response.
 	FilterExp *string `queryParam:"style=form,explode=true,name=filterExp"`
 }
 
-func (g *GetMasterWorkerEntryRequest) GetFilterExp() *string {
+func (g *GetSummaryWorkersRequest) GetFilterExp() *string {
 	if g == nil {
 		return nil
 	}
 	return g.FilterExp
 }
 
-type GetMasterWorkerEntryResponse struct {
+type GetSummaryWorkersResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of number objects
 	CountedNumber *components.CountedNumber
 }
 
-func (g *GetMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
+func (g *GetSummaryWorkersResponse) GetHTTPMeta() components.HTTPMetadata {
 	if g == nil {
 		return components.HTTPMetadata{}
 	}
 	return g.HTTPMeta
 }
 
-func (g *GetMasterWorkerEntryResponse) GetCountedNumber() *components.CountedNumber {
+func (g *GetSummaryWorkersResponse) GetCountedNumber() *components.CountedNumber {
 	if g == nil {
 		return nil
 	}

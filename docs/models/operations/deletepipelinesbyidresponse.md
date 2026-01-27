@@ -1,4 +1,4 @@
-# ListPipelineResponse
+# DeletePipelinesByIDResponse
 
 
 ## Fields

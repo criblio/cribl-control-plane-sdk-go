@@ -1,4 +1,4 @@
-# ListRoutesResponse
+# GetRoutesResponse
 
 
 ## Fields
