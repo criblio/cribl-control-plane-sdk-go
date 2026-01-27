@@ -37,7 +37,6 @@ go get github.com/criblio/cribl-control-plane-sdk-go
 ```
 <!-- End SDK Installation [installation] -->
 
-<!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 
 ### Example
@@ -47,8 +46,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -63,67 +64,132 @@ func main() {
 		}),
 	)
 
-	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
-		AcceleratedFields: []string{
-			"<value 1>",
-			"<value 2>",
-		},
-		BucketName: criblcontrolplanesdkgo.Pointer("<value>"),
-		CacheConnection: &components.CacheConnection{
-			AcceleratedFields: []string{
-				"<value 1>",
-				"<value 2>",
+	// Check server health
+	_, err := s.Health.Get(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	workerGroupID := "my-worker-group"
+	groupURL := fmt.Sprintf("https://api.example.com/m/%s", workerGroupID)
+
+	// Create a TCP JSON Source
+	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
+	authToken := "your-auth-token"
+	sendToRoutes := true
+	source, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestTcpjson(operations.InputTcpjson{
+		ID:           "my-tcp-json",
+		Type:         operations.CreateInputTypeTcpjsonTcpjson,
+		Host:         "0.0.0.0",
+		Port:         9020.0,
+		AuthType:     &authType,
+		AuthToken:    &authToken,
+		SendToRoutes: &sendToRoutes,
+	}), operations.WithServerURL(groupURL))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Create a Filesystem Destination
+	destination, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestFilesystem(operations.OutputFilesystem{
+		ID:       "my-fs-destination",
+		Type:     operations.TypeFilesystemFilesystem,
+		DestPath: "/tmp/my-output",
+	}), operations.WithServerURL(groupURL))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Create a Pipeline
+	output := "default"
+	asyncFuncTimeout := int64(1000)
+	filter := "true"
+	final := true
+	pipeline, err := s.Pipelines.Create(ctx, components.PipelineInput{
+		ID: "my-pipeline",
+		Conf: components.ConfInput{
+			AsyncFuncTimeout: &asyncFuncTimeout,
+			Output:           &output,
+			Functions: []components.PipelineFunctionConfInput{
+				components.CreatePipelineFunctionConfInputEval(components.PipelineFunctionEval{
+					Filter: &filter,
+					ID:     components.PipelineFunctionEvalIDEval,
+					Final:  &final,
+					Conf: components.FunctionConfSchemaEval{
+						Remove: []string{"*"},
+						Keep:   []string{"name"},
+					},
+				}),
 			},
-			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
-			CacheRef:                "<value>",
-			CreatedAt:               7795.06,
-			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
-			MigrationQueryID:        criblcontrolplanesdkgo.Pointer("<id>"),
-			RetentionInDays:         1466.58,
 		},
-		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
-		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
-		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
-		ID:                "<id>",
-		Metrics: &components.LakeDatasetMetrics{
-			CurrentSizeBytes: 6170.04,
-			MetricsDate:      "<value>",
-		},
-		RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](456.37),
-		SearchConfig: &components.LakeDatasetSearchConfig{
-			Datatypes: []string{
-				"<value 1>",
-			},
-			Metadata: &components.DatasetMetadata{
-				Earliest:           "<value>",
-				EnableAcceleration: true,
-				FieldList: []string{
-					"<value 1>",
-					"<value 2>",
-				},
-				LatestRunInfo: &components.DatasetMetadataRunInfo{
-					EarliestScannedTime: criblcontrolplanesdkgo.Pointer[float64](4334.7),
-					FinishedAt:          criblcontrolplanesdkgo.Pointer[float64](6811.22),
-					LatestScannedTime:   criblcontrolplanesdkgo.Pointer[float64](5303.3),
-					ObjectCount:         criblcontrolplanesdkgo.Pointer[float64](9489.04),
-				},
-				ScanMode: components.ScanModeDetailed,
-			},
-		},
-		StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-		ViewName:          criblcontrolplanesdkgo.Pointer("<value>"),
+	}, operations.WithServerURL(groupURL))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Add Route to Routing table
+	routesListResponse, err := s.Routes.List(ctx, operations.WithServerURL(groupURL))
+	if err != nil {
+		log.Fatal(err)
+	}
+	routes := routesListResponse.CountedRoutes
+	if routes != nil && len(routes.Items) > 0 && routes.Items[0].ID != nil {
+		var pipelineID string
+		if pipeline.CountedPipeline != nil && len(pipeline.CountedPipeline.Items) > 0 {
+			pipelineID = pipeline.CountedPipeline.Items[0].ID
+		}
+		var destinationID string
+		if destination.CountedOutput != nil && len(destination.CountedOutput.Items) > 0 {
+			destinationID = "my-fs-destination"
+		}
+		routes.Items[0].Routes = append([]components.RoutesRoute{{
+			Final:       criblcontrolplanesdkgo.Bool(false),
+			ID:          criblcontrolplanesdkgo.String("my-route"),
+			Name:        "my-route",
+			Pipeline:    pipelineID,
+			Output:      destinationID,
+			Filter:      criblcontrolplanesdkgo.String("__inputId=='tcpjson:my-tcp-json'"),
+			Description: criblcontrolplanesdkgo.String("My new route"),
+		}}, routes.Items[0].Routes...)
+		_, err = s.Routes.Update(ctx, *routes.Items[0].ID, components.Routes{
+			ID:     routes.Items[0].ID,
+			Routes: routes.Items[0].Routes,
+		}, operations.WithServerURL(groupURL))
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	// Commit configuration changes
+	effective := true
+	commitResponse, err := s.Versions.Commits.Create(ctx, components.GitCommitParams{
+		Message:   "Initial configuration",
+		Effective: &effective,
+		Files:     []string{"."},
+	}, &workerGroupID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var version string
+	if commitResponse.CountedGitCommitSummary != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {
+		version = commitResponse.CountedGitCommitSummary.Items[0].Commit
+	}
+
+	// Deploy configuration changes
+	_, err = s.Groups.Deploy(ctx, components.ProductsCoreStream, workerGroupID, components.DeployRequest{
+		Version: version,
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedCriblLakeDataset != nil {
-		// handle response
-	}
 }
 
 ```
-<!-- End SDK Example Usage [usage] -->
+
+> [!NOTE]
+> Additional examples demonstrating various SDK features and use cases can be found in the [`examples`](./examples) directory.
+
+<!-- No End SDK Example Usage [usage] -->
 
 ## Authentication
 
@@ -316,7 +382,6 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
-<!-- Start Retries [retries] -->
 ## Retries
 
 Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
@@ -329,9 +394,9 @@ import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"log"
-	"models/operations"
 	"os"
 )
 
@@ -345,57 +410,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
-		AcceleratedFields: []string{
-			"<value 1>",
-			"<value 2>",
-		},
-		BucketName: criblcontrolplanesdkgo.Pointer("<value>"),
-		CacheConnection: &components.CacheConnection{
-			AcceleratedFields: []string{
-				"<value 1>",
-				"<value 2>",
-			},
-			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
-			CacheRef:                "<value>",
-			CreatedAt:               7795.06,
-			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
-			MigrationQueryID:        criblcontrolplanesdkgo.Pointer("<id>"),
-			RetentionInDays:         1466.58,
-		},
-		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
-		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
-		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
-		ID:                "<id>",
-		Metrics: &components.LakeDatasetMetrics{
-			CurrentSizeBytes: 6170.04,
-			MetricsDate:      "<value>",
-		},
-		RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](456.37),
-		SearchConfig: &components.LakeDatasetSearchConfig{
-			Datatypes: []string{
-				"<value 1>",
-			},
-			Metadata: &components.DatasetMetadata{
-				Earliest:           "<value>",
-				EnableAcceleration: true,
-				FieldList: []string{
-					"<value 1>",
-					"<value 2>",
-				},
-				LatestRunInfo: &components.DatasetMetadataRunInfo{
-					EarliestScannedTime: criblcontrolplanesdkgo.Pointer[float64](4334.7),
-					FinishedAt:          criblcontrolplanesdkgo.Pointer[float64](6811.22),
-					LatestScannedTime:   criblcontrolplanesdkgo.Pointer[float64](5303.3),
-					ObjectCount:         criblcontrolplanesdkgo.Pointer[float64](9489.04),
-				},
-				ScanMode: components.ScanModeDetailed,
-			},
-		},
-		StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-		ViewName:          criblcontrolplanesdkgo.Pointer("<value>"),
-	}, operations.WithRetries(
+	res, err := s.System.Settings.Cribl.List(ctx, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -409,7 +424,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedCriblLakeDataset != nil {
+	if res.CountedSystemSettingsConf != nil {
 		// handle response
 	}
 }
@@ -450,69 +465,18 @@ func main() {
 		}),
 	)
 
-	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
-		AcceleratedFields: []string{
-			"<value 1>",
-			"<value 2>",
-		},
-		BucketName: criblcontrolplanesdkgo.Pointer("<value>"),
-		CacheConnection: &components.CacheConnection{
-			AcceleratedFields: []string{
-				"<value 1>",
-				"<value 2>",
-			},
-			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
-			CacheRef:                "<value>",
-			CreatedAt:               7795.06,
-			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
-			MigrationQueryID:        criblcontrolplanesdkgo.Pointer("<id>"),
-			RetentionInDays:         1466.58,
-		},
-		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
-		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
-		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
-		ID:                "<id>",
-		Metrics: &components.LakeDatasetMetrics{
-			CurrentSizeBytes: 6170.04,
-			MetricsDate:      "<value>",
-		},
-		RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](456.37),
-		SearchConfig: &components.LakeDatasetSearchConfig{
-			Datatypes: []string{
-				"<value 1>",
-			},
-			Metadata: &components.DatasetMetadata{
-				Earliest:           "<value>",
-				EnableAcceleration: true,
-				FieldList: []string{
-					"<value 1>",
-					"<value 2>",
-				},
-				LatestRunInfo: &components.DatasetMetadataRunInfo{
-					EarliestScannedTime: criblcontrolplanesdkgo.Pointer[float64](4334.7),
-					FinishedAt:          criblcontrolplanesdkgo.Pointer[float64](6811.22),
-					LatestScannedTime:   criblcontrolplanesdkgo.Pointer[float64](5303.3),
-					ObjectCount:         criblcontrolplanesdkgo.Pointer[float64](9489.04),
-				},
-				ScanMode: components.ScanModeDetailed,
-			},
-		},
-		StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-		ViewName:          criblcontrolplanesdkgo.Pointer("<value>"),
-	})
+	res, err := s.System.Settings.Cribl.List(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedCriblLakeDataset != nil {
+	if res.CountedSystemSettingsConf != nil {
 		// handle response
 	}
 }
 
 ```
-<!-- End Retries [retries] -->
+<!-- No Retries [retries] -->
 
-<!-- Start Error Handling [errors] -->
 ## Error Handling
 
 Handling errors in this SDK should largely match your expectations. All operations return a response object or an error, they will never return both.
@@ -619,7 +583,7 @@ func main() {
 }
 
 ```
-<!-- End Error Handling [errors] -->
+<!-- No Error Handling [errors] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client
