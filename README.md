@@ -244,8 +244,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [List](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes
-* [Count](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes
+* [~~Count~~](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes :warning: **Deprecated**
+* [~~List~~](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes :warning: **Deprecated**
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
@@ -262,17 +262,17 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
-* [List](docs/sdks/pipelines/README.md#list) - List all Pipelines
 * [Create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
+* [List](docs/sdks/pipelines/README.md#list) - List all Pipelines
+* [Delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 * [Get](docs/sdks/pipelines/README.md#get) - Get a Pipeline
 * [Update](docs/sdks/pipelines/README.md#update) - Update a Pipeline
-* [Delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 
 ### [Routes](docs/sdks/routes/README.md)
 
-* [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Get](docs/sdks/routes/README.md#get) - Get a Routing table
 * [Update](docs/sdks/routes/README.md#update) - Update a Route
+* [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
@@ -358,12 +358,12 @@ func main() {
 
 	res, err := s.System.Captures.Create(ctx, components.CaptureParams{
 		Duration:        5,
-		Filter:          "true",
+		Filter:          "sourcetype===\"pan:traffic\"",
 		Level:           components.CaptureLevelBeforePreProcessingPipeline,
 		MaxEvents:       100,
-		StepDuration:    criblcontrolplanesdkgo.Pointer[int64](571732),
+		StepDuration:    criblcontrolplanesdkgo.Pointer[int64](994184),
 		WorkerID:        criblcontrolplanesdkgo.Pointer("<id>"),
-		WorkerThreshold: criblcontrolplanesdkgo.Pointer[int64](609412),
+		WorkerThreshold: criblcontrolplanesdkgo.Pointer[int64](771620),
 	})
 	if err != nil {
 		log.Fatal(err)
