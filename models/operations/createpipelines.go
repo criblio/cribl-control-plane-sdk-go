@@ -6,20 +6,20 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type CreatePipelineResponse struct {
+type CreatePipelinesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Pipelines objects
 	CountedPipeline *components.CountedPipeline
 }
 
-func (c *CreatePipelineResponse) GetHTTPMeta() components.HTTPMetadata {
+func (c *CreatePipelinesResponse) GetHTTPMeta() components.HTTPMetadata {
 	if c == nil {
 		return components.HTTPMetadata{}
 	}
 	return c.HTTPMeta
 }
 
-func (c *CreatePipelineResponse) GetCountedPipeline() *components.CountedPipeline {
+func (c *CreatePipelinesResponse) GetCountedPipeline() *components.CountedPipeline {
 	if c == nil {
 		return nil
 	}

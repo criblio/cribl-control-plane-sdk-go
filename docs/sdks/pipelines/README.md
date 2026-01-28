@@ -6,67 +6,11 @@ Actions related to Pipelines
 
 ### Available Operations
 
-* [List](#list) - List all Pipelines
 * [Create](#create) - Create a Pipeline
+* [List](#list) - List all Pipelines
+* [Delete](#delete) - Delete a Pipeline
 * [Get](#get) - Get a Pipeline
 * [Update](#update) - Update a Pipeline
-* [Delete](#delete) - Delete a Pipeline
-
-## List
-
-Get a list of all Pipelines.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="listPipeline" method="get" path="/pipelines" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Pipelines.List(ctx)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.CountedPipeline != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
-
-### Response
-
-**[*operations.ListPipelineResponse](../../models/operations/listpipelineresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Create
 
@@ -74,7 +18,7 @@ Create a new Pipeline.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="createPipeline" method="post" path="/pipelines" -->
+<!-- UsageSnippet language="go" operationID="createPipelines" method="post" path="/pipelines" -->
 ```go
 package main
 
@@ -128,7 +72,120 @@ func main() {
 
 ### Response
 
-**[*operations.CreatePipelineResponse](../../models/operations/createpipelineresponse.md), error**
+**[*operations.CreatePipelinesResponse](../../models/operations/createpipelinesresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## List
+
+Get a list of all Pipelines.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getPipelines" method="get" path="/pipelines" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.List(ctx)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*operations.GetPipelinesResponse](../../models/operations/getpipelinesresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Delete
+
+Delete the specified Pipeline.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="deletePipelinesById" method="delete" path="/pipelines/{id}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pipeline to delete.           |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*operations.DeletePipelinesByIDResponse](../../models/operations/deletepipelinesbyidresponse.md), error**
 
 ### Errors
 
@@ -143,7 +200,7 @@ Get the specified Pipeline.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getPipelineById" method="get" path="/pipelines/{id}" -->
+<!-- UsageSnippet language="go" operationID="getPipelinesById" method="get" path="/pipelines/{id}" -->
 ```go
 package main
 
@@ -185,7 +242,7 @@ func main() {
 
 ### Response
 
-**[*operations.GetPipelineByIDResponse](../../models/operations/getpipelinebyidresponse.md), error**
+**[*operations.GetPipelinesByIDResponse](../../models/operations/getpipelinesbyidresponse.md), error**
 
 ### Errors
 
@@ -200,7 +257,7 @@ Update the specified Pipeline.</br></br>Provide a complete representation of the
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" -->
+<!-- UsageSnippet language="go" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" -->
 ```go
 package main
 
@@ -255,64 +312,7 @@ func main() {
 
 ### Response
 
-**[*operations.UpdatePipelineByIDResponse](../../models/operations/updatepipelinebyidresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## Delete
-
-Delete the specified Pipeline.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="deletePipelineById" method="delete" path="/pipelines/{id}" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Pipelines.Delete(ctx, "<id>")
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.CountedPipeline != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pipeline to delete.           |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
-
-### Response
-
-**[*operations.DeletePipelineByIDResponse](../../models/operations/deletepipelinebyidresponse.md), error**
+**[*operations.UpdatePipelinesByIDResponse](../../models/operations/updatepipelinesbyidresponse.md), error**
 
 ### Errors
 
