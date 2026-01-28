@@ -6,7 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type ListMasterWorkerEntryRequest struct {
+type GetWorkersRequest struct {
 	// Filter expression to evaluate against Nodes for inclusion in the response.
 	FilterExp *string `queryParam:"style=form,explode=true,name=filterExp"`
 	// Sorting expression to evaluate against Nodes to specify the sort order for the response.
@@ -21,64 +21,64 @@ type ListMasterWorkerEntryRequest struct {
 	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 }
 
-func (l *ListMasterWorkerEntryRequest) GetFilterExp() *string {
-	if l == nil {
+func (g *GetWorkersRequest) GetFilterExp() *string {
+	if g == nil {
 		return nil
 	}
-	return l.FilterExp
+	return g.FilterExp
 }
 
-func (l *ListMasterWorkerEntryRequest) GetSortExp() *string {
-	if l == nil {
+func (g *GetWorkersRequest) GetSortExp() *string {
+	if g == nil {
 		return nil
 	}
-	return l.SortExp
+	return g.SortExp
 }
 
-func (l *ListMasterWorkerEntryRequest) GetFilter() *string {
-	if l == nil {
+func (g *GetWorkersRequest) GetFilter() *string {
+	if g == nil {
 		return nil
 	}
-	return l.Filter
+	return g.Filter
 }
 
-func (l *ListMasterWorkerEntryRequest) GetSort() *string {
-	if l == nil {
+func (g *GetWorkersRequest) GetSort() *string {
+	if g == nil {
 		return nil
 	}
-	return l.Sort
+	return g.Sort
 }
 
-func (l *ListMasterWorkerEntryRequest) GetLimit() *int64 {
-	if l == nil {
+func (g *GetWorkersRequest) GetLimit() *int64 {
+	if g == nil {
 		return nil
 	}
-	return l.Limit
+	return g.Limit
 }
 
-func (l *ListMasterWorkerEntryRequest) GetOffset() *int64 {
-	if l == nil {
+func (g *GetWorkersRequest) GetOffset() *int64 {
+	if g == nil {
 		return nil
 	}
-	return l.Offset
+	return g.Offset
 }
 
-type ListMasterWorkerEntryResponse struct {
+type GetWorkersResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of MasterWorkerEntry objects
 	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
 }
 
-func (l *ListMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
-	if l == nil {
+func (g *GetWorkersResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return l.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (l *ListMasterWorkerEntryResponse) GetCountedMasterWorkerEntry() *components.CountedMasterWorkerEntry {
-	if l == nil {
+func (g *GetWorkersResponse) GetCountedMasterWorkerEntry() *components.CountedMasterWorkerEntry {
+	if g == nil {
 		return nil
 	}
-	return l.CountedMasterWorkerEntry
+	return g.CountedMasterWorkerEntry
 }

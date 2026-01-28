@@ -6,32 +6,32 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type GetPipelineByIDRequest struct {
+type GetPipelinesByIDRequest struct {
 	// The <code>id</code> of the Pipeline to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (g *GetPipelineByIDRequest) GetID() string {
+func (g *GetPipelinesByIDRequest) GetID() string {
 	if g == nil {
 		return ""
 	}
 	return g.ID
 }
 
-type GetPipelineByIDResponse struct {
+type GetPipelinesByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Pipeline objects
 	CountedPipeline *components.CountedPipeline
 }
 
-func (g *GetPipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+func (g *GetPipelinesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	if g == nil {
 		return components.HTTPMetadata{}
 	}
 	return g.HTTPMeta
 }
 
-func (g *GetPipelineByIDResponse) GetCountedPipeline() *components.CountedPipeline {
+func (g *GetPipelinesByIDResponse) GetCountedPipeline() *components.CountedPipeline {
 	if g == nil {
 		return nil
 	}

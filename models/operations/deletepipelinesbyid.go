@@ -6,32 +6,32 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type DeletePipelineByIDRequest struct {
+type DeletePipelinesByIDRequest struct {
 	// The <code>id</code> of the Pipeline to delete.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (d *DeletePipelineByIDRequest) GetID() string {
+func (d *DeletePipelinesByIDRequest) GetID() string {
 	if d == nil {
 		return ""
 	}
 	return d.ID
 }
 
-type DeletePipelineByIDResponse struct {
+type DeletePipelinesByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Pipeline objects
 	CountedPipeline *components.CountedPipeline
 }
 
-func (d *DeletePipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+func (d *DeletePipelinesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	if d == nil {
 		return components.HTTPMetadata{}
 	}
 	return d.HTTPMeta
 }
 
-func (d *DeletePipelineByIDResponse) GetCountedPipeline() *components.CountedPipeline {
+func (d *DeletePipelinesByIDResponse) GetCountedPipeline() *components.CountedPipeline {
 	if d == nil {
 		return nil
 	}

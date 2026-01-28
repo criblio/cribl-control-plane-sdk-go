@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: c40e16a70be299fd62a92762896a1aff
-  docVersion: 4.17.0-alpha.1769425375939-a0fb3db5
+  docChecksum: fb9b174a3afdab9d5adb58c4c4452551
+  docVersion: 4.17.0-alpha.1769555003178-2127f1ff
   speakeasyVersion: 1.697.5
   generationVersion: 2.799.0
-  releaseVersion: 0.5.0-beta.38
-  configChecksum: 034f9fe8ba1168d2f83a28024d3d6f7d
+  releaseVersion: 0.5.0-beta.39
+  configChecksum: 6b086e5e4058bb3db615451479b4b900
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 278cf1bc-0c9d-4a8d-aa7e-0c2d808c7c25
-  pristine_commit_hash: 6c5864bc1da3d8c6032260867f57f7ba2aa3e45a
-  pristine_tree_hash: a0636f4169b96615f624848739c812ca00456a5f
+  generation_id: c44d1c73-88e0-49bb-85fc-6bc5d544f4a8
+  pristine_commit_hash: 88b539d7937a420e68531a11b4d37e99b19d592e
+  pristine_tree_hash: ab56ff4c8e9c6e8e3650d7c93dc7fd9614da4c54
 features:
   go:
     additionalDependencies: 0.1.0
@@ -95,8 +95,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:9d3cd8e7c7906fd2ad5b2aaeaf4529e2099ab6e3
-    pristine_git_object: 0530d6f5ff2d6d0a0e849ef641bd36e502d622b7
+    last_write_checksum: sha1:05c9b2af218ea08e545e5eed1d8778fa019cfd3b
+    pristine_git_object: 3b3b2928904f53a7a09b14a67f422d1df0e9a2f0
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -9261,10 +9261,10 @@ trackedFiles:
     id: 8bc4443d30c6
     last_write_checksum: sha1:702dded5f7a4c8d97563da2a3834ebb663d7bc05
     pristine_git_object: 083f5cbe823597df62f4d693f1878f6151a1a188
-  docs/models/operations/createpipelineresponse.md:
-    id: e39148e9633d
-    last_write_checksum: sha1:491c33ebb906ef51e806e6f0cfaa2ac12f27e145
-    pristine_git_object: b9075398fba646fcddddd3157a7886cbf998ccfd
+  docs/models/operations/createpipelinesresponse.md:
+    id: 6d4c2ef276b9
+    last_write_checksum: sha1:13c5a75944072a3e8fa6ef9f77282398b93a0337
+    pristine_git_object: 4b5c62c05bb4b914d468e38548bd241fa1ac8315
   docs/models/operations/createroutesappendbyidrequest.md:
     id: 339cd5b78188
     last_write_checksum: sha1:f2b6256b4dbc9d3022f8764180387a68be643f92
@@ -9401,14 +9401,14 @@ trackedFiles:
     id: 6228a02bed84
     last_write_checksum: sha1:19e94d0b5d5af1a1916805587754ccfd7568e373
     pristine_git_object: 5f958c640d15820508efc710db6bfee5e1a5f668
-  docs/models/operations/deletepipelinebyidrequest.md:
-    id: 8967b27847fd
-    last_write_checksum: sha1:6a442b3aa9838ac08828753c7fcbe317d4106c1c
-    pristine_git_object: 9bafe4eb21d66c74b9055c8ea77de1bc6219510d
-  docs/models/operations/deletepipelinebyidresponse.md:
-    id: 80770086b287
-    last_write_checksum: sha1:5e8fa63eaa8149b868e0e08e90c4984abddd9e0c
-    pristine_git_object: 5d5360a9d84dd08f5779eee7287e0af9c84442f0
+  docs/models/operations/deletepipelinesbyidrequest.md:
+    id: 0c1819718897
+    last_write_checksum: sha1:522703b790a516dedb2f43f167da947b89ab1581
+    pristine_git_object: f45c752967182c7cbfd083e9b64290a21dacbe38
+  docs/models/operations/deletepipelinesbyidresponse.md:
+    id: 7f49c41996f5
+    last_write_checksum: sha1:a1182eafe4bc38aab4a11a5c013fd76fcb250ea7
+    pristine_git_object: 959e17d5178c6b659481ff3b36bb11d290e8b682
   docs/models/operations/deletesavedjobbyidrequest.md:
     id: ca11aa5d872e
     last_write_checksum: sha1:10b6ee1b48ac95ff5a6f2695d52356fc7623b7d0
@@ -9601,14 +9601,6 @@ trackedFiles:
     id: c92f3999015c
     last_write_checksum: sha1:2bca66a61f8529fe8833c1981e8675665be3021e
     pristine_git_object: 962679baab62bc487f4a9c2e4646478ccb332790
-  docs/models/operations/getmasterworkerentryrequest.md:
-    id: 7e65ad015aca
-    last_write_checksum: sha1:b4ce5910b4d2541162eaea04f1b6a62c863d5909
-    pristine_git_object: 2ce0e81be7c03091f549cd0dfb51e7d501f77a6d
-  docs/models/operations/getmasterworkerentryresponse.md:
-    id: 9888ca2c8204
-    last_write_checksum: sha1:7eeebbd33afec13b40a9068750330f64041d65bc
-    pristine_git_object: 75b9958d6bb4daa0e3dcb59c55217304b0f4ad8c
   docs/models/operations/getoutputbyidrequest.md:
     id: c73f982fd7a7
     last_write_checksum: sha1:6118c8e5049905f6fbd1062733382aa28c566769
@@ -9649,14 +9641,18 @@ trackedFiles:
     id: 31107a29f935
     last_write_checksum: sha1:1436c481c8cfdf3287d045f7c4d8b295afd4d5f9
     pristine_git_object: d83d8ff395faca4f9e1caf57a7d26f77fd85116f
-  docs/models/operations/getpipelinebyidrequest.md:
-    id: 706c17b40446
-    last_write_checksum: sha1:f42eee8bf65293b0f4f7bfc5bc4fd4a612e6d285
-    pristine_git_object: 025a4b78041d17216fd95429ce161ccc8fc6db90
-  docs/models/operations/getpipelinebyidresponse.md:
-    id: ce662ff97a4e
-    last_write_checksum: sha1:72e58b4b2fe6a4dc4d88d8bc87e83954c80fa3d1
-    pristine_git_object: b471940c2dbf8de15ab028c430db82f60544470a
+  docs/models/operations/getpipelinesbyidrequest.md:
+    id: d9e2ac4cf6f3
+    last_write_checksum: sha1:fd4482ea791842610f975fc4aaedbe629a74b2fd
+    pristine_git_object: 143be4f42f2d1338823a5d09b27c0f4c17c02b2c
+  docs/models/operations/getpipelinesbyidresponse.md:
+    id: a1f72b59e4d3
+    last_write_checksum: sha1:3d1e99408b3af9f3c07fc2fe2b68c01d2db85401
+    pristine_git_object: 6cdac6bcc29dd8346c0c6d0deadea3e1e836ca0b
+  docs/models/operations/getpipelinesresponse.md:
+    id: 6d0218ee16f6
+    last_write_checksum: sha1:988ac8010d68698dec41799e7e052d2ef6212ad2
+    pristine_git_object: 5106cb1a6192fd8b62704b5550f6e9eef3397299
   docs/models/operations/getroutesbyidrequest.md:
     id: e9b6a90a9825
     last_write_checksum: sha1:13c5b1df3a0d2504228207db0495a46946dcb729
@@ -9665,6 +9661,10 @@ trackedFiles:
     id: 5b24d6a22adb
     last_write_checksum: sha1:e02cacc1d395a4aa2c4c6c7a72d2e74495a43a57
     pristine_git_object: c03eff3b23dd902bc6e361e1f708833267e9e5f2
+  docs/models/operations/getroutesresponse.md:
+    id: 40195fd716b4
+    last_write_checksum: sha1:2044dfe4e5917a61f33d13ecc4ff1221d30f2765
+    pristine_git_object: d120a9bba9b5b7a1015f4df34fdd04a9aac7c527
   docs/models/operations/getsavedjobbyidrequest.md:
     id: ec2cffba6967
     last_write_checksum: sha1:a64b5617faf229b4fe44c7a49e078bc1cad5afde
@@ -9689,6 +9689,14 @@ trackedFiles:
     id: 4ff3d9f91013
     last_write_checksum: sha1:32a3619da366f394ea6550b655322eed9b7139d2
     pristine_git_object: a1acc6f60c92f7a6e7d4194a423df49183d74cdd
+  docs/models/operations/getsummaryworkersrequest.md:
+    id: 5fc97bd640a0
+    last_write_checksum: sha1:07be0cd1fd8dbe3b92073b424da9971c912fb3a1
+    pristine_git_object: 1895db23c3648052be6b6b1390ec367601e8be4a
+  docs/models/operations/getsummaryworkersresponse.md:
+    id: 993d2bd5eb8e
+    last_write_checksum: sha1:fe36ceb74143aa4105f5bbdf3834a68ed67d9228
+    pristine_git_object: d49cd45f14dd0b43668065f51e129ca7e7c15803
   docs/models/operations/getsystemsettingsconfresponse.md:
     id: 1c374871d7a1
     last_write_checksum: sha1:a8fe2edd8ff5321e45e58ae9a30a4d8e8b64e677
@@ -9753,6 +9761,14 @@ trackedFiles:
     id: 585074944d58
     last_write_checksum: sha1:aaa1292dc4c33266b227ed76d97e08f3270e019f
     pristine_git_object: cdd7434a3d6138e468282f3fd2a8ac9f387d0122
+  docs/models/operations/getworkersrequest.md:
+    id: 8136ef37ad07
+    last_write_checksum: sha1:71c53b1a90488e21bda9e5e655fc3413e625708d
+    pristine_git_object: 26a87521641d3913a65a7f3b0895fce7b5aeb092
+  docs/models/operations/getworkersresponse.md:
+    id: "597145585668"
+    last_write_checksum: sha1:41ed6bfeeae95aebf93372d3dfaa38065393a928
+    pristine_git_object: 2cc4171c1299c82c34b831ca4ffa7527d5539073
   docs/models/operations/hostinfo.md:
     id: f05de8537c6c
     last_write_checksum: sha1:2a5770a26a18098b6063b7b210a8351860e663da
@@ -10101,26 +10117,10 @@ trackedFiles:
     id: 21ac6df14168
     last_write_checksum: sha1:2f7304ced899522b0bdc2912408e70a2142b30e4
     pristine_git_object: ec1e48d16308bf2c854afe4b85565f53fb82f67d
-  docs/models/operations/listmasterworkerentryrequest.md:
-    id: 72cbda22b956
-    last_write_checksum: sha1:b623604a5262be7aa02ddf3aab2133ec56316cbf
-    pristine_git_object: 76f0f8d3a655dbd993cb1ea1a0d1511e0d278e3b
-  docs/models/operations/listmasterworkerentryresponse.md:
-    id: d4d73e56870a
-    last_write_checksum: sha1:11fc983f870fc15e4506197d987b0734cf7377ea
-    pristine_git_object: ef85d41631e543de502c3ed6051a8f9d92c0cdba
   docs/models/operations/listoutputresponse.md:
     id: b98faf39ec57
     last_write_checksum: sha1:714729936f3ddc5b9fff015bdce3759402666ca2
     pristine_git_object: cd8e6b8700a149144fb77b586665339e31b398c2
-  docs/models/operations/listpipelineresponse.md:
-    id: 458c3ff32353
-    last_write_checksum: sha1:770f339d43a8f0e6929998976013340df2321b4b
-    pristine_git_object: f7ff9fa1ebd611694a8dbf20168ecec67485d316
-  docs/models/operations/listroutesresponse.md:
-    id: 183c6851e61d
-    last_write_checksum: sha1:dadc7cf10191db478abf41b44737cb3a80c892c0
-    pristine_git_object: 56e2c859b20370eb98f808cf3f49182704141d7f
   docs/models/operations/loggedinusers.md:
     id: b1c1d89bdb92
     last_write_checksum: sha1:2d1487f720fe91006c317ae2fe351c89739a1797
@@ -11333,14 +11333,14 @@ trackedFiles:
     id: d0a9d48844d4
     last_write_checksum: sha1:71945ca72f342097aff0b6b200cf6c5517f6c70e
     pristine_git_object: 5444091b8c42f1db0d1ece77f226054f71b6b7d9
-  docs/models/operations/updatepipelinebyidrequest.md:
-    id: e9bf16bb73ac
-    last_write_checksum: sha1:deb89d3bc98f215acd8245818026cc62f0541dad
-    pristine_git_object: b3193d4b87f042f788d0519bad60248b8aa5e337
-  docs/models/operations/updatepipelinebyidresponse.md:
-    id: 1d4a8650c9f9
-    last_write_checksum: sha1:beeca4aca0eb4727933b0abd73f2fa87f8088c34
-    pristine_git_object: 1531f2bde767fbc949384478fd236784879539f7
+  docs/models/operations/updatepipelinesbyidrequest.md:
+    id: e7a852a863cf
+    last_write_checksum: sha1:76454cf993a7bf0901a6cbc287060e5c7045725d
+    pristine_git_object: 9a6c154778558c579e331969cfe45af5aadcaeb8
+  docs/models/operations/updatepipelinesbyidresponse.md:
+    id: eb817e1b3011
+    last_write_checksum: sha1:c20e3bbbfc9fc3ce6779287b060d2f14e953a6a8
+    pristine_git_object: 7c26a0f3c7f60c99c25bbfd5f8ffd88da0ef456c
   docs/models/operations/updateroutesbyidrequest.md:
     id: fb4fce29d689
     last_write_checksum: sha1:c718d5030fa758ace4a2d89f8be9ebdda4650d9a
@@ -11451,24 +11451,24 @@ trackedFiles:
     pristine_git_object: d08ad90e517026a35e4a52a583fac8a87d9aa18e
   docs/sdks/nodes/README.md:
     id: caae80e86772
-    last_write_checksum: sha1:8c71c83e11226bd110cafeff985e78be3296b346
-    pristine_git_object: 75d0da0c9d100d913f4f884e06308e5bb8a7dbe8
+    last_write_checksum: sha1:70193c02446f21549e9584f29a71a8f65b81633e
+    pristine_git_object: 47caf682bce13b0da146fc65e760d92242c0b738
   docs/sdks/packs/README.md:
     id: aea0b099af37
     last_write_checksum: sha1:fc5f74e1ff78f37eb03e1de40481486b17dd9d32
     pristine_git_object: fc51fce2478197fb8813ca13c91c0e627dc17515
   docs/sdks/pipelines/README.md:
     id: 96306a4a5f5a
-    last_write_checksum: sha1:0cf0363dafab78f19cd4f62a93628fb6ac1d9cf6
-    pristine_git_object: 4645f8d4cdd19f8098ee35986f643b59e7eeb5bd
+    last_write_checksum: sha1:d5fd95915cece59245186be6a32386a6ad4626b8
+    pristine_git_object: 4cfff306f6f431bd28371e2c91964e45038b2470
   docs/sdks/pq/README.md:
     id: 47d89d172a34
     last_write_checksum: sha1:6e2bee31654888fbd4a6152227c5162c2167744b
     pristine_git_object: 191cdb263c1b1e5a03ca32a40048df7b95a666db
   docs/sdks/routes/README.md:
     id: 8eceb878c9af
-    last_write_checksum: sha1:962a98f8767680d1c390e8f5e8c12852ae0e9183
-    pristine_git_object: 14936e02ab9e88234645f8fef06176f4d7b3e81b
+    last_write_checksum: sha1:a54104d9747ba6b624e8b03fbbc4ff25c041a173
+    pristine_git_object: b832e9779a15da685ee81255f822cebc11f92367
   docs/sdks/samples/README.md:
     id: 2b3e67e9f9a5
     last_write_checksum: sha1:fcdcfc856d535e129ef89b54366e4400dd720d57
@@ -14085,10 +14085,10 @@ trackedFiles:
     id: 9f29a81ad83c
     last_write_checksum: sha1:918bb8a7ad9df7c1280b5946a7ba22f75ba788b7
     pristine_git_object: b213a496334b0a082151a58fc7b53eea2dcd22c9
-  models/operations/createpipeline.go:
-    id: 5965b5d2f074
-    last_write_checksum: sha1:d87f07334a010063e39dda2b5847a0b16a086907
-    pristine_git_object: 1f965a110dbc8f2188d51ce0af5c936000365ebc
+  models/operations/createpipelines.go:
+    id: 868cb2c7d514
+    last_write_checksum: sha1:0020917260ddbc952154f79beab8ece7c41d04c4
+    pristine_git_object: 9231abd0705fadd91a73832c3b9364a176654b8c
   models/operations/createroutesappendbyid.go:
     id: 8c7efbc22e19
     last_write_checksum: sha1:7b5d64ed0d8f08bbf3442cc062d964aada7d2f11
@@ -14145,10 +14145,10 @@ trackedFiles:
     id: 55d6c3abff33
     last_write_checksum: sha1:22274dcec6588c31c102af53faa7ce297b68e491
     pristine_git_object: 0654cb3e501f6e168a1381a85b17581e4d7bfc77
-  models/operations/deletepipelinebyid.go:
-    id: 4cb5a0fcf270
-    last_write_checksum: sha1:49eca9e2658733aa0e555d96a6bd7dd526e1974f
-    pristine_git_object: 128e51943f39cb46edb3133c7bcd42c3fc7a49bf
+  models/operations/deletepipelinesbyid.go:
+    id: d021fa717c2d
+    last_write_checksum: sha1:579f39f24dfd1b8a679addf29e0d0a69037a0f82
+    pristine_git_object: 23efa49737d1bc2b6d325fb4eefcb42edde94777
   models/operations/deletesavedjobbyid.go:
     id: bba13683836d
     last_write_checksum: sha1:564f6aca56ce8e7c94a200c7f9dc02dc4ef346c3
@@ -14197,10 +14197,6 @@ trackedFiles:
     id: 94b738178a08
     last_write_checksum: sha1:6bc12736a53ce95eb249c99549305c9eb818b36c
     pristine_git_object: 4e6acb2b22d1ffab578f4ae2db4aa1648433be90
-  models/operations/getmasterworkerentry.go:
-    id: 1d66c77c86a5
-    last_write_checksum: sha1:9af9a9d7c68f84ed63eb7024389f021b9f041196
-    pristine_git_object: ce2a1637c473c00be25d7e937a36f37a283bccf2
   models/operations/getoutputbyid.go:
     id: 8ef5a4433e3d
     last_write_checksum: sha1:e37f722f87a75c4487ac6f5a9af40fa7b1a4f1b4
@@ -14221,10 +14217,18 @@ trackedFiles:
     id: e7a34852ebad
     last_write_checksum: sha1:dcaa2d13c7da285d5780964fbd64a7f686e2b5ce
     pristine_git_object: 58addd47b8c79f3ad94c3502445536f5ca9f7232
-  models/operations/getpipelinebyid.go:
-    id: 20bc535a3de3
-    last_write_checksum: sha1:9f194ebcd3418145404e3d6f292d42f75c80a50e
-    pristine_git_object: 71ba35090cee3eb420c5eeaff5c2548c6976f19f
+  models/operations/getpipelines.go:
+    id: dc02d4b611d7
+    last_write_checksum: sha1:ceac1e8c89235954457bd09c6c351bb3761fef6b
+    pristine_git_object: df24f75f2eb16ca5c7f9dfd6cc8a8ffad0f348b2
+  models/operations/getpipelinesbyid.go:
+    id: de2a43f609db
+    last_write_checksum: sha1:be6e38f956265bf2d5078a8d6bb1a251b498007d
+    pristine_git_object: d52c2ec721ba3f1add44bdc53566336cb8740ea1
+  models/operations/getroutes.go:
+    id: 6d36c3973d12
+    last_write_checksum: sha1:679b60dfe6fe1c04ad49abc78e9499afea19c5d4
+    pristine_git_object: 5bdf8a2bf0bb6cb221d7d55cf15c2564432e776d
   models/operations/getroutesbyid.go:
     id: 62cae23388c7
     last_write_checksum: sha1:851a282b12acbb9dfaf68e0d1227274c9c60cdff
@@ -14241,6 +14245,10 @@ trackedFiles:
     id: fcadcffd501b
     last_write_checksum: sha1:3d59ec418b644cfd74939adde53d866459aef0eb
     pristine_git_object: 81314b5e59161ce5a4916372d0e81e05121b68a7
+  models/operations/getsummaryworkers.go:
+    id: d08b010aa16e
+    last_write_checksum: sha1:52cc81fca8bd3ad3868146b5370dd9194009e987
+    pristine_git_object: 73508bc009516628fc4aa448f114510b4312728b
   models/operations/getsystemsettingsconf.go:
     id: bc213634e44b
     last_write_checksum: sha1:32e1be65e8373e974918730031e511a07d632403
@@ -14281,6 +14289,10 @@ trackedFiles:
     id: fb2dba9d24c2
     last_write_checksum: sha1:0590a2350467d93388b1dbdfac7b81060a273e3d
     pristine_git_object: ca7713c5d029d654d133ea7517c3df9146ce20c1
+  models/operations/getworkers.go:
+    id: dc681115c6fe
+    last_write_checksum: sha1:1de90008cbdc88c476845958066e9ecf6262eab2
+    pristine_git_object: a843fced55b57885e7963774222d16186d0eacd2
   models/operations/listconfiggroupbyproduct.go:
     id: b0ce43cbd646
     last_write_checksum: sha1:c20ae53e3c9f51f85f337394692aafbd36205254
@@ -14289,22 +14301,10 @@ trackedFiles:
     id: da59fe53b914
     last_write_checksum: sha1:bb44bfc19decd1e1d21a854d19ae0307bc408a28
     pristine_git_object: 2dc64d3deb19c47a4ad911dae9f1569bd72d7b09
-  models/operations/listmasterworkerentry.go:
-    id: 994e6b4e746b
-    last_write_checksum: sha1:745856bb9b9ef95793970b405eaf36d556477e44
-    pristine_git_object: 7ff367729bbcb9563235eefebf30dcf0c460dd4b
   models/operations/listoutput.go:
     id: 5425dcb54820
     last_write_checksum: sha1:401cc1106a5a994aadf148db8ab8f7db10038c60
     pristine_git_object: 4d448e66d76dfc329798e2e70960670801293b86
-  models/operations/listpipeline.go:
-    id: d914b0f177de
-    last_write_checksum: sha1:c7abfa5ae1b1c9894a3dc9ea29d88cae8cacec75
-    pristine_git_object: 65e1bc9db370b9df6e53f844ac3180456eece492
-  models/operations/listroutes.go:
-    id: 9f9f8aa9159a
-    last_write_checksum: sha1:fabf3e8c60aeeea2a9f1e792733c3a76400cb1d5
-    pristine_git_object: a802fbe4e798ba9fa504e877ce25238142536577
   models/operations/options.go:
     id: d20dd4db9865
     last_write_checksum: sha1:838996979445cc644cd1d17ccaf2bbbdae748c96
@@ -14345,10 +14345,10 @@ trackedFiles:
     id: c24a2933e794
     last_write_checksum: sha1:1eb916e94ca8781e1525fd85a2a108c7a5ee4c3b
     pristine_git_object: fba9d9e21f0defe98ec17d1b56bf81c54b76b6f2
-  models/operations/updatepipelinebyid.go:
-    id: 3bd04e1f24d6
-    last_write_checksum: sha1:d99d1659fb21557549766b727d23838c755a1e39
-    pristine_git_object: 882d54fb76f999727a35eb3fe3bdf0483367ce90
+  models/operations/updatepipelinesbyid.go:
+    id: f53151df5874
+    last_write_checksum: sha1:f238e228a4ce67d080b1772f3274805ff6d89ac4
+    pristine_git_object: 7eb4de6e74a35b4ce26115c033db08bda8c96552
   models/operations/updateroutesbyid.go:
     id: 49261bfe3344
     last_write_checksum: sha1:8e06b99209ea74adc8d23803af773e9dee93f2cb
@@ -14363,8 +14363,8 @@ trackedFiles:
     pristine_git_object: 0bff94869c201f1e0dc0260f80c5e8a8b6341158
   nodes.go:
     id: 12357a7fbf49
-    last_write_checksum: sha1:94d1686a82ffb7950b1edfc217b1bd9cb5f5d47d
-    pristine_git_object: 7d67c659c1458c6a68c7e2307be30a0ee6452c75
+    last_write_checksum: sha1:e64889b47665b8a5ba1c1e03f15fac6ab8bb0ae9
+    pristine_git_object: 56f8c861ef75c9ffab8bf9d8b1635a30c48ba1a6
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14379,8 +14379,8 @@ trackedFiles:
     pristine_git_object: 95c5ccd24c4971b9084e40ef26040d55f50c3e2d
   pipelines.go:
     id: 469a69c74fa5
-    last_write_checksum: sha1:644fcd8e35e579d4b607ef932bcbf8bbb75bd0bf
-    pristine_git_object: 77e40643fe1facaad8d9edaae57fb570a9e6bf0e
+    last_write_checksum: sha1:66ccde31170958d4fbaec8753c40bd23eecf5785
+    pristine_git_object: 01da84fa34852b0aaa7aff83b3ac8f2e1ec22edc
   pq.go:
     id: 001a59a95b28
     last_write_checksum: sha1:76d9dcbe1ac1808906842f4708245e02f278ecd3
@@ -14391,8 +14391,8 @@ trackedFiles:
     pristine_git_object: aa809fccb3445b1e2530a979dad620512f50e70f
   routes.go:
     id: 08b7908864ba
-    last_write_checksum: sha1:f3041baf86632af23fdfd277dafcb8592607a48e
-    pristine_git_object: b2871190b2895ff926cceecbfa53a7ab22c2f1ef
+    last_write_checksum: sha1:8e37f51b5023f88aec15ec22f32286ad99c7ef6e
+    pristine_git_object: 0f533bbce28a570a2a73a50f5481929a27ba465a
   samples.go:
     id: 0763e53588fe
     last_write_checksum: sha1:a7fa64cf6ec4d0bb258b0a81f19e7c36891b54af
@@ -18210,7 +18210,7 @@ examples:
           filter: "<value>"
       responses:
         "200":
-          application/json: {"count": 388772, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5556.4, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": false, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 5841.82, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 3635.4, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "distMode": "single", "edgeNodes": 7424.46, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "crafty-requirement.biz", "port": 4586.68, "servername": "<value>", "tls": true}, "pid": 7553.65, "startTime": 1443.43, "tags": ["<value 1>", "<value 2>"], "version": "<value>"}, "freeDiskSpace": 6770.82, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "wordy-vibraphone.biz", "isSaasWorker": true, "kube": {"enabled": false, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 6602.88, "metadata": {"aws": {"enabled": false, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": ["<value 1>"], "enabled": false, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 4189.94, "totalmem": 5989.26}, "lastMetrics": {}, "lastMsgTime": 1603.19, "metadata": {"aws": {"enabled": false, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": ["<value 1>"], "enabled": false, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 1, "state": 0, "timestamp": 6840.86}, "status": "<value>", "type": "resp", "workerProcesses": 8195.32, "workers": {"count": 3234.04}}]}
+          application/json: {"count": 388772, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5556.4, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": false, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "azure": {"enabled": true, "hostname": "thick-gown.info", "instanceId": "<id>", "name": "<value>", "region": "<value>", "resourceGroup": "<value>", "subscriptionId": "<id>", "tags": {"key": "<value>"}, "type": "<value>", "vmId": "<id>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 5841.82, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 3635.4, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "single", "edgeNodes": 7424.46, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "crafty-requirement.biz", "port": 4586.68, "servername": "<value>", "tls": true}, "pid": 7553.65, "socksEnabled": false, "startTime": 1443.43, "tags": ["<value 1>", "<value 2>"], "version": "<value>"}, "env": {"key": "<value>", "key1": "<value>"}, "freeDiskSpace": 6770.82, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "wordy-vibraphone.biz", "isSaasWorker": true, "kube": {"enabled": false, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 6602.88, "metadata": {"aws": {"enabled": false, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "azure": {"enabled": true, "hostname": "thick-gown.info", "instanceId": "<id>", "name": "<value>", "region": "<value>", "resourceGroup": "<value>", "subscriptionId": "<id>", "tags": {"key": "<value>"}, "type": "<value>", "vmId": "<id>", "zone": "<value>"}, "hostOs": {"addresses": ["<value 1>"], "enabled": false, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "outpost": {"guid": "<id>", "host": "heavy-apricot.net"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 4189.94, "totalmem": 5989.26}, "lastMetrics": {}, "lastMsgTime": 1603.19, "metadata": {"aws": {"enabled": false, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "azure": {"enabled": true, "hostname": "thick-gown.info", "instanceId": "<id>", "name": "<value>", "region": "<value>", "resourceGroup": "<value>", "subscriptionId": "<id>", "tags": {"key": "<value>"}, "type": "<value>", "vmId": "<id>", "zone": "<value>"}, "hostOs": {"addresses": ["<value 1>"], "enabled": false, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 1, "state": 0, "timestamp": 6840.86}, "status": "<value>", "type": "resp", "workerProcesses": 8195.32, "workers": {"count": 3234.04}}]}
         "500":
           application/json: {"message": "<value>"}
   updateWorkersRestart:
@@ -19329,6 +19329,821 @@ examples:
       responses:
         "500":
           application/json: {"message": "<value>"}
+  createPipelines:
+    PipelineExamplesEmpty:
+      requestBody:
+        application/json: {"id": "empty-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "", "streamtags": [], "functions": [], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAggregations:
+      requestBody:
+        application/json: {"id": "aggregation-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that aggregates rejected bytes grouped by source address every 10 seconds", "streamtags": [], "functions": [{"filter": "true", "id": "aggregation", "description": "classic huzzah slip gah or from versus spirit worth down", "disabled": true, "final": true, "conf": {"passthrough": false, "preserveGroupBys": false, "sufficientStatsOnly": false, "metricsMode": false, "prefix": "<value>", "timeWindow": "10s", "aggregations": ["sum(bytes).where(action==\"REJECT\").as(TotalBytes)"], "groupbys": ["srcaddr"], "flushEventLimit": 6647.4, "flushMemLimit": "<value>", "cumulative": false, "searchAggMode": "<value>", "add": [{"name": "<value>", "value": "<value>"}], "shouldTreatDotsAsLiterals": false, "flushOnInputClose": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAggregateMetrics:
+      requestBody:
+        application/json: {"id": "aggregate-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that aggregates process metrics: CPU, memory, and bytes over time windows", "streamtags": [], "functions": [{"filter": "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))", "id": "aggregate_metrics", "description": "humiliating guidance highly hundred er round zowie ew", "disabled": false, "final": false, "conf": {"passthrough": false, "preserveGroupBys": false, "sufficientStatsOnly": false, "prefix": "<value>", "timeWindow": "10s", "aggregations": [{"metricType": "gauge", "agg": "avg(_value || proc.cpu_perc).as(proc.cpu_perc_avg)"}, {"metricType": "gauge", "agg": "sum(_value || proc.mem_perc).as(proc.mem_perc_sum)"}, {"metricType": "counter", "agg": "count(_value || proc.bytes_in).as(proc.bytes_in_count)"}], "groupbys": ["proc"], "flushEventLimit": 5554.41, "flushMemLimit": "<value>", "cumulative": false, "shouldTreatDotsAsLiterals": true, "add": [{"name": "<value>", "value": "<value>"}], "flushOnInputClose": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAutoTimestamp:
+      requestBody:
+        application/json: {"id": "auto-timestamp-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts timestamps from event data using auto timestamp function", "streamtags": [], "functions": [{"filter": "true", "id": "auto_timestamp", "description": "out slide blah irresponsible even squeaky finally atop noisily", "disabled": true, "final": false, "conf": {"srcField": "_raw", "dstField": "_time", "defaultTimezone": "local", "timeExpression": "time.getTime() / 1000", "offset": 0, "maxLen": 150, "defaultTime": "now", "latestDateAllowed": "+1week", "spacer": "<value>", "earliestDateAllowed": "-420weeks", "timestamps": [{"regex": "/(\\d{1,2}\\/\\d{2}\\/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\s\\w{2})/", "strptime": "%Y-%m-%d %H:%M:%S"}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesCEFSerializer:
+      requestBody:
+        application/json: {"id": "cef-serializer-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that formats events in CEF format with custom header and extension fields", "streamtags": [], "functions": [{"filter": "true", "id": "cef", "description": "gadzooks always as likable aboard ad gadzooks foolish ham", "disabled": true, "final": true, "conf": {"outputField": "_raw", "header": [{"value": "'CEF:0'"}, {"value": "'Cribl'"}, {"value": "'Cribl'"}, {"value": "C.version"}, {"value": "420"}, {"value": "'Cribl Event'"}, {"value": "6"}], "extension": [{"name": "c6a1Label", "value": "'Colorado_Ext_Bldg7'"}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesChain:
+      requestBody:
+        application/json: {"id": "chain-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that chains to another pipeline for sequential data processing", "streamtags": [], "functions": [{"filter": "true", "id": "chain", "description": "cantaloupe hasty where gee yum excepting", "disabled": true, "final": true, "conf": {"processor": "prometheus_metrics"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesClone:
+      requestBody:
+        application/json: {"id": "clone-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that creates cloned events with additional fields for comparison or routing", "streamtags": [], "functions": [{"filter": "true", "id": "clone", "description": "sailor finally magnetize plus aware forenenst good gloss", "disabled": true, "final": false, "conf": {"clones": [{"env": "staging"}, {"index": "clones"}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesComment:
+      requestBody:
+        application/json: {"id": "comment-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline with comment function for documentation", "streamtags": [], "functions": [{"filter": "true", "id": "comment", "description": "weekly boggle oof modulo when pleased consequently oddly", "disabled": true, "final": true, "conf": {"comment": "This function processes security events and enriches them with DNS lookups"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDNSLookup:
+      requestBody:
+        application/json: {"id": "dns-lookup-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that performs DNS lookups to resolve hostnames and IP addresses", "streamtags": [], "functions": [{"filter": "true", "id": "dns_lookup", "description": "unlike victoriously dredger lest frightfully gifted instantly", "disabled": false, "final": true, "conf": {"dnsLookupFields": [{"inFieldName": "hostname", "resourceRecordType": "A", "outFieldName": "hostname_ip"}], "reverseLookupFields": [{"inFieldName": "src_ip", "outFieldName": "src_hostname"}], "dnsServers": ["<value 1>"], "cacheTTL": 30, "maxCacheSize": 5000, "useResolvConf": false, "lookupFallback": false, "domainOverrides": ["<value 1>"], "lookupFailLogLevel": "error"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDrop:
+      requestBody:
+        application/json: {"id": "drop-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that drops events containing success messages", "streamtags": [], "functions": [{"filter": "_raw.search(/success/i)>=0", "id": "drop", "description": "yahoo restfully hearten meanwhile absent naturally", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDropDimensions:
+      requestBody:
+        application/json: {"id": "drop-dimensions-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that drops specified dimensions from metrics to reduce cardinality", "streamtags": [], "functions": [{"filter": "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))", "id": "drop_dimensions", "description": "vacation wrongly hmph celebrate ignite", "disabled": false, "final": true, "conf": {"timeWindow": "10s", "dropDimensions": ["proc", "pie", "unit"], "flushOnInputClose": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDynamicSampling:
+      requestBody:
+        application/json: {"id": "dynamic-sampling-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that dynamically samples events based on volume using square root mode", "streamtags": [], "functions": [{"filter": "true", "id": "dynamic_sampling", "description": "gee ick why sniff um mouser mosh utterly monthly er", "disabled": false, "final": true, "conf": {"mode": "sqrt", "keyExpr": "`${domain}:${httpCode}`", "samplePeriod": 20, "minEvents": 3, "maxSampleRate": 3}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesEval:
+      requestBody:
+        application/json: {"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that evaluates JavaScript expressions to add, modify, and remove fields", "streamtags": [], "functions": [{"filter": "true", "id": "eval", "description": "well-to-do boo jaunty bank censor magnificent", "disabled": true, "final": true, "conf": {"add": [{"name": "action", "value": "login == 'error' ? 'blocked' : action", "disabled": true}, {"name": "myTags", "value": "login == 'error' ? [...myTags, 'error'] : myTags", "disabled": true}], "keep": ["host", "source", "action", "myTags"], "remove": ["identification"]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesEventBreaker:
+      requestBody:
+        application/json: {"id": "event-breaker-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that breaks large event streams into discrete events using regex", "streamtags": [], "functions": [{"filter": "true", "id": "event_breaker", "description": "outside utterly each toward sailor", "disabled": false, "final": true, "conf": {"existingOrNew": "new", "shouldMarkCriblBreaker": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesFlatten:
+      requestBody:
+        application/json: {"id": "flatten-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that flattens nested JSON structures into top-level fields", "streamtags": [], "functions": [{"filter": "true", "id": "flatten", "description": "countess majority excluding staid woot when swill", "disabled": false, "final": true, "conf": {"fields": [], "prefix": "", "depth": 5, "delimiter": "_"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesFoldKeys:
+      requestBody:
+        application/json: {"id": "fold-keys-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that transforms flat field names with separators into nested structures", "streamtags": [], "functions": [{"filter": "true", "id": "foldkeys", "description": "evenly eek aw but grave uh-huh", "disabled": true, "final": true, "conf": {"deleteOriginal": true, "separator": "_", "selectionRegExp": "^data"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGeoIP:
+      requestBody:
+        application/json: {"id": "geoip-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that enriches events with geolocation data from IP addresses", "streamtags": [], "functions": [{"filter": "true", "id": "geoip", "description": "likewise abnormally fishery supposing quizzically", "disabled": false, "final": true, "conf": {"file": "GeoLite2-City.mmdb", "inField": "ip", "outField": "geoip", "additionalFields": [{"extraInField": "src_ip", "extraOutField": "src_geoip"}], "outFieldMappings": {}}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGrok:
+      requestBody:
+        application/json: {"id": "grok-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts structured fields from log data using Grok patterns", "streamtags": [], "functions": [{"filter": "true", "id": "grok", "description": "wildly secondary diligently relieve ack like intermix christen upright", "disabled": false, "final": false, "conf": {"pattern": "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}", "patternList": [], "source": "_raw"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGuard:
+      requestBody:
+        application/json: {"id": "guard-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that scans for sensitive data and applies mitigation expressions", "streamtags": [], "functions": [{"filter": "true", "id": "sensitive_data_scanner", "description": "sadly inasmuch waft modulo ah yippee upright those colorfully aw", "disabled": true, "final": true, "conf": {"rules": [{"rulesetId": "Finance_Global", "replaceExpr": "'REDACTED'", "disabled": false}], "fields": ["_raw"], "excludeFields": [], "flags": [{"name": "_sensitive", "value": "true"}], "includeDetectedRules": true, "backgroundDetection": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesJSONUnroll:
+      requestBody:
+        application/json: {"id": "json-unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls JSON arrays into individual events while retaining parent fields", "streamtags": [], "functions": [{"filter": "true", "id": "json_unroll", "description": "dispense ha psst across role ha", "disabled": true, "final": false, "conf": {"path": "allCars", "name": "cars"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesLookup:
+      requestBody:
+        application/json: {"id": "lookup-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that enriches events with location data from IP address lookups", "streamtags": [], "functions": [{"filter": "true", "id": "lookup", "description": "ouch whether unnaturally ha", "disabled": false, "final": true, "conf": {"file": "ip_locations.csv", "dbLookup": false, "matchMode": "exact", "matchType": "<value>", "reloadPeriodSec": -1, "inFields": [{"eventField": "destination_ip", "lookupField": "ip"}], "outFields": [{"lookupField": "location", "eventField": "location", "defaultValue": "Unknown"}], "addToEvent": false, "ignoreCase": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesMask:
+      requestBody:
+        application/json: {"id": "mask-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that masks Social Security numbers and other sensitive data", "streamtags": [], "functions": [{"filter": "true", "id": "mask", "description": "uselessly quinoa over smuggle acidly libel whenever", "disabled": true, "final": true, "conf": {"rules": [{"matchRegex": "/(social=)(\\d+)/", "replaceExpr": "`${g1}${C.Mask.md5(g2)}`", "disabled": false}], "fields": ["_raw"], "depth": 5, "flags": [{"name": "<value>", "value": "<value>"}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesNumerify:
+      requestBody:
+        application/json: {"id": "numerify-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that converts string numbers to numeric type for mathematical operations", "streamtags": [], "functions": [{"filter": "true", "id": "numerify", "description": "reward badly loyally eek toward unless mild quirkily noxious blah", "disabled": false, "final": true, "conf": {"depth": 5, "ignoreFields": [], "filterExpr": "", "format": "none"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPLogs:
+      requestBody:
+        application/json: {"id": "otlp-logs-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that normalizes and batches OTLP log events from OpenTelemetry sources", "streamtags": [], "functions": [{"filter": "__inputId=='open_telemetry:open_telemetry'", "id": "otlp_logs", "description": "import dividend between reassuringly", "disabled": false, "final": true, "conf": {"dropNonLogEvents": false, "batchOTLPLogs": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPMetrics:
+      requestBody:
+        application/json: {"id": "otlp-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that converts dimensional metrics to OTLP format and batches them by resource attributes", "streamtags": [], "functions": [{"filter": "__inputId=='prometheus_rw:prom_rw_in'", "id": "otlp_metrics", "description": "institutionalize briskly whether intend", "disabled": false, "final": true, "conf": {"resourceAttributePrefixes": ["service", "system", "telemetry", "k8s", "cloud", "host", "process"], "dropNonMetricEvents": false, "otlpVersion": "0.10.0", "batchOTLPMetrics": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPTraces:
+      requestBody:
+        application/json: {"id": "otlp-traces-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that normalizes and batches OTLP trace events from OpenTelemetry sources", "streamtags": [], "functions": [{"filter": "__inputId=='open_telemetry:open_telemetry'", "id": "otlp_traces", "description": "fortunately duh yearly", "disabled": true, "final": true, "conf": {"dropNonTraceEvents": false, "otlpVersion": "0.10.0", "batchOTLPTraces": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesParser:
+      requestBody:
+        application/json: {"id": "parser-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts fields from key-value pair formatted data", "streamtags": [], "functions": [{"filter": "true", "id": "serde", "description": "finally brr whoever as yippee igloo at against", "disabled": false, "final": false, "conf": {"mode": "extract", "type": "kvp", "delimChar": "<value>", "quoteChar": "<value>", "escapeChar": "<value>", "nullValue": "<value>", "srcField": "_raw", "dstField": "<value>", "cleanFields": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesPublishMetrics:
+      requestBody:
+        application/json: {"id": "publish-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts metrics from events and formats them for metrics aggregation platforms", "streamtags": [], "functions": [{"filter": "true", "id": "publish_metrics", "description": "pace inborn atomize emboss pronoun tremendously", "disabled": true, "final": false, "conf": {"fields": [{"inFieldName": "bytes", "outFieldExpr": "'metric_name.bytes'", "metricType": "gauge"}, {"inFieldName": "packets", "outFieldExpr": "'metric_name.packets'", "metricType": "gauge"}], "overwrite": false, "dimensions": ["action", "interface_id", "dstaddr"], "removeMetrics": [], "removeDimensions": []}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRedis:
+      requestBody:
+        application/json: {"id": "redis-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that retrieves values from Redis using GET command", "streamtags": [], "functions": [{"filter": "true", "id": "redis", "description": "gadzooks kosher hollow cumbersome loose but webbed solidly mousse furthermore", "disabled": true, "final": false, "conf": {"commands": [{"outField": "cached_value", "command": "get", "keyExpr": "'user_session'", "argsExpr": ""}], "deploymentType": "standalone", "authType": "none", "maxBlockSecs": 60, "enableClientSideCaching": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRegexExtract:
+      requestBody:
+        application/json: {"id": "regex-extract-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts structured fields from log data using regex patterns with named capture groups", "streamtags": [], "functions": [{"filter": "true", "id": "regex_extract", "description": "scrape spew playfully jaggedly whether follower ah sarcastic", "disabled": false, "final": false, "conf": {"regex": "/metric1=(?<metric1>\\d+)/", "regexList": [{"regex": "<value>"}], "source": "_raw", "iterations": 100, "fieldNameExpression": "<value>", "overwrite": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRegexFilter:
+      requestBody:
+        application/json: {"id": "regex-filter-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that filters out events matching specific regex patterns", "streamtags": [], "functions": [{"filter": "true", "id": "regex_filter", "description": "colorize reprimand cope appertain", "disabled": false, "final": false, "conf": {"regex": "/Opera/", "regexList": [{"regex": "<value>"}], "field": "_raw"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRename:
+      requestBody:
+        application/json: {"id": "rename-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that renames fields using key-value pairs and expressions", "streamtags": [], "functions": [{"filter": "true", "id": "rename", "description": "amidst within solvency lay", "disabled": false, "final": false, "conf": {"baseFields": [], "rename": [{"currentName": "level", "newName": "LEVEL"}], "renameExpr": "name.startsWith('out') ? name.toUpperCase() : name", "wildcardDepth": 5}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRollupMetrics:
+      requestBody:
+        application/json: {"id": "rollup-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that consolidates high-frequency metrics into manageable time windows", "streamtags": [], "functions": [{"filter": "true", "id": "rollup_metrics", "description": "consequently drat wasteful inasmuch terribly unabashedly", "disabled": true, "final": false, "conf": {"dimensions": ["*"], "timeWindow": "30s", "gaugeRollup": "last"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSampling:
+      requestBody:
+        application/json: {"id": "sampling-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that samples events at specified rates based on filter criteria", "streamtags": [], "functions": [{"filter": "true", "id": "sampling", "description": "animated obtrude jive dental", "disabled": true, "final": true, "conf": {"rules": [{"filter": "__status == 200", "rate": 5}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSerialize:
+      requestBody:
+        application/json: {"id": "serialize-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that serializes event fields into JSON format", "streamtags": [], "functions": [{"filter": "true", "id": "serialize", "description": "midst kissingly deduct versus embossing possible fraudster dislocate barring", "disabled": false, "final": true, "conf": {"type": "json", "delimChar": "<value>", "quoteChar": "<value>", "escapeChar": "<value>", "nullValue": "<value>", "fields": ["city", "state"], "srcField": "", "dstField": "_raw"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSNMPTrapSerialize:
+      requestBody:
+        application/json: {"id": "snmp-trap-serialize-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that serializes events into SNMP trap format for SNMP trap destinations", "streamtags": [], "functions": [{"filter": "true", "id": "snmp_trap_serialize", "description": "on while among crushing sheepishly", "disabled": false, "final": true, "conf": {"strict": true, "dropFailedEvents": true, "v3User": {"name": "<value>", "authProtocol": "sha512", "authKey": "<value>", "privProtocol": "<value>"}}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSuppress:
+      requestBody:
+        application/json: {"id": "suppress-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that suppresses duplicate events based on a key expression", "streamtags": [], "functions": [{"filter": "true", "id": "suppress", "description": "excepting drat lucky bah however account outrun gah lightly that", "disabled": false, "final": false, "conf": {"keyExpr": "`${ip}:${port}`", "allow": 1, "suppressPeriodSec": 30, "dropEventsMode": true, "maxCacheSize": 50000, "cacheIdleTimeoutPeriods": 2, "numEventsIdleTimeoutTrigger": 10000}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesTee:
+      requestBody:
+        application/json: {"id": "tee-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that sends events to a command via stdin for debugging purposes", "streamtags": [], "functions": [{"filter": "true", "id": "tee", "description": "somber splash oh following against alongside", "disabled": true, "final": true, "conf": {"command": "tee", "args": ["/opt/cribl/foo.log"], "restartOnExit": true, "env": {}}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesUnroll:
+      requestBody:
+        application/json: {"id": "unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls array fields into separate events", "streamtags": [], "functions": [{"filter": "true", "id": "unroll", "description": "soupy familiar how psst", "disabled": true, "final": false, "conf": {"srcExpr": "_raw.split(/\\n/)", "dstField": "_raw"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesXMLUnroll:
+      requestBody:
+        application/json: {"id": "xml-unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls XML elements into separate events", "streamtags": [], "functions": [{"filter": "true", "id": "xml_unroll", "description": "within or pfft", "disabled": true, "final": true, "conf": {"unroll": "^Parent\\.Child$", "inherit": "^Parent\\.(myID|branchLocation)$", "unrollIdxField": "unroll_idx", "pretty": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    speakeasy-default-create-pipelines:
+      requestBody:
+        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 909379, "output": "<value>", "description": "likewise gifted for below access popularity", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "grok", "description": "drat daughter equate starch upside-down deny", "disabled": false, "final": false, "conf": {"pattern": "<value>", "patternList": [{"pattern": "<value>"}], "source": "<value>"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}
+      responses:
+        "200":
+          application/json: {"count": 76000, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 382252, "output": "<value>", "description": "overdue bran adjourn", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "comment", "description": "daintily pfft so ha legislature object", "disabled": false, "final": false, "conf": {"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "covenant basket after turret", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getPipelines:
+    speakeasy-default-get-pipelines:
+      responses:
+        "200":
+          application/json: {"count": 983551, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 590071, "output": "<value>", "description": "for spectacles without excluding wee", "streamtags": ["<value 1>"], "functions": [{"filter": "<value>", "id": "code", "description": "save vary grubby where", "disabled": false, "final": false, "conf": {"code": "<value>", "maxNumOfIterations": 3261.26, "activeLogSampleRate": 9312.53, "useUniqueLogChannel": false}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "gnash clamour rarely at frenetically quick aha", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  deletePipelinesById:
+    speakeasy-default-delete-pipelines-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 309588, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 878418, "output": "<value>", "description": "er upright likewise during bell speedily fort", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "serde", "description": "haze total foretell ack with scuttle what onset", "disabled": true, "final": false, "conf": {"mode": "extract", "type": "delim", "delimChar": "<value>", "quoteChar": "<value>", "escapeChar": "<value>", "nullValue": "<value>", "srcField": "<value>", "dstField": "<value>", "cleanFields": "<value>"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "christen mmm loftily deeply pro besides once bony arcade", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getPipelinesById:
+    speakeasy-default-get-pipelines-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 512480, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 747779, "output": "<value>", "description": "boo limply selfishly brightly", "streamtags": ["<value 1>"], "functions": [{"filter": "<value>", "id": "auto_timestamp", "description": "slather questioningly fatally crank since frozen unless", "disabled": false, "final": false, "conf": {"srcField": "<value>", "dstField": "<value>", "defaultTimezone": "<value>", "timeExpression": "<value>", "offset": 8533.34, "maxLen": 9256.51, "defaultTime": "last", "latestDateAllowed": "<value>", "spacer": "<value>", "earliestDateAllowed": "<value>", "timestamps": [{"regex": "<value>", "strptime": "<value>"}]}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "well-lit spook blah a pish who exasperation", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updatePipelinesById:
+    PipelineExamplesEmpty:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "empty-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "", "streamtags": [], "functions": [], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAggregations:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "aggregation-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that aggregates rejected bytes grouped by source address every 10 seconds", "streamtags": [], "functions": [{"filter": "true", "id": "aggregation", "description": "snowplow brr onto ripe object outfit extremely gee wrongly", "disabled": true, "final": false, "conf": {"passthrough": false, "preserveGroupBys": false, "sufficientStatsOnly": false, "metricsMode": false, "prefix": "<value>", "timeWindow": "10s", "aggregations": ["sum(bytes).where(action==\"REJECT\").as(TotalBytes)"], "groupbys": ["srcaddr"], "flushEventLimit": 5885.07, "flushMemLimit": "<value>", "cumulative": false, "searchAggMode": "<value>", "add": [{"name": "<value>", "value": "<value>"}], "shouldTreatDotsAsLiterals": false, "flushOnInputClose": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAggregateMetrics:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "aggregate-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that aggregates process metrics: CPU, memory, and bytes over time windows", "streamtags": [], "functions": [{"filter": "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))", "id": "aggregate_metrics", "description": "off fooey tight supposing or oval underneath", "disabled": true, "final": false, "conf": {"passthrough": false, "preserveGroupBys": false, "sufficientStatsOnly": false, "prefix": "<value>", "timeWindow": "10s", "aggregations": [{"metricType": "gauge", "agg": "avg(_value || proc.cpu_perc).as(proc.cpu_perc_avg)"}, {"metricType": "gauge", "agg": "sum(_value || proc.mem_perc).as(proc.mem_perc_sum)"}, {"metricType": "counter", "agg": "count(_value || proc.bytes_in).as(proc.bytes_in_count)"}], "groupbys": ["proc"], "flushEventLimit": 4997.28, "flushMemLimit": "<value>", "cumulative": false, "shouldTreatDotsAsLiterals": true, "add": [{"name": "<value>", "value": "<value>"}], "flushOnInputClose": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAutoTimestamp:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "auto-timestamp-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts timestamps from event data using auto timestamp function", "streamtags": [], "functions": [{"filter": "true", "id": "auto_timestamp", "description": "around captain moralise now yum parsnip inasmuch pleased sleepily", "disabled": true, "final": true, "conf": {"srcField": "_raw", "dstField": "_time", "defaultTimezone": "local", "timeExpression": "time.getTime() / 1000", "offset": 0, "maxLen": 150, "defaultTime": "now", "latestDateAllowed": "+1week", "spacer": "<value>", "earliestDateAllowed": "-420weeks", "timestamps": [{"regex": "/(\\d{1,2}\\/\\d{2}\\/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\s\\w{2})/", "strptime": "%Y-%m-%d %H:%M:%S"}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesCEFSerializer:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "cef-serializer-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that formats events in CEF format with custom header and extension fields", "streamtags": [], "functions": [{"filter": "true", "id": "cef", "description": "elegantly solemnly dash um gadzooks apt transom barring", "disabled": true, "final": true, "conf": {"outputField": "_raw", "header": [{"value": "'CEF:0'"}, {"value": "'Cribl'"}, {"value": "'Cribl'"}, {"value": "C.version"}, {"value": "420"}, {"value": "'Cribl Event'"}, {"value": "6"}], "extension": [{"name": "c6a1Label", "value": "'Colorado_Ext_Bldg7'"}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesChain:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "chain-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that chains to another pipeline for sequential data processing", "streamtags": [], "functions": [{"filter": "true", "id": "chain", "description": "outside ack doing highlight outside round impractical steep alongside gorgeous", "disabled": false, "final": true, "conf": {"processor": "prometheus_metrics"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesClone:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "clone-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that creates cloned events with additional fields for comparison or routing", "streamtags": [], "functions": [{"filter": "true", "id": "clone", "description": "pepper successfully husky duh ack", "disabled": false, "final": true, "conf": {"clones": [{"env": "staging"}, {"index": "clones"}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesComment:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "comment-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline with comment function for documentation", "streamtags": [], "functions": [{"filter": "true", "id": "comment", "description": "gigantic ick yahoo admonish", "disabled": true, "final": false, "conf": {"comment": "This function processes security events and enriches them with DNS lookups"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDNSLookup:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "dns-lookup-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that performs DNS lookups to resolve hostnames and IP addresses", "streamtags": [], "functions": [{"filter": "true", "id": "dns_lookup", "description": "penalise above mockingly questionable", "disabled": true, "final": true, "conf": {"dnsLookupFields": [{"inFieldName": "hostname", "resourceRecordType": "A", "outFieldName": "hostname_ip"}], "reverseLookupFields": [{"inFieldName": "src_ip", "outFieldName": "src_hostname"}], "dnsServers": ["<value 1>", "<value 2>"], "cacheTTL": 30, "maxCacheSize": 5000, "useResolvConf": false, "lookupFallback": false, "domainOverrides": ["<value 1>", "<value 2>", "<value 3>"], "lookupFailLogLevel": "error"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDrop:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "drop-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that drops events containing success messages", "streamtags": [], "functions": [{"filter": "_raw.search(/success/i)>=0", "id": "drop", "description": "vengeful rout worth quickly in anti amongst cop-out", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDropDimensions:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "drop-dimensions-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that drops specified dimensions from metrics to reduce cardinality", "streamtags": [], "functions": [{"filter": "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))", "id": "drop_dimensions", "description": "amongst slather yippee resource which yippee weary crumble", "disabled": true, "final": false, "conf": {"timeWindow": "10s", "dropDimensions": ["proc", "pie", "unit"], "flushOnInputClose": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDynamicSampling:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "dynamic-sampling-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that dynamically samples events based on volume using square root mode", "streamtags": [], "functions": [{"filter": "true", "id": "dynamic_sampling", "description": "physically wilted scornful gosh lest smart oof damaged inside", "disabled": false, "final": true, "conf": {"mode": "sqrt", "keyExpr": "`${domain}:${httpCode}`", "samplePeriod": 20, "minEvents": 3, "maxSampleRate": 3}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesEval:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that evaluates JavaScript expressions to add, modify, and remove fields", "streamtags": [], "functions": [{"filter": "true", "id": "eval", "description": "misread as noted clamp", "disabled": true, "final": true, "conf": {"add": [{"name": "action", "value": "login == 'error' ? 'blocked' : action", "disabled": true}, {"name": "myTags", "value": "login == 'error' ? [...myTags, 'error'] : myTags", "disabled": false}], "keep": ["host", "source", "action", "myTags"], "remove": ["identification"]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesEventBreaker:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "event-breaker-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that breaks large event streams into discrete events using regex", "streamtags": [], "functions": [{"filter": "true", "id": "event_breaker", "description": "and voluminous dramatize incidentally but wasabi anenst brook unlike", "disabled": true, "final": true, "conf": {"existingOrNew": "new", "shouldMarkCriblBreaker": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesFlatten:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "flatten-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that flattens nested JSON structures into top-level fields", "streamtags": [], "functions": [{"filter": "true", "id": "flatten", "description": "expostulate fragrant why whose whereas if unless whoever reconsideration", "disabled": false, "final": true, "conf": {"fields": [], "prefix": "", "depth": 5, "delimiter": "_"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesFoldKeys:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "fold-keys-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that transforms flat field names with separators into nested structures", "streamtags": [], "functions": [{"filter": "true", "id": "foldkeys", "description": "deceivingly amongst stunning anenst", "disabled": true, "final": true, "conf": {"deleteOriginal": true, "separator": "_", "selectionRegExp": "^data"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGeoIP:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "geoip-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that enriches events with geolocation data from IP addresses", "streamtags": [], "functions": [{"filter": "true", "id": "geoip", "description": "busy anti geez savour jellyfish along oh", "disabled": true, "final": false, "conf": {"file": "GeoLite2-City.mmdb", "inField": "ip", "outField": "geoip", "additionalFields": [{"extraInField": "src_ip", "extraOutField": "src_geoip"}], "outFieldMappings": {}}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGrok:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "grok-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts structured fields from log data using Grok patterns", "streamtags": [], "functions": [{"filter": "true", "id": "grok", "description": "notwithstanding the yowza harp however shrill scrape", "disabled": true, "final": false, "conf": {"pattern": "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}", "patternList": [], "source": "_raw"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGuard:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "guard-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that scans for sensitive data and applies mitigation expressions", "streamtags": [], "functions": [{"filter": "true", "id": "sensitive_data_scanner", "description": "readily snappy yuck absent ad phew unlike sand harvest instead", "disabled": false, "final": true, "conf": {"rules": [{"rulesetId": "Finance_Global", "replaceExpr": "'REDACTED'", "disabled": false}], "fields": ["_raw"], "excludeFields": [], "flags": [{"name": "_sensitive", "value": "true"}], "includeDetectedRules": true, "backgroundDetection": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesJSONUnroll:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "json-unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls JSON arrays into individual events while retaining parent fields", "streamtags": [], "functions": [{"filter": "true", "id": "json_unroll", "description": "upward curiously deafening famously likewise whenever than", "disabled": true, "final": false, "conf": {"path": "allCars", "name": "cars"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesLookup:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "lookup-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that enriches events with location data from IP address lookups", "streamtags": [], "functions": [{"filter": "true", "id": "lookup", "description": "chainstay though overcooked expostulate midst worldly within", "disabled": true, "final": false, "conf": {"file": "ip_locations.csv", "dbLookup": false, "matchMode": "exact", "matchType": "<value>", "reloadPeriodSec": -1, "inFields": [{"eventField": "destination_ip", "lookupField": "ip"}], "outFields": [{"lookupField": "location", "eventField": "location", "defaultValue": "Unknown"}], "addToEvent": false, "ignoreCase": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesMask:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "mask-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that masks Social Security numbers and other sensitive data", "streamtags": [], "functions": [{"filter": "true", "id": "mask", "description": "afore good remark switch on harvest downshift once but", "disabled": true, "final": true, "conf": {"rules": [{"matchRegex": "/(social=)(\\d+)/", "replaceExpr": "`${g1}${C.Mask.md5(g2)}`", "disabled": false}], "fields": ["_raw"], "depth": 5, "flags": [{"name": "<value>", "value": "<value>"}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesNumerify:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "numerify-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that converts string numbers to numeric type for mathematical operations", "streamtags": [], "functions": [{"filter": "true", "id": "numerify", "description": "oof brr spork quit versus excepting dwell delight slipper likewise", "disabled": true, "final": false, "conf": {"depth": 5, "ignoreFields": [], "filterExpr": "", "format": "none"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPLogs:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "otlp-logs-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that normalizes and batches OTLP log events from OpenTelemetry sources", "streamtags": [], "functions": [{"filter": "__inputId=='open_telemetry:open_telemetry'", "id": "otlp_logs", "description": "frenetically mortise eek boohoo downright fly basket whoever", "disabled": false, "final": false, "conf": {"dropNonLogEvents": false, "batchOTLPLogs": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPMetrics:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "otlp-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that converts dimensional metrics to OTLP format and batches them by resource attributes", "streamtags": [], "functions": [{"filter": "__inputId=='prometheus_rw:prom_rw_in'", "id": "otlp_metrics", "description": "fortunate happily knight coincide anenst", "disabled": true, "final": false, "conf": {"resourceAttributePrefixes": ["service", "system", "telemetry", "k8s", "cloud", "host", "process"], "dropNonMetricEvents": false, "otlpVersion": "0.10.0", "batchOTLPMetrics": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPTraces:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "otlp-traces-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that normalizes and batches OTLP trace events from OpenTelemetry sources", "streamtags": [], "functions": [{"filter": "__inputId=='open_telemetry:open_telemetry'", "id": "otlp_traces", "description": "wobbly meaningfully necklace dependable jet aboard", "disabled": false, "final": false, "conf": {"dropNonTraceEvents": false, "otlpVersion": "0.10.0", "batchOTLPTraces": true}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesParser:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "parser-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts fields from key-value pair formatted data", "streamtags": [], "functions": [{"filter": "true", "id": "serde", "description": "although by gadzooks agile gift inferior pish", "disabled": false, "final": true, "conf": {"mode": "extract", "type": "kvp", "delimChar": "<value>", "quoteChar": "<value>", "escapeChar": "<value>", "nullValue": "<value>", "srcField": "_raw", "dstField": "<value>", "cleanFields": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesPublishMetrics:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "publish-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts metrics from events and formats them for metrics aggregation platforms", "streamtags": [], "functions": [{"filter": "true", "id": "publish_metrics", "description": "plan what phooey guide", "disabled": true, "final": false, "conf": {"fields": [{"inFieldName": "bytes", "outFieldExpr": "'metric_name.bytes'", "metricType": "gauge"}, {"inFieldName": "packets", "outFieldExpr": "'metric_name.packets'", "metricType": "gauge"}], "overwrite": false, "dimensions": ["action", "interface_id", "dstaddr"], "removeMetrics": [], "removeDimensions": []}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRedis:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "redis-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that retrieves values from Redis using GET command", "streamtags": [], "functions": [{"filter": "true", "id": "redis", "description": "young along per candid wetly gently upliftingly wearily", "disabled": true, "final": true, "conf": {"commands": [{"outField": "cached_value", "command": "get", "keyExpr": "'user_session'", "argsExpr": ""}], "deploymentType": "standalone", "authType": "none", "maxBlockSecs": 60, "enableClientSideCaching": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRegexExtract:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "regex-extract-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts structured fields from log data using regex patterns with named capture groups", "streamtags": [], "functions": [{"filter": "true", "id": "regex_extract", "description": "anti onto incidentally thankfully draw drat pulverize custom while sticky", "disabled": false, "final": true, "conf": {"regex": "/metric1=(?<metric1>\\d+)/", "regexList": [{"regex": "<value>"}], "source": "_raw", "iterations": 100, "fieldNameExpression": "<value>", "overwrite": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRegexFilter:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "regex-filter-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that filters out events matching specific regex patterns", "streamtags": [], "functions": [{"filter": "true", "id": "regex_filter", "description": "dreamily generously a yahoo until ah enthusiastically unexpectedly fixed explode", "disabled": false, "final": true, "conf": {"regex": "/Opera/", "regexList": [{"regex": "<value>"}], "field": "_raw"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRename:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "rename-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that renames fields using key-value pairs and expressions", "streamtags": [], "functions": [{"filter": "true", "id": "rename", "description": "across yahoo including direct absent if ravel despite cap owlishly", "disabled": false, "final": true, "conf": {"baseFields": [], "rename": [{"currentName": "level", "newName": "LEVEL"}], "renameExpr": "name.startsWith('out') ? name.toUpperCase() : name", "wildcardDepth": 5}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRollupMetrics:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "rollup-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that consolidates high-frequency metrics into manageable time windows", "streamtags": [], "functions": [{"filter": "true", "id": "rollup_metrics", "description": "woot bourgeoisie hot harvest inasmuch definite out psst traditionalism lively", "disabled": false, "final": true, "conf": {"dimensions": ["*"], "timeWindow": "30s", "gaugeRollup": "last"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSampling:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "sampling-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that samples events at specified rates based on filter criteria", "streamtags": [], "functions": [{"filter": "true", "id": "sampling", "description": "atop up ironclad", "disabled": false, "final": true, "conf": {"rules": [{"filter": "__status == 200", "rate": 5}]}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSerialize:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "serialize-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that serializes event fields into JSON format", "streamtags": [], "functions": [{"filter": "true", "id": "serialize", "description": "maroon white indeed obstruct deafening chubby openly", "disabled": true, "final": false, "conf": {"type": "json", "delimChar": "<value>", "quoteChar": "<value>", "escapeChar": "<value>", "nullValue": "<value>", "fields": ["city", "state"], "srcField": "", "dstField": "_raw"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSNMPTrapSerialize:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "snmp-trap-serialize-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that serializes events into SNMP trap format for SNMP trap destinations", "streamtags": [], "functions": [{"filter": "true", "id": "snmp_trap_serialize", "description": "ack scaly ingratiate when finally troubled coordinated", "disabled": true, "final": false, "conf": {"strict": true, "dropFailedEvents": true, "v3User": {"name": "<value>", "authProtocol": "sha384", "authKey": "<value>", "privProtocol": "<value>"}}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSuppress:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "suppress-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that suppresses duplicate events based on a key expression", "streamtags": [], "functions": [{"filter": "true", "id": "suppress", "description": "per blushing growing", "disabled": false, "final": true, "conf": {"keyExpr": "`${ip}:${port}`", "allow": 1, "suppressPeriodSec": 30, "dropEventsMode": true, "maxCacheSize": 50000, "cacheIdleTimeoutPeriods": 2, "numEventsIdleTimeoutTrigger": 10000}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesTee:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "tee-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that sends events to a command via stdin for debugging purposes", "streamtags": [], "functions": [{"filter": "true", "id": "tee", "description": "torn out than", "disabled": true, "final": true, "conf": {"command": "tee", "args": ["/opt/cribl/foo.log"], "restartOnExit": true, "env": {}}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesUnroll:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls array fields into separate events", "streamtags": [], "functions": [{"filter": "true", "id": "unroll", "description": "youthfully blah whoa regarding anti loyally hm peppery measly", "disabled": false, "final": true, "conf": {"srcExpr": "_raw.split(/\\n/)", "dstField": "_raw"}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesXMLUnroll:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "xml-unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls XML elements into separate events", "streamtags": [], "functions": [{"filter": "true", "id": "xml_unroll", "description": "gee than next forearm kissingly cluttered meh despite", "disabled": true, "final": true, "conf": {"unroll": "^Parent\\.Child$", "inherit": "^Parent\\.(myID|branchLocation)$", "unrollIdxField": "unroll_idx", "pretty": false}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    speakeasy-default-update-pipelines-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 522894, "output": "<value>", "description": "hyphenation when since geez officially begonia worth hierarchy conjecture amongst", "streamtags": ["<value 1>"], "functions": [{"filter": "<value>", "id": "publish_metrics", "description": "grown ferociously huzzah boyfriend camouflage once truly dislocate till", "disabled": true, "final": false, "conf": {"fields": [{"inFieldName": "<value>", "outFieldExpr": "<value>", "metricType": "distribution"}], "overwrite": true, "dimensions": ["<value 1>", "<value 2>"], "removeMetrics": ["<value 1>"], "removeDimensions": ["<value 1>", "<value 2>", "<value 3>"]}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}
+      responses:
+        "200":
+          application/json: {"count": 291129, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 479229, "output": "<value>", "description": "whoa roasted to spork duh tough yuck or afterwards", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "<value>", "id": "limit", "description": "unknown happily near ouch", "disabled": true, "final": false, "conf": {"limit": 985486}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "if satirize mixture gah", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getRoutes:
+    speakeasy-default-get-routes:
+      responses:
+        "200":
+          application/json: {"count": 800579, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "lone carelessly as important upwardly think large", "final": true}], "groups": {"key": {"name": "<value>", "description": "wobbly hm scarily supposing mid yippee", "disabled": false}}, "comments": [{"comment": "The Football Is Good For Training And Recreational Purposes"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -19394,6 +20209,10 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `CriblControlPlane.Nodes.List()`: **Deprecated**
+  * `CriblControlPlane.Nodes.Count()`: **Deprecated**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

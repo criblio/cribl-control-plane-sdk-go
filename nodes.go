@@ -34,9 +34,15 @@ func newNodes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 	}
 }
 
-// List - Get detailed metadata for Worker and Edge Nodes
-// Get detailed metadata for Worker and Edge Nodes.
-func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEntryRequest, opts ...operations.Option) (*operations.ListMasterWorkerEntryResponse, error) {
+// Count - Get a count of Worker and Edge Nodes
+// Get a count of all Worker and Edge Nodes. Deprecated. Use /products/{product}/summary/workers instead.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetSummaryWorkersResponse, error) {
+	request := operations.GetSummaryWorkersRequest{
+		FilterExp: filterExp,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -55,7 +61,7 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/workers")
+	opURL, err := url.JoinPath(baseURL, "/master/summary/workers")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -65,7 +71,7 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "listMasterWorkerEntry",
+		OperationID:      "getSummaryWorkers",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -197,7 +203,7 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 		}
 	}
 
-	res := &operations.ListMasterWorkerEntryResponse{
+	res := &operations.GetSummaryWorkersResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -213,12 +219,12 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 				return nil, err
 			}
 
-			var out components.CountedMasterWorkerEntry
+			var out components.CountedNumber
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedMasterWorkerEntry = &out
+			res.CountedNumber = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -277,13 +283,11 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 
 }
 
-// Count - Get a count of Worker and Edge Nodes
-// Get a count of all Worker and Edge Nodes.
-func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetMasterWorkerEntryResponse, error) {
-	request := operations.GetMasterWorkerEntryRequest{
-		FilterExp: filterExp,
-	}
-
+// List - Get detailed metadata for Worker and Edge Nodes
+// Get detailed metadata for Worker and Edge Nodes. Deprecated. Use /products/{product}/workers instead.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, opts ...operations.Option) (*operations.GetWorkersResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -302,7 +306,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/summary/workers")
+	opURL, err := url.JoinPath(baseURL, "/master/workers")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -312,7 +316,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getMasterWorkerEntry",
+		OperationID:      "getWorkers",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -444,7 +448,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		}
 	}
 
-	res := &operations.GetMasterWorkerEntryResponse{
+	res := &operations.GetWorkersResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -460,12 +464,12 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 				return nil, err
 			}
 
-			var out components.CountedNumber
+			var out components.CountedMasterWorkerEntry
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedNumber = &out
+			res.CountedMasterWorkerEntry = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
