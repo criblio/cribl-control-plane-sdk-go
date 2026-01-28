@@ -14,32 +14,34 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"net/http"
-	"net/url"
 )
 
-// Destinations - Actions related to Destinations
-type Destinations struct {
-	Pq      *DestinationsPq
-	Samples *Samples
+type PacksSources struct {
+	HecTokens *PacksHecTokens
+	Pq        *SourcesPq
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newDestinations(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Destinations {
-	return &Destinations{
+func newPacksSources(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *PacksSources {
+	return &PacksSources{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Pq:               newDestinationsPq(rootSDK, sdkConfig, hooks),
-		Samples:          newSamples(rootSDK, sdkConfig, hooks),
+		HecTokens:        newPacksHecTokens(rootSDK, sdkConfig, hooks),
+		Pq:               newSourcesPq(rootSDK, sdkConfig, hooks),
 	}
 }
 
-// List all Destinations
-// Get a list of all Destinations.
-func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*operations.ListOutputResponse, error) {
+// List all Sources within a Pack
+// Get a list of all Sources within the specified Pack.
+func (s *PacksSources) List(ctx context.Context, pack string, opts ...operations.Option) (*operations.GetInputSystemByPackResponse, error) {
+	request := operations.GetInputSystemByPackRequest{
+		Pack: pack,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -58,7 +60,7 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/system/outputs")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/system/inputs", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -68,7 +70,7 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "listOutput",
+		OperationID:      "getInputSystemByPack",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -196,7 +198,7 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 		}
 	}
 
-	res := &operations.ListOutputResponse{
+	res := &operations.GetInputSystemByPackResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -212,12 +214,12 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 				return nil, err
 			}
 
-			var out components.CountedOutput
+			var out components.CountedInput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedOutput = &out
+			res.CountedInput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -276,257 +278,12 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 
 }
 
-// Create a Destination
-// Create a new Destination.
-func (s *Destinations) Create(ctx context.Context, request operations.CreateOutputRequest, opts ...operations.Option) (*operations.CreateOutputResponse, error) {
-	o := operations.Options{}
-	supportedOptions := []string{
-		operations.SupportedOptionRetries,
-		operations.SupportedOptionTimeout,
-	}
-
-	for _, opt := range opts {
-		if err := opt(&o, supportedOptions...); err != nil {
-			return nil, fmt.Errorf("error applying option: %w", err)
-		}
-	}
-
-	var baseURL string
-	if o.ServerURL == nil {
-		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
-	} else {
-		baseURL = *o.ServerURL
-	}
-	opURL, err := url.JoinPath(baseURL, "/system/outputs")
-	if err != nil {
-		return nil, fmt.Errorf("error generating URL: %w", err)
-	}
-
-	hookCtx := hooks.HookContext{
-		SDK:              s.rootSDK,
-		SDKConfiguration: s.sdkConfiguration,
-		BaseURL:          baseURL,
-		Context:          ctx,
-		OperationID:      "createOutput",
-		OAuth2Scopes:     []string{},
-		SecuritySource:   s.sdkConfiguration.Security,
-	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
-	if err != nil {
-		return nil, err
-	}
-
-	timeout := o.Timeout
-	if timeout == nil {
-		timeout = s.sdkConfiguration.Timeout
-	}
-
-	if timeout != nil {
-		var cancel context.CancelFunc
-		ctx, cancel = context.WithTimeout(ctx, *timeout)
-		defer cancel()
-	}
-
-	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
-	if err != nil {
-		return nil, fmt.Errorf("error creating request: %w", err)
-	}
-	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-	if reqContentType != "" {
-		req.Header.Set("Content-Type", reqContentType)
-	}
-
-	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
-		return nil, err
-	}
-
-	for k, v := range o.SetHeaders {
-		req.Header.Set(k, v)
-	}
-
-	globalRetryConfig := s.sdkConfiguration.RetryConfig
-	retryConfig := o.Retries
-	if retryConfig == nil {
-		if globalRetryConfig != nil {
-			retryConfig = globalRetryConfig
-		} else {
-			retryConfig = &retry.Config{
-				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
-					InitialInterval: 500,
-					MaxInterval:     60000,
-					Exponent:        1.5,
-					MaxElapsedTime:  3600000,
-				},
-				RetryConnectionErrors: true,
-			}
-		}
-	}
-
-	var httpRes *http.Response
-	if retryConfig != nil {
-		httpRes, err = utils.Retry(ctx, utils.Retries{
-			Config: retryConfig,
-			StatusCodes: []string{
-				"429",
-			},
-		}, func() (*http.Response, error) {
-			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
-				copyBody, err := req.GetBody()
-
-				if err != nil {
-					return nil, err
-				}
-
-				req.Body = copyBody
-			}
-
-			req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
-			if err != nil {
-				if retry.IsPermanentError(err) || retry.IsTemporaryError(err) {
-					return nil, err
-				}
-
-				return nil, retry.Permanent(err)
-			}
-
-			httpRes, err := s.sdkConfiguration.Client.Do(req)
-			if err != nil || httpRes == nil {
-				if err != nil {
-					err = fmt.Errorf("error sending request: %w", err)
-				} else {
-					err = fmt.Errorf("error sending request: no response")
-				}
-
-				_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
-			}
-			return httpRes, err
-		})
-
-		if err != nil {
-			return nil, err
-		} else {
-			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
-			if err != nil {
-				return nil, err
-			}
-		}
-	} else {
-		req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
-		if err != nil {
-			return nil, err
-		}
-
-		httpRes, err = s.sdkConfiguration.Client.Do(req)
-		if err != nil || httpRes == nil {
-			if err != nil {
-				err = fmt.Errorf("error sending request: %w", err)
-			} else {
-				err = fmt.Errorf("error sending request: no response")
-			}
-
-			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
-			return nil, err
-		} else if utils.MatchStatusCodes([]string{"401", "4XX", "500", "5XX"}, httpRes.StatusCode) {
-			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
-			if err != nil {
-				return nil, err
-			} else if _httpRes != nil {
-				httpRes = _httpRes
-			}
-		} else {
-			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
-			if err != nil {
-				return nil, err
-			}
-		}
-	}
-
-	res := &operations.CreateOutputResponse{
-		HTTPMeta: components.HTTPMetadata{
-			Request:  req,
-			Response: httpRes,
-		},
-	}
-
-	switch {
-	case httpRes.StatusCode == 200:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out components.CountedOutput
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			res.CountedOutput = &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 500:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out apierrors.Error
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			out.HTTPMeta = components.HTTPMetadata{
-				Request:  req,
-				Response: httpRes,
-			}
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 401:
-		fallthrough
-	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
-		rawBody, err := utils.ConsumeRawBody(httpRes)
-		if err != nil {
-			return nil, err
-		}
-		return nil, apierrors.NewAPIError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
-	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
-		rawBody, err := utils.ConsumeRawBody(httpRes)
-		if err != nil {
-			return nil, err
-		}
-		return nil, apierrors.NewAPIError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
-	default:
-		rawBody, err := utils.ConsumeRawBody(httpRes)
-		if err != nil {
-			return nil, err
-		}
-		return nil, apierrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
-	}
-
-	return res, nil
-
-}
-
-// Get a Destination
-// Get the specified Destination.
-func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputByIDResponse, error) {
-	request := operations.GetOutputByIDRequest{
-		ID: id,
+// Get a Source within a Pack
+// Get the specified Source within the specified Pack.
+func (s *PacksSources) Get(ctx context.Context, id string, pack string, opts ...operations.Option) (*operations.GetInputSystemByPackAndIDResponse, error) {
+	request := operations.GetInputSystemByPackAndIDRequest{
+		ID:   id,
+		Pack: pack,
 	}
 
 	o := operations.Options{}
@@ -547,7 +304,7 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/outputs/{id}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/system/inputs/{id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -557,7 +314,7 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getOutputById",
+		OperationID:      "getInputSystemByPackAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -685,7 +442,7 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 		}
 	}
 
-	res := &operations.GetOutputByIDResponse{
+	res := &operations.GetInputSystemByPackAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -701,12 +458,12 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 				return nil, err
 			}
 
-			var out components.CountedOutput
+			var out components.CountedInput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedOutput = &out
+			res.CountedInput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -765,12 +522,13 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 
 }
 
-// Update a Destination
-// Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
-func (s *Destinations) Update(ctx context.Context, id string, output components.Output, opts ...operations.Option) (*operations.UpdateOutputByIDResponse, error) {
-	request := operations.UpdateOutputByIDRequest{
-		ID:     id,
-		Output: output,
+// Update a Source within a Pack
+// Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
+func (s *PacksSources) Update(ctx context.Context, id string, pack string, input components.Input, opts ...operations.Option) (*operations.UpdateInputSystemByPackAndIDResponse, error) {
+	request := operations.UpdateInputSystemByPackAndIDRequest{
+		ID:    id,
+		Pack:  pack,
+		Input: input,
 	}
 
 	o := operations.Options{}
@@ -791,7 +549,7 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/outputs/{id}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/system/inputs/{id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -801,11 +559,11 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "updateOutputById",
+		OperationID:      "updateInputSystemByPackAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Output", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Input", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -936,7 +694,7 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 		}
 	}
 
-	res := &operations.UpdateOutputByIDResponse{
+	res := &operations.UpdateInputSystemByPackAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -952,12 +710,12 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 				return nil, err
 			}
 
-			var out components.CountedOutput
+			var out components.CountedInput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedOutput = &out
+			res.CountedInput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1016,11 +774,12 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 
 }
 
-// Delete a Destination
-// Delete the specified Destination.
-func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputByIDResponse, error) {
-	request := operations.DeleteOutputByIDRequest{
-		ID: id,
+// Delete a Source within a Pack
+// Delete the specified Source within the specified Pack.
+func (s *PacksSources) Delete(ctx context.Context, id string, pack string, opts ...operations.Option) (*operations.DeleteInputSystemByPackAndIDResponse, error) {
+	request := operations.DeleteInputSystemByPackAndIDRequest{
+		ID:   id,
+		Pack: pack,
 	}
 
 	o := operations.Options{}
@@ -1041,7 +800,7 @@ func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/outputs/{id}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/system/inputs/{id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1051,7 +810,7 @@ func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "deleteOutputById",
+		OperationID:      "deleteInputSystemByPackAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -1179,7 +938,7 @@ func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations
 		}
 	}
 
-	res := &operations.DeleteOutputByIDResponse{
+	res := &operations.DeleteInputSystemByPackAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1195,12 +954,12 @@ func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations
 				return nil, err
 			}
 
-			var out components.CountedOutput
+			var out components.CountedInput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedOutput = &out
+			res.CountedInput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

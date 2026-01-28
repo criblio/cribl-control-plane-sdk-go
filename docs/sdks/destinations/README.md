@@ -293,7 +293,7 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            DefaultID: criblcontrolplanesdkgo.Pointer("my-default-output"),
+            DefaultID: "my-default-output",
         },
     ))
     if err != nil {
