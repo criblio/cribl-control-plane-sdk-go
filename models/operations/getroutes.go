@@ -6,22 +6,22 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type ListRoutesResponse struct {
+type GetRoutesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Routes objects
 	CountedRoutes *components.CountedRoutes
 }
 
-func (l *ListRoutesResponse) GetHTTPMeta() components.HTTPMetadata {
-	if l == nil {
+func (g *GetRoutesResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return l.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (l *ListRoutesResponse) GetCountedRoutes() *components.CountedRoutes {
-	if l == nil {
+func (g *GetRoutesResponse) GetCountedRoutes() *components.CountedRoutes {
+	if g == nil {
 		return nil
 	}
-	return l.CountedRoutes
+	return g.CountedRoutes
 }

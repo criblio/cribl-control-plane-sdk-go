@@ -1,4 +1,4 @@
-# ListMasterWorkerEntryResponse
+# GetWorkersResponse
 
 
 ## Fields
