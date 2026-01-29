@@ -14,7 +14,7 @@ type GetVersionShowRequest struct {
 	// The relative path of the file to get the diff and log message for.
 	Filename *string `queryParam:"style=form,explode=true,name=filename"`
 	// Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines.
-	DiffLineLimit *float64 `queryParam:"style=form,explode=true,name=diffLineLimit"`
+	DiffLineLimit *int64 `queryParam:"style=form,explode=true,name=diffLineLimit"`
 }
 
 func (g *GetVersionShowRequest) GetCommit() *string {
@@ -38,7 +38,7 @@ func (g *GetVersionShowRequest) GetFilename() *string {
 	return g.Filename
 }
 
-func (g *GetVersionShowRequest) GetDiffLineLimit() *float64 {
+func (g *GetVersionShowRequest) GetDiffLineLimit() *int64 {
 	if g == nil {
 		return nil
 	}

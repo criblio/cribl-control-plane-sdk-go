@@ -19,6 +19,9 @@ import (
 
 // Packs - Actions related to Packs
 type Packs struct {
+	Sources      *PacksSources
+	Destinations *PacksDestinations
+
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -29,6 +32,8 @@ func newPacks(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
+		Sources:          newPacksSources(rootSDK, sdkConfig, hooks),
+		Destinations:     newPacksDestinations(rootSDK, sdkConfig, hooks),
 	}
 }
 

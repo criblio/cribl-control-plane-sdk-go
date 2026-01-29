@@ -291,7 +291,7 @@ func (s *Commits) Create(ctx context.Context, gitCommitParams components.GitComm
 
 // Diff - Get the diff for a commit
 // Get the diff for a commit. Default is the latest commit (HEAD).
-func (s *Commits) Diff(ctx context.Context, commit *string, groupID *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionDiffResponse, error) {
+func (s *Commits) Diff(ctx context.Context, commit *string, groupID *string, filename *string, diffLineLimit *int64, opts ...operations.Option) (*operations.GetVersionDiffResponse, error) {
 	request := operations.GetVersionDiffRequest{
 		Commit:        commit,
 		GroupID:       groupID,
@@ -541,7 +541,7 @@ func (s *Commits) Diff(ctx context.Context, commit *string, groupID *string, fil
 
 // List the commit history
 // List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
-func (s *Commits) List(ctx context.Context, groupID *string, count *float64, opts ...operations.Option) (*operations.GetVersionResponse, error) {
+func (s *Commits) List(ctx context.Context, groupID *string, count *int64, opts ...operations.Option) (*operations.GetVersionResponse, error) {
 	request := operations.GetVersionRequest{
 		GroupID: groupID,
 		Count:   count,
@@ -1283,7 +1283,7 @@ func (s *Commits) Revert(ctx context.Context, gitRevertParams components.GitReve
 
 // Get the diff and log message for a commit
 // Get the diff and log message for a commit. Default is the latest commit (HEAD).
-func (s *Commits) Get(ctx context.Context, commit *string, groupID *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionShowResponse, error) {
+func (s *Commits) Get(ctx context.Context, commit *string, groupID *string, filename *string, diffLineLimit *int64, opts ...operations.Option) (*operations.GetVersionShowResponse, error) {
 	request := operations.GetVersionShowRequest{
 		Commit:        commit,
 		GroupID:       groupID,

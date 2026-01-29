@@ -98,9 +98,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestAppscope(
-        operations.InputAppscope{
+        operations.CreateInputInputAppscope{
             ID: "appscope-source",
-            Type: operations.TypeAppscopeAppscope,
+            Type: operations.CreateInputTypeAppscopeAppscope,
             Disabled: criblcontrolplanesdkgo.Pointer(false),
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -144,9 +144,9 @@ func main() {
             },
             StaleChannelFlushMs: criblcontrolplanesdkgo.Pointer[float64](10000),
             EnableUnixPath: criblcontrolplanesdkgo.Pointer(false),
-            Filter: &operations.FilterAppscope{
-                Allow: []operations.Allow{
-                    operations.Allow{
+            Filter: &operations.CreateInputFilterAppscope{
+                Allow: []operations.CreateInputAllow{
+                    operations.CreateInputAllow{
                         Procname: "<value>",
                         Arg: criblcontrolplanesdkgo.Pointer("<value>"),
                         Config: "<value>",
@@ -154,7 +154,7 @@ func main() {
                 },
                 TransportURL: criblcontrolplanesdkgo.Pointer("https://drab-scrap.info/"),
             },
-            Persistence: &operations.PersistenceAppscope{
+            Persistence: &operations.CreateInputPersistenceAppscope{
                 Enable: criblcontrolplanesdkgo.Pointer(false),
                 TimeWindow: criblcontrolplanesdkgo.Pointer("10m"),
                 MaxDataSize: criblcontrolplanesdkgo.Pointer("1GB"),
