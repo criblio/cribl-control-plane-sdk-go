@@ -312,10 +312,10 @@ func main() {
 * [Update](docs/sdks/destinations/README.md#update) - Update a Destination
 * [Delete](docs/sdks/destinations/README.md#delete) - Delete a Destination
 
-#### [Destinations.Pq](docs/sdks/pq/README.md)
+#### [Destinations.Pq](docs/sdks/destinationspq/README.md)
 
-* [Clear](docs/sdks/pq/README.md#clear) - Clear the persistent queue for a Destination
-* [Get](docs/sdks/pq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
+* [Clear](docs/sdks/destinationspq/README.md#clear) - Clear the persistent queue for a Destination
+* [Get](docs/sdks/destinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
 
 #### [Destinations.Samples](docs/sdks/samples/README.md)
 
@@ -377,6 +377,22 @@ func main() {
 * [Delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 * [Get](docs/sdks/packs/README.md#get) - Get a Pack
 * [Update](docs/sdks/packs/README.md#update) - Upgrade a Pack
+
+#### [Packs.Sources](docs/sdks/packssources/README.md)
+
+* [List](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
+* [Get](docs/sdks/packssources/README.md#get) - Get a Source within a Pack
+* [Update](docs/sdks/packssources/README.md#update) - Update a Source within a Pack
+* [Delete](docs/sdks/packssources/README.md#delete) - Delete a Source within a Pack
+
+##### [Packs.Sources.HecTokens](docs/sdks/packshectokens/README.md)
+
+* [Create](docs/sdks/packshectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source within a Pack
+* [Update](docs/sdks/packshectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source within a Pack
+
+##### [Packs.Sources.Pq](docs/sdks/sourcespq/README.md)
+
+* [Clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 

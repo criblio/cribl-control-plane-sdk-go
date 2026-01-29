@@ -105,7 +105,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Diff(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("example.file"), criblcontrolplanesdkgo.Pointer[float64](6362))
+    res, err := s.Versions.Commits.Diff(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("example.file"), criblcontrolplanesdkgo.Pointer[int64](6362))
     if err != nil {
         log.Fatal(err)
     }
@@ -123,7 +123,7 @@ func main() {
 | `commit`                                                                                                                                  | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The Git commit hash to get the diff for.                                                                                                  |
 | `groupID`                                                                                                                                 | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to get the diff for.                                                                |
 | `filename`                                                                                                                                | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The relative path of the file to get the diff for.                                                                                        |
-| `diffLineLimit`                                                                                                                           | **float64*                                                                                                                                | :heavy_minus_sign:                                                                                                                        | Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines. |
+| `diffLineLimit`                                                                                                                           | **int64*                                                                                                                                  | :heavy_minus_sign:                                                                                                                        | Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines. |
 | `opts`                                                                                                                                    | [][operations.Option](../../models/operations/option.md)                                                                                  | :heavy_minus_sign:                                                                                                                        | The options for this request.                                                                                                             |
 
 ### Response
@@ -165,7 +165,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.List(ctx, criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer[float64](893.58))
+    res, err := s.Versions.Commits.List(ctx, criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer[int64](893.58))
     if err != nil {
         log.Fatal(err)
     }
@@ -181,7 +181,7 @@ func main() {
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | `ctx`                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                | :heavy_check_mark:                                                                   | The context to use for the request.                                                  |
 | `groupID`                                                                            | **string*                                                                            | :heavy_minus_sign:                                                                   | The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for. |
-| `count`                                                                              | **float64*                                                                           | :heavy_minus_sign:                                                                   | Maximum number of commits to return in the response for this request.                |
+| `count`                                                                              | **int64*                                                                             | :heavy_minus_sign:                                                                   | Maximum number of commits to return in the response for this request.                |
 | `opts`                                                                               | [][operations.Option](../../models/operations/option.md)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |
 
 ### Response
@@ -341,7 +341,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Get(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("example.file"), criblcontrolplanesdkgo.Pointer[float64](7771.94))
+    res, err := s.Versions.Commits.Get(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("example.file"), criblcontrolplanesdkgo.Pointer[int64](7771.94))
     if err != nil {
         log.Fatal(err)
     }
@@ -359,7 +359,7 @@ func main() {
 | `commit`                                                                                                                                  | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The Git commit hash to retrieve the diff and log message for.                                                                             |
 | `groupID`                                                                                                                                 | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.                                                |
 | `filename`                                                                                                                                | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The relative path of the file to get the diff and log message for.                                                                        |
-| `diffLineLimit`                                                                                                                           | **float64*                                                                                                                                | :heavy_minus_sign:                                                                                                                        | Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines. |
+| `diffLineLimit`                                                                                                                           | **int64*                                                                                                                                  | :heavy_minus_sign:                                                                                                                        | Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines. |
 | `opts`                                                                                                                                    | [][operations.Option](../../models/operations/option.md)                                                                                  | :heavy_minus_sign:                                                                                                                        | The options for this request.                                                                                                             |
 
 ### Response
