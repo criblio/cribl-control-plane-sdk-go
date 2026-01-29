@@ -3,19 +3,19 @@
 package components
 
 type CriblLakeDatasetUpdate struct {
-	AcceleratedFields     []string                       `json:"acceleratedFields,omitempty"`
-	BucketName            *string                        `json:"bucketName,omitempty"`
-	CacheConnection       *CacheConnection               `json:"cacheConnection,omitempty"`
-	DeletionStartedAt     *float64                       `json:"deletionStartedAt,omitempty"`
-	Description           *string                        `json:"description,omitempty"`
-	Format                *FormatOptionsCriblLakeDataset `json:"format,omitempty"`
-	HTTPDAUsed            *bool                          `json:"httpDAUsed,omitempty"`
-	ID                    *string                        `json:"id,omitempty"`
-	Metrics               *LakeDatasetMetrics            `json:"metrics,omitempty"`
-	RetentionPeriodInDays *float64                       `json:"retentionPeriodInDays,omitempty"`
-	SearchConfig          *LakeDatasetSearchConfig       `json:"searchConfig,omitempty"`
-	StorageLocationID     *string                        `json:"storageLocationId,omitempty"`
-	ViewName              *string                        `json:"viewName,omitempty"`
+	AcceleratedFields     []string                 `json:"acceleratedFields,omitempty"`
+	BucketName            *string                  `json:"bucketName,omitempty"`
+	CacheConnection       *CacheConnection         `json:"cacheConnection,omitempty"`
+	DeletionStartedAt     *float64                 `json:"deletionStartedAt,omitempty"`
+	Description           *string                  `json:"description,omitempty"`
+	Format                *FormatOptions           `json:"format,omitempty"`
+	HTTPDAUsed            *bool                    `json:"httpDAUsed,omitempty"`
+	ID                    *string                  `json:"id,omitempty"`
+	Metrics               *LakeDatasetMetrics      `json:"metrics,omitempty"`
+	RetentionPeriodInDays *float64                 `json:"retentionPeriodInDays,omitempty"`
+	SearchConfig          *LakeDatasetSearchConfig `json:"searchConfig,omitempty"`
+	StorageLocationID     *string                  `json:"storageLocationId,omitempty"`
+	ViewName              *string                  `json:"viewName,omitempty"`
 }
 
 func (c *CriblLakeDatasetUpdate) GetAcceleratedFields() []string {
@@ -53,7 +53,7 @@ func (c *CriblLakeDatasetUpdate) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CriblLakeDatasetUpdate) GetFormat() *FormatOptionsCriblLakeDataset {
+func (c *CriblLakeDatasetUpdate) GetFormat() *FormatOptions {
 	if c == nil {
 		return nil
 	}

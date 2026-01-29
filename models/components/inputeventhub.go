@@ -102,8 +102,8 @@ type InputEventhub struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 }
 
 func (i InputEventhub) MarshalJSON() ([]byte, error) {
@@ -348,7 +348,7 @@ func (i *InputEventhub) GetMinimizeDuplicates() *bool {
 	return i.MinimizeDuplicates
 }
 
-func (i *InputEventhub) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEventhub) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

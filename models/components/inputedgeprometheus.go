@@ -196,7 +196,7 @@ type InputEdgePrometheus struct {
 	Timeout     *float64          `json:"timeout,omitempty"`
 	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitempty"`
 	Description *string                                  `json:"description,omitempty"`
@@ -384,7 +384,7 @@ func (i *InputEdgePrometheus) GetPersistence() *DiskSpoolingType {
 	return i.Persistence
 }
 
-func (i *InputEdgePrometheus) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEdgePrometheus) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

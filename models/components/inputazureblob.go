@@ -64,7 +64,7 @@ type InputAzureBlob struct {
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
 	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -232,7 +232,7 @@ func (i *InputAzureBlob) GetSkipOnError() *bool {
 	return i.SkipOnError
 }
 
-func (i *InputAzureBlob) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAzureBlob) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

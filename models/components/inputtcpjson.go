@@ -67,7 +67,7 @@ type InputTcpjson struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -227,7 +227,7 @@ func (i *InputTcpjson) GetEnableProxyHeader() *bool {
 	return i.EnableProxyHeader
 }
 
-func (i *InputTcpjson) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputTcpjson) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

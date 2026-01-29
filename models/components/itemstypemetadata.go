@@ -6,31 +6,31 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type ItemsTypeNotificationMetadata struct {
+type ItemsTypeMetadata struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
 }
 
-func (i ItemsTypeNotificationMetadata) MarshalJSON() ([]byte, error) {
+func (i ItemsTypeMetadata) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *ItemsTypeNotificationMetadata) UnmarshalJSON(data []byte) error {
+func (i *ItemsTypeMetadata) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *ItemsTypeNotificationMetadata) GetName() string {
+func (i *ItemsTypeMetadata) GetName() string {
 	if i == nil {
 		return ""
 	}
 	return i.Name
 }
 
-func (i *ItemsTypeNotificationMetadata) GetValue() string {
+func (i *ItemsTypeMetadata) GetValue() string {
 	if i == nil {
 		return ""
 	}

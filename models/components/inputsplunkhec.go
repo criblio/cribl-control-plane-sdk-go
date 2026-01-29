@@ -44,7 +44,7 @@ type InputSplunkHecAuthToken struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 }
 
 func (i InputSplunkHecAuthToken) MarshalJSON() ([]byte, error) {
@@ -100,7 +100,7 @@ func (i *InputSplunkHecAuthToken) GetAllowedIndexesAtToken() []string {
 	return i.AllowedIndexesAtToken
 }
 
-func (i *InputSplunkHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkHecAuthToken) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -156,7 +156,7 @@ type InputSplunkHec struct {
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// Enable Splunk HEC acknowledgements
@@ -379,7 +379,7 @@ func (i *InputSplunkHec) GetSplunkHecAPI() string {
 	return i.SplunkHecAPI
 }
 
-func (i *InputSplunkHec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkHec) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

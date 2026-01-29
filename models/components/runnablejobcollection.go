@@ -126,7 +126,7 @@ type RunnableJobCollectionRun struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
 	// Level at which to set task logging
-	LogLevel *LogLevelOptionsSavedJobCollectionScheduleRun `json:"logLevel,omitempty"`
+	LogLevel *LogLevelOptionsRunnableJobCollectionScheduleRun `json:"logLevel,omitempty"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
 	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
@@ -181,7 +181,7 @@ func (r *RunnableJobCollectionRun) GetMaxTaskReschedule() *float64 {
 	return r.MaxTaskReschedule
 }
 
-func (r *RunnableJobCollectionRun) GetLogLevel() *LogLevelOptionsSavedJobCollectionScheduleRun {
+func (r *RunnableJobCollectionRun) GetLogLevel() *LogLevelOptionsRunnableJobCollectionScheduleRun {
 	if r == nil {
 		return nil
 	}
@@ -274,9 +274,9 @@ func (r *RunnableJobCollectionRun) GetCapture() *CaptureSettings {
 
 type RunnableJobCollection struct {
 	// Unique ID for this Job
-	ID          *string                           `json:"id,omitempty"`
-	Description *string                           `json:"description,omitempty"`
-	Type        *JobTypeOptionsSavedJobCollection `json:"type,omitempty"`
+	ID          *string                              `json:"id,omitempty"`
+	Description *string                              `json:"description,omitempty"`
+	Type        *JobTypeOptionsRunnableJobCollection `json:"type,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -324,7 +324,7 @@ func (r *RunnableJobCollection) GetDescription() *string {
 	return r.Description
 }
 
-func (r *RunnableJobCollection) GetType() *JobTypeOptionsSavedJobCollection {
+func (r *RunnableJobCollection) GetType() *JobTypeOptionsRunnableJobCollection {
 	if r == nil {
 		return nil
 	}

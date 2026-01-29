@@ -86,7 +86,7 @@ type InputHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitempty"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
 	Description   *string                  `json:"description,omitempty"`
@@ -312,7 +312,7 @@ func (i *InputHTTP) GetSplunkHecAcks() *bool {
 	return i.SplunkHecAcks
 }
 
-func (i *InputHTTP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputHTTP) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

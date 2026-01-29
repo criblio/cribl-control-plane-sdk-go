@@ -6,7 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type PreprocessTypeSavedJobCollectionInput struct {
+type PreprocessType struct {
 	Disabled bool `json:"disabled"`
 	// Command to feed the data through (via stdin) and process its output (stdout)
 	Command *string `json:"command,omitempty"`
@@ -14,32 +14,32 @@ type PreprocessTypeSavedJobCollectionInput struct {
 	Args []string `json:"args,omitempty"`
 }
 
-func (p PreprocessTypeSavedJobCollectionInput) MarshalJSON() ([]byte, error) {
+func (p PreprocessType) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PreprocessTypeSavedJobCollectionInput) UnmarshalJSON(data []byte) error {
+func (p *PreprocessType) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"disabled"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PreprocessTypeSavedJobCollectionInput) GetDisabled() bool {
+func (p *PreprocessType) GetDisabled() bool {
 	if p == nil {
 		return false
 	}
 	return p.Disabled
 }
 
-func (p *PreprocessTypeSavedJobCollectionInput) GetCommand() *string {
+func (p *PreprocessType) GetCommand() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Command
 }
 
-func (p *PreprocessTypeSavedJobCollectionInput) GetArgs() []string {
+func (p *PreprocessType) GetArgs() []string {
 	if p == nil {
 		return nil
 	}

@@ -246,8 +246,8 @@ type InputWiz struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
+	Metadata   []ItemsTypeMetadata `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType     `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
 	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitempty"`
 	Description *string                       `json:"description,omitempty"`
@@ -414,7 +414,7 @@ func (i *InputWiz) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputWiz) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWiz) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

@@ -265,11 +265,11 @@ type InputElastic struct {
 	// Headers to add to all events
 	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	ProxyMode   *InputElasticProxyMode          `json:"proxyMode,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-	Username    *string                         `json:"username,omitempty"`
-	Password    *string                         `json:"password,omitempty"`
+	Metadata    []ItemsTypeMetadata    `json:"metadata,omitempty"`
+	ProxyMode   *InputElasticProxyMode `json:"proxyMode,omitempty"`
+	Description *string                `json:"description,omitempty"`
+	Username    *string                `json:"username,omitempty"`
+	Password    *string                `json:"password,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Bearer tokens to include in the authorization header
@@ -489,7 +489,7 @@ func (i *InputElastic) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElastic) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputElastic) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

@@ -72,7 +72,7 @@ type InputMsk struct {
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitempty"`
 	// Fields to add to events from this input
-	Metadata            []ItemsTypeNotificationMetadata        `json:"metadata,omitempty"`
+	Metadata            []ItemsTypeMetadata                    `json:"metadata,omitempty"`
 	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
@@ -268,7 +268,7 @@ func (i *InputMsk) GetHeartbeatInterval() *float64 {
 	return i.HeartbeatInterval
 }
 
-func (i *InputMsk) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputMsk) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
