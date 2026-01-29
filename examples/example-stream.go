@@ -85,7 +85,7 @@ func main() {
 	authToken := AUTH_TOKEN
 	sendToRoutes := true
 	createInputRequest := operations.CreateCreateInputRequestTcpjson(
-		operations.InputTcpjson{
+		operations.CreateInputInputTcpjson{
 			ID:           "my-tcp-json",
 			Type:         operations.CreateInputTypeTcpjsonTcpjson,
 			Host:         "0.0.0.0",
@@ -104,9 +104,9 @@ func main() {
 
 	// Create Filesystem Destination
 	fileNameSuffix := "\".log\"" // JavaScript expression that returns ".log"
-	fileSystemDestination := operations.OutputFilesystem{
+	fileSystemDestination := operations.CreateOutputOutputFilesystem{
 		ID:             "my-fs-destination",
-		Type:           operations.TypeFilesystemFilesystem,
+		Type:           operations.CreateOutputTypeFilesystemFilesystem,
 		DestPath:       "/tmp/my-output",
 		FileNameSuffix: &fileNameSuffix,
 	}

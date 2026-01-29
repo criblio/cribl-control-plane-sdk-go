@@ -91,9 +91,10 @@ func main() {
 
 	// Create Syslog Source
 	udpPort := float64(SYSLOG_PORT)
-	syslogSource := operations.CreateInputSyslogInputSyslogSyslog2(operations.InputSyslogSyslog2{
+	syslogSource := operations.CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog2(operations.CreateInputInputSyslogSyslog2{
 		ID:      "my-syslog-source",
-		Type:    operations.InputSyslogType2Syslog,
+		Type:    operations.CreateInputInputSyslogType2Syslog,
+		Host:    "0.0.0.0",
 		TCPPort: float64(SYSLOG_PORT),
 		UDPPort: &udpPort,
 		TLS: &components.TLSSettingsServerSideType{
@@ -114,10 +115,12 @@ func main() {
 	region := AWS_REGION
 	secretKey := AWS_SECRET_KEY
 	apiKey := AWS_API_KEY
-	s3Destination := operations.OutputS3{
+	stagePath := "/tmp/cribl-stage"
+	s3Destination := operations.CreateOutputOutputS3{
 		ID:             "my-s3-destination",
 		Type:           operations.CreateOutputTypeS3S3,
 		Bucket:         AWS_BUCKET_NAME,
+		StagePath:      stagePath,
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,

@@ -1,0 +1,9 @@
+# CreateOutputSystemByPackRequest
+
+
+## Fields
+
+| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `Pack`                                                                                                           | *string*                                                                                                         | :heavy_check_mark:                                                                                               | The <code>id</code> of the Pack to create.                                                                       |
+| `RequestBody`                                                                                                    | [operations.CreateOutputSystemByPackRequestBody](../../models/operations/createoutputsystembypackrequestbody.md) | :heavy_check_mark:                                                                                               | Output object                                                                                                    |

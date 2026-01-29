@@ -98,7 +98,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestTcpjson(
-        operations.OutputTcpjson{
+        operations.CreateOutputOutputTcpjson{
             ID: "tcpjson-output",
             Type: operations.CreateOutputTypeTcpjsonTcpjson,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -160,7 +160,7 @@ func main() {
             PqPath: criblcontrolplanesdkgo.Pointer("$CRIBL_HOME/state/queues"),
             PqCompress: components.CompressionOptionsPqNone.ToPointer(),
             PqOnBackpressure: components.QueueFullBehaviorOptionsBlock.ToPointer(),
-            PqControls: &operations.PqControlsTcpjson{},
+            PqControls: &operations.CreateOutputPqControlsTcpjson{},
             AuthToken: criblcontrolplanesdkgo.Pointer(""),
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
             TemplateHost: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -293,7 +293,7 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            DefaultID: criblcontrolplanesdkgo.Pointer("my-default-output"),
+            DefaultID: "my-default-output",
         },
     ))
     if err != nil {
