@@ -3,16 +3,16 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: c461f55e949094958d6bc69ac28d3fc7
   docVersion: 4.16.0-0360835e
-  speakeasyVersion: 1.697.5
-  generationVersion: 2.799.0
-  releaseVersion: 0.5.0
-  configChecksum: 34e8c0e0eba46f171b70e739b35b37f2
+  speakeasyVersion: 1.700.2
+  generationVersion: 2.801.2
+  releaseVersion: 0.5.1
+  configChecksum: 4b89d1aba1009476c61d1bbebcd4782d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 256a2533-1256-4012-8387-757e5dd8f5b2
-  pristine_commit_hash: 1033d025c41b2069aaa7aee901fd445732158f80
-  pristine_tree_hash: 6c9a2d64acd63348044b1bc2a476a86b239cee96
+  generation_id: 165702a0-9def-4426-98a4-e027f1373a98
+  pristine_commit_hash: 825149152cd13d6b6a530dec00acd32ccaae058c
+  pristine_tree_hash: 9289424a654f6b5c2a6210d2484569158d28a361
 features:
   go:
     additionalDependencies: 0.1.0
@@ -89,8 +89,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:4e1c8b121c1eefbe5318b469110ea4b451346c2d
-    pristine_git_object: f3535b1a56a477c9b1c9109553434f9ccdff3d7a
+    last_write_checksum: sha1:e10c3db568d35f32584a719cf3b9a38ea711c1ec
+    pristine_git_object: 6c5a4b52cb9ad76dd6e4023d7fe928f696abc371
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:fb9fb4234425ef1804e96656c03496b13175c97c
@@ -18993,30 +18993,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## Go SDK Changes
-
-  This version of the SDK is generated for Cribl version 4.16.0.
-
-  ### Added new endpoints
-  * Functions:
-    * `CriblControlPlane.Functions.List()`
-    * `CriblControlPlane.Functions.Get()`
-  * System Settings:
-    * `CriblControlPlane.System.Settings.Cribl.List()`
-    * `CriblControlPlane.System.Settings.Cribl.Update()`
-  * Collectors:
-    * `CriblControlPlane.Collectors.List()`
-    * `CriblControlPlane.Collectors.Create()`
-    * `CriblControlPlane.Collectors.Get()`
-    * `CriblControlPlane.Collectors.Update()`
-    * `CriblControlPlane.Collectors.Delete()`
-
-  ### Added request body examples
-    * Sources
-    * Destinations
-    * Pipelines
-    * Collectors
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
