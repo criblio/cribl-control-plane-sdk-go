@@ -125,7 +125,7 @@ type InputOffice365Service struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitempty"`
 	RetryRules    *RetryRulesType1                     `json:"retryRules,omitempty"`
@@ -288,7 +288,7 @@ func (i *InputOffice365Service) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365Service) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365Service) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

@@ -182,9 +182,9 @@ type InputOffice365MsgTrace struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	RetryRules  *RetryRulesType1                `json:"retryRules,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	RetryRules  *RetryRulesType1    `json:"retryRules,omitempty"`
+	Description *string             `json:"description,omitempty"`
 	// Username to run Message Trace API call.
 	Username *string `json:"username,omitempty"`
 	// Password to run Message Trace API call.
@@ -400,7 +400,7 @@ func (i *InputOffice365MsgTrace) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365MsgTrace) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365MsgTrace) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

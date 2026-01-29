@@ -81,10 +81,10 @@ type InputPrometheusRw struct {
 	// Remote Write authentication type
 	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-	Username    *string                         `json:"username,omitempty"`
-	Password    *string                         `json:"password,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
+	Username    *string             `json:"username,omitempty"`
+	Password    *string             `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -292,7 +292,7 @@ func (i *InputPrometheusRw) GetAuthType() *AuthenticationTypeOptionsPrometheusAu
 	return i.AuthType
 }
 
-func (i *InputPrometheusRw) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputPrometheusRw) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

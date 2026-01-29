@@ -6,14 +6,14 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type ExecutorSpecificSettingsTypeSavedJobExecutorExecutor struct {
+type ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor struct {
 }
 
-func (e ExecutorSpecificSettingsTypeSavedJobExecutorExecutor) MarshalJSON() ([]byte, error) {
+func (e ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(e, "", false)
 }
 
-func (e *ExecutorSpecificSettingsTypeSavedJobExecutorExecutor) UnmarshalJSON(data []byte) error {
+func (e *ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}

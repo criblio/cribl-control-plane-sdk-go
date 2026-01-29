@@ -216,8 +216,8 @@ type InputGrafanaGrafana2 struct {
 	PrometheusAuth *PrometheusAuth2 `json:"prometheusAuth,omitempty"`
 	LokiAuth       *LokiAuth2       `json:"lokiAuth,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -431,7 +431,7 @@ func (i *InputGrafanaGrafana2) GetLokiAuth() *LokiAuth2 {
 	return i.LokiAuth
 }
 
-func (i *InputGrafanaGrafana2) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGrafanaGrafana2) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -666,8 +666,8 @@ type InputGrafanaGrafana1 struct {
 	PrometheusAuth *PrometheusAuth1 `json:"prometheusAuth,omitempty"`
 	LokiAuth       *LokiAuth1       `json:"lokiAuth,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -881,7 +881,7 @@ func (i *InputGrafanaGrafana1) GetLokiAuth() *LokiAuth1 {
 	return i.LokiAuth
 }
 
-func (i *InputGrafanaGrafana1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGrafanaGrafana1) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

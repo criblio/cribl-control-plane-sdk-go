@@ -12,7 +12,7 @@ type RunnableJobExecutorRun struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
 	// Level at which to set task logging
-	LogLevel *LogLevelOptionsSavedJobCollectionScheduleRun `json:"logLevel,omitempty"`
+	LogLevel *LogLevelOptionsRunnableJobCollectionScheduleRun `json:"logLevel,omitempty"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
 	JobTimeout *string `json:"jobTimeout,omitempty"`
 }
@@ -42,7 +42,7 @@ func (r *RunnableJobExecutorRun) GetMaxTaskReschedule() *float64 {
 	return r.MaxTaskReschedule
 }
 
-func (r *RunnableJobExecutorRun) GetLogLevel() *LogLevelOptionsSavedJobCollectionScheduleRun {
+func (r *RunnableJobExecutorRun) GetLogLevel() *LogLevelOptionsRunnableJobCollectionScheduleRun {
 	if r == nil {
 		return nil
 	}
@@ -58,9 +58,9 @@ func (r *RunnableJobExecutorRun) GetJobTimeout() *string {
 
 type RunnableJobExecutor struct {
 	// Unique ID for this Job
-	ID          *string                           `json:"id,omitempty"`
-	Description *string                           `json:"description,omitempty"`
-	Type        *JobTypeOptionsSavedJobCollection `json:"type,omitempty"`
+	ID          *string                              `json:"id,omitempty"`
+	Description *string                              `json:"description,omitempty"`
+	Type        *JobTypeOptionsRunnableJobCollection `json:"type,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -74,9 +74,9 @@ type RunnableJobExecutor struct {
 	// Configuration for a scheduled job
 	Schedule *ScheduleTypeRunnableJobCollection `json:"schedule,omitempty"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string                     `json:"streamtags,omitempty"`
-	Executor   ExecutorTypeSavedJobExecutor `json:"executor"`
-	Run        RunnableJobExecutorRun       `json:"run"`
+	Streamtags []string                        `json:"streamtags,omitempty"`
+	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
+	Run        RunnableJobExecutorRun          `json:"run"`
 }
 
 func (r RunnableJobExecutor) MarshalJSON() ([]byte, error) {
@@ -104,7 +104,7 @@ func (r *RunnableJobExecutor) GetDescription() *string {
 	return r.Description
 }
 
-func (r *RunnableJobExecutor) GetType() *JobTypeOptionsSavedJobCollection {
+func (r *RunnableJobExecutor) GetType() *JobTypeOptionsRunnableJobCollection {
 	if r == nil {
 		return nil
 	}
@@ -160,9 +160,9 @@ func (r *RunnableJobExecutor) GetStreamtags() []string {
 	return r.Streamtags
 }
 
-func (r *RunnableJobExecutor) GetExecutor() ExecutorTypeSavedJobExecutor {
+func (r *RunnableJobExecutor) GetExecutor() ExecutorTypeRunnableJobExecutor {
 	if r == nil {
-		return ExecutorTypeSavedJobExecutor{}
+		return ExecutorTypeRunnableJobExecutor{}
 	}
 	return r.Executor
 }

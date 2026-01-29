@@ -83,8 +83,8 @@ type InputExec struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 	// Interval between command executions in seconds.
 	Interval *float64 `json:"interval,omitempty"`
 	// Cron schedule to execute the command on.
@@ -207,7 +207,7 @@ func (i *InputExec) GetStaleChannelFlushMs() *float64 {
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputExec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputExec) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

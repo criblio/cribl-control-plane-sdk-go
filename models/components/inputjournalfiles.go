@@ -94,8 +94,8 @@ type InputJournalFiles struct {
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 }
 
 func (i InputJournalFiles) MarshalJSON() ([]byte, error) {
@@ -221,7 +221,7 @@ func (i *InputJournalFiles) GetMaxAgeDur() *string {
 	return i.MaxAgeDur
 }
 
-func (i *InputJournalFiles) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputJournalFiles) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

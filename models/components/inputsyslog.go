@@ -86,7 +86,7 @@ type InputSyslogSyslog2 struct {
 	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitempty"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Load balance traffic across all Worker Processes
@@ -309,7 +309,7 @@ func (i *InputSyslogSyslog2) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputSyslogSyslog2) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSyslogSyslog2) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -442,7 +442,7 @@ type InputSyslogSyslog1 struct {
 	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitempty"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Load balance traffic across all Worker Processes
@@ -665,7 +665,7 @@ func (i *InputSyslogSyslog1) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputSyslogSyslog1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSyslogSyslog1) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

@@ -147,7 +147,7 @@ type InputPrometheus struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
 	Description *string                          `json:"description,omitempty"`
@@ -367,7 +367,7 @@ func (i *InputPrometheus) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputPrometheus) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputPrometheus) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
