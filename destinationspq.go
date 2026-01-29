@@ -16,14 +16,14 @@ import (
 	"net/http"
 )
 
-type Pq struct {
+type DestinationsPq struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newPq(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Pq {
-	return &Pq{
+func newDestinationsPq(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *DestinationsPq {
+	return &DestinationsPq{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
@@ -32,7 +32,7 @@ func newPq(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks 
 
 // Clear the persistent queue for a Destination
 // Clear the persistent queue (PQ) for the specified Destination.
-func (s *Pq) Clear(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputPqByIDResponse, error) {
+func (s *DestinationsPq) Clear(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputPqByIDResponse, error) {
 	request := operations.DeleteOutputPqByIDRequest{
 		ID: id,
 	}
@@ -275,7 +275,7 @@ func (s *Pq) Clear(ctx context.Context, id string, opts ...operations.Option) (*
 
 // Get information about the latest job to clear the persistent queue for a Destination
 // Get information about the latest job to clear the persistent queue (PQ) for the specified Destination.
-func (s *Pq) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputPqByIDResponse, error) {
+func (s *DestinationsPq) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputPqByIDResponse, error) {
 	request := operations.GetOutputPqByIDRequest{
 		ID: id,
 	}

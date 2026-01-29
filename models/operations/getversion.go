@@ -10,7 +10,7 @@ type GetVersionRequest struct {
 	// The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for.
 	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// Maximum number of commits to return in the response for this request.
-	Count *float64 `queryParam:"style=form,explode=true,name=count"`
+	Count *int64 `queryParam:"style=form,explode=true,name=count"`
 }
 
 func (g *GetVersionRequest) GetGroupID() *string {
@@ -20,7 +20,7 @@ func (g *GetVersionRequest) GetGroupID() *string {
 	return g.GroupID
 }
 
-func (g *GetVersionRequest) GetCount() *float64 {
+func (g *GetVersionRequest) GetCount() *int64 {
 	if g == nil {
 		return nil
 	}

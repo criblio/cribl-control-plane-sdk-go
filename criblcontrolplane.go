@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.17.0-alpha.1769555003178-2127f1ff and generator version 2.799.0
+// Generated from OpenAPI doc version 4.17.0-alpha.1769702741866-71f11123 and generator version 2.799.0
 
 import (
 	"context"
@@ -50,6 +50,8 @@ type CriblControlPlane struct {
 	DatabaseConnections *DatabaseConnections
 	// Actions related to Sources
 	Sources *Sources
+	// Actions related to Packs
+	Packs *Packs
 	// Actions related to Destinations
 	Destinations *Destinations
 	// Actions related to Pipelines
@@ -59,9 +61,7 @@ type CriblControlPlane struct {
 	Auth   *Auth
 	System *System
 	// Actions related to REST server health
-	Health *Health
-	// Actions related to Packs
-	Packs    *Packs
+	Health   *Health
 	Versions *Versions
 	// Actions related to functions
 	Functions *Functions
@@ -114,9 +114,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.6.0-beta.1",
+		SDKVersion: "0.6.0-beta.2",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.6.0-beta.1 2.799.0 4.17.0-alpha.1769555003178-2127f1ff github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.6.0-beta.2 2.799.0 4.17.0-alpha.1769702741866-71f11123 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -144,13 +144,13 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.Collectors = newCollectors(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.DatabaseConnections = newDatabaseConnections(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Sources = newSources(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Packs = newPacks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Destinations = newDestinations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Pipelines = newPipelines(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Routes = newRoutes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.System = newSystem(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Health = newHealth(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Packs = newPacks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Versions = newVersions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Functions = newFunctions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Nodes = newNodes(sdk, sdk.sdkConfiguration, sdk.hooks)
