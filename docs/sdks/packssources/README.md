@@ -5,6 +5,7 @@
 ### Available Operations
 
 * [List](#list) - List all Sources within a Pack
+* [Create](#create) - Create a Source within a Pack
 * [Get](#get) - Get a Source within a Pack
 * [Update](#update) - Update a Source within a Pack
 * [Delete](#delete) - Delete a Source within a Pack
@@ -58,6 +59,156 @@ func main() {
 ### Response
 
 **[*operations.GetInputSystemByPackResponse](../../models/operations/getinputsystembypackresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Create
+
+Create a new Source within the specified Pack.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Sources.Create(ctx, "<value>", operations.CreateCreateInputSystemByPackRequestBodyAppscope(
+        operations.CreateInputSystemByPackInputAppscope{
+            ID: "appscope-source",
+            Type: operations.CreateInputSystemByPackTypeAppscopeAppscope,
+            Disabled: criblcontrolplanesdkgo.Pointer(false),
+            Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+                "<value 3>",
+            },
+            Connections: []components.ItemsTypeConnectionsOptional{
+                components.ItemsTypeConnectionsOptional{
+                    Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                    Output: criblcontrolplanesdkgo.Pointer("<value>"),
+                },
+            },
+            Pq: &components.PqType{
+                Mode: components.ModeOptionsPqAlways.ToPointer(),
+                MaxBufferSize: criblcontrolplanesdkgo.Pointer[float64](5236.78),
+                CommitFrequency: criblcontrolplanesdkgo.Pointer[float64](8788.99),
+                MaxFileSize: criblcontrolplanesdkgo.Pointer("<value>"),
+                MaxSize: criblcontrolplanesdkgo.Pointer("<value>"),
+                Path: criblcontrolplanesdkgo.Pointer("/opt"),
+                Compress: components.CompressionOptionsPqGzip.ToPointer(),
+                PqControls: &components.PqTypePqControls{},
+            },
+            IPWhitelistRegex: criblcontrolplanesdkgo.Pointer("<value>"),
+            MaxActiveCxn: criblcontrolplanesdkgo.Pointer[float64](4067.15),
+            SocketIdleTimeout: criblcontrolplanesdkgo.Pointer[float64](1373.9),
+            SocketEndingMaxWait: criblcontrolplanesdkgo.Pointer[float64](5473.3),
+            SocketMaxLifespan: criblcontrolplanesdkgo.Pointer[float64](7426.73),
+            EnableProxyHeader: criblcontrolplanesdkgo.Pointer(true),
+            Metadata: []components.ItemsTypeMetadata{
+                components.ItemsTypeMetadata{
+                    Name: "<value>",
+                    Value: "<value>",
+                },
+            },
+            BreakerRulesets: []string{
+                "<value 1>",
+                "<value 2>",
+                "<value 3>",
+            },
+            StaleChannelFlushMs: criblcontrolplanesdkgo.Pointer[float64](4309.15),
+            EnableUnixPath: criblcontrolplanesdkgo.Pointer(true),
+            Filter: &operations.CreateInputSystemByPackFilterAppscope{
+                Allow: []operations.CreateInputSystemByPackAllow{
+                    operations.CreateInputSystemByPackAllow{
+                        Procname: "<value>",
+                        Arg: criblcontrolplanesdkgo.Pointer("<value>"),
+                        Config: "<value>",
+                    },
+                },
+                TransportURL: criblcontrolplanesdkgo.Pointer("https://negative-asset.info/"),
+            },
+            Persistence: &operations.CreateInputSystemByPackPersistenceAppscope{
+                Enable: criblcontrolplanesdkgo.Pointer(true),
+                TimeWindow: criblcontrolplanesdkgo.Pointer("<value>"),
+                MaxDataSize: criblcontrolplanesdkgo.Pointer("<value>"),
+                MaxDataTime: criblcontrolplanesdkgo.Pointer("<value>"),
+                Compress: components.DataCompressionFormatOptionsPersistenceNone.ToPointer(),
+                DestPath: criblcontrolplanesdkgo.Pointer("<value>"),
+            },
+            AuthType: components.AuthenticationMethodOptionsAuthTokensItemsSecret.ToPointer(),
+            Description: criblcontrolplanesdkgo.Pointer("char antagonize yuck"),
+            Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
+            Port: criblcontrolplanesdkgo.Pointer[float64](9109),
+            TLS: &components.TLSSettingsServerSideType{
+                Disabled: criblcontrolplanesdkgo.Pointer(false),
+                RequestCert: criblcontrolplanesdkgo.Pointer(true),
+                RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
+                CommonNameRegex: criblcontrolplanesdkgo.Pointer("<value>"),
+                CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
+                PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
+                CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                MinVersion: components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv11.ToPointer(),
+                MaxVersion: components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv12.ToPointer(),
+            },
+            UnixSocketPath: criblcontrolplanesdkgo.Pointer("<value>"),
+            UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
+            AuthToken: criblcontrolplanesdkgo.Pointer("<value>"),
+            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
+            TemplateHost: criblcontrolplanesdkgo.Pointer("<value>"),
+            TemplatePort: criblcontrolplanesdkgo.Pointer("<value>"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                      | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                          | :heavy_check_mark:                                                                                             | The context to use for the request.                                                                            |
+| `pack`                                                                                                         | *string*                                                                                                       | :heavy_check_mark:                                                                                             | The <code>id</code> of the Pack to create.                                                                     |
+| `requestBody`                                                                                                  | [operations.CreateInputSystemByPackRequestBody](../../models/operations/createinputsystembypackrequestbody.md) | :heavy_check_mark:                                                                                             | Input object                                                                                                   |
+| `opts`                                                                                                         | [][operations.Option](../../models/operations/option.md)                                                       | :heavy_minus_sign:                                                                                             | The options for this request.                                                                                  |
+
+### Response
+
+**[*operations.CreateInputSystemByPackResponse](../../models/operations/createinputsystembypackresponse.md), error**
 
 ### Errors
 
@@ -188,8 +339,8 @@ func main() {
             SocketEndingMaxWait: criblcontrolplanesdkgo.Pointer[float64](2476.4),
             SocketMaxLifespan: criblcontrolplanesdkgo.Pointer[float64](8980.2),
             EnableProxyHeader: criblcontrolplanesdkgo.Pointer(false),
-            Metadata: []components.ItemsTypeNotificationMetadata{
-                components.ItemsTypeNotificationMetadata{
+            Metadata: []components.ItemsTypeMetadata{
+                components.ItemsTypeMetadata{
                     Name: "<value>",
                     Value: "<value>",
                 },

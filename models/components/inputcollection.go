@@ -52,12 +52,12 @@ type InputCollection struct {
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64                               `json:"staleChannelFlushMs,omitempty"`
-	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	StaleChannelFlushMs *float64        `json:"staleChannelFlushMs,omitempty"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Destination to send results to
 	Output *string `json:"output,omitempty"`
 }
@@ -157,7 +157,7 @@ func (i *InputCollection) GetStaleChannelFlushMs() *float64 {
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCollection) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputCollection) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
 	}
@@ -171,7 +171,7 @@ func (i *InputCollection) GetThrottleRatePerSec() *string {
 	return i.ThrottleRatePerSec
 }
 
-func (i *InputCollection) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCollection) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

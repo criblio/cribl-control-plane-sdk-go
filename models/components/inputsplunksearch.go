@@ -206,8 +206,8 @@ type InputSplunkSearch struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
+	Metadata   []ItemsTypeMetadata `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType     `json:"retryRules,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -439,7 +439,7 @@ func (i *InputSplunkSearch) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputSplunkSearch) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkSearch) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

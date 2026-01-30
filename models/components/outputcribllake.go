@@ -108,9 +108,9 @@ type OutputCriblLake struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                       `json:"maxClosingFilesToBackpressure,omitempty"`
-	AwsAuthenticationMethod       *MethodOptionsCredentials      `json:"awsAuthenticationMethod,omitempty"`
-	Format                        *FormatOptionsCriblLakeDataset `json:"format,omitempty"`
+	MaxClosingFilesToBackpressure *float64                        `json:"maxClosingFilesToBackpressure,omitempty"`
+	AwsAuthenticationMethod       *AwsAuthenticationMethodOptions `json:"awsAuthenticationMethod,omitempty"`
+	Format                        *FormatOptions                  `json:"format,omitempty"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
 	Description            *string  `json:"description,omitempty"`
@@ -427,14 +427,14 @@ func (o *OutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
 	return o.MaxClosingFilesToBackpressure
 }
 
-func (o *OutputCriblLake) GetAwsAuthenticationMethod() *MethodOptionsCredentials {
+func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputCriblLake) GetFormat() *FormatOptionsCriblLakeDataset {
+func (o *OutputCriblLake) GetFormat() *FormatOptions {
 	if o == nil {
 		return nil
 	}

@@ -185,7 +185,7 @@ type InputSnmp struct {
 	// Regex matching IP addresses that are allowed to send data
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
@@ -315,7 +315,7 @@ func (i *InputSnmp) GetIPWhitelistRegex() *string {
 	return i.IPWhitelistRegex
 }
 
-func (i *InputSnmp) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSnmp) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

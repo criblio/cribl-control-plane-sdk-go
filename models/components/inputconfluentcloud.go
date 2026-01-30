@@ -102,8 +102,8 @@ type InputConfluentCloud struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 }
 
 func (i InputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -348,7 +348,7 @@ func (i *InputConfluentCloud) GetMaxSocketErrors() *float64 {
 	return i.MaxSocketErrors
 }
 
-func (i *InputConfluentCloud) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputConfluentCloud) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

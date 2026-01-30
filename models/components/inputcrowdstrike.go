@@ -93,11 +93,11 @@ type InputCrowdstrike struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                  `json:"enableSQSAssumeRole,omitempty"`
-	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool           `json:"enableSQSAssumeRole,omitempty"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
-	Metadata      []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Checkpointing *CheckpointingType              `json:"checkpointing,omitempty"`
+	Metadata      []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Checkpointing *CheckpointingType  `json:"checkpointing,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitempty"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
@@ -369,14 +369,14 @@ func (i *InputCrowdstrike) GetEnableSQSAssumeRole() *bool {
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputCrowdstrike) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputCrowdstrike) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputCrowdstrike) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCrowdstrike) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
