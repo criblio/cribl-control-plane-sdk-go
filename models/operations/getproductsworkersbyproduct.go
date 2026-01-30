@@ -6,7 +6,9 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type GetWorkersRequest struct {
+type GetProductsWorkersByProductRequest struct {
+	// Name of the Cribl product to get Worker or Edge Nodes for.
+	Product components.ProductsBase `pathParam:"style=simple,explode=false,name=product"`
 	// Filter expression to evaluate against Nodes for inclusion in the response.
 	FilterExp *string `queryParam:"style=form,explode=true,name=filterExp"`
 	// Sorting expression to evaluate against Nodes to specify the sort order for the response.
@@ -21,62 +23,69 @@ type GetWorkersRequest struct {
 	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 }
 
-func (g *GetWorkersRequest) GetFilterExp() *string {
+func (g *GetProductsWorkersByProductRequest) GetProduct() components.ProductsBase {
+	if g == nil {
+		return components.ProductsBase("")
+	}
+	return g.Product
+}
+
+func (g *GetProductsWorkersByProductRequest) GetFilterExp() *string {
 	if g == nil {
 		return nil
 	}
 	return g.FilterExp
 }
 
-func (g *GetWorkersRequest) GetSortExp() *string {
+func (g *GetProductsWorkersByProductRequest) GetSortExp() *string {
 	if g == nil {
 		return nil
 	}
 	return g.SortExp
 }
 
-func (g *GetWorkersRequest) GetFilter() *string {
+func (g *GetProductsWorkersByProductRequest) GetFilter() *string {
 	if g == nil {
 		return nil
 	}
 	return g.Filter
 }
 
-func (g *GetWorkersRequest) GetSort() *string {
+func (g *GetProductsWorkersByProductRequest) GetSort() *string {
 	if g == nil {
 		return nil
 	}
 	return g.Sort
 }
 
-func (g *GetWorkersRequest) GetLimit() *int64 {
+func (g *GetProductsWorkersByProductRequest) GetLimit() *int64 {
 	if g == nil {
 		return nil
 	}
 	return g.Limit
 }
 
-func (g *GetWorkersRequest) GetOffset() *int64 {
+func (g *GetProductsWorkersByProductRequest) GetOffset() *int64 {
 	if g == nil {
 		return nil
 	}
 	return g.Offset
 }
 
-type GetWorkersResponse struct {
+type GetProductsWorkersByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of MasterWorkerEntry objects
 	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
 }
 
-func (g *GetWorkersResponse) GetHTTPMeta() components.HTTPMetadata {
+func (g *GetProductsWorkersByProductResponse) GetHTTPMeta() components.HTTPMetadata {
 	if g == nil {
 		return components.HTTPMetadata{}
 	}
 	return g.HTTPMeta
 }
 
-func (g *GetWorkersResponse) GetCountedMasterWorkerEntry() *components.CountedMasterWorkerEntry {
+func (g *GetProductsWorkersByProductResponse) GetCountedMasterWorkerEntry() *components.CountedMasterWorkerEntry {
 	if g == nil {
 		return nil
 	}
