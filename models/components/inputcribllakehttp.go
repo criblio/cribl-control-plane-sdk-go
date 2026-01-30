@@ -103,9 +103,9 @@ type AuthTokensExt struct {
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata              []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	SplunkHecMetadata     *SplunkHecMetadata              `json:"splunkHecMetadata,omitempty"`
-	ElasticsearchMetadata *ElasticsearchMetadata          `json:"elasticsearchMetadata,omitempty"`
+	Metadata              []ItemsTypeMetadata    `json:"metadata,omitempty"`
+	SplunkHecMetadata     *SplunkHecMetadata     `json:"splunkHecMetadata,omitempty"`
+	ElasticsearchMetadata *ElasticsearchMetadata `json:"elasticsearchMetadata,omitempty"`
 }
 
 func (a AuthTokensExt) MarshalJSON() ([]byte, error) {
@@ -133,7 +133,7 @@ func (a *AuthTokensExt) GetDescription() *string {
 	return a.Description
 }
 
-func (a *AuthTokensExt) GetMetadata() []ItemsTypeNotificationMetadata {
+func (a *AuthTokensExt) GetMetadata() []ItemsTypeMetadata {
 	if a == nil {
 		return nil
 	}
@@ -209,9 +209,9 @@ type InputCriblLakeHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitempty"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitempty"`
 	// Fields to add to events from this input
-	Metadata      []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	AuthTokensExt []AuthTokensExt                 `json:"authTokensExt,omitempty"`
-	Description   *string                         `json:"description,omitempty"`
+	Metadata      []ItemsTypeMetadata `json:"metadata,omitempty"`
+	AuthTokensExt []AuthTokensExt     `json:"authTokensExt,omitempty"`
+	Description   *string             `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -434,7 +434,7 @@ func (i *InputCriblLakeHTTP) GetSplunkHecAcks() *bool {
 	return i.SplunkHecAcks
 }
 
-func (i *InputCriblLakeHTTP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblLakeHTTP) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

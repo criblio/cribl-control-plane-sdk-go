@@ -88,8 +88,8 @@ type InputKubeLogs struct {
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *DiskSpoolingType               `json:"persistence,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Persistence *DiskSpoolingType   `json:"persistence,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -201,7 +201,7 @@ func (i *InputKubeLogs) GetTimestamps() *bool {
 	return i.Timestamps
 }
 
-func (i *InputKubeLogs) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeLogs) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

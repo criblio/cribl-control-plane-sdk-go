@@ -97,7 +97,7 @@ func main() {
 	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := AUTH_TOKEN
 	sendToRoutes := true
-	tcpJSONSource := operations.InputTcpjson{
+	tcpJSONSource := operations.CreateInputInputTcpjson{
 		ID:           "my-tcp-json",
 		Type:         operations.CreateInputTypeTcpjsonTcpjson,
 		Host:         "0.0.0.0",
@@ -119,13 +119,14 @@ func main() {
 	region := AWS_REGION
 	secretKey := AWS_SECRET_KEY
 	apiKey := AWS_API_KEY
-	s3Destination := operations.OutputS3{
+	s3Destination := operations.CreateOutputOutputS3{
 		ID:             "my-s3-destination",
 		Type:           operations.CreateOutputTypeS3S3,
 		Bucket:         AWS_BUCKET_NAME,
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
+		StagePath:      "/tmp/cribl-s3-stage",
 		Compress:       components.CompressionOptions2Gzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}

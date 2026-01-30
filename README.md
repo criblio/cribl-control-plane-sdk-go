@@ -217,61 +217,24 @@ func main() {
 		}),
 	)
 
-	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
-		AcceleratedFields: []string{
-			"<value 1>",
-			"<value 2>",
-		},
-		BucketName: criblcontrolplanesdkgo.Pointer("<value>"),
-		CacheConnection: &components.CacheConnection{
-			AcceleratedFields: []string{
-				"<value 1>",
-				"<value 2>",
-			},
-			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
-			CacheRef:                "<value>",
-			CreatedAt:               7795.06,
-			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
-			MigrationQueryID:        criblcontrolplanesdkgo.Pointer("<id>"),
-			RetentionInDays:         1466.58,
-		},
-		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
-		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
-		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
-		ID:                "<id>",
-		Metrics: &components.LakeDatasetMetrics{
-			CurrentSizeBytes: 6170.04,
-			MetricsDate:      "<value>",
-		},
-		RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](456.37),
-		SearchConfig: &components.LakeDatasetSearchConfig{
-			Datatypes: []string{
-				"<value 1>",
-			},
-			Metadata: &components.DatasetMetadata{
-				Earliest:           "<value>",
-				EnableAcceleration: true,
-				FieldList: []string{
-					"<value 1>",
-					"<value 2>",
-				},
-				LatestRunInfo: &components.DatasetMetadataRunInfo{
-					EarliestScannedTime: criblcontrolplanesdkgo.Pointer[float64](4334.7),
-					FinishedAt:          criblcontrolplanesdkgo.Pointer[float64](6811.22),
-					LatestScannedTime:   criblcontrolplanesdkgo.Pointer[float64](5303.3),
-					ObjectCount:         criblcontrolplanesdkgo.Pointer[float64](9489.04),
-				},
-				ScanMode: components.ScanModeDetailed,
-			},
-		},
-		StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-		ViewName:          criblcontrolplanesdkgo.Pointer("<value>"),
+	res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
+		AuthType:          "connectionString",
+		ConfigObj:         criblcontrolplanesdkgo.Pointer("<value>"),
+		ConnectionString:  criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
+		ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
+		CredsSecrets:      criblcontrolplanesdkgo.Pointer("<value>"),
+		DatabaseType:      components.DatabaseConnectionTypeMysql,
+		Description:       "Production MySQL database for customer data",
+		ID:                "mysql-prod-db",
+		Password:          criblcontrolplanesdkgo.Pointer("QpvMa8DI_lUJL_b"),
+		RequestTimeout:    criblcontrolplanesdkgo.Pointer[float64](4657.19),
+		Tags:              criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
+		User:              criblcontrolplanesdkgo.Pointer("Dolores.Feil"),
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedCriblLakeDataset != nil {
+	if res.CountedDatabaseConnectionConfig != nil {
 		// handle response
 	}
 }
@@ -378,9 +341,28 @@ func main() {
 * [Get](docs/sdks/packs/README.md#get) - Get a Pack
 * [Update](docs/sdks/packs/README.md#update) - Upgrade a Pack
 
+#### [Packs.Destinations](docs/sdks/packsdestinations/README.md)
+
+* [List](docs/sdks/packsdestinations/README.md#list) - List all Destinations within a Pack
+* [Create](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
+* [Get](docs/sdks/packsdestinations/README.md#get) - Get a Destination within a Pack
+* [Update](docs/sdks/packsdestinations/README.md#update) - Update a Destination within a Pack
+* [Delete](docs/sdks/packsdestinations/README.md#delete) - Delete a Destination within a Pack
+
+##### [Packs.Destinations.Pq](docs/sdks/packsdestinationspq/README.md)
+
+* [Clear](docs/sdks/packsdestinationspq/README.md#clear) - Clear the persistent queue for a Destination within a Pack
+* [Get](docs/sdks/packsdestinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination within a Pack
+
+##### [Packs.Destinations.Samples](docs/sdks/packssamples/README.md)
+
+* [Get](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
+* [Create](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
+
 #### [Packs.Sources](docs/sdks/packssources/README.md)
 
 * [List](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
+* [Create](docs/sdks/packssources/README.md#create) - Create a Source within a Pack
 * [Get](docs/sdks/packssources/README.md#get) - Get a Source within a Pack
 * [Update](docs/sdks/packssources/README.md#update) - Update a Source within a Pack
 * [Delete](docs/sdks/packssources/README.md#delete) - Delete a Source within a Pack
@@ -393,6 +375,7 @@ func main() {
 ##### [Packs.Sources.Pq](docs/sdks/sourcespq/README.md)
 
 * [Clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
+* [Get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 

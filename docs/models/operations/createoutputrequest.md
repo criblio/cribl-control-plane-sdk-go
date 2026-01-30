@@ -5,423 +5,423 @@ Output object
 
 ## Supported Types
 
-### OutputDefault
+### CreateOutputOutputDefault
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestDefault(operations.OutputDefault{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestDefault(operations.CreateOutputOutputDefault{/* values here */})
 ```
 
-### OutputWebhook
+### CreateOutputOutputWebhook
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestWebhook(operations.OutputWebhook{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestWebhook(operations.CreateOutputOutputWebhook{/* values here */})
 ```
 
-### OutputSentinel
+### CreateOutputOutputSentinel
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSentinel(operations.OutputSentinel{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSentinel(operations.CreateOutputOutputSentinel{/* values here */})
 ```
 
-### OutputDevnull
+### CreateOutputOutputDevnull
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestDevnull(operations.OutputDevnull{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestDevnull(operations.CreateOutputOutputDevnull{/* values here */})
 ```
 
-### OutputSyslog
+### CreateOutputOutputSyslog
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSyslog(operations.OutputSyslog{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSyslog(operations.CreateOutputOutputSyslog{/* values here */})
 ```
 
-### OutputSplunk
+### CreateOutputOutputSplunk
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSplunk(operations.OutputSplunk{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSplunk(operations.CreateOutputOutputSplunk{/* values here */})
 ```
 
-### OutputSplunkLb
+### CreateOutputOutputSplunkLb
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSplunkLb(operations.OutputSplunkLb{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSplunkLb(operations.CreateOutputOutputSplunkLb{/* values here */})
 ```
 
-### OutputSplunkHec
+### CreateOutputOutputSplunkHec
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSplunkHec(operations.OutputSplunkHec{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSplunkHec(operations.CreateOutputOutputSplunkHec{/* values here */})
 ```
 
-### OutputWizHec
+### CreateOutputOutputWizHec
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestWizHec(operations.OutputWizHec{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestWizHec(operations.CreateOutputOutputWizHec{/* values here */})
 ```
 
-### OutputTcpjson
+### CreateOutputOutputTcpjson
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestTcpjson(operations.OutputTcpjson{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestTcpjson(operations.CreateOutputOutputTcpjson{/* values here */})
 ```
 
-### OutputWavefront
+### CreateOutputOutputWavefront
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestWavefront(operations.OutputWavefront{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestWavefront(operations.CreateOutputOutputWavefront{/* values here */})
 ```
 
-### OutputSignalfx
+### CreateOutputOutputSignalfx
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSignalfx(operations.OutputSignalfx{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSignalfx(operations.CreateOutputOutputSignalfx{/* values here */})
 ```
 
-### OutputFilesystem
+### CreateOutputOutputFilesystem
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestFilesystem(operations.OutputFilesystem{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestFilesystem(operations.CreateOutputOutputFilesystem{/* values here */})
 ```
 
-### OutputS3
+### CreateOutputOutputS3
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestS3(operations.OutputS3{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestS3(operations.CreateOutputOutputS3{/* values here */})
 ```
 
-### OutputAzureBlob
+### CreateOutputOutputAzureBlob
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestAzureBlob(operations.OutputAzureBlob{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestAzureBlob(operations.CreateOutputOutputAzureBlob{/* values here */})
 ```
 
-### OutputAzureDataExplorer
+### CreateOutputOutputAzureDataExplorer
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestAzureDataExplorer(operations.OutputAzureDataExplorer{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestAzureDataExplorer(operations.CreateOutputOutputAzureDataExplorer{/* values here */})
 ```
 
-### OutputAzureLogs
+### CreateOutputOutputAzureLogs
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestAzureLogs(operations.OutputAzureLogs{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestAzureLogs(operations.CreateOutputOutputAzureLogs{/* values here */})
 ```
 
-### OutputKinesis
+### CreateOutputOutputKinesis
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestKinesis(operations.OutputKinesis{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestKinesis(operations.CreateOutputOutputKinesis{/* values here */})
 ```
 
-### OutputHoneycomb
+### CreateOutputOutputHoneycomb
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestHoneycomb(operations.OutputHoneycomb{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestHoneycomb(operations.CreateOutputOutputHoneycomb{/* values here */})
 ```
 
-### OutputAzureEventhub
+### CreateOutputOutputAzureEventhub
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestAzureEventhub(operations.OutputAzureEventhub{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestAzureEventhub(operations.CreateOutputOutputAzureEventhub{/* values here */})
 ```
 
-### OutputGoogleChronicle
+### CreateOutputOutputGoogleChronicle
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestGoogleChronicle(operations.OutputGoogleChronicle{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestGoogleChronicle(operations.CreateOutputOutputGoogleChronicle{/* values here */})
 ```
 
-### OutputGoogleCloudStorage
+### CreateOutputOutputGoogleCloudStorage
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestGoogleCloudStorage(operations.OutputGoogleCloudStorage{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestGoogleCloudStorage(operations.CreateOutputOutputGoogleCloudStorage{/* values here */})
 ```
 
-### OutputGoogleCloudLogging
+### CreateOutputOutputGoogleCloudLogging
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestGoogleCloudLogging(operations.OutputGoogleCloudLogging{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestGoogleCloudLogging(operations.CreateOutputOutputGoogleCloudLogging{/* values here */})
 ```
 
-### OutputGooglePubsub
+### CreateOutputOutputGooglePubsub
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestGooglePubsub(operations.OutputGooglePubsub{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestGooglePubsub(operations.CreateOutputOutputGooglePubsub{/* values here */})
 ```
 
-### OutputExabeam
+### CreateOutputOutputExabeam
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestExabeam(operations.OutputExabeam{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestExabeam(operations.CreateOutputOutputExabeam{/* values here */})
 ```
 
-### OutputKafka
+### CreateOutputOutputKafka
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestKafka(operations.OutputKafka{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestKafka(operations.CreateOutputOutputKafka{/* values here */})
 ```
 
-### OutputConfluentCloud
+### CreateOutputOutputConfluentCloud
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestConfluentCloud(operations.OutputConfluentCloud{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestConfluentCloud(operations.CreateOutputOutputConfluentCloud{/* values here */})
 ```
 
-### OutputMsk
+### CreateOutputOutputMsk
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestMsk(operations.OutputMsk{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestMsk(operations.CreateOutputOutputMsk{/* values here */})
 ```
 
-### OutputElastic
+### CreateOutputOutputElastic
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestElastic(operations.OutputElastic{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestElastic(operations.CreateOutputOutputElastic{/* values here */})
 ```
 
-### OutputElasticCloud
+### CreateOutputOutputElasticCloud
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestElasticCloud(operations.OutputElasticCloud{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestElasticCloud(operations.CreateOutputOutputElasticCloud{/* values here */})
 ```
 
-### OutputNewrelic
+### CreateOutputOutputNewrelic
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestNewrelic(operations.OutputNewrelic{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestNewrelic(operations.CreateOutputOutputNewrelic{/* values here */})
 ```
 
-### OutputNewrelicEvents
+### CreateOutputOutputNewrelicEvents
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestNewrelicEvents(operations.OutputNewrelicEvents{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestNewrelicEvents(operations.CreateOutputOutputNewrelicEvents{/* values here */})
 ```
 
-### OutputInfluxdb
+### CreateOutputOutputInfluxdb
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestInfluxdb(operations.OutputInfluxdb{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestInfluxdb(operations.CreateOutputOutputInfluxdb{/* values here */})
 ```
 
-### OutputCloudwatch
+### CreateOutputOutputCloudwatch
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestCloudwatch(operations.OutputCloudwatch{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestCloudwatch(operations.CreateOutputOutputCloudwatch{/* values here */})
 ```
 
-### OutputMinio
+### CreateOutputOutputMinio
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestMinio(operations.OutputMinio{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestMinio(operations.CreateOutputOutputMinio{/* values here */})
 ```
 
-### OutputStatsd
+### CreateOutputOutputStatsd
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestStatsd(operations.OutputStatsd{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestStatsd(operations.CreateOutputOutputStatsd{/* values here */})
 ```
 
-### OutputStatsdExt
+### CreateOutputOutputStatsdExt
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestStatsdExt(operations.OutputStatsdExt{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestStatsdExt(operations.CreateOutputOutputStatsdExt{/* values here */})
 ```
 
-### OutputGraphite
+### CreateOutputOutputGraphite
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestGraphite(operations.OutputGraphite{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestGraphite(operations.CreateOutputOutputGraphite{/* values here */})
 ```
 
-### OutputRouter
+### CreateOutputOutputRouter
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestRouter(operations.OutputRouter{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestRouter(operations.CreateOutputOutputRouter{/* values here */})
 ```
 
-### OutputSns
+### CreateOutputOutputSns
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSns(operations.OutputSns{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSns(operations.CreateOutputOutputSns{/* values here */})
 ```
 
-### OutputSqs
+### CreateOutputOutputSqs
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSqs(operations.OutputSqs{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSqs(operations.CreateOutputOutputSqs{/* values here */})
 ```
 
-### OutputSnmp
+### CreateOutputOutputSnmp
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSnmp(operations.OutputSnmp{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSnmp(operations.CreateOutputOutputSnmp{/* values here */})
 ```
 
-### OutputSumoLogic
+### CreateOutputOutputSumoLogic
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSumoLogic(operations.OutputSumoLogic{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSumoLogic(operations.CreateOutputOutputSumoLogic{/* values here */})
 ```
 
-### OutputDatadog
+### CreateOutputOutputDatadog
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestDatadog(operations.OutputDatadog{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestDatadog(operations.CreateOutputOutputDatadog{/* values here */})
 ```
 
-### OutputGrafanaCloud
+### CreateOutputOutputGrafanaCloudUnion
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestGrafanaCloud(operations.OutputGrafanaCloud{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestGrafanaCloud(operations.CreateOutputOutputGrafanaCloudUnion{/* values here */})
 ```
 
-### OutputLoki
+### CreateOutputOutputLoki
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestLoki(operations.OutputLoki{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestLoki(operations.CreateOutputOutputLoki{/* values here */})
 ```
 
-### OutputPrometheus
+### CreateOutputOutputPrometheus
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestPrometheus(operations.OutputPrometheus{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestPrometheus(operations.CreateOutputOutputPrometheus{/* values here */})
 ```
 
-### OutputRing
+### CreateOutputOutputRing
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestRing(operations.OutputRing{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestRing(operations.CreateOutputOutputRing{/* values here */})
 ```
 
-### OutputOpenTelemetry
+### CreateOutputOutputOpenTelemetry
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestOpenTelemetry(operations.OutputOpenTelemetry{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestOpenTelemetry(operations.CreateOutputOutputOpenTelemetry{/* values here */})
 ```
 
-### OutputServiceNow
+### CreateOutputOutputServiceNow
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestServiceNow(operations.OutputServiceNow{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestServiceNow(operations.CreateOutputOutputServiceNow{/* values here */})
 ```
 
-### OutputDataset
+### CreateOutputOutputDataset
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestDataset(operations.OutputDataset{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestDataset(operations.CreateOutputOutputDataset{/* values here */})
 ```
 
-### OutputCriblTCP
+### CreateOutputOutputCriblTCP
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestCriblTCP(operations.OutputCriblTCP{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestCriblTCP(operations.CreateOutputOutputCriblTCP{/* values here */})
 ```
 
-### OutputCriblHTTP
+### CreateOutputOutputCriblHTTP
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestCriblHTTP(operations.OutputCriblHTTP{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestCriblHTTP(operations.CreateOutputOutputCriblHTTP{/* values here */})
 ```
 
-### OutputCriblSearchEngine
+### CreateOutputOutputCriblSearchEngine
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestCriblSearchEngine(operations.OutputCriblSearchEngine{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestCriblSearchEngine(operations.CreateOutputOutputCriblSearchEngine{/* values here */})
 ```
 
-### OutputHumioHec
+### CreateOutputOutputHumioHec
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestHumioHec(operations.OutputHumioHec{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestHumioHec(operations.CreateOutputOutputHumioHec{/* values here */})
 ```
 
-### OutputCrowdstrikeNextGenSiem
+### CreateOutputOutputCrowdstrikeNextGenSiem
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestCrowdstrikeNextGenSiem(operations.OutputCrowdstrikeNextGenSiem{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestCrowdstrikeNextGenSiem(operations.CreateOutputOutputCrowdstrikeNextGenSiem{/* values here */})
 ```
 
-### OutputDlS3
+### CreateOutputOutputDlS3
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestDlS3(operations.OutputDlS3{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestDlS3(operations.CreateOutputOutputDlS3{/* values here */})
 ```
 
-### OutputSecurityLake
+### CreateOutputOutputSecurityLake
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSecurityLake(operations.OutputSecurityLake{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSecurityLake(operations.CreateOutputOutputSecurityLake{/* values here */})
 ```
 
-### OutputCriblLake
+### CreateOutputOutputCriblLake
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestCriblLake(operations.OutputCriblLake{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestCriblLake(operations.CreateOutputOutputCriblLake{/* values here */})
 ```
 
-### OutputDiskSpool
+### CreateOutputOutputDiskSpool
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestDiskSpool(operations.OutputDiskSpool{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestDiskSpool(operations.CreateOutputOutputDiskSpool{/* values here */})
 ```
 
-### OutputClickHouse
+### CreateOutputOutputClickHouse
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestClickHouse(operations.OutputClickHouse{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestClickHouse(operations.CreateOutputOutputClickHouse{/* values here */})
 ```
 
-### OutputXsiam
+### CreateOutputOutputXsiam
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestXsiam(operations.OutputXsiam{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestXsiam(operations.CreateOutputOutputXsiam{/* values here */})
 ```
 
-### OutputNetflow
+### CreateOutputOutputNetflow
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestNetflow(operations.OutputNetflow{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestNetflow(operations.CreateOutputOutputNetflow{/* values here */})
 ```
 
-### OutputDynatraceHTTP
+### CreateOutputOutputDynatraceHTTP
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestDynatraceHTTP(operations.OutputDynatraceHTTP{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestDynatraceHTTP(operations.CreateOutputOutputDynatraceHTTP{/* values here */})
 ```
 
-### OutputDynatraceOtlp
+### CreateOutputOutputDynatraceOtlp
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestDynatraceOtlp(operations.OutputDynatraceOtlp{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestDynatraceOtlp(operations.CreateOutputOutputDynatraceOtlp{/* values here */})
 ```
 
-### OutputSentinelOneAiSiem
+### CreateOutputOutputSentinelOneAiSiem
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestSentinelOneAiSiem(operations.OutputSentinelOneAiSiem{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestSentinelOneAiSiem(operations.CreateOutputOutputSentinelOneAiSiem{/* values here */})
 ```
 
-### OutputChronicle
+### CreateOutputOutputChronicle
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestChronicle(operations.OutputChronicle{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestChronicle(operations.CreateOutputOutputChronicle{/* values here */})
 ```
 
-### OutputDatabricks
+### CreateOutputOutputDatabricks
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestDatabricks(operations.OutputDatabricks{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestDatabricks(operations.CreateOutputOutputDatabricks{/* values here */})
 ```
 
-### OutputMicrosoftFabric
+### CreateOutputOutputMicrosoftFabric
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestMicrosoftFabric(operations.OutputMicrosoftFabric{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestMicrosoftFabric(operations.CreateOutputOutputMicrosoftFabric{/* values here */})
 ```
 
-### OutputCloudflareR2
+### CreateOutputOutputCloudflareR2
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestCloudflareR2(operations.OutputCloudflareR2{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestCloudflareR2(operations.CreateOutputOutputCloudflareR2{/* values here */})
 ```
 

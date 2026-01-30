@@ -43,7 +43,7 @@ type InputZscalerHecAuthToken struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 }
 
 func (i InputZscalerHecAuthToken) MarshalJSON() ([]byte, error) {
@@ -99,7 +99,7 @@ func (i *InputZscalerHecAuthToken) GetAllowedIndexesAtToken() []string {
 	return i.AllowedIndexesAtToken
 }
 
-func (i *InputZscalerHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputZscalerHecAuthToken) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -155,7 +155,7 @@ type InputZscalerHec struct {
 	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// Whether to enable Zscaler HEC acknowledgements
@@ -368,7 +368,7 @@ func (i *InputZscalerHec) GetHecAPI() string {
 	return i.HecAPI
 }
 
-func (i *InputZscalerHec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputZscalerHec) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

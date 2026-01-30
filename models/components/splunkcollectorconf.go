@@ -9,1330 +9,20 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// SplunkAuthenticationLoginSecretAuthentication - Authentication method for Discover and Collect REST calls
-type SplunkAuthenticationLoginSecretAuthentication string
-
-const (
-	SplunkAuthenticationLoginSecretAuthenticationNone        SplunkAuthenticationLoginSecretAuthentication = "none"
-	SplunkAuthenticationLoginSecretAuthenticationBasic       SplunkAuthenticationLoginSecretAuthentication = "basic"
-	SplunkAuthenticationLoginSecretAuthenticationBasicSecret SplunkAuthenticationLoginSecretAuthentication = "basicSecret"
-	SplunkAuthenticationLoginSecretAuthenticationToken       SplunkAuthenticationLoginSecretAuthentication = "token"
-	SplunkAuthenticationLoginSecretAuthenticationTokenSecret SplunkAuthenticationLoginSecretAuthentication = "tokenSecret"
-	SplunkAuthenticationLoginSecretAuthenticationLogin       SplunkAuthenticationLoginSecretAuthentication = "login"
-	SplunkAuthenticationLoginSecretAuthenticationLoginSecret SplunkAuthenticationLoginSecretAuthentication = "loginSecret"
-)
-
-func (e SplunkAuthenticationLoginSecretAuthentication) ToPointer() *SplunkAuthenticationLoginSecretAuthentication {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationLoginSecretAuthentication) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
-			return true
-		}
-	}
-	return false
-}
-
-type SplunkAuthenticationLoginSecretCollectRequestParam struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (s SplunkAuthenticationLoginSecretCollectRequestParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginSecretCollectRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSecretCollectRequestParam) GetName() string {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SplunkAuthenticationLoginSecretCollectRequestParam) GetValue() string {
-	if s == nil {
-		return ""
-	}
-	return s.Value
-}
-
-type SplunkAuthenticationLoginSecretCollectRequestHeader struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (s SplunkAuthenticationLoginSecretCollectRequestHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginSecretCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSecretCollectRequestHeader) GetName() string {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SplunkAuthenticationLoginSecretCollectRequestHeader) GetValue() string {
-	if s == nil {
-		return ""
-	}
-	return s.Value
-}
-
-type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff struct {
-	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-}
-
-func (s SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if s == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return s.Type
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) GetInterval() any {
-	if s == nil {
-		return nil
-	}
-	return s.Interval
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) GetLimit() any {
-	if s == nil {
-		return nil
-	}
-	return s.Limit
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) GetMultiplier() any {
-	if s == nil {
-		return nil
-	}
-	return s.Multiplier
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) GetCodes() any {
-	if s == nil {
-		return nil
-	}
-	return s.Codes
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) GetEnableHeader() any {
-	if s == nil {
-		return nil
-	}
-	return s.EnableHeader
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) GetRetryConnectTimeout() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectTimeout
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) GetRetryConnectReset() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectReset
-}
-
-type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic struct {
-	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-}
-
-func (s SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if s == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return s.Type
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) GetInterval() any {
-	if s == nil {
-		return nil
-	}
-	return s.Interval
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) GetLimit() any {
-	if s == nil {
-		return nil
-	}
-	return s.Limit
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) GetCodes() any {
-	if s == nil {
-		return nil
-	}
-	return s.Codes
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) GetEnableHeader() any {
-	if s == nil {
-		return nil
-	}
-	return s.EnableHeader
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) GetRetryConnectTimeout() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectTimeout
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) GetRetryConnectReset() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectReset
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) GetMultiplier() any {
-	if s == nil {
-		return nil
-	}
-	return s.Multiplier
-}
-
-type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone struct {
-	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-}
-
-func (s SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if s == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return s.Type
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) GetInterval() any {
-	if s == nil {
-		return nil
-	}
-	return s.Interval
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) GetLimit() any {
-	if s == nil {
-		return nil
-	}
-	return s.Limit
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) GetMultiplier() any {
-	if s == nil {
-		return nil
-	}
-	return s.Multiplier
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) GetCodes() any {
-	if s == nil {
-		return nil
-	}
-	return s.Codes
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) GetEnableHeader() any {
-	if s == nil {
-		return nil
-	}
-	return s.EnableHeader
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectTimeout
-}
-
-func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) GetRetryConnectReset() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectReset
-}
-
-type SplunkAuthenticationLoginSecretRetryRulesType string
-
-const (
-	SplunkAuthenticationLoginSecretRetryRulesTypeNone    SplunkAuthenticationLoginSecretRetryRulesType = "none"
-	SplunkAuthenticationLoginSecretRetryRulesTypeStatic  SplunkAuthenticationLoginSecretRetryRulesType = "static"
-	SplunkAuthenticationLoginSecretRetryRulesTypeBackoff SplunkAuthenticationLoginSecretRetryRulesType = "backoff"
-)
-
-type SplunkAuthenticationLoginSecretRetryRules struct {
-	SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone    *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone    `queryParam:"inline" union:"member"`
-	SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic  *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
-	SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
-
-	Type SplunkAuthenticationLoginSecretRetryRulesType
-}
-
-func CreateSplunkAuthenticationLoginSecretRetryRulesNone(none SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) SplunkAuthenticationLoginSecretRetryRules {
-	typ := SplunkAuthenticationLoginSecretRetryRulesTypeNone
-
-	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
-	none.Type = typStr
-
-	return SplunkAuthenticationLoginSecretRetryRules{
-		SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone: &none,
-		Type: typ,
-	}
-}
-
-func CreateSplunkAuthenticationLoginSecretRetryRulesStatic(static SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) SplunkAuthenticationLoginSecretRetryRules {
-	typ := SplunkAuthenticationLoginSecretRetryRulesTypeStatic
-
-	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
-	static.Type = typStr
-
-	return SplunkAuthenticationLoginSecretRetryRules{
-		SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic: &static,
-		Type: typ,
-	}
-}
-
-func CreateSplunkAuthenticationLoginSecretRetryRulesBackoff(backoff SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) SplunkAuthenticationLoginSecretRetryRules {
-	typ := SplunkAuthenticationLoginSecretRetryRulesTypeBackoff
-
-	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
-	backoff.Type = typStr
-
-	return SplunkAuthenticationLoginSecretRetryRules{
-		SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff: &backoff,
-		Type: typ,
-	}
-}
-
-func (u *SplunkAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Type string `json:"type"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
-	}
-
-	switch dis.Type {
-	case "none":
-		splunkAuthenticationLoginSecretSplunkRetryRulesTypeNone := new(SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone)
-		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLoginSecretSplunkRetryRulesTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone within SplunkAuthenticationLoginSecretRetryRules: %w", string(data), err)
-		}
-
-		u.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone = splunkAuthenticationLoginSecretSplunkRetryRulesTypeNone
-		u.Type = SplunkAuthenticationLoginSecretRetryRulesTypeNone
-		return nil
-	case "static":
-		splunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic := new(SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic)
-		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == static) type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic within SplunkAuthenticationLoginSecretRetryRules: %w", string(data), err)
-		}
-
-		u.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic = splunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic
-		u.Type = SplunkAuthenticationLoginSecretRetryRulesTypeStatic
-		return nil
-	case "backoff":
-		splunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff := new(SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff)
-		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == backoff) type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff within SplunkAuthenticationLoginSecretRetryRules: %w", string(data), err)
-		}
-
-		u.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff = splunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff
-		u.Type = SplunkAuthenticationLoginSecretRetryRulesTypeBackoff
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SplunkAuthenticationLoginSecretRetryRules", string(data))
-}
-
-func (u SplunkAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
-	if u.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone != nil {
-		return utils.MarshalJSON(u.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone, "", true)
-	}
-
-	if u.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic != nil {
-		return utils.MarshalJSON(u.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic, "", true)
-	}
-
-	if u.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff != nil {
-		return utils.MarshalJSON(u.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type SplunkAuthenticationLoginSecretRetryRules: all fields are null")
-}
-
-type SplunkAuthenticationLoginSecret struct {
-	// Authentication method for Discover and Collect REST calls
-	Authentication SplunkAuthenticationLoginSecretAuthentication `json:"authentication"`
-	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL string `json:"loginUrl"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret string `json:"credentialsSecret"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody string `json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are allowed.
-	TokenRespAttribute string `json:"tokenRespAttribute"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr string `json:"authHeaderExpr"`
-	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead string `json:"searchHead"`
-	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
-	Search string `json:"search"`
-	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
-	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
-	// REST API used to create a search
-	Endpoint string `json:"endpoint"`
-	// Format of the returned output
-	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
-	// Optional collect request parameters
-	CollectRequestParams []SplunkAuthenticationLoginSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
-	// Optional collect request headers
-	CollectRequestHeaders []SplunkAuthenticationLoginSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
-	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `json:"timeout,omitempty"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
-	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
-	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitempty"`
-	RetryRules         *SplunkAuthenticationLoginSecretRetryRules `json:"retryRules,omitempty"`
-}
-
-func (s SplunkAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "loginUrl", "credentialsSecret", "loginBody", "tokenRespAttribute", "authHeaderExpr", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetAuthentication() SplunkAuthenticationLoginSecretAuthentication {
-	if s == nil {
-		return SplunkAuthenticationLoginSecretAuthentication("")
-	}
-	return s.Authentication
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetLoginURL() string {
-	if s == nil {
-		return ""
-	}
-	return s.LoginURL
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetCredentialsSecret() string {
-	if s == nil {
-		return ""
-	}
-	return s.CredentialsSecret
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetLoginBody() string {
-	if s == nil {
-		return ""
-	}
-	return s.LoginBody
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetTokenRespAttribute() string {
-	if s == nil {
-		return ""
-	}
-	return s.TokenRespAttribute
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetAuthHeaderExpr() string {
-	if s == nil {
-		return ""
-	}
-	return s.AuthHeaderExpr
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetSearchHead() string {
-	if s == nil {
-		return ""
-	}
-	return s.SearchHead
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetSearch() string {
-	if s == nil {
-		return ""
-	}
-	return s.Search
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetEarliest() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Earliest
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetLatest() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Latest
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetEndpoint() string {
-	if s == nil {
-		return ""
-	}
-	return s.Endpoint
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
-	if s == nil {
-		return OutputModeOptionsSplunkCollectorConf("")
-	}
-	return s.OutputMode
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetCollectRequestParams() []SplunkAuthenticationLoginSecretCollectRequestParam {
-	if s == nil {
-		return nil
-	}
-	return s.CollectRequestParams
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetCollectRequestHeaders() []SplunkAuthenticationLoginSecretCollectRequestHeader {
-	if s == nil {
-		return nil
-	}
-	return s.CollectRequestHeaders
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetTimeout() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.Timeout
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetUseRoundRobinDNS() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.UseRoundRobinDNS
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetDisableTimeFilter() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.DisableTimeFilter
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetRejectUnauthorized() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.RejectUnauthorized
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetHandleEscapedChars() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.HandleEscapedChars
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetRetryRules() *SplunkAuthenticationLoginSecretRetryRules {
-	if s == nil {
-		return nil
-	}
-	return s.RetryRules
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetRetryRulesNone() *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone {
-	if v := s.GetRetryRules(); v != nil {
-		return v.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetRetryRulesStatic() *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic {
-	if v := s.GetRetryRules(); v != nil {
-		return v.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSecret) GetRetryRulesBackoff() *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff {
-	if v := s.GetRetryRules(); v != nil {
-		return v.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff
-	}
-	return nil
-}
-
-// SplunkAuthenticationLoginAuthentication - Authentication method for Discover and Collect REST calls
-type SplunkAuthenticationLoginAuthentication string
-
-const (
-	SplunkAuthenticationLoginAuthenticationNone        SplunkAuthenticationLoginAuthentication = "none"
-	SplunkAuthenticationLoginAuthenticationBasic       SplunkAuthenticationLoginAuthentication = "basic"
-	SplunkAuthenticationLoginAuthenticationBasicSecret SplunkAuthenticationLoginAuthentication = "basicSecret"
-	SplunkAuthenticationLoginAuthenticationToken       SplunkAuthenticationLoginAuthentication = "token"
-	SplunkAuthenticationLoginAuthenticationTokenSecret SplunkAuthenticationLoginAuthentication = "tokenSecret"
-	SplunkAuthenticationLoginAuthenticationLogin       SplunkAuthenticationLoginAuthentication = "login"
-	SplunkAuthenticationLoginAuthenticationLoginSecret SplunkAuthenticationLoginAuthentication = "loginSecret"
-)
-
-func (e SplunkAuthenticationLoginAuthentication) ToPointer() *SplunkAuthenticationLoginAuthentication {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationLoginAuthentication) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
-			return true
-		}
-	}
-	return false
-}
-
-type SplunkAuthenticationLoginCollectRequestParam struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (s SplunkAuthenticationLoginCollectRequestParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginCollectRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginCollectRequestParam) GetName() string {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SplunkAuthenticationLoginCollectRequestParam) GetValue() string {
-	if s == nil {
-		return ""
-	}
-	return s.Value
-}
-
-type SplunkAuthenticationLoginCollectRequestHeader struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (s SplunkAuthenticationLoginCollectRequestHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginCollectRequestHeader) GetName() string {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SplunkAuthenticationLoginCollectRequestHeader) GetValue() string {
-	if s == nil {
-		return ""
-	}
-	return s.Value
-}
-
-type SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff struct {
-	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-}
-
-func (s SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if s == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return s.Type
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) GetInterval() any {
-	if s == nil {
-		return nil
-	}
-	return s.Interval
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) GetLimit() any {
-	if s == nil {
-		return nil
-	}
-	return s.Limit
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) GetMultiplier() any {
-	if s == nil {
-		return nil
-	}
-	return s.Multiplier
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) GetCodes() any {
-	if s == nil {
-		return nil
-	}
-	return s.Codes
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) GetEnableHeader() any {
-	if s == nil {
-		return nil
-	}
-	return s.EnableHeader
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) GetRetryConnectTimeout() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectTimeout
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) GetRetryConnectReset() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectReset
-}
-
-type SplunkAuthenticationLoginSplunkRetryRulesTypeStatic struct {
-	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-}
-
-func (s SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if s == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return s.Type
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) GetInterval() any {
-	if s == nil {
-		return nil
-	}
-	return s.Interval
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) GetLimit() any {
-	if s == nil {
-		return nil
-	}
-	return s.Limit
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) GetCodes() any {
-	if s == nil {
-		return nil
-	}
-	return s.Codes
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) GetEnableHeader() any {
-	if s == nil {
-		return nil
-	}
-	return s.EnableHeader
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) GetRetryConnectTimeout() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectTimeout
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) GetRetryConnectReset() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectReset
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) GetMultiplier() any {
-	if s == nil {
-		return nil
-	}
-	return s.Multiplier
-}
-
-type SplunkAuthenticationLoginSplunkRetryRulesTypeNone struct {
-	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-}
-
-func (s SplunkAuthenticationLoginSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeNone) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if s == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return s.Type
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeNone) GetInterval() any {
-	if s == nil {
-		return nil
-	}
-	return s.Interval
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeNone) GetLimit() any {
-	if s == nil {
-		return nil
-	}
-	return s.Limit
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeNone) GetMultiplier() any {
-	if s == nil {
-		return nil
-	}
-	return s.Multiplier
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeNone) GetCodes() any {
-	if s == nil {
-		return nil
-	}
-	return s.Codes
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeNone) GetEnableHeader() any {
-	if s == nil {
-		return nil
-	}
-	return s.EnableHeader
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectTimeout
-}
-
-func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeNone) GetRetryConnectReset() any {
-	if s == nil {
-		return nil
-	}
-	return s.RetryConnectReset
-}
-
-type SplunkAuthenticationLoginRetryRulesType string
-
-const (
-	SplunkAuthenticationLoginRetryRulesTypeNone    SplunkAuthenticationLoginRetryRulesType = "none"
-	SplunkAuthenticationLoginRetryRulesTypeStatic  SplunkAuthenticationLoginRetryRulesType = "static"
-	SplunkAuthenticationLoginRetryRulesTypeBackoff SplunkAuthenticationLoginRetryRulesType = "backoff"
-)
-
-type SplunkAuthenticationLoginRetryRules struct {
-	SplunkAuthenticationLoginSplunkRetryRulesTypeNone    *SplunkAuthenticationLoginSplunkRetryRulesTypeNone    `queryParam:"inline" union:"member"`
-	SplunkAuthenticationLoginSplunkRetryRulesTypeStatic  *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
-	SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
-
-	Type SplunkAuthenticationLoginRetryRulesType
-}
-
-func CreateSplunkAuthenticationLoginRetryRulesNone(none SplunkAuthenticationLoginSplunkRetryRulesTypeNone) SplunkAuthenticationLoginRetryRules {
-	typ := SplunkAuthenticationLoginRetryRulesTypeNone
-
-	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
-	none.Type = typStr
-
-	return SplunkAuthenticationLoginRetryRules{
-		SplunkAuthenticationLoginSplunkRetryRulesTypeNone: &none,
-		Type: typ,
-	}
-}
-
-func CreateSplunkAuthenticationLoginRetryRulesStatic(static SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) SplunkAuthenticationLoginRetryRules {
-	typ := SplunkAuthenticationLoginRetryRulesTypeStatic
-
-	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
-	static.Type = typStr
-
-	return SplunkAuthenticationLoginRetryRules{
-		SplunkAuthenticationLoginSplunkRetryRulesTypeStatic: &static,
-		Type: typ,
-	}
-}
-
-func CreateSplunkAuthenticationLoginRetryRulesBackoff(backoff SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) SplunkAuthenticationLoginRetryRules {
-	typ := SplunkAuthenticationLoginRetryRulesTypeBackoff
-
-	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
-	backoff.Type = typStr
-
-	return SplunkAuthenticationLoginRetryRules{
-		SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff: &backoff,
-		Type: typ,
-	}
-}
-
-func (u *SplunkAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Type string `json:"type"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
-	}
-
-	switch dis.Type {
-	case "none":
-		splunkAuthenticationLoginSplunkRetryRulesTypeNone := new(SplunkAuthenticationLoginSplunkRetryRulesTypeNone)
-		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLoginSplunkRetryRulesTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type SplunkAuthenticationLoginSplunkRetryRulesTypeNone within SplunkAuthenticationLoginRetryRules: %w", string(data), err)
-		}
-
-		u.SplunkAuthenticationLoginSplunkRetryRulesTypeNone = splunkAuthenticationLoginSplunkRetryRulesTypeNone
-		u.Type = SplunkAuthenticationLoginRetryRulesTypeNone
-		return nil
-	case "static":
-		splunkAuthenticationLoginSplunkRetryRulesTypeStatic := new(SplunkAuthenticationLoginSplunkRetryRulesTypeStatic)
-		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLoginSplunkRetryRulesTypeStatic, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == static) type SplunkAuthenticationLoginSplunkRetryRulesTypeStatic within SplunkAuthenticationLoginRetryRules: %w", string(data), err)
-		}
-
-		u.SplunkAuthenticationLoginSplunkRetryRulesTypeStatic = splunkAuthenticationLoginSplunkRetryRulesTypeStatic
-		u.Type = SplunkAuthenticationLoginRetryRulesTypeStatic
-		return nil
-	case "backoff":
-		splunkAuthenticationLoginSplunkRetryRulesTypeBackoff := new(SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff)
-		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLoginSplunkRetryRulesTypeBackoff, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == backoff) type SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff within SplunkAuthenticationLoginRetryRules: %w", string(data), err)
-		}
-
-		u.SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff = splunkAuthenticationLoginSplunkRetryRulesTypeBackoff
-		u.Type = SplunkAuthenticationLoginRetryRulesTypeBackoff
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SplunkAuthenticationLoginRetryRules", string(data))
-}
-
-func (u SplunkAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
-	if u.SplunkAuthenticationLoginSplunkRetryRulesTypeNone != nil {
-		return utils.MarshalJSON(u.SplunkAuthenticationLoginSplunkRetryRulesTypeNone, "", true)
-	}
-
-	if u.SplunkAuthenticationLoginSplunkRetryRulesTypeStatic != nil {
-		return utils.MarshalJSON(u.SplunkAuthenticationLoginSplunkRetryRulesTypeStatic, "", true)
-	}
-
-	if u.SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff != nil {
-		return utils.MarshalJSON(u.SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type SplunkAuthenticationLoginRetryRules: all fields are null")
-}
-
-type SplunkAuthenticationLogin struct {
-	// Authentication method for Discover and Collect REST calls
-	Authentication SplunkAuthenticationLoginAuthentication `json:"authentication"`
-	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL string `json:"loginUrl"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody string `json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are allowed.
-	TokenRespAttribute string `json:"tokenRespAttribute"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr string `json:"authHeaderExpr"`
-	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead string `json:"searchHead"`
-	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
-	Search string `json:"search"`
-	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
-	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
-	// REST API used to create a search
-	Endpoint string `json:"endpoint"`
-	// Format of the returned output
-	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
-	// Optional collect request parameters
-	CollectRequestParams []SplunkAuthenticationLoginCollectRequestParam `json:"collectRequestParams,omitempty"`
-	// Optional collect request headers
-	CollectRequestHeaders []SplunkAuthenticationLoginCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
-	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `json:"timeout,omitempty"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
-	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
-	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitempty"`
-	RetryRules         *SplunkAuthenticationLoginRetryRules `json:"retryRules,omitempty"`
-}
-
-func (s SplunkAuthenticationLogin) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SplunkAuthenticationLogin) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "loginUrl", "username", "password", "loginBody", "tokenRespAttribute", "authHeaderExpr", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLogin) GetAuthentication() SplunkAuthenticationLoginAuthentication {
-	if s == nil {
-		return SplunkAuthenticationLoginAuthentication("")
-	}
-	return s.Authentication
-}
-
-func (s *SplunkAuthenticationLogin) GetLoginURL() string {
-	if s == nil {
-		return ""
-	}
-	return s.LoginURL
-}
-
-func (s *SplunkAuthenticationLogin) GetUsername() string {
-	if s == nil {
-		return ""
-	}
-	return s.Username
-}
-
-func (s *SplunkAuthenticationLogin) GetPassword() string {
-	if s == nil {
-		return ""
-	}
-	return s.Password
-}
-
-func (s *SplunkAuthenticationLogin) GetLoginBody() string {
-	if s == nil {
-		return ""
-	}
-	return s.LoginBody
-}
-
-func (s *SplunkAuthenticationLogin) GetTokenRespAttribute() string {
-	if s == nil {
-		return ""
-	}
-	return s.TokenRespAttribute
-}
-
-func (s *SplunkAuthenticationLogin) GetAuthHeaderExpr() string {
-	if s == nil {
-		return ""
-	}
-	return s.AuthHeaderExpr
-}
-
-func (s *SplunkAuthenticationLogin) GetSearchHead() string {
-	if s == nil {
-		return ""
-	}
-	return s.SearchHead
-}
-
-func (s *SplunkAuthenticationLogin) GetSearch() string {
-	if s == nil {
-		return ""
-	}
-	return s.Search
-}
-
-func (s *SplunkAuthenticationLogin) GetEarliest() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Earliest
-}
-
-func (s *SplunkAuthenticationLogin) GetLatest() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Latest
-}
-
-func (s *SplunkAuthenticationLogin) GetEndpoint() string {
-	if s == nil {
-		return ""
-	}
-	return s.Endpoint
-}
-
-func (s *SplunkAuthenticationLogin) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
-	if s == nil {
-		return OutputModeOptionsSplunkCollectorConf("")
-	}
-	return s.OutputMode
-}
-
-func (s *SplunkAuthenticationLogin) GetCollectRequestParams() []SplunkAuthenticationLoginCollectRequestParam {
-	if s == nil {
-		return nil
-	}
-	return s.CollectRequestParams
-}
-
-func (s *SplunkAuthenticationLogin) GetCollectRequestHeaders() []SplunkAuthenticationLoginCollectRequestHeader {
-	if s == nil {
-		return nil
-	}
-	return s.CollectRequestHeaders
-}
-
-func (s *SplunkAuthenticationLogin) GetTimeout() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.Timeout
-}
-
-func (s *SplunkAuthenticationLogin) GetUseRoundRobinDNS() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.UseRoundRobinDNS
-}
-
-func (s *SplunkAuthenticationLogin) GetDisableTimeFilter() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.DisableTimeFilter
-}
-
-func (s *SplunkAuthenticationLogin) GetRejectUnauthorized() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.RejectUnauthorized
-}
-
-func (s *SplunkAuthenticationLogin) GetHandleEscapedChars() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.HandleEscapedChars
-}
-
-func (s *SplunkAuthenticationLogin) GetRetryRules() *SplunkAuthenticationLoginRetryRules {
-	if s == nil {
-		return nil
-	}
-	return s.RetryRules
-}
-
-func (s *SplunkAuthenticationLogin) GetRetryRulesNone() *SplunkAuthenticationLoginSplunkRetryRulesTypeNone {
-	if v := s.GetRetryRules(); v != nil {
-		return v.SplunkAuthenticationLoginSplunkRetryRulesTypeNone
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLogin) GetRetryRulesStatic() *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic {
-	if v := s.GetRetryRules(); v != nil {
-		return v.SplunkAuthenticationLoginSplunkRetryRulesTypeStatic
-	}
-	return nil
-}
-
-func (s *SplunkAuthenticationLogin) GetRetryRulesBackoff() *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff {
-	if v := s.GetRetryRules(); v != nil {
-		return v.SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff
-	}
-	return nil
-}
-
 // SplunkAuthenticationTokenSecretAuthentication - Authentication method for Discover and Collect REST calls
 type SplunkAuthenticationTokenSecretAuthentication string
 
 const (
-	SplunkAuthenticationTokenSecretAuthenticationNone        SplunkAuthenticationTokenSecretAuthentication = "none"
-	SplunkAuthenticationTokenSecretAuthenticationBasic       SplunkAuthenticationTokenSecretAuthentication = "basic"
+	// SplunkAuthenticationTokenSecretAuthenticationNone None
+	SplunkAuthenticationTokenSecretAuthenticationNone SplunkAuthenticationTokenSecretAuthentication = "none"
+	// SplunkAuthenticationTokenSecretAuthenticationBasic Basic
+	SplunkAuthenticationTokenSecretAuthenticationBasic SplunkAuthenticationTokenSecretAuthentication = "basic"
+	// SplunkAuthenticationTokenSecretAuthenticationBasicSecret Basic (credentials secret)
 	SplunkAuthenticationTokenSecretAuthenticationBasicSecret SplunkAuthenticationTokenSecretAuthentication = "basicSecret"
-	SplunkAuthenticationTokenSecretAuthenticationToken       SplunkAuthenticationTokenSecretAuthentication = "token"
+	// SplunkAuthenticationTokenSecretAuthenticationToken Bearer Token
+	SplunkAuthenticationTokenSecretAuthenticationToken SplunkAuthenticationTokenSecretAuthentication = "token"
+	// SplunkAuthenticationTokenSecretAuthenticationTokenSecret Bearer Token (text secret)
 	SplunkAuthenticationTokenSecretAuthenticationTokenSecret SplunkAuthenticationTokenSecretAuthentication = "tokenSecret"
-	SplunkAuthenticationTokenSecretAuthenticationLogin       SplunkAuthenticationTokenSecretAuthentication = "login"
-	SplunkAuthenticationTokenSecretAuthenticationLoginSecret SplunkAuthenticationTokenSecretAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationTokenSecretAuthentication) ToPointer() *SplunkAuthenticationTokenSecretAuthentication {
@@ -1343,7 +33,7 @@ func (e SplunkAuthenticationTokenSecretAuthentication) ToPointer() *SplunkAuthen
 func (e *SplunkAuthenticationTokenSecretAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret":
 			return true
 		}
 	}
@@ -1943,13 +633,16 @@ func (s *SplunkAuthenticationTokenSecret) GetRetryRulesBackoff() *SplunkAuthenti
 type SplunkAuthenticationTokenAuthentication string
 
 const (
-	SplunkAuthenticationTokenAuthenticationNone        SplunkAuthenticationTokenAuthentication = "none"
-	SplunkAuthenticationTokenAuthenticationBasic       SplunkAuthenticationTokenAuthentication = "basic"
+	// SplunkAuthenticationTokenAuthenticationNone None
+	SplunkAuthenticationTokenAuthenticationNone SplunkAuthenticationTokenAuthentication = "none"
+	// SplunkAuthenticationTokenAuthenticationBasic Basic
+	SplunkAuthenticationTokenAuthenticationBasic SplunkAuthenticationTokenAuthentication = "basic"
+	// SplunkAuthenticationTokenAuthenticationBasicSecret Basic (credentials secret)
 	SplunkAuthenticationTokenAuthenticationBasicSecret SplunkAuthenticationTokenAuthentication = "basicSecret"
-	SplunkAuthenticationTokenAuthenticationToken       SplunkAuthenticationTokenAuthentication = "token"
+	// SplunkAuthenticationTokenAuthenticationToken Bearer Token
+	SplunkAuthenticationTokenAuthenticationToken SplunkAuthenticationTokenAuthentication = "token"
+	// SplunkAuthenticationTokenAuthenticationTokenSecret Bearer Token (text secret)
 	SplunkAuthenticationTokenAuthenticationTokenSecret SplunkAuthenticationTokenAuthentication = "tokenSecret"
-	SplunkAuthenticationTokenAuthenticationLogin       SplunkAuthenticationTokenAuthentication = "login"
-	SplunkAuthenticationTokenAuthenticationLoginSecret SplunkAuthenticationTokenAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationTokenAuthentication) ToPointer() *SplunkAuthenticationTokenAuthentication {
@@ -1960,7 +653,7 @@ func (e SplunkAuthenticationTokenAuthentication) ToPointer() *SplunkAuthenticati
 func (e *SplunkAuthenticationTokenAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret":
 			return true
 		}
 	}
@@ -2559,13 +1252,16 @@ func (s *SplunkAuthenticationToken) GetRetryRulesBackoff() *SplunkAuthentication
 type SplunkAuthenticationBasicSecretAuthentication string
 
 const (
-	SplunkAuthenticationBasicSecretAuthenticationNone        SplunkAuthenticationBasicSecretAuthentication = "none"
-	SplunkAuthenticationBasicSecretAuthenticationBasic       SplunkAuthenticationBasicSecretAuthentication = "basic"
+	// SplunkAuthenticationBasicSecretAuthenticationNone None
+	SplunkAuthenticationBasicSecretAuthenticationNone SplunkAuthenticationBasicSecretAuthentication = "none"
+	// SplunkAuthenticationBasicSecretAuthenticationBasic Basic
+	SplunkAuthenticationBasicSecretAuthenticationBasic SplunkAuthenticationBasicSecretAuthentication = "basic"
+	// SplunkAuthenticationBasicSecretAuthenticationBasicSecret Basic (credentials secret)
 	SplunkAuthenticationBasicSecretAuthenticationBasicSecret SplunkAuthenticationBasicSecretAuthentication = "basicSecret"
-	SplunkAuthenticationBasicSecretAuthenticationToken       SplunkAuthenticationBasicSecretAuthentication = "token"
+	// SplunkAuthenticationBasicSecretAuthenticationToken Bearer Token
+	SplunkAuthenticationBasicSecretAuthenticationToken SplunkAuthenticationBasicSecretAuthentication = "token"
+	// SplunkAuthenticationBasicSecretAuthenticationTokenSecret Bearer Token (text secret)
 	SplunkAuthenticationBasicSecretAuthenticationTokenSecret SplunkAuthenticationBasicSecretAuthentication = "tokenSecret"
-	SplunkAuthenticationBasicSecretAuthenticationLogin       SplunkAuthenticationBasicSecretAuthentication = "login"
-	SplunkAuthenticationBasicSecretAuthenticationLoginSecret SplunkAuthenticationBasicSecretAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationBasicSecretAuthentication) ToPointer() *SplunkAuthenticationBasicSecretAuthentication {
@@ -2576,7 +1272,7 @@ func (e SplunkAuthenticationBasicSecretAuthentication) ToPointer() *SplunkAuthen
 func (e *SplunkAuthenticationBasicSecretAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret":
 			return true
 		}
 	}
@@ -3176,13 +1872,16 @@ func (s *SplunkAuthenticationBasicSecret) GetRetryRulesBackoff() *SplunkAuthenti
 type SplunkAuthenticationBasicAuthentication string
 
 const (
-	SplunkAuthenticationBasicAuthenticationNone        SplunkAuthenticationBasicAuthentication = "none"
-	SplunkAuthenticationBasicAuthenticationBasic       SplunkAuthenticationBasicAuthentication = "basic"
+	// SplunkAuthenticationBasicAuthenticationNone None
+	SplunkAuthenticationBasicAuthenticationNone SplunkAuthenticationBasicAuthentication = "none"
+	// SplunkAuthenticationBasicAuthenticationBasic Basic
+	SplunkAuthenticationBasicAuthenticationBasic SplunkAuthenticationBasicAuthentication = "basic"
+	// SplunkAuthenticationBasicAuthenticationBasicSecret Basic (credentials secret)
 	SplunkAuthenticationBasicAuthenticationBasicSecret SplunkAuthenticationBasicAuthentication = "basicSecret"
-	SplunkAuthenticationBasicAuthenticationToken       SplunkAuthenticationBasicAuthentication = "token"
+	// SplunkAuthenticationBasicAuthenticationToken Bearer Token
+	SplunkAuthenticationBasicAuthenticationToken SplunkAuthenticationBasicAuthentication = "token"
+	// SplunkAuthenticationBasicAuthenticationTokenSecret Bearer Token (text secret)
 	SplunkAuthenticationBasicAuthenticationTokenSecret SplunkAuthenticationBasicAuthentication = "tokenSecret"
-	SplunkAuthenticationBasicAuthenticationLogin       SplunkAuthenticationBasicAuthentication = "login"
-	SplunkAuthenticationBasicAuthenticationLoginSecret SplunkAuthenticationBasicAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationBasicAuthentication) ToPointer() *SplunkAuthenticationBasicAuthentication {
@@ -3193,7 +1892,7 @@ func (e SplunkAuthenticationBasicAuthentication) ToPointer() *SplunkAuthenticati
 func (e *SplunkAuthenticationBasicAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret":
 			return true
 		}
 	}
@@ -3802,13 +2501,16 @@ func (s *SplunkAuthenticationBasic) GetRetryRulesBackoff() *SplunkAuthentication
 type SplunkAuthenticationNoneAuthentication string
 
 const (
-	SplunkAuthenticationNoneAuthenticationNone        SplunkAuthenticationNoneAuthentication = "none"
-	SplunkAuthenticationNoneAuthenticationBasic       SplunkAuthenticationNoneAuthentication = "basic"
+	// SplunkAuthenticationNoneAuthenticationNone None
+	SplunkAuthenticationNoneAuthenticationNone SplunkAuthenticationNoneAuthentication = "none"
+	// SplunkAuthenticationNoneAuthenticationBasic Basic
+	SplunkAuthenticationNoneAuthenticationBasic SplunkAuthenticationNoneAuthentication = "basic"
+	// SplunkAuthenticationNoneAuthenticationBasicSecret Basic (credentials secret)
 	SplunkAuthenticationNoneAuthenticationBasicSecret SplunkAuthenticationNoneAuthentication = "basicSecret"
-	SplunkAuthenticationNoneAuthenticationToken       SplunkAuthenticationNoneAuthentication = "token"
+	// SplunkAuthenticationNoneAuthenticationToken Bearer Token
+	SplunkAuthenticationNoneAuthenticationToken SplunkAuthenticationNoneAuthentication = "token"
+	// SplunkAuthenticationNoneAuthenticationTokenSecret Bearer Token (text secret)
 	SplunkAuthenticationNoneAuthenticationTokenSecret SplunkAuthenticationNoneAuthentication = "tokenSecret"
-	SplunkAuthenticationNoneAuthenticationLogin       SplunkAuthenticationNoneAuthentication = "login"
-	SplunkAuthenticationNoneAuthenticationLoginSecret SplunkAuthenticationNoneAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationNoneAuthentication) ToPointer() *SplunkAuthenticationNoneAuthentication {
@@ -3819,7 +2521,7 @@ func (e SplunkAuthenticationNoneAuthentication) ToPointer() *SplunkAuthenticatio
 func (e *SplunkAuthenticationNoneAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret":
 			return true
 		}
 	}
@@ -4414,8 +3116,6 @@ const (
 	SplunkCollectorConfTypeBasicSecret SplunkCollectorConfType = "basicSecret"
 	SplunkCollectorConfTypeToken       SplunkCollectorConfType = "token"
 	SplunkCollectorConfTypeTokenSecret SplunkCollectorConfType = "tokenSecret"
-	SplunkCollectorConfTypeLogin       SplunkCollectorConfType = "login"
-	SplunkCollectorConfTypeLoginSecret SplunkCollectorConfType = "loginSecret"
 )
 
 type SplunkCollectorConf struct {
@@ -4424,8 +3124,6 @@ type SplunkCollectorConf struct {
 	SplunkAuthenticationBasicSecret *SplunkAuthenticationBasicSecret `queryParam:"inline" union:"member"`
 	SplunkAuthenticationToken       *SplunkAuthenticationToken       `queryParam:"inline" union:"member"`
 	SplunkAuthenticationTokenSecret *SplunkAuthenticationTokenSecret `queryParam:"inline" union:"member"`
-	SplunkAuthenticationLogin       *SplunkAuthenticationLogin       `queryParam:"inline" union:"member"`
-	SplunkAuthenticationLoginSecret *SplunkAuthenticationLoginSecret `queryParam:"inline" union:"member"`
 
 	Type SplunkCollectorConfType
 }
@@ -4490,30 +3188,6 @@ func CreateSplunkCollectorConfTokenSecret(tokenSecret SplunkAuthenticationTokenS
 	}
 }
 
-func CreateSplunkCollectorConfLogin(login SplunkAuthenticationLogin) SplunkCollectorConf {
-	typ := SplunkCollectorConfTypeLogin
-
-	typStr := SplunkAuthenticationLoginAuthentication(typ)
-	login.Authentication = typStr
-
-	return SplunkCollectorConf{
-		SplunkAuthenticationLogin: &login,
-		Type:                      typ,
-	}
-}
-
-func CreateSplunkCollectorConfLoginSecret(loginSecret SplunkAuthenticationLoginSecret) SplunkCollectorConf {
-	typ := SplunkCollectorConfTypeLoginSecret
-
-	typStr := SplunkAuthenticationLoginSecretAuthentication(typ)
-	loginSecret.Authentication = typStr
-
-	return SplunkCollectorConf{
-		SplunkAuthenticationLoginSecret: &loginSecret,
-		Type:                            typ,
-	}
-}
-
 func (u *SplunkCollectorConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -4571,24 +3245,6 @@ func (u *SplunkCollectorConf) UnmarshalJSON(data []byte) error {
 		u.SplunkAuthenticationTokenSecret = splunkAuthenticationTokenSecret
 		u.Type = SplunkCollectorConfTypeTokenSecret
 		return nil
-	case "login":
-		splunkAuthenticationLogin := new(SplunkAuthenticationLogin)
-		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLogin, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Authentication == login) type SplunkAuthenticationLogin within SplunkCollectorConf: %w", string(data), err)
-		}
-
-		u.SplunkAuthenticationLogin = splunkAuthenticationLogin
-		u.Type = SplunkCollectorConfTypeLogin
-		return nil
-	case "loginSecret":
-		splunkAuthenticationLoginSecret := new(SplunkAuthenticationLoginSecret)
-		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLoginSecret, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Authentication == loginSecret) type SplunkAuthenticationLoginSecret within SplunkCollectorConf: %w", string(data), err)
-		}
-
-		u.SplunkAuthenticationLoginSecret = splunkAuthenticationLoginSecret
-		u.Type = SplunkCollectorConfTypeLoginSecret
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SplunkCollectorConf", string(data))
@@ -4613,14 +3269,6 @@ func (u SplunkCollectorConf) MarshalJSON() ([]byte, error) {
 
 	if u.SplunkAuthenticationTokenSecret != nil {
 		return utils.MarshalJSON(u.SplunkAuthenticationTokenSecret, "", true)
-	}
-
-	if u.SplunkAuthenticationLogin != nil {
-		return utils.MarshalJSON(u.SplunkAuthenticationLogin, "", true)
-	}
-
-	if u.SplunkAuthenticationLoginSecret != nil {
-		return utils.MarshalJSON(u.SplunkAuthenticationLoginSecret, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type SplunkCollectorConf: all fields are null")

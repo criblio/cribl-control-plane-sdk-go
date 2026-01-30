@@ -134,7 +134,7 @@ type InputOpenTelemetry struct {
 	// OpenTelemetry authentication type
 	AuthType *AuthenticationTypeOptions `json:"authType,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	Description  *string  `json:"description,omitempty"`
@@ -368,7 +368,7 @@ func (i *InputOpenTelemetry) GetAuthType() *AuthenticationTypeOptions {
 	return i.AuthType
 }
 
-func (i *InputOpenTelemetry) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOpenTelemetry) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

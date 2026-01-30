@@ -485,9 +485,9 @@ type InputSystemState struct {
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `json:"interval,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Collectors  *Collectors                     `json:"collectors,omitempty"`
-	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
+	Metadata    []ItemsTypeMetadata          `json:"metadata,omitempty"`
+	Collectors  *Collectors                  `json:"collectors,omitempty"`
+	Persistence *InputSystemStatePersistence `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
@@ -583,7 +583,7 @@ func (i *InputSystemState) GetInterval() *float64 {
 	return i.Interval
 }
 
-func (i *InputSystemState) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSystemState) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
