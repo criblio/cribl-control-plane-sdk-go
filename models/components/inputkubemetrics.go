@@ -121,9 +121,9 @@ type InputKubeMetrics struct {
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
 	Rules []ItemsTypeRules `json:"rules,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *InputKubeMetricsPersistence    `json:"persistence,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata          `json:"metadata,omitempty"`
+	Persistence *InputKubeMetricsPersistence `json:"persistence,omitempty"`
+	Description *string                      `json:"description,omitempty"`
 }
 
 func (i InputKubeMetrics) MarshalJSON() ([]byte, error) {
@@ -221,7 +221,7 @@ func (i *InputKubeMetrics) GetRules() []ItemsTypeRules {
 	return i.Rules
 }
 
-func (i *InputKubeMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeMetrics) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

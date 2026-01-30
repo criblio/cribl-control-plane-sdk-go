@@ -55,7 +55,7 @@ type InputModelDrivenTelemetry struct {
 	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
@@ -169,7 +169,7 @@ func (i *InputModelDrivenTelemetry) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputModelDrivenTelemetry) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputModelDrivenTelemetry) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

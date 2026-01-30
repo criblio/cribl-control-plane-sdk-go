@@ -81,10 +81,10 @@ type InputLoki struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-	Username    *string                         `json:"username,omitempty"`
-	Password    *string                         `json:"password,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
+	Username    *string             `json:"username,omitempty"`
+	Password    *string             `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -290,7 +290,7 @@ func (i *InputLoki) GetAuthType() *AuthenticationTypeOptionsLokiAuth {
 	return i.AuthType
 }
 
-func (i *InputLoki) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputLoki) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

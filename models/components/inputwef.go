@@ -300,8 +300,8 @@ type Subscription struct {
 	Locale        *string           `json:"locale,omitempty"`
 	QuerySelector *QueryBuilderMode `json:"querySelector,omitempty"`
 	// Fields to add to events ingested under this subscription
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Queries  []Query                         `json:"queries,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Queries  []Query             `json:"queries,omitempty"`
 	// The XPath query to use for selecting events
 	XMLQuery *string `json:"xmlQuery,omitempty"`
 }
@@ -394,7 +394,7 @@ func (s *Subscription) GetQuerySelector() *QueryBuilderMode {
 	return s.QuerySelector
 }
 
-func (s *Subscription) GetMetadata() []ItemsTypeNotificationMetadata {
+func (s *Subscription) GetMetadata() []ItemsTypeMetadata {
 	if s == nil {
 		return nil
 	}
@@ -469,8 +469,8 @@ type InputWef struct {
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []Subscription `json:"subscriptions"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -686,7 +686,7 @@ func (i *InputWef) GetSubscriptions() []Subscription {
 	return i.Subscriptions
 }
 
-func (i *InputWef) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWef) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

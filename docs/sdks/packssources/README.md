@@ -132,8 +132,8 @@ func main() {
             SocketEndingMaxWait: criblcontrolplanesdkgo.Pointer[float64](5473.3),
             SocketMaxLifespan: criblcontrolplanesdkgo.Pointer[float64](7426.73),
             EnableProxyHeader: criblcontrolplanesdkgo.Pointer(true),
-            Metadata: []components.ItemsTypeNotificationMetadata{
-                components.ItemsTypeNotificationMetadata{
+            Metadata: []components.ItemsTypeMetadata{
+                components.ItemsTypeMetadata{
                     Name: "<value>",
                     Value: "<value>",
                 },
@@ -339,8 +339,8 @@ func main() {
             SocketEndingMaxWait: criblcontrolplanesdkgo.Pointer[float64](2476.4),
             SocketMaxLifespan: criblcontrolplanesdkgo.Pointer[float64](8980.2),
             EnableProxyHeader: criblcontrolplanesdkgo.Pointer(false),
-            Metadata: []components.ItemsTypeNotificationMetadata{
-                components.ItemsTypeNotificationMetadata{
+            Metadata: []components.ItemsTypeMetadata{
+                components.ItemsTypeMetadata{
                     Name: "<value>",
                     Value: "<value>",
                 },

@@ -66,7 +66,7 @@ type CreateInputAuthTokenCloudflareHec struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 }
 
 func (c CreateInputAuthTokenCloudflareHec) MarshalJSON() ([]byte, error) {
@@ -122,7 +122,7 @@ func (c *CreateInputAuthTokenCloudflareHec) GetAllowedIndexesAtToken() []string 
 	return c.AllowedIndexesAtToken
 }
 
-func (c *CreateInputAuthTokenCloudflareHec) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputAuthTokenCloudflareHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -178,7 +178,7 @@ type CreateInputInputCloudflareHec struct {
 	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -391,7 +391,7 @@ func (c *CreateInputInputCloudflareHec) GetHecAPI() string {
 	return c.HecAPI
 }
 
-func (c *CreateInputInputCloudflareHec) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputCloudflareHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -496,7 +496,7 @@ type CreateInputAuthTokenZscalerHec struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 }
 
 func (c CreateInputAuthTokenZscalerHec) MarshalJSON() ([]byte, error) {
@@ -552,7 +552,7 @@ func (c *CreateInputAuthTokenZscalerHec) GetAllowedIndexesAtToken() []string {
 	return c.AllowedIndexesAtToken
 }
 
-func (c *CreateInputAuthTokenZscalerHec) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputAuthTokenZscalerHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -608,7 +608,7 @@ type CreateInputInputZscalerHec struct {
 	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// Whether to enable Zscaler HEC acknowledgements
@@ -821,7 +821,7 @@ func (c *CreateInputInputZscalerHec) GetHecAPI() string {
 	return c.HecAPI
 }
 
-func (c *CreateInputInputZscalerHec) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputZscalerHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -976,10 +976,10 @@ type CreateInputInputSecurityLake struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitempty"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool                      `json:"enableSQSAssumeRole,omitempty"`
+	Preprocess          *components.PreprocessType `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
@@ -1256,14 +1256,14 @@ func (c *CreateInputInputSecurityLake) GetEnableSQSAssumeRole() *bool {
 	return c.EnableSQSAssumeRole
 }
 
-func (c *CreateInputInputSecurityLake) GetPreprocess() *components.PreprocessTypeSavedJobCollectionInput {
+func (c *CreateInputInputSecurityLake) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
 	return c.Preprocess
 }
 
-func (c *CreateInputInputSecurityLake) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSecurityLake) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -1458,8 +1458,8 @@ type CreateInputInputNetflow struct {
 	// Accept messages in IPFIX format.
 	IpfixEnabled *bool `json:"ipfixEnabled,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -1617,7 +1617,7 @@ func (c *CreateInputInputNetflow) GetIpfixEnabled() *bool {
 	return c.IpfixEnabled
 }
 
-func (c *CreateInputInputNetflow) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputNetflow) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -1720,7 +1720,7 @@ type CreateInputInputWizWebhook struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// List of URI paths accepted by this input. Wildcards are supported (such as /api/v*/hook). Defaults to allow all.
 	AllowedPaths []string `json:"allowedPaths,omitempty"`
 	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
@@ -1934,7 +1934,7 @@ func (c *CreateInputInputWizWebhook) GetStaleChannelFlushMs() *float64 {
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputWizWebhook) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputWizWebhook) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -2221,8 +2221,8 @@ type CreateInputInputWiz struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata   []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	RetryRules *components.RetryRulesType                 `json:"retryRules,omitempty"`
+	Metadata   []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	RetryRules *components.RetryRulesType     `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
 	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitempty"`
 	Description *string                                  `json:"description,omitempty"`
@@ -2389,7 +2389,7 @@ func (c *CreateInputInputWiz) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputWiz) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputWiz) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -2538,8 +2538,8 @@ type CreateInputInputJournalFiles struct {
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 }
 
 func (c CreateInputInputJournalFiles) MarshalJSON() ([]byte, error) {
@@ -2665,7 +2665,7 @@ func (c *CreateInputInputJournalFiles) GetMaxAgeDur() *string {
 	return c.MaxAgeDur
 }
 
-func (c *CreateInputInputJournalFiles) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputJournalFiles) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -2735,8 +2735,8 @@ type CreateInputInputRawUDP struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -2873,7 +2873,7 @@ func (c *CreateInputInputRawUDP) GetUDPSocketRxBufSize() *float64 {
 	return c.UDPSocketRxBufSize
 }
 
-func (c *CreateInputInputRawUDP) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputRawUDP) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -3005,7 +3005,7 @@ type CreateInputInputWinEventLogs struct {
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
 	BatchSize *float64 `json:"batchSize,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
 	Description   *string  `json:"description,omitempty"`
@@ -3138,7 +3138,7 @@ func (c *CreateInputInputWinEventLogs) GetBatchSize() *float64 {
 	return c.BatchSize
 }
 
-func (c *CreateInputInputWinEventLogs) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputWinEventLogs) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -3465,8 +3465,8 @@ type CreateInputSubscription struct {
 	Locale        *string                      `json:"locale,omitempty"`
 	QuerySelector *CreateInputQueryBuilderMode `json:"querySelector,omitempty"`
 	// Fields to add to events ingested under this subscription
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Queries  []CreateInputQuery                         `json:"queries,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Queries  []CreateInputQuery             `json:"queries,omitempty"`
 	// The XPath query to use for selecting events
 	XMLQuery *string `json:"xmlQuery,omitempty"`
 }
@@ -3559,7 +3559,7 @@ func (c *CreateInputSubscription) GetQuerySelector() *CreateInputQueryBuilderMod
 	return c.QuerySelector
 }
 
-func (c *CreateInputSubscription) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputSubscription) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -3634,8 +3634,8 @@ type CreateInputInputWef struct {
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []CreateInputSubscription `json:"subscriptions"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -3851,7 +3851,7 @@ func (c *CreateInputInputWef) GetSubscriptions() []CreateInputSubscription {
 	return c.Subscriptions
 }
 
-func (c *CreateInputInputWef) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputWef) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -4080,7 +4080,7 @@ type CreateInputInputAppscope struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -4234,7 +4234,7 @@ func (c *CreateInputInputAppscope) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputAppscope) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputAppscope) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -4412,15 +4412,15 @@ type CreateInputInputTCP struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
-	EnableHeader *bool                                             `json:"enableHeader,omitempty"`
-	Preprocess   *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
-	Description  *string                                           `json:"description,omitempty"`
+	EnableHeader *bool                      `json:"enableHeader,omitempty"`
+	Preprocess   *components.PreprocessType `json:"preprocess,omitempty"`
+	Description  *string                    `json:"description,omitempty"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `json:"authToken,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -4577,7 +4577,7 @@ func (c *CreateInputInputTCP) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputTCP) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputTCP) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -4605,7 +4605,7 @@ func (c *CreateInputInputTCP) GetEnableHeader() *bool {
 	return c.EnableHeader
 }
 
-func (c *CreateInputInputTCP) GetPreprocess() *components.PreprocessTypeSavedJobCollectionInput {
+func (c *CreateInputInputTCP) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
@@ -4743,7 +4743,7 @@ type CreateInputInputFile struct {
 	// Length of file header bytes to use in hash for unique file identification
 	HashLen *float64 `json:"hashLen,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -4920,7 +4920,7 @@ func (c *CreateInputInputFile) GetHashLen() *float64 {
 	return c.HashLen
 }
 
-func (c *CreateInputInputFile) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputFile) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -5067,7 +5067,7 @@ type CreateInputInputSyslogSyslog2 struct {
 	SocketMaxLifespan *float64                              `json:"socketMaxLifespan,omitempty"`
 	TLS               *components.TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Load balance traffic across all Worker Processes
@@ -5290,7 +5290,7 @@ func (c *CreateInputInputSyslogSyslog2) GetTLS() *components.TLSSettingsServerSi
 	return c.TLS
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSyslogSyslog2) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -5423,7 +5423,7 @@ type CreateInputInputSyslogSyslog1 struct {
 	SocketMaxLifespan *float64                              `json:"socketMaxLifespan,omitempty"`
 	TLS               *components.TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Load balance traffic across all Worker Processes
@@ -5646,7 +5646,7 @@ func (c *CreateInputInputSyslogSyslog1) GetTLS() *components.TLSSettingsServerSi
 	return c.TLS
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSyslogSyslog1) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -5865,7 +5865,7 @@ type CreateInputInputSqs struct {
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitempty"`
 	Description *string  `json:"description,omitempty"`
@@ -6090,7 +6090,7 @@ func (c *CreateInputInputSqs) GetVisibilityTimeout() *float64 {
 	return c.VisibilityTimeout
 }
 
-func (c *CreateInputInputSqs) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSqs) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -6228,7 +6228,7 @@ type CreateInputInputModelDrivenTelemetry struct {
 	Port float64                               `json:"port"`
 	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
@@ -6342,7 +6342,7 @@ func (c *CreateInputInputModelDrivenTelemetry) GetTLS() *components.TLSSettingsS
 	return c.TLS
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputModelDrivenTelemetry) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -6510,7 +6510,7 @@ type CreateInputInputOpenTelemetry struct {
 	// OpenTelemetry authentication type
 	AuthType *components.AuthenticationTypeOptions `json:"authType,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	Description  *string  `json:"description,omitempty"`
@@ -6744,7 +6744,7 @@ func (c *CreateInputInputOpenTelemetry) GetAuthType() *components.Authentication
 	return c.AuthType
 }
 
-func (c *CreateInputInputOpenTelemetry) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputOpenTelemetry) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -6998,7 +6998,7 @@ type CreateInputInputSnmp struct {
 	// Regex matching IP addresses that are allowed to send data
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
@@ -7128,7 +7128,7 @@ func (c *CreateInputInputSnmp) GetIPWhitelistRegex() *string {
 	return c.IPWhitelistRegex
 }
 
-func (c *CreateInputInputSnmp) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSnmp) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -7262,10 +7262,10 @@ type CreateInputInputS3Inventory struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitempty"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool                      `json:"enableSQSAssumeRole,omitempty"`
+	Preprocess          *components.PreprocessType `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
@@ -7546,14 +7546,14 @@ func (c *CreateInputInputS3Inventory) GetEnableSQSAssumeRole() *bool {
 	return c.EnableSQSAssumeRole
 }
 
-func (c *CreateInputInputS3Inventory) GetPreprocess() *components.PreprocessTypeSavedJobCollectionInput {
+func (c *CreateInputInputS3Inventory) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
 	return c.Preprocess
 }
 
-func (c *CreateInputInputS3Inventory) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputS3Inventory) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -7785,10 +7785,10 @@ type CreateInputInputS3 struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitempty"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool                      `json:"enableSQSAssumeRole,omitempty"`
+	Preprocess          *components.PreprocessType `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
@@ -8066,14 +8066,14 @@ func (c *CreateInputInputS3) GetEnableSQSAssumeRole() *bool {
 	return c.EnableSQSAssumeRole
 }
 
-func (c *CreateInputInputS3) GetPreprocess() *components.PreprocessTypeSavedJobCollectionInput {
+func (c *CreateInputInputS3) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
 	return c.Preprocess
 }
 
-func (c *CreateInputInputS3) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputS3) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -8261,7 +8261,7 @@ type CreateInputInputMetrics struct {
 	EnableProxyHeader *bool                                 `json:"enableProxyHeader,omitempty"`
 	TLS               *components.TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -8403,7 +8403,7 @@ func (c *CreateInputInputMetrics) GetTLS() *components.TLSSettingsServerSideType
 	return c.TLS
 }
 
-func (c *CreateInputInputMetrics) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputMetrics) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -8491,8 +8491,8 @@ type CreateInputInputCriblmetrics struct {
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
 	FullFidelity *bool `json:"fullFidelity,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 }
 
 func (c CreateInputInputCriblmetrics) MarshalJSON() ([]byte, error) {
@@ -8590,7 +8590,7 @@ func (c *CreateInputInputCriblmetrics) GetFullFidelity() *bool {
 	return c.FullFidelity
 }
 
-func (c *CreateInputInputCriblmetrics) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputCriblmetrics) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -8766,9 +8766,9 @@ type CreateInputInputKinesis struct {
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
 	AvoidDuplicates *bool `json:"avoidDuplicates,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
-	AwsAPIKey   *string                                    `json:"awsApiKey,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
+	AwsAPIKey   *string                        `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
@@ -9013,7 +9013,7 @@ func (c *CreateInputInputKinesis) GetAvoidDuplicates() *bool {
 	return c.AvoidDuplicates
 }
 
-func (c *CreateInputInputKinesis) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputKinesis) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -9158,7 +9158,7 @@ type CreateInputInputHTTPRaw struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// List of URI paths accepted by this input, wildcards are supported, e.g /api/v*/hook. Defaults to allow all.
 	AllowedPaths []string `json:"allowedPaths,omitempty"`
 	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
@@ -9372,7 +9372,7 @@ func (c *CreateInputInputHTTPRaw) GetStaleChannelFlushMs() *float64 {
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputHTTPRaw) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputHTTPRaw) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -9495,8 +9495,8 @@ type CreateInputInputDatagen struct {
 	Pq          *components.PqType                        `json:"pq,omitempty"`
 	Samples     []CreateInputSample                       `json:"samples"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 }
 
 func (c CreateInputInputDatagen) MarshalJSON() ([]byte, error) {
@@ -9587,7 +9587,7 @@ func (c *CreateInputInputDatagen) GetSamples() []CreateInputSample {
 	return c.Samples
 }
 
-func (c *CreateInputInputDatagen) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputDatagen) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -9704,9 +9704,9 @@ type CreateInputInputDatadogAgent struct {
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	ProxyMode   *CreateInputProxyModeDatadogAgent          `json:"proxyMode,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata    `json:"metadata,omitempty"`
+	ProxyMode   *CreateInputProxyModeDatadogAgent `json:"proxyMode,omitempty"`
+	Description *string                           `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -9899,7 +9899,7 @@ func (c *CreateInputInputDatadogAgent) GetExtractMetrics() *bool {
 	return c.ExtractMetrics
 }
 
-func (c *CreateInputInputDatadogAgent) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputDatadogAgent) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -10019,11 +10019,11 @@ type CreateInputInputCrowdstrike struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitempty"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool                      `json:"enableSQSAssumeRole,omitempty"`
+	Preprocess          *components.PreprocessType `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
-	Metadata      []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Checkpointing *components.CheckpointingType              `json:"checkpointing,omitempty"`
+	Metadata      []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Checkpointing *components.CheckpointingType  `json:"checkpointing,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitempty"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
@@ -10295,14 +10295,14 @@ func (c *CreateInputInputCrowdstrike) GetEnableSQSAssumeRole() *bool {
 	return c.EnableSQSAssumeRole
 }
 
-func (c *CreateInputInputCrowdstrike) GetPreprocess() *components.PreprocessTypeSavedJobCollectionInput {
+func (c *CreateInputInputCrowdstrike) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
 	return c.Preprocess
 }
 
-func (c *CreateInputInputCrowdstrike) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputCrowdstrike) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -10987,8 +10987,8 @@ type CreateInputInputWindowsMetrics struct {
 	Host     *CreateInputHostWindowsMetrics `json:"host,omitempty"`
 	Process  *components.ProcessType        `json:"process,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *CreateInputPersistenceWindowsMetrics      `json:"persistence,omitempty"`
+	Metadata    []components.ItemsTypeMetadata        `json:"metadata,omitempty"`
+	Persistence *CreateInputPersistenceWindowsMetrics `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
 	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
 	Description         *string `json:"description,omitempty"`
@@ -11096,7 +11096,7 @@ func (c *CreateInputInputWindowsMetrics) GetProcess() *components.ProcessType {
 	return c.Process
 }
 
-func (c *CreateInputInputWindowsMetrics) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputWindowsMetrics) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -11168,8 +11168,8 @@ type CreateInputInputKubeEvents struct {
 	// Filtering on event fields
 	Rules []components.ItemsTypeRules `json:"rules,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 }
 
 func (c CreateInputInputKubeEvents) MarshalJSON() ([]byte, error) {
@@ -11260,7 +11260,7 @@ func (c *CreateInputInputKubeEvents) GetRules() []components.ItemsTypeRules {
 	return c.Rules
 }
 
-func (c *CreateInputInputKubeEvents) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputKubeEvents) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -11354,8 +11354,8 @@ type CreateInputInputKubeLogs struct {
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *components.DiskSpoolingType               `json:"persistence,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Persistence *components.DiskSpoolingType   `json:"persistence,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -11467,7 +11467,7 @@ func (c *CreateInputInputKubeLogs) GetTimestamps() *bool {
 	return c.Timestamps
 }
 
-func (c *CreateInputInputKubeLogs) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputKubeLogs) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -11622,9 +11622,9 @@ type CreateInputInputKubeMetrics struct {
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
 	Rules []components.ItemsTypeRules `json:"rules,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *CreateInputPersistenceKubeMetrics         `json:"persistence,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata     `json:"metadata,omitempty"`
+	Persistence *CreateInputPersistenceKubeMetrics `json:"persistence,omitempty"`
+	Description *string                            `json:"description,omitempty"`
 }
 
 func (c CreateInputInputKubeMetrics) MarshalJSON() ([]byte, error) {
@@ -11722,7 +11722,7 @@ func (c *CreateInputInputKubeMetrics) GetRules() []components.ItemsTypeRules {
 	return c.Rules
 }
 
-func (c *CreateInputInputKubeMetrics) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputKubeMetrics) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -12220,9 +12220,9 @@ type CreateInputInputSystemState struct {
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `json:"interval,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Collectors  *CreateInputCollectors                     `json:"collectors,omitempty"`
-	Persistence *CreateInputPersistenceSystemState         `json:"persistence,omitempty"`
+	Metadata    []components.ItemsTypeMetadata     `json:"metadata,omitempty"`
+	Collectors  *CreateInputCollectors             `json:"collectors,omitempty"`
+	Persistence *CreateInputPersistenceSystemState `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
@@ -12318,7 +12318,7 @@ func (c *CreateInputInputSystemState) GetInterval() *float64 {
 	return c.Interval
 }
 
-func (c *CreateInputInputSystemState) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSystemState) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -13082,9 +13082,9 @@ type CreateInputInputSystemMetrics struct {
 	Process   *components.ProcessType       `json:"process,omitempty"`
 	Container *CreateInputContainer         `json:"container,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *CreateInputPersistenceSystemMetrics       `json:"persistence,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata       `json:"metadata,omitempty"`
+	Persistence *CreateInputPersistenceSystemMetrics `json:"persistence,omitempty"`
+	Description *string                              `json:"description,omitempty"`
 }
 
 func (c CreateInputInputSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -13196,7 +13196,7 @@ func (c *CreateInputInputSystemMetrics) GetContainer() *CreateInputContainer {
 	return c.Container
 }
 
-func (c *CreateInputInputSystemMetrics) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSystemMetrics) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -13276,7 +13276,7 @@ type CreateInputInputTcpjson struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -13436,7 +13436,7 @@ func (c *CreateInputInputTcpjson) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputTcpjson) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputTcpjson) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -13587,9 +13587,9 @@ type CreateInputAuthTokensExt struct {
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata              []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	SplunkHecMetadata     *CreateInputSplunkHecMetadata              `json:"splunkHecMetadata,omitempty"`
-	ElasticsearchMetadata *CreateInputElasticsearchMetadata          `json:"elasticsearchMetadata,omitempty"`
+	Metadata              []components.ItemsTypeMetadata    `json:"metadata,omitempty"`
+	SplunkHecMetadata     *CreateInputSplunkHecMetadata     `json:"splunkHecMetadata,omitempty"`
+	ElasticsearchMetadata *CreateInputElasticsearchMetadata `json:"elasticsearchMetadata,omitempty"`
 }
 
 func (c CreateInputAuthTokensExt) MarshalJSON() ([]byte, error) {
@@ -13617,7 +13617,7 @@ func (c *CreateInputAuthTokensExt) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CreateInputAuthTokensExt) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputAuthTokensExt) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -13693,9 +13693,9 @@ type CreateInputInputCriblLakeHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitempty"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitempty"`
 	// Fields to add to events from this input
-	Metadata      []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	AuthTokensExt []CreateInputAuthTokensExt                 `json:"authTokensExt,omitempty"`
-	Description   *string                                    `json:"description,omitempty"`
+	Metadata      []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	AuthTokensExt []CreateInputAuthTokensExt     `json:"authTokensExt,omitempty"`
+	Description   *string                        `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -13918,7 +13918,7 @@ func (c *CreateInputInputCriblLakeHTTP) GetSplunkHecAcks() *bool {
 	return c.SplunkHecAcks
 }
 
-func (c *CreateInputInputCriblLakeHTTP) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputCriblLakeHTTP) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -14031,8 +14031,8 @@ type CreateInputInputCriblHTTP struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -14225,7 +14225,7 @@ func (c *CreateInputInputCriblHTTP) GetIPDenylistRegex() *string {
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputCriblHTTP) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputCriblHTTP) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -14310,7 +14310,7 @@ type CreateInputInputCriblTCP struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
@@ -14459,7 +14459,7 @@ func (c *CreateInputInputCriblTCP) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputCriblTCP) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputCriblTCP) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -14544,8 +14544,8 @@ type CreateInputInputCribl struct {
 	Pq          *components.PqType                        `json:"pq,omitempty"`
 	Filter      *string                                   `json:"filter,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 }
 
 func (c CreateInputInputCribl) MarshalJSON() ([]byte, error) {
@@ -14636,7 +14636,7 @@ func (c *CreateInputInputCribl) GetFilter() *string {
 	return c.Filter
 }
 
-func (c *CreateInputInputCribl) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputCribl) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -14716,8 +14716,8 @@ type CreateInputInputGooglePubsub struct {
 	// Pull request timeout, in milliseconds
 	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
@@ -14893,7 +14893,7 @@ func (c *CreateInputInputGooglePubsub) GetRequestTimeout() *float64 {
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputGooglePubsub) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputGooglePubsub) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -15006,8 +15006,8 @@ type CreateInputInputFirehose struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -15200,7 +15200,7 @@ func (c *CreateInputInputFirehose) GetIPDenylistRegex() *string {
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputFirehose) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputFirehose) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -15303,8 +15303,8 @@ type CreateInputInputExec struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Interval between command executions in seconds.
 	Interval *float64 `json:"interval,omitempty"`
 	// Cron schedule to execute the command on.
@@ -15427,7 +15427,7 @@ func (c *CreateInputInputExec) GetStaleChannelFlushMs() *float64 {
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputExec) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputExec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -15549,8 +15549,8 @@ type CreateInputInputEventhub struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 }
 
 func (c CreateInputInputEventhub) MarshalJSON() ([]byte, error) {
@@ -15795,7 +15795,7 @@ func (c *CreateInputInputEventhub) GetMinimizeDuplicates() *bool {
 	return c.MinimizeDuplicates
 }
 
-func (c *CreateInputInputEventhub) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputEventhub) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -15983,9 +15983,9 @@ type CreateInputInputOffice365MsgTrace struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	RetryRules  *components.RetryRulesType1                `json:"retryRules,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	RetryRules  *components.RetryRulesType1    `json:"retryRules,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Username to run Message Trace API call.
 	Username *string `json:"username,omitempty"`
 	// Password to run Message Trace API call.
@@ -16201,7 +16201,7 @@ func (c *CreateInputInputOffice365MsgTrace) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputOffice365MsgTrace) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputOffice365MsgTrace) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -16437,7 +16437,7 @@ type CreateInputInputOffice365Service struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []CreateInputContentConfigOffice365Service `json:"contentConfig,omitempty"`
 	RetryRules    *components.RetryRulesType1                `json:"retryRules,omitempty"`
@@ -16600,7 +16600,7 @@ func (c *CreateInputInputOffice365Service) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputOffice365Service) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputOffice365Service) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -16787,7 +16787,7 @@ type CreateInputInputOffice365Mgmt struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
 	PublisherIdentifier *string `json:"publisherIdentifier,omitempty"`
 	// Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
@@ -16956,7 +16956,7 @@ func (c *CreateInputInputOffice365Mgmt) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputOffice365Mgmt) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputOffice365Mgmt) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -17235,7 +17235,7 @@ type CreateInputInputEdgePrometheus struct {
 	Timeout     *float64                     `json:"timeout,omitempty"`
 	Persistence *components.DiskSpoolingType `json:"persistence,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *CreateInputAuthenticationMethodEdgePrometheus `json:"authType,omitempty"`
 	Description *string                                        `json:"description,omitempty"`
@@ -17423,7 +17423,7 @@ func (c *CreateInputInputEdgePrometheus) GetPersistence() *components.DiskSpooli
 	return c.Persistence
 }
 
-func (c *CreateInputInputEdgePrometheus) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputEdgePrometheus) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -17814,7 +17814,7 @@ type CreateInputInputPrometheus struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *components.AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
 	Description *string                                     `json:"description,omitempty"`
@@ -18034,7 +18034,7 @@ func (c *CreateInputInputPrometheus) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputPrometheus) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputPrometheus) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -18331,10 +18331,10 @@ type CreateInputInputPrometheusRw struct {
 	// Remote Write authentication type
 	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
-	Username    *string                                    `json:"username,omitempty"`
-	Password    *string                                    `json:"password,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
+	Username    *string                        `json:"username,omitempty"`
+	Password    *string                        `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -18542,7 +18542,7 @@ func (c *CreateInputInputPrometheusRw) GetAuthType() *components.AuthenticationT
 	return c.AuthType
 }
 
-func (c *CreateInputInputPrometheusRw) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputPrometheusRw) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -18685,10 +18685,10 @@ type CreateInputInputLoki struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
-	Username    *string                                    `json:"username,omitempty"`
-	Password    *string                                    `json:"password,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
+	Username    *string                        `json:"username,omitempty"`
+	Password    *string                        `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -18894,7 +18894,7 @@ func (c *CreateInputInputLoki) GetAuthType() *components.AuthenticationTypeOptio
 	return c.AuthType
 }
 
-func (c *CreateInputInputLoki) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputLoki) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -19164,8 +19164,8 @@ type CreateInputInputGrafanaGrafana2 struct {
 	PrometheusAuth *CreateInputPrometheusAuth2 `json:"prometheusAuth,omitempty"`
 	LokiAuth       *CreateInputLokiAuth2       `json:"lokiAuth,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -19379,7 +19379,7 @@ func (c *CreateInputInputGrafanaGrafana2) GetLokiAuth() *CreateInputLokiAuth2 {
 	return c.LokiAuth
 }
 
-func (c *CreateInputInputGrafanaGrafana2) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputGrafanaGrafana2) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -19614,8 +19614,8 @@ type CreateInputInputGrafanaGrafana1 struct {
 	PrometheusAuth *CreateInputPrometheusAuth1 `json:"prometheusAuth,omitempty"`
 	LokiAuth       *CreateInputLokiAuth1       `json:"lokiAuth,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitempty"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -19829,7 +19829,7 @@ func (c *CreateInputInputGrafanaGrafana1) GetLokiAuth() *CreateInputLokiAuth1 {
 	return c.LokiAuth
 }
 
-func (c *CreateInputInputGrafanaGrafana1) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputGrafanaGrafana1) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -20014,8 +20014,8 @@ type CreateInputInputConfluentCloud struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 }
 
 func (c CreateInputInputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -20260,7 +20260,7 @@ func (c *CreateInputInputConfluentCloud) GetMaxSocketErrors() *float64 {
 	return c.MaxSocketErrors
 }
 
-func (c *CreateInputInputConfluentCloud) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputConfluentCloud) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -20531,11 +20531,11 @@ type CreateInputInputElastic struct {
 	// Headers to add to all events
 	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	ProxyMode   *CreateInputProxyModeElastic               `json:"proxyMode,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
-	Username    *string                                    `json:"username,omitempty"`
-	Password    *string                                    `json:"password,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	ProxyMode   *CreateInputProxyModeElastic   `json:"proxyMode,omitempty"`
+	Description *string                        `json:"description,omitempty"`
+	Username    *string                        `json:"username,omitempty"`
+	Password    *string                        `json:"password,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Bearer tokens to include in the authorization header
@@ -20755,7 +20755,7 @@ func (c *CreateInputInputElastic) GetExtraHTTPHeaders() []components.ItemsTypeEx
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateInputInputElastic) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputElastic) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -20881,7 +20881,7 @@ type CreateInputInputAzureBlob struct {
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
 	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -21049,7 +21049,7 @@ func (c *CreateInputInputAzureBlob) GetSkipOnError() *bool {
 	return c.SkipOnError
 }
 
-func (c *CreateInputInputAzureBlob) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputAzureBlob) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -21225,7 +21225,7 @@ type CreateInputAuthTokenSplunkHec struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 }
 
 func (c CreateInputAuthTokenSplunkHec) MarshalJSON() ([]byte, error) {
@@ -21281,7 +21281,7 @@ func (c *CreateInputAuthTokenSplunkHec) GetAllowedIndexesAtToken() []string {
 	return c.AllowedIndexesAtToken
 }
 
-func (c *CreateInputAuthTokenSplunkHec) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputAuthTokenSplunkHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -21337,7 +21337,7 @@ type CreateInputInputSplunkHec struct {
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// Enable Splunk HEC acknowledgements
@@ -21560,7 +21560,7 @@ func (c *CreateInputInputSplunkHec) GetSplunkHecAPI() string {
 	return c.SplunkHecAPI
 }
 
-func (c *CreateInputInputSplunkHec) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSplunkHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -21863,8 +21863,8 @@ type CreateInputInputSplunkSearch struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
-	Metadata   []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	RetryRules *components.RetryRulesType                 `json:"retryRules,omitempty"`
+	Metadata   []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	RetryRules *components.RetryRulesType     `json:"retryRules,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -22096,7 +22096,7 @@ func (c *CreateInputInputSplunkSearch) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputSplunkSearch) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSplunkSearch) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -22315,7 +22315,7 @@ type CreateInputInputSplunk struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -22483,7 +22483,7 @@ func (c *CreateInputInputSplunk) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputSplunk) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputSplunk) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -22645,7 +22645,7 @@ type CreateInputInputHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitempty"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
 	Description   *string                             `json:"description,omitempty"`
@@ -22871,7 +22871,7 @@ func (c *CreateInputInputHTTP) GetSplunkHecAcks() *bool {
 	return c.SplunkHecAcks
 }
 
-func (c *CreateInputInputHTTP) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputHTTP) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -22977,7 +22977,7 @@ type CreateInputInputMsk struct {
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitempty"`
 	// Fields to add to events from this input
-	Metadata            []components.ItemsTypeNotificationMetadata        `json:"metadata,omitempty"`
+	Metadata            []components.ItemsTypeMetadata                    `json:"metadata,omitempty"`
 	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
@@ -23173,7 +23173,7 @@ func (c *CreateInputInputMsk) GetHeartbeatInterval() *float64 {
 	return c.HeartbeatInterval
 }
 
-func (c *CreateInputInputMsk) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputMsk) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -23512,8 +23512,8 @@ type CreateInputInputKafka struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 }
 
 func (c CreateInputInputKafka) MarshalJSON() ([]byte, error) {
@@ -23758,7 +23758,7 @@ func (c *CreateInputInputKafka) GetMaxSocketErrors() *float64 {
 	return c.MaxSocketErrors
 }
 
-func (c *CreateInputInputKafka) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputKafka) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
@@ -23816,12 +23816,12 @@ type CreateInputInputCollection struct {
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64                                          `json:"staleChannelFlushMs,omitempty"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	StaleChannelFlushMs *float64                   `json:"staleChannelFlushMs,omitempty"`
+	Preprocess          *components.PreprocessType `json:"preprocess,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Destination to send results to
 	Output *string `json:"output,omitempty"`
 }
@@ -23921,7 +23921,7 @@ func (c *CreateInputInputCollection) GetStaleChannelFlushMs() *float64 {
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputCollection) GetPreprocess() *components.PreprocessTypeSavedJobCollectionInput {
+func (c *CreateInputInputCollection) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
@@ -23935,7 +23935,7 @@ func (c *CreateInputInputCollection) GetThrottleRatePerSec() *string {
 	return c.ThrottleRatePerSec
 }
 
-func (c *CreateInputInputCollection) GetMetadata() []components.ItemsTypeNotificationMetadata {
+func (c *CreateInputInputCollection) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
