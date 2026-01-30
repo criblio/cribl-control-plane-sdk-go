@@ -63,7 +63,7 @@ type InputMetrics struct {
 	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitempty"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -205,7 +205,7 @@ func (i *InputMetrics) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputMetrics) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

@@ -51,8 +51,8 @@ type InputCribl struct {
 	Pq          *PqType                        `json:"pq,omitempty"`
 	Filter      *string                        `json:"filter,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 }
 
 func (i InputCribl) MarshalJSON() ([]byte, error) {
@@ -143,7 +143,7 @@ func (i *InputCribl) GetFilter() *string {
 	return i.Filter
 }
 
-func (i *InputCribl) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCribl) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

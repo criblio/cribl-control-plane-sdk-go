@@ -33,15 +33,3 @@ splunkCollectorConf := components.CreateSplunkCollectorConfToken(components.Splu
 splunkCollectorConf := components.CreateSplunkCollectorConfTokenSecret(components.SplunkAuthenticationTokenSecret{/* values here */})
 ```
 
-### SplunkAuthenticationLogin
-
-```go
-splunkCollectorConf := components.CreateSplunkCollectorConfLogin(components.SplunkAuthenticationLogin{/* values here */})
-```
-
-### SplunkAuthenticationLoginSecret
-
-```go
-splunkCollectorConf := components.CreateSplunkCollectorConfLoginSecret(components.SplunkAuthenticationLoginSecret{/* values here */})
-```
-
