@@ -1,4 +1,4 @@
-# GetWorkersResponse
+# GetProductsWorkersByProductAndIDResponse
 
 
 ## Fields
