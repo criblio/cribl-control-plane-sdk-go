@@ -357,10 +357,10 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Create](docs/sdks/packshectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source within a Pack
 * [Update](docs/sdks/packshectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source within a Pack
 
-##### [Packs.Sources.Pq](docs/sdks/sourcespq/README.md)
+##### [Packs.Sources.Pq](docs/sdks/packssourcespq/README.md)
 
-* [Clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
-* [Get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
+* [Clear](docs/sdks/packssourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
+* [Get](docs/sdks/packssourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
@@ -389,6 +389,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
+
+#### [Sources.Pq](docs/sdks/sourcespq/README.md)
+
+* [Clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source
+* [Get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source
 
 ### [System.Captures](docs/sdks/captures/README.md)
 

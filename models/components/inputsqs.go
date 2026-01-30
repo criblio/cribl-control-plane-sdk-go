@@ -108,7 +108,7 @@ type InputSqs struct {
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitempty"`
 	Description *string  `json:"description,omitempty"`
@@ -333,7 +333,7 @@ func (i *InputSqs) GetVisibilityTimeout() *float64 {
 	return i.VisibilityTimeout
 }
 
-func (i *InputSqs) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSqs) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

@@ -74,8 +74,8 @@ type InputGooglePubsub struct {
 	// Pull request timeout, in milliseconds
 	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
@@ -251,7 +251,7 @@ func (i *InputGooglePubsub) GetRequestTimeout() *float64 {
 	return i.RequestTimeout
 }
 
-func (i *InputGooglePubsub) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGooglePubsub) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

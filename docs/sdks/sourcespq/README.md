@@ -1,19 +1,19 @@
-# Packs.Sources.Pq
+# Sources.Pq
 
 ## Overview
 
 ### Available Operations
 
-* [Clear](#clear) - Clear the persistent queue for a Source within a Pack
-* [Get](#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
+* [Clear](#clear) - Clear the persistent queue for a Source
+* [Get](#get) - Get information about the latest job to clear the persistent queue for a Source
 
 ## Clear
 
-Clear the persistent queue (PQ) for the specified Source within the specified Pack.
+Clear the persistent queue (PQ) for the specified Source.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="deleteInputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="go" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" -->
 ```go
 package main
 
@@ -35,7 +35,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Pq.Clear(ctx, "<id>", "<value>")
+    res, err := s.Sources.Pq.Clear(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -51,12 +51,11 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Source to clear the PQ for.   |
-| `pack`                                                   | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to clear.                |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
-**[*operations.DeleteInputSystemPqByPackAndIDResponse](../../models/operations/deleteinputsystempqbypackandidresponse.md), error**
+**[*operations.DeleteInputPqByIDResponse](../../models/operations/deleteinputpqbyidresponse.md), error**
 
 ### Errors
 
@@ -67,11 +66,11 @@ func main() {
 
 ## Get
 
-Get information about the latest job to clear the persistent queue (PQ) for the specified Source within the specified Pack.
+Get information about the latest job to clear the persistent queue (PQ) for the specified Source.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getInputSystemPqByPackAndId" method="get" path="/p/{pack}/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="go" operationID="getInputPqById" method="get" path="/system/inputs/{id}/pq" -->
 ```go
 package main
 
@@ -93,7 +92,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Pq.Get(ctx, "<id>", "<value>")
+    res, err := s.Sources.Pq.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -109,12 +108,11 @@ func main() {
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |
 | `id`                                                             | *string*                                                         | :heavy_check_mark:                                               | The <code>id</code> of the Source to get PQ job information for. |
-| `pack`                                                           | *string*                                                         | :heavy_check_mark:                                               | The <code>id</code> of the Pack to get.                          |
 | `opts`                                                           | [][operations.Option](../../models/operations/option.md)         | :heavy_minus_sign:                                               | The options for this request.                                    |
 
 ### Response
 
-**[*operations.GetInputSystemPqByPackAndIDResponse](../../models/operations/getinputsystempqbypackandidresponse.md), error**
+**[*operations.GetInputPqByIDResponse](../../models/operations/getinputpqbyidresponse.md), error**
 
 ### Errors
 

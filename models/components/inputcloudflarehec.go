@@ -64,7 +64,7 @@ type InputCloudflareHecAuthToken struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 }
 
 func (i InputCloudflareHecAuthToken) MarshalJSON() ([]byte, error) {
@@ -120,7 +120,7 @@ func (i *InputCloudflareHecAuthToken) GetAllowedIndexesAtToken() []string {
 	return i.AllowedIndexesAtToken
 }
 
-func (i *InputCloudflareHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCloudflareHecAuthToken) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -176,7 +176,7 @@ type InputCloudflareHec struct {
 	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -389,7 +389,7 @@ func (i *InputCloudflareHec) GetHecAPI() string {
 	return i.HecAPI
 }
 
-func (i *InputCloudflareHec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCloudflareHec) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

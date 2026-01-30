@@ -730,9 +730,9 @@ type InputSystemMetrics struct {
 	Process   *ProcessType            `json:"process,omitempty"`
 	Container *Container              `json:"container,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *InputSystemMetricsPersistence  `json:"persistence,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata            `json:"metadata,omitempty"`
+	Persistence *InputSystemMetricsPersistence `json:"persistence,omitempty"`
+	Description *string                        `json:"description,omitempty"`
 }
 
 func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -844,7 +844,7 @@ func (i *InputSystemMetrics) GetContainer() *Container {
 	return i.Container
 }
 
-func (i *InputSystemMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSystemMetrics) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

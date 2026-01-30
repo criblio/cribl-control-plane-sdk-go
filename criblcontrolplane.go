@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.17.0-alpha.1769713913455-536728f6 and generator version 2.799.0
+// Generated from OpenAPI doc version 4.17.0-alpha.1769772143018-399c0a71 and generator version 2.799.0
 
 import (
 	"context"
@@ -43,11 +43,10 @@ func Pointer[T any](v T) *T { return &v }
 
 // CriblControlPlane - Cribl API Reference: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
 type CriblControlPlane struct {
-	SDKVersion   string
-	LakeDatasets *LakeDatasets
-	// Actions related to Collectors
-	Collectors          *Collectors
+	SDKVersion          string
 	DatabaseConnections *DatabaseConnections
+	// Actions related to functions
+	Functions *Functions
 	// Actions related to Sources
 	Sources *Sources
 	// Actions related to Packs
@@ -58,16 +57,17 @@ type CriblControlPlane struct {
 	Pipelines *Pipelines
 	// Actions related to Routes
 	Routes *Routes
-	Auth   *Auth
-	System *System
+	// Actions related to Collectors
+	Collectors *Collectors
+	// Actions related to Groups
+	Groups       *Groups
+	LakeDatasets *LakeDatasets
+	Auth         *Auth
+	System       *System
+	Nodes        *Nodes
 	// Actions related to REST server health
 	Health   *Health
 	Versions *Versions
-	// Actions related to functions
-	Functions *Functions
-	Nodes     *Nodes
-	// Actions related to Groups
-	Groups *Groups
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -114,9 +114,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.6.0-rc.4",
+		SDKVersion: "0.6.0-rc.5",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.6.0-rc.4 2.799.0 4.17.0-alpha.1769713913455-536728f6 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.6.0-rc.5 2.799.0 4.17.0-alpha.1769772143018-399c0a71 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -140,21 +140,21 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
-	sdk.LakeDatasets = newLakeDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Collectors = newCollectors(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.DatabaseConnections = newDatabaseConnections(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Functions = newFunctions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Sources = newSources(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Packs = newPacks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Destinations = newDestinations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Pipelines = newPipelines(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Routes = newRoutes(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Collectors = newCollectors(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Groups = newGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.LakeDatasets = newLakeDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.System = newSystem(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Nodes = newNodes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Health = newHealth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Versions = newVersions(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Functions = newFunctions(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Nodes = newNodes(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Groups = newGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

@@ -82,8 +82,8 @@ type InputDatagen struct {
 	Pq          *PqType                        `json:"pq,omitempty"`
 	Samples     []Sample                       `json:"samples"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Description *string             `json:"description,omitempty"`
 }
 
 func (i InputDatagen) MarshalJSON() ([]byte, error) {
@@ -174,7 +174,7 @@ func (i *InputDatagen) GetSamples() []Sample {
 	return i.Samples
 }
 
-func (i *InputDatagen) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputDatagen) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
