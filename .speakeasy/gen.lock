@@ -18993,6 +18993,10 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: |
+  ## Go SDK Changes
+
+  This version of the SDK is generated for Cribl version 4.16.1.
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
