@@ -325,8 +325,10 @@ func main() {
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [~~Count~~](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes :warning: **Deprecated**
-* [~~List~~](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes :warning: **Deprecated**
+* [Count](docs/sdks/nodes/README.md#count) - Get a count of Worker or Edge Nodes
+* [Get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
+* [List](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
+* [Restart](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 

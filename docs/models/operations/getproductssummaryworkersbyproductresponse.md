@@ -1,4 +1,4 @@
-# GetSummaryWorkersResponse
+# GetProductsSummaryWorkersByProductResponse
 
 
 ## Fields
