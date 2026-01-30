@@ -30,11 +30,12 @@ func newSourcesPq(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 	}
 }
 
-// Clear the persistent queue for a Source
-// Clear the persistent queue (PQ) for the specified Source.
-func (s *SourcesPq) Clear(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteInputPqByIDResponse, error) {
-	request := operations.DeleteInputPqByIDRequest{
-		ID: id,
+// Clear the persistent queue for a Source within a Pack
+// Clear the persistent queue (PQ) for the specified Source within the specified Pack.
+func (s *SourcesPq) Clear(ctx context.Context, id string, pack string, opts ...operations.Option) (*operations.DeleteInputSystemPqByPackAndIDResponse, error) {
+	request := operations.DeleteInputSystemPqByPackAndIDRequest{
+		ID:   id,
+		Pack: pack,
 	}
 
 	o := operations.Options{}
@@ -55,7 +56,7 @@ func (s *SourcesPq) Clear(ctx context.Context, id string, opts ...operations.Opt
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/inputs/{id}/pq", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/system/inputs/{id}/pq", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -65,7 +66,7 @@ func (s *SourcesPq) Clear(ctx context.Context, id string, opts ...operations.Opt
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "deleteInputPqById",
+		OperationID:      "deleteInputSystemPqByPackAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -193,7 +194,7 @@ func (s *SourcesPq) Clear(ctx context.Context, id string, opts ...operations.Opt
 		}
 	}
 
-	res := &operations.DeleteInputPqByIDResponse{
+	res := &operations.DeleteInputSystemPqByPackAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -273,11 +274,12 @@ func (s *SourcesPq) Clear(ctx context.Context, id string, opts ...operations.Opt
 
 }
 
-// Get information about the latest job to clear the persistent queue for a Source
-// Get information about the latest job to clear the persistent queue (PQ) for the specified Source.
-func (s *SourcesPq) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetInputPqByIDResponse, error) {
-	request := operations.GetInputPqByIDRequest{
-		ID: id,
+// Get information about the latest job to clear the persistent queue for a Source within a Pack
+// Get information about the latest job to clear the persistent queue (PQ) for the specified Source within the specified Pack.
+func (s *SourcesPq) Get(ctx context.Context, id string, pack string, opts ...operations.Option) (*operations.GetInputSystemPqByPackAndIDResponse, error) {
+	request := operations.GetInputSystemPqByPackAndIDRequest{
+		ID:   id,
+		Pack: pack,
 	}
 
 	o := operations.Options{}
@@ -298,7 +300,7 @@ func (s *SourcesPq) Get(ctx context.Context, id string, opts ...operations.Optio
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/inputs/{id}/pq", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/system/inputs/{id}/pq", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -308,7 +310,7 @@ func (s *SourcesPq) Get(ctx context.Context, id string, opts ...operations.Optio
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getInputPqById",
+		OperationID:      "getInputSystemPqByPackAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -436,7 +438,7 @@ func (s *SourcesPq) Get(ctx context.Context, id string, opts ...operations.Optio
 		}
 	}
 
-	res := &operations.GetInputPqByIDResponse{
+	res := &operations.GetInputSystemPqByPackAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
