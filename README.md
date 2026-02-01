@@ -361,6 +361,13 @@ func main() {
 * [Get](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
 * [Create](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
 
+#### [Packs.Routes](docs/sdks/packsroutes/README.md)
+
+* [Get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
+* [Update](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+* [List](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
+* [Append](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
+
 #### [Packs.Sources](docs/sdks/packssources/README.md)
 
 * [List](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
