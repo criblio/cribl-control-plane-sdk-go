@@ -33359,7 +33359,7 @@ type CreateOutputSystemByPackOutputDefault struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
-	DefaultID string `json:"defaultId"`
+	DefaultID *string `json:"defaultId"`
 }
 
 func (c CreateOutputSystemByPackOutputDefault) MarshalJSON() ([]byte, error) {
@@ -33367,7 +33367,7 @@ func (c CreateOutputSystemByPackOutputDefault) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateOutputSystemByPackOutputDefault) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "defaultId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
 		return err
 	}
 	return nil
@@ -33415,9 +33415,9 @@ func (c *CreateOutputSystemByPackOutputDefault) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateOutputSystemByPackOutputDefault) GetDefaultID() string {
+func (c *CreateOutputSystemByPackOutputDefault) GetDefaultID() *string {
 	if c == nil {
-		return ""
+		return nil
 	}
 	return c.DefaultID
 }
