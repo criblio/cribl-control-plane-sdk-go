@@ -3,10 +3,14 @@
 package components
 
 type FilesTypeGitCommitSummary struct {
-	Created  []string `json:"created,omitempty"`
-	Deleted  []string `json:"deleted,omitempty"`
+	// Array of file paths that were created in the commit.
+	Created []string `json:"created,omitempty"`
+	// Array of file paths that were deleted in the commit.
+	Deleted []string `json:"deleted,omitempty"`
+	// Array of file paths that were modified in the commit.
 	Modified []string `json:"modified,omitempty"`
-	Renamed  []string `json:"renamed,omitempty"`
+	// Array of file rename operations, each containing the original path and the new path.
+	Renamed []GitFileRename `json:"renamed,omitempty"`
 }
 
 func (f *FilesTypeGitCommitSummary) GetCreated() []string {
@@ -30,7 +34,7 @@ func (f *FilesTypeGitCommitSummary) GetModified() []string {
 	return f.Modified
 }
 
-func (f *FilesTypeGitCommitSummary) GetRenamed() []string {
+func (f *FilesTypeGitCommitSummary) GetRenamed() []GitFileRename {
 	if f == nil {
 		return nil
 	}
