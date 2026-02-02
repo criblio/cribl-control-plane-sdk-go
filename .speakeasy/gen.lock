@@ -5,14 +5,14 @@ management:
   docVersion: 4.17.0-alpha.1769952892661-37214dcd
   speakeasyVersion: 1.697.5
   generationVersion: 2.799.0
-  releaseVersion: 0.6.0-rc.8
-  configChecksum: c3e14b21690f62b7fbade7ae6cf8065c
+  releaseVersion: 0.6.0-rc.9
+  configChecksum: 7fbbb5aa7973d0d87220002ca7aee6b2
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 8b68b40a-ac25-4b5b-bd01-1e0cefa18841
-  pristine_commit_hash: 3b2879feb96790ecf2f3b9547a3fcb3628bddc34
-  pristine_tree_hash: fb3b8eddde3f42bcf46360389432ed96b4b57569
+  generation_id: 52483998-55a7-451f-b9e5-ec11e945e03d
+  pristine_commit_hash: 2a0581cc42488f06645238aa80c5a645d76cb2d2
+  pristine_tree_hash: 37ddc48a661d2a548a424e1cd1b14f790cdbd503
 features:
   go:
     additionalDependencies: 0.1.0
@@ -96,8 +96,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:155e74a9df8e2abc44738476cde19178b282f2d0
-    pristine_git_object: 1da9ec8e1bd40ba3f9281467850c573d7043fa96
+    last_write_checksum: sha1:b250564ed298b00544f5f67e8155b8a528c7bb71
+    pristine_git_object: 800bda1cbbeb0323d5ae1c34b47d7ba5c83e9bbb
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -26022,7 +26022,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody.[default].DefaultId` **Changed**\n  *  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output.[default].DefaultId` **Changed**\n  *  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[default].DefaultId` **Changed**\n  *  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[default].DefaultId` **Changed**\n  *  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[default].DefaultId` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Create()`:  `response.Items.[].Files.Renamed.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Revert()`:  `response.Items.[].Audit.Files.Renamed.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.System.Settings.Restart()`: **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
