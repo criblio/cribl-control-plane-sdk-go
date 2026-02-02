@@ -1,22 +1,23 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 7c4bea9c27d2d2a7ae696bba7288d401
-  docVersion: 4.17.0-alpha.1769951982349-a4340e10
+  docChecksum: dc63c183b694f9d67eb3b826ed90acab
+  docVersion: 4.17.0-alpha.1770049798737-c7d0387a
   speakeasyVersion: 1.697.5
   generationVersion: 2.799.0
-  releaseVersion: 0.6.0-beta.9
-  configChecksum: e8b5c299bfc4378eb1ba08111ccaeb95
+  releaseVersion: 0.6.0-beta.10
+  configChecksum: 70c81e0cba750c90247de1911142e724
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: ea2418b0-777e-404b-90bf-03b7bb896b4e
-  pristine_commit_hash: 62061d15bb6ca4c9eff809ac526a8eb725502e80
-  pristine_tree_hash: c5939731f786d5f9f7f2d01d9b5b15f8fe55c50b
+  generation_id: 6826aafa-235e-434c-84db-6fb233094da7
+  pristine_commit_hash: 2104573a3afc60513df7d52b6ac89bdee9f13d2f
+  pristine_tree_hash: a9fad377039541f687dd165955b100a3961754d0
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
+    constsAndDefaults: 0.1.12
     core: 3.13.10
     defaultEnabledRetries: 0.2.0
     deprecations: 2.81.3
@@ -95,8 +96,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:2b6fa63da78ad616094e5fb8e0c089dc73247e28
-    pristine_git_object: 16a2dc86363b440b5732abcc0bd2fade897c8599
+    last_write_checksum: sha1:45042867395ae011544e79a3780f531fa78fe039
+    pristine_git_object: 16cee0fd0fb4277006a7d231eec665fbf37c4cd0
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -705,6 +706,10 @@ trackedFiles:
     id: 7fa1ec3cca7d
     last_write_checksum: sha1:39aaabe14d62ae6e7aec922a836b3d17158f4147
     pristine_git_object: 491f4b82f5fc369259bd62a2d59a02c0ad43bcc8
+  docs/models/components/countedsystemrestartresponse.md:
+    id: dc1386a89b79
+    last_write_checksum: sha1:6b4b4cd9cccc68a6a9d103133d4bd9e521fd41fa
+    pristine_git_object: 90cec2567ac8505cfa9e92fe5cdbb862047488ff
   docs/models/components/countedsystemsettingsconf.md:
     id: 3ec745dcab23
     last_write_checksum: sha1:8fac3df794a28b07b709eeae932adde69a6ee54b
@@ -8593,6 +8598,10 @@ trackedFiles:
     id: 65e72d8c7104
     last_write_checksum: sha1:1afb0c6414996691437a86d9e927bdd9ae82f301
     pristine_git_object: fb66d487ad4e1f436bc3638a4df3262da92c7820
+  docs/models/components/systemrestartresponse.md:
+    id: 88012129b78c
+    last_write_checksum: sha1:3aae8c7fefccc0cb657658c7bc653886937ae8d7
+    pristine_git_object: 6b47a8028ed805c69a1cd65473618e528bf95305
   docs/models/components/systemsettingsconf.md:
     id: d898b1c64767
     last_write_checksum: sha1:f96f85c12c4f039f0cf926a217aeeea9b8dbd041
@@ -12945,6 +12954,10 @@ trackedFiles:
     id: def1a752bf71
     last_write_checksum: sha1:7b182b75dc0ce0ab24979994e4ec85b004f9f610
     pristine_git_object: 24e839bccdf6e3ffe407318818e84902dd0b8685
+  docs/models/operations/createsystemsettingsrestartresponse.md:
+    id: 7b38b7cfcb44
+    last_write_checksum: sha1:d198cd46a2f36a0658346a2cd5077169aa3f3489
+    pristine_git_object: 1baa37d5318300772160132d5b11cc11113e7281
   docs/models/operations/createversioncommitrequest.md:
     id: ad3a97c934f2
     last_write_checksum: sha1:5cd37c1f94ce37d61334939723fb7fd98861dc79
@@ -13693,6 +13706,10 @@ trackedFiles:
     id: 2b3e67e9f9a5
     last_write_checksum: sha1:fcdcfc856d535e129ef89b54366e4400dd720d57
     pristine_git_object: 0bf1f8e9ce69ea00b12462de8acc98c2ef3b23a0
+  docs/sdks/settings/README.md:
+    id: ffd4dbcfc0ce
+    last_write_checksum: sha1:9779863064c7045cf2f15934fc6d28c7e1d4f448
+    pristine_git_object: deaabe1fb35614b11ed0f25009be730f1beb3de5
   docs/sdks/sources/README.md:
     id: c1396b2a57d9
     last_write_checksum: sha1:8f04f0eab29fedaf486c669f4dee905845a15a26
@@ -14221,6 +14238,10 @@ trackedFiles:
     id: ec0a84f03f22
     last_write_checksum: sha1:14729adff5e24335e7bd3d0cbb3677e4409819e0
     pristine_git_object: 889ae806100ad6ba1933f272f1aa3eaf70d64c29
+  models/components/countedsystemrestartresponse.go:
+    id: "912467420655"
+    last_write_checksum: sha1:3c500a46056a71f624b2a88148749be85eac5be1
+    pristine_git_object: c8b58433f0b71744ae23c4a59965b8763b15933e
   models/components/countedsystemsettingsconf.go:
     id: d6f5e7ecb012
     last_write_checksum: sha1:e427601cdebf347d62a90ba81319d683c7c5fdc2
@@ -16197,6 +16218,10 @@ trackedFiles:
     id: f2ccf65d6cf4
     last_write_checksum: sha1:729ae51e0ead7c7583cf6e4d032a8a7b87f09997
     pristine_git_object: 16f42d7b5f64d98efe3e110d1f82ef66e5cfe30e
+  models/components/systemrestartresponse.go:
+    id: 6599ea296dd5
+    last_write_checksum: sha1:0b95a1a27ed541c433e5ae6a9e30ceaf9802189e
+    pristine_git_object: 7c90cabe0b02402a5a0c18c517135de394f5c220
   models/components/systemsettingsconf.go:
     id: 473084a192d5
     last_write_checksum: sha1:44967d685f5f20db4d88b1eaa97abfeb74a925e9
@@ -16373,6 +16398,10 @@ trackedFiles:
     id: e7a20595b029
     last_write_checksum: sha1:651c13008380d1d0f2b150817724511c5c86ecfc
     pristine_git_object: 1d4599ef6ce2130e7e78cb3dfc29102c90b655b9
+  models/operations/createsystemsettingsrestart.go:
+    id: e5d085671604
+    last_write_checksum: sha1:212efd750aa63d33ba86cd126cedc0b2a9019919
+    pristine_git_object: 2edb3f682dac32bfae79a21fed4a165fcea85d84
   models/operations/createversioncommit.go:
     id: a16ff0a83110
     last_write_checksum: sha1:87dd238b21e194433dac57df1961a2a5e1f95371
@@ -16779,8 +16808,8 @@ trackedFiles:
     pristine_git_object: 3bfde10469dd6ee9382dacfe78cff528a5124693
   settings.go:
     id: 101ab65f534e
-    last_write_checksum: sha1:0ffe45f47956b9f24d46bfd401463717e183ca46
-    pristine_git_object: 6e9c33c12c9b3ad21220f8ff706f5a5acc21bc44
+    last_write_checksum: sha1:7e58f32850524a218d55dd90fd4d442a20c15465
+    pristine_git_object: 600277ad964a9fe8517cc54eba451ae2d3a49f50
   sources.go:
     id: 4d2231a4f6a8
     last_write_checksum: sha1:3583eb0cee34b97e9fd8d5c6c875e36b4a3b2a34
@@ -25923,6 +25952,13 @@ examples:
           application/json: {"count": 580070, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "final": true}], "groups": {"key": {"name": "<value>", "description": "converse eggplant sturdy excepting bah ham likewise however", "disabled": false}}, "comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"}]}]}
         "500":
           application/json: {"message": "<value>"}
+  createSystemSettingsRestart:
+    speakeasy-default-create-system-settings-restart:
+      responses:
+        "200":
+          application/json: {"count": 321585, "items": [{"restart": true}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -25988,6 +26024,9 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `CriblControlPlane.System.Settings.Restart()`: **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
