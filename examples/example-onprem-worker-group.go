@@ -24,7 +24,6 @@
  * Prerequisites:
  * - An .env file configured with your authentication credentials (which must have Permissions that include updating Worker Groups and system settings).
  * - A Worker Group whose ID matches the configured WORKER_GROUP_ID value.
- * - API Bearer token with Permissions that include updating Worker Groups and system settings.
  */
 
 package main
