@@ -10,21 +10,20 @@
  * 1. Connects to an existing on-prem or hybrid Worker Group.
  * 2. Retrieves the current system settings for the Worker Group.
  * 3. Optimizes Worker Process settings following the scaling documentation:
- *    - Process count: -2 (CPU cores minus 2, reserves headroom for system/API overhead)
+ *    - Worker Process count: -2 (to reserve two CPU cores for system/API overhead)
  *    - Memory: 2048 MB (2 GB per Worker Process)
- *    - Minimum process count: 2 (ensures at least 2 processes)
+ *    - Minimum Worker Process count: 2 (to spawn at least two Worker Processes)
  * 4. Updates the Worker Group's system settings with the optimized configuration.
  * 5. Commits the configuration changes to the Worker Group.
  * 6. Deploys the configuration changes to the Worker Group.
  * 7. Restarts the Worker Group to apply the changes.
  *
- * The Cribl documentation provides more information about worker process optimization:
+ * The Cribl documentation provides more information about optimizing Worker Processes:
  * https://docs.cribl.io/stream/scaling/#optimize-a-distributed-deployment-or-hybrid-group
  *
  * Prerequisites:
- * - An .env file configured with your authentication credentials (ONPREM_SERVER_URL,
- *   ONPREM_USERNAME, ONPREM_PASSWORD).
- * - Replace WORKER_GROUP_ID with your actual Worker Group ID.
+ * - An .env file configured with your authentication credentials (which must have Permissions that include updating Worker Groups and system settings).
+ * - A Worker Group whose ID matches the configured WORKER_GROUP_ID value.
  * - API Bearer token with Permissions that include updating Worker Groups and system settings.
  */
 
@@ -56,7 +55,7 @@ func main() {
 		log.Fatalf("Failed to create Cribl client: %v", err)
 	}
 
-	// Construct the base URL for the worker group
+	// Construct the base URL for the Worker Group
 	groupURL := fmt.Sprintf("%s/m/%s", BaseURL, WORKER_GROUP_ID)
 
 	// Verify that Worker Group exists
@@ -88,21 +87,21 @@ func main() {
 	currentConf := currentSettings.CountedSystemSettingsConf.Items[0]
 
 	fmt.Printf("📊 Current Worker Process settings:\n")
-	fmt.Printf("   Process count: %.0f\n", currentConf.Workers.Count)
+	fmt.Printf("   Worker Process count: %.0f\n", currentConf.Workers.Count)
 	fmt.Printf("   Memory: %.0f MB\n", currentConf.Workers.Memory)
-	fmt.Printf("   Minimum processes: %.0f\n", currentConf.Workers.Minimum)
+	fmt.Printf("   Minimum Worker Processes: %.0f\n", currentConf.Workers.Minimum)
 
 	// Configure Worker Process settings following scaling documentation
-	// For x86 hyperthreaded CPUs: Process count = -2 (default, reserves 2 cores for overhead)
-	// Memory: 2048 MB (default 2 GB per Worker Process)
-	// Minimum: 2 (ensures at least 2 processes)
+	// For x86 hyperthreaded CPUs: Process count = -2 (default; reserves 2 CPU cores for system/API overhead)
+  // Memory: 2048 MB (default; 2 GB per Worker Process)
+  // Minimum: 2 (spawn at least two Worker Processes)
 	workersConfig := components.WorkersTypeSystemSettingsConf{
-		Count:   -2,  // Negative number: CPU cores - 2 (reserves headroom for system/API overhead)
-		Memory:  2048, // MB - Amount of heap memory available to each Worker Process
+		Count:   -2,  // Negative number specifies the number of CPU cores to reserve for system/API overhead
+		Memory:  2048, // Amount of heap memory available to each Worker Process, in MB
 		Minimum: 2,    // Minimum number of Worker Processes to spawn
 	}
 
-	// Update system settings with optimized worker process configuration
+	// Update system settings with the optimized configuration for Worker Processes
 	// Preserve other settings from the current configuration
 	updatedConf := currentConf
 	updatedConf.Workers = workersConfig
@@ -113,9 +112,9 @@ func main() {
 	}
 
 	fmt.Printf("\n✅ Worker Process settings optimized:\n")
-	fmt.Printf("   Process count: %.0f (CPU cores - 2 for overhead)\n", workersConfig.Count)
+	fmt.Printf("   Worker Process count: %.0f\n", workersConfig.Count)
 	fmt.Printf("   Memory: %.0f MB per Worker Process\n", workersConfig.Memory)
-	fmt.Printf("   Minimum processes: %.0f\n", workersConfig.Minimum)
+	fmt.Printf("   Minimum Worker Processes: %.0f\n", workersConfig.Minimum)
 
 	// Commit configuration changes
 	effective := true
@@ -138,7 +137,7 @@ func main() {
 	}
 
 	version := commitResponse.CountedGitCommitSummary.Items[0].Commit
-	fmt.Printf("✅ Committed configuration changes to the group: %s, commit ID: %s\n", WORKER_GROUP_ID, version)
+	fmt.Printf("✅ Committed configuration changes to the Worker Group: %s, commit ID: %s\n", WORKER_GROUP_ID, version)
 
 	// Deploy configuration changes to the Worker Group
 	deployRequest := components.DeployRequest{

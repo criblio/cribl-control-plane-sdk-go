@@ -5,7 +5,7 @@ This directory contains example programs demonstrating how to use the cribl-cont
 ## Prerequisites
 
 - Go 1.22 or higher
-- Access to a Cribl instance (cloud or on-prem)
+- Access to a Cribl instance (Cribl.Cloud or on-prem)
 
 ## Setup
 
@@ -40,7 +40,7 @@ go run example-onprem-auth.go
 These examples use the `auth.go` helper and require a properly configured `.env` file:
 
 ```bash
-# Cloud worker group management
+# Cribl.Cloud Worker Group management
 go run example-cloud-worker-group.go auth.go
 
 # Complete Cribl Stream data pipeline
@@ -52,10 +52,10 @@ go run example-edge.go auth.go
 # Cribl Packs integration
 go run example-packs.go auth.go
 
-# Worker group replication
+# Worker Group replication
 go run example-worker-group-replication.go auth.go
 
-# On-prem worker group process optimization
+# On-prem Worker Group Process optimization
 go run example-onprem-worker-group.go auth.go
 ```
 
@@ -69,10 +69,10 @@ go run example-onprem-worker-group.go auth.go
 | `example-onprem-auth.go` | On-prem authentication demo - validates username/password login | Hardcoded credentials |
 | `example-cloud-worker-group.go` | Creates and manages cloud worker groups | Uses `auth.go` + `.env` |
 | `example-stream.go` | Complete Cribl Stream pipeline: worker group, source, destination, pipeline, routes, deployment | Uses `auth.go` + `.env` |
-| `example-edge.go` | Complete Cribl Edge pipeline: fleet, source, destination, pipeline, routes, deployment | Uses `auth.go` + `.env` |
-| `example-packs.go` | Installs Cribl Pack and creates complete data pipeline within the pack | Uses `auth.go` + `.env` |
-| `example-worker-group-replication.go` | Replicates an existing worker group with a new unique identity | Uses `auth.go` + `.env` |
-| `example-onprem-worker-group.go` | Optimizes Worker Process settings for on-prem/hybrid worker groups (process count, memory, minimum processes) | Uses `auth.go` + `.env` |
+| `example-edge.go` | Complete Cribl Edge pipeline: Fleet, Source, Destination, Pipeline, Routes, deployment | Uses `auth.go` + `.env` |
+| `example-packs.go` | Installs Cribl Pack and creates complete data pipeline within the Pack | Uses `auth.go` + `.env` |
+| `example-worker-group-replication.go` | Replicates an existing Worker Group with a unique identity | Uses `auth.go` + `.env` |
+| `example-onprem-worker-group.go` | Optimizes Worker Process settings for on-prem/hybrid Worker Groups (Worker Process count, memory, minimum Worker Processes) | Uses `auth.go` + `.env` |
 
 ## Configuration
 
@@ -82,12 +82,12 @@ Each example can be configured by either:
 
 ### Environment Variables
 
-For cloud deployments:
-- `DEPLOYMENT_ENV=cloud` (or omit for cloud as default)
-- `ORG_ID` - Your organization ID
+For Cribl.Cloud deployments:
+- `DEPLOYMENT_ENV=cloud` (or omit for Cribl.Cloud as default)
+- `ORG_ID` - Your Organization ID
 - `CLIENT_ID` - Your OAuth2 client ID
 - `CLIENT_SECRET` - Your OAuth2 client secret
-- `WORKSPACE_NAME` - Your workspace name
+- `WORKSPACE_NAME` - Your Workspace name
 
 For on-prem deployments:
 - `DEPLOYMENT_ENV=onprem`
