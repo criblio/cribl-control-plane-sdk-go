@@ -31222,22 +31222,22 @@ func (e *CreateOutputFacility) IsExact() bool {
 type CreateOutputSeveritySyslog int64
 
 const (
-	// CreateOutputSeveritySyslogZero emergency
-	CreateOutputSeveritySyslogZero CreateOutputSeveritySyslog = 0
-	// CreateOutputSeveritySyslogOne alert
-	CreateOutputSeveritySyslogOne CreateOutputSeveritySyslog = 1
-	// CreateOutputSeveritySyslogTwo critical
-	CreateOutputSeveritySyslogTwo CreateOutputSeveritySyslog = 2
-	// CreateOutputSeveritySyslogThree error
-	CreateOutputSeveritySyslogThree CreateOutputSeveritySyslog = 3
-	// CreateOutputSeveritySyslogFour warning
-	CreateOutputSeveritySyslogFour CreateOutputSeveritySyslog = 4
-	// CreateOutputSeveritySyslogFive notice
-	CreateOutputSeveritySyslogFive CreateOutputSeveritySyslog = 5
-	// CreateOutputSeveritySyslogSix info
-	CreateOutputSeveritySyslogSix CreateOutputSeveritySyslog = 6
-	// CreateOutputSeveritySyslogSeven debug
-	CreateOutputSeveritySyslogSeven CreateOutputSeveritySyslog = 7
+	// CreateOutputSeveritySyslogEmergency emergency
+	CreateOutputSeveritySyslogEmergency CreateOutputSeveritySyslog = 0
+	// CreateOutputSeveritySyslogAlert alert
+	CreateOutputSeveritySyslogAlert CreateOutputSeveritySyslog = 1
+	// CreateOutputSeveritySyslogCritical critical
+	CreateOutputSeveritySyslogCritical CreateOutputSeveritySyslog = 2
+	// CreateOutputSeveritySyslogError error
+	CreateOutputSeveritySyslogError CreateOutputSeveritySyslog = 3
+	// CreateOutputSeveritySyslogWarning warning
+	CreateOutputSeveritySyslogWarning CreateOutputSeveritySyslog = 4
+	// CreateOutputSeveritySyslogNotice notice
+	CreateOutputSeveritySyslogNotice CreateOutputSeveritySyslog = 5
+	// CreateOutputSeveritySyslogInfo info
+	CreateOutputSeveritySyslogInfo CreateOutputSeveritySyslog = 6
+	// CreateOutputSeveritySyslogDebug debug
+	CreateOutputSeveritySyslogDebug CreateOutputSeveritySyslog = 7
 )
 
 func (e CreateOutputSeveritySyslog) ToPointer() *CreateOutputSeveritySyslog {

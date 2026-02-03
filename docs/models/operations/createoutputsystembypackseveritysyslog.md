@@ -5,13 +5,13 @@ Default value for message severity. Will be overwritten by value of __severity i
 
 ## Values
 
-| Name                                          | Value                                         |
-| --------------------------------------------- | --------------------------------------------- |
-| `CreateOutputSystemByPackSeveritySyslogZero`  | 0                                             |
-| `CreateOutputSystemByPackSeveritySyslogOne`   | 1                                             |
-| `CreateOutputSystemByPackSeveritySyslogTwo`   | 2                                             |
-| `CreateOutputSystemByPackSeveritySyslogThree` | 3                                             |
-| `CreateOutputSystemByPackSeveritySyslogFour`  | 4                                             |
-| `CreateOutputSystemByPackSeveritySyslogFive`  | 5                                             |
-| `CreateOutputSystemByPackSeveritySyslogSix`   | 6                                             |
-| `CreateOutputSystemByPackSeveritySyslogSeven` | 7                                             |
+| Name                                              | Value                                             |
+| ------------------------------------------------- | ------------------------------------------------- |
+| `CreateOutputSystemByPackSeveritySyslogEmergency` | 0                                                 |
+| `CreateOutputSystemByPackSeveritySyslogAlert`     | 1                                                 |
+| `CreateOutputSystemByPackSeveritySyslogCritical`  | 2                                                 |
+| `CreateOutputSystemByPackSeveritySyslogError`     | 3                                                 |
+| `CreateOutputSystemByPackSeveritySyslogWarning`   | 4                                                 |
+| `CreateOutputSystemByPackSeveritySyslogNotice`    | 5                                                 |
+| `CreateOutputSystemByPackSeveritySyslogInfo`      | 6                                                 |
+| `CreateOutputSystemByPackSeveritySyslogDebug`     | 7                                                 |

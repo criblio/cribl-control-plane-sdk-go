@@ -3,7 +3,7 @@
 
 ## Values
 
-| Name                          | Value                         |
-| ----------------------------- | ----------------------------- |
-| `NodeFailedUpgradeStatusZero` | 0                             |
-| `NodeFailedUpgradeStatusOne`  | 1                             |
+| Name                                                 | Value                                                |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| `NodeFailedUpgradeStatusUpgradeErrorOnNode`          | 0                                                    |
+| `NodeFailedUpgradeStatusUpgradeInstallationRollback` | 1                                                    |
