@@ -213,8 +213,7 @@ func main() {
 		Files:     []string{"."},
 	}
 
-	fleetID := FLEET_ID
-	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, &fleetID)
+	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
 	} else if commitResponse.CountedGitCommitSummary != nil && commitResponse.CountedGitCommitSummary.Items != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {
