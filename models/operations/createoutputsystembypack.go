@@ -31222,22 +31222,22 @@ func (e *CreateOutputSystemByPackFacility) IsExact() bool {
 type CreateOutputSystemByPackSeveritySyslog int64
 
 const (
-	// CreateOutputSystemByPackSeveritySyslogZero emergency
-	CreateOutputSystemByPackSeveritySyslogZero CreateOutputSystemByPackSeveritySyslog = 0
-	// CreateOutputSystemByPackSeveritySyslogOne alert
-	CreateOutputSystemByPackSeveritySyslogOne CreateOutputSystemByPackSeveritySyslog = 1
-	// CreateOutputSystemByPackSeveritySyslogTwo critical
-	CreateOutputSystemByPackSeveritySyslogTwo CreateOutputSystemByPackSeveritySyslog = 2
-	// CreateOutputSystemByPackSeveritySyslogThree error
-	CreateOutputSystemByPackSeveritySyslogThree CreateOutputSystemByPackSeveritySyslog = 3
-	// CreateOutputSystemByPackSeveritySyslogFour warning
-	CreateOutputSystemByPackSeveritySyslogFour CreateOutputSystemByPackSeveritySyslog = 4
-	// CreateOutputSystemByPackSeveritySyslogFive notice
-	CreateOutputSystemByPackSeveritySyslogFive CreateOutputSystemByPackSeveritySyslog = 5
-	// CreateOutputSystemByPackSeveritySyslogSix info
-	CreateOutputSystemByPackSeveritySyslogSix CreateOutputSystemByPackSeveritySyslog = 6
-	// CreateOutputSystemByPackSeveritySyslogSeven debug
-	CreateOutputSystemByPackSeveritySyslogSeven CreateOutputSystemByPackSeveritySyslog = 7
+	// CreateOutputSystemByPackSeveritySyslogEmergency emergency
+	CreateOutputSystemByPackSeveritySyslogEmergency CreateOutputSystemByPackSeveritySyslog = 0
+	// CreateOutputSystemByPackSeveritySyslogAlert alert
+	CreateOutputSystemByPackSeveritySyslogAlert CreateOutputSystemByPackSeveritySyslog = 1
+	// CreateOutputSystemByPackSeveritySyslogCritical critical
+	CreateOutputSystemByPackSeveritySyslogCritical CreateOutputSystemByPackSeveritySyslog = 2
+	// CreateOutputSystemByPackSeveritySyslogError error
+	CreateOutputSystemByPackSeveritySyslogError CreateOutputSystemByPackSeveritySyslog = 3
+	// CreateOutputSystemByPackSeveritySyslogWarning warning
+	CreateOutputSystemByPackSeveritySyslogWarning CreateOutputSystemByPackSeveritySyslog = 4
+	// CreateOutputSystemByPackSeveritySyslogNotice notice
+	CreateOutputSystemByPackSeveritySyslogNotice CreateOutputSystemByPackSeveritySyslog = 5
+	// CreateOutputSystemByPackSeveritySyslogInfo info
+	CreateOutputSystemByPackSeveritySyslogInfo CreateOutputSystemByPackSeveritySyslog = 6
+	// CreateOutputSystemByPackSeveritySyslogDebug debug
+	CreateOutputSystemByPackSeveritySyslogDebug CreateOutputSystemByPackSeveritySyslog = 7
 )
 
 func (e CreateOutputSystemByPackSeveritySyslog) ToPointer() *CreateOutputSystemByPackSeveritySyslog {
