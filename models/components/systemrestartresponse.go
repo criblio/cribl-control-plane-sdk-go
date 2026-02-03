@@ -7,6 +7,7 @@ import (
 )
 
 type SystemRestartResponse struct {
+	// Restart operation initiated
 	restart bool `const:"true" json:"restart"`
 }
 

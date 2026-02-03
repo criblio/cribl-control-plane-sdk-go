@@ -6,18 +6,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type CreateSystemSettingsRestartRequest struct {
-	// Group ID
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
-}
-
-func (c *CreateSystemSettingsRestartRequest) GetGroupID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.GroupID
-}
-
 type CreateSystemSettingsRestartResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
