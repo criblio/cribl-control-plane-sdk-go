@@ -3,9 +3,9 @@
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `NodeUpgradeStateZero`  | 0                       |
-| `NodeUpgradeStateOne`   | 1                       |
-| `NodeUpgradeStateTwo`   | 2                       |
-| `NodeUpgradeStateThree` | 3                       |
+| Name                      | Value                     |
+| ------------------------- | ------------------------- |
+| `NodeUpgradeStateActive`  | 0                         |
+| `NodeUpgradeStateCurrent` | 1                         |
+| `NodeUpgradeStateFailed`  | 2                         |
+| `NodeUpgradeStateSkipped` | 3                         |

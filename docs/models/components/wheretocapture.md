@@ -3,9 +3,9 @@
 
 ## Values
 
-| Name                  | Value                 |
-| --------------------- | --------------------- |
-| `WhereToCaptureZero`  | 0                     |
-| `WhereToCaptureOne`   | 1                     |
-| `WhereToCaptureTwo`   | 2                     |
-| `WhereToCaptureThree` | 3                     |
+| Name                                         | Value                                        |
+| -------------------------------------------- | -------------------------------------------- |
+| `WhereToCaptureBeforePreProcessingPipeline`  | 0                                            |
+| `WhereToCaptureBeforeTheRoutes`              | 1                                            |
+| `WhereToCaptureBeforePostProcessingPipeline` | 2                                            |
+| `WhereToCaptureBeforeTheDestination`         | 3                                            |

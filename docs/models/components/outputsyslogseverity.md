@@ -5,13 +5,13 @@ Default value for message severity. Will be overwritten by value of __severity i
 
 ## Values
 
-| Name                        | Value                       |
-| --------------------------- | --------------------------- |
-| `OutputSyslogSeverityZero`  | 0                           |
-| `OutputSyslogSeverityOne`   | 1                           |
-| `OutputSyslogSeverityTwo`   | 2                           |
-| `OutputSyslogSeverityThree` | 3                           |
-| `OutputSyslogSeverityFour`  | 4                           |
-| `OutputSyslogSeverityFive`  | 5                           |
-| `OutputSyslogSeveritySix`   | 6                           |
-| `OutputSyslogSeveritySeven` | 7                           |
+| Name                            | Value                           |
+| ------------------------------- | ------------------------------- |
+| `OutputSyslogSeverityEmergency` | 0                               |
+| `OutputSyslogSeverityAlert`     | 1                               |
+| `OutputSyslogSeverityCritical`  | 2                               |
+| `OutputSyslogSeverityError`     | 3                               |
+| `OutputSyslogSeverityWarning`   | 4                               |
+| `OutputSyslogSeverityNotice`    | 5                               |
+| `OutputSyslogSeverityInfo`      | 6                               |
+| `OutputSyslogSeverityDebug`     | 7                               |

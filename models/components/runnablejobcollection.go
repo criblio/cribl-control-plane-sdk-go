@@ -55,14 +55,14 @@ func (e *TimeRange) IsExact() bool {
 type WhereToCapture int64
 
 const (
-	// WhereToCaptureZero 1. Before pre-processing Pipeline
-	WhereToCaptureZero WhereToCapture = 0
-	// WhereToCaptureOne 2. Before the Routes
-	WhereToCaptureOne WhereToCapture = 1
-	// WhereToCaptureTwo 3. Before post-processing Pipeline
-	WhereToCaptureTwo WhereToCapture = 2
-	// WhereToCaptureThree 4. Before the Destination
-	WhereToCaptureThree WhereToCapture = 3
+	// WhereToCaptureBeforePreProcessingPipeline 1. Before pre-processing Pipeline
+	WhereToCaptureBeforePreProcessingPipeline WhereToCapture = 0
+	// WhereToCaptureBeforeTheRoutes 2. Before the Routes
+	WhereToCaptureBeforeTheRoutes WhereToCapture = 1
+	// WhereToCaptureBeforePostProcessingPipeline 3. Before post-processing Pipeline
+	WhereToCaptureBeforePostProcessingPipeline WhereToCapture = 2
+	// WhereToCaptureBeforeTheDestination 4. Before the Destination
+	WhereToCaptureBeforeTheDestination WhereToCapture = 3
 )
 
 func (e WhereToCapture) ToPointer() *WhereToCapture {
