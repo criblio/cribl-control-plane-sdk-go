@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [Restart](#restart) - Restart Cribl server
+* [Restart](#restart) - Restart the Cribl server
 
 ## Restart
 
-Restart Cribl server
+Restart the Cribl server.Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
 
 ### Example Usage
 
@@ -34,7 +34,7 @@ func main() {
         }),
     )
 
-    res, err := s.System.Settings.Restart(ctx, criblcontrolplanesdkgo.Pointer("<id>"))
+    res, err := s.System.Settings.Restart(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -49,7 +49,6 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `groupID`                                                | **string*                                                | :heavy_minus_sign:                                       | Group ID                                                 |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response

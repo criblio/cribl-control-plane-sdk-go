@@ -34,13 +34,9 @@ func newSettings(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 	}
 }
 
-// Restart Cribl server
-// Restart Cribl server
-func (s *Settings) Restart(ctx context.Context, groupID *string, opts ...operations.Option) (*operations.CreateSystemSettingsRestartResponse, error) {
-	request := operations.CreateSystemSettingsRestartRequest{
-		GroupID: groupID,
-	}
-
+// Restart the Cribl server
+// Restart the Cribl server.Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
+func (s *Settings) Restart(ctx context.Context, opts ...operations.Option) (*operations.CreateSystemSettingsRestartResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -91,10 +87,6 @@ func (s *Settings) Restart(ctx context.Context, groupID *string, opts ...operati
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
