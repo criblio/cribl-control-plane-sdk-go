@@ -14,36 +14,30 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"net/http"
-	"net/url"
 )
 
-// Packs - Actions related to Packs
-type Packs struct {
-	Sources      *PacksSources
-	Destinations *PacksDestinations
-	Pipelines    *PacksPipelines
-	Routes       *PacksRoutes
-
+type PacksPipelines struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newPacks(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Packs {
-	return &Packs{
+func newPacksPipelines(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *PacksPipelines {
+	return &PacksPipelines{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Sources:          newPacksSources(rootSDK, sdkConfig, hooks),
-		Destinations:     newPacksDestinations(rootSDK, sdkConfig, hooks),
-		Pipelines:        newPacksPipelines(rootSDK, sdkConfig, hooks),
-		Routes:           newPacksRoutes(rootSDK, sdkConfig, hooks),
 	}
 }
 
-// Install a Pack
-// Install a Pack.<br><br>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
-func (s *Packs) Install(ctx context.Context, request components.PackRequestBodyUnion, opts ...operations.Option) (*operations.CreatePacksResponse, error) {
+// Create a Pipeline within a Pack
+// Create a new Pipeline within the specified Pack.
+func (s *PacksPipelines) Create(ctx context.Context, pack string, pipeline components.PipelineInput, opts ...operations.Option) (*operations.CreatePipelinesByPackResponse, error) {
+	request := operations.CreatePipelinesByPackRequest{
+		Pack:     pack,
+		Pipeline: pipeline,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -62,7 +56,7 @@ func (s *Packs) Install(ctx context.Context, request components.PackRequestBodyU
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/packs")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/pipelines", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -72,11 +66,11 @@ func (s *Packs) Install(ctx context.Context, request components.PackRequestBodyU
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "createPacks",
+		OperationID:      "createPipelinesByPack",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Pipeline", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -207,7 +201,7 @@ func (s *Packs) Install(ctx context.Context, request components.PackRequestBodyU
 		}
 	}
 
-	res := &operations.CreatePacksResponse{
+	res := &operations.CreatePipelinesByPackResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -223,12 +217,12 @@ func (s *Packs) Install(ctx context.Context, request components.PackRequestBodyU
 				return nil, err
 			}
 
-			var out components.CountedPackInstallInfo
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedPackInstallInfo = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -287,11 +281,11 @@ func (s *Packs) Install(ctx context.Context, request components.PackRequestBodyU
 
 }
 
-// List all Packs
-// Get a list of all Packs.
-func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Option) (*operations.GetPacksResponse, error) {
-	request := operations.GetPacksRequest{
-		With: with,
+// List all Pipelines within a Pack
+// Get a list of all Pipelines within the specified Pack.
+func (s *PacksPipelines) List(ctx context.Context, pack string, opts ...operations.Option) (*operations.GetPipelinesByPackResponse, error) {
+	request := operations.GetPipelinesByPackRequest{
+		Pack: pack,
 	}
 
 	o := operations.Options{}
@@ -312,7 +306,7 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/packs")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/pipelines", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -322,7 +316,7 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getPacks",
+		OperationID:      "getPipelinesByPack",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -345,10 +339,6 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
-
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
 	}
@@ -454,7 +444,7 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 		}
 	}
 
-	res := &operations.GetPacksResponse{
+	res := &operations.GetPipelinesByPackResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -470,12 +460,12 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 				return nil, err
 			}
 
-			var out components.CountedPackInfo
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedPackInfo = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -534,12 +524,12 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 
 }
 
-// Upload a Pack file
-// Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs source</code>, which you must call separately.
-func (s *Packs) Upload(ctx context.Context, filename string, requestBody any, opts ...operations.Option) (*operations.UpdatePacksResponse, error) {
-	request := operations.UpdatePacksRequest{
-		Filename:    filename,
-		RequestBody: requestBody,
+// Delete a Pipeline within a Pack
+// Delete the specified Pipeline within the specified Pack.
+func (s *PacksPipelines) Delete(ctx context.Context, id string, pack string, opts ...operations.Option) (*operations.DeletePipelinesByPackAndIDResponse, error) {
+	request := operations.DeletePipelinesByPackAndIDRequest{
+		ID:   id,
+		Pack: pack,
 	}
 
 	o := operations.Options{}
@@ -560,7 +550,7 @@ func (s *Packs) Upload(ctx context.Context, filename string, requestBody any, op
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/packs")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/pipelines/{id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -570,261 +560,7 @@ func (s *Packs) Upload(ctx context.Context, filename string, requestBody any, op
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "updatePacks",
-		OAuth2Scopes:     []string{},
-		SecuritySource:   s.sdkConfiguration.Security,
-	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "raw", `request:"mediaType=application/octet-stream"`)
-	if err != nil {
-		return nil, err
-	}
-
-	timeout := o.Timeout
-	if timeout == nil {
-		timeout = s.sdkConfiguration.Timeout
-	}
-
-	if timeout != nil {
-		var cancel context.CancelFunc
-		ctx, cancel = context.WithTimeout(ctx, *timeout)
-		defer cancel()
-	}
-
-	req, err := http.NewRequestWithContext(ctx, "PUT", opURL, bodyReader)
-	if err != nil {
-		return nil, fmt.Errorf("error creating request: %w", err)
-	}
-	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-	if reqContentType != "" {
-		req.Header.Set("Content-Type", reqContentType)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
-
-	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
-		return nil, err
-	}
-
-	for k, v := range o.SetHeaders {
-		req.Header.Set(k, v)
-	}
-
-	globalRetryConfig := s.sdkConfiguration.RetryConfig
-	retryConfig := o.Retries
-	if retryConfig == nil {
-		if globalRetryConfig != nil {
-			retryConfig = globalRetryConfig
-		} else {
-			retryConfig = &retry.Config{
-				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
-					InitialInterval: 500,
-					MaxInterval:     60000,
-					Exponent:        1.5,
-					MaxElapsedTime:  3600000,
-				},
-				RetryConnectionErrors: true,
-			}
-		}
-	}
-
-	var httpRes *http.Response
-	if retryConfig != nil {
-		httpRes, err = utils.Retry(ctx, utils.Retries{
-			Config: retryConfig,
-			StatusCodes: []string{
-				"429",
-			},
-		}, func() (*http.Response, error) {
-			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
-				copyBody, err := req.GetBody()
-
-				if err != nil {
-					return nil, err
-				}
-
-				req.Body = copyBody
-			}
-
-			req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
-			if err != nil {
-				if retry.IsPermanentError(err) || retry.IsTemporaryError(err) {
-					return nil, err
-				}
-
-				return nil, retry.Permanent(err)
-			}
-
-			httpRes, err := s.sdkConfiguration.Client.Do(req)
-			if err != nil || httpRes == nil {
-				if err != nil {
-					err = fmt.Errorf("error sending request: %w", err)
-				} else {
-					err = fmt.Errorf("error sending request: no response")
-				}
-
-				_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
-			}
-			return httpRes, err
-		})
-
-		if err != nil {
-			return nil, err
-		} else {
-			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
-			if err != nil {
-				return nil, err
-			}
-		}
-	} else {
-		req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
-		if err != nil {
-			return nil, err
-		}
-
-		httpRes, err = s.sdkConfiguration.Client.Do(req)
-		if err != nil || httpRes == nil {
-			if err != nil {
-				err = fmt.Errorf("error sending request: %w", err)
-			} else {
-				err = fmt.Errorf("error sending request: no response")
-			}
-
-			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
-			return nil, err
-		} else if utils.MatchStatusCodes([]string{"401", "4XX", "500", "5XX"}, httpRes.StatusCode) {
-			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
-			if err != nil {
-				return nil, err
-			} else if _httpRes != nil {
-				httpRes = _httpRes
-			}
-		} else {
-			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
-			if err != nil {
-				return nil, err
-			}
-		}
-	}
-
-	res := &operations.UpdatePacksResponse{
-		HTTPMeta: components.HTTPMetadata{
-			Request:  req,
-			Response: httpRes,
-		},
-	}
-
-	switch {
-	case httpRes.StatusCode == 200:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out components.UploadPackResponse
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			res.UploadPackResponse = &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 500:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out apierrors.Error
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			out.HTTPMeta = components.HTTPMetadata{
-				Request:  req,
-				Response: httpRes,
-			}
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 401:
-		fallthrough
-	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
-		rawBody, err := utils.ConsumeRawBody(httpRes)
-		if err != nil {
-			return nil, err
-		}
-		return nil, apierrors.NewAPIError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
-	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
-		rawBody, err := utils.ConsumeRawBody(httpRes)
-		if err != nil {
-			return nil, err
-		}
-		return nil, apierrors.NewAPIError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
-	default:
-		rawBody, err := utils.ConsumeRawBody(httpRes)
-		if err != nil {
-			return nil, err
-		}
-		return nil, apierrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
-	}
-
-	return res, nil
-
-}
-
-// Delete - Uninstall a Pack
-// Uninstall the specified Pack.
-func (s *Packs) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeletePacksByIDResponse, error) {
-	request := operations.DeletePacksByIDRequest{
-		ID: id,
-	}
-
-	o := operations.Options{}
-	supportedOptions := []string{
-		operations.SupportedOptionRetries,
-		operations.SupportedOptionTimeout,
-	}
-
-	for _, opt := range opts {
-		if err := opt(&o, supportedOptions...); err != nil {
-			return nil, fmt.Errorf("error applying option: %w", err)
-		}
-	}
-
-	var baseURL string
-	if o.ServerURL == nil {
-		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
-	} else {
-		baseURL = *o.ServerURL
-	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/packs/{id}", request, nil)
-	if err != nil {
-		return nil, fmt.Errorf("error generating URL: %w", err)
-	}
-
-	hookCtx := hooks.HookContext{
-		SDK:              s.rootSDK,
-		SDKConfiguration: s.sdkConfiguration,
-		BaseURL:          baseURL,
-		Context:          ctx,
-		OperationID:      "deletePacksById",
+		OperationID:      "deletePipelinesByPackAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -952,7 +688,7 @@ func (s *Packs) Delete(ctx context.Context, id string, opts ...operations.Option
 		}
 	}
 
-	res := &operations.DeletePacksByIDResponse{
+	res := &operations.DeletePipelinesByPackAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -968,12 +704,12 @@ func (s *Packs) Delete(ctx context.Context, id string, opts ...operations.Option
 				return nil, err
 			}
 
-			var out components.CountedPackUninstallInfo
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedPackUninstallInfo = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1032,11 +768,12 @@ func (s *Packs) Delete(ctx context.Context, id string, opts ...operations.Option
 
 }
 
-// Get a Pack
-// Get the specified Pack.
-func (s *Packs) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetPacksByIDResponse, error) {
-	request := operations.GetPacksByIDRequest{
-		ID: id,
+// Get a Pipeline within a Pack
+// Get the specified Pipeline within the specified Pack.
+func (s *PacksPipelines) Get(ctx context.Context, id string, pack string, opts ...operations.Option) (*operations.GetPipelinesByPackAndIDResponse, error) {
+	request := operations.GetPipelinesByPackAndIDRequest{
+		ID:   id,
+		Pack: pack,
 	}
 
 	o := operations.Options{}
@@ -1057,7 +794,7 @@ func (s *Packs) Get(ctx context.Context, id string, opts ...operations.Option) (
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/packs/{id}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/pipelines/{id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1067,7 +804,7 @@ func (s *Packs) Get(ctx context.Context, id string, opts ...operations.Option) (
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getPacksById",
+		OperationID:      "getPipelinesByPackAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -1195,7 +932,7 @@ func (s *Packs) Get(ctx context.Context, id string, opts ...operations.Option) (
 		}
 	}
 
-	res := &operations.GetPacksByIDResponse{
+	res := &operations.GetPipelinesByPackAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1211,12 +948,12 @@ func (s *Packs) Get(ctx context.Context, id string, opts ...operations.Option) (
 				return nil, err
 			}
 
-			var out components.CountedPackInfo
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedPackInfo = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1275,12 +1012,13 @@ func (s *Packs) Get(ctx context.Context, id string, opts ...operations.Option) (
 
 }
 
-// Update - Upgrade a Pack
-// Upgrade the specified Pack.</br></br>If the Pack includes any user–modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack.Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
-func (s *Packs) Update(ctx context.Context, id string, packUpgradeRequest components.PackUpgradeRequest, opts ...operations.Option) (*operations.UpdatePacksByIDResponse, error) {
-	request := operations.UpdatePacksByIDRequest{
-		ID:                 id,
-		PackUpgradeRequest: packUpgradeRequest,
+// Update a Pipeline within a Pack
+// Update the specified Pipeline within the specified Pack.</br></br>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+func (s *PacksPipelines) Update(ctx context.Context, id string, pack string, pipeline components.PipelineInput, opts ...operations.Option) (*operations.UpdatePipelinesByPackAndIDResponse, error) {
+	request := operations.UpdatePipelinesByPackAndIDRequest{
+		ID:       id,
+		Pack:     pack,
+		Pipeline: pipeline,
 	}
 
 	o := operations.Options{}
@@ -1301,7 +1039,7 @@ func (s *Packs) Update(ctx context.Context, id string, packUpgradeRequest compon
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/packs/{id}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/p/{pack}/pipelines/{id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1311,11 +1049,11 @@ func (s *Packs) Update(ctx context.Context, id string, packUpgradeRequest compon
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "updatePacksById",
+		OperationID:      "updatePipelinesByPackAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "PackUpgradeRequest", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Pipeline", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -1446,7 +1184,7 @@ func (s *Packs) Update(ctx context.Context, id string, packUpgradeRequest compon
 		}
 	}
 
-	res := &operations.UpdatePacksByIDResponse{
+	res := &operations.UpdatePipelinesByPackAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1462,12 +1200,12 @@ func (s *Packs) Update(ctx context.Context, id string, packUpgradeRequest compon
 				return nil, err
 			}
 
-			var out components.CountedPackInfo
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedPackInfo = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

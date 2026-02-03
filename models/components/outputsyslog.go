@@ -103,22 +103,22 @@ func (e *Facility) IsExact() bool {
 type OutputSyslogSeverity int64
 
 const (
-	// OutputSyslogSeverityZero emergency
-	OutputSyslogSeverityZero OutputSyslogSeverity = 0
-	// OutputSyslogSeverityOne alert
-	OutputSyslogSeverityOne OutputSyslogSeverity = 1
-	// OutputSyslogSeverityTwo critical
-	OutputSyslogSeverityTwo OutputSyslogSeverity = 2
-	// OutputSyslogSeverityThree error
-	OutputSyslogSeverityThree OutputSyslogSeverity = 3
-	// OutputSyslogSeverityFour warning
-	OutputSyslogSeverityFour OutputSyslogSeverity = 4
-	// OutputSyslogSeverityFive notice
-	OutputSyslogSeverityFive OutputSyslogSeverity = 5
-	// OutputSyslogSeveritySix info
-	OutputSyslogSeveritySix OutputSyslogSeverity = 6
-	// OutputSyslogSeveritySeven debug
-	OutputSyslogSeveritySeven OutputSyslogSeverity = 7
+	// OutputSyslogSeverityEmergency emergency
+	OutputSyslogSeverityEmergency OutputSyslogSeverity = 0
+	// OutputSyslogSeverityAlert alert
+	OutputSyslogSeverityAlert OutputSyslogSeverity = 1
+	// OutputSyslogSeverityCritical critical
+	OutputSyslogSeverityCritical OutputSyslogSeverity = 2
+	// OutputSyslogSeverityError error
+	OutputSyslogSeverityError OutputSyslogSeverity = 3
+	// OutputSyslogSeverityWarning warning
+	OutputSyslogSeverityWarning OutputSyslogSeverity = 4
+	// OutputSyslogSeverityNotice notice
+	OutputSyslogSeverityNotice OutputSyslogSeverity = 5
+	// OutputSyslogSeverityInfo info
+	OutputSyslogSeverityInfo OutputSyslogSeverity = 6
+	// OutputSyslogSeverityDebug debug
+	OutputSyslogSeverityDebug OutputSyslogSeverity = 7
 )
 
 func (e OutputSyslogSeverity) ToPointer() *OutputSyslogSeverity {

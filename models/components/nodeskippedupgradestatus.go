@@ -5,10 +5,10 @@ package components
 type NodeSkippedUpgradeStatus int64
 
 const (
-	NodeSkippedUpgradeStatusZero  NodeSkippedUpgradeStatus = 0
-	NodeSkippedUpgradeStatusOne   NodeSkippedUpgradeStatus = 1
-	NodeSkippedUpgradeStatusTwo   NodeSkippedUpgradeStatus = 2
-	NodeSkippedUpgradeStatusThree NodeSkippedUpgradeStatus = 3
+	NodeSkippedUpgradeStatusDownloadError  NodeSkippedUpgradeStatus = 0
+	NodeSkippedUpgradeStatusInstallType    NodeSkippedUpgradeStatus = 1
+	NodeSkippedUpgradeStatusMissingPackage NodeSkippedUpgradeStatus = 2
+	NodeSkippedUpgradeStatusTooOld         NodeSkippedUpgradeStatus = 3
 )
 
 func (e NodeSkippedUpgradeStatus) ToPointer() *NodeSkippedUpgradeStatus {

@@ -7,6 +7,6 @@ Control the number of required acknowledgments
 
 | Name                           | Value                          |
 | ------------------------------ | ------------------------------ |
-| `AcknowledgmentsOptionsOne`    | 1                              |
-| `AcknowledgmentsOptionsZero`   | 0                              |
-| `AcknowledgmentsOptionsMinus1` | -1                             |
+| `AcknowledgmentsOptionsLeader` | 1                              |
+| `AcknowledgmentsOptionsNone`   | 0                              |
+| `AcknowledgmentsOptionsAll`    | -1                             |
