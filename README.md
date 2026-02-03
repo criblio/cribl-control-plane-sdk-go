@@ -1,9 +1,18 @@
 # cribl-control-plane-sdk-go
-<!-- Start Summary [summary] -->
-## Summary
 
-Cribl API Reference: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
-<!-- End Summary [summary] -->
+The Cribl Go SDK for the control plane provides operational control over Cribl resources and helps streamline the process of integrating with Cribl.
+
+Complementary API reference documentation is available at [https://docs.cribl.io/cribl-as-code/api/](https://docs.cribl.io/cribl-as-code/api-reference/control-plane/cribl-core/). Product documentation is available at https://docs.cribl.io.
+
+Complementary API reference documentation is available at https://docs.cribl.io/cribl-as-code/api-reference. Product documentation is available at https://docs.cribl.io.
+
+> [!IMPORTANT]
+> **Preview Feature**
+> The Cribl SDKs are Preview features that are still being developed. We do not recommend using them in a production environment, because the features might not be fully tested or optimized for performance, and related documentation could be incomplete.
+>
+> Please continue to submit feedback through normal Cribl support channels, but assistance might be limited while the features remain in Preview.
+
+<!-- No Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
@@ -182,8 +191,13 @@ func main() {
 
 <!-- No End SDK Example Usage [usage] -->
 
-<!-- Start Authentication [security] -->
 ## Authentication
+
+Except for the `health.get` and `auth.tokens.get` methods, all Cribl SDK requests require you to authenticate with a Bearer token. You must include a valid Bearer token in the configuration when initializing your SDK client. The Bearer token verifies your identity and ensures secure access to the requested resources. The SDK automatically manages the `Authorization` header for subsequent requests once properly authenticated.
+
+For information about Bearer token expiration, see [Token Management](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-token-mgmt) in the Cribl as Code documentation.
+
+**Authentication happens once during SDK initialization**. After you initialize the SDK client with authentication as shown in the [authentication examples](#authentication-examples), the SDK automatically handles authentication for all subsequent API calls. You do not need to include authentication parameters in individual API requests. The [SDK Example Usage](#sdk-example-usage) section shows how to initialize the SDK and make API calls, but if you've properly initialized your client as shown in the authentication examples, you only need to make the API method calls themselves without re-initializing.
 
 ### Per-Client Security Schemes
 
@@ -194,89 +208,23 @@ This SDK supports the following security schemes globally:
 | `BearerAuth`  | http   | HTTP Bearer  | `CRIBLCONTROLPLANE_BEARER_AUTH`  |
 | `ClientOauth` | oauth2 | OAuth2 token | `CRIBLCONTROLPLANE_CLIENT_OAUTH` |
 
-You can set the security parameters through the `WithSecurity` option when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
-```go
-package main
+To configure authentication on Cribl.Cloud and in hybrid deployments, use the `ClientOauth` security scheme. The SDK uses the OAuth credentials that you provide to obtain a Bearer token and refresh the token within its expiration window using the standard OAuth2 flow.
 
-import (
-	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"log"
-	"os"
-)
+In on-prem deployments, use the `BearerAuth` security scheme. The SDK uses the username/password credentials that you provide to obtain a Bearer token. Automatically refreshing the Bearer token within its expiration window requires a callback function as shown in the [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-go/blob/main/examples/example-onprem-auth.go).
 
-func main() {
-	ctx := context.Background()
+Set the security scheme when initializing the SDK client instance using one of these optional parameters:
+- `WithSecurity`: Use for static security values (OAuth2 credentials that the SDK will manage automatically)
+- `WithSecuritySource`: Use for dynamic security with a callback function (automatic Bearer token refresh in on-prem deployments)
 
-	s := criblcontrolplanesdkgo.New(
-		"https://api.example.com",
-		criblcontrolplanesdkgo.WithSecurity(components.Security{
-			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-		}),
-	)
+The SDK uses the selected scheme by default to authenticate with the API for all operations that support it.
 
-	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
-		AcceleratedFields: []string{
-			"<value 1>",
-			"<value 2>",
-		},
-		BucketName: criblcontrolplanesdkgo.Pointer("<value>"),
-		CacheConnection: &components.CacheConnection{
-			AcceleratedFields: []string{
-				"<value 1>",
-				"<value 2>",
-			},
-			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
-			CacheRef:                "<value>",
-			CreatedAt:               7795.06,
-			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
-			MigrationQueryID:        criblcontrolplanesdkgo.Pointer("<id>"),
-			RetentionInDays:         1466.58,
-		},
-		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
-		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
-		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
-		ID:                "<id>",
-		Metrics: &components.LakeDatasetMetrics{
-			CurrentSizeBytes: 6170.04,
-			MetricsDate:      "<value>",
-		},
-		RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](456.37),
-		SearchConfig: &components.LakeDatasetSearchConfig{
-			Datatypes: []string{
-				"<value 1>",
-			},
-			Metadata: &components.DatasetMetadata{
-				Earliest:           "<value>",
-				EnableAcceleration: true,
-				FieldList: []string{
-					"<value 1>",
-					"<value 2>",
-				},
-				LatestRunInfo: &components.DatasetMetadataRunInfo{
-					EarliestScannedTime: criblcontrolplanesdkgo.Pointer[float64](4334.7),
-					FinishedAt:          criblcontrolplanesdkgo.Pointer[float64](6811.22),
-					LatestScannedTime:   criblcontrolplanesdkgo.Pointer[float64](5303.3),
-					ObjectCount:         criblcontrolplanesdkgo.Pointer[float64](9489.04),
-				},
-				ScanMode: components.ScanModeDetailed,
-			},
-		},
-		StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-		ViewName:          criblcontrolplanesdkgo.Pointer("<value>"),
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	if res.CountedCriblLakeDataset != nil {
-		// handle response
-	}
-}
+### Authentication Examples
 
-```
-<!-- End Authentication [security] -->
+The [Cribl.Cloud and Hybrid Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-go/blob/main/examples/example-cloud-auth.go) demonstrates how to configure authentication on Cribl.Cloud and in hybrid deployments. To obtain the Client ID and Client Secret you'll need to initialize using the `ClientOauth` security schema, follow the [instructions for creating an API Credential](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud) in the Cribl as Code documentation.
+
+The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-go/blob/main/examples/example-onprem-auth.go) demonstrates how to configure authentication in on-prem deployments using your username and password.
+
+<!-- No Authentication [security] -->
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
