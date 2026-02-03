@@ -5,14 +5,14 @@ management:
   docVersion: 4.16.1-alpha.1769555026407-0074e6cb
   speakeasyVersion: 1.697.5
   generationVersion: 2.799.0
-  releaseVersion: 0.6.0-alpha.1
-  configChecksum: 6e9f185a576357feb4799ad5a3bcf71a
+  releaseVersion: 0.6.0-alpha.2
+  configChecksum: 82443382167583265c349c909955d339
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 9ad3d748-c947-4e04-ad91-911848ae7321
-  pristine_commit_hash: 7affa5113b458156e96f95a789d6b3c6decc6175
-  pristine_tree_hash: 1b418e8d50aa79580b88036df90385530657574d
+  generation_id: eccb4f4a-6062-45c5-80a9-6c10ca130400
+  pristine_commit_hash: 968e3e0ac1fbb69de300f7d2c25d2969cd202bde
+  pristine_tree_hash: ccdb6b433ac391a94184e2094fe89d0d8df35588
 features:
   go:
     additionalDependencies: 0.1.0
@@ -89,8 +89,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:5543445851c7d6603dad5d428d8f29705f6cae16
-    pristine_git_object: 89b6df1c062cda0a0d85fe0003a3f195073a2703
+    last_write_checksum: sha1:777e5818a7ac4cbdcf7a3495dccd89e627f3afe5
+    pristine_git_object: 49c88ddec8c89ce61d2953e7892e00380659d8f1
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:fb9fb4234425ef1804e96656c03496b13175c97c
