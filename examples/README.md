@@ -54,6 +54,9 @@ go run example-packs.go auth.go
 
 # Worker group replication
 go run example-worker-group-replication.go auth.go
+
+# On-prem worker group process optimization
+go run example-onprem-worker-group.go auth.go
 ```
 
 **Important**: Always include `auth.go` when running configuration examples, as they depend on the authentication helper functions.
@@ -69,6 +72,7 @@ go run example-worker-group-replication.go auth.go
 | `example-edge.go` | Complete Cribl Edge pipeline: fleet, source, destination, pipeline, routes, deployment | Uses `auth.go` + `.env` |
 | `example-packs.go` | Installs Cribl Pack and creates complete data pipeline within the pack | Uses `auth.go` + `.env` |
 | `example-worker-group-replication.go` | Replicates an existing worker group with a new unique identity | Uses `auth.go` + `.env` |
+| `example-onprem-worker-group.go` | Optimizes Worker Process settings for on-prem/hybrid worker groups (process count, memory, minimum processes) | Uses `auth.go` + `.env` |
 
 ## Configuration
 
