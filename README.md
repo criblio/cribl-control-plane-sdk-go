@@ -2,7 +2,7 @@
 
 The Cribl Go SDK for the control plane provides operational control over Cribl resources and helps streamline the process of integrating with Cribl.
 
-In addition to the usage examples in this repository, you can adapt the [code examples for common use cases](https://docs.cribl.io/cribl-as-code/code-examples) in the Cribl documentation to use Go instead of Python.
+Complementary API reference documentation is available at [https://docs.cribl.io/cribl-as-code/api/](https://docs.cribl.io/cribl-as-code/api-reference/control-plane/cribl-core/). Product documentation is available at https://docs.cribl.io.
 
 Complementary API reference documentation is available at https://docs.cribl.io/cribl-as-code/api-reference. Product documentation is available at https://docs.cribl.io.
 
