@@ -302,11 +302,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [LakeDatasets](docs/sdks/lakedatasets/README.md)
 
-* [Create](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset
-* [List](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets
-* [Delete](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset
-* [Get](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset
-* [Update](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset
+* [Create](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
+* [List](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets (Cribl.Cloud only)
+* [Delete](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset (Cribl.Cloud only)
+* [Get](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset (Cribl.Cloud only)
+* [Update](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset (Cribl.Cloud only)
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
@@ -317,7 +317,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
+* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment for a specific product
 
 ### [Packs](docs/sdks/packs/README.md)
 

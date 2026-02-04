@@ -4,15 +4,15 @@
 
 ### Available Operations
 
-* [Create](#create) - Create a Lake Dataset
-* [List](#list) - List all Lake Datasets
-* [Delete](#delete) - Delete a Lake Dataset
-* [Get](#get) - Get a Lake Dataset
-* [Update](#update) - Update a Lake Dataset
+* [Create](#create) - Create a Lake Dataset (Cribl.Cloud only)
+* [List](#list) - List all Lake Datasets (Cribl.Cloud only)
+* [Delete](#delete) - Delete a Lake Dataset (Cribl.Cloud only)
+* [Get](#get) - Get a Lake Dataset (Cribl.Cloud only)
+* [Update](#update) - Update a Lake Dataset (Cribl.Cloud only)
 
 ## Create
 
-Create a new Lake Dataset in the specified Lake.
+Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
@@ -120,7 +120,7 @@ func main() {
 
 ## List
 
-Get a list of all Lake Datasets in the specified Lake.
+Get a list of all Lake Datasets in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
@@ -186,7 +186,7 @@ func main() {
 
 ## Delete
 
-Delete the specified Lake Dataset in the specified Lake
+Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
@@ -244,7 +244,7 @@ func main() {
 
 ## Get
 
-Get the specified Lake Dataset in the specified Lake.
+Get the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
@@ -302,7 +302,7 @@ func main() {
 
 ## Update
 
-Update the specified Lake Dataset in the specified Lake.
+Update the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
