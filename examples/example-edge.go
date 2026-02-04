@@ -74,14 +74,15 @@ func main() {
 		fmt.Printf("⚠️ Fleet already exists: %s. Using existing fleet.\n", FLEET_ID)
 	} else {
 		// Create Fleet
-		myFleetCreateRequest := components.GroupCreateRequest{
+		myFleet := components.GroupCreateRequest{
 			ID:                 FLEET_ID,
 			OnPrem:             criblcontrolplanesdkgo.Bool(true),
 			WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(true),
 			IsFleet:            criblcontrolplanesdkgo.Bool(true),
 			IsSearch:           criblcontrolplanesdkgo.Bool(false),
 		}
-		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreEdge, myFleetCreateRequest)
+
+		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreEdge, myFleet)
 		if err != nil {
 			log.Printf("Error creating fleet: %v", err)
 		} else if createResponse != nil && createResponse.CountedConfigGroup != nil {
@@ -91,7 +92,7 @@ func main() {
 
 	// Create Syslog Source
 	udpPort := float64(SYSLOG_PORT)
-	syslogSource := operations.CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog2(operations.CreateInputInputSyslogSyslog2{
+	syslogSource := operations.CreateInputInputSyslogSyslog2{
 		ID:      "my-syslog-source",
 		Type:    operations.CreateInputInputSyslogType2Syslog,
 		Host:    "0.0.0.0",
@@ -100,9 +101,10 @@ func main() {
 		TLS: &components.TLSSettingsServerSideType{
 			Disabled: criblcontrolplanesdkgo.Bool(true),
 		},
-	})
+	}
 
-	createRequest := operations.CreateCreateInputRequestSyslog(syslogSource)
+	syslogUnion := operations.CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog2(syslogSource)
+	createRequest := operations.CreateCreateInputRequestSyslog(syslogUnion)
 	_, err = client.Sources.Create(ctx, createRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating Syslog source: %v", err)
@@ -115,15 +117,14 @@ func main() {
 	region := AWS_REGION
 	secretKey := AWS_SECRET_KEY
 	apiKey := AWS_API_KEY
-	stagePath := "/tmp/cribl-stage"
 	s3Destination := operations.CreateOutputOutputS3{
 		ID:             "my-s3-destination",
 		Type:           operations.CreateOutputTypeS3S3,
 		Bucket:         AWS_BUCKET_NAME,
-		StagePath:      stagePath,
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
+		StagePath:      "/tmp/cribl-s3-stage",
 		Compress:       components.CompressionOptions2Gzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}
@@ -176,23 +177,23 @@ func main() {
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route
-		newRoute := components.RoutesRoute{
-			Final:                  criblcontrolplanesdkgo.Bool(false),
-			ID:                     criblcontrolplanesdkgo.String("my-route"),
+		newRoute := components.RouteConf{
+			Final:                  false,
+			ID:                     "my-route",
 			Name:                   "my-route",
 			Pipeline:               "my-pipeline",
-			Output:                 "my-s3-destination",
+			Output:                 criblcontrolplanesdkgo.String("my-s3-destination"),
 			EnableOutputExpression: criblcontrolplanesdkgo.Bool(true), // Allow custom output destinations
 			Filter:                 criblcontrolplanesdkgo.String("__inputId=='syslog:my-syslog-source'"),
 			Description:            criblcontrolplanesdkgo.String("This is my new Route"),
 		}
 
 		// Add new Route to existing Routes
-		updatedRoutes := append([]components.RoutesRoute{newRoute}, existingRoutes.Routes...)
+		updatedRoutes := append([]components.RouteConf{newRoute}, existingRoutes.Routes...)
 
 		// Update Routes configuration
-		if existingRoutes.ID != nil {
-			_, err = client.Routes.Update(ctx, *existingRoutes.ID, components.Routes{
+		if existingRoutes.ID != "" {
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
 				ID:     existingRoutes.ID,
 				Routes: updatedRoutes,
 			}, operations.WithServerURL(groupURL))

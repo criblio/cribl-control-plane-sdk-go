@@ -66,13 +66,13 @@ func main() {
 		fmt.Printf("⚠️ Worker Group already exists: %s. Using existing group.\n", WORKER_GROUP_ID)
 	} else {
 		// Create Worker Group
-		myWorkerGroupCreateRequest := components.GroupCreateRequest{
+		myWorkerGroup := components.GroupCreateRequest{
 			ID:          WORKER_GROUP_ID,
 			Description: criblcontrolplanesdkgo.String("My Worker Group"),
 			OnPrem:      criblcontrolplanesdkgo.Bool(true),
 		}
 
-		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, myWorkerGroupCreateRequest)
+		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, myWorkerGroup)
 		if err != nil {
 			log.Printf("Error creating Worker Group: %v", err)
 		} else if createResponse != nil && createResponse.CountedConfigGroup != nil {
@@ -84,17 +84,16 @@ func main() {
 	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := AUTH_TOKEN
 	sendToRoutes := true
-	createInputRequest := operations.CreateCreateInputRequestTcpjson(
-		operations.CreateInputInputTcpjson{
-			ID:           "my-tcp-json",
-			Type:         operations.CreateInputTypeTcpjsonTcpjson,
-			Host:         "0.0.0.0",
-			Port:         float64(PORT),
-			AuthType:     &authType,
-			AuthToken:    &authToken,
-			SendToRoutes: &sendToRoutes,
-		},
-	)
+	tcpJSONSource := operations.CreateInputInputTcpjson{
+		ID:           "my-tcp-json",
+		Type:         operations.CreateInputTypeTcpjsonTcpjson,
+		Host:         "0.0.0.0",
+		Port:         float64(PORT),
+		AuthType:     &authType,
+		AuthToken:    &authToken,
+		SendToRoutes: &sendToRoutes,
+	}
+	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONSource)
 	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating TCP JSON Source: %v", err)
@@ -159,23 +158,23 @@ func main() {
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route
-		newRoute := components.RoutesRoute{
-			Final:                  criblcontrolplanesdkgo.Bool(false),
-			ID:                     criblcontrolplanesdkgo.String("my-route"),
+		newRoute := components.RouteConf{
+			Final:                  false,
+			ID:                     "my-route",
 			Name:                   "my-route",
 			Pipeline:               "my-pipeline",
-			Output:                 "my-fs-destination",
+			Output:                 criblcontrolplanesdkgo.String("my-fs-destination"),
 			EnableOutputExpression: criblcontrolplanesdkgo.Bool(true), // Allow custom output destinations
 			Filter:                 criblcontrolplanesdkgo.String("__inputId=='tcpjson:my-tcp-json'"),
 			Description:            criblcontrolplanesdkgo.String("This is my new Route"),
 		}
 
 		// Add new route to existing Routes
-		updatedRoutes := append([]components.RoutesRoute{newRoute}, existingRoutes.Routes...)
+		updatedRoutes := append([]components.RouteConf{newRoute}, existingRoutes.Routes...)
 
 		// Update Routes configuration
-		if existingRoutes.ID != nil {
-			_, err = client.Routes.Update(ctx, *existingRoutes.ID, components.Routes{
+		if existingRoutes.ID != "" {
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
 				ID:     existingRoutes.ID,
 				Routes: updatedRoutes,
 			}, operations.WithServerURL(groupURL))
