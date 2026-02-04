@@ -177,23 +177,23 @@ func main() {
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route
-		newRoute := components.RoutesRoute{
-			Final:                  criblcontrolplanesdkgo.Bool(false),
-			ID:                     criblcontrolplanesdkgo.String("my-route"),
+		newRoute := components.RouteConf{
+			Final:                  false,
+			ID:                     "my-route",
 			Name:                   "my-route",
 			Pipeline:               "my-pipeline",
-			Output:                 "my-s3-destination",
+			Output:                 criblcontrolplanesdkgo.String("my-s3-destination"),
 			EnableOutputExpression: criblcontrolplanesdkgo.Bool(true), // Allow custom output destinations
 			Filter:                 criblcontrolplanesdkgo.String("__inputId=='syslog:my-syslog-source'"),
 			Description:            criblcontrolplanesdkgo.String("This is my new Route"),
 		}
 
 		// Add new Route to existing Routes
-		updatedRoutes := append([]components.RoutesRoute{newRoute}, existingRoutes.Routes...)
+		updatedRoutes := append([]components.RouteConf{newRoute}, existingRoutes.Routes...)
 
 		// Update Routes configuration
-		if existingRoutes.ID != nil {
-			_, err = client.Routes.Update(ctx, *existingRoutes.ID, components.Routes{
+		if existingRoutes.ID != "" {
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
 				ID:     existingRoutes.ID,
 				Routes: updatedRoutes,
 			}, operations.WithServerURL(groupURL))
