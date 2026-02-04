@@ -25,13 +25,14 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
+  versioningStrategy: automatic
   persistentEdits: {}
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 go:
-  version: 0.6.0-beta.12
+  version: 0.6.0-beta.13
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: true
   baseErrorName: CriblControlPlaneError
