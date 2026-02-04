@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 43e8edf7048ffac3e5a4528b0ccc93d2
-  docVersion: 4.17.0-alpha.1770230641178-bbdc5eae
+  docChecksum: bbfe1b78aeb716047ba6947bc3bbe502
+  docVersion: 4.17.0-alpha.1770234361875-23f559cd
   speakeasyVersion: 1.701.0
   generationVersion: 2.803.3
-  releaseVersion: 0.6.0-rc.12
-  configChecksum: dba719332371c16101b86b21f5a94a66
+  releaseVersion: 0.6.0-rc.13
+  configChecksum: 7892ee49066f481318fcd82fbeb24b42
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: c97d3ac4-bb06-405c-b6a6-b3dbf3200cce
-  pristine_commit_hash: 2a8d3a3d7c025ea029b3622a7629c967f33a17fa
-  pristine_tree_hash: 531ed903202483a46dbbf06970d25e998e15a3f8
+  generation_id: 345f374b-a2e9-4195-bffd-449b2d663292
+  pristine_commit_hash: 52d12961233efe358972c22f8211df4fdc6e2da6
+  pristine_tree_hash: 96ae5688109ced6fd4e3a3b740042f46c9644909
 features:
   go:
     additionalDependencies: 0.1.0
@@ -96,8 +96,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:6d6e559a1de8404223dd4f0aafab133a65e7c860
-    pristine_git_object: 29d7052cb93fc782f5995849cd86e9d2db73730a
+    last_write_checksum: sha1:ac04231ddf125ed4c0bbc9a643173184bed9e8ee
+    pristine_git_object: ed8264762d26134be334ba33e81edc4253d93f77
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -138,10 +138,6 @@ trackedFiles:
     id: 3467b4ee5bad
     last_write_checksum: sha1:8e738326982c3f001f4dcb43a9d22168e5b0ce92
     pristine_git_object: 71a440f37abe9e77f25ae30ea1d861143e73df6a
-  docs/models/components/additionalpropertiestypepipelineconfgroups.md:
-    id: 0f5336178949
-    last_write_checksum: sha1:41304868b2ea2881c7ef7ce1ad529e7d3dad6521
-    pristine_git_object: 6d79f7d70640075ce2558d8655b5403497d2f163
   docs/models/components/additionalproperty.md:
     id: d92050d8cc9e
     last_write_checksum: sha1:d2407dc37110221ef3e0f135c544f2604cd878cb
@@ -494,10 +490,6 @@ trackedFiles:
     id: 0c8573a71d66
     last_write_checksum: sha1:512242b69eb44a145d7fd7d17edf2a9ea8987955
     pristine_git_object: 98104b5cfed19d34e891027a60ed251776e32697
-  docs/models/components/comment.md:
-    id: bf8c05d705cb
-    last_write_checksum: sha1:0dc374b62b3182a17a42b4733e7bd32677ffd12f
-    pristine_git_object: c640ba820dd7874b74119203acd1a26cd05c1c1a
   docs/models/components/commit.md:
     id: d1fa67a6b1d8
     last_write_checksum: sha1:5606f2517a25020667ad76f57ddb9d41d4bbd42d
@@ -564,8 +556,8 @@ trackedFiles:
     pristine_git_object: b6f76679387b1ef5a34e7f2c71132a24b2c9e329
   docs/models/components/confinput.md:
     id: 29658a91a912
-    last_write_checksum: sha1:2c535f92b2b4e3239dee634611b6acce18eec960
-    pristine_git_object: 91ed25bc15abdda3df8600e57cdb19ad14670345
+    last_write_checksum: sha1:7ac9089c214d772a63cb3d94883cdf97c9b30981
+    pristine_git_object: 684b9284ab5c79d9d546101d751d272e9280d92e
   docs/models/components/container.md:
     id: 3acbe2278a15
     last_write_checksum: sha1:3edd0f54053a2a25dad77d6f51b3b5722a8e1290
@@ -868,8 +860,12 @@ trackedFiles:
     pristine_git_object: 6d360e70f52571cf289028c481326a830ba643ee
   docs/models/components/distributedsummary.md:
     id: 681ffcac8ec3
-    last_write_checksum: sha1:f2b50c546921818b07f222b657bc3c624baccd7d
-    pristine_git_object: e0a760a3a705b59a465ff03b675c9b5e2120726b
+    last_write_checksum: sha1:a6e9e8f0e8131fc512737019168e437d1a3172aa
+    pristine_git_object: c18a81532aa07a09394ba7da684fc88cea7a04ba
+  docs/models/components/distributedsummarygroups.md:
+    id: ada4cdc52ce9
+    last_write_checksum: sha1:39cbc5fe7480c9f721a97c819ab0ebb1d7a6aa6e
+    pristine_git_object: 21b61abebee0f14c5d86b0ba1a3887752ebd9960
   docs/models/components/distributedsummaryworkers.md:
     id: 500b4b2adc34
     last_write_checksum: sha1:da413b439c6ff4f088c20344080f21831ed28b7a
@@ -1786,10 +1782,6 @@ trackedFiles:
     id: 33425c54dd83
     last_write_checksum: sha1:e846ebfd9e09924a09ef3f1f2057225263b28716
     pristine_git_object: de9b78c6b8ace1765a033c8b8d275c62ff2ec8ed
-  docs/models/components/groups.md:
-    id: ad7be802c0e8
-    last_write_checksum: sha1:87320f4ccaca07602f48b1da9412e4020ff8eee5
-    pristine_git_object: 3116805d806e4dfd93e053611a399a8360584465
   docs/models/components/hbcriblinfo.md:
     id: 900e55f9138b
     last_write_checksum: sha1:f6804c4e1c3783375607b0e63922a993b48f1e2e
@@ -5000,8 +4992,8 @@ trackedFiles:
     pristine_git_object: 5a27e835095f1b79dd2f41bb241dde6b7e275064
   docs/models/components/pipelineconf.md:
     id: 0d0a82d6c88f
-    last_write_checksum: sha1:9cd13c994e8f179d0d1cd131beb1889876d10bf6
-    pristine_git_object: f2b4e0fc5eb94a91411c17f281cd7dc129fd09b9
+    last_write_checksum: sha1:9e0fd2f4dfbc33b227491e647505cc08a3c5e9e8
+    pristine_git_object: e7259faf834a587af45a494e63dddd6ec9ad1ae4
   docs/models/components/pipelinefunctionaggregatemetrics.md:
     id: 28560e68fc22
     last_write_checksum: sha1:ca0e75139d2a7091f845b4d8314fc8fba20928da
@@ -5670,6 +5662,10 @@ trackedFiles:
     id: e4b11654657f
     last_write_checksum: sha1:70a067c30b125f0dd12d768ca75cb492d0df8841
     pristine_git_object: 850e23b11dd02b2b6f7efb52fb3a695a61a76c7d
+  docs/models/components/pipelinegroups.md:
+    id: 94468fd22df3
+    last_write_checksum: sha1:af2ddace5f5a842d403894bf1bba0296aa5adeaa
+    pristine_git_object: 3346039887243fec862a3e50a83ddf6e22557ab4
   docs/models/components/pipelineinput.md:
     id: 864e0392a960
     last_write_checksum: sha1:7b82d7704289ec07c3d2281c3b2a3ddcbb93b053
@@ -8110,18 +8106,22 @@ trackedFiles:
     id: e91e34d9f9f1
     last_write_checksum: sha1:861fe63a38697e563489b4d7f989d66e8d49be66
     pristine_git_object: 820d6d9c575b1805fa34f992717ef9563f589429
+  docs/models/components/routecomment.md:
+    id: 0be564a8f0f6
+    last_write_checksum: sha1:54783fb389b72b0b8c610f829b6a6076c018371d
+    pristine_git_object: 6a7659a02c8db3ba602a196c4b5d7ed9e6b7065a
   docs/models/components/routeconf.md:
     id: f24f50e64b9e
-    last_write_checksum: sha1:109d35260939263dfbcba8389394ed157044444f
-    pristine_git_object: 03ab9e523a84079424a1d0a60cb3b873d3644c4e
+    last_write_checksum: sha1:da76f28d98e5855fb55471cfaf7b32570ee6acc1
+    pristine_git_object: f746c65cf898716b837dc21cbd481c6239e6cc56
   docs/models/components/routes.md:
     id: 419f2a2307d0
-    last_write_checksum: sha1:457dd6773239e7c46231f57e790182cc660cec07
-    pristine_git_object: 430cc27e03a0e20e3044f8283fb0d182a7d423b0
-  docs/models/components/routesroute.md:
-    id: 83477e66cffb
-    last_write_checksum: sha1:a4e76c1c333bd441503e5b1120c71b573aa0ae60
-    pristine_git_object: 02037feab00848523ebcd8214c4dadcb4c72b01b
+    last_write_checksum: sha1:a63411305a2150b0421320c369eef9218c99e1b3
+    pristine_git_object: 392df779c8d8b38cf5e4c4f13d43888b7d4520b6
+  docs/models/components/routesgroups.md:
+    id: c9997e747474
+    last_write_checksum: sha1:d8f0304fe33b41bad05d2924816c5f8174a9ddc1
+    pristine_git_object: 0e61ddbe28aa5f4184675fef74ee23866cbd28f7
   docs/models/components/rulesettype.md:
     id: c2ba18f98c11
     last_write_checksum: sha1:4a6e74e1fa617332f03455117467a568012ab8a3
@@ -13700,12 +13700,12 @@ trackedFiles:
     pristine_git_object: 5ae16371ffc43b77833d739b0f4c1629c0f80860
   docs/sdks/packspipelines/README.md:
     id: b0262a36d64a
-    last_write_checksum: sha1:2ce2efe8666bdb67b721c828ddd0eb9f9c0883be
-    pristine_git_object: e4fba0c849692aa62d43a93d122d92b87be0afdd
+    last_write_checksum: sha1:74086eff6162fb709f4dac4a03709d3b6b4212d6
+    pristine_git_object: add05b6df724de30017e56ed4b4bc1184472d759
   docs/sdks/packsroutes/README.md:
     id: a1fb73e27b09
-    last_write_checksum: sha1:b66766993062ab821c7f3154c6ac79979f22c919
-    pristine_git_object: 2527ccc2ead936f9aec94966cc4563ad20019c30
+    last_write_checksum: sha1:e68820335a39c8dfe34387c3c3f5d5bacfa8eb82
+    pristine_git_object: 03e351d83b606a87df7a118e1c1c5ea20845f2aa
   docs/sdks/packssamples/README.md:
     id: d2c04868bca4
     last_write_checksum: sha1:e8369590bd20c430295fb27113a2cc7e88305330
@@ -13720,12 +13720,12 @@ trackedFiles:
     pristine_git_object: 4017d93932a5647c76c3a9d11ea6e0d752ce512e
   docs/sdks/pipelines/README.md:
     id: 96306a4a5f5a
-    last_write_checksum: sha1:d5fd95915cece59245186be6a32386a6ad4626b8
-    pristine_git_object: 4cfff306f6f431bd28371e2c91964e45038b2470
+    last_write_checksum: sha1:8dfe6787788e9dc07d3497ba96dfeff2ae03d843
+    pristine_git_object: e437a03c74de744d217400a87b32653803efba65
   docs/sdks/routes/README.md:
     id: 8eceb878c9af
-    last_write_checksum: sha1:a54104d9747ba6b624e8b03fbbc4ff25c041a173
-    pristine_git_object: b832e9779a15da685ee81255f822cebc11f92367
+    last_write_checksum: sha1:d18e0a7b54ccb271b540ecad59fbffb967d2f3ba
+    pristine_git_object: 2785eab28798159c6785370543c1de023ea8222b
   docs/sdks/samples/README.md:
     id: 2b3e67e9f9a5
     last_write_checksum: sha1:fcdcfc856d535e129ef89b54366e4400dd720d57
@@ -13894,10 +13894,6 @@ trackedFiles:
     id: 2d9c5c8b1d9b
     last_write_checksum: sha1:00a5f992d9cfc801150746468b89914817cb60ae
     pristine_git_object: 6a44cd0f152a10ca3d858c1eaa7194a6bfbcb89d
-  models/components/additionalpropertiestypepipelineconfgroups.go:
-    id: 3f895a4285e9
-    last_write_checksum: sha1:bcba1c8e11f0b052141ea49d9f423544fd7c87c8
-    pristine_git_object: b1feebbbffd3a888b8a64bfadf00c3ffa6b55596
   models/components/apitypesystemsettingsconf.go:
     id: 37fbe2638558
     last_write_checksum: sha1:33c45d88c6460551912a9de7cdf0ddfd45f5e996
@@ -14372,8 +14368,8 @@ trackedFiles:
     pristine_git_object: 328f2e3fc10438fcdd2a6c7929a508a070945d92
   models/components/distributedsummary.go:
     id: 951cf37866e3
-    last_write_checksum: sha1:41cf93ece3c02804f02489479c254798739bab54
-    pristine_git_object: 769456c3cd0da43b6ab08f8a6d9861aa1322cc22
+    last_write_checksum: sha1:2371d7767ae0f69b5052e0f99eb8ea612686a9cf
+    pristine_git_object: 87c16ee68f730de0931c5281a6d3f28cbd579ecc
   models/components/estimatedingestrateoptionsconfiggroup.go:
     id: bfde1a433b86
     last_write_checksum: sha1:a060ecdabcbec2c6567f43559a1fada4a5e00c85
@@ -15708,8 +15704,8 @@ trackedFiles:
     pristine_git_object: 98e189cb081aae35cd2cb00bb547748a98368731
   models/components/pipeline.go:
     id: 8981c11d87e0
-    last_write_checksum: sha1:c0295e41a25c4812f3c3c332bb10d3de9c46b1d6
-    pristine_git_object: 8b4ac777a86c16638e44d2c4e45cbb4fadbe7916
+    last_write_checksum: sha1:20cfb8007b72a8d7bdcf64b9e7cf0cbc87d70bfb
+    pristine_git_object: 96043063f2d772b7aec07d7de7c6c49161c750bb
   models/components/pipelinefunctionaggregatemetrics.go:
     id: f34aeb09374e
     last_write_checksum: sha1:9e358dea1dc4f62c0653aa515e0f9741b81973c6
@@ -15978,10 +15974,6 @@ trackedFiles:
     id: 4ca03cf4945b
     last_write_checksum: sha1:3f5e12551327aac9aa27d6cbdaade5f33885343d
     pristine_git_object: 54f9fe3b932377ba41ef5b9761535addda91ea49
-  models/components/pipelineinput.go:
-    id: 8dadd168ce64
-    last_write_checksum: sha1:5d3e43c2e7d23f0a16de222fda967282d88f4674
-    pristine_git_object: 13289086e6f303729a67edadf06f52801bd5a35b
   models/components/pqtype.go:
     id: c6ac1bf8db5d
     last_write_checksum: sha1:fa3c52632331f9c6eb2ec4f729240de134456ec4
@@ -16082,18 +16074,18 @@ trackedFiles:
     id: 1a649fad7138
     last_write_checksum: sha1:871f0ae57ff4d947814a285c089947bc2664d3ac
     pristine_git_object: 2c28a6703608ac873d0d478ab1374cd6b56fa56e
+  models/components/routecomment.go:
+    id: 847778c43f89
+    last_write_checksum: sha1:34c6f2c9caefc72a215fdba59acbab063424d263
+    pristine_git_object: 29fa949bfffccd4a15160bf2587bbaf3d414a68e
   models/components/routeconf.go:
     id: aaad7e3e9c86
-    last_write_checksum: sha1:ecc3998ea17069df9d441fafdb89fba6633dfd36
-    pristine_git_object: efb13df562c826ee9fe531e309cbf0ac787da4ad
+    last_write_checksum: sha1:e4a0a18fe4d149c41f6dd32b180e54dc2371d4db
+    pristine_git_object: b8e885086dc1427d1e12b927b048761179a59a28
   models/components/routes.go:
     id: 0bf1aa6a0d34
-    last_write_checksum: sha1:df74e71bdd0b44cd2cebae0c75b69984b409b2f8
-    pristine_git_object: 3e12ab034dd1e89faf6a6b41fff683dfec5f5207
-  models/components/routesroute.go:
-    id: d3294bc8f02c
-    last_write_checksum: sha1:6f4b376110189b4e425d9b139f33346282198ad2
-    pristine_git_object: 0a5244560e2954cffba12d8199a5dbed9edf9ec6
+    last_write_checksum: sha1:70126c89fc66fe9fde71efbaf67e2ad32f6d327c
+    pristine_git_object: b572572261b0bd9383a92ab5e0f60458ebd1beed
   models/components/runnablejob.go:
     id: 0ff6b484e72b
     last_write_checksum: sha1:13fd35e805a6a601b2b994901840dc1c87860cec
@@ -19579,7 +19571,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 628587, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "an ack mostly disclosure", "disabled": false}}, "comments": [{"comment": "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles"}]}]}
+          application/json: {"count": 628587, "items": [{"comments": [{"comment": "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles", "groupId": "<id>", "id": "<id>", "index": 6285.87}], "groups": {"key": {"description": "an ack mostly disclosure", "index": 2403.54, "name": "<value>"}}, "id": "<id>", "routes": []}]}
         "500":
           application/json: {"message": "<value>"}
   updateRoutesById:
@@ -19588,10 +19580,10 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "where internationalize yesterday woefully tank underneath", "disabled": true}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}
+        application/json: {"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 6864.55}], "groups": {"key": {"description": "where internationalize yesterday woefully tank underneath", "index": 8612.49, "name": "<value>"}}, "id": "<id>", "routes": []}
       responses:
         "200":
-          application/json: {"count": 555138, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "true", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "whereas cannon helpful", "final": true}], "groups": {"key": {"name": "<value>", "description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
+          application/json: {"count": 555138, "items": [{"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 5733.62}], "groups": {"key": {"description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "index": 2169.08, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>"}, {}], "context": "<value>", "description": "whereas cannon helpful", "disabled": false, "enableOutputExpression": false, "filter": "true", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesUpdateExamplesBasicRoute:
@@ -19599,10 +19591,10 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"id": "default", "name": "my-route", "disabled": true, "filter": "source == \"access.log\"", "pipeline": "main", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "Route access logs to main pipeline", "final": true}], "groups": {"key": {"name": "<value>", "description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}
+        application/json: {"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 3844.57}], "groups": {"key": {"description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "index": 8899.36, "name": "<value>"}}, "id": "default", "routes": [{"clones": [{"key": "<value>"}], "context": "<value>", "description": "Route access logs to main pipeline", "disabled": true, "enableOutputExpression": false, "filter": "source == \"access.log\"", "final": true, "groupId": "<id>", "id": "default", "name": "my-route", "output": "<value>", "outputExpression": "<value>", "pipeline": "main", "targetContext": "group"}]}
       responses:
         "200":
-          application/json: {"count": 555138, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "true", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "whereas cannon helpful", "final": true}], "groups": {"key": {"name": "<value>", "description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
+          application/json: {"count": 555138, "items": [{"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 5733.62}], "groups": {"key": {"description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "index": 2169.08, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>"}, {}], "context": "<value>", "description": "whereas cannon helpful", "disabled": false, "enableOutputExpression": false, "filter": "true", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesUpdateExamplesMultipleRoutes:
@@ -19610,10 +19602,10 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"id": "route-speedtest", "name": "speedtest", "disabled": false, "filter": "source == \"speedtest.log\"", "pipeline": "main", "enableOutputExpression": false, "output": "default", "outputExpression": "<value>", "description": "Route speedtest logs", "final": false}, {"id": "route-mtr", "name": "mtr", "disabled": false, "filter": "source == \"mtr.log\"", "pipeline": "passthru", "enableOutputExpression": false, "output": "default", "outputExpression": "<value>", "description": "Route mtr logs", "final": false}, {"id": "route-statsd", "name": "statsd", "disabled": true, "filter": "source == \"statsd.log\"", "pipeline": "prometheus_metrics", "enableOutputExpression": false, "output": "devnull", "outputExpression": "<value>", "description": "Route statsd metrics", "final": false}, {"id": "route-default", "name": "default", "disabled": true, "filter": "true", "pipeline": "main", "enableOutputExpression": false, "output": "default", "outputExpression": "<value>", "description": "Catch-all Route for all other events", "final": true}], "groups": {"key": {"name": "<value>", "description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}
+        application/json: {"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 1800.08}], "groups": {"key": {"description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "index": 557.98, "name": "<value>"}}, "id": "default", "routes": [{"clones": [{"key": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "Route speedtest logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"speedtest.log\"", "final": false, "groupId": "<id>", "id": "route-speedtest", "name": "speedtest", "output": "default", "outputExpression": "<value>", "pipeline": "main", "targetContext": "pack"}, {"clones": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}, {"key": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "Route mtr logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"mtr.log\"", "final": false, "groupId": "<id>", "id": "route-mtr", "name": "mtr", "output": "default", "outputExpression": "<value>", "pipeline": "passthru", "targetContext": "group"}, {"clones": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}, {"key": "<value>", "key1": "<value>"}, {}], "context": "<value>", "description": "Route statsd metrics", "disabled": true, "enableOutputExpression": false, "filter": "source == \"statsd.log\"", "final": false, "groupId": "<id>", "id": "route-statsd", "name": "statsd", "output": "devnull", "outputExpression": "<value>", "pipeline": "prometheus_metrics", "targetContext": "group"}, {"clones": [{}, {"key": "<value>", "key1": "<value>"}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Catch-all Route for all other events", "disabled": true, "enableOutputExpression": false, "filter": "true", "final": true, "groupId": "<id>", "id": "route-default", "name": "default", "output": "default", "outputExpression": "<value>", "pipeline": "main", "targetContext": "pack"}]}
       responses:
         "200":
-          application/json: {"count": 555138, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "true", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "whereas cannon helpful", "final": true}], "groups": {"key": {"name": "<value>", "description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
+          application/json: {"count": 555138, "items": [{"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 5733.62}], "groups": {"key": {"description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "index": 2169.08, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>"}, {}], "context": "<value>", "description": "whereas cannon helpful", "disabled": false, "enableOutputExpression": false, "filter": "true", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesUpdateExamplesRouteWithOutputExpression:
@@ -19621,10 +19613,10 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"id": "route-dynamic", "name": "dynamic-output", "disabled": true, "filter": "source == \"dynamic.log\"", "pipeline": "main", "enableOutputExpression": true, "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "description": "Route with dynamic Destination based on environment", "final": true}], "groups": {"key": {"name": "<value>", "description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}
+        application/json: {"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 2035.39}], "groups": {"key": {"description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "index": 3962.06, "name": "<value>"}}, "id": "default", "routes": [{"clones": [{}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}, {}], "context": "<value>", "description": "Route with dynamic Destination based on environment", "disabled": true, "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "groupId": "<id>", "id": "route-dynamic", "name": "dynamic-output", "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "targetContext": "pack"}]}
       responses:
         "200":
-          application/json: {"count": 555138, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "true", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "whereas cannon helpful", "final": true}], "groups": {"key": {"name": "<value>", "description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
+          application/json: {"count": 555138, "items": [{"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 5733.62}], "groups": {"key": {"description": "ugh eyeliner authorized even burgeon chime expansion boldly midst and", "index": 2169.08, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>"}, {}], "context": "<value>", "description": "whereas cannon helpful", "disabled": false, "enableOutputExpression": false, "filter": "true", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]}]}
         "500":
           application/json: {"message": "<value>"}
   createRoutesAppendById:
@@ -19636,7 +19628,7 @@ examples:
         application/json: []
       responses:
         "200":
-          application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
+          application/json: {"count": 486469, "items": [{"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 3593.71}], "groups": {"key": {"description": "dirty finally helpless", "index": 3132.24, "name": "<value>"}}, "id": "<id>", "routes": []}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesAppendExamplesSingleRoute:
@@ -19647,7 +19639,7 @@ examples:
         application/json: [{"clones": [{"key": "<value>"}, {}], "context": "<value>", "description": "Route new logs to main pipeline", "disabled": true, "enableOutputExpression": true, "filter": "source == \"new.log\"", "final": true, "groupId": "<id>", "id": "route-new", "name": "new-route", "output": "<value>", "outputExpression": "<value>", "pipeline": "main", "targetContext": "group"}]
       responses:
         "200":
-          application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
+          application/json: {"count": 486469, "items": [{"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 3593.71}], "groups": {"key": {"description": "dirty finally helpless", "index": 3132.24, "name": "<value>"}}, "id": "<id>", "routes": []}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesAppendExamplesMultipleRoutes:
@@ -19658,7 +19650,7 @@ examples:
         application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route audit logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"audit.log\"", "final": false, "groupId": "<id>", "id": "route-audit", "name": "audit", "output": "default", "outputExpression": "<value>", "pipeline": "main", "targetContext": "group"}, {"clones": [{}, {}, {}], "context": "<value>", "description": "Route security logs", "disabled": true, "enableOutputExpression": false, "filter": "source == \"security.log\"", "final": false, "groupId": "<id>", "id": "route-security", "name": "security", "output": "devnull", "outputExpression": "<value>", "pipeline": "passthru", "targetContext": "group"}]
       responses:
         "200":
-          application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
+          application/json: {"count": 486469, "items": [{"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 3593.71}], "groups": {"key": {"description": "dirty finally helpless", "index": 3132.24, "name": "<value>"}}, "id": "<id>", "routes": []}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesAppendExamplesRouteWithOutputExpression:
@@ -19669,7 +19661,7 @@ examples:
         application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route with dynamic Destination based on environment", "disabled": false, "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "groupId": "<id>", "id": "route-dynamic-append", "name": "dynamic-append", "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "targetContext": "group"}]
       responses:
         "200":
-          application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
+          application/json: {"count": 486469, "items": [{"comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart", "groupId": "<id>", "id": "<id>", "index": 3593.71}], "groups": {"key": {"description": "dirty finally helpless", "index": 3132.24, "name": "<value>"}}, "id": "<id>", "routes": []}]}
         "500":
           application/json: {"message": "<value>"}
   listPipeline:
@@ -22587,7 +22579,7 @@ examples:
     speakeasy-default-get-routes:
       responses:
         "200":
-          application/json: {"count": 800579, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "lone carelessly as important upwardly think large", "final": true}], "groups": {"key": {"name": "<value>", "description": "wobbly hm scarily supposing mid yippee", "disabled": false}}, "comments": [{"comment": "The Football Is Good For Training And Recreational Purposes"}]}]}
+          application/json: {"count": 800579, "items": [{"comments": [{"comment": "The Football Is Good For Training And Recreational Purposes", "groupId": "<id>", "id": "<id>", "index": 8005.79}], "groups": {"key": {"description": "wobbly hm scarily supposing mid yippee", "index": 6108.77, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>"}, {"key": "<value>", "key1": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "lone carelessly as important upwardly think large", "disabled": false, "enableOutputExpression": true, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]}]}
         "500":
           application/json: {"message": "<value>"}
   getInputSystemByPack:
@@ -25876,7 +25868,7 @@ examples:
           pack: "<value>"
       responses:
         "200":
-          application/json: {"count": 741291, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "selfishly phooey bah ouch whoa until whoever always good unlike", "disabled": true}}, "comments": [{"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}]}]}
+          application/json: {"count": 741291, "items": [{"comments": [{"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality", "groupId": "<id>", "id": "<id>", "index": 7412.91}], "groups": {"key": {"description": "selfishly phooey bah ouch whoa until whoever always good unlike", "index": 920.82, "name": "<value>"}}, "id": "<id>", "routes": []}]}
         "500":
           application/json: {"message": "<value>"}
   updateRoutesByPackAndId:
@@ -25886,10 +25878,10 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"id": "default", "name": "my-route", "disabled": true, "filter": "source == \"access.log\"", "pipeline": "main", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "Route access logs to main pipeline", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}
+        application/json: {"comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016", "groupId": "<id>", "id": "<id>", "index": 4999.72}], "groups": {"key": {"description": "ridge impassioned amount happily", "index": 8485.39, "name": "<value>"}}, "id": "default", "routes": [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route access logs to main pipeline", "disabled": true, "enableOutputExpression": false, "filter": "source == \"access.log\"", "final": true, "groupId": "<id>", "id": "default", "name": "my-route", "output": "<value>", "outputExpression": "<value>", "pipeline": "main", "targetContext": "group"}]}
       responses:
         "200":
-          application/json: {"count": 937121, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}]}
+          application/json: {"count": 937121, "items": [{"comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016", "groupId": "<id>", "id": "<id>", "index": 4875}], "groups": {"key": {"description": "ridge impassioned amount happily", "index": 5374.84, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "woot joyfully along", "disabled": true, "enableOutputExpression": false, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "pack"}]}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesUpdateExamplesMultipleRoutes:
@@ -25898,10 +25890,10 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"id": "route-speedtest", "name": "speedtest", "disabled": true, "filter": "source == \"speedtest.log\"", "pipeline": "main", "enableOutputExpression": false, "output": "default", "outputExpression": "<value>", "description": "Route speedtest logs", "final": false}, {"id": "route-mtr", "name": "mtr", "disabled": false, "filter": "source == \"mtr.log\"", "pipeline": "passthru", "enableOutputExpression": false, "output": "default", "outputExpression": "<value>", "description": "Route mtr logs", "final": false}, {"id": "route-statsd", "name": "statsd", "disabled": true, "filter": "source == \"statsd.log\"", "pipeline": "prometheus_metrics", "enableOutputExpression": false, "output": "devnull", "outputExpression": "<value>", "description": "Route statsd metrics", "final": false}, {"id": "route-default", "name": "default", "disabled": false, "filter": "true", "pipeline": "main", "enableOutputExpression": false, "output": "default", "outputExpression": "<value>", "description": "Catch-all Route for all other events", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}
+        application/json: {"comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016", "groupId": "<id>", "id": "<id>", "index": 2877.94}], "groups": {"key": {"description": "ridge impassioned amount happily", "index": 7418.21, "name": "<value>"}}, "id": "default", "routes": [{"clones": [{"key": "<value>"}, {"key": "<value>", "key1": "<value>"}, {"key": "<value>"}], "context": "<value>", "description": "Route speedtest logs", "disabled": true, "enableOutputExpression": false, "filter": "source == \"speedtest.log\"", "final": false, "groupId": "<id>", "id": "route-speedtest", "name": "speedtest", "output": "default", "outputExpression": "<value>", "pipeline": "main", "targetContext": "pack"}, {"clones": [{}], "context": "<value>", "description": "Route mtr logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"mtr.log\"", "final": false, "groupId": "<id>", "id": "route-mtr", "name": "mtr", "output": "default", "outputExpression": "<value>", "pipeline": "passthru", "targetContext": "group"}, {"clones": [{}], "context": "<value>", "description": "Route statsd metrics", "disabled": true, "enableOutputExpression": false, "filter": "source == \"statsd.log\"", "final": false, "groupId": "<id>", "id": "route-statsd", "name": "statsd", "output": "devnull", "outputExpression": "<value>", "pipeline": "prometheus_metrics", "targetContext": "group"}, {"clones": [{}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Catch-all Route for all other events", "disabled": false, "enableOutputExpression": false, "filter": "true", "final": true, "groupId": "<id>", "id": "route-default", "name": "default", "output": "default", "outputExpression": "<value>", "pipeline": "main", "targetContext": "group"}]}
       responses:
         "200":
-          application/json: {"count": 937121, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}]}
+          application/json: {"count": 937121, "items": [{"comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016", "groupId": "<id>", "id": "<id>", "index": 4875}], "groups": {"key": {"description": "ridge impassioned amount happily", "index": 5374.84, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "woot joyfully along", "disabled": true, "enableOutputExpression": false, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "pack"}]}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesUpdateExamplesRouteWithOutputExpression:
@@ -25910,10 +25902,10 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"id": "route-dynamic", "name": "dynamic-output", "disabled": true, "filter": "source == \"dynamic.log\"", "pipeline": "main", "enableOutputExpression": true, "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "description": "Route with dynamic Destination based on environment", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}
+        application/json: {"comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016", "groupId": "<id>", "id": "<id>", "index": 7514.98}], "groups": {"key": {"description": "ridge impassioned amount happily", "index": 3321.41, "name": "<value>"}}, "id": "default", "routes": [{"clones": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "Route with dynamic Destination based on environment", "disabled": true, "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "groupId": "<id>", "id": "route-dynamic", "name": "dynamic-output", "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "targetContext": "group"}]}
       responses:
         "200":
-          application/json: {"count": 937121, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}]}
+          application/json: {"count": 937121, "items": [{"comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016", "groupId": "<id>", "id": "<id>", "index": 4875}], "groups": {"key": {"description": "ridge impassioned amount happily", "index": 5374.84, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "woot joyfully along", "disabled": true, "enableOutputExpression": false, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "pack"}]}]}
         "500":
           application/json: {"message": "<value>"}
     speakeasy-default-update-routes-by-pack-and-id:
@@ -25922,10 +25914,10 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}
+        application/json: {"comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016", "groupId": "<id>", "id": "<id>", "index": 9371.21}], "groups": {"key": {"description": "ridge impassioned amount happily", "index": 7367.48, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}, {}], "context": "<value>", "description": "woot joyfully along", "disabled": true, "enableOutputExpression": false, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "pack"}]}
       responses:
         "200":
-          application/json: {"count": 937121, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}]}
+          application/json: {"count": 937121, "items": [{"comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016", "groupId": "<id>", "id": "<id>", "index": 4875}], "groups": {"key": {"description": "ridge impassioned amount happily", "index": 5374.84, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "woot joyfully along", "disabled": true, "enableOutputExpression": false, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "pack"}]}]}
         "500":
           application/json: {"message": "<value>"}
   getRoutesByPack:
@@ -25935,7 +25927,7 @@ examples:
           pack: "<value>"
       responses:
         "200":
-          application/json: {"count": 55447, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "reproachfully reflecting notwithstanding remand uh-huh instead overwork um mmm cow", "disabled": false}}, "comments": [{"comment": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J"}]}]}
+          application/json: {"count": 55447, "items": [{"comments": [{"comment": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J", "groupId": "<id>", "id": "<id>", "index": 554.47}], "groups": {"key": {"description": "reproachfully reflecting notwithstanding remand uh-huh instead overwork um mmm cow", "index": 2142.09, "name": "<value>"}}, "id": "<id>", "routes": []}]}
         "500":
           application/json: {"message": "<value>"}
   createRoutesAppendByPackAndId:
@@ -25948,7 +25940,7 @@ examples:
         application/json: [{"clones": [{}, {"key": "<value>"}], "context": "<value>", "description": "Route new logs to main pipeline", "disabled": false, "enableOutputExpression": true, "filter": "source == \"new.log\"", "final": true, "groupId": "<id>", "id": "route-new", "name": "new-route", "output": "<value>", "outputExpression": "<value>", "pipeline": "main", "targetContext": "pack"}]
       responses:
         "200":
-          application/json: {"count": 580070, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "final": true}], "groups": {"key": {"name": "<value>", "description": "converse eggplant sturdy excepting bah ham likewise however", "disabled": false}}, "comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"}]}]}
+          application/json: {"count": 580070, "items": [{"comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients", "groupId": "<id>", "id": "<id>", "index": 6526.89}], "groups": {"key": {"description": "converse eggplant sturdy excepting bah ham likewise however", "index": 887.35, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "disabled": false, "enableOutputExpression": true, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesAppendExamplesMultipleRoutes:
@@ -25960,7 +25952,7 @@ examples:
         application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "Route audit logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"audit.log\"", "final": false, "groupId": "<id>", "id": "route-audit", "name": "audit", "output": "default", "outputExpression": "<value>", "pipeline": "main", "targetContext": "group"}, {"clones": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "Route security logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"security.log\"", "final": false, "groupId": "<id>", "id": "route-security", "name": "security", "output": "devnull", "outputExpression": "<value>", "pipeline": "passthru", "targetContext": "pack"}]
       responses:
         "200":
-          application/json: {"count": 580070, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "final": true}], "groups": {"key": {"name": "<value>", "description": "converse eggplant sturdy excepting bah ham likewise however", "disabled": false}}, "comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"}]}]}
+          application/json: {"count": 580070, "items": [{"comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients", "groupId": "<id>", "id": "<id>", "index": 6526.89}], "groups": {"key": {"description": "converse eggplant sturdy excepting bah ham likewise however", "index": 887.35, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "disabled": false, "enableOutputExpression": true, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]}]}
         "500":
           application/json: {"message": "<value>"}
     RoutesAppendExamplesRouteWithOutputExpression:
@@ -25972,7 +25964,7 @@ examples:
         application/json: [{"clones": [{"key": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "Route with dynamic Destination based on environment", "disabled": true, "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "groupId": "<id>", "id": "route-dynamic-append", "name": "dynamic-append", "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "targetContext": "pack"}]
       responses:
         "200":
-          application/json: {"count": 580070, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "final": true}], "groups": {"key": {"name": "<value>", "description": "converse eggplant sturdy excepting bah ham likewise however", "disabled": false}}, "comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"}]}]}
+          application/json: {"count": 580070, "items": [{"comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients", "groupId": "<id>", "id": "<id>", "index": 6526.89}], "groups": {"key": {"description": "converse eggplant sturdy excepting bah ham likewise however", "index": 887.35, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "disabled": false, "enableOutputExpression": true, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]}]}
         "500":
           application/json: {"message": "<value>"}
     speakeasy-default-create-routes-append-by-pack-and-id:
@@ -25984,7 +25976,7 @@ examples:
         application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>"}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "majestic frenetically lasting refer gloom char hm jell nougat", "disabled": false, "enableOutputExpression": true, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]
       responses:
         "200":
-          application/json: {"count": 580070, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "final": true}], "groups": {"key": {"name": "<value>", "description": "converse eggplant sturdy excepting bah ham likewise however", "disabled": false}}, "comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"}]}]}
+          application/json: {"count": 580070, "items": [{"comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients", "groupId": "<id>", "id": "<id>", "index": 6526.89}], "groups": {"key": {"description": "converse eggplant sturdy excepting bah ham likewise however", "index": 887.35, "name": "<value>"}}, "id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "disabled": false, "enableOutputExpression": true, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]}]}
         "500":
           application/json: {"message": "<value>"}
   createSystemSettingsRestart:
@@ -27049,7 +27041,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Nodes.Summaries.Get()`: \n  *  `request` **Changed** **Breaking** ⚠️\n  *  `error` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Routes.Get()`:  `response.Items[]` **Changed** **Breaking** ⚠️\n* `CriblControlPlane.Packs.Routes.Update()`: \n  *  `request.Routes` **Changed** **Breaking** ⚠️\n  *  `response.Items[]` **Changed** **Breaking** ⚠️\n* `CriblControlPlane.Packs.Routes.List()`:  `response.Items[]` **Changed** **Breaking** ⚠️\n* `CriblControlPlane.Packs.Routes.Append()`:  `response.Items[]` **Changed** **Breaking** ⚠️\n* `CriblControlPlane.Routes.Get()`:  `response.Items[]` **Changed** **Breaking** ⚠️\n* `CriblControlPlane.Routes.Update()`: \n  *  `request.Routes` **Changed** **Breaking** ⚠️\n  *  `response.Items[]` **Changed** **Breaking** ⚠️\n* `CriblControlPlane.Routes.List()`:  `response.Items[]` **Changed** **Breaking** ⚠️\n* `CriblControlPlane.Routes.Append()`:  `response.Items[]` **Changed** **Breaking** ⚠️\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

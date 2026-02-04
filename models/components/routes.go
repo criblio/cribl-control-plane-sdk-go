@@ -2,75 +2,71 @@
 
 package components
 
-import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-)
-
-type Comment struct {
-	// Optional, short description of this Route's purpose
-	Comment              *string        `json:"comment,omitempty"`
-	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
+type RoutesGroups struct {
+	// Short description of this group.
+	Description *string `json:"description,omitempty"`
+	// Index of the group
+	Index float64 `json:"index"`
+	// Group name.
+	Name string `json:"name"`
 }
 
-func (c Comment) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *Comment) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *Comment) GetComment() *string {
-	if c == nil {
+func (r *RoutesGroups) GetDescription() *string {
+	if r == nil {
 		return nil
 	}
-	return c.Comment
+	return r.Description
 }
 
-func (c *Comment) GetAdditionalProperties() map[string]any {
-	if c == nil {
-		return nil
+func (r *RoutesGroups) GetIndex() float64 {
+	if r == nil {
+		return 0.0
 	}
-	return c.AdditionalProperties
+	return r.Index
+}
+
+func (r *RoutesGroups) GetName() string {
+	if r == nil {
+		return ""
+	}
+	return r.Name
 }
 
 type Routes struct {
-	// Routes ID
-	ID *string `json:"id,omitempty"`
-	// Pipeline routing rules
-	Routes []RoutesRoute                                         `json:"routes"`
-	Groups map[string]AdditionalPropertiesTypePipelineConfGroups `json:"groups,omitempty"`
 	// Comments
-	Comments []Comment `json:"comments,omitempty"`
+	Comments []RouteComment `json:"comments,omitempty"`
+	// Map of route groups
+	Groups map[string]RoutesGroups `json:"groups,omitempty"`
+	// Routes ID
+	ID string `json:"id"`
+	// Pipeline routing rules
+	Routes []RouteConf `json:"routes"`
 }
 
-func (r *Routes) GetID() *string {
+func (r *Routes) GetComments() []RouteComment {
 	if r == nil {
 		return nil
 	}
-	return r.ID
+	return r.Comments
 }
 
-func (r *Routes) GetRoutes() []RoutesRoute {
-	if r == nil {
-		return []RoutesRoute{}
-	}
-	return r.Routes
-}
-
-func (r *Routes) GetGroups() map[string]AdditionalPropertiesTypePipelineConfGroups {
+func (r *Routes) GetGroups() map[string]RoutesGroups {
 	if r == nil {
 		return nil
 	}
 	return r.Groups
 }
 
-func (r *Routes) GetComments() []Comment {
+func (r *Routes) GetID() string {
 	if r == nil {
-		return nil
+		return ""
 	}
-	return r.Comments
+	return r.ID
+}
+
+func (r *Routes) GetRoutes() []RouteConf {
+	if r == nil {
+		return []RouteConf{}
+	}
+	return r.Routes
 }
