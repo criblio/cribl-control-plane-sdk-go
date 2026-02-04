@@ -123,8 +123,7 @@ func main() {
 		Files:     []string{"."},
 	}
 
-	workerGroupID := WORKER_GROUP_ID
-	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, &workerGroupID)
+	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Fatalf("Failed to commit configuration changes: %v", err)
 	}
