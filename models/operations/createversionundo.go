@@ -6,18 +6,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type CreateVersionUndoRequest struct {
-	// The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
-}
-
-func (c *CreateVersionUndoRequest) GetGroupID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.GroupID
-}
-
 type CreateVersionUndoResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of object objects

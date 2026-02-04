@@ -33,11 +33,7 @@ func newStatuses(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 
 // Get the status of the current working tree
 // Get the status of the current working tree of the Git repository used for Cribl configuration. The response includes details about modified, staged, untracked, and conflicted files, as well as branch and remote tracking information.
-func (s *Statuses) Get(ctx context.Context, groupID *string, opts ...operations.Option) (*operations.GetVersionStatusResponse, error) {
-	request := operations.GetVersionStatusRequest{
-		GroupID: groupID,
-	}
-
+func (s *Statuses) Get(ctx context.Context, opts ...operations.Option) (*operations.GetVersionStatusResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -88,10 +84,6 @@ func (s *Statuses) Get(ctx context.Context, groupID *string, opts ...operations.
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
