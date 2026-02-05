@@ -4,10 +4,31 @@ on:
   pull_request:
 
 jobs:
-  examples-build:
+  examples_build:
     runs-on: ubuntu-latest
+    outputs:
+      is_speakeasy_pr: ${{ steps.check-pr.outputs.is_speakeasy_pr }}
+      target_branch: ${{ steps.check-pr.outputs.target_branch }}
     
     steps:
+    - name: Check PR source and target
+      id: check-pr
+      env:
+        HEAD_REF: ${{ github.head_ref }}
+        BASE_REF: ${{ github.base_ref }}
+      run: |
+        echo "Head ref: $HEAD_REF"
+        echo "Base ref: $BASE_REF"
+        
+        # Check if this is a Speakeasy-generated PR
+        if [[ "$HEAD_REF" == speakeasy-sdk-regen* ]]; then
+          echo "is_speakeasy_pr=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "is_speakeasy_pr=false" >> "$GITHUB_OUTPUT"
+        fi
+        
+        echo "target_branch=$BASE_REF" >> "$GITHUB_OUTPUT"
+
     - name: Checkout code
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       
@@ -76,3 +97,30 @@ jobs:
         else
           echo "📭 No examples requiring auth.go found"
         fi
+
+  auto_merge:
+    name: Auto-merge Speakeasy PR (dev/stage only)
+    needs: examples_build
+    runs-on: ubuntu-latest
+    # TODO: Restore branch check after testing: && (needs.examples_build.outputs.target_branch == 'dev' || needs.examples_build.outputs.target_branch == 'stage')
+    if: needs.examples_build.outputs.is_speakeasy_pr == 'true'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Auto-merge PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          TARGET_BRANCH: ${{ needs.examples_build.outputs.target_branch }}
+        run: |
+          echo "Auto-merging Speakeasy PR #${PR_NUMBER} targeting ${TARGET_BRANCH}..."
+          
+          # TODO: Uncomment after testing
+          # gh pr merge "${PR_NUMBER}" \
+          #   --repo "${{ github.repository }}" \
+          #   --squash \
+          #   --delete-branch \
+          #   --auto
+          
+          echo "✅ Auto-merge would be enabled for PR #${PR_NUMBER} (currently disabled for testing)"
