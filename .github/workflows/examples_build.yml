@@ -102,8 +102,9 @@ jobs:
     name: Auto-merge Speakeasy PR (dev/stage only)
     needs: examples_build
     runs-on: ubuntu-latest
-    # TODO: Restore branch check after testing: && (needs.examples_build.outputs.target_branch == 'dev' || needs.examples_build.outputs.target_branch == 'stage')
-    if: needs.examples_build.outputs.is_speakeasy_pr == 'true'
+    if: >-
+      needs.examples_build.outputs.is_speakeasy_pr == 'true' &&
+      (needs.examples_build.outputs.target_branch == 'dev' || needs.examples_build.outputs.target_branch == 'stage')
     permissions:
       contents: write
       pull-requests: write
@@ -116,11 +117,10 @@ jobs:
         run: |
           echo "Auto-merging Speakeasy PR #${PR_NUMBER} targeting ${TARGET_BRANCH}..."
           
-          # TODO: Uncomment after testing
-          # gh pr merge "${PR_NUMBER}" \
-          #   --repo "${{ github.repository }}" \
-          #   --squash \
-          #   --delete-branch \
-          #   --auto
+          gh pr merge "${PR_NUMBER}" \
+            --repo "${{ github.repository }}" \
+            --squash \
+            --delete-branch \
+            --auto
           
-          echo "✅ Auto-merge would be enabled for PR #${PR_NUMBER} (currently disabled for testing)"
+          echo "✅ Auto-merge enabled for PR #${PR_NUMBER}"
