@@ -3,31 +3,31 @@
 package components
 
 type RouteConf struct {
-	// Create clones with the following fields set and feed to Pipeline (original event continues down the Routes)
+	// Create clones with the following fields set and feed to Pipeline (original event continues down the Routes).
 	Clones []map[string]string `json:"clones,omitempty"`
-	// Context for the route
+	// Context for the route.
 	Context *string `json:"context,omitempty"`
-	// Optional description of this route
+	// Description of this route.
 	Description *string `json:"description,omitempty"`
-	// Disable this routing rule
+	// Disable this routing rule.
 	Disabled *bool `json:"disabled,omitempty"`
-	// Enable to use a JavaScript expression that evaluates to the name of the destination
+	// Enable to use a JavaScript expression that evaluates to the name of the destination.
 	EnableOutputExpression *bool `json:"enableOutputExpression,omitempty"`
-	// JavaScript expression to select data to route
+	// JavaScript expression to select data to route.
 	Filter *string `json:"filter,omitempty"`
-	// Flag to control whether the event gets consumed by this Route (Final), or cloned into it
+	// Flag to control whether the event gets consumed by this Route (Final), or cloned into it.
 	Final bool `json:"final"`
-	// Optional group identifier
+	// Route group identifier.
 	GroupID *string `json:"groupId,omitempty"`
-	// Route ID
+	// Route ID.
 	ID string `json:"id"`
-	// Route name
+	// Route name.
 	Name string `json:"name"`
-	// Destination to send events to after they are processed by the Pipeline
+	// Destination to send events to after they are processed by the Pipeline.
 	Output *string `json:"output,omitempty"`
-	// JavaScript expression that will be evaluated as the name of the destination. Evaluation happens at Route construction time (not per event)
+	// JavaScript expression that will be evaluated as the name of the destination. Evaluation happens at Route construction time (not per event).
 	OutputExpression *string `json:"outputExpression,omitempty"`
-	// Pipeline to send the matching data to
+	// Pipeline to send the matching data to.
 	Pipeline      string         `json:"pipeline"`
 	TargetContext *TargetContext `json:"targetContext,omitempty"`
 }

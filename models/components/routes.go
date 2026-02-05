@@ -5,7 +5,7 @@ package components
 type RoutesGroups struct {
 	// Short description of this group.
 	Description *string `json:"description,omitempty"`
-	// Index of the group
+	// Index of the group.
 	Index float64 `json:"index"`
 	// Group name.
 	Name string `json:"name"`
@@ -33,13 +33,13 @@ func (r *RoutesGroups) GetName() string {
 }
 
 type Routes struct {
-	// Comments
+	// Comments.
 	Comments []RouteComment `json:"comments,omitempty"`
-	// Map of route groups
+	// Map of route groups.
 	Groups map[string]RoutesGroups `json:"groups,omitempty"`
-	// Routes ID
+	// Routes ID.
 	ID string `json:"id"`
-	// Pipeline routing rules
+	// Pipeline routing rules.
 	Routes []RouteConf `json:"routes"`
 }
 
