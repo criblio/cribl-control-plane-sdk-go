@@ -6,8 +6,26 @@ on:
 jobs:
   examples-build:
     runs-on: ubuntu-latest
+    outputs:
+      is_speakeasy_pr: ${{ steps.check-pr.outputs.is_speakeasy_pr }}
+      target_branch: ${{ steps.check-pr.outputs.target_branch }}
     
     steps:
+    - name: Check PR source and target
+      id: check-pr
+      run: |
+        echo "Head ref: ${{ github.head_ref }}"
+        echo "Base ref: ${{ github.base_ref }}"
+        
+        # Check if this is a Speakeasy-generated PR
+        if [[ "${{ github.head_ref }}" == speakeasy-sdk-regen* ]]; then
+          echo "is_speakeasy_pr=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "is_speakeasy_pr=false" >> "$GITHUB_OUTPUT"
+        fi
+        
+        echo "target_branch=${{ github.base_ref }}" >> "$GITHUB_OUTPUT"
+
     - name: Checkout code
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       
@@ -76,3 +94,30 @@ jobs:
         else
           echo "📭 No examples requiring auth.go found"
         fi
+
+  auto-merge:
+    name: Auto-merge Speakeasy PR (dev/stage only)
+    needs: examples-build
+    runs-on: ubuntu-latest
+    # Only run for Speakeasy PRs targeting dev or stage branches
+    if: |
+      needs.examples-build.outputs.is_speakeasy_pr == 'true'
+      #  &&
+      # (needs.examples-build.outputs.target_branch == 'dev' || needs.examples-build.outputs.target_branch == 'stage')
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Auto-merge PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Auto-merging Speakeasy PR #${{ github.event.pull_request.number }} targeting ${{ needs.examples-build.outputs.target_branch }}..."
+          
+          # gh pr merge ${{ github.event.pull_request.number }} \
+          #   --repo "${{ github.repository }}" \
+          #   --squash \
+          #   --delete-branch \
+          #   --auto
+          
+          echo "✅ Auto-merge enabled for PR #${{ github.event.pull_request.number }}"
