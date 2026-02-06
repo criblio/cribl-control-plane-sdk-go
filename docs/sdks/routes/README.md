@@ -97,31 +97,42 @@ func main() {
     )
 
     res, err := s.Routes.Update(ctx, "<id>", components.Routes{
-        ID: criblcontrolplanesdkgo.Pointer("default"),
-        Routes: []components.RoutesRoute{
-            components.RoutesRoute{
-                ID: criblcontrolplanesdkgo.Pointer("default"),
-                Name: "my-route",
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
-                Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
-                Pipeline: "main",
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
-                Output: "<value>",
-                OutputExpression: "<value>",
-                Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
-                Final: criblcontrolplanesdkgo.Pointer(true),
+        Comments: []components.RouteComment{
+            components.RouteComment{
+                Comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
+                ID: "<id>",
+                Index: 3844.57,
             },
         },
-        Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
-            "key": components.AdditionalPropertiesTypePipelineConfGroups{
-                Name: "<value>",
+        Groups: map[string]components.RoutesGroups{
+            "key": components.RoutesGroups{
                 Description: criblcontrolplanesdkgo.Pointer("ugh eyeliner authorized even burgeon chime expansion boldly midst and"),
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
+                Index: 8899.36,
+                Name: "<value>",
             },
         },
-        Comments: []components.Comment{
-            components.Comment{
-                Comment: criblcontrolplanesdkgo.Pointer("New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"),
+        ID: "default",
+        Routes: []components.RouteConf{
+            components.RouteConf{
+                Clones: []map[string]string{
+                    map[string]string{
+                        "key": "<value>",
+                    },
+                },
+                Context: criblcontrolplanesdkgo.Pointer("<value>"),
+                Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
+                Disabled: criblcontrolplanesdkgo.Pointer(true),
+                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
+                Final: true,
+                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
+                ID: "default",
+                Name: "my-route",
+                Output: criblcontrolplanesdkgo.Pointer("<value>"),
+                OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
+                Pipeline: "main",
+                TargetContext: components.TargetContextGroup.ToPointer(),
             },
         },
     })
