@@ -1685,12 +1685,12 @@ func (s *Commits) Undo(ctx context.Context, opts ...operations.Option) (*operati
 				return nil, err
 			}
 
-			var out components.CountedObject
+			var out components.CountedBoolean
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedObject = &out
+			res.CountedBoolean = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

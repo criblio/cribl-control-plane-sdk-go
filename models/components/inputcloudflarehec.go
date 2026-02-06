@@ -127,6 +127,117 @@ func (i *InputCloudflareHecAuthToken) GetMetadata() []ItemsTypeMetadata {
 	return i.Metadata
 }
 
+type TLSSettingsServerSide struct {
+	// Enable or disable TLS. Defaults to enabled for Cloudflare sources.
+	Disabled *bool `json:"disabled,omitempty"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `json:"requestCert,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `json:"commonNameRegex,omitempty"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl private key when TLS is enabled.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
+	CertPath *string `json:"certPath,omitempty"`
+	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+	CaPath     *string                                         `json:"caPath,omitempty"`
+	MinVersion *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitempty"`
+	MaxVersion *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitempty"`
+}
+
+func (t TLSSettingsServerSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *TLSSettingsServerSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t *TLSSettingsServerSide) GetDisabled() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.Disabled
+}
+
+func (t *TLSSettingsServerSide) GetRequestCert() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.RequestCert
+}
+
+func (t *TLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.RejectUnauthorized
+}
+
+func (t *TLSSettingsServerSide) GetCommonNameRegex() *string {
+	if t == nil {
+		return nil
+	}
+	return t.CommonNameRegex
+}
+
+func (t *TLSSettingsServerSide) GetCertificateName() *string {
+	if t == nil {
+		return nil
+	}
+	return t.CertificateName
+}
+
+func (t *TLSSettingsServerSide) GetPrivKeyPath() *string {
+	if t == nil {
+		return nil
+	}
+	return t.PrivKeyPath
+}
+
+func (t *TLSSettingsServerSide) GetPassphrase() *string {
+	if t == nil {
+		return nil
+	}
+	return t.Passphrase
+}
+
+func (t *TLSSettingsServerSide) GetCertPath() *string {
+	if t == nil {
+		return nil
+	}
+	return t.CertPath
+}
+
+func (t *TLSSettingsServerSide) GetCaPath() *string {
+	if t == nil {
+		return nil
+	}
+	return t.CaPath
+}
+
+func (t *TLSSettingsServerSide) GetMinVersion() *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
+	if t == nil {
+		return nil
+	}
+	return t.MinVersion
+}
+
+func (t *TLSSettingsServerSide) GetMaxVersion() *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
+	if t == nil {
+		return nil
+	}
+	return t.MaxVersion
+}
+
 type InputCloudflareHec struct {
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
@@ -151,7 +262,7 @@ type InputCloudflareHec struct {
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokens []InputCloudflareHecAuthToken `json:"authTokens,omitempty"`
-	TLS        *TLSSettingsServerSideType    `json:"tls,omitempty"`
+	TLS        *TLSSettingsServerSide        `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -298,7 +409,7 @@ func (i *InputCloudflareHec) GetAuthTokens() []InputCloudflareHecAuthToken {
 	return i.AuthTokens
 }
 
-func (i *InputCloudflareHec) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCloudflareHec) GetTLS() *TLSSettingsServerSide {
 	if i == nil {
 		return nil
 	}

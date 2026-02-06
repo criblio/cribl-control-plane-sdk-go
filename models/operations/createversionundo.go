@@ -8,8 +8,8 @@ import (
 
 type CreateVersionUndoResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of object objects
-	CountedObject *components.CountedObject
+	// a list of boolean objects
+	CountedBoolean *components.CountedBoolean
 }
 
 func (c *CreateVersionUndoResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -19,9 +19,9 @@ func (c *CreateVersionUndoResponse) GetHTTPMeta() components.HTTPMetadata {
 	return c.HTTPMeta
 }
 
-func (c *CreateVersionUndoResponse) GetCountedObject() *components.CountedObject {
+func (c *CreateVersionUndoResponse) GetCountedBoolean() *components.CountedBoolean {
 	if c == nil {
 		return nil
 	}
-	return c.CountedObject
+	return c.CountedBoolean
 }

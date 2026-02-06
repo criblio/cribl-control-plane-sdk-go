@@ -400,7 +400,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedObject != nil {
+    if res.CountedBoolean != nil {
         // handle response
     }
 }

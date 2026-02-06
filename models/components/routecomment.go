@@ -3,13 +3,13 @@
 package components
 
 type RouteComment struct {
-	// Description of this Route's purpose.
+	// Brief description of the Route.
 	Comment string `json:"comment"`
-	// Optional group identifier.
+	// Unique identifier for the Route Group that the Route is associated with.
 	GroupID *string `json:"groupId,omitempty"`
 	// Unique identifier for the comment.
 	ID string `json:"id"`
-	// Position index of the comment.
+	// Relative position of the comment among all comments for the Route.
 	Index float64 `json:"index"`
 }
 

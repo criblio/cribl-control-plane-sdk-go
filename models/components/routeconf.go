@@ -3,31 +3,31 @@
 package components
 
 type RouteConf struct {
-	// Create clones with the following fields set and feed to Pipeline (original event continues down the Routes).
+	// Array of clone configurations, each with a key-value pair to set or overwrite in cloned events. Original events continue to the next Route.
 	Clones []map[string]string `json:"clones,omitempty"`
-	// Context for the route.
+	// Context for the Route: <code>group</code> (Worker Group or Edge Fleet) or <code>pack</code>.
 	Context *string `json:"context,omitempty"`
-	// Description of this route.
+	// Brief description of the Route.
 	Description *string `json:"description,omitempty"`
-	// Disable this routing rule.
+	// If <code>true</code>, disable the Route. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitempty"`
-	// Enable to use a JavaScript expression that evaluates to the name of the destination.
+	// If <code>true</code>, use the <code>outputExpression</code> for dynamic Destination selection. Otherwise, <code>false</code>.
 	EnableOutputExpression *bool `json:"enableOutputExpression,omitempty"`
-	// JavaScript expression to select data to route.
+	// JavaScript expression to select events for routing.
 	Filter *string `json:"filter,omitempty"`
-	// Flag to control whether the event gets consumed by this Route (Final), or cloned into it.
+	// If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events.
 	Final bool `json:"final"`
-	// Route group identifier.
+	// Unique identifier for the Route Group that the Route is associated with.
 	GroupID *string `json:"groupId,omitempty"`
-	// Route ID.
+	// Unique identifier for the Route.
 	ID string `json:"id"`
-	// Route name.
+	// Name of the Route.
 	Name string `json:"name"`
-	// Destination to send events to after they are processed by the Pipeline.
+	// Destination that the Route sends matching events to after the Pipeline processes the events.
 	Output *string `json:"output,omitempty"`
-	// JavaScript expression that will be evaluated as the name of the destination. Evaluation happens at Route construction time (not per event).
+	// JavaScript expression to evaluate for dynamic Destination selection. Evaluation occurs when the Route is constructed, not for each event.
 	OutputExpression *string `json:"outputExpression,omitempty"`
-	// Pipeline to send the matching data to.
+	// Pipeline that the Route sends matching events to.
 	Pipeline      string         `json:"pipeline"`
 	TargetContext *TargetContext `json:"targetContext,omitempty"`
 }
