@@ -46,7 +46,7 @@ func main() {
             Description: criblcontrolplanesdkgo.Pointer(""),
             Streamtags: []string{},
             Functions: []components.PipelineFunctionConfInput{},
-            Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
+            Groups: map[string]components.PipelineGroups{
 
             },
         },
@@ -289,7 +289,7 @@ func main() {
             Description: criblcontrolplanesdkgo.Pointer(""),
             Streamtags: []string{},
             Functions: []components.PipelineFunctionConfInput{},
-            Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
+            Groups: map[string]components.PipelineGroups{
 
             },
         },
