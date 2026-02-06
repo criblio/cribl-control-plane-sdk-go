@@ -5,14 +5,14 @@ management:
   docVersion: 4.17.0-alpha.1770369982779-3bb94363
   speakeasyVersion: 1.704.0
   generationVersion: 2.806.4
-  releaseVersion: 0.6.0-beta.15
-  configChecksum: 5769116025a90057718ea331968bd9ce
+  releaseVersion: 0.6.0-beta.2
+  configChecksum: 66f7bd889c6c9fa334dd5e31c0103a76
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 8e1382e2-f5db-447e-9fb6-de45fcd5b787
-  pristine_commit_hash: f8305e549f0fce86a85b59e60bc0b8cf9bbdf605
-  pristine_tree_hash: 28e6d19d6f0148ed5c689272565032bf5fc4fcad
+  generation_id: b954e37f-ae5c-42d8-9a18-643613f9945b
+  pristine_commit_hash: 2cebeeeffb7ed4d2aaa700fa2faf50832de2fd67
+  pristine_tree_hash: e0fa000daf5d29220dbb446897608be9453fd133
 features:
   go:
     additionalDependencies: 0.1.0
@@ -96,8 +96,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:35ce32f31252be52623edc858120b753401b9b09
-    pristine_git_object: 7e72cdbfca5f6567701b9c1e7c4f1694b3590191
+    last_write_checksum: sha1:a94fe38d583a78be67b2c49151a9e128dbeb9848
+    pristine_git_object: 14d41f1d9a0a28928e4043469881fc558adff483
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -27059,7 +27059,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Routes.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.Update()`: \n  *  `request.Routes` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.Append()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Update()`: \n  *  `request.Routes` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Append()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
