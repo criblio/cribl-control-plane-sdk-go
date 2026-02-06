@@ -3,11 +3,11 @@
 package components
 
 type RoutesGroups struct {
-	// Short description of this group.
+	// Brief description of the Route Group.
 	Description *string `json:"description,omitempty"`
-	// Index of the group.
+	// Relative position of the Route Group among all Route Groups. Routes are evaluated in ascending order according to the index value of their Route Group.
 	Index float64 `json:"index"`
-	// Group name.
+	// Name of the Route Group.
 	Name string `json:"name"`
 }
 
@@ -33,13 +33,13 @@ func (r *RoutesGroups) GetName() string {
 }
 
 type Routes struct {
-	// Comments.
+	// Array of user-provided comments that describe or annotate Routes.
 	Comments []RouteComment `json:"comments,omitempty"`
-	// Map of route groups.
+	// Information about the Route Groups that the Route is associated with.
 	Groups map[string]RoutesGroups `json:"groups,omitempty"`
-	// Routes ID.
+	// Unique identifier for the Routing table. The supported value is <code>default</code>.
 	ID string `json:"id"`
-	// Pipeline routing rules.
+	// Array of Route configurations that define how events are processed and routed.
 	Routes []RouteConf `json:"routes"`
 }
 
