@@ -129,6 +129,117 @@ func (c *CreateInputAuthTokenCloudflareHec) GetMetadata() []components.ItemsType
 	return c.Metadata
 }
 
+type CreateInputTLSSettingsServerSide struct {
+	// Enable or disable TLS. Defaults to enabled for Cloudflare sources.
+	Disabled *bool `json:"disabled,omitempty"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `json:"requestCert,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `json:"commonNameRegex,omitempty"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl private key when TLS is enabled.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
+	CertPath *string `json:"certPath,omitempty"`
+	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+	CaPath     *string                                                    `json:"caPath,omitempty"`
+	MinVersion *components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitempty"`
+	MaxVersion *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitempty"`
+}
+
+func (c CreateInputTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetRequestCert() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RequestCert
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CommonNameRegex
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetCertificateName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CertificateName
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetPrivKeyPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrivKeyPath
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetPassphrase() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Passphrase
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetCertPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CertPath
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetCaPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CaPath
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetMinVersion() *components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
+	if c == nil {
+		return nil
+	}
+	return c.MinVersion
+}
+
+func (c *CreateInputTLSSettingsServerSide) GetMaxVersion() *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
+	if c == nil {
+		return nil
+	}
+	return c.MaxVersion
+}
+
 type CreateInputInputCloudflareHec struct {
 	// Unique ID for this input
 	ID       string                       `json:"id"`
@@ -152,8 +263,8 @@ type CreateInputInputCloudflareHec struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []CreateInputAuthTokenCloudflareHec   `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []CreateInputAuthTokenCloudflareHec `json:"authTokens,omitempty"`
+	TLS        *CreateInputTLSSettingsServerSide   `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -300,7 +411,7 @@ func (c *CreateInputInputCloudflareHec) GetAuthTokens() []CreateInputAuthTokenCl
 	return c.AuthTokens
 }
 
-func (c *CreateInputInputCloudflareHec) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputInputCloudflareHec) GetTLS() *CreateInputTLSSettingsServerSide {
 	if c == nil {
 		return nil
 	}
