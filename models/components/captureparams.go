@@ -7,7 +7,7 @@ type CaptureParams struct {
 	Duration float64 `json:"duration"`
 	// JavaScript expression evaluated against each event to determine whether an event is included in the capture output. Expressions can reference any event field and use logical operators.
 	Filter string `json:"filter"`
-	// Stage at which events are captured. <br><code>0</code> == Before pre-processing Pipeline <br><code>1</code> == Before the Routes <br><code>2</code> == Before post-processing Pipeline <br><code>3</code> == Before the Destination
+	// Stage at which events are captured. <br><code>0</code> == Before pre-processing Pipeline <br><code>1</code> == Before the Routes <br><code>2</code> == Before post-processing Pipeline <br><code>3</code> == Before the Destination.
 	Level CaptureLevel `json:"level"`
 	// Maximum number of events to capture.
 	MaxEvents int64 `json:"maxEvents"`

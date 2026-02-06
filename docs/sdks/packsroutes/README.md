@@ -96,31 +96,43 @@ func main() {
     )
 
     res, err := s.Packs.Routes.Update(ctx, "<id>", "<value>", components.Routes{
-        ID: criblcontrolplanesdkgo.Pointer("default"),
-        Routes: []components.RoutesRoute{
-            components.RoutesRoute{
-                ID: criblcontrolplanesdkgo.Pointer("default"),
-                Name: "my-route",
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
-                Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
-                Pipeline: "main",
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
-                Output: "<value>",
-                OutputExpression: "<value>",
-                Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
-                Final: criblcontrolplanesdkgo.Pointer(true),
+        Comments: []components.RouteComment{
+            components.RouteComment{
+                Comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
+                ID: "<id>",
+                Index: 4999.72,
             },
         },
-        Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
-            "key": components.AdditionalPropertiesTypePipelineConfGroups{
-                Name: "<value>",
+        Groups: map[string]components.RoutesGroups{
+            "key": components.RoutesGroups{
                 Description: criblcontrolplanesdkgo.Pointer("ridge impassioned amount happily"),
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
+                Index: 8485.39,
+                Name: "<value>",
             },
         },
-        Comments: []components.Comment{
-            components.Comment{
-                Comment: criblcontrolplanesdkgo.Pointer("New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"),
+        ID: "default",
+        Routes: []components.RouteConf{
+            components.RouteConf{
+                Clones: []map[string]string{
+                    map[string]string{
+                        "key": "<value>",
+                        "key1": "<value>",
+                    },
+                },
+                Context: criblcontrolplanesdkgo.Pointer("<value>"),
+                Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
+                Disabled: criblcontrolplanesdkgo.Pointer(true),
+                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
+                Final: true,
+                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
+                ID: "default",
+                Name: "my-route",
+                Output: criblcontrolplanesdkgo.Pointer("<value>"),
+                OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
+                Pipeline: "main",
+                TargetContext: components.TargetContextGroup.ToPointer(),
             },
         },
     })
