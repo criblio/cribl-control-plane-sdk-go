@@ -9,7 +9,7 @@
 
 ## List
 
-Get Cribl system settings
+Get Cribl system settings.
 
 ### Example Usage
 
@@ -65,7 +65,7 @@ func main() {
 
 ## Update
 
-Update Cribl system settings
+Update Cribl system settings.
 
 ### Example Usage
 
