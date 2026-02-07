@@ -25,13 +25,14 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
+  versioningStrategy: automatic
   persistentEdits: {}
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 go:
-  version: 0.5.2
+  version: 0.5.3
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: true
   baseErrorName: CriblControlPlaneError
@@ -59,6 +60,7 @@ go:
   outputModelSuffix: output
   packageName: github.com/criblio/cribl-control-plane-sdk-go
   respectRequiredFields: false
+  respectTitlesForPrimitiveUnionMembers: false
   responseFormat: envelope-http
   sdkPackageName: ""
   unionStrategy: left-to-right
