@@ -16,9 +16,395 @@ Actions related to Collectors
 
 Create a new Collector.
 
-### Example Usage
+### Example Usage: CollectorExamplesAzureBlob
 
-<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" -->
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesAzureBlob" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("which um whenever pro chase video uh-huh atop baritone yum"),
+            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](7324.19),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](6945.52),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+                "<value 3>",
+            },
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
+                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
+            },
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesCriblLake
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesCriblLake" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("cautiously annual worth before cleaner parsnip nimble onset once burgeon"),
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            SavedQueryID: "<id>",
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesDatabase
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesDatabase" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("pomelo outside offensively ew"),
+            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
+                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
+            },
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesFilesystem
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesFilesystem" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("pomelo outside offensively ew"),
+            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
+                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
+            },
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesGoogleCloudStorage
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesGoogleCloudStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("cautiously annual worth before cleaner parsnip nimble onset once burgeon"),
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            SavedQueryID: "<id>",
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesRest
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesRest" -->
 ```go
 package main
 
@@ -123,6 +509,229 @@ func main() {
                 Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                 Output: criblcontrolplanesdkgo.Pointer("<value>"),
             },
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesS3
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("pomelo outside offensively ew"),
+            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            SavedQueryID: "<id>",
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesScript
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesScript" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("cautiously annual worth before cleaner parsnip nimble onset once burgeon"),
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            SavedQueryID: "<id>",
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesSplunk
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesSplunk" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("cautiously annual worth before cleaner parsnip nimble onset once burgeon"),
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            SavedQueryID: "<id>",
         },
     ), criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
@@ -334,9 +943,392 @@ func main() {
 
 Update the specified Collector.<br><br>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br><br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
 
-### Example Usage
+### Example Usage: CollectorExamplesAzureBlob
 
-<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" -->
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesAzureBlob" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("wee supposing blaring spectate dark"),
+            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(false),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4891.8),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](5936.75),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
+                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
+            },
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesCriblLake
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesCriblLake" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
+            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            SavedQueryID: "<id>",
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesDatabase
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesDatabase" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
+            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            SavedQueryID: "<id>",
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesFilesystem
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesFilesystem" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("wee supposing blaring spectate dark"),
+            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(false),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4891.8),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](5936.75),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
+                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
+            },
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesGoogleCloudStorage
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesGoogleCloudStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("horde before huzzah apud ha even murky favorite"),
+            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(false),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](6033.18),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](6852.51),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            SavedQueryID: "<id>",
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesRest
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesRest" -->
 ```go
 package main
 
@@ -443,6 +1435,239 @@ func main() {
                 },
                 Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                 Output: criblcontrolplanesdkgo.Pointer("<value>"),
+            },
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesS3
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
+            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            SavedQueryID: "<id>",
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesScript
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesScript" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("wee supposing blaring spectate dark"),
+            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(false),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4891.8),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](5936.75),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
+                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
+            },
+        },
+    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJob != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: CollectorExamplesSplunk
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesSplunk" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
+            Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
+            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
+            TTL: criblcontrolplanesdkgo.Pointer("4h"),
+            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
+            RemoveFields: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+            Schedule: &components.ScheduleTypeSavedJobCollection{
+                Enabled: criblcontrolplanesdkgo.Pointer(true),
+                Skippable: criblcontrolplanesdkgo.Pointer(true),
+                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
+                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
+                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
+                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
+                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
+                    Mode: "list",
+                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
+                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
+                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
+                    TimestampTimezone: "<value>",
+                    TimeWarning: &components.MetricsStore{},
+                    Expression: criblcontrolplanesdkgo.Pointer("true"),
+                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                },
+            },
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
+                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
             },
         },
     ), criblcontrolplanesdkgo.Pointer("<value>"))
