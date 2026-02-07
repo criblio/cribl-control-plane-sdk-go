@@ -3,27 +3,27 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: a698eaf8d066604a799efc5300d48757
   docVersion: 4.16.1-20904e45
-  speakeasyVersion: 1.697.5
-  generationVersion: 2.799.0
-  releaseVersion: 0.5.2
-  configChecksum: 465152c717e87b506c06c3fb7cddae19
+  speakeasyVersion: 1.706.1
+  generationVersion: 2.809.2
+  releaseVersion: 0.5.3
+  configChecksum: 7f25eeb427cb70bcf7923e33650476f2
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: cf25b6ac-0dbb-4a5b-ba10-df9100abf88d
-  pristine_commit_hash: 40286be262fdd29a0828f59ae8cd88d25286653d
-  pristine_tree_hash: 1fa6c11e2f3bd47ea4fc39d61237a7015185c868
+  generation_id: 4cd1927a-3b9c-4da8-b67a-e82c3352f298
+  pristine_commit_hash: ce43e2cafeeb2eadb59e81555207e0daf431826c
+  pristine_tree_hash: 928ece3f5c94c72fc783390ca24032e3e4b3158f
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
-    core: 3.13.10
+    core: 3.13.12
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     enums: 2.82.1
     envVarSecurityUsage: 0.3.2
     flattening: 2.81.1
-    globalSecurity: 2.82.12
+    globalSecurity: 2.82.13
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.83.0
     groups: 2.81.3
@@ -36,7 +36,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.3.0
-    unions: 2.87.2
+    unions: 2.87.3
     uploadStreams: 0.1.0
 trackedFiles:
   .devcontainer/README.md:
@@ -89,8 +89,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:6a8c431ede1ec86248059b9d038621dddc07a168
-    pristine_git_object: 481b3e45fce1aae7f050181fdc0d25aa72bc7a67
+    last_write_checksum: sha1:91b1c46261a30ce7263e298123cf1c4d39801eb7
+    pristine_git_object: 9e0ca7369811abe92d5b7370956b0bf8de1a65ea
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:fb9fb4234425ef1804e96656c03496b13175c97c
@@ -11501,8 +11501,8 @@ trackedFiles:
     pristine_git_object: 130ba44bca10d83fd6ba2d0c5d311a5f603e0004
   internal/utils/security.go:
     id: eeb54c55241b
-    last_write_checksum: sha1:451524017dfed1da96bdd9bc1749546f8d2aa110
-    pristine_git_object: 99e1f672792b3230f0fee185681847bac3aca6c2
+    last_write_checksum: sha1:52cefded5223c60fcac5bd56574370e27a4bc3d5
+    pristine_git_object: ce2e1c0cffe3bbd3f111eace502f895175daad22
   internal/utils/union.go:
     id: db86c85746b6
     last_write_checksum: sha1:02aa5d612938c7a795c8e216bde55aba73e28ed9
@@ -18993,10 +18993,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## Go SDK Changes
-
-  This version of the SDK is generated for Cribl version 4.16.1-20904e45
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
