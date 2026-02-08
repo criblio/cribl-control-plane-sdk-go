@@ -36,10 +36,6 @@ func main() {
     )
 
     res, err := s.Packs.Sources.HecTokens.Create(ctx, "<id>", "<value>", components.AddHecTokenRequest{
-        AllowedIndexesAtToken: []string{
-            "<value 1>",
-        },
-        Description: criblcontrolplanesdkgo.Pointer("SUV velvety without"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
         Metadata: []components.EventBreakerRuleFields{
             components.EventBreakerRuleFields{
@@ -85,14 +81,7 @@ func main() {
         AllowedIndexesAtToken: []string{
             "myIndex6",
         },
-        Description: criblcontrolplanesdkgo.Pointer("extremely till outside healthily sensitize even gosh royal"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
-        Metadata: []components.EventBreakerRuleFields{
-            components.EventBreakerRuleFields{
-                Name: "<value>",
-                Value: "<value>",
-            },
-        },
         Token: "12345678901",
     })
     if err != nil {
@@ -154,12 +143,6 @@ func main() {
     )
 
     res, err := s.Packs.Sources.HecTokens.Update(ctx, "<id>", "<value>", "<value>", components.UpdateHecTokenRequest{
-        AllowedIndexesAtToken: []string{
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
-        },
-        Description: criblcontrolplanesdkgo.Pointer("straw critical famously dream after delightfully"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
         Metadata: []components.EventBreakerRuleFields{
             components.EventBreakerRuleFields{
@@ -204,14 +187,7 @@ func main() {
         AllowedIndexesAtToken: []string{
             "myIndex6",
         },
-        Description: criblcontrolplanesdkgo.Pointer("geez capitalise curiously enfold jubilantly"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
-        Metadata: []components.EventBreakerRuleFields{
-            components.EventBreakerRuleFields{
-                Name: "<value>",
-                Value: "<value>",
-            },
-        },
     })
     if err != nil {
         log.Fatal(err)

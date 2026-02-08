@@ -41,11 +41,6 @@ func main() {
     )
 
     res, err := s.Versions.Commits.Create(ctx, components.GitCommitParams{
-        Effective: criblcontrolplanesdkgo.Pointer(false),
-        Files: []string{
-            "<value 1>",
-        },
-        Group: criblcontrolplanesdkgo.Pointer("<value>"),
         Message: "<value>",
     })
     if err != nil {
@@ -278,8 +273,6 @@ func main() {
 
     res, err := s.Versions.Commits.Revert(ctx, components.GitRevertParams{
         Commit: "<value>",
-        Force: criblcontrolplanesdkgo.Pointer(false),
-        Message: criblcontrolplanesdkgo.Pointer("<value>"),
     })
     if err != nil {
         log.Fatal(err)

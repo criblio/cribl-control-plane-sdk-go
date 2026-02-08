@@ -52,14 +52,10 @@ func main() {
                     components.PipelineFunctionAggregateMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))"),
                         ID: components.PipelineFunctionAggregateMetricsIDAggregateMetrics,
-                        Description: criblcontrolplanesdkgo.Pointer("humiliating guidance highly hundred er round zowie ew"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionAggregateMetricsConf{
                             Passthrough: criblcontrolplanesdkgo.Pointer(false),
                             PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
                             SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
-                            Prefix: criblcontrolplanesdkgo.Pointer("<value>"),
                             TimeWindow: "10s",
                             Aggregations: []components.Aggregation{
                                 components.Aggregation{
@@ -78,19 +74,10 @@ func main() {
                             Groupbys: []string{
                                 "proc",
                             },
-                            FlushEventLimit: criblcontrolplanesdkgo.Pointer[float64](5554.41),
-                            FlushMemLimit: criblcontrolplanesdkgo.Pointer("<value>"),
                             Cumulative: criblcontrolplanesdkgo.Pointer(false),
                             ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(true),
-                            Add: []components.PipelineFunctionAggregateMetricsAdd{
-                                components.PipelineFunctionAggregateMetricsAdd{
-                                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                    Value: "<value>",
-                                },
-                            },
                             FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -143,15 +130,11 @@ func main() {
                     components.PipelineFunctionAggregation{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionAggregationIDAggregation,
-                        Description: criblcontrolplanesdkgo.Pointer("classic huzzah slip gah or from versus spirit worth down"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionAggregationConf{
                             Passthrough: criblcontrolplanesdkgo.Pointer(false),
                             PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
                             SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
                             MetricsMode: criblcontrolplanesdkgo.Pointer(false),
-                            Prefix: criblcontrolplanesdkgo.Pointer("<value>"),
                             TimeWindow: "10s",
                             Aggregations: []string{
                                 "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
@@ -159,20 +142,10 @@ func main() {
                             Groupbys: []string{
                                 "srcaddr",
                             },
-                            FlushEventLimit: criblcontrolplanesdkgo.Pointer[float64](6647.4),
-                            FlushMemLimit: criblcontrolplanesdkgo.Pointer("<value>"),
                             Cumulative: criblcontrolplanesdkgo.Pointer(false),
-                            SearchAggMode: criblcontrolplanesdkgo.Pointer("<value>"),
-                            Add: []components.ItemsTypeAdd{
-                                components.ItemsTypeAdd{
-                                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                    Value: "<value>",
-                                },
-                            },
                             ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(false),
                             FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -225,9 +198,6 @@ func main() {
                     components.PipelineFunctionAutoTimestamp{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionAutoTimestampIDAutoTimestamp,
-                        Description: criblcontrolplanesdkgo.Pointer("out slide blah irresponsible even squeaky finally atop noisily"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaAutoTimestamp{
                             SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                             DstField: criblcontrolplanesdkgo.Pointer("_time"),
@@ -237,7 +207,6 @@ func main() {
                             MaxLen: criblcontrolplanesdkgo.Pointer[float64](150),
                             DefaultTime: components.DefaultTimeNow.ToPointer(),
                             LatestDateAllowed: criblcontrolplanesdkgo.Pointer("+1week"),
-                            Spacer: criblcontrolplanesdkgo.Pointer("<value>"),
                             EarliestDateAllowed: criblcontrolplanesdkgo.Pointer("-420weeks"),
                             Timestamps: []components.Timestamp{
                                 components.Timestamp{
@@ -246,7 +215,6 @@ func main() {
                                 },
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -299,9 +267,6 @@ func main() {
                     components.PipelineFunctionCefInput{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionCefIDCef,
-                        Description: criblcontrolplanesdkgo.Pointer("gadzooks always as likable aboard ad gadzooks foolish ham"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaCefInput{
                             OutputField: criblcontrolplanesdkgo.Pointer("_raw"),
                             Header: []components.HeaderInput{
@@ -334,7 +299,6 @@ func main() {
                                 },
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -387,13 +351,9 @@ func main() {
                     components.PipelineFunctionChain{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionChainIDChain,
-                        Description: criblcontrolplanesdkgo.Pointer("cantaloupe hasty where gee yum excepting"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionChainConf{
                             Processor: "prometheus_metrics",
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -446,9 +406,6 @@ func main() {
                     components.PipelineFunctionClone{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionCloneIDClone,
-                        Description: criblcontrolplanesdkgo.Pointer("sailor finally magnetize plus aware forenenst good gloss"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaClone{
                             Clones: []map[string]string{
                                 map[string]string{
@@ -459,7 +416,6 @@ func main() {
                                 },
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -512,13 +468,9 @@ func main() {
                     components.PipelineFunctionComment{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionCommentIDComment,
-                        Description: criblcontrolplanesdkgo.Pointer("weekly boggle oof modulo when pleased consequently oddly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaComment{
                             Comment: criblcontrolplanesdkgo.Pointer("This function processes security events and enriches them with DNS lookups"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -571,9 +523,6 @@ func main() {
                     components.PipelineFunctionDNSLookup{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionDNSLookupIDDNSLookup,
-                        Description: criblcontrolplanesdkgo.Pointer("unlike victoriously dredger lest frightfully gifted instantly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaDNSLookup{
                             DNSLookupFields: []components.DNSLookupField{
                                 components.DNSLookupField{
@@ -588,19 +537,12 @@ func main() {
                                     OutFieldName: criblcontrolplanesdkgo.Pointer("src_hostname"),
                                 },
                             },
-                            DNSServers: []string{
-                                "<value 1>",
-                            },
                             CacheTTL: criblcontrolplanesdkgo.Pointer[float64](30),
                             MaxCacheSize: criblcontrolplanesdkgo.Pointer[float64](5000),
                             UseResolvConf: criblcontrolplanesdkgo.Pointer(false),
                             LookupFallback: criblcontrolplanesdkgo.Pointer(false),
-                            DomainOverrides: []string{
-                                "<value 1>",
-                            },
                             LookupFailLogLevel: components.LogLevelForFailedLookupsError.ToPointer(),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -653,11 +595,7 @@ func main() {
                     components.PipelineFunctionDrop{
                         Filter: criblcontrolplanesdkgo.Pointer("_raw.search(/success/i)>=0"),
                         ID: components.PipelineFunctionDropIDDrop,
-                        Description: criblcontrolplanesdkgo.Pointer("yahoo restfully hearten meanwhile absent naturally"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaDrop{},
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -710,9 +648,6 @@ func main() {
                     components.PipelineFunctionDropDimensions{
                         Filter: criblcontrolplanesdkgo.Pointer("(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))"),
                         ID: components.PipelineFunctionDropDimensionsIDDropDimensions,
-                        Description: criblcontrolplanesdkgo.Pointer("vacation wrongly hmph celebrate ignite"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionDropDimensionsConf{
                             TimeWindow: "10s",
                             DropDimensions: []string{
@@ -722,7 +657,6 @@ func main() {
                             },
                             FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -775,9 +709,6 @@ func main() {
                     components.PipelineFunctionDynamicSampling{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionDynamicSamplingIDDynamicSampling,
-                        Description: criblcontrolplanesdkgo.Pointer("gee ick why sniff um mouser mosh utterly monthly er"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionDynamicSamplingConf{
                             Mode: components.SampleModeSqrt,
                             KeyExpr: "`${domain}:${httpCode}`",
@@ -785,7 +716,6 @@ func main() {
                             MinEvents: criblcontrolplanesdkgo.Pointer[float64](3),
                             MaxSampleRate: criblcontrolplanesdkgo.Pointer[float64](3),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -883,20 +813,15 @@ func main() {
                     components.PipelineFunctionEval{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionEvalIDEval,
-                        Description: criblcontrolplanesdkgo.Pointer("well-to-do boo jaunty bank censor magnificent"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaEval{
                             Add: []components.FunctionConfSchemaEvalAdd{
                                 components.FunctionConfSchemaEvalAdd{
                                     Name: criblcontrolplanesdkgo.Pointer("action"),
                                     Value: "login == 'error' ? 'blocked' : action",
-                                    Disabled: criblcontrolplanesdkgo.Pointer(true),
                                 },
                                 components.FunctionConfSchemaEvalAdd{
                                     Name: criblcontrolplanesdkgo.Pointer("myTags"),
                                     Value: "login == 'error' ? [...myTags, 'error'] : myTags",
-                                    Disabled: criblcontrolplanesdkgo.Pointer(true),
                                 },
                             },
                             Keep: []string{
@@ -909,7 +834,6 @@ func main() {
                                 "identification",
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -962,14 +886,10 @@ func main() {
                     components.PipelineFunctionEventBreaker{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionEventBreakerIDEventBreaker,
-                        Description: criblcontrolplanesdkgo.Pointer("outside utterly each toward sailor"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionEventBreakerConf{
                             ExistingOrNew: components.ExistingOrNewNew,
                             ShouldMarkCriblBreaker: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1022,16 +942,12 @@ func main() {
                     components.PipelineFunctionFlatten{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionFlattenIDFlatten,
-                        Description: criblcontrolplanesdkgo.Pointer("countess majority excluding staid woot when swill"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaFlatten{
                             Fields: []string{},
                             Prefix: criblcontrolplanesdkgo.Pointer(""),
                             Depth: criblcontrolplanesdkgo.Pointer[float64](5),
                             Delimiter: criblcontrolplanesdkgo.Pointer("_"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1084,15 +1000,11 @@ func main() {
                     components.PipelineFunctionFoldkeys{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionFoldkeysIDFoldkeys,
-                        Description: criblcontrolplanesdkgo.Pointer("evenly eek aw but grave uh-huh"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaFoldkeys{
                             DeleteOriginal: criblcontrolplanesdkgo.Pointer(true),
                             Separator: criblcontrolplanesdkgo.Pointer("_"),
                             SelectionRegExp: criblcontrolplanesdkgo.Pointer("^data"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1145,9 +1057,6 @@ func main() {
                     components.PipelineFunctionGeoip{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionGeoipIDGeoip,
-                        Description: criblcontrolplanesdkgo.Pointer("likewise abnormally fishery supposing quizzically"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionGeoipConf{
                             File: "GeoLite2-City.mmdb",
                             InField: criblcontrolplanesdkgo.Pointer("ip"),
@@ -1158,9 +1067,7 @@ func main() {
                                     ExtraOutField: "src_geoip",
                                 },
                             },
-                            OutFieldMappings: &components.OutputFieldMappings{},
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1213,15 +1120,11 @@ func main() {
                     components.PipelineFunctionGrok{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionGrokIDGrok,
-                        Description: criblcontrolplanesdkgo.Pointer("wildly secondary diligently relieve ack like intermix christen upright"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionGrokConf{
                             Pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
                             PatternList: []components.PatternList{},
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1274,9 +1177,6 @@ func main() {
                     components.PipelineFunctionSensitiveDataScanner{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSensitiveDataScannerIDSensitiveDataScanner,
-                        Description: criblcontrolplanesdkgo.Pointer("sadly inasmuch waft modulo ah yippee upright those colorfully aw"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionSensitiveDataScannerConf{
                             Rules: []components.PipelineFunctionSensitiveDataScannerRule{
                                 components.PipelineFunctionSensitiveDataScannerRule{
@@ -1296,9 +1196,7 @@ func main() {
                                 },
                             },
                             IncludeDetectedRules: criblcontrolplanesdkgo.Pointer(true),
-                            BackgroundDetection: criblcontrolplanesdkgo.Pointer(false),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1351,14 +1249,10 @@ func main() {
                     components.PipelineFunctionJSONUnroll{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionJSONUnrollIDJSONUnroll,
-                        Description: criblcontrolplanesdkgo.Pointer("dispense ha psst across role ha"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionJSONUnrollConf{
                             Path: "allCars",
                             Name: criblcontrolplanesdkgo.Pointer("cars"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1411,14 +1305,10 @@ func main() {
                     components.PipelineFunctionLookup{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionLookupIDLookup,
-                        Description: criblcontrolplanesdkgo.Pointer("ouch whether unnaturally ha"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionLookupConf{
                             File: "ip_locations.csv",
                             DbLookup: criblcontrolplanesdkgo.Pointer(false),
                             MatchMode: "exact",
-                            MatchType: "<value>",
                             ReloadPeriodSec: -1,
                             InFields: []components.InField{
                                 components.InField{
@@ -1436,7 +1326,6 @@ func main() {
                             AddToEvent: criblcontrolplanesdkgo.Pointer(false),
                             IgnoreCase: false,
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1489,9 +1378,6 @@ func main() {
                     components.PipelineFunctionMask{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionMaskIDMask,
-                        Description: criblcontrolplanesdkgo.Pointer("uselessly quinoa over smuggle acidly libel whenever"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionMaskConf{
                             Rules: []components.PipelineFunctionMaskRule{
                                 components.PipelineFunctionMaskRule{
@@ -1504,14 +1390,7 @@ func main() {
                                 "_raw",
                             },
                             Depth: criblcontrolplanesdkgo.Pointer[int64](5),
-                            Flags: []components.ItemsTypeAdd{
-                                components.ItemsTypeAdd{
-                                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                    Value: "<value>",
-                                },
-                            },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1564,16 +1443,12 @@ func main() {
                     components.PipelineFunctionNumerify{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionNumerifyIDNumerify,
-                        Description: criblcontrolplanesdkgo.Pointer("reward badly loyally eek toward unless mild quirkily noxious blah"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaNumerify{
                             Depth: criblcontrolplanesdkgo.Pointer[int64](5),
                             IgnoreFields: []string{},
                             FilterExpr: criblcontrolplanesdkgo.Pointer(""),
                             Format: components.FunctionConfSchemaNumerifyFormatNone.ToPointer(),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1626,14 +1501,10 @@ func main() {
                     components.PipelineFunctionOtlpLogs{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='open_telemetry:open_telemetry'"),
                         ID: components.PipelineFunctionOtlpLogsIDOtlpLogs,
-                        Description: criblcontrolplanesdkgo.Pointer("import dividend between reassuringly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaOtlpLogs{
                             DropNonLogEvents: criblcontrolplanesdkgo.Pointer(false),
                             BatchOTLPLogs: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1686,9 +1557,6 @@ func main() {
                     components.PipelineFunctionOtlpMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='prometheus_rw:prom_rw_in'"),
                         ID: components.PipelineFunctionOtlpMetricsIDOtlpMetrics,
-                        Description: criblcontrolplanesdkgo.Pointer("institutionalize briskly whether intend"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaOtlpMetrics{
                             ResourceAttributePrefixes: []string{
                                 "service",
@@ -1703,7 +1571,6 @@ func main() {
                             OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
                             BatchOTLPMetrics: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1756,15 +1623,11 @@ func main() {
                     components.PipelineFunctionOtlpTraces{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='open_telemetry:open_telemetry'"),
                         ID: components.PipelineFunctionOtlpTracesIDOtlpTraces,
-                        Description: criblcontrolplanesdkgo.Pointer("fortunately duh yearly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaOtlpTraces{
                             DropNonTraceEvents: criblcontrolplanesdkgo.Pointer(false),
                             OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
                             BatchOTLPTraces: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1817,21 +1680,12 @@ func main() {
                     components.PipelineFunctionSerde{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSerdeIDSerde,
-                        Description: criblcontrolplanesdkgo.Pointer("finally brr whoever as yippee igloo at against"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionSerdeConf{
                             Mode: components.OperationModeExtract,
                             Type: components.TypeOptionsKvp,
-                            DelimChar: "<value>",
-                            QuoteChar: "<value>",
-                            EscapeChar: "<value>",
-                            NullValue: "<value>",
                             SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
-                            DstField: criblcontrolplanesdkgo.Pointer("<value>"),
                             CleanFields: false,
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1884,9 +1738,6 @@ func main() {
                     components.PipelineFunctionPublishMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionPublishMetricsIDPublishMetrics,
-                        Description: criblcontrolplanesdkgo.Pointer("pace inborn atomize emboss pronoun tremendously"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaPublishMetrics{
                             Fields: []components.FunctionConfSchemaPublishMetricsField{
                                 components.FunctionConfSchemaPublishMetricsField{
@@ -1909,7 +1760,6 @@ func main() {
                             RemoveMetrics: []string{},
                             RemoveDimensions: []string{},
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -1962,9 +1812,6 @@ func main() {
                     components.PipelineFunctionRedis{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRedisIDRedis,
-                        Description: criblcontrolplanesdkgo.Pointer("gadzooks kosher hollow cumbersome loose but webbed solidly mousse furthermore"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionRedisConf{
                             Commands: []components.Command{
                                 components.Command{
@@ -1977,9 +1824,7 @@ func main() {
                             DeploymentType: components.DeploymentTypeStandalone.ToPointer(),
                             AuthType: components.PipelineFunctionRedisAuthenticationMethodNone.ToPointer(),
                             MaxBlockSecs: criblcontrolplanesdkgo.Pointer[float64](60),
-                            EnableClientSideCaching: criblcontrolplanesdkgo.Pointer(false),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2032,22 +1877,12 @@ func main() {
                     components.PipelineFunctionRegexExtract{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRegexExtractIDRegexExtract,
-                        Description: criblcontrolplanesdkgo.Pointer("scrape spew playfully jaggedly whether follower ah sarcastic"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionRegexExtractConf{
                             Regex: "/metric1=(?<metric1>\\d+)/",
-                            RegexList: []components.PipelineFunctionRegexExtractRegexList{
-                                components.PipelineFunctionRegexExtractRegexList{
-                                    Regex: "<value>",
-                                },
-                            },
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                             Iterations: criblcontrolplanesdkgo.Pointer[float64](100),
-                            FieldNameExpression: criblcontrolplanesdkgo.Pointer("<value>"),
                             Overwrite: criblcontrolplanesdkgo.Pointer(false),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2100,19 +1935,10 @@ func main() {
                     components.PipelineFunctionRegexFilter{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRegexFilterIDRegexFilter,
-                        Description: criblcontrolplanesdkgo.Pointer("colorize reprimand cope appertain"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaRegexFilter{
                             Regex: criblcontrolplanesdkgo.Pointer("/Opera/"),
-                            RegexList: []components.FunctionConfSchemaRegexFilterRegexList{
-                                components.FunctionConfSchemaRegexFilterRegexList{
-                                    Regex: "<value>",
-                                },
-                            },
                             Field: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2165,9 +1991,6 @@ func main() {
                     components.PipelineFunctionRename{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRenameIDRename,
-                        Description: criblcontrolplanesdkgo.Pointer("amidst within solvency lay"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaRename{
                             BaseFields: []string{},
                             Rename: []components.Rename{
@@ -2179,7 +2002,6 @@ func main() {
                             RenameExpr: criblcontrolplanesdkgo.Pointer("name.startsWith('out') ? name.toUpperCase() : name"),
                             WildcardDepth: criblcontrolplanesdkgo.Pointer[int64](5),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2232,9 +2054,6 @@ func main() {
                     components.PipelineFunctionRollupMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRollupMetricsIDRollupMetrics,
-                        Description: criblcontrolplanesdkgo.Pointer("consequently drat wasteful inasmuch terribly unabashedly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaRollupMetrics{
                             Dimensions: []string{
                                 "*",
@@ -2242,7 +2061,6 @@ func main() {
                             TimeWindow: criblcontrolplanesdkgo.Pointer("30s"),
                             GaugeRollup: components.GaugeUpdateLast.ToPointer(),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2295,20 +2113,10 @@ func main() {
                     components.PipelineFunctionSnmpTrapSerialize{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSnmpTrapSerializeIDSnmpTrapSerialize,
-                        Description: criblcontrolplanesdkgo.Pointer("on while among crushing sheepishly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaSnmpTrapSerialize{
                             Strict: criblcontrolplanesdkgo.Pointer(true),
                             DropFailedEvents: criblcontrolplanesdkgo.Pointer(true),
-                            V3User: &components.FunctionConfSchemaSnmpTrapSerializeV3User{
-                                Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                AuthProtocol: components.AuthenticationProtocolOptionsV3UserSha512.ToPointer(),
-                                AuthKey: "<value>",
-                                PrivProtocol: criblcontrolplanesdkgo.Pointer("<value>"),
-                            },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2361,9 +2169,6 @@ func main() {
                     components.PipelineFunctionSampling{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSamplingIDSampling,
-                        Description: criblcontrolplanesdkgo.Pointer("animated obtrude jive dental"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaSampling{
                             Rules: []components.FunctionConfSchemaSamplingRule{
                                 components.FunctionConfSchemaSamplingRule{
@@ -2372,7 +2177,6 @@ func main() {
                                 },
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2425,15 +2229,8 @@ func main() {
                     components.PipelineFunctionSerialize{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSerializeIDSerialize,
-                        Description: criblcontrolplanesdkgo.Pointer("midst kissingly deduct versus embossing possible fraudster dislocate barring"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionSerializeConf{
                             Type: components.PipelineFunctionSerializeTypeJSON,
-                            DelimChar: "<value>",
-                            QuoteChar: "<value>",
-                            EscapeChar: "<value>",
-                            NullValue: "<value>",
                             Fields: []string{
                                 "city",
                                 "state",
@@ -2441,7 +2238,6 @@ func main() {
                             SrcField: criblcontrolplanesdkgo.Pointer(""),
                             DstField: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2494,9 +2290,6 @@ func main() {
                     components.PipelineFunctionSuppress{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSuppressIDSuppress,
-                        Description: criblcontrolplanesdkgo.Pointer("excepting drat lucky bah however account outrun gah lightly that"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionSuppressConf{
                             KeyExpr: "`${ip}:${port}`",
                             Allow: 1,
@@ -2506,7 +2299,6 @@ func main() {
                             CacheIdleTimeoutPeriods: criblcontrolplanesdkgo.Pointer[float64](2),
                             NumEventsIdleTimeoutTrigger: criblcontrolplanesdkgo.Pointer[float64](10000),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2559,9 +2351,6 @@ func main() {
                     components.PipelineFunctionTee{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionTeeIDTee,
-                        Description: criblcontrolplanesdkgo.Pointer("somber splash oh following against alongside"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionTeeConf{
                             Command: "tee",
                             Args: []string{
@@ -2572,7 +2361,6 @@ func main() {
 
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2625,14 +2413,10 @@ func main() {
                     components.PipelineFunctionUnroll{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionUnrollIDUnroll,
-                        Description: criblcontrolplanesdkgo.Pointer("soupy familiar how psst"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionUnrollConf{
                             SrcExpr: "_raw.split(/\\n/)",
                             DstField: "_raw",
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2685,16 +2469,12 @@ func main() {
                     components.PipelineFunctionXMLUnroll{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionXMLUnrollIDXMLUnroll,
-                        Description: criblcontrolplanesdkgo.Pointer("within or pfft"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionXMLUnrollConf{
                             Unroll: "^Parent\\.Child$",
                             Inherit: criblcontrolplanesdkgo.Pointer("^Parent\\.(myID|branchLocation)$"),
                             UnrollIdxField: criblcontrolplanesdkgo.Pointer("unroll_idx"),
                             Pretty: criblcontrolplanesdkgo.Pointer(false),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -2941,14 +2721,10 @@ func main() {
                     components.PipelineFunctionAggregateMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))"),
                         ID: components.PipelineFunctionAggregateMetricsIDAggregateMetrics,
-                        Description: criblcontrolplanesdkgo.Pointer("off fooey tight supposing or oval underneath"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionAggregateMetricsConf{
                             Passthrough: criblcontrolplanesdkgo.Pointer(false),
                             PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
                             SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
-                            Prefix: criblcontrolplanesdkgo.Pointer("<value>"),
                             TimeWindow: "10s",
                             Aggregations: []components.Aggregation{
                                 components.Aggregation{
@@ -2967,19 +2743,10 @@ func main() {
                             Groupbys: []string{
                                 "proc",
                             },
-                            FlushEventLimit: criblcontrolplanesdkgo.Pointer[float64](4997.28),
-                            FlushMemLimit: criblcontrolplanesdkgo.Pointer("<value>"),
                             Cumulative: criblcontrolplanesdkgo.Pointer(false),
                             ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(true),
-                            Add: []components.PipelineFunctionAggregateMetricsAdd{
-                                components.PipelineFunctionAggregateMetricsAdd{
-                                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                    Value: "<value>",
-                                },
-                            },
                             FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3032,15 +2799,11 @@ func main() {
                     components.PipelineFunctionAggregation{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionAggregationIDAggregation,
-                        Description: criblcontrolplanesdkgo.Pointer("snowplow brr onto ripe object outfit extremely gee wrongly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionAggregationConf{
                             Passthrough: criblcontrolplanesdkgo.Pointer(false),
                             PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
                             SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
                             MetricsMode: criblcontrolplanesdkgo.Pointer(false),
-                            Prefix: criblcontrolplanesdkgo.Pointer("<value>"),
                             TimeWindow: "10s",
                             Aggregations: []string{
                                 "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
@@ -3048,20 +2811,10 @@ func main() {
                             Groupbys: []string{
                                 "srcaddr",
                             },
-                            FlushEventLimit: criblcontrolplanesdkgo.Pointer[float64](5885.07),
-                            FlushMemLimit: criblcontrolplanesdkgo.Pointer("<value>"),
                             Cumulative: criblcontrolplanesdkgo.Pointer(false),
-                            SearchAggMode: criblcontrolplanesdkgo.Pointer("<value>"),
-                            Add: []components.ItemsTypeAdd{
-                                components.ItemsTypeAdd{
-                                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                    Value: "<value>",
-                                },
-                            },
                             ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(false),
                             FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3114,9 +2867,6 @@ func main() {
                     components.PipelineFunctionAutoTimestamp{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionAutoTimestampIDAutoTimestamp,
-                        Description: criblcontrolplanesdkgo.Pointer("around captain moralise now yum parsnip inasmuch pleased sleepily"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaAutoTimestamp{
                             SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                             DstField: criblcontrolplanesdkgo.Pointer("_time"),
@@ -3126,7 +2876,6 @@ func main() {
                             MaxLen: criblcontrolplanesdkgo.Pointer[float64](150),
                             DefaultTime: components.DefaultTimeNow.ToPointer(),
                             LatestDateAllowed: criblcontrolplanesdkgo.Pointer("+1week"),
-                            Spacer: criblcontrolplanesdkgo.Pointer("<value>"),
                             EarliestDateAllowed: criblcontrolplanesdkgo.Pointer("-420weeks"),
                             Timestamps: []components.Timestamp{
                                 components.Timestamp{
@@ -3135,7 +2884,6 @@ func main() {
                                 },
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3188,9 +2936,6 @@ func main() {
                     components.PipelineFunctionCefInput{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionCefIDCef,
-                        Description: criblcontrolplanesdkgo.Pointer("elegantly solemnly dash um gadzooks apt transom barring"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaCefInput{
                             OutputField: criblcontrolplanesdkgo.Pointer("_raw"),
                             Header: []components.HeaderInput{
@@ -3223,7 +2968,6 @@ func main() {
                                 },
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3276,13 +3020,9 @@ func main() {
                     components.PipelineFunctionChain{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionChainIDChain,
-                        Description: criblcontrolplanesdkgo.Pointer("outside ack doing highlight outside round impractical steep alongside gorgeous"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionChainConf{
                             Processor: "prometheus_metrics",
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3335,9 +3075,6 @@ func main() {
                     components.PipelineFunctionClone{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionCloneIDClone,
-                        Description: criblcontrolplanesdkgo.Pointer("pepper successfully husky duh ack"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaClone{
                             Clones: []map[string]string{
                                 map[string]string{
@@ -3348,7 +3085,6 @@ func main() {
                                 },
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3401,13 +3137,9 @@ func main() {
                     components.PipelineFunctionComment{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionCommentIDComment,
-                        Description: criblcontrolplanesdkgo.Pointer("gigantic ick yahoo admonish"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaComment{
                             Comment: criblcontrolplanesdkgo.Pointer("This function processes security events and enriches them with DNS lookups"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3460,9 +3192,6 @@ func main() {
                     components.PipelineFunctionDNSLookup{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionDNSLookupIDDNSLookup,
-                        Description: criblcontrolplanesdkgo.Pointer("penalise above mockingly questionable"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaDNSLookup{
                             DNSLookupFields: []components.DNSLookupField{
                                 components.DNSLookupField{
@@ -3477,22 +3206,12 @@ func main() {
                                     OutFieldName: criblcontrolplanesdkgo.Pointer("src_hostname"),
                                 },
                             },
-                            DNSServers: []string{
-                                "<value 1>",
-                                "<value 2>",
-                            },
                             CacheTTL: criblcontrolplanesdkgo.Pointer[float64](30),
                             MaxCacheSize: criblcontrolplanesdkgo.Pointer[float64](5000),
                             UseResolvConf: criblcontrolplanesdkgo.Pointer(false),
                             LookupFallback: criblcontrolplanesdkgo.Pointer(false),
-                            DomainOverrides: []string{
-                                "<value 1>",
-                                "<value 2>",
-                                "<value 3>",
-                            },
                             LookupFailLogLevel: components.LogLevelForFailedLookupsError.ToPointer(),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3545,11 +3264,7 @@ func main() {
                     components.PipelineFunctionDrop{
                         Filter: criblcontrolplanesdkgo.Pointer("_raw.search(/success/i)>=0"),
                         ID: components.PipelineFunctionDropIDDrop,
-                        Description: criblcontrolplanesdkgo.Pointer("vengeful rout worth quickly in anti amongst cop-out"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaDrop{},
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3602,9 +3317,6 @@ func main() {
                     components.PipelineFunctionDropDimensions{
                         Filter: criblcontrolplanesdkgo.Pointer("(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))"),
                         ID: components.PipelineFunctionDropDimensionsIDDropDimensions,
-                        Description: criblcontrolplanesdkgo.Pointer("amongst slather yippee resource which yippee weary crumble"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionDropDimensionsConf{
                             TimeWindow: "10s",
                             DropDimensions: []string{
@@ -3614,7 +3326,6 @@ func main() {
                             },
                             FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3667,9 +3378,6 @@ func main() {
                     components.PipelineFunctionDynamicSampling{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionDynamicSamplingIDDynamicSampling,
-                        Description: criblcontrolplanesdkgo.Pointer("physically wilted scornful gosh lest smart oof damaged inside"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionDynamicSamplingConf{
                             Mode: components.SampleModeSqrt,
                             KeyExpr: "`${domain}:${httpCode}`",
@@ -3677,7 +3385,6 @@ func main() {
                             MinEvents: criblcontrolplanesdkgo.Pointer[float64](3),
                             MaxSampleRate: criblcontrolplanesdkgo.Pointer[float64](3),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3775,20 +3482,15 @@ func main() {
                     components.PipelineFunctionEval{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionEvalIDEval,
-                        Description: criblcontrolplanesdkgo.Pointer("misread as noted clamp"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaEval{
                             Add: []components.FunctionConfSchemaEvalAdd{
                                 components.FunctionConfSchemaEvalAdd{
                                     Name: criblcontrolplanesdkgo.Pointer("action"),
                                     Value: "login == 'error' ? 'blocked' : action",
-                                    Disabled: criblcontrolplanesdkgo.Pointer(true),
                                 },
                                 components.FunctionConfSchemaEvalAdd{
                                     Name: criblcontrolplanesdkgo.Pointer("myTags"),
                                     Value: "login == 'error' ? [...myTags, 'error'] : myTags",
-                                    Disabled: criblcontrolplanesdkgo.Pointer(false),
                                 },
                             },
                             Keep: []string{
@@ -3801,7 +3503,6 @@ func main() {
                                 "identification",
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3854,14 +3555,10 @@ func main() {
                     components.PipelineFunctionEventBreaker{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionEventBreakerIDEventBreaker,
-                        Description: criblcontrolplanesdkgo.Pointer("and voluminous dramatize incidentally but wasabi anenst brook unlike"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionEventBreakerConf{
                             ExistingOrNew: components.ExistingOrNewNew,
                             ShouldMarkCriblBreaker: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3914,16 +3611,12 @@ func main() {
                     components.PipelineFunctionFlatten{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionFlattenIDFlatten,
-                        Description: criblcontrolplanesdkgo.Pointer("expostulate fragrant why whose whereas if unless whoever reconsideration"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaFlatten{
                             Fields: []string{},
                             Prefix: criblcontrolplanesdkgo.Pointer(""),
                             Depth: criblcontrolplanesdkgo.Pointer[float64](5),
                             Delimiter: criblcontrolplanesdkgo.Pointer("_"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -3976,15 +3669,11 @@ func main() {
                     components.PipelineFunctionFoldkeys{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionFoldkeysIDFoldkeys,
-                        Description: criblcontrolplanesdkgo.Pointer("deceivingly amongst stunning anenst"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaFoldkeys{
                             DeleteOriginal: criblcontrolplanesdkgo.Pointer(true),
                             Separator: criblcontrolplanesdkgo.Pointer("_"),
                             SelectionRegExp: criblcontrolplanesdkgo.Pointer("^data"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4037,9 +3726,6 @@ func main() {
                     components.PipelineFunctionGeoip{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionGeoipIDGeoip,
-                        Description: criblcontrolplanesdkgo.Pointer("busy anti geez savour jellyfish along oh"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionGeoipConf{
                             File: "GeoLite2-City.mmdb",
                             InField: criblcontrolplanesdkgo.Pointer("ip"),
@@ -4050,9 +3736,7 @@ func main() {
                                     ExtraOutField: "src_geoip",
                                 },
                             },
-                            OutFieldMappings: &components.OutputFieldMappings{},
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4105,15 +3789,11 @@ func main() {
                     components.PipelineFunctionGrok{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionGrokIDGrok,
-                        Description: criblcontrolplanesdkgo.Pointer("notwithstanding the yowza harp however shrill scrape"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionGrokConf{
                             Pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
                             PatternList: []components.PatternList{},
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4166,9 +3846,6 @@ func main() {
                     components.PipelineFunctionSensitiveDataScanner{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSensitiveDataScannerIDSensitiveDataScanner,
-                        Description: criblcontrolplanesdkgo.Pointer("readily snappy yuck absent ad phew unlike sand harvest instead"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionSensitiveDataScannerConf{
                             Rules: []components.PipelineFunctionSensitiveDataScannerRule{
                                 components.PipelineFunctionSensitiveDataScannerRule{
@@ -4188,9 +3865,7 @@ func main() {
                                 },
                             },
                             IncludeDetectedRules: criblcontrolplanesdkgo.Pointer(true),
-                            BackgroundDetection: criblcontrolplanesdkgo.Pointer(false),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4243,14 +3918,10 @@ func main() {
                     components.PipelineFunctionJSONUnroll{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionJSONUnrollIDJSONUnroll,
-                        Description: criblcontrolplanesdkgo.Pointer("upward curiously deafening famously likewise whenever than"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionJSONUnrollConf{
                             Path: "allCars",
                             Name: criblcontrolplanesdkgo.Pointer("cars"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4303,14 +3974,10 @@ func main() {
                     components.PipelineFunctionLookup{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionLookupIDLookup,
-                        Description: criblcontrolplanesdkgo.Pointer("chainstay though overcooked expostulate midst worldly within"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionLookupConf{
                             File: "ip_locations.csv",
                             DbLookup: criblcontrolplanesdkgo.Pointer(false),
                             MatchMode: "exact",
-                            MatchType: "<value>",
                             ReloadPeriodSec: -1,
                             InFields: []components.InField{
                                 components.InField{
@@ -4328,7 +3995,6 @@ func main() {
                             AddToEvent: criblcontrolplanesdkgo.Pointer(false),
                             IgnoreCase: false,
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4381,9 +4047,6 @@ func main() {
                     components.PipelineFunctionMask{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionMaskIDMask,
-                        Description: criblcontrolplanesdkgo.Pointer("afore good remark switch on harvest downshift once but"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionMaskConf{
                             Rules: []components.PipelineFunctionMaskRule{
                                 components.PipelineFunctionMaskRule{
@@ -4396,14 +4059,7 @@ func main() {
                                 "_raw",
                             },
                             Depth: criblcontrolplanesdkgo.Pointer[int64](5),
-                            Flags: []components.ItemsTypeAdd{
-                                components.ItemsTypeAdd{
-                                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                    Value: "<value>",
-                                },
-                            },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4456,16 +4112,12 @@ func main() {
                     components.PipelineFunctionNumerify{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionNumerifyIDNumerify,
-                        Description: criblcontrolplanesdkgo.Pointer("oof brr spork quit versus excepting dwell delight slipper likewise"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaNumerify{
                             Depth: criblcontrolplanesdkgo.Pointer[int64](5),
                             IgnoreFields: []string{},
                             FilterExpr: criblcontrolplanesdkgo.Pointer(""),
                             Format: components.FunctionConfSchemaNumerifyFormatNone.ToPointer(),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4518,14 +4170,10 @@ func main() {
                     components.PipelineFunctionOtlpLogs{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='open_telemetry:open_telemetry'"),
                         ID: components.PipelineFunctionOtlpLogsIDOtlpLogs,
-                        Description: criblcontrolplanesdkgo.Pointer("frenetically mortise eek boohoo downright fly basket whoever"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaOtlpLogs{
                             DropNonLogEvents: criblcontrolplanesdkgo.Pointer(false),
                             BatchOTLPLogs: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4578,9 +4226,6 @@ func main() {
                     components.PipelineFunctionOtlpMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='prometheus_rw:prom_rw_in'"),
                         ID: components.PipelineFunctionOtlpMetricsIDOtlpMetrics,
-                        Description: criblcontrolplanesdkgo.Pointer("fortunate happily knight coincide anenst"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaOtlpMetrics{
                             ResourceAttributePrefixes: []string{
                                 "service",
@@ -4595,7 +4240,6 @@ func main() {
                             OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
                             BatchOTLPMetrics: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4648,15 +4292,11 @@ func main() {
                     components.PipelineFunctionOtlpTraces{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='open_telemetry:open_telemetry'"),
                         ID: components.PipelineFunctionOtlpTracesIDOtlpTraces,
-                        Description: criblcontrolplanesdkgo.Pointer("wobbly meaningfully necklace dependable jet aboard"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaOtlpTraces{
                             DropNonTraceEvents: criblcontrolplanesdkgo.Pointer(false),
                             OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
                             BatchOTLPTraces: criblcontrolplanesdkgo.Pointer(true),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4709,21 +4349,12 @@ func main() {
                     components.PipelineFunctionSerde{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSerdeIDSerde,
-                        Description: criblcontrolplanesdkgo.Pointer("although by gadzooks agile gift inferior pish"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionSerdeConf{
                             Mode: components.OperationModeExtract,
                             Type: components.TypeOptionsKvp,
-                            DelimChar: "<value>",
-                            QuoteChar: "<value>",
-                            EscapeChar: "<value>",
-                            NullValue: "<value>",
                             SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
-                            DstField: criblcontrolplanesdkgo.Pointer("<value>"),
                             CleanFields: false,
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4776,9 +4407,6 @@ func main() {
                     components.PipelineFunctionPublishMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionPublishMetricsIDPublishMetrics,
-                        Description: criblcontrolplanesdkgo.Pointer("plan what phooey guide"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaPublishMetrics{
                             Fields: []components.FunctionConfSchemaPublishMetricsField{
                                 components.FunctionConfSchemaPublishMetricsField{
@@ -4801,7 +4429,6 @@ func main() {
                             RemoveMetrics: []string{},
                             RemoveDimensions: []string{},
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4854,9 +4481,6 @@ func main() {
                     components.PipelineFunctionRedis{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRedisIDRedis,
-                        Description: criblcontrolplanesdkgo.Pointer("young along per candid wetly gently upliftingly wearily"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionRedisConf{
                             Commands: []components.Command{
                                 components.Command{
@@ -4869,9 +4493,7 @@ func main() {
                             DeploymentType: components.DeploymentTypeStandalone.ToPointer(),
                             AuthType: components.PipelineFunctionRedisAuthenticationMethodNone.ToPointer(),
                             MaxBlockSecs: criblcontrolplanesdkgo.Pointer[float64](60),
-                            EnableClientSideCaching: criblcontrolplanesdkgo.Pointer(false),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4924,22 +4546,12 @@ func main() {
                     components.PipelineFunctionRegexExtract{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRegexExtractIDRegexExtract,
-                        Description: criblcontrolplanesdkgo.Pointer("anti onto incidentally thankfully draw drat pulverize custom while sticky"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionRegexExtractConf{
                             Regex: "/metric1=(?<metric1>\\d+)/",
-                            RegexList: []components.PipelineFunctionRegexExtractRegexList{
-                                components.PipelineFunctionRegexExtractRegexList{
-                                    Regex: "<value>",
-                                },
-                            },
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                             Iterations: criblcontrolplanesdkgo.Pointer[float64](100),
-                            FieldNameExpression: criblcontrolplanesdkgo.Pointer("<value>"),
                             Overwrite: criblcontrolplanesdkgo.Pointer(false),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -4992,19 +4604,10 @@ func main() {
                     components.PipelineFunctionRegexFilter{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRegexFilterIDRegexFilter,
-                        Description: criblcontrolplanesdkgo.Pointer("dreamily generously a yahoo until ah enthusiastically unexpectedly fixed explode"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaRegexFilter{
                             Regex: criblcontrolplanesdkgo.Pointer("/Opera/"),
-                            RegexList: []components.FunctionConfSchemaRegexFilterRegexList{
-                                components.FunctionConfSchemaRegexFilterRegexList{
-                                    Regex: "<value>",
-                                },
-                            },
                             Field: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -5057,9 +4660,6 @@ func main() {
                     components.PipelineFunctionRename{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRenameIDRename,
-                        Description: criblcontrolplanesdkgo.Pointer("across yahoo including direct absent if ravel despite cap owlishly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaRename{
                             BaseFields: []string{},
                             Rename: []components.Rename{
@@ -5071,7 +4671,6 @@ func main() {
                             RenameExpr: criblcontrolplanesdkgo.Pointer("name.startsWith('out') ? name.toUpperCase() : name"),
                             WildcardDepth: criblcontrolplanesdkgo.Pointer[int64](5),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -5124,9 +4723,6 @@ func main() {
                     components.PipelineFunctionRollupMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionRollupMetricsIDRollupMetrics,
-                        Description: criblcontrolplanesdkgo.Pointer("woot bourgeoisie hot harvest inasmuch definite out psst traditionalism lively"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaRollupMetrics{
                             Dimensions: []string{
                                 "*",
@@ -5134,7 +4730,6 @@ func main() {
                             TimeWindow: criblcontrolplanesdkgo.Pointer("30s"),
                             GaugeRollup: components.GaugeUpdateLast.ToPointer(),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -5187,20 +4782,10 @@ func main() {
                     components.PipelineFunctionSnmpTrapSerialize{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSnmpTrapSerializeIDSnmpTrapSerialize,
-                        Description: criblcontrolplanesdkgo.Pointer("ack scaly ingratiate when finally troubled coordinated"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.FunctionConfSchemaSnmpTrapSerialize{
                             Strict: criblcontrolplanesdkgo.Pointer(true),
                             DropFailedEvents: criblcontrolplanesdkgo.Pointer(true),
-                            V3User: &components.FunctionConfSchemaSnmpTrapSerializeV3User{
-                                Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                AuthProtocol: components.AuthenticationProtocolOptionsV3UserSha384.ToPointer(),
-                                AuthKey: "<value>",
-                                PrivProtocol: criblcontrolplanesdkgo.Pointer("<value>"),
-                            },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -5253,9 +4838,6 @@ func main() {
                     components.PipelineFunctionSampling{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSamplingIDSampling,
-                        Description: criblcontrolplanesdkgo.Pointer("atop up ironclad"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.FunctionConfSchemaSampling{
                             Rules: []components.FunctionConfSchemaSamplingRule{
                                 components.FunctionConfSchemaSamplingRule{
@@ -5264,7 +4846,6 @@ func main() {
                                 },
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -5317,15 +4898,8 @@ func main() {
                     components.PipelineFunctionSerialize{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSerializeIDSerialize,
-                        Description: criblcontrolplanesdkgo.Pointer("maroon white indeed obstruct deafening chubby openly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(false),
                         Conf: components.PipelineFunctionSerializeConf{
                             Type: components.PipelineFunctionSerializeTypeJSON,
-                            DelimChar: "<value>",
-                            QuoteChar: "<value>",
-                            EscapeChar: "<value>",
-                            NullValue: "<value>",
                             Fields: []string{
                                 "city",
                                 "state",
@@ -5333,7 +4907,6 @@ func main() {
                             SrcField: criblcontrolplanesdkgo.Pointer(""),
                             DstField: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -5386,9 +4959,6 @@ func main() {
                     components.PipelineFunctionSuppress{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionSuppressIDSuppress,
-                        Description: criblcontrolplanesdkgo.Pointer("per blushing growing"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionSuppressConf{
                             KeyExpr: "`${ip}:${port}`",
                             Allow: 1,
@@ -5398,7 +4968,6 @@ func main() {
                             CacheIdleTimeoutPeriods: criblcontrolplanesdkgo.Pointer[float64](2),
                             NumEventsIdleTimeoutTrigger: criblcontrolplanesdkgo.Pointer[float64](10000),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -5451,9 +5020,6 @@ func main() {
                     components.PipelineFunctionTee{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionTeeIDTee,
-                        Description: criblcontrolplanesdkgo.Pointer("torn out than"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionTeeConf{
                             Command: "tee",
                             Args: []string{
@@ -5464,7 +5030,6 @@ func main() {
 
                             },
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -5517,14 +5082,10 @@ func main() {
                     components.PipelineFunctionUnroll{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionUnrollIDUnroll,
-                        Description: criblcontrolplanesdkgo.Pointer("youthfully blah whoa regarding anti loyally hm peppery measly"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(false),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionUnrollConf{
                             SrcExpr: "_raw.split(/\\n/)",
                             DstField: "_raw",
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },
@@ -5577,16 +5138,12 @@ func main() {
                     components.PipelineFunctionXMLUnroll{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionXMLUnrollIDXMLUnroll,
-                        Description: criblcontrolplanesdkgo.Pointer("gee than next forearm kissingly cluttered meh despite"),
-                        Disabled: criblcontrolplanesdkgo.Pointer(true),
-                        Final: criblcontrolplanesdkgo.Pointer(true),
                         Conf: components.PipelineFunctionXMLUnrollConf{
                             Unroll: "^Parent\\.Child$",
                             Inherit: criblcontrolplanesdkgo.Pointer("^Parent\\.(myID|branchLocation)$"),
                             UnrollIdxField: criblcontrolplanesdkgo.Pointer("unroll_idx"),
                             Pretty: criblcontrolplanesdkgo.Pointer(false),
                         },
-                        GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                     },
                 ),
             },

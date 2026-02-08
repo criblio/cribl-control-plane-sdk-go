@@ -1159,3 +1159,13 @@ Based on:
 - [go v0.6.0-rc.16] .
 ### Releases
 - [Go v0.6.0-rc.16] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.6.0-rc.16 - .
+
+## 2026-02-08 11:46:53
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.708.2 (2.811.4) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.6.0-rc.17] .
+### Releases
+- [Go v0.6.0-rc.17] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.6.0-rc.17 - .
