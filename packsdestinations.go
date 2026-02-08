@@ -17,9 +17,8 @@ import (
 )
 
 type PacksDestinations struct {
-	Pq       *PacksDestinationsPq
-	Samples  *PacksSamples
-	Statuses *PacksDestinationsStatuses
+	Pq      *PacksDestinationsPq
+	Samples *PacksSamples
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -33,7 +32,6 @@ func newPacksDestinations(rootSDK *CriblControlPlane, sdkConfig config.SDKConfig
 		hooks:            hooks,
 		Pq:               newPacksDestinationsPq(rootSDK, sdkConfig, hooks),
 		Samples:          newPacksSamples(rootSDK, sdkConfig, hooks),
-		Statuses:         newPacksDestinationsStatuses(rootSDK, sdkConfig, hooks),
 	}
 }
 

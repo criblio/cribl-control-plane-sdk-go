@@ -19,9 +19,8 @@ import (
 
 // Destinations - Actions related to Destinations
 type Destinations struct {
-	Pq       *DestinationsPq
-	Samples  *Samples
-	Statuses *DestinationsStatuses
+	Pq      *DestinationsPq
+	Samples *Samples
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -35,7 +34,6 @@ func newDestinations(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigurati
 		hooks:            hooks,
 		Pq:               newDestinationsPq(rootSDK, sdkConfig, hooks),
 		Samples:          newSamples(rootSDK, sdkConfig, hooks),
-		Statuses:         newDestinationsStatuses(rootSDK, sdkConfig, hooks),
 	}
 }
 

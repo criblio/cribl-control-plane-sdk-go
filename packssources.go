@@ -19,7 +19,6 @@ import (
 type PacksSources struct {
 	HecTokens *PacksHecTokens
 	Pq        *PacksSourcesPq
-	Statuses  *PacksSourcesStatuses
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -33,7 +32,6 @@ func newPacksSources(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigurati
 		hooks:            hooks,
 		HecTokens:        newPacksHecTokens(rootSDK, sdkConfig, hooks),
 		Pq:               newPacksSourcesPq(rootSDK, sdkConfig, hooks),
-		Statuses:         newPacksSourcesStatuses(rootSDK, sdkConfig, hooks),
 	}
 }
 

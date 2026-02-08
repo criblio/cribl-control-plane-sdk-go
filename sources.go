@@ -21,7 +21,6 @@ import (
 type Sources struct {
 	HecTokens *HecTokens
 	Pq        *SourcesPq
-	Statuses  *SourcesStatuses
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -35,7 +34,6 @@ func newSources(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, h
 		hooks:            hooks,
 		HecTokens:        newHecTokens(rootSDK, sdkConfig, hooks),
 		Pq:               newSourcesPq(rootSDK, sdkConfig, hooks),
-		Statuses:         newSourcesStatuses(rootSDK, sdkConfig, hooks),
 	}
 }
 
