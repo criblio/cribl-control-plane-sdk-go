@@ -37,20 +37,28 @@ func (m *MasterWorkerEntryWorkers) GetCount() float64 {
 }
 
 type MasterWorkerEntry struct {
-	Deployable        *bool                     `json:"deployable,omitempty"`
-	Disconnected      *bool                     `json:"disconnected,omitempty"`
-	FirstMsgTime      float64                   `json:"firstMsgTime"`
-	Group             string                    `json:"group"`
-	ID                string                    `json:"id"`
-	Info              NodeProvidedInfo          `json:"info"`
-	LastMetrics       map[string]any            `json:"lastMetrics,omitempty"`
-	LastMsgTime       float64                   `json:"lastMsgTime"`
-	Metadata          *HeartbeatMetadata        `json:"metadata,omitempty"`
-	NodeUpgradeStatus *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitempty"`
-	Status            *string                   `json:"status,omitempty"`
-	Type              *MasterWorkerEntryType    `json:"type,omitempty"`
-	WorkerProcesses   float64                   `json:"workerProcesses"`
-	Workers           *MasterWorkerEntryWorkers `json:"workers,omitempty"`
+	ConnectionProtocol *ConnectionProtocol       `json:"connectionProtocol,omitempty"`
+	Deployable         *bool                     `json:"deployable,omitempty"`
+	Disconnected       *bool                     `json:"disconnected,omitempty"`
+	FirstMsgTime       float64                   `json:"firstMsgTime"`
+	Group              string                    `json:"group"`
+	ID                 string                    `json:"id"`
+	Info               NodeProvidedInfo          `json:"info"`
+	LastMetrics        map[string]any            `json:"lastMetrics,omitempty"`
+	LastMsgTime        float64                   `json:"lastMsgTime"`
+	Metadata           *HeartbeatMetadata        `json:"metadata,omitempty"`
+	NodeUpgradeStatus  *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitempty"`
+	Status             *string                   `json:"status,omitempty"`
+	Type               *MasterWorkerEntryType    `json:"type,omitempty"`
+	WorkerProcesses    float64                   `json:"workerProcesses"`
+	Workers            *MasterWorkerEntryWorkers `json:"workers,omitempty"`
+}
+
+func (m *MasterWorkerEntry) GetConnectionProtocol() *ConnectionProtocol {
+	if m == nil {
+		return nil
+	}
+	return m.ConnectionProtocol
 }
 
 func (m *MasterWorkerEntry) GetDeployable() *bool {

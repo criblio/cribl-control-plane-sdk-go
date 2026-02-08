@@ -11,9 +11,9 @@
 
 Add an HEC token and optional metadata to the specified Splunk HEC Source within the specified Pack.
 
-### Example Usage
+### Example Usage: HecTokenExamplesHecToken
 
-<!-- UsageSnippet language="go" operationID="createInputSystemHecTokenByPackAndId" method="post" path="/p/{pack}/system/inputs/{id}/hectoken" -->
+<!-- UsageSnippet language="go" operationID="createInputSystemHecTokenByPackAndId" method="post" path="/p/{pack}/system/inputs/{id}/hectoken" example="HecTokenExamplesHecToken" -->
 ```go
 package main
 
@@ -57,6 +57,52 @@ func main() {
     }
 }
 ```
+### Example Usage: HecTokenExamplesHecTokenWithIndexAccess
+
+<!-- UsageSnippet language="go" operationID="createInputSystemHecTokenByPackAndId" method="post" path="/p/{pack}/system/inputs/{id}/hectoken" example="HecTokenExamplesHecTokenWithIndexAccess" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Sources.HecTokens.Create(ctx, "<id>", "<value>", components.AddHecTokenRequest{
+        AllowedIndexesAtToken: []string{
+            "myIndex6",
+        },
+        Description: criblcontrolplanesdkgo.Pointer("extremely till outside healthily sensitize even gosh royal"),
+        Enabled: criblcontrolplanesdkgo.Pointer(true),
+        Metadata: []components.EventBreakerRuleFields{
+            components.EventBreakerRuleFields{
+                Name: "<value>",
+                Value: "<value>",
+            },
+        },
+        Token: "12345678901",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputSplunkHec != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -83,9 +129,9 @@ func main() {
 
 Update the metadata for the specified HEC token for the specified Splunk HEC Source within the specified Pack.
 
-### Example Usage
+### Example Usage: HecTokenExamplesHecToken
 
-<!-- UsageSnippet language="go" operationID="updateInputSystemHecTokenByPackAndIdAndToken" method="patch" path="/p/{pack}/system/inputs/{id}/hectoken/{token}" -->
+<!-- UsageSnippet language="go" operationID="updateInputSystemHecTokenByPackAndIdAndToken" method="patch" path="/p/{pack}/system/inputs/{id}/hectoken/{token}" example="HecTokenExamplesHecToken" -->
 ```go
 package main
 
@@ -119,6 +165,51 @@ func main() {
             components.EventBreakerRuleFields{
                 Name: "fieldX",
                 Value: "valueX",
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputSplunkHec != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: HecTokenExamplesHecTokenWithIndexAccess
+
+<!-- UsageSnippet language="go" operationID="updateInputSystemHecTokenByPackAndIdAndToken" method="patch" path="/p/{pack}/system/inputs/{id}/hectoken/{token}" example="HecTokenExamplesHecTokenWithIndexAccess" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Sources.HecTokens.Update(ctx, "<id>", "<value>", "<value>", components.UpdateHecTokenRequest{
+        AllowedIndexesAtToken: []string{
+            "myIndex6",
+        },
+        Description: criblcontrolplanesdkgo.Pointer("geez capitalise curiously enfold jubilantly"),
+        Enabled: criblcontrolplanesdkgo.Pointer(true),
+        Metadata: []components.EventBreakerRuleFields{
+            components.EventBreakerRuleFields{
+                Name: "<value>",
+                Value: "<value>",
             },
         },
     })
