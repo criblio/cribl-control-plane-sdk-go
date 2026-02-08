@@ -197,7 +197,7 @@ Restart all Worker or Edge Nodes for the specified Cribl product.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" -->
+<!-- UsageSnippet language="go" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" example="RestartWorkersExamplesRestartWorkers" -->
 ```go
 package main
 
