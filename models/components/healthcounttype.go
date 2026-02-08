@@ -3,36 +3,36 @@
 package components
 
 type HealthCountType struct {
-	Green   float64 `json:"Green"`
-	Yellow  float64 `json:"Yellow"`
-	Red     float64 `json:"Red"`
-	Unknown float64 `json:"Unknown"`
+	Green   *float64 `json:"Green,omitempty"`
+	Yellow  *float64 `json:"Yellow,omitempty"`
+	Red     *float64 `json:"Red,omitempty"`
+	Unknown *float64 `json:"Unknown,omitempty"`
 }
 
-func (h *HealthCountType) GetGreen() float64 {
+func (h *HealthCountType) GetGreen() *float64 {
 	if h == nil {
-		return 0.0
+		return nil
 	}
 	return h.Green
 }
 
-func (h *HealthCountType) GetYellow() float64 {
+func (h *HealthCountType) GetYellow() *float64 {
 	if h == nil {
-		return 0.0
+		return nil
 	}
 	return h.Yellow
 }
 
-func (h *HealthCountType) GetRed() float64 {
+func (h *HealthCountType) GetRed() *float64 {
 	if h == nil {
-		return 0.0
+		return nil
 	}
 	return h.Red
 }
 
-func (h *HealthCountType) GetUnknown() float64 {
+func (h *HealthCountType) GetUnknown() *float64 {
 	if h == nil {
-		return 0.0
+		return nil
 	}
 	return h.Unknown
 }
