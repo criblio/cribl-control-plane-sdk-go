@@ -96,43 +96,15 @@ func main() {
     )
 
     res, err := s.Packs.Routes.Update(ctx, "<id>", "<value>", components.Routes{
-        Comments: []components.RouteComment{
-            components.RouteComment{
-                Comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                ID: "<id>",
-                Index: 4999.72,
-            },
-        },
-        Groups: map[string]components.RoutesGroups{
-            "key": components.RoutesGroups{
-                Description: criblcontrolplanesdkgo.Pointer("ridge impassioned amount happily"),
-                Index: 8485.39,
-                Name: "<value>",
-            },
-        },
         ID: "default",
         Routes: []components.RouteConf{
             components.RouteConf{
-                Clones: []map[string]string{
-                    map[string]string{
-                        "key": "<value>",
-                        "key1": "<value>",
-                    },
-                },
-                Context: criblcontrolplanesdkgo.Pointer("<value>"),
                 Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
                 Final: true,
-                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 ID: "default",
                 Name: "my-route",
-                Output: criblcontrolplanesdkgo.Pointer("<value>"),
-                OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
                 Pipeline: "main",
-                TargetContext: components.TargetContextGroup.ToPointer(),
             },
         },
     })
@@ -169,113 +141,43 @@ func main() {
     )
 
     res, err := s.Packs.Routes.Update(ctx, "<id>", "<value>", components.Routes{
-        Comments: []components.RouteComment{
-            components.RouteComment{
-                Comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                ID: "<id>",
-                Index: 2877.94,
-            },
-        },
-        Groups: map[string]components.RoutesGroups{
-            "key": components.RoutesGroups{
-                Description: criblcontrolplanesdkgo.Pointer("ridge impassioned amount happily"),
-                Index: 7418.21,
-                Name: "<value>",
-            },
-        },
         ID: "default",
         Routes: []components.RouteConf{
             components.RouteConf{
-                Clones: []map[string]string{
-                    map[string]string{
-                        "key": "<value>",
-                    },
-                    map[string]string{
-                        "key": "<value>",
-                        "key1": "<value>",
-                    },
-                    map[string]string{
-                        "key": "<value>",
-                    },
-                },
-                Context: criblcontrolplanesdkgo.Pointer("<value>"),
                 Description: criblcontrolplanesdkgo.Pointer("Route speedtest logs"),
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"speedtest.log\""),
                 Final: false,
-                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 ID: "route-speedtest",
                 Name: "speedtest",
                 Output: criblcontrolplanesdkgo.Pointer("default"),
-                OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
                 Pipeline: "main",
-                TargetContext: components.TargetContextPack.ToPointer(),
             },
             components.RouteConf{
-                Clones: []map[string]string{
-                    map[string]string{
-
-                    },
-                },
-                Context: criblcontrolplanesdkgo.Pointer("<value>"),
                 Description: criblcontrolplanesdkgo.Pointer("Route mtr logs"),
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"mtr.log\""),
                 Final: false,
-                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 ID: "route-mtr",
                 Name: "mtr",
                 Output: criblcontrolplanesdkgo.Pointer("default"),
-                OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
                 Pipeline: "passthru",
-                TargetContext: components.TargetContextGroup.ToPointer(),
             },
             components.RouteConf{
-                Clones: []map[string]string{
-                    map[string]string{
-
-                    },
-                },
-                Context: criblcontrolplanesdkgo.Pointer("<value>"),
                 Description: criblcontrolplanesdkgo.Pointer("Route statsd metrics"),
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"statsd.log\""),
                 Final: false,
-                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 ID: "route-statsd",
                 Name: "statsd",
                 Output: criblcontrolplanesdkgo.Pointer("devnull"),
-                OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
                 Pipeline: "prometheus_metrics",
-                TargetContext: components.TargetContextGroup.ToPointer(),
             },
             components.RouteConf{
-                Clones: []map[string]string{
-                    map[string]string{
-
-                    },
-                    map[string]string{
-                        "key": "<value>",
-                        "key1": "<value>",
-                    },
-                },
-                Context: criblcontrolplanesdkgo.Pointer("<value>"),
                 Description: criblcontrolplanesdkgo.Pointer("Catch-all Route for all other events"),
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
                 Filter: criblcontrolplanesdkgo.Pointer("true"),
                 Final: true,
-                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 ID: "route-default",
                 Name: "default",
                 Output: criblcontrolplanesdkgo.Pointer("default"),
-                OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
                 Pipeline: "main",
-                TargetContext: components.TargetContextGroup.ToPointer(),
             },
         },
     })
@@ -312,44 +214,17 @@ func main() {
     )
 
     res, err := s.Packs.Routes.Update(ctx, "<id>", "<value>", components.Routes{
-        Comments: []components.RouteComment{
-            components.RouteComment{
-                Comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                ID: "<id>",
-                Index: 7514.98,
-            },
-        },
-        Groups: map[string]components.RoutesGroups{
-            "key": components.RoutesGroups{
-                Description: criblcontrolplanesdkgo.Pointer("ridge impassioned amount happily"),
-                Index: 3321.41,
-                Name: "<value>",
-            },
-        },
         ID: "default",
         Routes: []components.RouteConf{
             components.RouteConf{
-                Clones: []map[string]string{
-                    map[string]string{
-                        "key": "<value>",
-                        "key1": "<value>",
-                        "key2": "<value>",
-                    },
-                },
-                Context: criblcontrolplanesdkgo.Pointer("<value>"),
                 Description: criblcontrolplanesdkgo.Pointer("Route with dynamic Destination based on environment"),
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
                 EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
                 Final: true,
-                GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 ID: "route-dynamic",
                 Name: "dynamic-output",
-                Output: criblcontrolplanesdkgo.Pointer("<value>"),
                 OutputExpression: criblcontrolplanesdkgo.Pointer("`myDest_${C.logStreamEnv}`"),
                 Pipeline: "main",
-                TargetContext: components.TargetContextGroup.ToPointer(),
             },
         },
     })
@@ -470,57 +345,22 @@ func main() {
 
     res, err := s.Packs.Routes.Append(ctx, "<id>", "<value>", []components.RouteConf{
         components.RouteConf{
-            Clones: []map[string]string{
-                map[string]string{
-                    "key": "<value>",
-                    "key1": "<value>",
-                },
-                map[string]string{
-                    "key": "<value>",
-                    "key1": "<value>",
-                    "key2": "<value>",
-                },
-                map[string]string{
-                    "key": "<value>",
-                    "key1": "<value>",
-                    "key2": "<value>",
-                },
-            },
-            Context: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("Route audit logs"),
-            Disabled: criblcontrolplanesdkgo.Pointer(false),
-            EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"audit.log\""),
             Final: false,
-            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
             ID: "route-audit",
             Name: "audit",
             Output: criblcontrolplanesdkgo.Pointer("default"),
-            OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
             Pipeline: "main",
-            TargetContext: components.TargetContextGroup.ToPointer(),
         },
         components.RouteConf{
-            Clones: []map[string]string{
-                map[string]string{
-                    "key": "<value>",
-                    "key1": "<value>",
-                    "key2": "<value>",
-                },
-            },
-            Context: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("Route security logs"),
-            Disabled: criblcontrolplanesdkgo.Pointer(false),
-            EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"security.log\""),
             Final: false,
-            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
             ID: "route-security",
             Name: "security",
             Output: criblcontrolplanesdkgo.Pointer("devnull"),
-            OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
             Pipeline: "passthru",
-            TargetContext: components.TargetContextPack.ToPointer(),
         },
     })
     if err != nil {
@@ -557,29 +397,14 @@ func main() {
 
     res, err := s.Packs.Routes.Append(ctx, "<id>", "<value>", []components.RouteConf{
         components.RouteConf{
-            Clones: []map[string]string{
-                map[string]string{
-                    "key": "<value>",
-                },
-                map[string]string{
-                    "key": "<value>",
-                    "key1": "<value>",
-                    "key2": "<value>",
-                },
-            },
-            Context: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("Route with dynamic Destination based on environment"),
-            Disabled: criblcontrolplanesdkgo.Pointer(true),
             EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
             Final: true,
-            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
             ID: "route-dynamic-append",
             Name: "dynamic-append",
-            Output: criblcontrolplanesdkgo.Pointer("<value>"),
             OutputExpression: criblcontrolplanesdkgo.Pointer("`myDest_${C.logStreamEnv}`"),
             Pipeline: "main",
-            TargetContext: components.TargetContextPack.ToPointer(),
         },
     })
     if err != nil {
@@ -616,27 +441,12 @@ func main() {
 
     res, err := s.Packs.Routes.Append(ctx, "<id>", "<value>", []components.RouteConf{
         components.RouteConf{
-            Clones: []map[string]string{
-                map[string]string{
-
-                },
-                map[string]string{
-                    "key": "<value>",
-                },
-            },
-            Context: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("Route new logs to main pipeline"),
-            Disabled: criblcontrolplanesdkgo.Pointer(false),
-            EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"new.log\""),
             Final: true,
-            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
             ID: "route-new",
             Name: "new-route",
-            Output: criblcontrolplanesdkgo.Pointer("<value>"),
-            OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
             Pipeline: "main",
-            TargetContext: components.TargetContextPack.ToPointer(),
         },
     })
     if err != nil {
