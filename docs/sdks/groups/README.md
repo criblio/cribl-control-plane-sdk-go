@@ -100,58 +100,13 @@ func main() {
     )
 
     res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
-        Cloud: &components.ConfigGroupCloud{
-            Provider: components.CloudProviderAws.ToPointer(),
-            Region: "<value>",
-        },
-        DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](2591.38),
         Description: criblcontrolplanesdkgo.Pointer("Worker Group cloned from goatOnPremIanWg with identical configuration"),
-        EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate48MbPerSec.ToPointer(),
-        Git: &components.GitTypeConfigGroup{
-            Commit: criblcontrolplanesdkgo.Pointer("<value>"),
-            LocalChanges: criblcontrolplanesdkgo.Pointer[float64](2413.01),
-            Log: []components.Commit{
-                components.Commit{
-                    AuthorEmail: criblcontrolplanesdkgo.Pointer("<value>"),
-                    AuthorName: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Date: "2024-04-03",
-                    Hash: "<value>",
-                    Message: "<value>",
-                    Short: "<value>",
-                },
-            },
-        },
         ID: "goatOnPremDollyWg",
-        IncompatibleWorkerCount: criblcontrolplanesdkgo.Pointer[float64](1660.08),
-        Inherits: criblcontrolplanesdkgo.Pointer("<value>"),
         IsFleet: criblcontrolplanesdkgo.Pointer(false),
         IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        LookupDeployments: []components.ConfigGroupLookups{
-            components.ConfigGroupLookups{
-                Context: "<value>",
-                Lookups: []components.ConfigGroupLookupsLookup{
-                    components.ConfigGroupLookupsLookup{
-                        DeployedVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-                        File: "<value>",
-                        Version: criblcontrolplanesdkgo.Pointer("<value>"),
-                    },
-                },
-            },
-        },
-        MaxWorkerAge: criblcontrolplanesdkgo.Pointer("<value>"),
         Name: criblcontrolplanesdkgo.Pointer("goatOnPremDollyWg"),
         OnPrem: criblcontrolplanesdkgo.Pointer(true),
-        Provisioned: criblcontrolplanesdkgo.Pointer(true),
         SourceGroupID: criblcontrolplanesdkgo.Pointer("goatOnPremIanWg"),
-        Streamtags: []string{
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
-        },
-        Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.TypeOptionsConfigGroupLakeAccess.ToPointer(),
-        UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-        WorkerCount: criblcontrolplanesdkgo.Pointer[float64](5075.63),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -191,54 +146,13 @@ func main() {
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "us-west-2",
         },
-        DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](5631.58),
-        Description: criblcontrolplanesdkgo.Pointer("ack resort boohoo"),
         EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate24MbPerSec.ToPointer(),
-        Git: &components.GitTypeConfigGroup{
-            Commit: criblcontrolplanesdkgo.Pointer("<value>"),
-            LocalChanges: criblcontrolplanesdkgo.Pointer[float64](2413.01),
-            Log: []components.Commit{
-                components.Commit{
-                    AuthorEmail: criblcontrolplanesdkgo.Pointer("<value>"),
-                    AuthorName: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Date: "2024-04-03",
-                    Hash: "<value>",
-                    Message: "<value>",
-                    Short: "<value>",
-                },
-            },
-        },
         ID: "goatCloudIanWg",
-        IncompatibleWorkerCount: criblcontrolplanesdkgo.Pointer[float64](7174.43),
-        Inherits: criblcontrolplanesdkgo.Pointer("<value>"),
         IsFleet: criblcontrolplanesdkgo.Pointer(false),
         IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        LookupDeployments: []components.ConfigGroupLookups{
-            components.ConfigGroupLookups{
-                Context: "<value>",
-                Lookups: []components.ConfigGroupLookupsLookup{
-                    components.ConfigGroupLookupsLookup{
-                        DeployedVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-                        File: "<value>",
-                        Version: criblcontrolplanesdkgo.Pointer("<value>"),
-                    },
-                },
-            },
-        },
-        MaxWorkerAge: criblcontrolplanesdkgo.Pointer("<value>"),
         Name: criblcontrolplanesdkgo.Pointer("goatCloudIanWg"),
         OnPrem: criblcontrolplanesdkgo.Pointer(false),
         Provisioned: criblcontrolplanesdkgo.Pointer(true),
-        SourceGroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-        Streamtags: []string{
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
-        },
-        Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.TypeOptionsConfigGroupLakeAccess.ToPointer(),
-        UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-        WorkerCount: criblcontrolplanesdkgo.Pointer[float64](4980.41),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -274,57 +188,12 @@ func main() {
     )
 
     res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
-        Cloud: &components.ConfigGroupCloud{
-            Provider: components.CloudProviderAws.ToPointer(),
-            Region: "<value>",
-        },
-        DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](9605.18),
         Description: criblcontrolplanesdkgo.Pointer("Create a new Edge Fleet"),
-        EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate84MbPerSec.ToPointer(),
-        Git: &components.GitTypeConfigGroup{
-            Commit: criblcontrolplanesdkgo.Pointer("<value>"),
-            LocalChanges: criblcontrolplanesdkgo.Pointer[float64](2413.01),
-            Log: []components.Commit{
-                components.Commit{
-                    AuthorEmail: criblcontrolplanesdkgo.Pointer("<value>"),
-                    AuthorName: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Date: "2024-04-03",
-                    Hash: "<value>",
-                    Message: "<value>",
-                    Short: "<value>",
-                },
-            },
-        },
         ID: "goatIanEdgeFleet",
-        IncompatibleWorkerCount: criblcontrolplanesdkgo.Pointer[float64](9429.96),
-        Inherits: criblcontrolplanesdkgo.Pointer("<value>"),
         IsFleet: criblcontrolplanesdkgo.Pointer(true),
         IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        LookupDeployments: []components.ConfigGroupLookups{
-            components.ConfigGroupLookups{
-                Context: "<value>",
-                Lookups: []components.ConfigGroupLookupsLookup{
-                    components.ConfigGroupLookupsLookup{
-                        DeployedVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-                        File: "<value>",
-                        Version: criblcontrolplanesdkgo.Pointer("<value>"),
-                    },
-                },
-            },
-        },
-        MaxWorkerAge: criblcontrolplanesdkgo.Pointer("<value>"),
         Name: criblcontrolplanesdkgo.Pointer("goatIanEdgeFleet"),
         OnPrem: criblcontrolplanesdkgo.Pointer(true),
-        Provisioned: criblcontrolplanesdkgo.Pointer(false),
-        SourceGroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-        Streamtags: []string{
-            "<value 1>",
-            "<value 2>",
-        },
-        Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.TypeOptionsConfigGroupLakeAccess.ToPointer(),
-        UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-        WorkerCount: criblcontrolplanesdkgo.Pointer[float64](3096.3),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -360,56 +229,12 @@ func main() {
     )
 
     res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
-        Cloud: &components.ConfigGroupCloud{
-            Provider: components.CloudProviderAws.ToPointer(),
-            Region: "<value>",
-        },
-        DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](9081.3),
         Description: criblcontrolplanesdkgo.Pointer("Worker group in customer-managed deployment"),
-        EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate36MbPerSec.ToPointer(),
-        Git: &components.GitTypeConfigGroup{
-            Commit: criblcontrolplanesdkgo.Pointer("<value>"),
-            LocalChanges: criblcontrolplanesdkgo.Pointer[float64](2413.01),
-            Log: []components.Commit{
-                components.Commit{
-                    AuthorEmail: criblcontrolplanesdkgo.Pointer("<value>"),
-                    AuthorName: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Date: "2024-04-03",
-                    Hash: "<value>",
-                    Message: "<value>",
-                    Short: "<value>",
-                },
-            },
-        },
         ID: "goatOnPremIanWg",
-        IncompatibleWorkerCount: criblcontrolplanesdkgo.Pointer[float64](7060.3),
-        Inherits: criblcontrolplanesdkgo.Pointer("<value>"),
         IsFleet: criblcontrolplanesdkgo.Pointer(false),
         IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        LookupDeployments: []components.ConfigGroupLookups{
-            components.ConfigGroupLookups{
-                Context: "<value>",
-                Lookups: []components.ConfigGroupLookupsLookup{
-                    components.ConfigGroupLookupsLookup{
-                        DeployedVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-                        File: "<value>",
-                        Version: criblcontrolplanesdkgo.Pointer("<value>"),
-                    },
-                },
-            },
-        },
-        MaxWorkerAge: criblcontrolplanesdkgo.Pointer("<value>"),
         Name: criblcontrolplanesdkgo.Pointer("goatOnPremIanWg"),
         OnPrem: criblcontrolplanesdkgo.Pointer(true),
-        Provisioned: criblcontrolplanesdkgo.Pointer(false),
-        SourceGroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-        Streamtags: []string{
-            "<value 1>",
-        },
-        Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.TypeOptionsConfigGroupLakeAccess.ToPointer(),
-        UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-        WorkerCount: criblcontrolplanesdkgo.Pointer[float64](1230.11),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -533,48 +358,14 @@ func main() {
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "us-west-2",
         },
-        ConfigVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-        DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](7786.61),
         Description: criblcontrolplanesdkgo.Pointer("Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity"),
         EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate48MbPerSec.ToPointer(),
-        Git: &components.GitTypeConfigGroup{
-            Commit: criblcontrolplanesdkgo.Pointer("<value>"),
-            LocalChanges: criblcontrolplanesdkgo.Pointer[float64](776.15),
-            Log: []components.Commit{
-                components.Commit{
-                    AuthorEmail: criblcontrolplanesdkgo.Pointer("<value>"),
-                    AuthorName: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Date: "2024-09-29",
-                    Hash: "<value>",
-                    Message: "<value>",
-                    Short: "<value>",
-                },
-            },
-        },
         ID: "goatCloudIanWg",
-        IncompatibleWorkerCount: criblcontrolplanesdkgo.Pointer[float64](2874.65),
-        Inherits: criblcontrolplanesdkgo.Pointer("<value>"),
         IsFleet: criblcontrolplanesdkgo.Pointer(false),
         IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        LookupDeployments: []components.ConfigGroupLookups{
-            components.ConfigGroupLookups{
-                Context: "<value>",
-                Lookups: []components.ConfigGroupLookupsLookup{},
-            },
-        },
-        MaxWorkerAge: criblcontrolplanesdkgo.Pointer("<value>"),
         Name: criblcontrolplanesdkgo.Pointer("goatCloudIanWg"),
         OnPrem: criblcontrolplanesdkgo.Pointer(false),
         Provisioned: criblcontrolplanesdkgo.Pointer(true),
-        Streamtags: []string{
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
-        },
-        Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.TypeOptionsConfigGroupLakeAccess.ToPointer(),
-        UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-        WorkerCount: criblcontrolplanesdkgo.Pointer[float64](835.08),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -694,12 +485,6 @@ func main() {
     )
 
     res, err := s.Groups.Deploy(ctx, components.ProductsCoreStream, "<id>", components.DeployRequest{
-        Lookups: []components.DeployRequestLookups{
-            components.DeployRequestLookups{
-                Context: "<value>",
-                Lookups: []components.DeployRequestLookupsLookup{},
-            },
-        },
         Version: "<value>",
     })
     if err != nil {

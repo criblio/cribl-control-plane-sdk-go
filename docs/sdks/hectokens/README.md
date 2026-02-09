@@ -36,10 +36,6 @@ func main() {
     )
 
     res, err := s.Sources.HecTokens.Create(ctx, "<id>", components.AddHecTokenRequest{
-        AllowedIndexesAtToken: []string{
-            "<value 1>",
-        },
-        Description: criblcontrolplanesdkgo.Pointer("toward precedent merry vaguely across ha fooey ingratiate jealously outlying"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
         Metadata: []components.EventBreakerRuleFields{
             components.EventBreakerRuleFields{
@@ -85,14 +81,7 @@ func main() {
         AllowedIndexesAtToken: []string{
             "myIndex6",
         },
-        Description: criblcontrolplanesdkgo.Pointer("circa aw dazzling official own amid in for gadzooks"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
-        Metadata: []components.EventBreakerRuleFields{
-            components.EventBreakerRuleFields{
-                Name: "<value>",
-                Value: "<value>",
-            },
-        },
         Token: "12345678901",
     })
     if err != nil {
@@ -153,10 +142,6 @@ func main() {
     )
 
     res, err := s.Sources.HecTokens.Update(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{
-        AllowedIndexesAtToken: []string{
-            "<value 1>",
-        },
-        Description: criblcontrolplanesdkgo.Pointer("once lively fooey who though while dampen please denitrify pish"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
         Metadata: []components.EventBreakerRuleFields{
             components.EventBreakerRuleFields{
@@ -201,14 +186,7 @@ func main() {
         AllowedIndexesAtToken: []string{
             "myIndex6",
         },
-        Description: criblcontrolplanesdkgo.Pointer("sleet for uh-huh"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
-        Metadata: []components.EventBreakerRuleFields{
-            components.EventBreakerRuleFields{
-                Name: "<value>",
-                Value: "<value>",
-            },
-        },
     })
     if err != nil {
         log.Fatal(err)

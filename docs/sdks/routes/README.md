@@ -158,26 +158,10 @@ func main() {
             components.RoutesRoute{
                 ID: criblcontrolplanesdkgo.Pointer("default"),
                 Name: "my-route",
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
                 Pipeline: "main",
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
-                Output: "<value>",
-                OutputExpression: "<value>",
                 Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
                 Final: criblcontrolplanesdkgo.Pointer(true),
-            },
-        },
-        Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
-            "key": components.AdditionalPropertiesTypePipelineConfGroups{
-                Name: "<value>",
-                Description: criblcontrolplanesdkgo.Pointer("drat yet spectacles ha"),
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
-            },
-        },
-        Comments: []components.Comment{
-            components.Comment{
-                Comment: criblcontrolplanesdkgo.Pointer("The Football Is Good For Training And Recreational Purposes"),
             },
         },
     })
@@ -219,62 +203,38 @@ func main() {
             components.RoutesRoute{
                 ID: criblcontrolplanesdkgo.Pointer("route-speedtest"),
                 Name: "speedtest",
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"speedtest.log\""),
                 Pipeline: "main",
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
                 Output: "default",
-                OutputExpression: "<value>",
                 Description: criblcontrolplanesdkgo.Pointer("Route speedtest logs"),
                 Final: criblcontrolplanesdkgo.Pointer(false),
             },
             components.RoutesRoute{
                 ID: criblcontrolplanesdkgo.Pointer("route-mtr"),
                 Name: "mtr",
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"mtr.log\""),
                 Pipeline: "passthru",
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
                 Output: "default",
-                OutputExpression: "<value>",
                 Description: criblcontrolplanesdkgo.Pointer("Route mtr logs"),
                 Final: criblcontrolplanesdkgo.Pointer(false),
             },
             components.RoutesRoute{
                 ID: criblcontrolplanesdkgo.Pointer("route-statsd"),
                 Name: "statsd",
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"statsd.log\""),
                 Pipeline: "prometheus_metrics",
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
                 Output: "devnull",
-                OutputExpression: "<value>",
                 Description: criblcontrolplanesdkgo.Pointer("Route statsd metrics"),
                 Final: criblcontrolplanesdkgo.Pointer(false),
             },
             components.RoutesRoute{
                 ID: criblcontrolplanesdkgo.Pointer("route-default"),
                 Name: "default",
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
                 Filter: criblcontrolplanesdkgo.Pointer("true"),
                 Pipeline: "main",
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
                 Output: "default",
-                OutputExpression: "<value>",
                 Description: criblcontrolplanesdkgo.Pointer("Catch-all Route for all other events"),
                 Final: criblcontrolplanesdkgo.Pointer(true),
-            },
-        },
-        Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
-            "key": components.AdditionalPropertiesTypePipelineConfGroups{
-                Name: "<value>",
-                Description: criblcontrolplanesdkgo.Pointer("drat yet spectacles ha"),
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
-            },
-        },
-        Comments: []components.Comment{
-            components.Comment{
-                Comment: criblcontrolplanesdkgo.Pointer("The Football Is Good For Training And Recreational Purposes"),
             },
         },
     })
@@ -316,26 +276,12 @@ func main() {
             components.RoutesRoute{
                 ID: criblcontrolplanesdkgo.Pointer("route-dynamic"),
                 Name: "dynamic-output",
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
                 Pipeline: "main",
                 EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
-                Output: "<value>",
                 OutputExpression: "`myDest_${C.logStreamEnv}`",
                 Description: criblcontrolplanesdkgo.Pointer("Route with dynamic Destination based on environment"),
                 Final: criblcontrolplanesdkgo.Pointer(true),
-            },
-        },
-        Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
-            "key": components.AdditionalPropertiesTypePipelineConfGroups{
-                Name: "<value>",
-                Description: criblcontrolplanesdkgo.Pointer("drat yet spectacles ha"),
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
-            },
-        },
-        Comments: []components.Comment{
-            components.Comment{
-                Comment: criblcontrolplanesdkgo.Pointer("The Football Is Good For Training And Recreational Purposes"),
             },
         },
     })
@@ -398,48 +344,21 @@ func main() {
 
     res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
         components.RouteConf{
-            Clones: []map[string]string{
-                map[string]string{
-                    "key": "<value>",
-                    "key1": "<value>",
-                },
-            },
-            Context: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("Route audit logs"),
-            Disabled: criblcontrolplanesdkgo.Pointer(false),
-            EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"audit.log\""),
             Final: false,
-            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
             ID: "route-audit",
             Name: "audit",
             Output: criblcontrolplanesdkgo.Pointer("default"),
-            OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
             Pipeline: "main",
         },
         components.RouteConf{
-            Clones: []map[string]string{
-                map[string]string{
-
-                },
-                map[string]string{
-
-                },
-                map[string]string{
-
-                },
-            },
-            Context: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("Route security logs"),
-            Disabled: criblcontrolplanesdkgo.Pointer(true),
-            EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"security.log\""),
             Final: false,
-            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
             ID: "route-security",
             Name: "security",
             Output: criblcontrolplanesdkgo.Pointer("devnull"),
-            OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
             Pipeline: "passthru",
         },
     })
@@ -477,22 +396,12 @@ func main() {
 
     res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
         components.RouteConf{
-            Clones: []map[string]string{
-                map[string]string{
-                    "key": "<value>",
-                    "key1": "<value>",
-                },
-            },
-            Context: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("Route with dynamic Destination based on environment"),
-            Disabled: criblcontrolplanesdkgo.Pointer(false),
             EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
             Final: true,
-            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
             ID: "route-dynamic-append",
             Name: "dynamic-append",
-            Output: criblcontrolplanesdkgo.Pointer("<value>"),
             OutputExpression: criblcontrolplanesdkgo.Pointer("`myDest_${C.logStreamEnv}`"),
             Pipeline: "main",
         },
@@ -531,25 +440,11 @@ func main() {
 
     res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
         components.RouteConf{
-            Clones: []map[string]string{
-                map[string]string{
-                    "key": "<value>",
-                },
-                map[string]string{
-
-                },
-            },
-            Context: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("Route new logs to main pipeline"),
-            Disabled: criblcontrolplanesdkgo.Pointer(true),
-            EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"new.log\""),
             Final: true,
-            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
             ID: "route-new",
             Name: "new-route",
-            Output: criblcontrolplanesdkgo.Pointer("<value>"),
-            OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
             Pipeline: "main",
         },
     })

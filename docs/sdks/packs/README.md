@@ -105,36 +105,10 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody1(
-        components.PackRequestBody1{
-            ID: "<id>",
-            Spec: criblcontrolplanesdkgo.Pointer("<value>"),
-            Version: criblcontrolplanesdkgo.Pointer("<value>"),
-            MinLogStreamVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-            DisplayName: criblcontrolplanesdkgo.Pointer("Jennyfer.Bogan"),
-            Author: criblcontrolplanesdkgo.Pointer("<value>"),
-            Description: criblcontrolplanesdkgo.Pointer("ack that sparkling if blah bourgeoisie or phooey"),
-            Source: criblcontrolplanesdkgo.Pointer("git+https://github.com/criblio/cribl_ocsf_postprocessing"),
-            Tags: &components.TagsTypePackInstallInfo{
-                DataType: []string{
-                    "double",
-                    "boolean",
-                },
-                Domain: []string{
-                    "delectable-transom.com",
-                    "radiant-sightseeing.info",
-                },
-                Streamtags: []string{
-                    "<value 1>",
-                    "<value 2>",
-                    "<value 3>",
-                },
-                Technology: []string{
-                    "<value 1>",
-                },
-            },
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody2(
+        components.PackRequestBody2{
+            Source: "git+https://github.com/criblio/cribl_ocsf_postprocessing",
             AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
-            Force: criblcontrolplanesdkgo.Pointer(true),
         },
     ))
     if err != nil {
@@ -169,34 +143,9 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody1(
-        components.PackRequestBody1{
-            ID: "<id>",
-            Spec: criblcontrolplanesdkgo.Pointer("<value>"),
-            Version: criblcontrolplanesdkgo.Pointer("<value>"),
-            MinLogStreamVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-            DisplayName: criblcontrolplanesdkgo.Pointer("June30"),
-            Author: criblcontrolplanesdkgo.Pointer("<value>"),
-            Description: criblcontrolplanesdkgo.Pointer("and banish crossly abacus"),
-            Source: criblcontrolplanesdkgo.Pointer("https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl"),
-            Tags: &components.TagsTypePackInstallInfo{
-                DataType: []string{
-                    "double",
-                    "boolean",
-                },
-                Domain: []string{
-                    "delectable-transom.com",
-                    "radiant-sightseeing.info",
-                },
-                Streamtags: []string{
-                    "<value 1>",
-                    "<value 2>",
-                    "<value 3>",
-                },
-                Technology: []string{
-                    "<value 1>",
-                },
-            },
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody2(
+        components.PackRequestBody2{
+            Source: "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl",
             AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(true),
             Force: criblcontrolplanesdkgo.Pointer(true),
         },
@@ -233,36 +182,10 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody1(
-        components.PackRequestBody1{
-            ID: "<id>",
-            Spec: criblcontrolplanesdkgo.Pointer("<value>"),
-            Version: criblcontrolplanesdkgo.Pointer("<value>"),
-            MinLogStreamVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-            DisplayName: criblcontrolplanesdkgo.Pointer("Lavon.Russel"),
-            Author: criblcontrolplanesdkgo.Pointer("<value>"),
-            Description: criblcontrolplanesdkgo.Pointer("ferociously haunting meh into instantly"),
-            Source: criblcontrolplanesdkgo.Pointer("https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl"),
-            Tags: &components.TagsTypePackInstallInfo{
-                DataType: []string{
-                    "double",
-                    "boolean",
-                },
-                Domain: []string{
-                    "delectable-transom.com",
-                    "radiant-sightseeing.info",
-                },
-                Streamtags: []string{
-                    "<value 1>",
-                    "<value 2>",
-                    "<value 3>",
-                },
-                Technology: []string{
-                    "<value 1>",
-                },
-            },
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody2(
+        components.PackRequestBody2{
+            Source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
             AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
-            Force: criblcontrolplanesdkgo.Pointer(false),
         },
     ))
     if err != nil {
@@ -300,33 +223,8 @@ func main() {
     res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody1(
         components.PackRequestBody1{
             ID: "cribl-search-missing-logs",
-            Spec: criblcontrolplanesdkgo.Pointer("<value>"),
-            Version: criblcontrolplanesdkgo.Pointer("<value>"),
-            MinLogStreamVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-            DisplayName: criblcontrolplanesdkgo.Pointer("Onie_Miller"),
-            Author: criblcontrolplanesdkgo.Pointer("<value>"),
-            Description: criblcontrolplanesdkgo.Pointer("than eek before fledgling absent astride depart till"),
             Source: criblcontrolplanesdkgo.Pointer("cribl-search-missing-logs-1.0.1.Do7DH5I.crbl"),
-            Tags: &components.TagsTypePackInstallInfo{
-                DataType: []string{
-                    "double",
-                    "boolean",
-                },
-                Domain: []string{
-                    "delectable-transom.com",
-                    "radiant-sightseeing.info",
-                },
-                Streamtags: []string{
-                    "<value 1>",
-                    "<value 2>",
-                    "<value 3>",
-                },
-                Technology: []string{
-                    "<value 1>",
-                },
-            },
             AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
-            Force: criblcontrolplanesdkgo.Pointer(true),
         },
     ))
     if err != nil {
@@ -620,10 +518,7 @@ func main() {
     )
 
     res, err := s.Packs.Update(ctx, "<id>", components.PackUpgradeRequest{
-        AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(true),
-        Minor: criblcontrolplanesdkgo.Pointer("<value>"),
         Source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
-        Spec: criblcontrolplanesdkgo.Pointer("<value>"),
     })
     if err != nil {
         log.Fatal(err)
