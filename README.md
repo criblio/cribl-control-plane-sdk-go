@@ -485,13 +485,10 @@ func main() {
 	)
 
 	res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-		Duration:        5,
-		Filter:          "sourcetype===\"pan:traffic\"",
-		Level:           components.CaptureLevelBeforePreProcessingPipeline,
-		MaxEvents:       100,
-		StepDuration:    criblcontrolplanesdkgo.Pointer[int64](571732),
-		WorkerID:        criblcontrolplanesdkgo.Pointer("<id>"),
-		WorkerThreshold: criblcontrolplanesdkgo.Pointer[int64](609412),
+		Duration:  5,
+		Filter:    "sourcetype===\"pan:traffic\"",
+		Level:     components.CaptureLevelBeforePreProcessingPipeline,
+		MaxEvents: 100,
 	})
 	if err != nil {
 		log.Fatal(err)

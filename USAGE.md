@@ -22,17 +22,12 @@ func main() {
 
 	res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
 		AuthType:          "connectionString",
-		ConfigObj:         criblcontrolplanesdkgo.Pointer("<value>"),
 		ConnectionString:  criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
 		ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
-		CredsSecrets:      criblcontrolplanesdkgo.Pointer("<value>"),
 		DatabaseType:      components.DatabaseConnectionTypeMysql,
 		Description:       "Production MySQL database for customer data",
 		ID:                "mysql-prod-db",
-		Password:          criblcontrolplanesdkgo.Pointer("QpvMa8DI_lUJL_b"),
-		RequestTimeout:    criblcontrolplanesdkgo.Pointer[float64](4657.19),
 		Tags:              criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
-		User:              criblcontrolplanesdkgo.Pointer("Dolores.Feil"),
 	})
 	if err != nil {
 		log.Fatal(err)
