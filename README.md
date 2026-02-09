@@ -416,10 +416,6 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [Create](docs/sdks/captures/README.md#create) - Capture live incoming data
 
-### [System.Previews](docs/sdks/previews/README.md)
-
-* [Create](docs/sdks/previews/README.md#create) - Send sample events through a Pipeline and review results
-
 ### [System.Settings](docs/sdks/settings/README.md)
 
 * [Restart](docs/sdks/settings/README.md#restart) - Restart the Cribl server

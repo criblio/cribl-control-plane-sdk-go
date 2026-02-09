@@ -1,0 +1,29 @@
+# RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery
+
+
+## Supported Types
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHTTP
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryHTTP(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeJSON
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryJSON(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeList
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryList(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeNone
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryNone(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeNone{/* values here */})
+```
+
