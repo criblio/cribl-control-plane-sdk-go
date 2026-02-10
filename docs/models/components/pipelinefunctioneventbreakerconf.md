@@ -1,9 +1,17 @@
 # PipelineFunctionEventBreakerConf
 
 
-## Fields
+## Supported Types
 
-| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `ExistingOrNew`                                                      | [components.ExistingOrNew](../../models/components/existingornew.md) | :heavy_check_mark:                                                   | N/A                                                                  |
-| `ShouldMarkCriblBreaker`                                             | **bool*                                                              | :heavy_minus_sign:                                                   | Add this Function name to the cribl_breaker field                    |
+### EventBreakerExistingOrNewNew
+
+```go
+pipelineFunctionEventBreakerConf := components.CreatePipelineFunctionEventBreakerConfNew(components.EventBreakerExistingOrNewNew{/* values here */})
+```
+
+### EventBreakerExistingOrNewExisting
+
+```go
+pipelineFunctionEventBreakerConf := components.CreatePipelineFunctionEventBreakerConfExisting(components.EventBreakerExistingOrNewExisting{/* values here */})
+```
+

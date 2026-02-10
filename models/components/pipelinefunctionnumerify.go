@@ -101,6 +101,14 @@ func (p *PipelineFunctionNumerify) GetConf() FunctionConfSchemaNumerify {
 	return p.Conf
 }
 
+func (p *PipelineFunctionNumerify) GetConfFix() *NumerifyFormatFix {
+	return p.GetConf().NumerifyFormatFix
+}
+
+func (p *PipelineFunctionNumerify) GetConfNone() *NumerifyFormatNone {
+	return p.GetConf().NumerifyFormatNone
+}
+
 func (p *PipelineFunctionNumerify) GetGroupID() *string {
 	if p == nil {
 		return nil
