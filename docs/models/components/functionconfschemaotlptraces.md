@@ -1,17 +1,10 @@
 # FunctionConfSchemaOtlpTraces
 
 
-## Supported Types
+## Fields
 
-### OTLPTracesBatchOTLPTracesFalse
-
-```go
-functionConfSchemaOtlpTraces := components.CreateFunctionConfSchemaOtlpTracesOTLPTracesBatchOTLPTracesFalse(components.OTLPTracesBatchOTLPTracesFalse{/* values here */})
-```
-
-### OTLPTracesBatchOTLPTracesTrue
-
-```go
-functionConfSchemaOtlpTraces := components.CreateFunctionConfSchemaOtlpTracesOTLPTracesBatchOTLPTracesTrue(components.OTLPTracesBatchOTLPTracesTrue{/* values here */})
-```
-
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `DropNonTraceEvents`                                                            | **bool*                                                                         | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `OtlpVersion`                                                                   | [*components.OtlpVersionOptions](../../models/components/otlpversionoptions.md) | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `BatchOTLPTraces`                                                               | **bool*                                                                         | :heavy_minus_sign:                                                              | Batch OTLP traces by shared top-level `resource` attributes                     |

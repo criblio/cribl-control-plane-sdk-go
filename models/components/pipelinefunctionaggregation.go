@@ -4,7 +4,6 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
@@ -33,383 +32,153 @@ func (e *PipelineFunctionAggregationID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AggregationCumulativeFalse struct {
-	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `json:"cumulative,omitempty"`
-	// The tumbling window tolerance to late events. Must be a valid time string (such as 10s).
-	LagTolerance *string `json:"lagTolerance,omitempty"`
-	// How long to wait before flushing a bucket that has not received events. Must be a valid time string (such as 10s).
-	IdleTimeLimit *string `json:"idleTimeLimit,omitempty"`
-	// Pass through the original events along with the aggregation events
-	Passthrough *bool `json:"passthrough,omitempty"`
-	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
-	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
-	// Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
-	MetricsMode *bool `json:"metricsMode,omitempty"`
-	// A prefix that is prepended to all of the fields output by this Aggregations Function
-	Prefix *string `json:"prefix,omitempty"`
-	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow string `json:"timeWindow"`
-	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
-	Aggregations []string `json:"aggregations"`
-	// Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-	Groupbys []string `json:"groupbys,omitempty"`
-	// The maximum number of events to include in any given aggregation event
-	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
-	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
-	// Allows Cribl Search-specific aggregation configuration
-	SearchAggMode *string `json:"searchAggMode,omitempty"`
-	// Set of key-value pairs to evaluate and add/set
-	Add []ItemsTypeAdd `json:"add,omitempty"`
-	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
-	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
-}
-
-func (a AggregationCumulativeFalse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AggregationCumulativeFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"timeWindow", "aggregations"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *AggregationCumulativeFalse) GetCumulative() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Cumulative
-}
-
-func (a *AggregationCumulativeFalse) GetLagTolerance() *string {
-	if a == nil {
-		return nil
-	}
-	return a.LagTolerance
-}
-
-func (a *AggregationCumulativeFalse) GetIdleTimeLimit() *string {
-	if a == nil {
-		return nil
-	}
-	return a.IdleTimeLimit
-}
-
-func (a *AggregationCumulativeFalse) GetPassthrough() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Passthrough
-}
-
-func (a *AggregationCumulativeFalse) GetPreserveGroupBys() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.PreserveGroupBys
-}
-
-func (a *AggregationCumulativeFalse) GetSufficientStatsOnly() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.SufficientStatsOnly
-}
-
-func (a *AggregationCumulativeFalse) GetMetricsMode() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.MetricsMode
-}
-
-func (a *AggregationCumulativeFalse) GetPrefix() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Prefix
-}
-
-func (a *AggregationCumulativeFalse) GetTimeWindow() string {
-	if a == nil {
-		return ""
-	}
-	return a.TimeWindow
-}
-
-func (a *AggregationCumulativeFalse) GetAggregations() []string {
-	if a == nil {
-		return []string{}
-	}
-	return a.Aggregations
-}
-
-func (a *AggregationCumulativeFalse) GetGroupbys() []string {
-	if a == nil {
-		return nil
-	}
-	return a.Groupbys
-}
-
-func (a *AggregationCumulativeFalse) GetFlushEventLimit() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.FlushEventLimit
-}
-
-func (a *AggregationCumulativeFalse) GetFlushMemLimit() *string {
-	if a == nil {
-		return nil
-	}
-	return a.FlushMemLimit
-}
-
-func (a *AggregationCumulativeFalse) GetSearchAggMode() *string {
-	if a == nil {
-		return nil
-	}
-	return a.SearchAggMode
-}
-
-func (a *AggregationCumulativeFalse) GetAdd() []ItemsTypeAdd {
-	if a == nil {
-		return nil
-	}
-	return a.Add
-}
-
-func (a *AggregationCumulativeFalse) GetShouldTreatDotsAsLiterals() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.ShouldTreatDotsAsLiterals
-}
-
-func (a *AggregationCumulativeFalse) GetFlushOnInputClose() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.FlushOnInputClose
-}
-
-type AggregationCumulativeTrue struct {
-	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `json:"cumulative,omitempty"`
-	// Pass through the original events along with the aggregation events
-	Passthrough *bool `json:"passthrough,omitempty"`
-	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
-	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
-	// Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
-	MetricsMode *bool `json:"metricsMode,omitempty"`
-	// A prefix that is prepended to all of the fields output by this Aggregations Function
-	Prefix *string `json:"prefix,omitempty"`
-	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow string `json:"timeWindow"`
-	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
-	Aggregations []string `json:"aggregations"`
-	// Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-	Groupbys []string `json:"groupbys,omitempty"`
-	// The maximum number of events to include in any given aggregation event
-	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
-	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
-	// Allows Cribl Search-specific aggregation configuration
-	SearchAggMode *string `json:"searchAggMode,omitempty"`
-	// Set of key-value pairs to evaluate and add/set
-	Add []ItemsTypeAdd `json:"add,omitempty"`
-	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
-	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
-}
-
-func (a AggregationCumulativeTrue) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AggregationCumulativeTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"timeWindow", "aggregations"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *AggregationCumulativeTrue) GetCumulative() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Cumulative
-}
-
-func (a *AggregationCumulativeTrue) GetPassthrough() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Passthrough
-}
-
-func (a *AggregationCumulativeTrue) GetPreserveGroupBys() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.PreserveGroupBys
-}
-
-func (a *AggregationCumulativeTrue) GetSufficientStatsOnly() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.SufficientStatsOnly
-}
-
-func (a *AggregationCumulativeTrue) GetMetricsMode() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.MetricsMode
-}
-
-func (a *AggregationCumulativeTrue) GetPrefix() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Prefix
-}
-
-func (a *AggregationCumulativeTrue) GetTimeWindow() string {
-	if a == nil {
-		return ""
-	}
-	return a.TimeWindow
-}
-
-func (a *AggregationCumulativeTrue) GetAggregations() []string {
-	if a == nil {
-		return []string{}
-	}
-	return a.Aggregations
-}
-
-func (a *AggregationCumulativeTrue) GetGroupbys() []string {
-	if a == nil {
-		return nil
-	}
-	return a.Groupbys
-}
-
-func (a *AggregationCumulativeTrue) GetFlushEventLimit() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.FlushEventLimit
-}
-
-func (a *AggregationCumulativeTrue) GetFlushMemLimit() *string {
-	if a == nil {
-		return nil
-	}
-	return a.FlushMemLimit
-}
-
-func (a *AggregationCumulativeTrue) GetSearchAggMode() *string {
-	if a == nil {
-		return nil
-	}
-	return a.SearchAggMode
-}
-
-func (a *AggregationCumulativeTrue) GetAdd() []ItemsTypeAdd {
-	if a == nil {
-		return nil
-	}
-	return a.Add
-}
-
-func (a *AggregationCumulativeTrue) GetShouldTreatDotsAsLiterals() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.ShouldTreatDotsAsLiterals
-}
-
-func (a *AggregationCumulativeTrue) GetFlushOnInputClose() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.FlushOnInputClose
-}
-
-type PipelineFunctionAggregationConfType string
-
-const (
-	PipelineFunctionAggregationConfTypeAggregationCumulativeTrue  PipelineFunctionAggregationConfType = "AggregationCumulativeTrue"
-	PipelineFunctionAggregationConfTypeAggregationCumulativeFalse PipelineFunctionAggregationConfType = "AggregationCumulativeFalse"
-)
-
 type PipelineFunctionAggregationConf struct {
-	AggregationCumulativeTrue  *AggregationCumulativeTrue  `queryParam:"inline" union:"member"`
-	AggregationCumulativeFalse *AggregationCumulativeFalse `queryParam:"inline" union:"member"`
-
-	Type PipelineFunctionAggregationConfType
+	// Pass through the original events along with the aggregation events
+	Passthrough *bool `json:"passthrough,omitempty"`
+	// Preserve the structure of the original aggregation event's groupby fields
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
+	// Output only statistics that are sufficient for the supplied aggregations
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
+	// Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
+	MetricsMode *bool `json:"metricsMode,omitempty"`
+	// A prefix that is prepended to all of the fields output by this Aggregations Function
+	Prefix *string `json:"prefix,omitempty"`
+	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
+	TimeWindow string `json:"timeWindow"`
+	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
+	Aggregations []string `json:"aggregations"`
+	// Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
+	Groupbys []string `json:"groupbys,omitempty"`
+	// The maximum number of events to include in any given aggregation event
+	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
+	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
+	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
+	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
+	Cumulative *bool `json:"cumulative,omitempty"`
+	// Allows Cribl Search-specific aggregation configuration
+	SearchAggMode *string `json:"searchAggMode,omitempty"`
+	// Set of key-value pairs to evaluate and add/set
+	Add []ItemsTypeAdd `json:"add,omitempty"`
+	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
+	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
 }
 
-func CreatePipelineFunctionAggregationConfAggregationCumulativeTrue(aggregationCumulativeTrue AggregationCumulativeTrue) PipelineFunctionAggregationConf {
-	typ := PipelineFunctionAggregationConfTypeAggregationCumulativeTrue
+func (p PipelineFunctionAggregationConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
 
-	return PipelineFunctionAggregationConf{
-		AggregationCumulativeTrue: &aggregationCumulativeTrue,
-		Type:                      typ,
+func (p *PipelineFunctionAggregationConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "aggregations"}); err != nil {
+		return err
 	}
+	return nil
 }
 
-func CreatePipelineFunctionAggregationConfAggregationCumulativeFalse(aggregationCumulativeFalse AggregationCumulativeFalse) PipelineFunctionAggregationConf {
-	typ := PipelineFunctionAggregationConfTypeAggregationCumulativeFalse
-
-	return PipelineFunctionAggregationConf{
-		AggregationCumulativeFalse: &aggregationCumulativeFalse,
-		Type:                       typ,
-	}
-}
-
-func (u *PipelineFunctionAggregationConf) UnmarshalJSON(data []byte) error {
-
-	var aggregationCumulativeTrue AggregationCumulativeTrue = AggregationCumulativeTrue{}
-	if err := utils.UnmarshalJSON(data, &aggregationCumulativeTrue, "", true, nil); err == nil {
-		u.AggregationCumulativeTrue = &aggregationCumulativeTrue
-		u.Type = PipelineFunctionAggregationConfTypeAggregationCumulativeTrue
+func (p *PipelineFunctionAggregationConf) GetPassthrough() *bool {
+	if p == nil {
 		return nil
 	}
-
-	var aggregationCumulativeFalse AggregationCumulativeFalse = AggregationCumulativeFalse{}
-	if err := utils.UnmarshalJSON(data, &aggregationCumulativeFalse, "", true, nil); err == nil {
-		u.AggregationCumulativeFalse = &aggregationCumulativeFalse
-		u.Type = PipelineFunctionAggregationConfTypeAggregationCumulativeFalse
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregationConf", string(data))
+	return p.Passthrough
 }
 
-func (u PipelineFunctionAggregationConf) MarshalJSON() ([]byte, error) {
-	if u.AggregationCumulativeTrue != nil {
-		return utils.MarshalJSON(u.AggregationCumulativeTrue, "", true)
+func (p *PipelineFunctionAggregationConf) GetPreserveGroupBys() *bool {
+	if p == nil {
+		return nil
 	}
+	return p.PreserveGroupBys
+}
 
-	if u.AggregationCumulativeFalse != nil {
-		return utils.MarshalJSON(u.AggregationCumulativeFalse, "", true)
+func (p *PipelineFunctionAggregationConf) GetSufficientStatsOnly() *bool {
+	if p == nil {
+		return nil
 	}
+	return p.SufficientStatsOnly
+}
 
-	return nil, errors.New("could not marshal union type PipelineFunctionAggregationConf: all fields are null")
+func (p *PipelineFunctionAggregationConf) GetMetricsMode() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.MetricsMode
+}
+
+func (p *PipelineFunctionAggregationConf) GetPrefix() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Prefix
+}
+
+func (p *PipelineFunctionAggregationConf) GetTimeWindow() string {
+	if p == nil {
+		return ""
+	}
+	return p.TimeWindow
+}
+
+func (p *PipelineFunctionAggregationConf) GetAggregations() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Aggregations
+}
+
+func (p *PipelineFunctionAggregationConf) GetGroupbys() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Groupbys
+}
+
+func (p *PipelineFunctionAggregationConf) GetFlushEventLimit() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.FlushEventLimit
+}
+
+func (p *PipelineFunctionAggregationConf) GetFlushMemLimit() *string {
+	if p == nil {
+		return nil
+	}
+	return p.FlushMemLimit
+}
+
+func (p *PipelineFunctionAggregationConf) GetCumulative() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Cumulative
+}
+
+func (p *PipelineFunctionAggregationConf) GetSearchAggMode() *string {
+	if p == nil {
+		return nil
+	}
+	return p.SearchAggMode
+}
+
+func (p *PipelineFunctionAggregationConf) GetAdd() []ItemsTypeAdd {
+	if p == nil {
+		return nil
+	}
+	return p.Add
+}
+
+func (p *PipelineFunctionAggregationConf) GetShouldTreatDotsAsLiterals() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.ShouldTreatDotsAsLiterals
+}
+
+func (p *PipelineFunctionAggregationConf) GetFlushOnInputClose() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.FlushOnInputClose
 }
 
 type PipelineFunctionAggregation struct {

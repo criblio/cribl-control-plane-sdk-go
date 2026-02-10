@@ -101,6 +101,7 @@ type S3AwsAuthenticationMethodSecret struct {
 	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
 	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	Recurse      any      `json:"recurse,omitempty"`
 	// Reuse connections between requests to improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
@@ -241,6 +242,13 @@ func (s *S3AwsAuthenticationMethodSecret) GetMaxBatchSize() *float64 {
 	return s.MaxBatchSize
 }
 
+func (s *S3AwsAuthenticationMethodSecret) GetRecurse() any {
+	if s == nil {
+		return nil
+	}
+	return s.Recurse
+}
+
 func (s *S3AwsAuthenticationMethodSecret) GetReuseConnections() *bool {
 	if s == nil {
 		return nil
@@ -363,6 +371,7 @@ type S3AwsAuthenticationMethodManual struct {
 	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
 	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	Recurse      any      `json:"recurse,omitempty"`
 	// Reuse connections between requests to improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
@@ -510,6 +519,13 @@ func (s *S3AwsAuthenticationMethodManual) GetMaxBatchSize() *float64 {
 	return s.MaxBatchSize
 }
 
+func (s *S3AwsAuthenticationMethodManual) GetRecurse() any {
+	if s == nil {
+		return nil
+	}
+	return s.Recurse
+}
+
 func (s *S3AwsAuthenticationMethodManual) GetReuseConnections() *bool {
 	if s == nil {
 		return nil
@@ -628,6 +644,7 @@ type S3AwsAuthenticationMethodAuto struct {
 	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
 	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	Recurse      any      `json:"recurse,omitempty"`
 	// Reuse connections between requests to improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
@@ -761,6 +778,13 @@ func (s *S3AwsAuthenticationMethodAuto) GetMaxBatchSize() *float64 {
 	return s.MaxBatchSize
 }
 
+func (s *S3AwsAuthenticationMethodAuto) GetRecurse() any {
+	if s == nil {
+		return nil
+	}
+	return s.Recurse
+}
+
 func (s *S3AwsAuthenticationMethodAuto) GetReuseConnections() *bool {
 	if s == nil {
 		return nil
@@ -849,8 +873,7 @@ func (s *S3PartitioningSchemeNoneExtractor) GetExpression() string {
 type S3PartitioningSchemeNone struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 	PartitioningScheme *S3PartitioningSchemeNonePartitioningScheme `json:"partitioningScheme,omitempty"`
-	// Traverse and include files from subdirectories. Leave this option enabled to ensure that all nested directories are searched and their contents collected.
-	Recurse *bool `json:"recurse,omitempty"`
+	Recurse            any                                         `json:"recurse,omitempty"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
 	OutputName *string `json:"outputName,omitempty"`
 	// S3 Bucket from which to collect data
@@ -909,7 +932,7 @@ func (s *S3PartitioningSchemeNone) GetPartitioningScheme() *S3PartitioningScheme
 	return s.PartitioningScheme
 }
 
-func (s *S3PartitioningSchemeNone) GetRecurse() *bool {
+func (s *S3PartitioningSchemeNone) GetRecurse() any {
 	if s == nil {
 		return nil
 	}
@@ -1139,6 +1162,7 @@ type S3PartitioningSchemeDdss struct {
 	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
 	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	Recurse      any      `json:"recurse,omitempty"`
 	// Reuse connections between requests to improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
@@ -1270,6 +1294,13 @@ func (s *S3PartitioningSchemeDdss) GetMaxBatchSize() *float64 {
 		return nil
 	}
 	return s.MaxBatchSize
+}
+
+func (s *S3PartitioningSchemeDdss) GetRecurse() any {
+	if s == nil {
+		return nil
+	}
+	return s.Recurse
 }
 
 func (s *S3PartitioningSchemeDdss) GetReuseConnections() *bool {

@@ -1,17 +1,9 @@
 # FunctionConfSchemaOtlpLogs
 
 
-## Supported Types
+## Fields
 
-### OTLPLogsBatchOTLPLogsFalse
-
-```go
-functionConfSchemaOtlpLogs := components.CreateFunctionConfSchemaOtlpLogsOTLPLogsBatchOTLPLogsFalse(components.OTLPLogsBatchOTLPLogsFalse{/* values here */})
-```
-
-### OTLPLogsBatchOTLPLogsTrue
-
-```go
-functionConfSchemaOtlpLogs := components.CreateFunctionConfSchemaOtlpLogsOTLPLogsBatchOTLPLogsTrue(components.OTLPLogsBatchOTLPLogsTrue{/* values here */})
-```
-
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `DropNonLogEvents`                                               | **bool*                                                          | :heavy_minus_sign:                                               | N/A                                                              |
+| `BatchOTLPLogs`                                                  | **bool*                                                          | :heavy_minus_sign:                                               | Batch OTLP log records by shared top-level `resource` attributes |
