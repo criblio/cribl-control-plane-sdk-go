@@ -3,61 +3,104 @@
 package components
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FunctionConfSchemaSnmpTrapSerializeV3User struct {
-	Name         *string                              `json:"name,omitempty"`
+type SnmpTrapSerializeV3UserAuthProtocolNone struct {
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
+	Name         *string                              `json:"name,omitempty"`
 	AuthKey      any                                  `json:"authKey,omitempty"`
 	PrivProtocol *string                              `json:"privProtocol,omitempty"`
 }
 
-func (f FunctionConfSchemaSnmpTrapSerializeV3User) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
+func (s SnmpTrapSerializeV3UserAuthProtocolNone) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (f *FunctionConfSchemaSnmpTrapSerializeV3User) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNone) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionConfSchemaSnmpTrapSerializeV3User) GetName() *string {
-	if f == nil {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
+	if s == nil {
 		return nil
 	}
-	return f.Name
+	return s.AuthProtocol
 }
 
-func (f *FunctionConfSchemaSnmpTrapSerializeV3User) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
-	if f == nil {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetName() *string {
+	if s == nil {
 		return nil
 	}
-	return f.AuthProtocol
+	return s.Name
 }
 
-func (f *FunctionConfSchemaSnmpTrapSerializeV3User) GetAuthKey() any {
-	if f == nil {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetAuthKey() any {
+	if s == nil {
 		return nil
 	}
-	return f.AuthKey
+	return s.AuthKey
 }
 
-func (f *FunctionConfSchemaSnmpTrapSerializeV3User) GetPrivProtocol() *string {
-	if f == nil {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetPrivProtocol() *string {
+	if s == nil {
 		return nil
 	}
-	return f.PrivProtocol
+	return s.PrivProtocol
+}
+
+type V3UserType string
+
+const (
+	V3UserTypeSnmpTrapSerializeV3UserAuthProtocolNone V3UserType = "SnmpTrapSerializeV3UserAuthProtocolNone"
+)
+
+type V3User struct {
+	SnmpTrapSerializeV3UserAuthProtocolNone *SnmpTrapSerializeV3UserAuthProtocolNone `queryParam:"inline" union:"member"`
+
+	Type V3UserType
+}
+
+func CreateV3UserSnmpTrapSerializeV3UserAuthProtocolNone(snmpTrapSerializeV3UserAuthProtocolNone SnmpTrapSerializeV3UserAuthProtocolNone) V3User {
+	typ := V3UserTypeSnmpTrapSerializeV3UserAuthProtocolNone
+
+	return V3User{
+		SnmpTrapSerializeV3UserAuthProtocolNone: &snmpTrapSerializeV3UserAuthProtocolNone,
+		Type:                                    typ,
+	}
+}
+
+func (u *V3User) UnmarshalJSON(data []byte) error {
+
+	var snmpTrapSerializeV3UserAuthProtocolNone SnmpTrapSerializeV3UserAuthProtocolNone = SnmpTrapSerializeV3UserAuthProtocolNone{}
+	if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNone, "", true, nil); err == nil {
+		u.SnmpTrapSerializeV3UserAuthProtocolNone = &snmpTrapSerializeV3UserAuthProtocolNone
+		u.Type = V3UserTypeSnmpTrapSerializeV3UserAuthProtocolNone
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for V3User", string(data))
+}
+
+func (u V3User) MarshalJSON() ([]byte, error) {
+	if u.SnmpTrapSerializeV3UserAuthProtocolNone != nil {
+		return utils.MarshalJSON(u.SnmpTrapSerializeV3UserAuthProtocolNone, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type V3User: all fields are null")
 }
 
 type FunctionConfSchemaSnmpTrapSerialize struct {
 	// Prevent event serialization if any required fields are missing. When disabled, @{product} will attempt to serialize the event even if required fields are missing, which could cause unexpected behavior at the downstream receiver.
 	Strict *bool `json:"strict,omitempty"`
 	// When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
-	DropFailedEvents *bool                                      `json:"dropFailedEvents,omitempty"`
-	V3User           *FunctionConfSchemaSnmpTrapSerializeV3User `json:"v3User,omitempty"`
+	DropFailedEvents *bool   `json:"dropFailedEvents,omitempty"`
+	V3User           *V3User `json:"v3User,omitempty"`
 }
 
 func (f FunctionConfSchemaSnmpTrapSerialize) MarshalJSON() ([]byte, error) {
@@ -85,7 +128,7 @@ func (f *FunctionConfSchemaSnmpTrapSerialize) GetDropFailedEvents() *bool {
 	return f.DropFailedEvents
 }
 
-func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3User() *FunctionConfSchemaSnmpTrapSerializeV3User {
+func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3User() *V3User {
 	if f == nil {
 		return nil
 	}

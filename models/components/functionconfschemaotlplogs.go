@@ -3,36 +3,177 @@
 package components
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FunctionConfSchemaOtlpLogs struct {
-	DropNonLogEvents *bool `json:"dropNonLogEvents,omitempty"`
+type OTLPLogsBatchOTLPLogsTrue struct {
 	// Batch OTLP log records by shared top-level `resource` attributes
 	BatchOTLPLogs *bool `json:"batchOTLPLogs,omitempty"`
+	// Number of log records after which a batch will be sent, regardless of the timeout
+	SendBatchSize *float64 `json:"sendBatchSize,omitempty"`
+	// Time duration after which a batch will be sent, regardless of size
+	Timeout *float64 `json:"timeout,omitempty"`
+	// Maximum batch size. Enter 0 for no maximum.
+	SendBatchMaxSize *float64 `json:"sendBatchMaxSize,omitempty"`
+	// When set, this processor will create one batcher instance per distinct combination of values in the metadata
+	MetadataKeys []any `json:"metadataKeys,omitempty"`
+	// Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
+	MetadataCardinalityLimit *float64 `json:"metadataCardinalityLimit,omitempty"`
+	DropNonLogEvents         *bool    `json:"dropNonLogEvents,omitempty"`
 }
 
-func (f FunctionConfSchemaOtlpLogs) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
+func (o OTLPLogsBatchOTLPLogsTrue) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (f *FunctionConfSchemaOtlpLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+func (o *OTLPLogsBatchOTLPLogsTrue) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionConfSchemaOtlpLogs) GetDropNonLogEvents() *bool {
-	if f == nil {
+func (o *OTLPLogsBatchOTLPLogsTrue) GetBatchOTLPLogs() *bool {
+	if o == nil {
 		return nil
 	}
-	return f.DropNonLogEvents
+	return o.BatchOTLPLogs
 }
 
-func (f *FunctionConfSchemaOtlpLogs) GetBatchOTLPLogs() *bool {
-	if f == nil {
+func (o *OTLPLogsBatchOTLPLogsTrue) GetSendBatchSize() *float64 {
+	if o == nil {
 		return nil
 	}
-	return f.BatchOTLPLogs
+	return o.SendBatchSize
+}
+
+func (o *OTLPLogsBatchOTLPLogsTrue) GetTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Timeout
+}
+
+func (o *OTLPLogsBatchOTLPLogsTrue) GetSendBatchMaxSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.SendBatchMaxSize
+}
+
+func (o *OTLPLogsBatchOTLPLogsTrue) GetMetadataKeys() []any {
+	if o == nil {
+		return nil
+	}
+	return o.MetadataKeys
+}
+
+func (o *OTLPLogsBatchOTLPLogsTrue) GetMetadataCardinalityLimit() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MetadataCardinalityLimit
+}
+
+func (o *OTLPLogsBatchOTLPLogsTrue) GetDropNonLogEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DropNonLogEvents
+}
+
+type OTLPLogsBatchOTLPLogsFalse struct {
+	// Batch OTLP log records by shared top-level `resource` attributes
+	BatchOTLPLogs    *bool `json:"batchOTLPLogs,omitempty"`
+	DropNonLogEvents *bool `json:"dropNonLogEvents,omitempty"`
+}
+
+func (o OTLPLogsBatchOTLPLogsFalse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OTLPLogsBatchOTLPLogsFalse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OTLPLogsBatchOTLPLogsFalse) GetBatchOTLPLogs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.BatchOTLPLogs
+}
+
+func (o *OTLPLogsBatchOTLPLogsFalse) GetDropNonLogEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DropNonLogEvents
+}
+
+type FunctionConfSchemaOtlpLogsType string
+
+const (
+	FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsFalse FunctionConfSchemaOtlpLogsType = "OtlpLogsBatchOTLPLogsFalse"
+	FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsTrue  FunctionConfSchemaOtlpLogsType = "OtlpLogsBatchOTLPLogsTrue"
+)
+
+type FunctionConfSchemaOtlpLogs struct {
+	OTLPLogsBatchOTLPLogsFalse *OTLPLogsBatchOTLPLogsFalse `queryParam:"inline" union:"member"`
+	OTLPLogsBatchOTLPLogsTrue  *OTLPLogsBatchOTLPLogsTrue  `queryParam:"inline" union:"member"`
+
+	Type FunctionConfSchemaOtlpLogsType
+}
+
+func CreateFunctionConfSchemaOtlpLogsOTLPLogsBatchOTLPLogsFalse(otlpLogsBatchOTLPLogsFalse OTLPLogsBatchOTLPLogsFalse) FunctionConfSchemaOtlpLogs {
+	typ := FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsFalse
+
+	return FunctionConfSchemaOtlpLogs{
+		OTLPLogsBatchOTLPLogsFalse: &otlpLogsBatchOTLPLogsFalse,
+		Type:                       typ,
+	}
+}
+
+func CreateFunctionConfSchemaOtlpLogsOTLPLogsBatchOTLPLogsTrue(otlpLogsBatchOTLPLogsTrue OTLPLogsBatchOTLPLogsTrue) FunctionConfSchemaOtlpLogs {
+	typ := FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsTrue
+
+	return FunctionConfSchemaOtlpLogs{
+		OTLPLogsBatchOTLPLogsTrue: &otlpLogsBatchOTLPLogsTrue,
+		Type:                      typ,
+	}
+}
+
+func (u *FunctionConfSchemaOtlpLogs) UnmarshalJSON(data []byte) error {
+
+	var otlpLogsBatchOTLPLogsFalse OTLPLogsBatchOTLPLogsFalse = OTLPLogsBatchOTLPLogsFalse{}
+	if err := utils.UnmarshalJSON(data, &otlpLogsBatchOTLPLogsFalse, "", true, nil); err == nil {
+		u.OTLPLogsBatchOTLPLogsFalse = &otlpLogsBatchOTLPLogsFalse
+		u.Type = FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsFalse
+		return nil
+	}
+
+	var otlpLogsBatchOTLPLogsTrue OTLPLogsBatchOTLPLogsTrue = OTLPLogsBatchOTLPLogsTrue{}
+	if err := utils.UnmarshalJSON(data, &otlpLogsBatchOTLPLogsTrue, "", true, nil); err == nil {
+		u.OTLPLogsBatchOTLPLogsTrue = &otlpLogsBatchOTLPLogsTrue
+		u.Type = FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsTrue
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpLogs", string(data))
+}
+
+func (u FunctionConfSchemaOtlpLogs) MarshalJSON() ([]byte, error) {
+	if u.OTLPLogsBatchOTLPLogsFalse != nil {
+		return utils.MarshalJSON(u.OTLPLogsBatchOTLPLogsFalse, "", true)
+	}
+
+	if u.OTLPLogsBatchOTLPLogsTrue != nil {
+		return utils.MarshalJSON(u.OTLPLogsBatchOTLPLogsTrue, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type FunctionConfSchemaOtlpLogs: all fields are null")
 }

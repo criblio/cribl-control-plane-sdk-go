@@ -4,6 +4,7 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
@@ -32,30 +33,30 @@ func (e *PipelineFunctionSerializeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PipelineFunctionSerializeType - Data output format
-type PipelineFunctionSerializeType string
+// SerializeTypeCsvType - Data output format
+type SerializeTypeCsvType string
 
 const (
-	// PipelineFunctionSerializeTypeCsv CSV
-	PipelineFunctionSerializeTypeCsv PipelineFunctionSerializeType = "csv"
-	// PipelineFunctionSerializeTypeElff Extended Log File Format
-	PipelineFunctionSerializeTypeElff PipelineFunctionSerializeType = "elff"
-	// PipelineFunctionSerializeTypeClf Common Log Format
-	PipelineFunctionSerializeTypeClf PipelineFunctionSerializeType = "clf"
-	// PipelineFunctionSerializeTypeKvp Key=Value Pairs
-	PipelineFunctionSerializeTypeKvp PipelineFunctionSerializeType = "kvp"
-	// PipelineFunctionSerializeTypeJSON JSON Object
-	PipelineFunctionSerializeTypeJSON PipelineFunctionSerializeType = "json"
-	// PipelineFunctionSerializeTypeDelim Delimited values
-	PipelineFunctionSerializeTypeDelim PipelineFunctionSerializeType = "delim"
+	// SerializeTypeCsvTypeCsv CSV
+	SerializeTypeCsvTypeCsv SerializeTypeCsvType = "csv"
+	// SerializeTypeCsvTypeElff Extended Log File Format
+	SerializeTypeCsvTypeElff SerializeTypeCsvType = "elff"
+	// SerializeTypeCsvTypeClf Common Log Format
+	SerializeTypeCsvTypeClf SerializeTypeCsvType = "clf"
+	// SerializeTypeCsvTypeKvp Key=Value Pairs
+	SerializeTypeCsvTypeKvp SerializeTypeCsvType = "kvp"
+	// SerializeTypeCsvTypeJSON JSON Object
+	SerializeTypeCsvTypeJSON SerializeTypeCsvType = "json"
+	// SerializeTypeCsvTypeDelim Delimited values
+	SerializeTypeCsvTypeDelim SerializeTypeCsvType = "delim"
 )
 
-func (e PipelineFunctionSerializeType) ToPointer() *PipelineFunctionSerializeType {
+func (e SerializeTypeCsvType) ToPointer() *SerializeTypeCsvType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionSerializeType) IsExact() bool {
+func (e *SerializeTypeCsvType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "csv", "elff", "clf", "kvp", "json", "delim":
@@ -65,13 +66,9 @@ func (e *PipelineFunctionSerializeType) IsExact() bool {
 	return false
 }
 
-type PipelineFunctionSerializeConf struct {
+type SerializeTypeCsv struct {
 	// Data output format
-	Type       PipelineFunctionSerializeType `json:"type"`
-	DelimChar  any                           `json:"delimChar,omitempty"`
-	QuoteChar  any                           `json:"quoteChar,omitempty"`
-	EscapeChar any                           `json:"escapeChar,omitempty"`
-	NullValue  any                           `json:"nullValue,omitempty"`
+	Type SerializeTypeCsvType `json:"type"`
 	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
 	Fields []string `json:"fields,omitempty"`
 	// Field containing object to serialize. Leave blank to serialize top-level event fields.
@@ -80,71 +77,384 @@ type PipelineFunctionSerializeConf struct {
 	DstField *string `json:"dstField,omitempty"`
 }
 
-func (p PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (s SerializeTypeCsv) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (p *PipelineFunctionSerializeConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"type"}); err != nil {
+func (s *SerializeTypeCsv) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionSerializeConf) GetType() PipelineFunctionSerializeType {
-	if p == nil {
-		return PipelineFunctionSerializeType("")
+func (s *SerializeTypeCsv) GetType() SerializeTypeCsvType {
+	if s == nil {
+		return SerializeTypeCsvType("")
 	}
-	return p.Type
+	return s.Type
 }
 
-func (p *PipelineFunctionSerializeConf) GetDelimChar() any {
-	if p == nil {
+func (s *SerializeTypeCsv) GetFields() []string {
+	if s == nil {
 		return nil
 	}
-	return p.DelimChar
+	return s.Fields
 }
 
-func (p *PipelineFunctionSerializeConf) GetQuoteChar() any {
-	if p == nil {
+func (s *SerializeTypeCsv) GetSrcField() *string {
+	if s == nil {
 		return nil
 	}
-	return p.QuoteChar
+	return s.SrcField
 }
 
-func (p *PipelineFunctionSerializeConf) GetEscapeChar() any {
-	if p == nil {
+func (s *SerializeTypeCsv) GetDstField() *string {
+	if s == nil {
 		return nil
 	}
-	return p.EscapeChar
+	return s.DstField
 }
 
-func (p *PipelineFunctionSerializeConf) GetNullValue() any {
-	if p == nil {
-		return nil
-	}
-	return p.NullValue
+// SerializeTypeDelimType - Data output format
+type SerializeTypeDelimType string
+
+const (
+	// SerializeTypeDelimTypeCsv CSV
+	SerializeTypeDelimTypeCsv SerializeTypeDelimType = "csv"
+	// SerializeTypeDelimTypeElff Extended Log File Format
+	SerializeTypeDelimTypeElff SerializeTypeDelimType = "elff"
+	// SerializeTypeDelimTypeClf Common Log Format
+	SerializeTypeDelimTypeClf SerializeTypeDelimType = "clf"
+	// SerializeTypeDelimTypeKvp Key=Value Pairs
+	SerializeTypeDelimTypeKvp SerializeTypeDelimType = "kvp"
+	// SerializeTypeDelimTypeJSON JSON Object
+	SerializeTypeDelimTypeJSON SerializeTypeDelimType = "json"
+	// SerializeTypeDelimTypeDelim Delimited values
+	SerializeTypeDelimTypeDelim SerializeTypeDelimType = "delim"
+)
+
+func (e SerializeTypeDelimType) ToPointer() *SerializeTypeDelimType {
+	return &e
 }
 
-func (p *PipelineFunctionSerializeConf) GetFields() []string {
-	if p == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerializeTypeDelimType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "csv", "elff", "clf", "kvp", "json", "delim":
+			return true
+		}
 	}
-	return p.Fields
+	return false
 }
 
-func (p *PipelineFunctionSerializeConf) GetSrcField() *string {
-	if p == nil {
-		return nil
-	}
-	return p.SrcField
+type SerializeTypeDelim struct {
+	// Data output format
+	Type SerializeTypeDelimType `json:"type"`
+	// Delimiter character to use to split values. If left blank, will default to ','.
+	DelimChar *string `json:"delimChar,omitempty"`
+	// Character used to quote literal values. If left blank, will default to '"'.
+	QuoteChar *string `json:"quoteChar,omitempty"`
+	// Escape character used to escape delimiter or quote character. If left blank, will default to the Quote char.
+	EscapeChar *string `json:"escapeChar,omitempty"`
+	// Field value representing the null value. Null fields will be omitted.
+	NullValue *string `json:"nullValue,omitempty"`
+	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
+	Fields []string `json:"fields,omitempty"`
+	// Field containing object to serialize. Leave blank to serialize top-level event fields.
+	SrcField *string `json:"srcField,omitempty"`
+	// Field to serialize data to
+	DstField *string `json:"dstField,omitempty"`
 }
 
-func (p *PipelineFunctionSerializeConf) GetDstField() *string {
-	if p == nil {
+func (s SerializeTypeDelim) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SerializeTypeDelim) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SerializeTypeDelim) GetType() SerializeTypeDelimType {
+	if s == nil {
+		return SerializeTypeDelimType("")
+	}
+	return s.Type
+}
+
+func (s *SerializeTypeDelim) GetDelimChar() *string {
+	if s == nil {
 		return nil
 	}
-	return p.DstField
+	return s.DelimChar
+}
+
+func (s *SerializeTypeDelim) GetQuoteChar() *string {
+	if s == nil {
+		return nil
+	}
+	return s.QuoteChar
+}
+
+func (s *SerializeTypeDelim) GetEscapeChar() *string {
+	if s == nil {
+		return nil
+	}
+	return s.EscapeChar
+}
+
+func (s *SerializeTypeDelim) GetNullValue() *string {
+	if s == nil {
+		return nil
+	}
+	return s.NullValue
+}
+
+func (s *SerializeTypeDelim) GetFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SerializeTypeDelim) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerializeTypeDelim) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
+}
+
+// SerializeTypeKvpType - Data output format
+type SerializeTypeKvpType string
+
+const (
+	// SerializeTypeKvpTypeCsv CSV
+	SerializeTypeKvpTypeCsv SerializeTypeKvpType = "csv"
+	// SerializeTypeKvpTypeElff Extended Log File Format
+	SerializeTypeKvpTypeElff SerializeTypeKvpType = "elff"
+	// SerializeTypeKvpTypeClf Common Log Format
+	SerializeTypeKvpTypeClf SerializeTypeKvpType = "clf"
+	// SerializeTypeKvpTypeKvp Key=Value Pairs
+	SerializeTypeKvpTypeKvp SerializeTypeKvpType = "kvp"
+	// SerializeTypeKvpTypeJSON JSON Object
+	SerializeTypeKvpTypeJSON SerializeTypeKvpType = "json"
+	// SerializeTypeKvpTypeDelim Delimited values
+	SerializeTypeKvpTypeDelim SerializeTypeKvpType = "delim"
+)
+
+func (e SerializeTypeKvpType) ToPointer() *SerializeTypeKvpType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerializeTypeKvpType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "csv", "elff", "clf", "kvp", "json", "delim":
+			return true
+		}
+	}
+	return false
+}
+
+type SerializeTypeKvp struct {
+	// Data output format
+	Type SerializeTypeKvpType `json:"type"`
+	// Clean field names by replacing non-[a-zA-Z0-9] characters with _
+	CleanFields *bool `json:"cleanFields,omitempty"`
+	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
+	Fields []string `json:"fields,omitempty"`
+	// Delimiter used to separate key=value pairs. Defaults to a single space character. Should not have common characters with key-value delimiter.
+	PairDelimiter *string `json:"pairDelimiter,omitempty"`
+	// Delimiter used to separate key and value in pair. Defaults to a '='. Should not have common characters with pair delimiter.
+	KeyValueDelimiter *string `json:"keyValueDelimiter,omitempty"`
+	// Field containing object to serialize. Leave blank to serialize top-level event fields.
+	SrcField *string `json:"srcField,omitempty"`
+	// Field to serialize data to
+	DstField *string `json:"dstField,omitempty"`
+}
+
+func (s SerializeTypeKvp) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SerializeTypeKvp) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SerializeTypeKvp) GetType() SerializeTypeKvpType {
+	if s == nil {
+		return SerializeTypeKvpType("")
+	}
+	return s.Type
+}
+
+func (s *SerializeTypeKvp) GetCleanFields() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.CleanFields
+}
+
+func (s *SerializeTypeKvp) GetFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SerializeTypeKvp) GetPairDelimiter() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PairDelimiter
+}
+
+func (s *SerializeTypeKvp) GetKeyValueDelimiter() *string {
+	if s == nil {
+		return nil
+	}
+	return s.KeyValueDelimiter
+}
+
+func (s *SerializeTypeKvp) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerializeTypeKvp) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
+}
+
+type PipelineFunctionSerializeConfType string
+
+const (
+	PipelineFunctionSerializeConfTypeKvp   PipelineFunctionSerializeConfType = "kvp"
+	PipelineFunctionSerializeConfTypeDelim PipelineFunctionSerializeConfType = "delim"
+	PipelineFunctionSerializeConfTypeCsv   PipelineFunctionSerializeConfType = "csv"
+)
+
+type PipelineFunctionSerializeConf struct {
+	SerializeTypeKvp   *SerializeTypeKvp   `queryParam:"inline" union:"member"`
+	SerializeTypeDelim *SerializeTypeDelim `queryParam:"inline" union:"member"`
+	SerializeTypeCsv   *SerializeTypeCsv   `queryParam:"inline" union:"member"`
+
+	Type PipelineFunctionSerializeConfType
+}
+
+func CreatePipelineFunctionSerializeConfKvp(kvp SerializeTypeKvp) PipelineFunctionSerializeConf {
+	typ := PipelineFunctionSerializeConfTypeKvp
+
+	typStr := SerializeTypeKvpType(typ)
+	kvp.Type = typStr
+
+	return PipelineFunctionSerializeConf{
+		SerializeTypeKvp: &kvp,
+		Type:             typ,
+	}
+}
+
+func CreatePipelineFunctionSerializeConfDelim(delim SerializeTypeDelim) PipelineFunctionSerializeConf {
+	typ := PipelineFunctionSerializeConfTypeDelim
+
+	typStr := SerializeTypeDelimType(typ)
+	delim.Type = typStr
+
+	return PipelineFunctionSerializeConf{
+		SerializeTypeDelim: &delim,
+		Type:               typ,
+	}
+}
+
+func CreatePipelineFunctionSerializeConfCsv(csv SerializeTypeCsv) PipelineFunctionSerializeConf {
+	typ := PipelineFunctionSerializeConfTypeCsv
+
+	typStr := SerializeTypeCsvType(typ)
+	csv.Type = typStr
+
+	return PipelineFunctionSerializeConf{
+		SerializeTypeCsv: &csv,
+		Type:             typ,
+	}
+}
+
+func (u *PipelineFunctionSerializeConf) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	}
+
+	switch dis.Type {
+	case "kvp":
+		serializeTypeKvp := new(SerializeTypeKvp)
+		if err := utils.UnmarshalJSON(data, &serializeTypeKvp, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kvp) type SerializeTypeKvp within PipelineFunctionSerializeConf: %w", string(data), err)
+		}
+
+		u.SerializeTypeKvp = serializeTypeKvp
+		u.Type = PipelineFunctionSerializeConfTypeKvp
+		return nil
+	case "delim":
+		serializeTypeDelim := new(SerializeTypeDelim)
+		if err := utils.UnmarshalJSON(data, &serializeTypeDelim, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == delim) type SerializeTypeDelim within PipelineFunctionSerializeConf: %w", string(data), err)
+		}
+
+		u.SerializeTypeDelim = serializeTypeDelim
+		u.Type = PipelineFunctionSerializeConfTypeDelim
+		return nil
+	case "csv":
+		serializeTypeCsv := new(SerializeTypeCsv)
+		if err := utils.UnmarshalJSON(data, &serializeTypeCsv, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == csv) type SerializeTypeCsv within PipelineFunctionSerializeConf: %w", string(data), err)
+		}
+
+		u.SerializeTypeCsv = serializeTypeCsv
+		u.Type = PipelineFunctionSerializeConfTypeCsv
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionSerializeConf", string(data))
+}
+
+func (u PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
+	if u.SerializeTypeKvp != nil {
+		return utils.MarshalJSON(u.SerializeTypeKvp, "", true)
+	}
+
+	if u.SerializeTypeDelim != nil {
+		return utils.MarshalJSON(u.SerializeTypeDelim, "", true)
+	}
+
+	if u.SerializeTypeCsv != nil {
+		return utils.MarshalJSON(u.SerializeTypeCsv, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type PipelineFunctionSerializeConf: all fields are null")
 }
 
 type PipelineFunctionSerialize struct {
@@ -214,6 +524,18 @@ func (p *PipelineFunctionSerialize) GetConf() PipelineFunctionSerializeConf {
 		return PipelineFunctionSerializeConf{}
 	}
 	return p.Conf
+}
+
+func (p *PipelineFunctionSerialize) GetConfKvp() *SerializeTypeKvp {
+	return p.GetConf().SerializeTypeKvp
+}
+
+func (p *PipelineFunctionSerialize) GetConfDelim() *SerializeTypeDelim {
+	return p.GetConf().SerializeTypeDelim
+}
+
+func (p *PipelineFunctionSerialize) GetConfCsv() *SerializeTypeCsv {
+	return p.GetConf().SerializeTypeCsv
 }
 
 func (p *PipelineFunctionSerialize) GetGroupID() *string {
