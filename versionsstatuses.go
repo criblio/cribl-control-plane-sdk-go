@@ -17,14 +17,14 @@ import (
 	"net/url"
 )
 
-type Statuses struct {
+type VersionsStatuses struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newStatuses(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Statuses {
-	return &Statuses{
+func newVersionsStatuses(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *VersionsStatuses {
+	return &VersionsStatuses{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
@@ -33,7 +33,7 @@ func newStatuses(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 
 // Get the status of the current working tree
 // Get the status of the current working tree of the Git repository used for Cribl configuration. The response includes details about modified, staged, untracked, and conflicted files, as well as branch and remote tracking information.
-func (s *Statuses) Get(ctx context.Context, opts ...operations.Option) (*operations.GetVersionStatusResponse, error) {
+func (s *VersionsStatuses) Get(ctx context.Context, opts ...operations.Option) (*operations.GetVersionStatusResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,

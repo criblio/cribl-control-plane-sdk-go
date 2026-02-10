@@ -11,7 +11,7 @@ type Versions struct {
 	Branches *Branches
 	Commits  *Commits
 	Configs  *VersionsConfigs
-	Statuses *Statuses
+	Statuses *VersionsStatuses
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -26,6 +26,6 @@ func newVersions(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 		Branches:         newBranches(rootSDK, sdkConfig, hooks),
 		Commits:          newCommits(rootSDK, sdkConfig, hooks),
 		Configs:          newVersionsConfigs(rootSDK, sdkConfig, hooks),
-		Statuses:         newStatuses(rootSDK, sdkConfig, hooks),
+		Statuses:         newVersionsStatuses(rootSDK, sdkConfig, hooks),
 	}
 }
