@@ -3,16 +3,16 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: 3f25065342b3ed6c094d4dd601f90d49
   docVersion: 4.17.0-alpha.1770670454184-a04d2b19
-  speakeasyVersion: 1.708.2
-  generationVersion: 2.811.4
-  releaseVersion: 0.6.0-beta.23
-  configChecksum: fd822f1c61edf78ba05d4edf1ae7744f
+  speakeasyVersion: 1.709.3
+  generationVersion: 2.814.0
+  releaseVersion: 0.6.0-beta.24
+  configChecksum: 19ce3b081d8d3f27ed7f70cb73d5e113
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 49aed7e5-fea6-401d-867c-cdbe144409b0
-  pristine_commit_hash: a6eba922b6d49375306bd3d0905bef31f1208f8b
-  pristine_tree_hash: 5061b4bac5c24ec3706d08038de8b5fe0681a120
+  generation_id: 9b990499-3282-4ae2-aff0-c96e35d4f240
+  pristine_commit_hash: 6d97f628fefb00d3894f3f9ace3325fd6d5ec773
+  pristine_tree_hash: 949ce7c710e234ac0c305a78a5535b3221128c74
 features:
   go:
     additionalDependencies: 0.1.0
@@ -96,8 +96,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:acd429189a12596caee451ab492c81b79378877e
-    pristine_git_object: a8ddc556e58fe066a0b0499b217e01917919dda6
+    last_write_checksum: sha1:960c8b72624f4bf2e45b69314b7a0c990f358ffc
+    pristine_git_object: 8c4c22dbd74d4e3aa3f8e9f4789cbe72f3901f1c
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -27359,16 +27359,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## Go SDK Changes:
-  * `CriblControlPlane.Sources.Statuses.Get()`: **Added**
-  * `CriblControlPlane.Sources.Statuses.List()`: **Added**
-  * `CriblControlPlane.Packs.Sources.Statuses.Get()`: **Added**
-  * `CriblControlPlane.Packs.Sources.Statuses.List()`: **Added**
-  * `CriblControlPlane.Packs.Destinations.Statuses.Get()`: **Added**
-  * `CriblControlPlane.Packs.Destinations.Statuses.List()`: **Added**
-  * `CriblControlPlane.Destinations.Statuses.Get()`: **Added**
-  * `CriblControlPlane.Destinations.Statuses.List()`: **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
