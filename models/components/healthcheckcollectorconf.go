@@ -1242,9 +1242,7 @@ type HealthCheckAuthenticationOauthSecret struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        HealthCheckAuthenticationOauthSecretHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                                   `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                                   `json:"collectBody,omitempty"`
+	CollectMethod HealthCheckAuthenticationOauthSecretHealthCheckMethod `json:"collectMethod"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationOauthSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -1373,20 +1371,6 @@ func (h *HealthCheckAuthenticationOauthSecret) GetCollectMethod() HealthCheckAut
 		return HealthCheckAuthenticationOauthSecretHealthCheckMethod("")
 	}
 	return h.CollectMethod
-}
-
-func (h *HealthCheckAuthenticationOauthSecret) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
-}
-
-func (h *HealthCheckAuthenticationOauthSecret) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckAuthenticationOauthSecret) GetCollectRequestHeaders() []HealthCheckAuthenticationOauthSecretCollectRequestHeader {
@@ -2692,9 +2676,7 @@ type HealthCheckAuthenticationOauth struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        HealthCheckAuthenticationOauthHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                             `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                             `json:"collectBody,omitempty"`
+	CollectMethod HealthCheckAuthenticationOauthHealthCheckMethod `json:"collectMethod"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationOauthCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -2823,20 +2805,6 @@ func (h *HealthCheckAuthenticationOauth) GetCollectMethod() HealthCheckAuthentic
 		return HealthCheckAuthenticationOauthHealthCheckMethod("")
 	}
 	return h.CollectMethod
-}
-
-func (h *HealthCheckAuthenticationOauth) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
-}
-
-func (h *HealthCheckAuthenticationOauth) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckAuthenticationOauth) GetCollectRequestHeaders() []HealthCheckAuthenticationOauthCollectRequestHeader {
@@ -4140,9 +4108,7 @@ type HealthCheckAuthenticationLoginSecret struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        HealthCheckAuthenticationLoginSecretHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                                   `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                                   `json:"collectBody,omitempty"`
+	CollectMethod HealthCheckAuthenticationLoginSecretHealthCheckMethod `json:"collectMethod"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationLoginSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -4264,20 +4230,6 @@ func (h *HealthCheckAuthenticationLoginSecret) GetCollectMethod() HealthCheckAut
 		return HealthCheckAuthenticationLoginSecretHealthCheckMethod("")
 	}
 	return h.CollectMethod
-}
-
-func (h *HealthCheckAuthenticationLoginSecret) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
-}
-
-func (h *HealthCheckAuthenticationLoginSecret) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckAuthenticationLoginSecret) GetCollectRequestHeaders() []HealthCheckAuthenticationLoginSecretCollectRequestHeader {
@@ -5583,9 +5535,7 @@ type HealthCheckAuthenticationLogin struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        HealthCheckAuthenticationLoginHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                             `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                             `json:"collectBody,omitempty"`
+	CollectMethod HealthCheckAuthenticationLoginHealthCheckMethod `json:"collectMethod"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationLoginCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -5714,20 +5664,6 @@ func (h *HealthCheckAuthenticationLogin) GetCollectMethod() HealthCheckAuthentic
 		return HealthCheckAuthenticationLoginHealthCheckMethod("")
 	}
 	return h.CollectMethod
-}
-
-func (h *HealthCheckAuthenticationLogin) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
-}
-
-func (h *HealthCheckAuthenticationLogin) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckAuthenticationLogin) GetCollectRequestHeaders() []HealthCheckAuthenticationLoginCollectRequestHeader {
@@ -7021,9 +6957,7 @@ type HealthCheckAuthenticationBasicSecret struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        HealthCheckAuthenticationBasicSecretHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                                   `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                                   `json:"collectBody,omitempty"`
+	CollectMethod HealthCheckAuthenticationBasicSecretHealthCheckMethod `json:"collectMethod"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationBasicSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -7110,20 +7044,6 @@ func (h *HealthCheckAuthenticationBasicSecret) GetCollectMethod() HealthCheckAut
 		return HealthCheckAuthenticationBasicSecretHealthCheckMethod("")
 	}
 	return h.CollectMethod
-}
-
-func (h *HealthCheckAuthenticationBasicSecret) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
-}
-
-func (h *HealthCheckAuthenticationBasicSecret) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckAuthenticationBasicSecret) GetCollectRequestHeaders() []HealthCheckAuthenticationBasicSecretCollectRequestHeader {
@@ -8419,9 +8339,7 @@ type HealthCheckAuthenticationBasic struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        HealthCheckAuthenticationBasicHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                             `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                             `json:"collectBody,omitempty"`
+	CollectMethod HealthCheckAuthenticationBasicHealthCheckMethod `json:"collectMethod"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationBasicCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -8515,20 +8433,6 @@ func (h *HealthCheckAuthenticationBasic) GetCollectMethod() HealthCheckAuthentic
 		return HealthCheckAuthenticationBasicHealthCheckMethod("")
 	}
 	return h.CollectMethod
-}
-
-func (h *HealthCheckAuthenticationBasic) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
-}
-
-func (h *HealthCheckAuthenticationBasic) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckAuthenticationBasic) GetCollectRequestHeaders() []HealthCheckAuthenticationBasicCollectRequestHeader {
@@ -9820,9 +9724,7 @@ type HealthCheckAuthenticationNone struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        HealthCheckAuthenticationNoneHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                            `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                            `json:"collectBody,omitempty"`
+	CollectMethod HealthCheckAuthenticationNoneHealthCheckMethod `json:"collectMethod"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationNoneCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -9902,20 +9804,6 @@ func (h *HealthCheckAuthenticationNone) GetCollectMethod() HealthCheckAuthentica
 		return HealthCheckAuthenticationNoneHealthCheckMethod("")
 	}
 	return h.CollectMethod
-}
-
-func (h *HealthCheckAuthenticationNone) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
-}
-
-func (h *HealthCheckAuthenticationNone) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckAuthenticationNone) GetCollectRequestHeaders() []HealthCheckAuthenticationNoneCollectRequestHeader {
@@ -11203,11 +11091,11 @@ func (u HealthCheckCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, e
 type HealthCheckCollectMethodPostWithBody struct {
 	// Health check HTTP method.
 	CollectMethod HealthCheckCollectMethodPostWithBodyHealthCheckMethod `json:"collectMethod"`
-	CollectBody   any                                                   `json:"collectBody,omitempty"`
-	Discovery     *HealthCheckCollectMethodPostWithBodyDiscovery        `json:"discovery,omitempty"`
+	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
+	CollectBody *string                                        `json:"collectBody,omitempty"`
+	Discovery   *HealthCheckCollectMethodPostWithBodyDiscovery `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
-	CollectURL           string `json:"collectUrl"`
-	CollectRequestParams any    `json:"collectRequestParams,omitempty"`
+	CollectURL string `json:"collectUrl"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckCollectMethodPostWithBodyCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -11242,7 +11130,7 @@ func (h *HealthCheckCollectMethodPostWithBody) GetCollectMethod() HealthCheckCol
 	return h.CollectMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBody) GetCollectBody() any {
+func (h *HealthCheckCollectMethodPostWithBody) GetCollectBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -11289,13 +11177,6 @@ func (h *HealthCheckCollectMethodPostWithBody) GetCollectURL() string {
 		return ""
 	}
 	return h.CollectURL
-}
-
-func (h *HealthCheckCollectMethodPostWithBody) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
 }
 
 func (h *HealthCheckCollectMethodPostWithBody) GetCollectRequestHeaders() []HealthCheckCollectMethodPostWithBodyCollectRequestHeader {
@@ -12589,12 +12470,12 @@ func (u HealthCheckCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
 
 type HealthCheckCollectMethodPost struct {
 	// Health check HTTP method.
-	CollectMethod        HealthCheckCollectMethodPostHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                           `json:"collectRequestParams,omitempty"`
-	Discovery            *HealthCheckCollectMethodPostDiscovery        `json:"discovery,omitempty"`
+	CollectMethod HealthCheckCollectMethodPostHealthCheckMethod `json:"collectMethod"`
+	// Optional health check request parameters.
+	CollectRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"collectRequestParams,omitempty"`
+	Discovery            *HealthCheckCollectMethodPostDiscovery                      `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
-	CollectURL  string `json:"collectUrl"`
-	CollectBody any    `json:"collectBody,omitempty"`
+	CollectURL string `json:"collectUrl"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckCollectMethodPostCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -12629,7 +12510,7 @@ func (h *HealthCheckCollectMethodPost) GetCollectMethod() HealthCheckCollectMeth
 	return h.CollectMethod
 }
 
-func (h *HealthCheckCollectMethodPost) GetCollectRequestParams() any {
+func (h *HealthCheckCollectMethodPost) GetCollectRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -12676,13 +12557,6 @@ func (h *HealthCheckCollectMethodPost) GetCollectURL() string {
 		return ""
 	}
 	return h.CollectURL
-}
-
-func (h *HealthCheckCollectMethodPost) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckCollectMethodPost) GetCollectRequestHeaders() []HealthCheckCollectMethodPostCollectRequestHeader {
@@ -12787,6 +12661,38 @@ func (e *HealthCheckCollectMethodGetHealthCheckMethod) IsExact() bool {
 		}
 	}
 	return false
+}
+
+type HealthCheckCollectMethodGetCollectRequestParam struct {
+	// Parameter name
+	Name string `json:"name"`
+	// JavaScript expression to compute the parameter value (can be a constant).
+	Value string `json:"value"`
+}
+
+func (h HealthCheckCollectMethodGetCollectRequestParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HealthCheckCollectMethodGetCollectRequestParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *HealthCheckCollectMethodGetCollectRequestParam) GetName() string {
+	if h == nil {
+		return ""
+	}
+	return h.Name
+}
+
+func (h *HealthCheckCollectMethodGetCollectRequestParam) GetValue() string {
+	if h == nil {
+		return ""
+	}
+	return h.Value
 }
 
 // HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNoneDiscoverType - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -13976,12 +13882,12 @@ func (u HealthCheckCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
 
 type HealthCheckCollectMethodGet struct {
 	// Health check HTTP method.
-	CollectMethod        HealthCheckCollectMethodGetHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                          `json:"collectRequestParams,omitempty"`
-	Discovery            *HealthCheckCollectMethodGetDiscovery        `json:"discovery,omitempty"`
+	CollectMethod HealthCheckCollectMethodGetHealthCheckMethod `json:"collectMethod"`
+	// Optional health check request parameters.
+	CollectRequestParams []HealthCheckCollectMethodGetCollectRequestParam `json:"collectRequestParams,omitempty"`
+	Discovery            *HealthCheckCollectMethodGetDiscovery            `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
-	CollectURL  string `json:"collectUrl"`
-	CollectBody any    `json:"collectBody,omitempty"`
+	CollectURL string `json:"collectUrl"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckCollectMethodGetCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -14016,7 +13922,7 @@ func (h *HealthCheckCollectMethodGet) GetCollectMethod() HealthCheckCollectMetho
 	return h.CollectMethod
 }
 
-func (h *HealthCheckCollectMethodGet) GetCollectRequestParams() any {
+func (h *HealthCheckCollectMethodGet) GetCollectRequestParams() []HealthCheckCollectMethodGetCollectRequestParam {
 	if h == nil {
 		return nil
 	}
@@ -14063,13 +13969,6 @@ func (h *HealthCheckCollectMethodGet) GetCollectURL() string {
 		return ""
 	}
 	return h.CollectURL
-}
-
-func (h *HealthCheckCollectMethodGet) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckCollectMethodGet) GetCollectRequestHeaders() []HealthCheckCollectMethodGetCollectRequestHeader {

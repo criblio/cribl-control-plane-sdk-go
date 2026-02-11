@@ -1,0 +1,17 @@
+# EventBreakerExistingOrNewNewRuleTypeJSONArray
+
+
+## Supported Types
+
+### EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue
+
+```go
+eventBreakerExistingOrNewNewRuleTypeJSONArray := components.CreateEventBreakerExistingOrNewNewRuleTypeJSONArrayEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue(components.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue{/* values here */})
+```
+
+### EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse
+
+```go
+eventBreakerExistingOrNewNewRuleTypeJSONArray := components.CreateEventBreakerExistingOrNewNewRuleTypeJSONArrayEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse(components.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse{/* values here */})
+```
+
