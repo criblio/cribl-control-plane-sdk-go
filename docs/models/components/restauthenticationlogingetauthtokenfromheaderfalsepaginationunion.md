@@ -1,0 +1,41 @@
+# RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnion
+
+
+## Supported Types
+
+### RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeNone
+
+```go
+restAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnion := components.CreateRestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnionNone(components.RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeNone{/* values here */})
+```
+
+### RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeResponseBody
+
+```go
+restAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnion := components.CreateRestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnionResponseBody(components.RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeResponseBody{/* values here */})
+```
+
+### RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeResponseHeader
+
+```go
+restAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnion := components.CreateRestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnionResponseHeader(components.RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeResponseHeader{/* values here */})
+```
+
+### RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeResponseHeaderLink
+
+```go
+restAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnion := components.CreateRestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnionResponseHeaderLink(components.RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeResponseHeaderLink{/* values here */})
+```
+
+### RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeRequestOffset
+
+```go
+restAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnion := components.CreateRestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnionRequestOffset(components.RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeRequestOffset{/* values here */})
+```
+
+### RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeRequestPage
+
+```go
+restAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnion := components.CreateRestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnionRequestPage(components.RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestPaginationTypeRequestPage{/* values here */})
+```
+

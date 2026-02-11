@@ -1,0 +1,23 @@
+# RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules
+
+
+## Supported Types
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesNone(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStatic
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesStatic(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStatic{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoff
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesBackoff(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoff{/* values here */})
+```
+

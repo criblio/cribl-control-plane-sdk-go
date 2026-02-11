@@ -1,16 +1,41 @@
 # PipelineFunctionSerdeConf
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `Mode`                                                                                      | [components.OperationMode](../../models/components/operationmode.md)                        | :heavy_check_mark:                                                                          | Extract creates new fields. Reserialize extracts and filters fields, and then reserializes. |
-| `Type`                                                                                      | [components.TypeOptions](../../models/components/typeoptions.md)                            | :heavy_check_mark:                                                                          | Parser or formatter type to use                                                             |
-| `DelimChar`                                                                                 | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |
-| `QuoteChar`                                                                                 | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |
-| `EscapeChar`                                                                                | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |
-| `NullValue`                                                                                 | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |
-| `SrcField`                                                                                  | **string*                                                                                   | :heavy_minus_sign:                                                                          | Field containing text to be parsed                                                          |
-| `DstField`                                                                                  | **string*                                                                                   | :heavy_minus_sign:                                                                          | Name of the field to add fields to. Extract mode only.                                      |
-| `CleanFields`                                                                               | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |
+### SerdeTypeKvp
+
+```go
+pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfKvp(components.SerdeTypeKvp{/* values here */})
+```
+
+### SerdeTypeDelim
+
+```go
+pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfDelim(components.SerdeTypeDelim{/* values here */})
+```
+
+### SerdeTypeCsv
+
+```go
+pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfCsv(components.SerdeTypeCsv{/* values here */})
+```
+
+### SerdeTypeJSON
+
+```go
+pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfJSON(components.SerdeTypeJSON{/* values here */})
+```
+
+### SerdeTypeRegex
+
+```go
+pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfRegex(components.SerdeTypeRegex{/* values here */})
+```
+
+### SerdeTypeGrok
+
+```go
+pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfGrok(components.SerdeTypeGrok{/* values here */})
+```
+
