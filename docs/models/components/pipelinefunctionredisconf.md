@@ -1,29 +1,12 @@
 # PipelineFunctionRedisConf
 
 
-## Supported Types
+## Fields
 
-### RedisAuthTypeNone
-
-```go
-pipelineFunctionRedisConf := components.CreatePipelineFunctionRedisConfNone(components.RedisAuthTypeNone{/* values here */})
-```
-
-### RedisAuthTypeManual
-
-```go
-pipelineFunctionRedisConf := components.CreatePipelineFunctionRedisConfManual(components.RedisAuthTypeManual{/* values here */})
-```
-
-### RedisAuthTypeCredentialsSecret
-
-```go
-pipelineFunctionRedisConf := components.CreatePipelineFunctionRedisConfCredentialsSecret(components.RedisAuthTypeCredentialsSecret{/* values here */})
-```
-
-### RedisAuthTypeTextSecret
-
-```go
-pipelineFunctionRedisConf := components.CreatePipelineFunctionRedisConfTextSecret(components.RedisAuthTypeTextSecret{/* values here */})
-```
-
+| Field                                                                                                                                 | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `Commands`                                                                                                                            | [][components.Command](../../models/components/command.md)                                                                            | :heavy_check_mark:                                                                                                                    | N/A                                                                                                                                   |
+| `DeploymentType`                                                                                                                      | [*components.DeploymentType](../../models/components/deploymenttype.md)                                                               | :heavy_minus_sign:                                                                                                                    | How the Redis server is configured. Defaults to Standalone                                                                            |
+| `AuthType`                                                                                                                            | [*components.PipelineFunctionRedisAuthenticationMethod](../../models/components/pipelinefunctionredisauthenticationmethod.md)         | :heavy_minus_sign:                                                                                                                    | N/A                                                                                                                                   |
+| `MaxBlockSecs`                                                                                                                        | **float64*                                                                                                                            | :heavy_minus_sign:                                                                                                                    | Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.             |
+| `EnableClientSideCaching`                                                                                                             | **bool*                                                                                                                               | :heavy_minus_sign:                                                                                                                    | Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache. |

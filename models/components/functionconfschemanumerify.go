@@ -3,31 +3,28 @@
 package components
 
 import (
-	"encoding/json"
-	"errors"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type NumerifyFormatNoneFormat string
+type FunctionConfSchemaNumerifyFormat string
 
 const (
-	// NumerifyFormatNoneFormatNone None
-	NumerifyFormatNoneFormatNone NumerifyFormatNoneFormat = "none"
-	// NumerifyFormatNoneFormatFix Fix
-	NumerifyFormatNoneFormatFix NumerifyFormatNoneFormat = "fix"
-	// NumerifyFormatNoneFormatFloor Floor
-	NumerifyFormatNoneFormatFloor NumerifyFormatNoneFormat = "floor"
-	// NumerifyFormatNoneFormatCeil Ceil
-	NumerifyFormatNoneFormatCeil NumerifyFormatNoneFormat = "ceil"
+	// FunctionConfSchemaNumerifyFormatNone None
+	FunctionConfSchemaNumerifyFormatNone FunctionConfSchemaNumerifyFormat = "none"
+	// FunctionConfSchemaNumerifyFormatFix Fix
+	FunctionConfSchemaNumerifyFormatFix FunctionConfSchemaNumerifyFormat = "fix"
+	// FunctionConfSchemaNumerifyFormatFloor Floor
+	FunctionConfSchemaNumerifyFormatFloor FunctionConfSchemaNumerifyFormat = "floor"
+	// FunctionConfSchemaNumerifyFormatCeil Ceil
+	FunctionConfSchemaNumerifyFormatCeil FunctionConfSchemaNumerifyFormat = "ceil"
 )
 
-func (e NumerifyFormatNoneFormat) ToPointer() *NumerifyFormatNoneFormat {
+func (e FunctionConfSchemaNumerifyFormat) ToPointer() *FunctionConfSchemaNumerifyFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *NumerifyFormatNoneFormat) IsExact() bool {
+func (e *FunctionConfSchemaNumerifyFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "fix", "floor", "ceil":
@@ -36,223 +33,52 @@ func (e *NumerifyFormatNoneFormat) IsExact() bool {
 	}
 	return false
 }
-
-type NumerifyFormatNone struct {
-	Format *NumerifyFormatNoneFormat `json:"format,omitempty"`
-	// Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
-	Depth *int64 `json:"depth,omitempty"`
-	// Fields to NOT numerify. Takes precedence over 'Include expression' when set. Supports wildcards. A '!' before field name(s) means: numerify all fields EXCEPT these. For syntax details, see [Wildcard Lists](https://docs.cribl.io/stream/introduction-reference/#wildcard-lists).
-	IgnoreFields []string `json:"ignoreFields,omitempty"`
-	// Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
-	FilterExpr *string `json:"filterExpr,omitempty"`
-}
-
-func (n NumerifyFormatNone) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(n, "", false)
-}
-
-func (n *NumerifyFormatNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (n *NumerifyFormatNone) GetFormat() *NumerifyFormatNoneFormat {
-	if n == nil {
-		return nil
-	}
-	return n.Format
-}
-
-func (n *NumerifyFormatNone) GetDepth() *int64 {
-	if n == nil {
-		return nil
-	}
-	return n.Depth
-}
-
-func (n *NumerifyFormatNone) GetIgnoreFields() []string {
-	if n == nil {
-		return nil
-	}
-	return n.IgnoreFields
-}
-
-func (n *NumerifyFormatNone) GetFilterExpr() *string {
-	if n == nil {
-		return nil
-	}
-	return n.FilterExpr
-}
-
-type NumerifyFormatFixFormat string
-
-const (
-	// NumerifyFormatFixFormatNone None
-	NumerifyFormatFixFormatNone NumerifyFormatFixFormat = "none"
-	// NumerifyFormatFixFormatFix Fix
-	NumerifyFormatFixFormatFix NumerifyFormatFixFormat = "fix"
-	// NumerifyFormatFixFormatFloor Floor
-	NumerifyFormatFixFormatFloor NumerifyFormatFixFormat = "floor"
-	// NumerifyFormatFixFormatCeil Ceil
-	NumerifyFormatFixFormatCeil NumerifyFormatFixFormat = "ceil"
-)
-
-func (e NumerifyFormatFixFormat) ToPointer() *NumerifyFormatFixFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *NumerifyFormatFixFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "fix", "floor", "ceil":
-			return true
-		}
-	}
-	return false
-}
-
-type NumerifyFormatFix struct {
-	Format *NumerifyFormatFixFormat `json:"format,omitempty"`
-	// Number of digits after the decimal point, between 0 and 20. If left blank, defaults to 2.
-	Digits *float64 `json:"digits,omitempty"`
-	// Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
-	Depth *int64 `json:"depth,omitempty"`
-	// Fields to NOT numerify. Takes precedence over 'Include expression' when set. Supports wildcards. A '!' before field name(s) means: numerify all fields EXCEPT these. For syntax details, see [Wildcard Lists](https://docs.cribl.io/stream/introduction-reference/#wildcard-lists).
-	IgnoreFields []string `json:"ignoreFields,omitempty"`
-	// Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
-	FilterExpr *string `json:"filterExpr,omitempty"`
-}
-
-func (n NumerifyFormatFix) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(n, "", false)
-}
-
-func (n *NumerifyFormatFix) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (n *NumerifyFormatFix) GetFormat() *NumerifyFormatFixFormat {
-	if n == nil {
-		return nil
-	}
-	return n.Format
-}
-
-func (n *NumerifyFormatFix) GetDigits() *float64 {
-	if n == nil {
-		return nil
-	}
-	return n.Digits
-}
-
-func (n *NumerifyFormatFix) GetDepth() *int64 {
-	if n == nil {
-		return nil
-	}
-	return n.Depth
-}
-
-func (n *NumerifyFormatFix) GetIgnoreFields() []string {
-	if n == nil {
-		return nil
-	}
-	return n.IgnoreFields
-}
-
-func (n *NumerifyFormatFix) GetFilterExpr() *string {
-	if n == nil {
-		return nil
-	}
-	return n.FilterExpr
-}
-
-type FunctionConfSchemaNumerifyType string
-
-const (
-	FunctionConfSchemaNumerifyTypeFix  FunctionConfSchemaNumerifyType = "fix"
-	FunctionConfSchemaNumerifyTypeNone FunctionConfSchemaNumerifyType = "none"
-)
 
 type FunctionConfSchemaNumerify struct {
-	NumerifyFormatFix  *NumerifyFormatFix  `queryParam:"inline" union:"member"`
-	NumerifyFormatNone *NumerifyFormatNone `queryParam:"inline" union:"member"`
-
-	Type FunctionConfSchemaNumerifyType
+	// Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
+	Depth *int64 `json:"depth,omitempty"`
+	// Fields to NOT numerify. Takes precedence over 'Include expression' when set. Supports wildcards. A '!' before field name(s) means: numerify all fields EXCEPT these. For syntax details, see [Wildcard Lists](https://docs.cribl.io/stream/introduction-reference/#wildcard-lists).
+	IgnoreFields []string `json:"ignoreFields,omitempty"`
+	// Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
+	FilterExpr *string                           `json:"filterExpr,omitempty"`
+	Format     *FunctionConfSchemaNumerifyFormat `json:"format,omitempty"`
 }
 
-func CreateFunctionConfSchemaNumerifyFix(fix NumerifyFormatFix) FunctionConfSchemaNumerify {
-	typ := FunctionConfSchemaNumerifyTypeFix
-
-	typStr := NumerifyFormatFixFormat(typ)
-	fix.Format = &typStr
-
-	return FunctionConfSchemaNumerify{
-		NumerifyFormatFix: &fix,
-		Type:              typ,
-	}
+func (f FunctionConfSchemaNumerify) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func CreateFunctionConfSchemaNumerifyNone(none NumerifyFormatNone) FunctionConfSchemaNumerify {
-	typ := FunctionConfSchemaNumerifyTypeNone
-
-	typStr := NumerifyFormatNoneFormat(typ)
-	none.Format = &typStr
-
-	return FunctionConfSchemaNumerify{
-		NumerifyFormatNone: &none,
-		Type:               typ,
+func (f *FunctionConfSchemaNumerify) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
 	}
+	return nil
 }
 
-func (u *FunctionConfSchemaNumerify) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Format string `json:"format"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
-	}
-
-	switch dis.Format {
-	case "fix":
-		numerifyFormatFix := new(NumerifyFormatFix)
-		if err := utils.UnmarshalJSON(data, &numerifyFormatFix, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Format == fix) type NumerifyFormatFix within FunctionConfSchemaNumerify: %w", string(data), err)
-		}
-
-		u.NumerifyFormatFix = numerifyFormatFix
-		u.Type = FunctionConfSchemaNumerifyTypeFix
-		return nil
-	case "none":
-		numerifyFormatNone := new(NumerifyFormatNone)
-		if err := utils.UnmarshalJSON(data, &numerifyFormatNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Format == none) type NumerifyFormatNone within FunctionConfSchemaNumerify: %w", string(data), err)
-		}
-
-		u.NumerifyFormatNone = numerifyFormatNone
-		u.Type = FunctionConfSchemaNumerifyTypeNone
+func (f *FunctionConfSchemaNumerify) GetDepth() *int64 {
+	if f == nil {
 		return nil
 	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaNumerify", string(data))
+	return f.Depth
 }
 
-func (u FunctionConfSchemaNumerify) MarshalJSON() ([]byte, error) {
-	if u.NumerifyFormatFix != nil {
-		return utils.MarshalJSON(u.NumerifyFormatFix, "", true)
+func (f *FunctionConfSchemaNumerify) GetIgnoreFields() []string {
+	if f == nil {
+		return nil
 	}
+	return f.IgnoreFields
+}
 
-	if u.NumerifyFormatNone != nil {
-		return utils.MarshalJSON(u.NumerifyFormatNone, "", true)
+func (f *FunctionConfSchemaNumerify) GetFilterExpr() *string {
+	if f == nil {
+		return nil
 	}
+	return f.FilterExpr
+}
 
-	return nil, errors.New("could not marshal union type FunctionConfSchemaNumerify: all fields are null")
+func (f *FunctionConfSchemaNumerify) GetFormat() *FunctionConfSchemaNumerifyFormat {
+	if f == nil {
+		return nil
+	}
+	return f.Format
 }
