@@ -3,10 +3,262 @@
 package components
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone struct {
+	PrivProtocol *string                              `json:"privProtocol,omitempty"`
+	PrivKey      string                               `json:"privKey"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
+	AuthKey      any                                  `json:"authKey"`
+	Name         string                               `json:"name"`
+}
+
+func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"privKey", "authKey", "name"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetPrivProtocol() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivProtocol
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetPrivKey() string {
+	if s == nil {
+		return ""
+	}
+	return s.PrivKey
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
+	if s == nil {
+		return nil
+	}
+	return s.AuthProtocol
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetAuthKey() any {
+	if s == nil {
+		return nil
+	}
+	return s.AuthKey
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetName() string {
+	if s == nil {
+		return ""
+	}
+	return s.Name
+}
+
+type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone struct {
+	PrivProtocol *string                              `json:"privProtocol,omitempty"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
+	AuthKey      any                                  `json:"authKey"`
+	Name         string                               `json:"name"`
+}
+
+func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authKey", "name"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetPrivProtocol() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivProtocol
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
+	if s == nil {
+		return nil
+	}
+	return s.AuthProtocol
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetAuthKey() any {
+	if s == nil {
+		return nil
+	}
+	return s.AuthKey
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetName() string {
+	if s == nil {
+		return ""
+	}
+	return s.Name
+}
+
+type SnmpTrapSerializeV3UserAuthProtocolNotNoneType string
+
+const (
+	SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeNone    SnmpTrapSerializeV3UserAuthProtocolNotNoneType = "none"
+	SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeDes     SnmpTrapSerializeV3UserAuthProtocolNotNoneType = "des"
+	SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes     SnmpTrapSerializeV3UserAuthProtocolNotNoneType = "aes"
+	SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes256b SnmpTrapSerializeV3UserAuthProtocolNotNoneType = "aes256b"
+	SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes256r SnmpTrapSerializeV3UserAuthProtocolNotNoneType = "aes256r"
+)
+
+type SnmpTrapSerializeV3UserAuthProtocolNotNone struct {
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone    *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone    `queryParam:"inline" union:"member"`
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone `queryParam:"inline" union:"member"`
+
+	Type SnmpTrapSerializeV3UserAuthProtocolNotNoneType
+}
+
+func CreateSnmpTrapSerializeV3UserAuthProtocolNotNoneNone(none SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	typ := SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeNone
+
+	typStr := string(typ)
+	none.PrivProtocol = &typStr
+
+	return SnmpTrapSerializeV3UserAuthProtocolNotNone{
+		SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone: &none,
+		Type: typ,
+	}
+}
+
+func CreateSnmpTrapSerializeV3UserAuthProtocolNotNoneDes(des SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	typ := SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeDes
+
+	typStr := string(typ)
+	des.PrivProtocol = &typStr
+
+	return SnmpTrapSerializeV3UserAuthProtocolNotNone{
+		SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone: &des,
+		Type: typ,
+	}
+}
+
+func CreateSnmpTrapSerializeV3UserAuthProtocolNotNoneAes(aes SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	typ := SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes
+
+	typStr := string(typ)
+	aes.PrivProtocol = &typStr
+
+	return SnmpTrapSerializeV3UserAuthProtocolNotNone{
+		SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone: &aes,
+		Type: typ,
+	}
+}
+
+func CreateSnmpTrapSerializeV3UserAuthProtocolNotNoneAes256b(aes256b SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	typ := SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes256b
+
+	typStr := string(typ)
+	aes256b.PrivProtocol = &typStr
+
+	return SnmpTrapSerializeV3UserAuthProtocolNotNone{
+		SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone: &aes256b,
+		Type: typ,
+	}
+}
+
+func CreateSnmpTrapSerializeV3UserAuthProtocolNotNoneAes256r(aes256r SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	typ := SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes256r
+
+	typStr := string(typ)
+	aes256r.PrivProtocol = &typStr
+
+	return SnmpTrapSerializeV3UserAuthProtocolNotNone{
+		SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone: &aes256r,
+		Type: typ,
+	}
+}
+
+func (u *SnmpTrapSerializeV3UserAuthProtocolNotNone) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		PrivProtocol string `json:"privProtocol"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	}
+
+	switch dis.PrivProtocol {
+	case "none":
+		snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (PrivProtocol == none) type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone within SnmpTrapSerializeV3UserAuthProtocolNotNone: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone = snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone
+		u.Type = SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeNone
+		return nil
+	case "des":
+		snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (PrivProtocol == des) type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone within SnmpTrapSerializeV3UserAuthProtocolNotNone: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone
+		u.Type = SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeDes
+		return nil
+	case "aes":
+		snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (PrivProtocol == aes) type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone within SnmpTrapSerializeV3UserAuthProtocolNotNone: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone
+		u.Type = SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes
+		return nil
+	case "aes256b":
+		snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (PrivProtocol == aes256b) type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone within SnmpTrapSerializeV3UserAuthProtocolNotNone: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone
+		u.Type = SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes256b
+		return nil
+	case "aes256r":
+		snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (PrivProtocol == aes256r) type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone within SnmpTrapSerializeV3UserAuthProtocolNotNone: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone
+		u.Type = SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes256r
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SnmpTrapSerializeV3UserAuthProtocolNotNone", string(data))
+}
+
+func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error) {
+	if u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone != nil {
+		return utils.MarshalJSON(u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone, "", true)
+	}
+
+	if u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone != nil {
+		return utils.MarshalJSON(u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type SnmpTrapSerializeV3UserAuthProtocolNotNone: all fields are null")
+}
 
 type SnmpTrapSerializeV3UserAuthProtocolNone struct {
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
@@ -57,30 +309,162 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetPrivProtocol() *string {
 type V3UserType string
 
 const (
-	V3UserTypeSnmpTrapSerializeV3UserAuthProtocolNone V3UserType = "SnmpTrapSerializeV3UserAuthProtocolNone"
+	V3UserTypeNone   V3UserType = "none"
+	V3UserTypeMd5    V3UserType = "md5"
+	V3UserTypeSha    V3UserType = "sha"
+	V3UserTypeSha224 V3UserType = "sha224"
+	V3UserTypeSha256 V3UserType = "sha256"
+	V3UserTypeSha384 V3UserType = "sha384"
+	V3UserTypeSha512 V3UserType = "sha512"
 )
 
 type V3User struct {
-	SnmpTrapSerializeV3UserAuthProtocolNone *SnmpTrapSerializeV3UserAuthProtocolNone `queryParam:"inline" union:"member"`
+	SnmpTrapSerializeV3UserAuthProtocolNone    *SnmpTrapSerializeV3UserAuthProtocolNone    `queryParam:"inline" union:"member"`
+	SnmpTrapSerializeV3UserAuthProtocolNotNone *SnmpTrapSerializeV3UserAuthProtocolNotNone `queryParam:"inline" union:"member"`
 
 	Type V3UserType
 }
 
-func CreateV3UserSnmpTrapSerializeV3UserAuthProtocolNone(snmpTrapSerializeV3UserAuthProtocolNone SnmpTrapSerializeV3UserAuthProtocolNone) V3User {
-	typ := V3UserTypeSnmpTrapSerializeV3UserAuthProtocolNone
+func CreateV3UserNone(none SnmpTrapSerializeV3UserAuthProtocolNone) V3User {
+	typ := V3UserTypeNone
+
+	typStr := AuthenticationProtocolOptionsV3User(typ)
+	none.AuthProtocol = &typStr
 
 	return V3User{
-		SnmpTrapSerializeV3UserAuthProtocolNone: &snmpTrapSerializeV3UserAuthProtocolNone,
+		SnmpTrapSerializeV3UserAuthProtocolNone: &none,
 		Type:                                    typ,
+	}
+}
+
+func CreateV3UserMd5(md5 SnmpTrapSerializeV3UserAuthProtocolNotNone) V3User {
+	typ := V3UserTypeMd5
+
+	return V3User{
+		SnmpTrapSerializeV3UserAuthProtocolNotNone: &md5,
+		Type: typ,
+	}
+}
+
+func CreateV3UserSha(sha SnmpTrapSerializeV3UserAuthProtocolNotNone) V3User {
+	typ := V3UserTypeSha
+
+	return V3User{
+		SnmpTrapSerializeV3UserAuthProtocolNotNone: &sha,
+		Type: typ,
+	}
+}
+
+func CreateV3UserSha224(sha224 SnmpTrapSerializeV3UserAuthProtocolNotNone) V3User {
+	typ := V3UserTypeSha224
+
+	return V3User{
+		SnmpTrapSerializeV3UserAuthProtocolNotNone: &sha224,
+		Type: typ,
+	}
+}
+
+func CreateV3UserSha256(sha256 SnmpTrapSerializeV3UserAuthProtocolNotNone) V3User {
+	typ := V3UserTypeSha256
+
+	return V3User{
+		SnmpTrapSerializeV3UserAuthProtocolNotNone: &sha256,
+		Type: typ,
+	}
+}
+
+func CreateV3UserSha384(sha384 SnmpTrapSerializeV3UserAuthProtocolNotNone) V3User {
+	typ := V3UserTypeSha384
+
+	return V3User{
+		SnmpTrapSerializeV3UserAuthProtocolNotNone: &sha384,
+		Type: typ,
+	}
+}
+
+func CreateV3UserSha512(sha512 SnmpTrapSerializeV3UserAuthProtocolNotNone) V3User {
+	typ := V3UserTypeSha512
+
+	return V3User{
+		SnmpTrapSerializeV3UserAuthProtocolNotNone: &sha512,
+		Type: typ,
 	}
 }
 
 func (u *V3User) UnmarshalJSON(data []byte) error {
 
-	var snmpTrapSerializeV3UserAuthProtocolNone SnmpTrapSerializeV3UserAuthProtocolNone = SnmpTrapSerializeV3UserAuthProtocolNone{}
-	if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNone, "", true, nil); err == nil {
-		u.SnmpTrapSerializeV3UserAuthProtocolNone = &snmpTrapSerializeV3UserAuthProtocolNone
-		u.Type = V3UserTypeSnmpTrapSerializeV3UserAuthProtocolNone
+	type discriminator struct {
+		AuthProtocol string `json:"authProtocol"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	}
+
+	switch dis.AuthProtocol {
+	case "none":
+		snmpTrapSerializeV3UserAuthProtocolNone := new(SnmpTrapSerializeV3UserAuthProtocolNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AuthProtocol == none) type SnmpTrapSerializeV3UserAuthProtocolNone within V3User: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNone = snmpTrapSerializeV3UserAuthProtocolNone
+		u.Type = V3UserTypeNone
+		return nil
+	case "md5":
+		snmpTrapSerializeV3UserAuthProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AuthProtocol == md5) type SnmpTrapSerializeV3UserAuthProtocolNotNone within V3User: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNone
+		u.Type = V3UserTypeMd5
+		return nil
+	case "sha":
+		snmpTrapSerializeV3UserAuthProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AuthProtocol == sha) type SnmpTrapSerializeV3UserAuthProtocolNotNone within V3User: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNone
+		u.Type = V3UserTypeSha
+		return nil
+	case "sha224":
+		snmpTrapSerializeV3UserAuthProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AuthProtocol == sha224) type SnmpTrapSerializeV3UserAuthProtocolNotNone within V3User: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNone
+		u.Type = V3UserTypeSha224
+		return nil
+	case "sha256":
+		snmpTrapSerializeV3UserAuthProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AuthProtocol == sha256) type SnmpTrapSerializeV3UserAuthProtocolNotNone within V3User: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNone
+		u.Type = V3UserTypeSha256
+		return nil
+	case "sha384":
+		snmpTrapSerializeV3UserAuthProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AuthProtocol == sha384) type SnmpTrapSerializeV3UserAuthProtocolNotNone within V3User: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNone
+		u.Type = V3UserTypeSha384
+		return nil
+	case "sha512":
+		snmpTrapSerializeV3UserAuthProtocolNotNone := new(SnmpTrapSerializeV3UserAuthProtocolNotNone)
+		if err := utils.UnmarshalJSON(data, &snmpTrapSerializeV3UserAuthProtocolNotNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AuthProtocol == sha512) type SnmpTrapSerializeV3UserAuthProtocolNotNone within V3User: %w", string(data), err)
+		}
+
+		u.SnmpTrapSerializeV3UserAuthProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNone
+		u.Type = V3UserTypeSha512
 		return nil
 	}
 
@@ -90,6 +474,10 @@ func (u *V3User) UnmarshalJSON(data []byte) error {
 func (u V3User) MarshalJSON() ([]byte, error) {
 	if u.SnmpTrapSerializeV3UserAuthProtocolNone != nil {
 		return utils.MarshalJSON(u.SnmpTrapSerializeV3UserAuthProtocolNone, "", true)
+	}
+
+	if u.SnmpTrapSerializeV3UserAuthProtocolNotNone != nil {
+		return utils.MarshalJSON(u.SnmpTrapSerializeV3UserAuthProtocolNotNone, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type V3User: all fields are null")
@@ -133,4 +521,53 @@ func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3User() *V3User {
 		return nil
 	}
 	return f.V3User
+}
+
+func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3UserNone() *SnmpTrapSerializeV3UserAuthProtocolNone {
+	if v := f.GetV3User(); v != nil {
+		return v.SnmpTrapSerializeV3UserAuthProtocolNone
+	}
+	return nil
+}
+
+func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3UserMd5() *SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	if v := f.GetV3User(); v != nil {
+		return v.SnmpTrapSerializeV3UserAuthProtocolNotNone
+	}
+	return nil
+}
+
+func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3UserSha() *SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	if v := f.GetV3User(); v != nil {
+		return v.SnmpTrapSerializeV3UserAuthProtocolNotNone
+	}
+	return nil
+}
+
+func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3UserSha224() *SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	if v := f.GetV3User(); v != nil {
+		return v.SnmpTrapSerializeV3UserAuthProtocolNotNone
+	}
+	return nil
+}
+
+func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3UserSha256() *SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	if v := f.GetV3User(); v != nil {
+		return v.SnmpTrapSerializeV3UserAuthProtocolNotNone
+	}
+	return nil
+}
+
+func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3UserSha384() *SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	if v := f.GetV3User(); v != nil {
+		return v.SnmpTrapSerializeV3UserAuthProtocolNotNone
+	}
+	return nil
+}
+
+func (f *FunctionConfSchemaSnmpTrapSerialize) GetV3UserSha512() *SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	if v := f.GetV3User(); v != nil {
+		return v.SnmpTrapSerializeV3UserAuthProtocolNotNone
+	}
+	return nil
 }

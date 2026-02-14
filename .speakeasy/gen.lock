@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 1c663530b3b7136f6c3d0b9164b25630
-  docVersion: 4.17.0-alpha.1770790995514-c4a066f9
-  speakeasyVersion: 1.709.3
-  generationVersion: 2.814.0
-  releaseVersion: 0.6.0-rc.21
-  configChecksum: 942ce887766e5332dd9e5be286c2c35d
+  docChecksum: 272412b09eb4568345e00caf91c6d0d2
+  docVersion: 4.17.0-alpha.1771032350496-659e5324
+  speakeasyVersion: 1.716.0
+  generationVersion: 2.823.1
+  releaseVersion: 0.6.0-rc.22
+  configChecksum: ed9d55d35c9997da8d776e3f1c37fcb6
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 6fb0a85f-df5d-4716-b26f-e31152df4c79
-  pristine_commit_hash: 3612457195bf53604d00fca4e0bbaf96389d9ff4
-  pristine_tree_hash: f8c6f8918a065da131981b4c74e8d34e64f40077
+  generation_id: 76498166-708b-4d38-80a6-77d8cea94435
+  pristine_commit_hash: 934b179a7a4ac6cbef0de8931f6a59e1f48916ad
+  pristine_tree_hash: 6f2c4cd64fcf77556866e5cbf1b0d0daec09bfa5
 features:
   go:
     additionalDependencies: 0.1.0
@@ -96,8 +96,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:922eb783d64e48dd398cb960208d22ef3e775185
-    pristine_git_object: a9921656d8950fac3ef004c5c5aec896887fd0f8
+    last_write_checksum: sha1:6a80e105f639e019e77bda9e5c6d17dfde30cce1
+    pristine_git_object: 8e3177f4f23fc9f070833f679ae4e5d0fc7556d0
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -3460,8 +3460,8 @@ trackedFiles:
     pristine_git_object: d5a1de80ec67afaa0e0448570bf745c51efd5518
   docs/models/components/inputsnmpv3user.md:
     id: 4d4739805b9f
-    last_write_checksum: sha1:aba59b5b2aab982cc628e8bd557ebc1c96f95657
-    pristine_git_object: 12d69dafe708aef6db7487486674609c281c32d9
+    last_write_checksum: sha1:da9cfab3c5d0f4a168165b303921f45b6f854289
+    pristine_git_object: 2402a6bd7890bfc42113f66dc9d4a7da3a1ee354
   docs/models/components/inputsplunk.md:
     id: c2fd2c78b540
     last_write_checksum: sha1:19772fe04cd94ed1a5207a81f52037e279da0a76
@@ -5926,10 +5926,10 @@ trackedFiles:
     id: e536dcb26544
     last_write_checksum: sha1:950be3010c56c8896747a3955bbe825f293788a6
     pristine_git_object: 1b9606133b26b3efa4985b3cd90c30dc8d8bfc1a
-  docs/models/components/privacyprotocol.md:
-    id: 86285b30843f
-    last_write_checksum: sha1:c6df8b46bd5e8e20b2120760c2210f622e3274c4
-    pristine_git_object: ed6a73f12aedfa548f3bf72f865bfd2b4f605c14
+  docs/models/components/privacyprotocoloptionssnmptrapserializev3userauthprotocolnotnone.md:
+    id: 8143d944516f
+    last_write_checksum: sha1:3c21a2f81245be6f589abd97cf4c098e1cee122b
+    pristine_git_object: cd029068b260059f2289307ba35fbdc1d111a282
   docs/models/components/processtype.md:
     id: e6351057d87a
     last_write_checksum: sha1:abd8e9674815275f66f0b662eb97e33f666808d3
@@ -10470,6 +10470,18 @@ trackedFiles:
     id: df367f87133a
     last_write_checksum: sha1:ac44ca51583ecbe20940b37cadaeb6d186226db9
     pristine_git_object: 5df7e21c32198c50b643fdef1eda01bcaa3a6655
+  docs/models/components/snmptrapserializev3userauthprotocolnotnone.md:
+    id: e9d690b8497f
+    last_write_checksum: sha1:d0739c7fea309319c7d16b3840f8efc7d92f2884
+    pristine_git_object: d994411ebed8699cf0a6190e801566caf77d11bc
+  docs/models/components/snmptrapserializev3userauthprotocolnotnoneprivprotocolnone.md:
+    id: 89a757abcb39
+    last_write_checksum: sha1:20e089397b707192d50fd28b2fe9956ad46b8096
+    pristine_git_object: d1aace0963053c718444e1f22b27110020ba101b
+  docs/models/components/snmptrapserializev3userauthprotocolnotnoneprivprotocolnotnone.md:
+    id: 1a25f5c933f0
+    last_write_checksum: sha1:1d8cdcb0bb77b89d6cda77443d8ed92fd5c7e431
+    pristine_git_object: 81484493aaf8fef000659a82f35a92acf4b7d47e
   docs/models/components/snmpv3authentication.md:
     id: 4d880d943abd
     last_write_checksum: sha1:8a3e2d33818728cf8f562aa0d7cf2a669d34941c
@@ -10880,8 +10892,8 @@ trackedFiles:
     pristine_git_object: 2082f1c9c5aa13925f5eee74588fd9c84f695231
   docs/models/components/v3user.md:
     id: 97384f0c944c
-    last_write_checksum: sha1:58a8e43b60844eab619e7a95db02d68814686aeb
-    pristine_git_object: c6287c29177698d26915799db6f04960317545b6
+    last_write_checksum: sha1:30dadd11d77664923fb97ff214797f2b43318756
+    pristine_git_object: 864c7c1b45647ae48b7f66c5ec2413409269ae32
   docs/models/components/value.md:
     id: d28df86c49da
     last_write_checksum: sha1:f6fdbb6bfc7d91e8a46af53e2b8b9d0e8ab1a649
@@ -11522,10 +11534,6 @@ trackedFiles:
     id: c11634c81ff6
     last_write_checksum: sha1:e1143f9b57badabe9bcd2b382c0cc3d2dca7a5f0
     pristine_git_object: b13cd3e32689b62ac23bf0981e67fddc3cf2b785
-  docs/models/operations/createinputprivacyprotocol.md:
-    id: f07b88b8a881
-    last_write_checksum: sha1:f8499837dbab414ef8cd0ecabe627ecebebc5d90
-    pristine_git_object: 12059709e7b69cb65fe19d074defbeb51745e225
   docs/models/operations/createinputprometheusauth1.md:
     id: 684d00682c72
     last_write_checksum: sha1:c05484dbaae6536ca62bd36c959ac07dd26a0be9
@@ -12210,10 +12218,6 @@ trackedFiles:
     id: 2f3ae1037d49
     last_write_checksum: sha1:0c5e42def078c98c101732075d7f3e782da37d18
     pristine_git_object: e31ddfeace3cf202b054b1743807de2e71613607
-  docs/models/operations/createinputsystembypackprivacyprotocol.md:
-    id: 9694216e70e5
-    last_write_checksum: sha1:8c41487eabdb56a6691313a16dbe205916c0ff7e
-    pristine_git_object: 58d47998dfebd821b49919d5b8727a045f656003
   docs/models/operations/createinputsystembypackprometheusauth1.md:
     id: f1b1d6423178
     last_write_checksum: sha1:abb8d8fad4c6aa563cf92851f49ac93ae1d9bbef
@@ -12560,8 +12564,8 @@ trackedFiles:
     pristine_git_object: 4d3afd496e22fe19eda99c3b45349ac4a7a24253
   docs/models/operations/createinputsystembypackv3user.md:
     id: 23ad53c53e4f
-    last_write_checksum: sha1:ba18df11934a143e58e62bc72eb012e814784833
-    pristine_git_object: b57d8b7853e9f8e73ac2b24cf3a6a2bada936a0b
+    last_write_checksum: sha1:4daa19b6a679cdb74814da827de3adeb8d14fc92
+    pristine_git_object: 45111111df41c55bebda35357788259167b9d887
   docs/models/operations/createinputsystemhectokenbypackandidrequest.md:
     id: 6fe764e6c91d
     last_write_checksum: sha1:bf9a52b56f775536a4c0865082a2c0594874a088
@@ -12820,8 +12824,8 @@ trackedFiles:
     pristine_git_object: a8fecfd7eb0b8bfb405622c2d78df0cf028d50e6
   docs/models/operations/createinputv3user.md:
     id: 4f25dc9899de
-    last_write_checksum: sha1:acc5e9aa5d4315fac983c840fb06c81e467013c5
-    pristine_git_object: 1c0e27247fbeb0fdf16c2effc436ff0a24d1b2c4
+    last_write_checksum: sha1:646771687dc5c4cee14b796f9b0519818eb68370
+    pristine_git_object: 2bfa2aa9d18cd8b9df12e782a304ec1305d5bff6
   docs/models/operations/createoutputadditionalproperty.md:
     id: 2b3b9dce0962
     last_write_checksum: sha1:ccfdc94be56c71e4a0b7f1b83fd152f59e5e2e47
@@ -16780,8 +16784,8 @@ trackedFiles:
     pristine_git_object: a7234177f91b12ea203874c5681f231a38057be9
   models/components/functionconfschemasnmptrapserialize.go:
     id: 9f9580aa5d97
-    last_write_checksum: sha1:0759c5349cd96f92fb1d7d19cdd630da0cb28824
-    pristine_git_object: 0a1b21c7897e616d4dfe266cac8be03b5e7e8686
+    last_write_checksum: sha1:11c24719b8ce2880deccffa77d7bd07473619602
+    pristine_git_object: a7fc5b35e9ea8aa4e5dd8edec802ad5a34ec19da
   models/components/functionconfschematrimtimestamp.go:
     id: dcb1fd5ac1c8
     last_write_checksum: sha1:0c0c2afb367756fa0430204fe853766e81320278
@@ -17308,8 +17312,8 @@ trackedFiles:
     pristine_git_object: d88bfd984ff657f34971fab86bc548d0b63ec15e
   models/components/inputsnmp.go:
     id: 059865d12590
-    last_write_checksum: sha1:c5530decdaadfd60caf165767d932ce8347c6302
-    pristine_git_object: 97071b14e0c49750f70d244dee3a368ccf5656c1
+    last_write_checksum: sha1:c574cd33d411b72939b0dbc20a1ea923d8bf7d95
+    pristine_git_object: 1d43b873bda069742fbc8e8f6b4c73ff5af3f345
   models/components/inputsplunk.go:
     id: b48153038129
     last_write_checksum: sha1:63662e73235d727ad558e10da95205876e33c776
@@ -18258,6 +18262,10 @@ trackedFiles:
     id: ece283012b37
     last_write_checksum: sha1:86d27dafd3e46de746a1262c13d916688c00d09e
     pristine_git_object: f97b0740199690ad9554d306ee7b738313ef76e8
+  models/components/privacyprotocoloptionssnmptrapserializev3userauthprotocolnotnone.go:
+    id: 7f58241fe416
+    last_write_checksum: sha1:3b363d64c405d7f3b34d62ff412ef9006a62e737
+    pristine_git_object: 8438b59f72b53a9d537bebd23c2cd67cd89076d1
   models/components/processtype.go:
     id: 34a185c4617b
     last_write_checksum: sha1:ddd8faa23861cac443759818f90f3c1c0e89653c
@@ -18644,16 +18652,16 @@ trackedFiles:
     pristine_git_object: aa9e75797275e5270638f09a435ae91af152113a
   models/operations/createinput.go:
     id: c604df8e9fa1
-    last_write_checksum: sha1:d69bbe73fe97acb526e10fdc402dc661de033f30
-    pristine_git_object: 33ab1183a8a487911b069fc94b1c378fb9930cd0
+    last_write_checksum: sha1:2b7c75478c8bd9fda45c9ebdac66efc5611957dc
+    pristine_git_object: 97d34956d5ae366ce4964d817ede8d97368978ee
   models/operations/createinputhectokenbyid.go:
     id: cd5aa65c4690
     last_write_checksum: sha1:fa691706ebdbf9350fd8fe7c1ca129042ad930d8
     pristine_git_object: 1a16a65bfb1bcaad581115d642956bdb8a05c401
   models/operations/createinputsystembypack.go:
     id: 61e784891f5b
-    last_write_checksum: sha1:975b1fb58fa0e2d46471b369f0a547771364da6c
-    pristine_git_object: 23bb50ab7e40a99448ee5dbffcdfe22e3b36a7fa
+    last_write_checksum: sha1:fa4f28aa8b594f224295777de03344d736be8813
+    pristine_git_object: 8158f78dd1bef47165c01907c0c2efc442eece60
   models/operations/createinputsystemhectokenbypackandid.go:
     id: 106b6f03830d
     last_write_checksum: sha1:b537564e2edefce7530c970ea4dc4a829b209cef
@@ -29484,7 +29492,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[].union(snmp_trap_serialize).Conf.V3User` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
