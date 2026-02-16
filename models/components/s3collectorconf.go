@@ -46,7 +46,7 @@ func (s S3AwsAuthenticationMethodSecretExtractor) MarshalJSON() ([]byte, error) 
 }
 
 func (s *S3AwsAuthenticationMethodSecretExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -116,7 +116,7 @@ func (s S3AwsAuthenticationMethodSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (s *S3AwsAuthenticationMethodSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -306,7 +306,7 @@ func (s S3AwsAuthenticationMethodManualExtractor) MarshalJSON() ([]byte, error) 
 }
 
 func (s *S3AwsAuthenticationMethodManualExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -378,7 +378,7 @@ func (s S3AwsAuthenticationMethodManual) MarshalJSON() ([]byte, error) {
 }
 
 func (s *S3AwsAuthenticationMethodManual) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -575,7 +575,7 @@ func (s S3AwsAuthenticationMethodAutoExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (s *S3AwsAuthenticationMethodAutoExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -643,7 +643,7 @@ func (s S3AwsAuthenticationMethodAuto) MarshalJSON() ([]byte, error) {
 }
 
 func (s *S3AwsAuthenticationMethodAuto) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -826,7 +826,7 @@ func (s S3PartitioningSchemeNoneExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (s *S3PartitioningSchemeNoneExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -896,7 +896,7 @@ func (s S3PartitioningSchemeNone) MarshalJSON() ([]byte, error) {
 }
 
 func (s *S3PartitioningSchemeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1086,7 +1086,7 @@ func (s S3PartitioningSchemeDdssExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (s *S3PartitioningSchemeDdssExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1154,7 +1154,7 @@ func (s S3PartitioningSchemeDdss) MarshalJSON() ([]byte, error) {
 }
 
 func (s *S3PartitioningSchemeDdss) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1303,9 +1303,10 @@ func (s *S3PartitioningSchemeDdss) GetDisableTimeFilter() *bool {
 type S3CollectorConfType string
 
 const (
-	S3CollectorConfTypeAuto   S3CollectorConfType = "auto"
-	S3CollectorConfTypeManual S3CollectorConfType = "manual"
-	S3CollectorConfTypeSecret S3CollectorConfType = "secret"
+	S3CollectorConfTypeAuto    S3CollectorConfType = "auto"
+	S3CollectorConfTypeManual  S3CollectorConfType = "manual"
+	S3CollectorConfTypeSecret  S3CollectorConfType = "secret"
+	S3CollectorConfTypeUnknown S3CollectorConfType = "UNKNOWN"
 )
 
 type S3CollectorConf struct {
@@ -1314,6 +1315,7 @@ type S3CollectorConf struct {
 	S3AwsAuthenticationMethodAuto   *S3AwsAuthenticationMethodAuto   `queryParam:"inline" union:"member"`
 	S3AwsAuthenticationMethodManual *S3AwsAuthenticationMethodManual `queryParam:"inline" union:"member"`
 	S3AwsAuthenticationMethodSecret *S3AwsAuthenticationMethodSecret `queryParam:"inline" union:"member"`
+	UnknownRaw                      json.RawMessage                  `json:"-" union:"unknown"`
 
 	Type S3CollectorConfType
 }
@@ -1354,6 +1356,21 @@ func CreateS3CollectorConfSecret(secret S3AwsAuthenticationMethodSecret) S3Colle
 	}
 }
 
+func CreateS3CollectorConfUnknown(raw json.RawMessage) S3CollectorConf {
+	return S3CollectorConf{
+		UnknownRaw: raw,
+		Type:       S3CollectorConfTypeUnknown,
+	}
+}
+
+func (u S3CollectorConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u S3CollectorConf) IsUnknown() bool {
+	return u.Type == S3CollectorConfTypeUnknown
+}
+
 func (u *S3CollectorConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1362,7 +1379,14 @@ func (u *S3CollectorConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = S3CollectorConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = S3CollectorConfTypeUnknown
+		return nil
 	}
 
 	switch dis.AwsAuthenticationMethod {
@@ -1393,9 +1417,12 @@ func (u *S3CollectorConf) UnmarshalJSON(data []byte) error {
 		u.S3AwsAuthenticationMethodSecret = s3AwsAuthenticationMethodSecret
 		u.Type = S3CollectorConfTypeSecret
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = S3CollectorConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for S3CollectorConf", string(data))
 }
 
 func (u S3CollectorConf) MarshalJSON() ([]byte, error) {
@@ -1419,5 +1446,8 @@ func (u S3CollectorConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.S3AwsAuthenticationMethodSecret, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type S3CollectorConf: all fields are null")
 }

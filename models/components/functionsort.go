@@ -53,7 +53,7 @@ func (f FunctionSort) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionSort) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"__filename", "group", "id", "loadTime", "modTime", "name", "uischema", "version"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil

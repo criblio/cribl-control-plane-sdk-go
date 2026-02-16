@@ -77,7 +77,7 @@ func (s SerdeTypeGrok) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SerdeTypeGrok) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "pattern", "mode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -175,7 +175,7 @@ func (s SerdeTypeRegex) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SerdeTypeRegex) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "regex", "mode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -291,7 +291,7 @@ func (s SerdeTypeJSON) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SerdeTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "mode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -395,7 +395,7 @@ func (s SerdeTypeCsv) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SerdeTypeCsv) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "mode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -514,7 +514,7 @@ func (s SerdeTypeDelim) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SerdeTypeDelim) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "mode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -657,7 +657,7 @@ func (s SerdeTypeKvp) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SerdeTypeKvp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "mode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -736,12 +736,13 @@ func (s *SerdeTypeKvp) GetDstField() *string {
 type PipelineFunctionSerdeConfType string
 
 const (
-	PipelineFunctionSerdeConfTypeKvp   PipelineFunctionSerdeConfType = "kvp"
-	PipelineFunctionSerdeConfTypeDelim PipelineFunctionSerdeConfType = "delim"
-	PipelineFunctionSerdeConfTypeCsv   PipelineFunctionSerdeConfType = "csv"
-	PipelineFunctionSerdeConfTypeJSON  PipelineFunctionSerdeConfType = "json"
-	PipelineFunctionSerdeConfTypeRegex PipelineFunctionSerdeConfType = "regex"
-	PipelineFunctionSerdeConfTypeGrok  PipelineFunctionSerdeConfType = "grok"
+	PipelineFunctionSerdeConfTypeKvp     PipelineFunctionSerdeConfType = "kvp"
+	PipelineFunctionSerdeConfTypeDelim   PipelineFunctionSerdeConfType = "delim"
+	PipelineFunctionSerdeConfTypeCsv     PipelineFunctionSerdeConfType = "csv"
+	PipelineFunctionSerdeConfTypeJSON    PipelineFunctionSerdeConfType = "json"
+	PipelineFunctionSerdeConfTypeRegex   PipelineFunctionSerdeConfType = "regex"
+	PipelineFunctionSerdeConfTypeGrok    PipelineFunctionSerdeConfType = "grok"
+	PipelineFunctionSerdeConfTypeUnknown PipelineFunctionSerdeConfType = "UNKNOWN"
 )
 
 type PipelineFunctionSerdeConf struct {
@@ -751,6 +752,7 @@ type PipelineFunctionSerdeConf struct {
 	SerdeTypeJSON  *SerdeTypeJSON  `queryParam:"inline" union:"member"`
 	SerdeTypeRegex *SerdeTypeRegex `queryParam:"inline" union:"member"`
 	SerdeTypeGrok  *SerdeTypeGrok  `queryParam:"inline" union:"member"`
+	UnknownRaw     json.RawMessage `json:"-" union:"unknown"`
 
 	Type PipelineFunctionSerdeConfType
 }
@@ -827,6 +829,21 @@ func CreatePipelineFunctionSerdeConfGrok(grok SerdeTypeGrok) PipelineFunctionSer
 	}
 }
 
+func CreatePipelineFunctionSerdeConfUnknown(raw json.RawMessage) PipelineFunctionSerdeConf {
+	return PipelineFunctionSerdeConf{
+		UnknownRaw: raw,
+		Type:       PipelineFunctionSerdeConfTypeUnknown,
+	}
+}
+
+func (u PipelineFunctionSerdeConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PipelineFunctionSerdeConf) IsUnknown() bool {
+	return u.Type == PipelineFunctionSerdeConfTypeUnknown
+}
+
 func (u *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -835,7 +852,14 @@ func (u *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionSerdeConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionSerdeConfTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -893,9 +917,12 @@ func (u *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
 		u.SerdeTypeGrok = serdeTypeGrok
 		u.Type = PipelineFunctionSerdeConfTypeGrok
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionSerdeConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionSerdeConf", string(data))
 }
 
 func (u PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
@@ -923,6 +950,9 @@ func (u PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.SerdeTypeGrok, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type PipelineFunctionSerdeConf: all fields are null")
 }
 
@@ -947,7 +977,7 @@ func (p PipelineFunctionSerde) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSerde) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

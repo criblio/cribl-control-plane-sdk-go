@@ -16,7 +16,7 @@ func (i ItemsTypeSerdeTypeGrokPatternList) MarshalJSON() ([]byte, error) {
 }
 
 func (i *ItemsTypeSerdeTypeGrokPatternList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pattern"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

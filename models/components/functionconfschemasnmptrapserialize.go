@@ -22,7 +22,7 @@ func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) MarshalJS
 }
 
 func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"privKey", "authKey", "name"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -75,7 +75,7 @@ func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) MarshalJSON(
 }
 
 func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authKey", "name"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -117,11 +117,13 @@ const (
 	SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes     SnmpTrapSerializeV3UserAuthProtocolNotNoneType = "aes"
 	SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes256b SnmpTrapSerializeV3UserAuthProtocolNotNoneType = "aes256b"
 	SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes256r SnmpTrapSerializeV3UserAuthProtocolNotNoneType = "aes256r"
+	SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeUnknown SnmpTrapSerializeV3UserAuthProtocolNotNoneType = "UNKNOWN"
 )
 
 type SnmpTrapSerializeV3UserAuthProtocolNotNone struct {
 	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone    *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone    `queryParam:"inline" union:"member"`
 	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                    json.RawMessage                                                `json:"-" union:"unknown"`
 
 	Type SnmpTrapSerializeV3UserAuthProtocolNotNoneType
 }
@@ -186,6 +188,21 @@ func CreateSnmpTrapSerializeV3UserAuthProtocolNotNoneAes256r(aes256r SnmpTrapSer
 	}
 }
 
+func CreateSnmpTrapSerializeV3UserAuthProtocolNotNoneUnknown(raw json.RawMessage) SnmpTrapSerializeV3UserAuthProtocolNotNone {
+	return SnmpTrapSerializeV3UserAuthProtocolNotNone{
+		UnknownRaw: raw,
+		Type:       SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeUnknown,
+	}
+}
+
+func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) IsUnknown() bool {
+	return u.Type == SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeUnknown
+}
+
 func (u *SnmpTrapSerializeV3UserAuthProtocolNotNone) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -194,7 +211,14 @@ func (u *SnmpTrapSerializeV3UserAuthProtocolNotNone) UnmarshalJSON(data []byte) 
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeUnknown
+		return nil
 	}
 
 	switch dis.PrivProtocol {
@@ -243,9 +267,12 @@ func (u *SnmpTrapSerializeV3UserAuthProtocolNotNone) UnmarshalJSON(data []byte) 
 		u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone
 		u.Type = SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeAes256r
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SnmpTrapSerializeV3UserAuthProtocolNotNoneTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SnmpTrapSerializeV3UserAuthProtocolNotNone", string(data))
 }
 
 func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error) {
@@ -257,6 +284,9 @@ func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error
 		return utils.MarshalJSON(u.SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type SnmpTrapSerializeV3UserAuthProtocolNotNone: all fields are null")
 }
 
@@ -309,18 +339,20 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetPrivProtocol() *string {
 type V3UserType string
 
 const (
-	V3UserTypeNone   V3UserType = "none"
-	V3UserTypeMd5    V3UserType = "md5"
-	V3UserTypeSha    V3UserType = "sha"
-	V3UserTypeSha224 V3UserType = "sha224"
-	V3UserTypeSha256 V3UserType = "sha256"
-	V3UserTypeSha384 V3UserType = "sha384"
-	V3UserTypeSha512 V3UserType = "sha512"
+	V3UserTypeNone    V3UserType = "none"
+	V3UserTypeMd5     V3UserType = "md5"
+	V3UserTypeSha     V3UserType = "sha"
+	V3UserTypeSha224  V3UserType = "sha224"
+	V3UserTypeSha256  V3UserType = "sha256"
+	V3UserTypeSha384  V3UserType = "sha384"
+	V3UserTypeSha512  V3UserType = "sha512"
+	V3UserTypeUnknown V3UserType = "UNKNOWN"
 )
 
 type V3User struct {
 	SnmpTrapSerializeV3UserAuthProtocolNone    *SnmpTrapSerializeV3UserAuthProtocolNone    `queryParam:"inline" union:"member"`
 	SnmpTrapSerializeV3UserAuthProtocolNotNone *SnmpTrapSerializeV3UserAuthProtocolNotNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                 json.RawMessage                             `json:"-" union:"unknown"`
 
 	Type V3UserType
 }
@@ -391,6 +423,21 @@ func CreateV3UserSha512(sha512 SnmpTrapSerializeV3UserAuthProtocolNotNone) V3Use
 	}
 }
 
+func CreateV3UserUnknown(raw json.RawMessage) V3User {
+	return V3User{
+		UnknownRaw: raw,
+		Type:       V3UserTypeUnknown,
+	}
+}
+
+func (u V3User) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u V3User) IsUnknown() bool {
+	return u.Type == V3UserTypeUnknown
+}
+
 func (u *V3User) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -399,7 +446,14 @@ func (u *V3User) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = V3UserTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = V3UserTypeUnknown
+		return nil
 	}
 
 	switch dis.AuthProtocol {
@@ -466,9 +520,12 @@ func (u *V3User) UnmarshalJSON(data []byte) error {
 		u.SnmpTrapSerializeV3UserAuthProtocolNotNone = snmpTrapSerializeV3UserAuthProtocolNotNone
 		u.Type = V3UserTypeSha512
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = V3UserTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for V3User", string(data))
 }
 
 func (u V3User) MarshalJSON() ([]byte, error) {
@@ -480,6 +537,9 @@ func (u V3User) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.SnmpTrapSerializeV3UserAuthProtocolNotNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type V3User: all fields are null")
 }
 

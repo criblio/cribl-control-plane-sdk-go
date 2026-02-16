@@ -18,7 +18,7 @@ func (f FilesystemCollectorConfExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FilesystemCollectorConfExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -56,7 +56,7 @@ func (f FilesystemCollectorConf) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FilesystemCollectorConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"path"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil

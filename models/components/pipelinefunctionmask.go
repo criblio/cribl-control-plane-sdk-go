@@ -46,7 +46,7 @@ func (p PipelineFunctionMaskRule) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMaskRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"matchRegex", "replaceExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -88,7 +88,7 @@ func (p PipelineFunctionMaskConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMaskConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"rules"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -143,7 +143,7 @@ func (p PipelineFunctionMask) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMask) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

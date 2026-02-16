@@ -84,7 +84,7 @@ func (o OutputMicrosoftFabricAuthentication) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputMicrosoftFabricAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"disabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -282,7 +282,7 @@ func (o OutputMicrosoftFabric) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputMicrosoftFabric) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topic", "bootstrap_server"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -47,7 +47,7 @@ func (p PipelineFunctionTeeConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionTeeConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"command"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -102,7 +102,7 @@ func (p PipelineFunctionTee) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionTee) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

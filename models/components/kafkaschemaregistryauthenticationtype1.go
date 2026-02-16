@@ -30,7 +30,7 @@ func (k KafkaSchemaRegistryAuthenticationType1) MarshalJSON() ([]byte, error) {
 }
 
 func (k *KafkaSchemaRegistryAuthenticationType1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &k, "", false, []string{"disabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &k, "", false, nil); err != nil {
 		return err
 	}
 	return nil

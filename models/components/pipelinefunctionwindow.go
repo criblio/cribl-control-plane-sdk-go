@@ -48,7 +48,7 @@ func (p PipelineFunctionWindowConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionWindowConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"eventWindowId", "registeredFunctions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -103,7 +103,7 @@ func (p PipelineFunctionWindow) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionWindow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

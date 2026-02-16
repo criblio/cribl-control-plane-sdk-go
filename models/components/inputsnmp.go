@@ -44,7 +44,7 @@ func (i InputSnmpV3User) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmpV3User) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -99,7 +99,7 @@ func (s SNMPv3Authentication) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SNMPv3Authentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"v3AuthEnabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -174,7 +174,7 @@ func (i InputSnmp) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -75,7 +75,7 @@ func (s StoreFunctionConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (s *StoreFunctionConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -172,7 +172,7 @@ func (p PipelineFunctionStore) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionStore) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

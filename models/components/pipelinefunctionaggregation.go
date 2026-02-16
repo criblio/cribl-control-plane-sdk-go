@@ -75,7 +75,7 @@ func (a AggregationCumulativeFalse) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AggregationCumulativeFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"timeWindow", "aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -238,7 +238,7 @@ func (a AggregationCumulativeTrue) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AggregationCumulativeTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"timeWindow", "aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -383,17 +383,43 @@ func CreatePipelineFunctionAggregationConfAggregationCumulativeFalse(aggregation
 
 func (u *PipelineFunctionAggregationConf) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var aggregationCumulativeTrue AggregationCumulativeTrue = AggregationCumulativeTrue{}
 	if err := utils.UnmarshalJSON(data, &aggregationCumulativeTrue, "", true, nil); err == nil {
-		u.AggregationCumulativeTrue = &aggregationCumulativeTrue
-		u.Type = PipelineFunctionAggregationConfTypeAggregationCumulativeTrue
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PipelineFunctionAggregationConfTypeAggregationCumulativeTrue,
+			Value: &aggregationCumulativeTrue,
+		})
 	}
 
 	var aggregationCumulativeFalse AggregationCumulativeFalse = AggregationCumulativeFalse{}
 	if err := utils.UnmarshalJSON(data, &aggregationCumulativeFalse, "", true, nil); err == nil {
-		u.AggregationCumulativeFalse = &aggregationCumulativeFalse
-		u.Type = PipelineFunctionAggregationConfTypeAggregationCumulativeFalse
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PipelineFunctionAggregationConfTypeAggregationCumulativeFalse,
+			Value: &aggregationCumulativeFalse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregationConf", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregationConf", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(PipelineFunctionAggregationConfType)
+	switch best.Type {
+	case PipelineFunctionAggregationConfTypeAggregationCumulativeTrue:
+		u.AggregationCumulativeTrue = best.Value.(*AggregationCumulativeTrue)
+		return nil
+	case PipelineFunctionAggregationConfTypeAggregationCumulativeFalse:
+		u.AggregationCumulativeFalse = best.Value.(*AggregationCumulativeFalse)
 		return nil
 	}
 
@@ -433,7 +459,7 @@ func (p PipelineFunctionAggregation) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionAggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

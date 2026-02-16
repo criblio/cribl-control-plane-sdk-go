@@ -18,7 +18,7 @@ func (i ItemsTypeHealthCheckCollectMethodPostCollectRequestParams) MarshalJSON()
 }
 
 func (i *ItemsTypeHealthCheckCollectMethodPostCollectRequestParams) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

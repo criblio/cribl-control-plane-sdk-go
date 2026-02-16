@@ -183,17 +183,43 @@ func CreateFunctionConfSchemaOtlpMetricsOTLPMetricsBatchOTLPMetricsTrue(otlpMetr
 
 func (u *FunctionConfSchemaOtlpMetrics) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var otlpMetricsBatchOTLPMetricsFalse OTLPMetricsBatchOTLPMetricsFalse = OTLPMetricsBatchOTLPMetricsFalse{}
 	if err := utils.UnmarshalJSON(data, &otlpMetricsBatchOTLPMetricsFalse, "", true, nil); err == nil {
-		u.OTLPMetricsBatchOTLPMetricsFalse = &otlpMetricsBatchOTLPMetricsFalse
-		u.Type = FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsFalse
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsFalse,
+			Value: &otlpMetricsBatchOTLPMetricsFalse,
+		})
 	}
 
 	var otlpMetricsBatchOTLPMetricsTrue OTLPMetricsBatchOTLPMetricsTrue = OTLPMetricsBatchOTLPMetricsTrue{}
 	if err := utils.UnmarshalJSON(data, &otlpMetricsBatchOTLPMetricsTrue, "", true, nil); err == nil {
-		u.OTLPMetricsBatchOTLPMetricsTrue = &otlpMetricsBatchOTLPMetricsTrue
-		u.Type = FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsTrue
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsTrue,
+			Value: &otlpMetricsBatchOTLPMetricsTrue,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpMetrics", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpMetrics", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(FunctionConfSchemaOtlpMetricsType)
+	switch best.Type {
+	case FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsFalse:
+		u.OTLPMetricsBatchOTLPMetricsFalse = best.Value.(*OTLPMetricsBatchOTLPMetricsFalse)
+		return nil
+	case FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsTrue:
+		u.OTLPMetricsBatchOTLPMetricsTrue = best.Value.(*OTLPMetricsBatchOTLPMetricsTrue)
 		return nil
 	}
 

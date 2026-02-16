@@ -175,13 +175,15 @@ func (n *NumerifyFormatFix) GetFilterExpr() *string {
 type FunctionConfSchemaNumerifyType string
 
 const (
-	FunctionConfSchemaNumerifyTypeFix  FunctionConfSchemaNumerifyType = "fix"
-	FunctionConfSchemaNumerifyTypeNone FunctionConfSchemaNumerifyType = "none"
+	FunctionConfSchemaNumerifyTypeFix     FunctionConfSchemaNumerifyType = "fix"
+	FunctionConfSchemaNumerifyTypeNone    FunctionConfSchemaNumerifyType = "none"
+	FunctionConfSchemaNumerifyTypeUnknown FunctionConfSchemaNumerifyType = "UNKNOWN"
 )
 
 type FunctionConfSchemaNumerify struct {
 	NumerifyFormatFix  *NumerifyFormatFix  `queryParam:"inline" union:"member"`
 	NumerifyFormatNone *NumerifyFormatNone `queryParam:"inline" union:"member"`
+	UnknownRaw         json.RawMessage     `json:"-" union:"unknown"`
 
 	Type FunctionConfSchemaNumerifyType
 }
@@ -210,6 +212,21 @@ func CreateFunctionConfSchemaNumerifyNone(none NumerifyFormatNone) FunctionConfS
 	}
 }
 
+func CreateFunctionConfSchemaNumerifyUnknown(raw json.RawMessage) FunctionConfSchemaNumerify {
+	return FunctionConfSchemaNumerify{
+		UnknownRaw: raw,
+		Type:       FunctionConfSchemaNumerifyTypeUnknown,
+	}
+}
+
+func (u FunctionConfSchemaNumerify) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u FunctionConfSchemaNumerify) IsUnknown() bool {
+	return u.Type == FunctionConfSchemaNumerifyTypeUnknown
+}
+
 func (u *FunctionConfSchemaNumerify) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -218,7 +235,14 @@ func (u *FunctionConfSchemaNumerify) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FunctionConfSchemaNumerifyTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FunctionConfSchemaNumerifyTypeUnknown
+		return nil
 	}
 
 	switch dis.Format {
@@ -240,9 +264,12 @@ func (u *FunctionConfSchemaNumerify) UnmarshalJSON(data []byte) error {
 		u.NumerifyFormatNone = numerifyFormatNone
 		u.Type = FunctionConfSchemaNumerifyTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FunctionConfSchemaNumerifyTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaNumerify", string(data))
 }
 
 func (u FunctionConfSchemaNumerify) MarshalJSON() ([]byte, error) {
@@ -254,5 +281,8 @@ func (u FunctionConfSchemaNumerify) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.NumerifyFormatNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type FunctionConfSchemaNumerify: all fields are null")
 }

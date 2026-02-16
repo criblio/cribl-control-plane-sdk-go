@@ -51,7 +51,7 @@ func (s SplunkAuthenticationTokenSecretCollectRequestParam) MarshalJSON() ([]byt
 }
 
 func (s *SplunkAuthenticationTokenSecretCollectRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -82,7 +82,7 @@ func (s SplunkAuthenticationTokenSecretCollectRequestHeader) MarshalJSON() ([]by
 }
 
 func (s *SplunkAuthenticationTokenSecretCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -119,7 +119,7 @@ func (s SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff) MarshalJSON(
 }
 
 func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -198,7 +198,7 @@ func (s SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic) MarshalJSON()
 }
 
 func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -277,7 +277,7 @@ func (s SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) MarshalJSON() (
 }
 
 func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -345,12 +345,14 @@ const (
 	SplunkAuthenticationTokenSecretRetryRulesTypeNone    SplunkAuthenticationTokenSecretRetryRulesType = "none"
 	SplunkAuthenticationTokenSecretRetryRulesTypeStatic  SplunkAuthenticationTokenSecretRetryRulesType = "static"
 	SplunkAuthenticationTokenSecretRetryRulesTypeBackoff SplunkAuthenticationTokenSecretRetryRulesType = "backoff"
+	SplunkAuthenticationTokenSecretRetryRulesTypeUnknown SplunkAuthenticationTokenSecretRetryRulesType = "UNKNOWN"
 )
 
 type SplunkAuthenticationTokenSecretRetryRules struct {
 	SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone    *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic  *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type SplunkAuthenticationTokenSecretRetryRulesType
 }
@@ -391,6 +393,21 @@ func CreateSplunkAuthenticationTokenSecretRetryRulesBackoff(backoff SplunkAuthen
 	}
 }
 
+func CreateSplunkAuthenticationTokenSecretRetryRulesUnknown(raw json.RawMessage) SplunkAuthenticationTokenSecretRetryRules {
+	return SplunkAuthenticationTokenSecretRetryRules{
+		UnknownRaw: raw,
+		Type:       SplunkAuthenticationTokenSecretRetryRulesTypeUnknown,
+	}
+}
+
+func (u SplunkAuthenticationTokenSecretRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u SplunkAuthenticationTokenSecretRetryRules) IsUnknown() bool {
+	return u.Type == SplunkAuthenticationTokenSecretRetryRulesTypeUnknown
+}
+
 func (u *SplunkAuthenticationTokenSecretRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -399,7 +416,14 @@ func (u *SplunkAuthenticationTokenSecretRetryRules) UnmarshalJSON(data []byte) e
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationTokenSecretRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationTokenSecretRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -430,9 +454,12 @@ func (u *SplunkAuthenticationTokenSecretRetryRules) UnmarshalJSON(data []byte) e
 		u.SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff = splunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
 		u.Type = SplunkAuthenticationTokenSecretRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationTokenSecretRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SplunkAuthenticationTokenSecretRetryRules", string(data))
 }
 
 func (u SplunkAuthenticationTokenSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -448,6 +475,9 @@ func (u SplunkAuthenticationTokenSecretRetryRules) MarshalJSON() ([]byte, error)
 		return utils.MarshalJSON(u.SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type SplunkAuthenticationTokenSecretRetryRules: all fields are null")
 }
 
@@ -490,7 +520,7 @@ func (s SplunkAuthenticationTokenSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationTokenSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "tokenSecret", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -671,7 +701,7 @@ func (s SplunkAuthenticationTokenCollectRequestParam) MarshalJSON() ([]byte, err
 }
 
 func (s *SplunkAuthenticationTokenCollectRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -702,7 +732,7 @@ func (s SplunkAuthenticationTokenCollectRequestHeader) MarshalJSON() ([]byte, er
 }
 
 func (s *SplunkAuthenticationTokenCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -739,7 +769,7 @@ func (s SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff) MarshalJSON() ([]b
 }
 
 func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -818,7 +848,7 @@ func (s SplunkAuthenticationTokenSplunkRetryRulesTypeStatic) MarshalJSON() ([]by
 }
 
 func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -897,7 +927,7 @@ func (s SplunkAuthenticationTokenSplunkRetryRulesTypeNone) MarshalJSON() ([]byte
 }
 
 func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -965,12 +995,14 @@ const (
 	SplunkAuthenticationTokenRetryRulesTypeNone    SplunkAuthenticationTokenRetryRulesType = "none"
 	SplunkAuthenticationTokenRetryRulesTypeStatic  SplunkAuthenticationTokenRetryRulesType = "static"
 	SplunkAuthenticationTokenRetryRulesTypeBackoff SplunkAuthenticationTokenRetryRulesType = "backoff"
+	SplunkAuthenticationTokenRetryRulesTypeUnknown SplunkAuthenticationTokenRetryRulesType = "UNKNOWN"
 )
 
 type SplunkAuthenticationTokenRetryRules struct {
 	SplunkAuthenticationTokenSplunkRetryRulesTypeNone    *SplunkAuthenticationTokenSplunkRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	SplunkAuthenticationTokenSplunkRetryRulesTypeStatic  *SplunkAuthenticationTokenSplunkRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff *SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                           json.RawMessage                                       `json:"-" union:"unknown"`
 
 	Type SplunkAuthenticationTokenRetryRulesType
 }
@@ -1011,6 +1043,21 @@ func CreateSplunkAuthenticationTokenRetryRulesBackoff(backoff SplunkAuthenticati
 	}
 }
 
+func CreateSplunkAuthenticationTokenRetryRulesUnknown(raw json.RawMessage) SplunkAuthenticationTokenRetryRules {
+	return SplunkAuthenticationTokenRetryRules{
+		UnknownRaw: raw,
+		Type:       SplunkAuthenticationTokenRetryRulesTypeUnknown,
+	}
+}
+
+func (u SplunkAuthenticationTokenRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u SplunkAuthenticationTokenRetryRules) IsUnknown() bool {
+	return u.Type == SplunkAuthenticationTokenRetryRulesTypeUnknown
+}
+
 func (u *SplunkAuthenticationTokenRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1019,7 +1066,14 @@ func (u *SplunkAuthenticationTokenRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationTokenRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationTokenRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -1050,9 +1104,12 @@ func (u *SplunkAuthenticationTokenRetryRules) UnmarshalJSON(data []byte) error {
 		u.SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff = splunkAuthenticationTokenSplunkRetryRulesTypeBackoff
 		u.Type = SplunkAuthenticationTokenRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationTokenRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SplunkAuthenticationTokenRetryRules", string(data))
 }
 
 func (u SplunkAuthenticationTokenRetryRules) MarshalJSON() ([]byte, error) {
@@ -1068,6 +1125,9 @@ func (u SplunkAuthenticationTokenRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type SplunkAuthenticationTokenRetryRules: all fields are null")
 }
 
@@ -1109,7 +1169,7 @@ func (s SplunkAuthenticationToken) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationToken) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "token", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1290,7 +1350,7 @@ func (s SplunkAuthenticationBasicSecretCollectRequestParam) MarshalJSON() ([]byt
 }
 
 func (s *SplunkAuthenticationBasicSecretCollectRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1321,7 +1381,7 @@ func (s SplunkAuthenticationBasicSecretCollectRequestHeader) MarshalJSON() ([]by
 }
 
 func (s *SplunkAuthenticationBasicSecretCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1358,7 +1418,7 @@ func (s SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff) MarshalJSON(
 }
 
 func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1437,7 +1497,7 @@ func (s SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic) MarshalJSON()
 }
 
 func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1516,7 +1576,7 @@ func (s SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) MarshalJSON() (
 }
 
 func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1584,12 +1644,14 @@ const (
 	SplunkAuthenticationBasicSecretRetryRulesTypeNone    SplunkAuthenticationBasicSecretRetryRulesType = "none"
 	SplunkAuthenticationBasicSecretRetryRulesTypeStatic  SplunkAuthenticationBasicSecretRetryRulesType = "static"
 	SplunkAuthenticationBasicSecretRetryRulesTypeBackoff SplunkAuthenticationBasicSecretRetryRulesType = "backoff"
+	SplunkAuthenticationBasicSecretRetryRulesTypeUnknown SplunkAuthenticationBasicSecretRetryRulesType = "UNKNOWN"
 )
 
 type SplunkAuthenticationBasicSecretRetryRules struct {
 	SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone    *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic  *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type SplunkAuthenticationBasicSecretRetryRulesType
 }
@@ -1630,6 +1692,21 @@ func CreateSplunkAuthenticationBasicSecretRetryRulesBackoff(backoff SplunkAuthen
 	}
 }
 
+func CreateSplunkAuthenticationBasicSecretRetryRulesUnknown(raw json.RawMessage) SplunkAuthenticationBasicSecretRetryRules {
+	return SplunkAuthenticationBasicSecretRetryRules{
+		UnknownRaw: raw,
+		Type:       SplunkAuthenticationBasicSecretRetryRulesTypeUnknown,
+	}
+}
+
+func (u SplunkAuthenticationBasicSecretRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u SplunkAuthenticationBasicSecretRetryRules) IsUnknown() bool {
+	return u.Type == SplunkAuthenticationBasicSecretRetryRulesTypeUnknown
+}
+
 func (u *SplunkAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1638,7 +1715,14 @@ func (u *SplunkAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) e
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationBasicSecretRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationBasicSecretRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -1669,9 +1753,12 @@ func (u *SplunkAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) e
 		u.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff = splunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
 		u.Type = SplunkAuthenticationBasicSecretRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationBasicSecretRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SplunkAuthenticationBasicSecretRetryRules", string(data))
 }
 
 func (u SplunkAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -1687,6 +1774,9 @@ func (u SplunkAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error)
 		return utils.MarshalJSON(u.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type SplunkAuthenticationBasicSecretRetryRules: all fields are null")
 }
 
@@ -1729,7 +1819,7 @@ func (s SplunkAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationBasicSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "credentialsSecret", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1910,7 +2000,7 @@ func (s SplunkAuthenticationBasicCollectRequestParam) MarshalJSON() ([]byte, err
 }
 
 func (s *SplunkAuthenticationBasicCollectRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1941,7 +2031,7 @@ func (s SplunkAuthenticationBasicCollectRequestHeader) MarshalJSON() ([]byte, er
 }
 
 func (s *SplunkAuthenticationBasicCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1978,7 +2068,7 @@ func (s SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff) MarshalJSON() ([]b
 }
 
 func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2057,7 +2147,7 @@ func (s SplunkAuthenticationBasicSplunkRetryRulesTypeStatic) MarshalJSON() ([]by
 }
 
 func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2136,7 +2226,7 @@ func (s SplunkAuthenticationBasicSplunkRetryRulesTypeNone) MarshalJSON() ([]byte
 }
 
 func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2204,12 +2294,14 @@ const (
 	SplunkAuthenticationBasicRetryRulesTypeNone    SplunkAuthenticationBasicRetryRulesType = "none"
 	SplunkAuthenticationBasicRetryRulesTypeStatic  SplunkAuthenticationBasicRetryRulesType = "static"
 	SplunkAuthenticationBasicRetryRulesTypeBackoff SplunkAuthenticationBasicRetryRulesType = "backoff"
+	SplunkAuthenticationBasicRetryRulesTypeUnknown SplunkAuthenticationBasicRetryRulesType = "UNKNOWN"
 )
 
 type SplunkAuthenticationBasicRetryRules struct {
 	SplunkAuthenticationBasicSplunkRetryRulesTypeNone    *SplunkAuthenticationBasicSplunkRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	SplunkAuthenticationBasicSplunkRetryRulesTypeStatic  *SplunkAuthenticationBasicSplunkRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff *SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                           json.RawMessage                                       `json:"-" union:"unknown"`
 
 	Type SplunkAuthenticationBasicRetryRulesType
 }
@@ -2250,6 +2342,21 @@ func CreateSplunkAuthenticationBasicRetryRulesBackoff(backoff SplunkAuthenticati
 	}
 }
 
+func CreateSplunkAuthenticationBasicRetryRulesUnknown(raw json.RawMessage) SplunkAuthenticationBasicRetryRules {
+	return SplunkAuthenticationBasicRetryRules{
+		UnknownRaw: raw,
+		Type:       SplunkAuthenticationBasicRetryRulesTypeUnknown,
+	}
+}
+
+func (u SplunkAuthenticationBasicRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u SplunkAuthenticationBasicRetryRules) IsUnknown() bool {
+	return u.Type == SplunkAuthenticationBasicRetryRulesTypeUnknown
+}
+
 func (u *SplunkAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -2258,7 +2365,14 @@ func (u *SplunkAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationBasicRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationBasicRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -2289,9 +2403,12 @@ func (u *SplunkAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
 		u.SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff = splunkAuthenticationBasicSplunkRetryRulesTypeBackoff
 		u.Type = SplunkAuthenticationBasicRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationBasicRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SplunkAuthenticationBasicRetryRules", string(data))
 }
 
 func (u SplunkAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
@@ -2307,6 +2424,9 @@ func (u SplunkAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type SplunkAuthenticationBasicRetryRules: all fields are null")
 }
 
@@ -2351,7 +2471,7 @@ func (s SplunkAuthenticationBasic) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationBasic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "username", "password", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2539,7 +2659,7 @@ func (s SplunkAuthenticationNoneCollectRequestParam) MarshalJSON() ([]byte, erro
 }
 
 func (s *SplunkAuthenticationNoneCollectRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2570,7 +2690,7 @@ func (s SplunkAuthenticationNoneCollectRequestHeader) MarshalJSON() ([]byte, err
 }
 
 func (s *SplunkAuthenticationNoneCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2607,7 +2727,7 @@ func (s SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff) MarshalJSON() ([]by
 }
 
 func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2686,7 +2806,7 @@ func (s SplunkAuthenticationNoneSplunkRetryRulesTypeStatic) MarshalJSON() ([]byt
 }
 
 func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2765,7 +2885,7 @@ func (s SplunkAuthenticationNoneSplunkRetryRulesTypeNone) MarshalJSON() ([]byte,
 }
 
 func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2833,12 +2953,14 @@ const (
 	SplunkAuthenticationNoneRetryRulesTypeNone    SplunkAuthenticationNoneRetryRulesType = "none"
 	SplunkAuthenticationNoneRetryRulesTypeStatic  SplunkAuthenticationNoneRetryRulesType = "static"
 	SplunkAuthenticationNoneRetryRulesTypeBackoff SplunkAuthenticationNoneRetryRulesType = "backoff"
+	SplunkAuthenticationNoneRetryRulesTypeUnknown SplunkAuthenticationNoneRetryRulesType = "UNKNOWN"
 )
 
 type SplunkAuthenticationNoneRetryRules struct {
 	SplunkAuthenticationNoneSplunkRetryRulesTypeNone    *SplunkAuthenticationNoneSplunkRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	SplunkAuthenticationNoneSplunkRetryRulesTypeStatic  *SplunkAuthenticationNoneSplunkRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff *SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                          json.RawMessage                                      `json:"-" union:"unknown"`
 
 	Type SplunkAuthenticationNoneRetryRulesType
 }
@@ -2879,6 +3001,21 @@ func CreateSplunkAuthenticationNoneRetryRulesBackoff(backoff SplunkAuthenticatio
 	}
 }
 
+func CreateSplunkAuthenticationNoneRetryRulesUnknown(raw json.RawMessage) SplunkAuthenticationNoneRetryRules {
+	return SplunkAuthenticationNoneRetryRules{
+		UnknownRaw: raw,
+		Type:       SplunkAuthenticationNoneRetryRulesTypeUnknown,
+	}
+}
+
+func (u SplunkAuthenticationNoneRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u SplunkAuthenticationNoneRetryRules) IsUnknown() bool {
+	return u.Type == SplunkAuthenticationNoneRetryRulesTypeUnknown
+}
+
 func (u *SplunkAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -2887,7 +3024,14 @@ func (u *SplunkAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationNoneRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationNoneRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -2918,9 +3062,12 @@ func (u *SplunkAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
 		u.SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff = splunkAuthenticationNoneSplunkRetryRulesTypeBackoff
 		u.Type = SplunkAuthenticationNoneRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkAuthenticationNoneRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SplunkAuthenticationNoneRetryRules", string(data))
 }
 
 func (u SplunkAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
@@ -2936,6 +3083,9 @@ func (u SplunkAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type SplunkAuthenticationNoneRetryRules: all fields are null")
 }
 
@@ -2976,7 +3126,7 @@ func (s SplunkAuthenticationNone) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3116,6 +3266,7 @@ const (
 	SplunkCollectorConfTypeBasicSecret SplunkCollectorConfType = "basicSecret"
 	SplunkCollectorConfTypeToken       SplunkCollectorConfType = "token"
 	SplunkCollectorConfTypeTokenSecret SplunkCollectorConfType = "tokenSecret"
+	SplunkCollectorConfTypeUnknown     SplunkCollectorConfType = "UNKNOWN"
 )
 
 type SplunkCollectorConf struct {
@@ -3124,6 +3275,7 @@ type SplunkCollectorConf struct {
 	SplunkAuthenticationBasicSecret *SplunkAuthenticationBasicSecret `queryParam:"inline" union:"member"`
 	SplunkAuthenticationToken       *SplunkAuthenticationToken       `queryParam:"inline" union:"member"`
 	SplunkAuthenticationTokenSecret *SplunkAuthenticationTokenSecret `queryParam:"inline" union:"member"`
+	UnknownRaw                      json.RawMessage                  `json:"-" union:"unknown"`
 
 	Type SplunkCollectorConfType
 }
@@ -3188,6 +3340,21 @@ func CreateSplunkCollectorConfTokenSecret(tokenSecret SplunkAuthenticationTokenS
 	}
 }
 
+func CreateSplunkCollectorConfUnknown(raw json.RawMessage) SplunkCollectorConf {
+	return SplunkCollectorConf{
+		UnknownRaw: raw,
+		Type:       SplunkCollectorConfTypeUnknown,
+	}
+}
+
+func (u SplunkCollectorConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u SplunkCollectorConf) IsUnknown() bool {
+	return u.Type == SplunkCollectorConfTypeUnknown
+}
+
 func (u *SplunkCollectorConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -3196,7 +3363,14 @@ func (u *SplunkCollectorConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkCollectorConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkCollectorConfTypeUnknown
+		return nil
 	}
 
 	switch dis.Authentication {
@@ -3245,9 +3419,12 @@ func (u *SplunkCollectorConf) UnmarshalJSON(data []byte) error {
 		u.SplunkAuthenticationTokenSecret = splunkAuthenticationTokenSecret
 		u.Type = SplunkCollectorConfTypeTokenSecret
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = SplunkCollectorConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SplunkCollectorConf", string(data))
 }
 
 func (u SplunkCollectorConf) MarshalJSON() ([]byte, error) {
@@ -3271,5 +3448,8 @@ func (u SplunkCollectorConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.SplunkAuthenticationTokenSecret, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type SplunkCollectorConf: all fields are null")
 }

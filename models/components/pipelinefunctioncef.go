@@ -53,7 +53,7 @@ func (p PipelineFunctionCef) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionCef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -129,7 +129,7 @@ func (p PipelineFunctionCefInput) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionCefInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

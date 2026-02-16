@@ -72,7 +72,7 @@ func (l LookupDbLookupFalseMatchModeExactInField) MarshalJSON() ([]byte, error) 
 }
 
 func (l *LookupDbLookupFalseMatchModeExactInField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"eventField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -106,7 +106,7 @@ func (l LookupDbLookupFalseMatchModeExactOutField) MarshalJSON() ([]byte, error)
 }
 
 func (l *LookupDbLookupFalseMatchModeExactOutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"lookupField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -157,7 +157,7 @@ func (l LookupDbLookupFalseMatchModeExact) MarshalJSON() ([]byte, error) {
 }
 
 func (l *LookupDbLookupFalseMatchModeExact) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"file"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -282,7 +282,7 @@ func (l LookupDbLookupFalseMatchModeCidrInField) MarshalJSON() ([]byte, error) {
 }
 
 func (l *LookupDbLookupFalseMatchModeCidrInField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"eventField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -316,7 +316,7 @@ func (l LookupDbLookupFalseMatchModeCidrOutField) MarshalJSON() ([]byte, error) 
 }
 
 func (l *LookupDbLookupFalseMatchModeCidrOutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"lookupField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -367,7 +367,7 @@ func (l LookupDbLookupFalseMatchModeCidr) MarshalJSON() ([]byte, error) {
 }
 
 func (l *LookupDbLookupFalseMatchModeCidr) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"file"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -432,13 +432,15 @@ func (l *LookupDbLookupFalseMatchModeCidr) GetAddToEvent() *bool {
 type LookupDbLookupFalseType string
 
 const (
-	LookupDbLookupFalseTypeCidr  LookupDbLookupFalseType = "cidr"
-	LookupDbLookupFalseTypeExact LookupDbLookupFalseType = "exact"
+	LookupDbLookupFalseTypeCidr    LookupDbLookupFalseType = "cidr"
+	LookupDbLookupFalseTypeExact   LookupDbLookupFalseType = "exact"
+	LookupDbLookupFalseTypeUnknown LookupDbLookupFalseType = "UNKNOWN"
 )
 
 type LookupDbLookupFalse struct {
 	LookupDbLookupFalseMatchModeCidr  *LookupDbLookupFalseMatchModeCidr  `queryParam:"inline" union:"member"`
 	LookupDbLookupFalseMatchModeExact *LookupDbLookupFalseMatchModeExact `queryParam:"inline" union:"member"`
+	UnknownRaw                        json.RawMessage                    `json:"-" union:"unknown"`
 
 	Type LookupDbLookupFalseType
 }
@@ -467,6 +469,21 @@ func CreateLookupDbLookupFalseExact(exact LookupDbLookupFalseMatchModeExact) Loo
 	}
 }
 
+func CreateLookupDbLookupFalseUnknown(raw json.RawMessage) LookupDbLookupFalse {
+	return LookupDbLookupFalse{
+		UnknownRaw: raw,
+		Type:       LookupDbLookupFalseTypeUnknown,
+	}
+}
+
+func (u LookupDbLookupFalse) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u LookupDbLookupFalse) IsUnknown() bool {
+	return u.Type == LookupDbLookupFalseTypeUnknown
+}
+
 func (u *LookupDbLookupFalse) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -475,7 +492,14 @@ func (u *LookupDbLookupFalse) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = LookupDbLookupFalseTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = LookupDbLookupFalseTypeUnknown
+		return nil
 	}
 
 	switch dis.MatchMode {
@@ -497,9 +521,12 @@ func (u *LookupDbLookupFalse) UnmarshalJSON(data []byte) error {
 		u.LookupDbLookupFalseMatchModeExact = lookupDbLookupFalseMatchModeExact
 		u.Type = LookupDbLookupFalseTypeExact
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = LookupDbLookupFalseTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for LookupDbLookupFalse", string(data))
 }
 
 func (u LookupDbLookupFalse) MarshalJSON() ([]byte, error) {
@@ -511,6 +538,9 @@ func (u LookupDbLookupFalse) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.LookupDbLookupFalseMatchModeExact, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type LookupDbLookupFalse: all fields are null")
 }
 
@@ -526,7 +556,7 @@ func (l LookupDbLookupTrueInField) MarshalJSON() ([]byte, error) {
 }
 
 func (l *LookupDbLookupTrueInField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"eventField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -560,7 +590,7 @@ func (l LookupDbLookupTrueOutField) MarshalJSON() ([]byte, error) {
 }
 
 func (l *LookupDbLookupTrueOutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"lookupField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -605,7 +635,7 @@ func (l LookupDbLookupTrue) MarshalJSON() ([]byte, error) {
 }
 
 func (l *LookupDbLookupTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"file"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -680,17 +710,43 @@ func CreatePipelineFunctionLookupConfLookupDbLookupFalse(lookupDbLookupFalse Loo
 
 func (u *PipelineFunctionLookupConf) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var lookupDbLookupTrue LookupDbLookupTrue = LookupDbLookupTrue{}
 	if err := utils.UnmarshalJSON(data, &lookupDbLookupTrue, "", true, nil); err == nil {
-		u.LookupDbLookupTrue = &lookupDbLookupTrue
-		u.Type = PipelineFunctionLookupConfTypeLookupDbLookupTrue
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PipelineFunctionLookupConfTypeLookupDbLookupTrue,
+			Value: &lookupDbLookupTrue,
+		})
 	}
 
 	var lookupDbLookupFalse LookupDbLookupFalse = LookupDbLookupFalse{}
 	if err := utils.UnmarshalJSON(data, &lookupDbLookupFalse, "", true, nil); err == nil {
-		u.LookupDbLookupFalse = &lookupDbLookupFalse
-		u.Type = PipelineFunctionLookupConfTypeLookupDbLookupFalse
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PipelineFunctionLookupConfTypeLookupDbLookupFalse,
+			Value: &lookupDbLookupFalse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionLookupConf", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionLookupConf", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(PipelineFunctionLookupConfType)
+	switch best.Type {
+	case PipelineFunctionLookupConfTypeLookupDbLookupTrue:
+		u.LookupDbLookupTrue = best.Value.(*LookupDbLookupTrue)
+		return nil
+	case PipelineFunctionLookupConfTypeLookupDbLookupFalse:
+		u.LookupDbLookupFalse = best.Value.(*LookupDbLookupFalse)
 		return nil
 	}
 
@@ -730,7 +786,7 @@ func (p PipelineFunctionLookup) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionLookup) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

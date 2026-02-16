@@ -82,7 +82,7 @@ func (s SerializeTypeCsv) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SerializeTypeCsv) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -173,7 +173,7 @@ func (s SerializeTypeDelim) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SerializeTypeDelim) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -290,7 +290,7 @@ func (s SerializeTypeKvp) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SerializeTypeKvp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -348,15 +348,17 @@ func (s *SerializeTypeKvp) GetDstField() *string {
 type PipelineFunctionSerializeConfType string
 
 const (
-	PipelineFunctionSerializeConfTypeKvp   PipelineFunctionSerializeConfType = "kvp"
-	PipelineFunctionSerializeConfTypeDelim PipelineFunctionSerializeConfType = "delim"
-	PipelineFunctionSerializeConfTypeCsv   PipelineFunctionSerializeConfType = "csv"
+	PipelineFunctionSerializeConfTypeKvp     PipelineFunctionSerializeConfType = "kvp"
+	PipelineFunctionSerializeConfTypeDelim   PipelineFunctionSerializeConfType = "delim"
+	PipelineFunctionSerializeConfTypeCsv     PipelineFunctionSerializeConfType = "csv"
+	PipelineFunctionSerializeConfTypeUnknown PipelineFunctionSerializeConfType = "UNKNOWN"
 )
 
 type PipelineFunctionSerializeConf struct {
 	SerializeTypeKvp   *SerializeTypeKvp   `queryParam:"inline" union:"member"`
 	SerializeTypeDelim *SerializeTypeDelim `queryParam:"inline" union:"member"`
 	SerializeTypeCsv   *SerializeTypeCsv   `queryParam:"inline" union:"member"`
+	UnknownRaw         json.RawMessage     `json:"-" union:"unknown"`
 
 	Type PipelineFunctionSerializeConfType
 }
@@ -397,6 +399,21 @@ func CreatePipelineFunctionSerializeConfCsv(csv SerializeTypeCsv) PipelineFuncti
 	}
 }
 
+func CreatePipelineFunctionSerializeConfUnknown(raw json.RawMessage) PipelineFunctionSerializeConf {
+	return PipelineFunctionSerializeConf{
+		UnknownRaw: raw,
+		Type:       PipelineFunctionSerializeConfTypeUnknown,
+	}
+}
+
+func (u PipelineFunctionSerializeConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PipelineFunctionSerializeConf) IsUnknown() bool {
+	return u.Type == PipelineFunctionSerializeConfTypeUnknown
+}
+
 func (u *PipelineFunctionSerializeConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -405,7 +422,14 @@ func (u *PipelineFunctionSerializeConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionSerializeConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionSerializeConfTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -436,9 +460,12 @@ func (u *PipelineFunctionSerializeConf) UnmarshalJSON(data []byte) error {
 		u.SerializeTypeCsv = serializeTypeCsv
 		u.Type = PipelineFunctionSerializeConfTypeCsv
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionSerializeConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionSerializeConf", string(data))
 }
 
 func (u PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
@@ -454,6 +481,9 @@ func (u PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.SerializeTypeCsv, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type PipelineFunctionSerializeConf: all fields are null")
 }
 
@@ -478,7 +508,7 @@ func (p PipelineFunctionSerialize) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSerialize) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
