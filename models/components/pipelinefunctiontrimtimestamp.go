@@ -53,7 +53,7 @@ func (p PipelineFunctionTrimTimestamp) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionTrimTimestamp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -45,7 +45,7 @@ func (p PipelineFunctionGrokConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionGrokConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"pattern"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -93,7 +93,7 @@ func (p PipelineFunctionGrok) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionGrok) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

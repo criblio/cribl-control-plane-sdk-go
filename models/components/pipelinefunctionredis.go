@@ -77,7 +77,7 @@ func (r RedisAuthTypeTextSecretCommand) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisAuthTypeTextSecretCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -156,7 +156,7 @@ func (r RedisAuthTypeTextSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisAuthTypeTextSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"textSecret", "commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -248,7 +248,7 @@ func (r RedisAuthTypeCredentialsSecretCommand) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisAuthTypeCredentialsSecretCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -327,7 +327,7 @@ func (r RedisAuthTypeCredentialsSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisAuthTypeCredentialsSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"credentialsSecret", "commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -419,7 +419,7 @@ func (r RedisAuthTypeManualCommand) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisAuthTypeManualCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -498,7 +498,7 @@ func (r RedisAuthTypeManual) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisAuthTypeManual) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"password", "commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -597,7 +597,7 @@ func (r RedisAuthTypeNoneCommand) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisAuthTypeNoneCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -674,7 +674,7 @@ func (r RedisAuthTypeNone) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisAuthTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -754,7 +754,7 @@ func (r RedisDeploymentTypeSentinelTLSFalseRootNode) MarshalJSON() ([]byte, erro
 }
 
 func (r *RedisDeploymentTypeSentinelTLSFalseRootNode) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -790,7 +790,7 @@ func (r RedisDeploymentTypeSentinelTLSFalseCommand) MarshalJSON() ([]byte, error
 }
 
 func (r *RedisDeploymentTypeSentinelTLSFalseCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -873,7 +873,7 @@ func (r RedisDeploymentTypeSentinelTLSFalse) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisDeploymentTypeSentinelTLSFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"masterName", "commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -974,7 +974,7 @@ func (r RedisDeploymentTypeSentinelTLSTrueRootNode) MarshalJSON() ([]byte, error
 }
 
 func (r *RedisDeploymentTypeSentinelTLSTrueRootNode) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1010,7 +1010,7 @@ func (r RedisDeploymentTypeSentinelTLSTrueCommand) MarshalJSON() ([]byte, error)
 }
 
 func (r *RedisDeploymentTypeSentinelTLSTrueCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1094,7 +1094,7 @@ func (r RedisDeploymentTypeSentinelTLSTrue) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisDeploymentTypeSentinelTLSTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"masterName", "commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1197,17 +1197,43 @@ func CreateRedisDeploymentTypeSentinelRedisDeploymentTypeSentinelTLSFalse(redisD
 
 func (u *RedisDeploymentTypeSentinel) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var redisDeploymentTypeSentinelTLSTrue RedisDeploymentTypeSentinelTLSTrue = RedisDeploymentTypeSentinelTLSTrue{}
 	if err := utils.UnmarshalJSON(data, &redisDeploymentTypeSentinelTLSTrue, "", true, nil); err == nil {
-		u.RedisDeploymentTypeSentinelTLSTrue = &redisDeploymentTypeSentinelTLSTrue
-		u.Type = RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSTrue
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSTrue,
+			Value: &redisDeploymentTypeSentinelTLSTrue,
+		})
 	}
 
 	var redisDeploymentTypeSentinelTLSFalse RedisDeploymentTypeSentinelTLSFalse = RedisDeploymentTypeSentinelTLSFalse{}
 	if err := utils.UnmarshalJSON(data, &redisDeploymentTypeSentinelTLSFalse, "", true, nil); err == nil {
-		u.RedisDeploymentTypeSentinelTLSFalse = &redisDeploymentTypeSentinelTLSFalse
-		u.Type = RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSFalse
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSFalse,
+			Value: &redisDeploymentTypeSentinelTLSFalse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeSentinel", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeSentinel", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RedisDeploymentTypeSentinelType)
+	switch best.Type {
+	case RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSTrue:
+		u.RedisDeploymentTypeSentinelTLSTrue = best.Value.(*RedisDeploymentTypeSentinelTLSTrue)
+		return nil
+	case RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSFalse:
+		u.RedisDeploymentTypeSentinelTLSFalse = best.Value.(*RedisDeploymentTypeSentinelTLSFalse)
 		return nil
 	}
 
@@ -1265,7 +1291,7 @@ func (r RedisDeploymentTypeClusterTLSFalseRootNode) MarshalJSON() ([]byte, error
 }
 
 func (r *RedisDeploymentTypeClusterTLSFalseRootNode) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1328,7 +1354,7 @@ func (r RedisDeploymentTypeClusterTLSFalseCommand) MarshalJSON() ([]byte, error)
 }
 
 func (r *RedisDeploymentTypeClusterTLSFalseCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1412,7 +1438,7 @@ func (r RedisDeploymentTypeClusterTLSFalse) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisDeploymentTypeClusterTLSFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1513,7 +1539,7 @@ func (r RedisDeploymentTypeClusterTLSTrueRootNode) MarshalJSON() ([]byte, error)
 }
 
 func (r *RedisDeploymentTypeClusterTLSTrueRootNode) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1576,7 +1602,7 @@ func (r RedisDeploymentTypeClusterTLSTrueCommand) MarshalJSON() ([]byte, error) 
 }
 
 func (r *RedisDeploymentTypeClusterTLSTrueCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1661,7 +1687,7 @@ func (r RedisDeploymentTypeClusterTLSTrue) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisDeploymentTypeClusterTLSTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1764,17 +1790,43 @@ func CreateRedisDeploymentTypeClusterRedisDeploymentTypeClusterTLSFalse(redisDep
 
 func (u *RedisDeploymentTypeCluster) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var redisDeploymentTypeClusterTLSTrue RedisDeploymentTypeClusterTLSTrue = RedisDeploymentTypeClusterTLSTrue{}
 	if err := utils.UnmarshalJSON(data, &redisDeploymentTypeClusterTLSTrue, "", true, nil); err == nil {
-		u.RedisDeploymentTypeClusterTLSTrue = &redisDeploymentTypeClusterTLSTrue
-		u.Type = RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSTrue
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSTrue,
+			Value: &redisDeploymentTypeClusterTLSTrue,
+		})
 	}
 
 	var redisDeploymentTypeClusterTLSFalse RedisDeploymentTypeClusterTLSFalse = RedisDeploymentTypeClusterTLSFalse{}
 	if err := utils.UnmarshalJSON(data, &redisDeploymentTypeClusterTLSFalse, "", true, nil); err == nil {
-		u.RedisDeploymentTypeClusterTLSFalse = &redisDeploymentTypeClusterTLSFalse
-		u.Type = RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSFalse
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSFalse,
+			Value: &redisDeploymentTypeClusterTLSFalse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeCluster", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeCluster", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RedisDeploymentTypeClusterType)
+	switch best.Type {
+	case RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSTrue:
+		u.RedisDeploymentTypeClusterTLSTrue = best.Value.(*RedisDeploymentTypeClusterTLSTrue)
+		return nil
+	case RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSFalse:
+		u.RedisDeploymentTypeClusterTLSFalse = best.Value.(*RedisDeploymentTypeClusterTLSFalse)
 		return nil
 	}
 
@@ -1931,7 +1983,7 @@ func (r RedisDeploymentTypeStandaloneCommand) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisDeploymentTypeStandaloneCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2012,7 +2064,7 @@ func (r RedisDeploymentTypeStandalone) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RedisDeploymentTypeStandalone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"url", "commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2074,6 +2126,7 @@ const (
 	PipelineFunctionRedisConfTypeManual            PipelineFunctionRedisConfType = "manual"
 	PipelineFunctionRedisConfTypeCredentialsSecret PipelineFunctionRedisConfType = "credentialsSecret"
 	PipelineFunctionRedisConfTypeTextSecret        PipelineFunctionRedisConfType = "textSecret"
+	PipelineFunctionRedisConfTypeUnknown           PipelineFunctionRedisConfType = "UNKNOWN"
 )
 
 type PipelineFunctionRedisConf struct {
@@ -2084,6 +2137,7 @@ type PipelineFunctionRedisConf struct {
 	RedisAuthTypeManual            *RedisAuthTypeManual            `queryParam:"inline" union:"member"`
 	RedisAuthTypeCredentialsSecret *RedisAuthTypeCredentialsSecret `queryParam:"inline" union:"member"`
 	RedisAuthTypeTextSecret        *RedisAuthTypeTextSecret        `queryParam:"inline" union:"member"`
+	UnknownRaw                     json.RawMessage                 `json:"-" union:"unknown"`
 
 	Type PipelineFunctionRedisConfType
 }
@@ -2136,6 +2190,21 @@ func CreatePipelineFunctionRedisConfTextSecret(textSecret RedisAuthTypeTextSecre
 	}
 }
 
+func CreatePipelineFunctionRedisConfUnknown(raw json.RawMessage) PipelineFunctionRedisConf {
+	return PipelineFunctionRedisConf{
+		UnknownRaw: raw,
+		Type:       PipelineFunctionRedisConfTypeUnknown,
+	}
+}
+
+func (u PipelineFunctionRedisConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PipelineFunctionRedisConf) IsUnknown() bool {
+	return u.Type == PipelineFunctionRedisConfTypeUnknown
+}
+
 func (u *PipelineFunctionRedisConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -2144,7 +2213,14 @@ func (u *PipelineFunctionRedisConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionRedisConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionRedisConfTypeUnknown
+		return nil
 	}
 
 	switch dis.AuthType {
@@ -2184,9 +2260,12 @@ func (u *PipelineFunctionRedisConf) UnmarshalJSON(data []byte) error {
 		u.RedisAuthTypeTextSecret = redisAuthTypeTextSecret
 		u.Type = PipelineFunctionRedisConfTypeTextSecret
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionRedisConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionRedisConf", string(data))
 }
 
 func (u PipelineFunctionRedisConf) MarshalJSON() ([]byte, error) {
@@ -2218,6 +2297,9 @@ func (u PipelineFunctionRedisConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RedisAuthTypeTextSecret, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type PipelineFunctionRedisConf: all fields are null")
 }
 
@@ -2242,7 +2324,7 @@ func (p PipelineFunctionRedis) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionRedis) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

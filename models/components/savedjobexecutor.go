@@ -33,7 +33,7 @@ func (s SavedJobExecutor) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SavedJobExecutor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "executor"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil

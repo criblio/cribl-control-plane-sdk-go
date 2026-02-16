@@ -77,6 +77,7 @@ const (
 	FunctionResponseTypeUnroll                    FunctionResponseType = "unroll"
 	FunctionResponseTypeWindow                    FunctionResponseType = "window"
 	FunctionResponseTypeXMLUnroll                 FunctionResponseType = "xml_unroll"
+	FunctionResponseTypeUnknown                   FunctionResponseType = "UNKNOWN"
 )
 
 type FunctionResponse struct {
@@ -145,6 +146,7 @@ type FunctionResponse struct {
 	FunctionUnroll                    *FunctionUnroll                    `queryParam:"inline" union:"member"`
 	FunctionWindow                    *FunctionWindow                    `queryParam:"inline" union:"member"`
 	FunctionXMLUnroll                 *FunctionXMLUnroll                 `queryParam:"inline" union:"member"`
+	UnknownRaw                        json.RawMessage                    `json:"-" union:"unknown"`
 
 	Type FunctionResponseType
 }
@@ -929,6 +931,21 @@ func CreateFunctionResponseXMLUnroll(xmlUnroll FunctionXMLUnroll) FunctionRespon
 	}
 }
 
+func CreateFunctionResponseUnknown(raw json.RawMessage) FunctionResponse {
+	return FunctionResponse{
+		UnknownRaw: raw,
+		Type:       FunctionResponseTypeUnknown,
+	}
+}
+
+func (u FunctionResponse) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u FunctionResponse) IsUnknown() bool {
+	return u.Type == FunctionResponseTypeUnknown
+}
+
 func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -937,7 +954,14 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FunctionResponseTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FunctionResponseTypeUnknown
+		return nil
 	}
 
 	switch dis.ID {
@@ -1526,9 +1550,12 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 		u.FunctionXMLUnroll = functionXMLUnroll
 		u.Type = FunctionResponseTypeXMLUnroll
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FunctionResponseTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionResponse", string(data))
 }
 
 func (u FunctionResponse) MarshalJSON() ([]byte, error) {
@@ -1792,5 +1819,8 @@ func (u FunctionResponse) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.FunctionXMLUnroll, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type FunctionResponse: all fields are null")
 }

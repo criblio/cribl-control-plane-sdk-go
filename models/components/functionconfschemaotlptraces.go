@@ -165,17 +165,43 @@ func CreateFunctionConfSchemaOtlpTracesOTLPTracesBatchOTLPTracesTrue(otlpTracesB
 
 func (u *FunctionConfSchemaOtlpTraces) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var otlpTracesBatchOTLPTracesFalse OTLPTracesBatchOTLPTracesFalse = OTLPTracesBatchOTLPTracesFalse{}
 	if err := utils.UnmarshalJSON(data, &otlpTracesBatchOTLPTracesFalse, "", true, nil); err == nil {
-		u.OTLPTracesBatchOTLPTracesFalse = &otlpTracesBatchOTLPTracesFalse
-		u.Type = FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesFalse
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesFalse,
+			Value: &otlpTracesBatchOTLPTracesFalse,
+		})
 	}
 
 	var otlpTracesBatchOTLPTracesTrue OTLPTracesBatchOTLPTracesTrue = OTLPTracesBatchOTLPTracesTrue{}
 	if err := utils.UnmarshalJSON(data, &otlpTracesBatchOTLPTracesTrue, "", true, nil); err == nil {
-		u.OTLPTracesBatchOTLPTracesTrue = &otlpTracesBatchOTLPTracesTrue
-		u.Type = FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesTrue
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesTrue,
+			Value: &otlpTracesBatchOTLPTracesTrue,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpTraces", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpTraces", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(FunctionConfSchemaOtlpTracesType)
+	switch best.Type {
+	case FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesFalse:
+		u.OTLPTracesBatchOTLPTracesFalse = best.Value.(*OTLPTracesBatchOTLPTracesFalse)
+		return nil
+	case FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesTrue:
+		u.OTLPTracesBatchOTLPTracesTrue = best.Value.(*OTLPTracesBatchOTLPTracesTrue)
 		return nil
 	}
 

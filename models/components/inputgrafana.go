@@ -229,7 +229,7 @@ func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputGrafanaGrafana2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port", "lokiAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -679,7 +679,7 @@ func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputGrafanaGrafana1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port", "prometheusAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -943,17 +943,43 @@ func CreateInputGrafanaInputGrafanaGrafana2(inputGrafanaGrafana2 InputGrafanaGra
 
 func (u *InputGrafana) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var inputGrafanaGrafana1 InputGrafanaGrafana1 = InputGrafanaGrafana1{}
 	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana1, "", true, nil); err == nil {
-		u.InputGrafanaGrafana1 = &inputGrafanaGrafana1
-		u.Type = InputGrafanaTypeInputGrafanaGrafana1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputGrafanaTypeInputGrafanaGrafana1,
+			Value: &inputGrafanaGrafana1,
+		})
 	}
 
 	var inputGrafanaGrafana2 InputGrafanaGrafana2 = InputGrafanaGrafana2{}
 	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana2, "", true, nil); err == nil {
-		u.InputGrafanaGrafana2 = &inputGrafanaGrafana2
-		u.Type = InputGrafanaTypeInputGrafanaGrafana2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputGrafanaTypeInputGrafanaGrafana2,
+			Value: &inputGrafanaGrafana2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(InputGrafanaType)
+	switch best.Type {
+	case InputGrafanaTypeInputGrafanaGrafana1:
+		u.InputGrafanaGrafana1 = best.Value.(*InputGrafanaGrafana1)
+		return nil
+	case InputGrafanaTypeInputGrafanaGrafana2:
+		u.InputGrafanaGrafana2 = best.Value.(*InputGrafanaGrafana2)
 		return nil
 	}
 

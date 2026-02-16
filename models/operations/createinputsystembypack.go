@@ -314,7 +314,7 @@ func (c CreateInputSystemByPackInputCloudflareHec) MarshalJSON() ([]byte, error)
 }
 
 func (c *CreateInputSystemByPackInputCloudflareHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port", "hecAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -615,7 +615,7 @@ func (c CreateInputSystemByPackAuthTokenZscalerHec) MarshalJSON() ([]byte, error
 }
 
 func (c *CreateInputSystemByPackAuthTokenZscalerHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -744,7 +744,7 @@ func (c CreateInputSystemByPackInputZscalerHec) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputZscalerHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port", "hecAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1130,7 +1130,7 @@ func (c CreateInputSystemByPackInputSecurityLake) MarshalJSON() ([]byte, error) 
 }
 
 func (c *CreateInputSystemByPackInputSecurityLake) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1582,7 +1582,7 @@ func (c CreateInputSystemByPackInputNetflow) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputNetflow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1850,7 +1850,7 @@ func (c CreateInputSystemByPackInputWizWebhook) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputWizWebhook) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2190,7 +2190,7 @@ func (c CreateInputSystemByPackContentConfigWiz) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackContentConfigWiz) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"contentType", "contentQuery", "cronSchedule", "earliest", "latest"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2354,7 +2354,7 @@ func (c CreateInputSystemByPackInputWiz) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputWiz) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "endpoint", "authUrl", "clientId", "contentConfig"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2598,7 +2598,7 @@ func (c CreateInputSystemByPackInputJournalFilesRule) MarshalJSON() ([]byte, err
 }
 
 func (c *CreateInputSystemByPackInputJournalFilesRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"filter"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2658,7 +2658,7 @@ func (c CreateInputSystemByPackInputJournalFiles) MarshalJSON() ([]byte, error) 
 }
 
 func (c *CreateInputSystemByPackInputJournalFiles) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "path", "journals"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2859,7 +2859,7 @@ func (c CreateInputSystemByPackInputRawUDP) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputRawUDP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3131,7 +3131,7 @@ func (c CreateInputSystemByPackInputWinEventLogs) MarshalJSON() ([]byte, error) 
 }
 
 func (c *CreateInputSystemByPackInputWinEventLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "logNames"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3366,7 +3366,7 @@ func (c CreateInputSystemByPackMTLSSettings) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackMTLSSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3534,7 +3534,7 @@ func (c CreateInputSystemByPackQuery) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackQuery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"path", "queryExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3587,7 +3587,7 @@ func (c CreateInputSystemByPackSubscription) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackSubscription) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"subscriptionName", "contentFormat", "heartbeatInterval", "batchTimeout", "targets"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3760,7 +3760,7 @@ func (c CreateInputSystemByPackInputWef) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputWef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port", "subscriptions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4034,7 +4034,7 @@ func (c CreateInputSystemByPackAllow) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackAllow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"procname", "config"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4227,7 +4227,7 @@ func (c CreateInputSystemByPackInputAppscope) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputAppscope) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4549,7 +4549,7 @@ func (c CreateInputSystemByPackInputTCP) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputTCP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4878,7 +4878,7 @@ func (c CreateInputSystemByPackInputFile) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputFile) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5199,7 +5199,7 @@ func (c CreateInputSystemByPackInputSyslogSyslog2) MarshalJSON() ([]byte, error)
 }
 
 func (c *CreateInputSystemByPackInputSyslogSyslog2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "tcpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5555,7 +5555,7 @@ func (c CreateInputSystemByPackInputSyslogSyslog1) MarshalJSON() ([]byte, error)
 }
 
 func (c *CreateInputSystemByPackInputSyslogSyslog1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "udpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5847,17 +5847,43 @@ func CreateCreateInputSystemByPackInputSyslogUnionCreateInputSystemByPackInputSy
 
 func (u *CreateInputSystemByPackInputSyslogUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var createInputSystemByPackInputSyslogSyslog1 CreateInputSystemByPackInputSyslogSyslog1 = CreateInputSystemByPackInputSyslogSyslog1{}
 	if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputSyslogSyslog1, "", true, nil); err == nil {
-		u.CreateInputSystemByPackInputSyslogSyslog1 = &createInputSystemByPackInputSyslogSyslog1
-		u.Type = CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog1,
+			Value: &createInputSystemByPackInputSyslogSyslog1,
+		})
 	}
 
 	var createInputSystemByPackInputSyslogSyslog2 CreateInputSystemByPackInputSyslogSyslog2 = CreateInputSystemByPackInputSyslogSyslog2{}
 	if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputSyslogSyslog2, "", true, nil); err == nil {
-		u.CreateInputSystemByPackInputSyslogSyslog2 = &createInputSystemByPackInputSyslogSyslog2
-		u.Type = CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog2,
+			Value: &createInputSystemByPackInputSyslogSyslog2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackInputSyslogUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackInputSyslogUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(CreateInputSystemByPackInputSyslogUnionType)
+	switch best.Type {
+	case CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog1:
+		u.CreateInputSystemByPackInputSyslogSyslog1 = best.Value.(*CreateInputSystemByPackInputSyslogSyslog1)
+		return nil
+	case CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog2:
+		u.CreateInputSystemByPackInputSyslogSyslog2 = best.Value.(*CreateInputSystemByPackInputSyslogSyslog2)
 		return nil
 	}
 
@@ -6006,7 +6032,7 @@ func (c CreateInputSystemByPackInputSqs) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputSqs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "queueName", "queueType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6356,7 +6382,7 @@ func (c CreateInputSystemByPackInputModelDrivenTelemetry) MarshalJSON() ([]byte,
 }
 
 func (c *CreateInputSystemByPackInputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6646,7 +6672,7 @@ func (c CreateInputSystemByPackInputOpenTelemetry) MarshalJSON() ([]byte, error)
 }
 
 func (c *CreateInputSystemByPackInputOpenTelemetry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6968,7 +6994,7 @@ func (c CreateInputSystemByPackV3User) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackV3User) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7023,7 +7049,7 @@ func (c CreateInputSystemByPackSNMPv3Authentication) MarshalJSON() ([]byte, erro
 }
 
 func (c *CreateInputSystemByPackSNMPv3Authentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"v3AuthEnabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7098,7 +7124,7 @@ func (c CreateInputSystemByPackInputSnmp) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputSnmp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7390,7 +7416,7 @@ func (c CreateInputSystemByPackInputS3Inventory) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputS3Inventory) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7910,7 +7936,7 @@ func (c CreateInputSystemByPackInputS3) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputS3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8359,7 +8385,7 @@ func (c CreateInputSystemByPackInputMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8581,7 +8607,7 @@ func (c CreateInputSystemByPackInputCriblmetrics) MarshalJSON() ([]byte, error) 
 }
 
 func (c *CreateInputSystemByPackInputCriblmetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8871,7 +8897,7 @@ func (c CreateInputSystemByPackInputKinesis) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputKinesis) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "streamName", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9258,7 +9284,7 @@ func (c CreateInputSystemByPackInputHTTPRaw) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputHTTPRaw) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9536,7 +9562,7 @@ func (c CreateInputSystemByPackSample) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackSample) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"sample", "eventsPerSec"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9585,7 +9611,7 @@ func (c CreateInputSystemByPackInputDatagen) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputDatagen) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "samples"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9717,7 +9743,7 @@ func (c CreateInputSystemByPackProxyModeDatadogAgent) MarshalJSON() ([]byte, err
 }
 
 func (c *CreateInputSystemByPackProxyModeDatadogAgent) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"enabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9799,7 +9825,7 @@ func (c CreateInputSystemByPackInputDatadogAgent) MarshalJSON() ([]byte, error) 
 }
 
 func (c *CreateInputSystemByPackInputDatadogAgent) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10139,7 +10165,7 @@ func (c CreateInputSystemByPackInputCrowdstrike) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputCrowdstrike) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11080,7 +11106,7 @@ func (c CreateInputSystemByPackInputWindowsMetrics) MarshalJSON() ([]byte, error
 }
 
 func (c *CreateInputSystemByPackInputWindowsMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11258,7 +11284,7 @@ func (c CreateInputSystemByPackInputKubeEvents) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputKubeEvents) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11390,7 +11416,7 @@ func (c CreateInputSystemByPackRuleKubeLogs) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackRuleKubeLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"filter"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11451,7 +11477,7 @@ func (c CreateInputSystemByPackInputKubeLogs) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputKubeLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11713,7 +11739,7 @@ func (c CreateInputSystemByPackInputKubeMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputKubeMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12316,7 +12342,7 @@ func (c CreateInputSystemByPackInputSystemState) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputSystemState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12982,7 +13008,7 @@ func (c CreateInputSystemByPackContainerFilter) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackContainerFilter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"expr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13173,7 +13199,7 @@ func (c CreateInputSystemByPackInputSystemMetrics) MarshalJSON() ([]byte, error)
 }
 
 func (c *CreateInputSystemByPackInputSystemMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13378,7 +13404,7 @@ func (c CreateInputSystemByPackInputTcpjson) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputTcpjson) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13678,7 +13704,7 @@ func (c CreateInputSystemByPackAuthTokensExt) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackAuthTokensExt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13790,7 +13816,7 @@ func (c CreateInputSystemByPackInputCriblLakeHTTP) MarshalJSON() ([]byte, error)
 }
 
 func (c *CreateInputSystemByPackInputCriblLakeHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14125,7 +14151,7 @@ func (c CreateInputSystemByPackInputCriblHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputCriblHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14408,7 +14434,7 @@ func (c CreateInputSystemByPackInputCriblTCP) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputCriblTCP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14634,7 +14660,7 @@ func (c CreateInputSystemByPackInputCribl) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputCribl) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14814,7 +14840,7 @@ func (c CreateInputSystemByPackInputGooglePubsub) MarshalJSON() ([]byte, error) 
 }
 
 func (c *CreateInputSystemByPackInputGooglePubsub) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "topicName", "subscriptionName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15100,7 +15126,7 @@ func (c CreateInputSystemByPackInputFirehose) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputFirehose) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15397,7 +15423,7 @@ func (c CreateInputSystemByPackInputExec) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputExec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "command"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15639,7 +15665,7 @@ func (c CreateInputSystemByPackInputEventhub) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputEventhub) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "brokers", "topics"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15981,7 +16007,7 @@ func (c CreateInputSystemByPackCertOptions) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackCertOptions) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"privKeyPath", "certPath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16101,7 +16127,7 @@ func (c CreateInputSystemByPackInputOffice365MsgTrace) MarshalJSON() ([]byte, er
 }
 
 func (c *CreateInputSystemByPackInputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "url", "interval"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16542,7 +16568,7 @@ func (c CreateInputSystemByPackInputOffice365Service) MarshalJSON() ([]byte, err
 }
 
 func (c *CreateInputSystemByPackInputOffice365Service) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "tenantId", "appId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16898,7 +16924,7 @@ func (c CreateInputSystemByPackInputOffice365Mgmt) MarshalJSON() ([]byte, error)
 }
 
 func (c *CreateInputSystemByPackInputOffice365Mgmt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "planType", "tenantId", "appId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17222,7 +17248,7 @@ func (c CreateInputSystemByPackTarget) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackTarget) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"host"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17268,7 +17294,7 @@ func (c CreateInputSystemByPackPodFilter) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackPodFilter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"filter"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17393,7 +17419,7 @@ func (c CreateInputSystemByPackInputEdgePrometheus) MarshalJSON() ([]byte, error
 }
 
 func (c *CreateInputSystemByPackInputEdgePrometheus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "discoveryType", "interval"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17962,7 +17988,7 @@ func (c CreateInputSystemByPackInputPrometheus) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputPrometheus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "interval", "logLevel"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18435,7 +18461,7 @@ func (c CreateInputSystemByPackInputPrometheusRw) MarshalJSON() ([]byte, error) 
 }
 
 func (c *CreateInputSystemByPackInputPrometheusRw) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port", "prometheusAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18787,7 +18813,7 @@ func (c CreateInputSystemByPackInputLoki) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputLoki) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port", "lokiAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19258,7 +19284,7 @@ func (c CreateInputSystemByPackInputGrafanaGrafana2) MarshalJSON() ([]byte, erro
 }
 
 func (c *CreateInputSystemByPackInputGrafanaGrafana2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port", "lokiAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19708,7 +19734,7 @@ func (c CreateInputSystemByPackInputGrafanaGrafana1) MarshalJSON() ([]byte, erro
 }
 
 func (c *CreateInputSystemByPackInputGrafanaGrafana1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port", "prometheusAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19972,17 +19998,43 @@ func CreateCreateInputSystemByPackInputGrafanaUnionCreateInputSystemByPackInputG
 
 func (u *CreateInputSystemByPackInputGrafanaUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var createInputSystemByPackInputGrafanaGrafana1 CreateInputSystemByPackInputGrafanaGrafana1 = CreateInputSystemByPackInputGrafanaGrafana1{}
 	if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputGrafanaGrafana1, "", true, nil); err == nil {
-		u.CreateInputSystemByPackInputGrafanaGrafana1 = &createInputSystemByPackInputGrafanaGrafana1
-		u.Type = CreateInputSystemByPackInputGrafanaUnionTypeCreateInputSystemByPackInputGrafanaGrafana1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CreateInputSystemByPackInputGrafanaUnionTypeCreateInputSystemByPackInputGrafanaGrafana1,
+			Value: &createInputSystemByPackInputGrafanaGrafana1,
+		})
 	}
 
 	var createInputSystemByPackInputGrafanaGrafana2 CreateInputSystemByPackInputGrafanaGrafana2 = CreateInputSystemByPackInputGrafanaGrafana2{}
 	if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputGrafanaGrafana2, "", true, nil); err == nil {
-		u.CreateInputSystemByPackInputGrafanaGrafana2 = &createInputSystemByPackInputGrafanaGrafana2
-		u.Type = CreateInputSystemByPackInputGrafanaUnionTypeCreateInputSystemByPackInputGrafanaGrafana2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CreateInputSystemByPackInputGrafanaUnionTypeCreateInputSystemByPackInputGrafanaGrafana2,
+			Value: &createInputSystemByPackInputGrafanaGrafana2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackInputGrafanaUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackInputGrafanaUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(CreateInputSystemByPackInputGrafanaUnionType)
+	switch best.Type {
+	case CreateInputSystemByPackInputGrafanaUnionTypeCreateInputSystemByPackInputGrafanaGrafana1:
+		u.CreateInputSystemByPackInputGrafanaGrafana1 = best.Value.(*CreateInputSystemByPackInputGrafanaGrafana1)
+		return nil
+	case CreateInputSystemByPackInputGrafanaUnionTypeCreateInputSystemByPackInputGrafanaGrafana2:
+		u.CreateInputSystemByPackInputGrafanaGrafana2 = best.Value.(*CreateInputSystemByPackInputGrafanaGrafana2)
 		return nil
 	}
 
@@ -20104,7 +20156,7 @@ func (c CreateInputSystemByPackInputConfluentCloud) MarshalJSON() ([]byte, error
 }
 
 func (c *CreateInputSystemByPackInputConfluentCloud) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "brokers", "topics"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20483,7 +20535,7 @@ func (c CreateInputSystemByPackProxyModeElastic) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackProxyModeElastic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"enabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20634,7 +20686,7 @@ func (c CreateInputSystemByPackInputElastic) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputElastic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port", "elasticAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21005,7 +21057,7 @@ func (c CreateInputSystemByPackInputAzureBlob) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputAzureBlob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21314,7 +21366,7 @@ func (c CreateInputSystemByPackAuthTokenSplunkHec) MarshalJSON() ([]byte, error)
 }
 
 func (c *CreateInputSystemByPackAuthTokenSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21453,7 +21505,7 @@ func (c CreateInputSystemByPackInputSplunkHec) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port", "splunkHecAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21780,7 +21832,7 @@ func (c CreateInputSystemByPackEndpointParam) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackEndpointParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21811,7 +21863,7 @@ func (c CreateInputSystemByPackEndpointHeader) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackEndpointHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21968,7 +22020,7 @@ func (c CreateInputSystemByPackInputSplunkSearch) MarshalJSON() ([]byte, error) 
 }
 
 func (c *CreateInputSystemByPackInputSplunkSearch) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "searchHead", "search", "cronSchedule", "endpoint", "outputMode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22288,7 +22340,7 @@ func (c CreateInputSystemByPackAuthTokenSplunk) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackAuthTokenSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22425,7 +22477,7 @@ func (c CreateInputSystemByPackInputSplunk) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22743,7 +22795,7 @@ func (c CreateInputSystemByPackInputHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23129,7 +23181,7 @@ func (c CreateInputSystemByPackInputMsk) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputMsk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "brokers", "topics", "awsAuthenticationMethod", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23602,7 +23654,7 @@ func (c CreateInputSystemByPackInputKafka) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputKafka) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type", "brokers", "topics"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23912,7 +23964,7 @@ func (c CreateInputSystemByPackInputCollection) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateInputSystemByPackInputCollection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil

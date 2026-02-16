@@ -44,7 +44,7 @@ func (p PipelineFunctionJSONUnrollConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionJSONUnrollConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"path"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -85,7 +85,7 @@ func (p PipelineFunctionJSONUnroll) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionJSONUnroll) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

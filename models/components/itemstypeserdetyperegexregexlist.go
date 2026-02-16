@@ -16,7 +16,7 @@ func (i ItemsTypeSerdeTypeRegexRegexList) MarshalJSON() ([]byte, error) {
 }
 
 func (i *ItemsTypeSerdeTypeRegexRegexList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"regex"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

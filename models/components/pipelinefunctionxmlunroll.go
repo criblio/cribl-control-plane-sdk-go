@@ -48,7 +48,7 @@ func (p PipelineFunctionXMLUnrollConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionXMLUnrollConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"unroll"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -103,7 +103,7 @@ func (p PipelineFunctionXMLUnroll) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionXMLUnroll) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

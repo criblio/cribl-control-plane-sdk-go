@@ -76,7 +76,7 @@ func (h HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -130,7 +130,7 @@ func (h HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -193,7 +193,7 @@ func (h HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -296,7 +296,7 @@ func (h HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -427,7 +427,7 @@ func (h HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -558,7 +558,7 @@ func (h HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -619,12 +619,14 @@ const (
 	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                         json.RawMessage                                                                                     `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -665,6 +667,21 @@ func CreateHealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeH
 	}
 }
 
+func CreateHealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -673,7 +690,14 @@ func (u *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -704,9 +728,12 @@ func (u *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 		u.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -722,16 +749,20 @@ func (u HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP
 		return utils.MarshalJSON(u.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckAuthenticationOauthSecretDiscoveryType string
 
 const (
-	HealthCheckAuthenticationOauthSecretDiscoveryTypeHTTP HealthCheckAuthenticationOauthSecretDiscoveryType = "http"
-	HealthCheckAuthenticationOauthSecretDiscoveryTypeJSON HealthCheckAuthenticationOauthSecretDiscoveryType = "json"
-	HealthCheckAuthenticationOauthSecretDiscoveryTypeList HealthCheckAuthenticationOauthSecretDiscoveryType = "list"
-	HealthCheckAuthenticationOauthSecretDiscoveryTypeNone HealthCheckAuthenticationOauthSecretDiscoveryType = "none"
+	HealthCheckAuthenticationOauthSecretDiscoveryTypeHTTP    HealthCheckAuthenticationOauthSecretDiscoveryType = "http"
+	HealthCheckAuthenticationOauthSecretDiscoveryTypeJSON    HealthCheckAuthenticationOauthSecretDiscoveryType = "json"
+	HealthCheckAuthenticationOauthSecretDiscoveryTypeList    HealthCheckAuthenticationOauthSecretDiscoveryType = "list"
+	HealthCheckAuthenticationOauthSecretDiscoveryTypeNone    HealthCheckAuthenticationOauthSecretDiscoveryType = "none"
+	HealthCheckAuthenticationOauthSecretDiscoveryTypeUnknown HealthCheckAuthenticationOauthSecretDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationOauthSecretDiscovery struct {
@@ -739,6 +770,7 @@ type HealthCheckAuthenticationOauthSecretDiscovery struct {
 	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                               json.RawMessage                                                           `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationOauthSecretDiscoveryType
 }
@@ -788,6 +820,21 @@ func CreateHealthCheckAuthenticationOauthSecretDiscoveryNone(none HealthCheckAut
 	}
 }
 
+func CreateHealthCheckAuthenticationOauthSecretDiscoveryUnknown(raw json.RawMessage) HealthCheckAuthenticationOauthSecretDiscovery {
+	return HealthCheckAuthenticationOauthSecretDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationOauthSecretDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationOauthSecretDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationOauthSecretDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationOauthSecretDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationOauthSecretDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -796,7 +843,14 @@ func (u *HealthCheckAuthenticationOauthSecretDiscovery) UnmarshalJSON(data []byt
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthSecretDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthSecretDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -836,9 +890,12 @@ func (u *HealthCheckAuthenticationOauthSecretDiscovery) UnmarshalJSON(data []byt
 		u.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone = healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckAuthenticationOauthSecretDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthSecretDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationOauthSecretDiscovery", string(data))
 }
 
 func (u HealthCheckAuthenticationOauthSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -858,6 +915,9 @@ func (u HealthCheckAuthenticationOauthSecretDiscovery) MarshalJSON() ([]byte, er
 		return utils.MarshalJSON(u.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationOauthSecretDiscovery: all fields are null")
 }
 
@@ -900,7 +960,7 @@ func (h HealthCheckAuthenticationOauthSecretCollectRequestHeader) MarshalJSON() 
 }
 
 func (h *HealthCheckAuthenticationOauthSecretCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -935,7 +995,7 @@ func (h HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff) Ma
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -998,7 +1058,7 @@ func (h HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic) Mar
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1061,7 +1121,7 @@ func (h HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone) Marsh
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1115,12 +1175,14 @@ const (
 	HealthCheckAuthenticationOauthSecretRetryRulesTypeNone    HealthCheckAuthenticationOauthSecretRetryRulesType = "none"
 	HealthCheckAuthenticationOauthSecretRetryRulesTypeStatic  HealthCheckAuthenticationOauthSecretRetryRulesType = "static"
 	HealthCheckAuthenticationOauthSecretRetryRulesTypeBackoff HealthCheckAuthenticationOauthSecretRetryRulesType = "backoff"
+	HealthCheckAuthenticationOauthSecretRetryRulesTypeUnknown HealthCheckAuthenticationOauthSecretRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationOauthSecretRetryRules struct {
 	HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone    *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic  *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                           json.RawMessage                                                       `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationOauthSecretRetryRulesType
 }
@@ -1161,6 +1223,21 @@ func CreateHealthCheckAuthenticationOauthSecretRetryRulesBackoff(backoff HealthC
 	}
 }
 
+func CreateHealthCheckAuthenticationOauthSecretRetryRulesUnknown(raw json.RawMessage) HealthCheckAuthenticationOauthSecretRetryRules {
+	return HealthCheckAuthenticationOauthSecretRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationOauthSecretRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationOauthSecretRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationOauthSecretRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationOauthSecretRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationOauthSecretRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1169,7 +1246,14 @@ func (u *HealthCheckAuthenticationOauthSecretRetryRules) UnmarshalJSON(data []by
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthSecretRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthSecretRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -1200,9 +1284,12 @@ func (u *HealthCheckAuthenticationOauthSecretRetryRules) UnmarshalJSON(data []by
 		u.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff = healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckAuthenticationOauthSecretRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthSecretRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationOauthSecretRetryRules", string(data))
 }
 
 func (u HealthCheckAuthenticationOauthSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -1218,6 +1305,9 @@ func (u HealthCheckAuthenticationOauthSecretRetryRules) MarshalJSON() ([]byte, e
 		return utils.MarshalJSON(u.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationOauthSecretRetryRules: all fields are null")
 }
 
@@ -1262,7 +1352,7 @@ func (h HealthCheckAuthenticationOauthSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationOauthSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "loginUrl", "authHeaderExpr", "clientSecretParamName", "textSecret", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1510,7 +1600,7 @@ func (h HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone) Mars
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1564,7 +1654,7 @@ func (h HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList) Mars
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1627,7 +1717,7 @@ func (h HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON) Mars
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1730,7 +1820,7 @@ func (h HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1861,7 +1951,7 @@ func (h HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1992,7 +2082,7 @@ func (h HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2053,12 +2143,14 @@ const (
 	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                   json.RawMessage                                                                               `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -2099,6 +2191,21 @@ func CreateHealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPPos
 	}
 }
 
+func CreateHealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -2107,7 +2214,14 @@ func (u *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP) Unm
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -2138,9 +2252,12 @@ func (u *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP) Unm
 		u.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -2156,16 +2273,20 @@ func (u HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP) Mars
 		return utils.MarshalJSON(u.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckAuthenticationOauthDiscoveryType string
 
 const (
-	HealthCheckAuthenticationOauthDiscoveryTypeHTTP HealthCheckAuthenticationOauthDiscoveryType = "http"
-	HealthCheckAuthenticationOauthDiscoveryTypeJSON HealthCheckAuthenticationOauthDiscoveryType = "json"
-	HealthCheckAuthenticationOauthDiscoveryTypeList HealthCheckAuthenticationOauthDiscoveryType = "list"
-	HealthCheckAuthenticationOauthDiscoveryTypeNone HealthCheckAuthenticationOauthDiscoveryType = "none"
+	HealthCheckAuthenticationOauthDiscoveryTypeHTTP    HealthCheckAuthenticationOauthDiscoveryType = "http"
+	HealthCheckAuthenticationOauthDiscoveryTypeJSON    HealthCheckAuthenticationOauthDiscoveryType = "json"
+	HealthCheckAuthenticationOauthDiscoveryTypeList    HealthCheckAuthenticationOauthDiscoveryType = "list"
+	HealthCheckAuthenticationOauthDiscoveryTypeNone    HealthCheckAuthenticationOauthDiscoveryType = "none"
+	HealthCheckAuthenticationOauthDiscoveryTypeUnknown HealthCheckAuthenticationOauthDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationOauthDiscovery struct {
@@ -2173,6 +2294,7 @@ type HealthCheckAuthenticationOauthDiscovery struct {
 	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                         json.RawMessage                                                     `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationOauthDiscoveryType
 }
@@ -2222,6 +2344,21 @@ func CreateHealthCheckAuthenticationOauthDiscoveryNone(none HealthCheckAuthentic
 	}
 }
 
+func CreateHealthCheckAuthenticationOauthDiscoveryUnknown(raw json.RawMessage) HealthCheckAuthenticationOauthDiscovery {
+	return HealthCheckAuthenticationOauthDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationOauthDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationOauthDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationOauthDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationOauthDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationOauthDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -2230,7 +2367,14 @@ func (u *HealthCheckAuthenticationOauthDiscovery) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -2270,9 +2414,12 @@ func (u *HealthCheckAuthenticationOauthDiscovery) UnmarshalJSON(data []byte) err
 		u.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone = healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckAuthenticationOauthDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationOauthDiscovery", string(data))
 }
 
 func (u HealthCheckAuthenticationOauthDiscovery) MarshalJSON() ([]byte, error) {
@@ -2292,6 +2439,9 @@ func (u HealthCheckAuthenticationOauthDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationOauthDiscovery: all fields are null")
 }
 
@@ -2334,7 +2484,7 @@ func (h HealthCheckAuthenticationOauthCollectRequestHeader) MarshalJSON() ([]byt
 }
 
 func (h *HealthCheckAuthenticationOauthCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2369,7 +2519,7 @@ func (h HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff) MarshalJ
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2432,7 +2582,7 @@ func (h HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic) MarshalJS
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2495,7 +2645,7 @@ func (h HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone) MarshalJSON
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2549,12 +2699,14 @@ const (
 	HealthCheckAuthenticationOauthRetryRulesTypeNone    HealthCheckAuthenticationOauthRetryRulesType = "none"
 	HealthCheckAuthenticationOauthRetryRulesTypeStatic  HealthCheckAuthenticationOauthRetryRulesType = "static"
 	HealthCheckAuthenticationOauthRetryRulesTypeBackoff HealthCheckAuthenticationOauthRetryRulesType = "backoff"
+	HealthCheckAuthenticationOauthRetryRulesTypeUnknown HealthCheckAuthenticationOauthRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationOauthRetryRules struct {
 	HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone    *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic  *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                     json.RawMessage                                                 `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationOauthRetryRulesType
 }
@@ -2595,6 +2747,21 @@ func CreateHealthCheckAuthenticationOauthRetryRulesBackoff(backoff HealthCheckAu
 	}
 }
 
+func CreateHealthCheckAuthenticationOauthRetryRulesUnknown(raw json.RawMessage) HealthCheckAuthenticationOauthRetryRules {
+	return HealthCheckAuthenticationOauthRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationOauthRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationOauthRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationOauthRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationOauthRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationOauthRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -2603,7 +2770,14 @@ func (u *HealthCheckAuthenticationOauthRetryRules) UnmarshalJSON(data []byte) er
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -2634,9 +2808,12 @@ func (u *HealthCheckAuthenticationOauthRetryRules) UnmarshalJSON(data []byte) er
 		u.HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff = healthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckAuthenticationOauthRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationOauthRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationOauthRetryRules", string(data))
 }
 
 func (u HealthCheckAuthenticationOauthRetryRules) MarshalJSON() ([]byte, error) {
@@ -2652,6 +2829,9 @@ func (u HealthCheckAuthenticationOauthRetryRules) MarshalJSON() ([]byte, error) 
 		return utils.MarshalJSON(u.HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationOauthRetryRules: all fields are null")
 }
 
@@ -2696,7 +2876,7 @@ func (h HealthCheckAuthenticationOauth) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationOauth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "loginUrl", "authHeaderExpr", "clientSecretParamName", "clientSecretParamValue", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2944,7 +3124,7 @@ func (h HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2998,7 +3178,7 @@ func (h HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3061,7 +3241,7 @@ func (h HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSON
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3164,7 +3344,7 @@ func (h HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3295,7 +3475,7 @@ func (h HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3426,7 +3606,7 @@ func (h HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3487,12 +3667,14 @@ const (
 	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                         json.RawMessage                                                                                     `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -3533,6 +3715,21 @@ func CreateHealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeH
 	}
 }
 
+func CreateHealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -3541,7 +3738,14 @@ func (u *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -3572,9 +3776,12 @@ func (u *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 		u.HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -3590,16 +3797,20 @@ func (u HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP
 		return utils.MarshalJSON(u.HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckAuthenticationLoginSecretDiscoveryType string
 
 const (
-	HealthCheckAuthenticationLoginSecretDiscoveryTypeHTTP HealthCheckAuthenticationLoginSecretDiscoveryType = "http"
-	HealthCheckAuthenticationLoginSecretDiscoveryTypeJSON HealthCheckAuthenticationLoginSecretDiscoveryType = "json"
-	HealthCheckAuthenticationLoginSecretDiscoveryTypeList HealthCheckAuthenticationLoginSecretDiscoveryType = "list"
-	HealthCheckAuthenticationLoginSecretDiscoveryTypeNone HealthCheckAuthenticationLoginSecretDiscoveryType = "none"
+	HealthCheckAuthenticationLoginSecretDiscoveryTypeHTTP    HealthCheckAuthenticationLoginSecretDiscoveryType = "http"
+	HealthCheckAuthenticationLoginSecretDiscoveryTypeJSON    HealthCheckAuthenticationLoginSecretDiscoveryType = "json"
+	HealthCheckAuthenticationLoginSecretDiscoveryTypeList    HealthCheckAuthenticationLoginSecretDiscoveryType = "list"
+	HealthCheckAuthenticationLoginSecretDiscoveryTypeNone    HealthCheckAuthenticationLoginSecretDiscoveryType = "none"
+	HealthCheckAuthenticationLoginSecretDiscoveryTypeUnknown HealthCheckAuthenticationLoginSecretDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationLoginSecretDiscovery struct {
@@ -3607,6 +3818,7 @@ type HealthCheckAuthenticationLoginSecretDiscovery struct {
 	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                               json.RawMessage                                                           `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationLoginSecretDiscoveryType
 }
@@ -3656,6 +3868,21 @@ func CreateHealthCheckAuthenticationLoginSecretDiscoveryNone(none HealthCheckAut
 	}
 }
 
+func CreateHealthCheckAuthenticationLoginSecretDiscoveryUnknown(raw json.RawMessage) HealthCheckAuthenticationLoginSecretDiscovery {
+	return HealthCheckAuthenticationLoginSecretDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationLoginSecretDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationLoginSecretDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationLoginSecretDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationLoginSecretDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationLoginSecretDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -3664,7 +3891,14 @@ func (u *HealthCheckAuthenticationLoginSecretDiscovery) UnmarshalJSON(data []byt
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginSecretDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginSecretDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -3704,9 +3938,12 @@ func (u *HealthCheckAuthenticationLoginSecretDiscovery) UnmarshalJSON(data []byt
 		u.HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone = healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckAuthenticationLoginSecretDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginSecretDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationLoginSecretDiscovery", string(data))
 }
 
 func (u HealthCheckAuthenticationLoginSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -3726,6 +3963,9 @@ func (u HealthCheckAuthenticationLoginSecretDiscovery) MarshalJSON() ([]byte, er
 		return utils.MarshalJSON(u.HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationLoginSecretDiscovery: all fields are null")
 }
 
@@ -3768,7 +4008,7 @@ func (h HealthCheckAuthenticationLoginSecretCollectRequestHeader) MarshalJSON() 
 }
 
 func (h *HealthCheckAuthenticationLoginSecretCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3803,7 +4043,7 @@ func (h HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff) Ma
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3866,7 +4106,7 @@ func (h HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic) Mar
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3929,7 +4169,7 @@ func (h HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone) Marsh
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3983,12 +4223,14 @@ const (
 	HealthCheckAuthenticationLoginSecretRetryRulesTypeNone    HealthCheckAuthenticationLoginSecretRetryRulesType = "none"
 	HealthCheckAuthenticationLoginSecretRetryRulesTypeStatic  HealthCheckAuthenticationLoginSecretRetryRulesType = "static"
 	HealthCheckAuthenticationLoginSecretRetryRulesTypeBackoff HealthCheckAuthenticationLoginSecretRetryRulesType = "backoff"
+	HealthCheckAuthenticationLoginSecretRetryRulesTypeUnknown HealthCheckAuthenticationLoginSecretRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationLoginSecretRetryRules struct {
 	HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone    *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic  *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                           json.RawMessage                                                       `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationLoginSecretRetryRulesType
 }
@@ -4029,6 +4271,21 @@ func CreateHealthCheckAuthenticationLoginSecretRetryRulesBackoff(backoff HealthC
 	}
 }
 
+func CreateHealthCheckAuthenticationLoginSecretRetryRulesUnknown(raw json.RawMessage) HealthCheckAuthenticationLoginSecretRetryRules {
+	return HealthCheckAuthenticationLoginSecretRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationLoginSecretRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationLoginSecretRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationLoginSecretRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationLoginSecretRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -4037,7 +4294,14 @@ func (u *HealthCheckAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []by
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginSecretRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginSecretRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -4068,9 +4332,12 @@ func (u *HealthCheckAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []by
 		u.HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff = healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckAuthenticationLoginSecretRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginSecretRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationLoginSecretRetryRules", string(data))
 }
 
 func (u HealthCheckAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -4086,6 +4353,9 @@ func (u HealthCheckAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, e
 		return utils.MarshalJSON(u.HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationLoginSecretRetryRules: all fields are null")
 }
 
@@ -4128,7 +4398,7 @@ func (h HealthCheckAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationLoginSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "loginUrl", "credentialsSecret", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4369,7 +4639,7 @@ func (h HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone) Mars
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4423,7 +4693,7 @@ func (h HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList) Mars
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4486,7 +4756,7 @@ func (h HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON) Mars
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4589,7 +4859,7 @@ func (h HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4720,7 +4990,7 @@ func (h HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4851,7 +5121,7 @@ func (h HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4912,12 +5182,14 @@ const (
 	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                   json.RawMessage                                                                               `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -4958,6 +5230,21 @@ func CreateHealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPPos
 	}
 }
 
+func CreateHealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -4966,7 +5253,14 @@ func (u *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP) Unm
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -4997,9 +5291,12 @@ func (u *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP) Unm
 		u.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -5015,16 +5312,20 @@ func (u HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP) Mars
 		return utils.MarshalJSON(u.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckAuthenticationLoginDiscoveryType string
 
 const (
-	HealthCheckAuthenticationLoginDiscoveryTypeHTTP HealthCheckAuthenticationLoginDiscoveryType = "http"
-	HealthCheckAuthenticationLoginDiscoveryTypeJSON HealthCheckAuthenticationLoginDiscoveryType = "json"
-	HealthCheckAuthenticationLoginDiscoveryTypeList HealthCheckAuthenticationLoginDiscoveryType = "list"
-	HealthCheckAuthenticationLoginDiscoveryTypeNone HealthCheckAuthenticationLoginDiscoveryType = "none"
+	HealthCheckAuthenticationLoginDiscoveryTypeHTTP    HealthCheckAuthenticationLoginDiscoveryType = "http"
+	HealthCheckAuthenticationLoginDiscoveryTypeJSON    HealthCheckAuthenticationLoginDiscoveryType = "json"
+	HealthCheckAuthenticationLoginDiscoveryTypeList    HealthCheckAuthenticationLoginDiscoveryType = "list"
+	HealthCheckAuthenticationLoginDiscoveryTypeNone    HealthCheckAuthenticationLoginDiscoveryType = "none"
+	HealthCheckAuthenticationLoginDiscoveryTypeUnknown HealthCheckAuthenticationLoginDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationLoginDiscovery struct {
@@ -5032,6 +5333,7 @@ type HealthCheckAuthenticationLoginDiscovery struct {
 	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                         json.RawMessage                                                     `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationLoginDiscoveryType
 }
@@ -5081,6 +5383,21 @@ func CreateHealthCheckAuthenticationLoginDiscoveryNone(none HealthCheckAuthentic
 	}
 }
 
+func CreateHealthCheckAuthenticationLoginDiscoveryUnknown(raw json.RawMessage) HealthCheckAuthenticationLoginDiscovery {
+	return HealthCheckAuthenticationLoginDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationLoginDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationLoginDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationLoginDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationLoginDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationLoginDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -5089,7 +5406,14 @@ func (u *HealthCheckAuthenticationLoginDiscovery) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -5129,9 +5453,12 @@ func (u *HealthCheckAuthenticationLoginDiscovery) UnmarshalJSON(data []byte) err
 		u.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone = healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckAuthenticationLoginDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationLoginDiscovery", string(data))
 }
 
 func (u HealthCheckAuthenticationLoginDiscovery) MarshalJSON() ([]byte, error) {
@@ -5151,6 +5478,9 @@ func (u HealthCheckAuthenticationLoginDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationLoginDiscovery: all fields are null")
 }
 
@@ -5193,7 +5523,7 @@ func (h HealthCheckAuthenticationLoginCollectRequestHeader) MarshalJSON() ([]byt
 }
 
 func (h *HealthCheckAuthenticationLoginCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5228,7 +5558,7 @@ func (h HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff) MarshalJ
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5291,7 +5621,7 @@ func (h HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic) MarshalJS
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5354,7 +5684,7 @@ func (h HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone) MarshalJSON
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5408,12 +5738,14 @@ const (
 	HealthCheckAuthenticationLoginRetryRulesTypeNone    HealthCheckAuthenticationLoginRetryRulesType = "none"
 	HealthCheckAuthenticationLoginRetryRulesTypeStatic  HealthCheckAuthenticationLoginRetryRulesType = "static"
 	HealthCheckAuthenticationLoginRetryRulesTypeBackoff HealthCheckAuthenticationLoginRetryRulesType = "backoff"
+	HealthCheckAuthenticationLoginRetryRulesTypeUnknown HealthCheckAuthenticationLoginRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationLoginRetryRules struct {
 	HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone    *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic  *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                     json.RawMessage                                                 `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationLoginRetryRulesType
 }
@@ -5454,6 +5786,21 @@ func CreateHealthCheckAuthenticationLoginRetryRulesBackoff(backoff HealthCheckAu
 	}
 }
 
+func CreateHealthCheckAuthenticationLoginRetryRulesUnknown(raw json.RawMessage) HealthCheckAuthenticationLoginRetryRules {
+	return HealthCheckAuthenticationLoginRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationLoginRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationLoginRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationLoginRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationLoginRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -5462,7 +5809,14 @@ func (u *HealthCheckAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) er
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -5493,9 +5847,12 @@ func (u *HealthCheckAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) er
 		u.HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff = healthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckAuthenticationLoginRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationLoginRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationLoginRetryRules", string(data))
 }
 
 func (u HealthCheckAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
@@ -5511,6 +5868,9 @@ func (u HealthCheckAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) 
 		return utils.MarshalJSON(u.HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationLoginRetryRules: all fields are null")
 }
 
@@ -5555,7 +5915,7 @@ func (h HealthCheckAuthenticationLogin) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationLogin) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "loginUrl", "username", "password", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5803,7 +6163,7 @@ func (h HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5857,7 +6217,7 @@ func (h HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5920,7 +6280,7 @@ func (h HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSON
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6023,7 +6383,7 @@ func (h HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6154,7 +6514,7 @@ func (h HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6285,7 +6645,7 @@ func (h HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6346,12 +6706,14 @@ const (
 	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                         json.RawMessage                                                                                     `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -6392,6 +6754,21 @@ func CreateHealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeH
 	}
 }
 
+func CreateHealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -6400,7 +6777,14 @@ func (u *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -6431,9 +6815,12 @@ func (u *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 		u.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -6449,16 +6836,20 @@ func (u HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP
 		return utils.MarshalJSON(u.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckAuthenticationBasicSecretDiscoveryType string
 
 const (
-	HealthCheckAuthenticationBasicSecretDiscoveryTypeHTTP HealthCheckAuthenticationBasicSecretDiscoveryType = "http"
-	HealthCheckAuthenticationBasicSecretDiscoveryTypeJSON HealthCheckAuthenticationBasicSecretDiscoveryType = "json"
-	HealthCheckAuthenticationBasicSecretDiscoveryTypeList HealthCheckAuthenticationBasicSecretDiscoveryType = "list"
-	HealthCheckAuthenticationBasicSecretDiscoveryTypeNone HealthCheckAuthenticationBasicSecretDiscoveryType = "none"
+	HealthCheckAuthenticationBasicSecretDiscoveryTypeHTTP    HealthCheckAuthenticationBasicSecretDiscoveryType = "http"
+	HealthCheckAuthenticationBasicSecretDiscoveryTypeJSON    HealthCheckAuthenticationBasicSecretDiscoveryType = "json"
+	HealthCheckAuthenticationBasicSecretDiscoveryTypeList    HealthCheckAuthenticationBasicSecretDiscoveryType = "list"
+	HealthCheckAuthenticationBasicSecretDiscoveryTypeNone    HealthCheckAuthenticationBasicSecretDiscoveryType = "none"
+	HealthCheckAuthenticationBasicSecretDiscoveryTypeUnknown HealthCheckAuthenticationBasicSecretDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationBasicSecretDiscovery struct {
@@ -6466,6 +6857,7 @@ type HealthCheckAuthenticationBasicSecretDiscovery struct {
 	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                               json.RawMessage                                                           `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationBasicSecretDiscoveryType
 }
@@ -6515,6 +6907,21 @@ func CreateHealthCheckAuthenticationBasicSecretDiscoveryNone(none HealthCheckAut
 	}
 }
 
+func CreateHealthCheckAuthenticationBasicSecretDiscoveryUnknown(raw json.RawMessage) HealthCheckAuthenticationBasicSecretDiscovery {
+	return HealthCheckAuthenticationBasicSecretDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationBasicSecretDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationBasicSecretDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationBasicSecretDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationBasicSecretDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationBasicSecretDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -6523,7 +6930,14 @@ func (u *HealthCheckAuthenticationBasicSecretDiscovery) UnmarshalJSON(data []byt
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicSecretDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicSecretDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -6563,9 +6977,12 @@ func (u *HealthCheckAuthenticationBasicSecretDiscovery) UnmarshalJSON(data []byt
 		u.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone = healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckAuthenticationBasicSecretDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicSecretDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationBasicSecretDiscovery", string(data))
 }
 
 func (u HealthCheckAuthenticationBasicSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -6585,6 +7002,9 @@ func (u HealthCheckAuthenticationBasicSecretDiscovery) MarshalJSON() ([]byte, er
 		return utils.MarshalJSON(u.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationBasicSecretDiscovery: all fields are null")
 }
 
@@ -6627,7 +7047,7 @@ func (h HealthCheckAuthenticationBasicSecretCollectRequestHeader) MarshalJSON() 
 }
 
 func (h *HealthCheckAuthenticationBasicSecretCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6662,7 +7082,7 @@ func (h HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff) Ma
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6725,7 +7145,7 @@ func (h HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic) Mar
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6788,7 +7208,7 @@ func (h HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone) Marsh
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6842,12 +7262,14 @@ const (
 	HealthCheckAuthenticationBasicSecretRetryRulesTypeNone    HealthCheckAuthenticationBasicSecretRetryRulesType = "none"
 	HealthCheckAuthenticationBasicSecretRetryRulesTypeStatic  HealthCheckAuthenticationBasicSecretRetryRulesType = "static"
 	HealthCheckAuthenticationBasicSecretRetryRulesTypeBackoff HealthCheckAuthenticationBasicSecretRetryRulesType = "backoff"
+	HealthCheckAuthenticationBasicSecretRetryRulesTypeUnknown HealthCheckAuthenticationBasicSecretRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationBasicSecretRetryRules struct {
 	HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone    *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic  *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                           json.RawMessage                                                       `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationBasicSecretRetryRulesType
 }
@@ -6888,6 +7310,21 @@ func CreateHealthCheckAuthenticationBasicSecretRetryRulesBackoff(backoff HealthC
 	}
 }
 
+func CreateHealthCheckAuthenticationBasicSecretRetryRulesUnknown(raw json.RawMessage) HealthCheckAuthenticationBasicSecretRetryRules {
+	return HealthCheckAuthenticationBasicSecretRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationBasicSecretRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationBasicSecretRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationBasicSecretRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationBasicSecretRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -6896,7 +7333,14 @@ func (u *HealthCheckAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []by
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicSecretRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicSecretRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -6927,9 +7371,12 @@ func (u *HealthCheckAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []by
 		u.HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff = healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckAuthenticationBasicSecretRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicSecretRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationBasicSecretRetryRules", string(data))
 }
 
 func (u HealthCheckAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -6945,6 +7392,9 @@ func (u HealthCheckAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, e
 		return utils.MarshalJSON(u.HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationBasicSecretRetryRules: all fields are null")
 }
 
@@ -6977,7 +7427,7 @@ func (h HealthCheckAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationBasicSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "credentialsSecret", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7183,7 +7633,7 @@ func (h HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone) Mars
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7237,7 +7687,7 @@ func (h HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList) Mars
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7300,7 +7750,7 @@ func (h HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON) Mars
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7403,7 +7853,7 @@ func (h HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7534,7 +7984,7 @@ func (h HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7665,7 +8115,7 @@ func (h HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7726,12 +8176,14 @@ const (
 	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                   json.RawMessage                                                                               `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -7772,6 +8224,21 @@ func CreateHealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPPos
 	}
 }
 
+func CreateHealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -7780,7 +8247,14 @@ func (u *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP) Unm
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -7811,9 +8285,12 @@ func (u *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP) Unm
 		u.HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -7829,16 +8306,20 @@ func (u HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP) Mars
 		return utils.MarshalJSON(u.HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckAuthenticationBasicDiscoveryType string
 
 const (
-	HealthCheckAuthenticationBasicDiscoveryTypeHTTP HealthCheckAuthenticationBasicDiscoveryType = "http"
-	HealthCheckAuthenticationBasicDiscoveryTypeJSON HealthCheckAuthenticationBasicDiscoveryType = "json"
-	HealthCheckAuthenticationBasicDiscoveryTypeList HealthCheckAuthenticationBasicDiscoveryType = "list"
-	HealthCheckAuthenticationBasicDiscoveryTypeNone HealthCheckAuthenticationBasicDiscoveryType = "none"
+	HealthCheckAuthenticationBasicDiscoveryTypeHTTP    HealthCheckAuthenticationBasicDiscoveryType = "http"
+	HealthCheckAuthenticationBasicDiscoveryTypeJSON    HealthCheckAuthenticationBasicDiscoveryType = "json"
+	HealthCheckAuthenticationBasicDiscoveryTypeList    HealthCheckAuthenticationBasicDiscoveryType = "list"
+	HealthCheckAuthenticationBasicDiscoveryTypeNone    HealthCheckAuthenticationBasicDiscoveryType = "none"
+	HealthCheckAuthenticationBasicDiscoveryTypeUnknown HealthCheckAuthenticationBasicDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationBasicDiscovery struct {
@@ -7846,6 +8327,7 @@ type HealthCheckAuthenticationBasicDiscovery struct {
 	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                         json.RawMessage                                                     `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationBasicDiscoveryType
 }
@@ -7895,6 +8377,21 @@ func CreateHealthCheckAuthenticationBasicDiscoveryNone(none HealthCheckAuthentic
 	}
 }
 
+func CreateHealthCheckAuthenticationBasicDiscoveryUnknown(raw json.RawMessage) HealthCheckAuthenticationBasicDiscovery {
+	return HealthCheckAuthenticationBasicDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationBasicDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationBasicDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationBasicDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationBasicDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationBasicDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -7903,7 +8400,14 @@ func (u *HealthCheckAuthenticationBasicDiscovery) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -7943,9 +8447,12 @@ func (u *HealthCheckAuthenticationBasicDiscovery) UnmarshalJSON(data []byte) err
 		u.HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone = healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckAuthenticationBasicDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationBasicDiscovery", string(data))
 }
 
 func (u HealthCheckAuthenticationBasicDiscovery) MarshalJSON() ([]byte, error) {
@@ -7965,6 +8472,9 @@ func (u HealthCheckAuthenticationBasicDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationBasicDiscovery: all fields are null")
 }
 
@@ -8007,7 +8517,7 @@ func (h HealthCheckAuthenticationBasicCollectRequestHeader) MarshalJSON() ([]byt
 }
 
 func (h *HealthCheckAuthenticationBasicCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8042,7 +8552,7 @@ func (h HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff) MarshalJ
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8105,7 +8615,7 @@ func (h HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic) MarshalJS
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8168,7 +8678,7 @@ func (h HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone) MarshalJSON
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8222,12 +8732,14 @@ const (
 	HealthCheckAuthenticationBasicRetryRulesTypeNone    HealthCheckAuthenticationBasicRetryRulesType = "none"
 	HealthCheckAuthenticationBasicRetryRulesTypeStatic  HealthCheckAuthenticationBasicRetryRulesType = "static"
 	HealthCheckAuthenticationBasicRetryRulesTypeBackoff HealthCheckAuthenticationBasicRetryRulesType = "backoff"
+	HealthCheckAuthenticationBasicRetryRulesTypeUnknown HealthCheckAuthenticationBasicRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationBasicRetryRules struct {
 	HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone    *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic  *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                     json.RawMessage                                                 `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationBasicRetryRulesType
 }
@@ -8268,6 +8780,21 @@ func CreateHealthCheckAuthenticationBasicRetryRulesBackoff(backoff HealthCheckAu
 	}
 }
 
+func CreateHealthCheckAuthenticationBasicRetryRulesUnknown(raw json.RawMessage) HealthCheckAuthenticationBasicRetryRules {
+	return HealthCheckAuthenticationBasicRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationBasicRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationBasicRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationBasicRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationBasicRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -8276,7 +8803,14 @@ func (u *HealthCheckAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) er
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -8307,9 +8841,12 @@ func (u *HealthCheckAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) er
 		u.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff = healthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckAuthenticationBasicRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationBasicRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationBasicRetryRules", string(data))
 }
 
 func (u HealthCheckAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
@@ -8325,6 +8862,9 @@ func (u HealthCheckAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) 
 		return utils.MarshalJSON(u.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationBasicRetryRules: all fields are null")
 }
 
@@ -8359,7 +8899,7 @@ func (h HealthCheckAuthenticationBasic) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationBasic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "username", "password", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8572,7 +9112,7 @@ func (h HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone) Marsh
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8626,7 +9166,7 @@ func (h HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList) Marsh
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8689,7 +9229,7 @@ func (h HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON) Marsh
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8792,7 +9332,7 @@ func (h HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8923,7 +9463,7 @@ func (h HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9054,7 +9594,7 @@ func (h HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9115,12 +9655,14 @@ const (
 	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                  json.RawMessage                                                                              `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -9161,6 +9703,21 @@ func CreateHealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPPost
 	}
 }
 
+func CreateHealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -9169,7 +9726,14 @@ func (u *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP) Unma
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -9200,9 +9764,12 @@ func (u *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP) Unma
 		u.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -9218,16 +9785,20 @@ func (u HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP) Marsh
 		return utils.MarshalJSON(u.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckAuthenticationNoneDiscoveryType string
 
 const (
-	HealthCheckAuthenticationNoneDiscoveryTypeHTTP HealthCheckAuthenticationNoneDiscoveryType = "http"
-	HealthCheckAuthenticationNoneDiscoveryTypeJSON HealthCheckAuthenticationNoneDiscoveryType = "json"
-	HealthCheckAuthenticationNoneDiscoveryTypeList HealthCheckAuthenticationNoneDiscoveryType = "list"
-	HealthCheckAuthenticationNoneDiscoveryTypeNone HealthCheckAuthenticationNoneDiscoveryType = "none"
+	HealthCheckAuthenticationNoneDiscoveryTypeHTTP    HealthCheckAuthenticationNoneDiscoveryType = "http"
+	HealthCheckAuthenticationNoneDiscoveryTypeJSON    HealthCheckAuthenticationNoneDiscoveryType = "json"
+	HealthCheckAuthenticationNoneDiscoveryTypeList    HealthCheckAuthenticationNoneDiscoveryType = "list"
+	HealthCheckAuthenticationNoneDiscoveryTypeNone    HealthCheckAuthenticationNoneDiscoveryType = "none"
+	HealthCheckAuthenticationNoneDiscoveryTypeUnknown HealthCheckAuthenticationNoneDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationNoneDiscovery struct {
@@ -9235,6 +9806,7 @@ type HealthCheckAuthenticationNoneDiscovery struct {
 	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                        json.RawMessage                                                    `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationNoneDiscoveryType
 }
@@ -9284,6 +9856,21 @@ func CreateHealthCheckAuthenticationNoneDiscoveryNone(none HealthCheckAuthentica
 	}
 }
 
+func CreateHealthCheckAuthenticationNoneDiscoveryUnknown(raw json.RawMessage) HealthCheckAuthenticationNoneDiscovery {
+	return HealthCheckAuthenticationNoneDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationNoneDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationNoneDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationNoneDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationNoneDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationNoneDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -9292,7 +9879,14 @@ func (u *HealthCheckAuthenticationNoneDiscovery) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationNoneDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationNoneDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -9332,9 +9926,12 @@ func (u *HealthCheckAuthenticationNoneDiscovery) UnmarshalJSON(data []byte) erro
 		u.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone = healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckAuthenticationNoneDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationNoneDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationNoneDiscovery", string(data))
 }
 
 func (u HealthCheckAuthenticationNoneDiscovery) MarshalJSON() ([]byte, error) {
@@ -9354,6 +9951,9 @@ func (u HealthCheckAuthenticationNoneDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationNoneDiscovery: all fields are null")
 }
 
@@ -9396,7 +9996,7 @@ func (h HealthCheckAuthenticationNoneCollectRequestHeader) MarshalJSON() ([]byte
 }
 
 func (h *HealthCheckAuthenticationNoneCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9431,7 +10031,7 @@ func (h HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) MarshalJS
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9494,7 +10094,7 @@ func (h HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) MarshalJSO
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9557,7 +10157,7 @@ func (h HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone) MarshalJSON(
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9611,12 +10211,14 @@ const (
 	HealthCheckAuthenticationNoneRetryRulesTypeNone    HealthCheckAuthenticationNoneRetryRulesType = "none"
 	HealthCheckAuthenticationNoneRetryRulesTypeStatic  HealthCheckAuthenticationNoneRetryRulesType = "static"
 	HealthCheckAuthenticationNoneRetryRulesTypeBackoff HealthCheckAuthenticationNoneRetryRulesType = "backoff"
+	HealthCheckAuthenticationNoneRetryRulesTypeUnknown HealthCheckAuthenticationNoneRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckAuthenticationNoneRetryRules struct {
 	HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone    *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic  *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                    json.RawMessage                                                `json:"-" union:"unknown"`
 
 	Type HealthCheckAuthenticationNoneRetryRulesType
 }
@@ -9657,6 +10259,21 @@ func CreateHealthCheckAuthenticationNoneRetryRulesBackoff(backoff HealthCheckAut
 	}
 }
 
+func CreateHealthCheckAuthenticationNoneRetryRulesUnknown(raw json.RawMessage) HealthCheckAuthenticationNoneRetryRules {
+	return HealthCheckAuthenticationNoneRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckAuthenticationNoneRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckAuthenticationNoneRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckAuthenticationNoneRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckAuthenticationNoneRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -9665,7 +10282,14 @@ func (u *HealthCheckAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationNoneRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationNoneRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -9696,9 +10320,12 @@ func (u *HealthCheckAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) err
 		u.HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff = healthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckAuthenticationNoneRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckAuthenticationNoneRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckAuthenticationNoneRetryRules", string(data))
 }
 
 func (u HealthCheckAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
@@ -9714,6 +10341,9 @@ func (u HealthCheckAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckAuthenticationNoneRetryRules: all fields are null")
 }
 
@@ -9744,7 +10374,7 @@ func (h HealthCheckAuthenticationNone) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9942,7 +10572,7 @@ func (h HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9996,7 +10626,7 @@ func (h HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10059,7 +10689,7 @@ func (h HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJSON
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10162,7 +10792,7 @@ func (h HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10293,7 +10923,7 @@ func (h HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10424,7 +11054,7 @@ func (h HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10485,12 +11115,14 @@ const (
 	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                         json.RawMessage                                                                                     `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -10531,6 +11163,21 @@ func CreateHealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeH
 	}
 }
 
+func CreateHealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -10539,7 +11186,14 @@ func (u *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -10570,9 +11224,12 @@ func (u *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 		u.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -10588,16 +11245,20 @@ func (u HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP
 		return utils.MarshalJSON(u.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckCollectMethodPostWithBodyDiscoveryType string
 
 const (
-	HealthCheckCollectMethodPostWithBodyDiscoveryTypeHTTP HealthCheckCollectMethodPostWithBodyDiscoveryType = "http"
-	HealthCheckCollectMethodPostWithBodyDiscoveryTypeJSON HealthCheckCollectMethodPostWithBodyDiscoveryType = "json"
-	HealthCheckCollectMethodPostWithBodyDiscoveryTypeList HealthCheckCollectMethodPostWithBodyDiscoveryType = "list"
-	HealthCheckCollectMethodPostWithBodyDiscoveryTypeNone HealthCheckCollectMethodPostWithBodyDiscoveryType = "none"
+	HealthCheckCollectMethodPostWithBodyDiscoveryTypeHTTP    HealthCheckCollectMethodPostWithBodyDiscoveryType = "http"
+	HealthCheckCollectMethodPostWithBodyDiscoveryTypeJSON    HealthCheckCollectMethodPostWithBodyDiscoveryType = "json"
+	HealthCheckCollectMethodPostWithBodyDiscoveryTypeList    HealthCheckCollectMethodPostWithBodyDiscoveryType = "list"
+	HealthCheckCollectMethodPostWithBodyDiscoveryTypeNone    HealthCheckCollectMethodPostWithBodyDiscoveryType = "none"
+	HealthCheckCollectMethodPostWithBodyDiscoveryTypeUnknown HealthCheckCollectMethodPostWithBodyDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckCollectMethodPostWithBodyDiscovery struct {
@@ -10605,6 +11266,7 @@ type HealthCheckCollectMethodPostWithBodyDiscovery struct {
 	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                               json.RawMessage                                                           `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectMethodPostWithBodyDiscoveryType
 }
@@ -10654,6 +11316,21 @@ func CreateHealthCheckCollectMethodPostWithBodyDiscoveryNone(none HealthCheckCol
 	}
 }
 
+func CreateHealthCheckCollectMethodPostWithBodyDiscoveryUnknown(raw json.RawMessage) HealthCheckCollectMethodPostWithBodyDiscovery {
+	return HealthCheckCollectMethodPostWithBodyDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectMethodPostWithBodyDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectMethodPostWithBodyDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectMethodPostWithBodyDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckCollectMethodPostWithBodyDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckCollectMethodPostWithBodyDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -10662,7 +11339,14 @@ func (u *HealthCheckCollectMethodPostWithBodyDiscovery) UnmarshalJSON(data []byt
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostWithBodyDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostWithBodyDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -10702,9 +11386,12 @@ func (u *HealthCheckCollectMethodPostWithBodyDiscovery) UnmarshalJSON(data []byt
 		u.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone = healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckCollectMethodPostWithBodyDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostWithBodyDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectMethodPostWithBodyDiscovery", string(data))
 }
 
 func (u HealthCheckCollectMethodPostWithBodyDiscovery) MarshalJSON() ([]byte, error) {
@@ -10724,6 +11411,9 @@ func (u HealthCheckCollectMethodPostWithBodyDiscovery) MarshalJSON() ([]byte, er
 		return utils.MarshalJSON(u.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectMethodPostWithBodyDiscovery: all fields are null")
 }
 
@@ -10739,7 +11429,7 @@ func (h HealthCheckCollectMethodPostWithBodyCollectRequestHeader) MarshalJSON() 
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10802,7 +11492,7 @@ func (h HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) Ma
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10865,7 +11555,7 @@ func (h HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) Mar
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10928,7 +11618,7 @@ func (h HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone) Marsh
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10982,12 +11672,14 @@ const (
 	HealthCheckCollectMethodPostWithBodyRetryRulesTypeNone    HealthCheckCollectMethodPostWithBodyRetryRulesType = "none"
 	HealthCheckCollectMethodPostWithBodyRetryRulesTypeStatic  HealthCheckCollectMethodPostWithBodyRetryRulesType = "static"
 	HealthCheckCollectMethodPostWithBodyRetryRulesTypeBackoff HealthCheckCollectMethodPostWithBodyRetryRulesType = "backoff"
+	HealthCheckCollectMethodPostWithBodyRetryRulesTypeUnknown HealthCheckCollectMethodPostWithBodyRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckCollectMethodPostWithBodyRetryRules struct {
 	HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone    *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic  *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                           json.RawMessage                                                       `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectMethodPostWithBodyRetryRulesType
 }
@@ -11028,6 +11720,21 @@ func CreateHealthCheckCollectMethodPostWithBodyRetryRulesBackoff(backoff HealthC
 	}
 }
 
+func CreateHealthCheckCollectMethodPostWithBodyRetryRulesUnknown(raw json.RawMessage) HealthCheckCollectMethodPostWithBodyRetryRules {
+	return HealthCheckCollectMethodPostWithBodyRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectMethodPostWithBodyRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectMethodPostWithBodyRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectMethodPostWithBodyRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckCollectMethodPostWithBodyRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckCollectMethodPostWithBodyRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -11036,7 +11743,14 @@ func (u *HealthCheckCollectMethodPostWithBodyRetryRules) UnmarshalJSON(data []by
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostWithBodyRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostWithBodyRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -11067,9 +11781,12 @@ func (u *HealthCheckCollectMethodPostWithBodyRetryRules) UnmarshalJSON(data []by
 		u.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff = healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckCollectMethodPostWithBodyRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostWithBodyRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectMethodPostWithBodyRetryRules", string(data))
 }
 
 func (u HealthCheckCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, error) {
@@ -11085,6 +11802,9 @@ func (u HealthCheckCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, e
 		return utils.MarshalJSON(u.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectMethodPostWithBodyRetryRules: all fields are null")
 }
 
@@ -11117,7 +11837,7 @@ func (h HealthCheckCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectMethod", "collectUrl", "authentication"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11322,7 +12042,7 @@ func (h HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone) Marsha
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11376,7 +12096,7 @@ func (h HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList) Marsha
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11439,7 +12159,7 @@ func (h HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJSON) Marsha
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11542,7 +12262,7 @@ func (h HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11673,7 +12393,7 @@ func (h HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11804,7 +12524,7 @@ func (h HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11865,12 +12585,14 @@ const (
 	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                 json.RawMessage                                                                             `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -11911,6 +12633,21 @@ func CreateHealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPPostW
 	}
 }
 
+func CreateHealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -11919,7 +12656,14 @@ func (u *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP) Unmar
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -11950,9 +12694,12 @@ func (u *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP) Unmar
 		u.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -11968,16 +12715,20 @@ func (u HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP) Marsha
 		return utils.MarshalJSON(u.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckCollectMethodPostDiscoveryType string
 
 const (
-	HealthCheckCollectMethodPostDiscoveryTypeHTTP HealthCheckCollectMethodPostDiscoveryType = "http"
-	HealthCheckCollectMethodPostDiscoveryTypeJSON HealthCheckCollectMethodPostDiscoveryType = "json"
-	HealthCheckCollectMethodPostDiscoveryTypeList HealthCheckCollectMethodPostDiscoveryType = "list"
-	HealthCheckCollectMethodPostDiscoveryTypeNone HealthCheckCollectMethodPostDiscoveryType = "none"
+	HealthCheckCollectMethodPostDiscoveryTypeHTTP    HealthCheckCollectMethodPostDiscoveryType = "http"
+	HealthCheckCollectMethodPostDiscoveryTypeJSON    HealthCheckCollectMethodPostDiscoveryType = "json"
+	HealthCheckCollectMethodPostDiscoveryTypeList    HealthCheckCollectMethodPostDiscoveryType = "list"
+	HealthCheckCollectMethodPostDiscoveryTypeNone    HealthCheckCollectMethodPostDiscoveryType = "none"
+	HealthCheckCollectMethodPostDiscoveryTypeUnknown HealthCheckCollectMethodPostDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckCollectMethodPostDiscovery struct {
@@ -11985,6 +12736,7 @@ type HealthCheckCollectMethodPostDiscovery struct {
 	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                       json.RawMessage                                                   `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectMethodPostDiscoveryType
 }
@@ -12034,6 +12786,21 @@ func CreateHealthCheckCollectMethodPostDiscoveryNone(none HealthCheckCollectMeth
 	}
 }
 
+func CreateHealthCheckCollectMethodPostDiscoveryUnknown(raw json.RawMessage) HealthCheckCollectMethodPostDiscovery {
+	return HealthCheckCollectMethodPostDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectMethodPostDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectMethodPostDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectMethodPostDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckCollectMethodPostDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckCollectMethodPostDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -12042,7 +12809,14 @@ func (u *HealthCheckCollectMethodPostDiscovery) UnmarshalJSON(data []byte) error
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -12082,9 +12856,12 @@ func (u *HealthCheckCollectMethodPostDiscovery) UnmarshalJSON(data []byte) error
 		u.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone = healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckCollectMethodPostDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectMethodPostDiscovery", string(data))
 }
 
 func (u HealthCheckCollectMethodPostDiscovery) MarshalJSON() ([]byte, error) {
@@ -12104,6 +12881,9 @@ func (u HealthCheckCollectMethodPostDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectMethodPostDiscovery: all fields are null")
 }
 
@@ -12119,7 +12899,7 @@ func (h HealthCheckCollectMethodPostCollectRequestHeader) MarshalJSON() ([]byte,
 }
 
 func (h *HealthCheckCollectMethodPostCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12182,7 +12962,7 @@ func (h HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) MarshalJSO
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12245,7 +13025,7 @@ func (h HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) MarshalJSON
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12308,7 +13088,7 @@ func (h HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone) MarshalJSON()
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12362,12 +13142,14 @@ const (
 	HealthCheckCollectMethodPostRetryRulesTypeNone    HealthCheckCollectMethodPostRetryRulesType = "none"
 	HealthCheckCollectMethodPostRetryRulesTypeStatic  HealthCheckCollectMethodPostRetryRulesType = "static"
 	HealthCheckCollectMethodPostRetryRulesTypeBackoff HealthCheckCollectMethodPostRetryRulesType = "backoff"
+	HealthCheckCollectMethodPostRetryRulesTypeUnknown HealthCheckCollectMethodPostRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckCollectMethodPostRetryRules struct {
 	HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone    *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic  *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                   json.RawMessage                                               `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectMethodPostRetryRulesType
 }
@@ -12408,6 +13190,21 @@ func CreateHealthCheckCollectMethodPostRetryRulesBackoff(backoff HealthCheckColl
 	}
 }
 
+func CreateHealthCheckCollectMethodPostRetryRulesUnknown(raw json.RawMessage) HealthCheckCollectMethodPostRetryRules {
+	return HealthCheckCollectMethodPostRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectMethodPostRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectMethodPostRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectMethodPostRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckCollectMethodPostRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckCollectMethodPostRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -12416,7 +13213,14 @@ func (u *HealthCheckCollectMethodPostRetryRules) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -12447,9 +13251,12 @@ func (u *HealthCheckCollectMethodPostRetryRules) UnmarshalJSON(data []byte) erro
 		u.HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff = healthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckCollectMethodPostRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodPostRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectMethodPostRetryRules", string(data))
 }
 
 func (u HealthCheckCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
@@ -12465,6 +13272,9 @@ func (u HealthCheckCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectMethodPostRetryRules: all fields are null")
 }
 
@@ -12497,7 +13307,7 @@ func (h HealthCheckCollectMethodPost) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectMethod", "collectUrl", "authentication"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12675,7 +13485,7 @@ func (h HealthCheckCollectMethodGetCollectRequestParam) MarshalJSON() ([]byte, e
 }
 
 func (h *HealthCheckCollectMethodGetCollectRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12734,7 +13544,7 @@ func (h HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone) Marshal
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12788,7 +13598,7 @@ func (h HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList) Marshal
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12851,7 +13661,7 @@ func (h HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJSON) Marshal
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12954,7 +13764,7 @@ func (h HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13085,7 +13895,7 @@ func (h HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13216,7 +14026,7 @@ func (h HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13277,12 +14087,14 @@ const (
 	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypeGet          HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPType = "get"
 	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypePost         HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPType = "post"
 	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPType = "post_with_body"
+	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP struct {
 	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                json.RawMessage                                                                            `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPType
 }
@@ -13323,6 +14135,21 @@ func CreateHealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPPostWi
 	}
 }
 
+func CreateHealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP {
+	return HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -13331,7 +14158,14 @@ func (u *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP) Unmars
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -13362,9 +14196,12 @@ func (u *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP) Unmars
 		u.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 		u.Type = HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -13380,16 +14217,20 @@ func (u HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP) Marshal
 		return utils.MarshalJSON(u.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type HealthCheckCollectMethodGetDiscoveryType string
 
 const (
-	HealthCheckCollectMethodGetDiscoveryTypeHTTP HealthCheckCollectMethodGetDiscoveryType = "http"
-	HealthCheckCollectMethodGetDiscoveryTypeJSON HealthCheckCollectMethodGetDiscoveryType = "json"
-	HealthCheckCollectMethodGetDiscoveryTypeList HealthCheckCollectMethodGetDiscoveryType = "list"
-	HealthCheckCollectMethodGetDiscoveryTypeNone HealthCheckCollectMethodGetDiscoveryType = "none"
+	HealthCheckCollectMethodGetDiscoveryTypeHTTP    HealthCheckCollectMethodGetDiscoveryType = "http"
+	HealthCheckCollectMethodGetDiscoveryTypeJSON    HealthCheckCollectMethodGetDiscoveryType = "json"
+	HealthCheckCollectMethodGetDiscoveryTypeList    HealthCheckCollectMethodGetDiscoveryType = "list"
+	HealthCheckCollectMethodGetDiscoveryTypeNone    HealthCheckCollectMethodGetDiscoveryType = "none"
+	HealthCheckCollectMethodGetDiscoveryTypeUnknown HealthCheckCollectMethodGetDiscoveryType = "UNKNOWN"
 )
 
 type HealthCheckCollectMethodGetDiscovery struct {
@@ -13397,6 +14238,7 @@ type HealthCheckCollectMethodGetDiscovery struct {
 	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJSON *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                      json.RawMessage                                                  `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectMethodGetDiscoveryType
 }
@@ -13446,6 +14288,21 @@ func CreateHealthCheckCollectMethodGetDiscoveryNone(none HealthCheckCollectMetho
 	}
 }
 
+func CreateHealthCheckCollectMethodGetDiscoveryUnknown(raw json.RawMessage) HealthCheckCollectMethodGetDiscovery {
+	return HealthCheckCollectMethodGetDiscovery{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectMethodGetDiscoveryTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectMethodGetDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectMethodGetDiscovery) IsUnknown() bool {
+	return u.Type == HealthCheckCollectMethodGetDiscoveryTypeUnknown
+}
+
 func (u *HealthCheckCollectMethodGetDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -13454,7 +14311,14 @@ func (u *HealthCheckCollectMethodGetDiscovery) UnmarshalJSON(data []byte) error 
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodGetDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodGetDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -13494,9 +14358,12 @@ func (u *HealthCheckCollectMethodGetDiscovery) UnmarshalJSON(data []byte) error 
 		u.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone = healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone
 		u.Type = HealthCheckCollectMethodGetDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodGetDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectMethodGetDiscovery", string(data))
 }
 
 func (u HealthCheckCollectMethodGetDiscovery) MarshalJSON() ([]byte, error) {
@@ -13516,6 +14383,9 @@ func (u HealthCheckCollectMethodGetDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectMethodGetDiscovery: all fields are null")
 }
 
@@ -13531,7 +14401,7 @@ func (h HealthCheckCollectMethodGetCollectRequestHeader) MarshalJSON() ([]byte, 
 }
 
 func (h *HealthCheckCollectMethodGetCollectRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13594,7 +14464,7 @@ func (h HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) MarshalJSON
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13657,7 +14527,7 @@ func (h HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) MarshalJSON(
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13720,7 +14590,7 @@ func (h HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone) MarshalJSON() 
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13774,12 +14644,14 @@ const (
 	HealthCheckCollectMethodGetRetryRulesTypeNone    HealthCheckCollectMethodGetRetryRulesType = "none"
 	HealthCheckCollectMethodGetRetryRulesTypeStatic  HealthCheckCollectMethodGetRetryRulesType = "static"
 	HealthCheckCollectMethodGetRetryRulesTypeBackoff HealthCheckCollectMethodGetRetryRulesType = "backoff"
+	HealthCheckCollectMethodGetRetryRulesTypeUnknown HealthCheckCollectMethodGetRetryRulesType = "UNKNOWN"
 )
 
 type HealthCheckCollectMethodGetRetryRules struct {
 	HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone    *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic  *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                  json.RawMessage                                              `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectMethodGetRetryRulesType
 }
@@ -13820,6 +14692,21 @@ func CreateHealthCheckCollectMethodGetRetryRulesBackoff(backoff HealthCheckColle
 	}
 }
 
+func CreateHealthCheckCollectMethodGetRetryRulesUnknown(raw json.RawMessage) HealthCheckCollectMethodGetRetryRules {
+	return HealthCheckCollectMethodGetRetryRules{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectMethodGetRetryRulesTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectMethodGetRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectMethodGetRetryRules) IsUnknown() bool {
+	return u.Type == HealthCheckCollectMethodGetRetryRulesTypeUnknown
+}
+
 func (u *HealthCheckCollectMethodGetRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -13828,7 +14715,14 @@ func (u *HealthCheckCollectMethodGetRetryRules) UnmarshalJSON(data []byte) error
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodGetRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodGetRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -13859,9 +14753,12 @@ func (u *HealthCheckCollectMethodGetRetryRules) UnmarshalJSON(data []byte) error
 		u.HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff = healthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
 		u.Type = HealthCheckCollectMethodGetRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectMethodGetRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectMethodGetRetryRules", string(data))
 }
 
 func (u HealthCheckCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
@@ -13877,6 +14774,9 @@ func (u HealthCheckCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectMethodGetRetryRules: all fields are null")
 }
 
@@ -13909,7 +14809,7 @@ func (h HealthCheckCollectMethodGet) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectMethod", "collectUrl", "authentication"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14058,6 +14958,7 @@ const (
 	HealthCheckCollectorConfTypeLoginSecret HealthCheckCollectorConfType = "loginSecret"
 	HealthCheckCollectorConfTypeOauth       HealthCheckCollectorConfType = "oauth"
 	HealthCheckCollectorConfTypeOauthSecret HealthCheckCollectorConfType = "oauthSecret"
+	HealthCheckCollectorConfTypeUnknown     HealthCheckCollectorConfType = "UNKNOWN"
 )
 
 type HealthCheckCollectorConf struct {
@@ -14071,6 +14972,7 @@ type HealthCheckCollectorConf struct {
 	HealthCheckAuthenticationLoginSecret *HealthCheckAuthenticationLoginSecret `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauth       *HealthCheckAuthenticationOauth       `queryParam:"inline" union:"member"`
 	HealthCheckAuthenticationOauthSecret *HealthCheckAuthenticationOauthSecret `queryParam:"inline" union:"member"`
+	UnknownRaw                           json.RawMessage                       `json:"-" union:"unknown"`
 
 	Type HealthCheckCollectorConfType
 }
@@ -14159,6 +15061,21 @@ func CreateHealthCheckCollectorConfOauthSecret(oauthSecret HealthCheckAuthentica
 	}
 }
 
+func CreateHealthCheckCollectorConfUnknown(raw json.RawMessage) HealthCheckCollectorConf {
+	return HealthCheckCollectorConf{
+		UnknownRaw: raw,
+		Type:       HealthCheckCollectorConfTypeUnknown,
+	}
+}
+
+func (u HealthCheckCollectorConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u HealthCheckCollectorConf) IsUnknown() bool {
+	return u.Type == HealthCheckCollectorConfTypeUnknown
+}
+
 func (u *HealthCheckCollectorConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -14167,7 +15084,14 @@ func (u *HealthCheckCollectorConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectorConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectorConfTypeUnknown
+		return nil
 	}
 
 	switch dis.Authentication {
@@ -14234,9 +15158,12 @@ func (u *HealthCheckCollectorConf) UnmarshalJSON(data []byte) error {
 		u.HealthCheckAuthenticationOauthSecret = healthCheckAuthenticationOauthSecret
 		u.Type = HealthCheckCollectorConfTypeOauthSecret
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = HealthCheckCollectorConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for HealthCheckCollectorConf", string(data))
 }
 
 func (u HealthCheckCollectorConf) MarshalJSON() ([]byte, error) {
@@ -14280,5 +15207,8 @@ func (u HealthCheckCollectorConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.HealthCheckAuthenticationOauthSecret, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type HealthCheckCollectorConf: all fields are null")
 }

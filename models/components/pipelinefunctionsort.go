@@ -50,7 +50,7 @@ func (s SortConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SortConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"comparisonExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -112,7 +112,7 @@ func (p PipelineFunctionSort) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSort) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

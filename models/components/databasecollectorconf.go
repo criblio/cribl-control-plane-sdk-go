@@ -67,7 +67,7 @@ func (d DatabaseCollectorConf) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DatabaseCollectorConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"connectionId", "query"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil

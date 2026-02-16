@@ -149,17 +149,43 @@ func CreateFunctionConfSchemaOtlpLogsOTLPLogsBatchOTLPLogsTrue(otlpLogsBatchOTLP
 
 func (u *FunctionConfSchemaOtlpLogs) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var otlpLogsBatchOTLPLogsFalse OTLPLogsBatchOTLPLogsFalse = OTLPLogsBatchOTLPLogsFalse{}
 	if err := utils.UnmarshalJSON(data, &otlpLogsBatchOTLPLogsFalse, "", true, nil); err == nil {
-		u.OTLPLogsBatchOTLPLogsFalse = &otlpLogsBatchOTLPLogsFalse
-		u.Type = FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsFalse
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsFalse,
+			Value: &otlpLogsBatchOTLPLogsFalse,
+		})
 	}
 
 	var otlpLogsBatchOTLPLogsTrue OTLPLogsBatchOTLPLogsTrue = OTLPLogsBatchOTLPLogsTrue{}
 	if err := utils.UnmarshalJSON(data, &otlpLogsBatchOTLPLogsTrue, "", true, nil); err == nil {
-		u.OTLPLogsBatchOTLPLogsTrue = &otlpLogsBatchOTLPLogsTrue
-		u.Type = FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsTrue
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsTrue,
+			Value: &otlpLogsBatchOTLPLogsTrue,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpLogs", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpLogs", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(FunctionConfSchemaOtlpLogsType)
+	switch best.Type {
+	case FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsFalse:
+		u.OTLPLogsBatchOTLPLogsFalse = best.Value.(*OTLPLogsBatchOTLPLogsFalse)
+		return nil
+	case FunctionConfSchemaOtlpLogsTypeOTLPLogsBatchOTLPLogsTrue:
+		u.OTLPLogsBatchOTLPLogsTrue = best.Value.(*OTLPLogsBatchOTLPLogsTrue)
 		return nil
 	}
 

@@ -69,7 +69,7 @@ func (e EventBreakerExistingOrNewExisting) MarshalJSON() ([]byte, error) {
 }
 
 func (e *EventBreakerExistingOrNewExisting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"existingOrNew"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -131,7 +131,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat) MarshalJSON() ([
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -189,7 +189,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeCsv) MarshalJSON() ([]byte, error) {
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeCsv) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"delimiter", "quoteChar", "escapeChar", "existingOrNew"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -321,7 +321,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat) MarshalJSON()
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -381,7 +381,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeHeader) MarshalJSON() ([]byte, error
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"delimiterRegex", "fieldsLineRegex", "headerLineRegex", "existingOrNew"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -520,7 +520,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestam
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -576,7 +576,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) Marsha
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"existingOrNew"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -701,7 +701,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestamp
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -759,7 +759,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) Marshal
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"existingOrNew"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -890,17 +890,43 @@ func CreateEventBreakerExistingOrNewNewRuleTypeJSONArrayEventBreakerExistingOrNe
 
 func (u *EventBreakerExistingOrNewNewRuleTypeJSONArray) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue = EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue{}
 	if err := utils.UnmarshalJSON(data, &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue, "", true, nil); err == nil {
-		u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue = &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue
-		u.Type = EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue,
+			Value: &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue,
+		})
 	}
 
 	var eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse = EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse{}
 	if err := utils.UnmarshalJSON(data, &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse, "", true, nil); err == nil {
-		u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse = &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse
-		u.Type = EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse,
+			Value: &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for EventBreakerExistingOrNewNewRuleTypeJSONArray", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for EventBreakerExistingOrNewNewRuleTypeJSONArray", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(EventBreakerExistingOrNewNewRuleTypeJSONArrayType)
+	switch best.Type {
+	case EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue:
+		u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue = best.Value.(*EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue)
+		return nil
+	case EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse:
+		u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse = best.Value.(*EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse)
 		return nil
 	}
 
@@ -954,7 +980,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat) MarshalJSON() (
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1004,7 +1030,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeJSON) MarshalJSON() ([]byte, error) 
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"existingOrNew"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1108,7 +1134,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat) MarshalJSON() 
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1160,7 +1186,7 @@ func (e EventBreakerExistingOrNewNewRuleTypeRegex) MarshalJSON() ([]byte, error)
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeRegex) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"eventBreakerRegex", "existingOrNew"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1244,6 +1270,7 @@ const (
 	EventBreakerExistingOrNewNewTypeJSONArray EventBreakerExistingOrNewNewType = "json_array"
 	EventBreakerExistingOrNewNewTypeHeader    EventBreakerExistingOrNewNewType = "header"
 	EventBreakerExistingOrNewNewTypeCsv       EventBreakerExistingOrNewNewType = "csv"
+	EventBreakerExistingOrNewNewTypeUnknown   EventBreakerExistingOrNewNewType = "UNKNOWN"
 )
 
 type EventBreakerExistingOrNewNew struct {
@@ -1252,6 +1279,7 @@ type EventBreakerExistingOrNewNew struct {
 	EventBreakerExistingOrNewNewRuleTypeJSONArray *EventBreakerExistingOrNewNewRuleTypeJSONArray `queryParam:"inline" union:"member"`
 	EventBreakerExistingOrNewNewRuleTypeHeader    *EventBreakerExistingOrNewNewRuleTypeHeader    `queryParam:"inline" union:"member"`
 	EventBreakerExistingOrNewNewRuleTypeCsv       *EventBreakerExistingOrNewNewRuleTypeCsv       `queryParam:"inline" union:"member"`
+	UnknownRaw                                    json.RawMessage                                `json:"-" union:"unknown"`
 
 	Type EventBreakerExistingOrNewNewType
 }
@@ -1313,6 +1341,21 @@ func CreateEventBreakerExistingOrNewNewCsv(csv EventBreakerExistingOrNewNewRuleT
 	}
 }
 
+func CreateEventBreakerExistingOrNewNewUnknown(raw json.RawMessage) EventBreakerExistingOrNewNew {
+	return EventBreakerExistingOrNewNew{
+		UnknownRaw: raw,
+		Type:       EventBreakerExistingOrNewNewTypeUnknown,
+	}
+}
+
+func (u EventBreakerExistingOrNewNew) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u EventBreakerExistingOrNewNew) IsUnknown() bool {
+	return u.Type == EventBreakerExistingOrNewNewTypeUnknown
+}
+
 func (u *EventBreakerExistingOrNewNew) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1321,7 +1364,14 @@ func (u *EventBreakerExistingOrNewNew) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = EventBreakerExistingOrNewNewTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = EventBreakerExistingOrNewNewTypeUnknown
+		return nil
 	}
 
 	switch dis.RuleType {
@@ -1370,9 +1420,12 @@ func (u *EventBreakerExistingOrNewNew) UnmarshalJSON(data []byte) error {
 		u.EventBreakerExistingOrNewNewRuleTypeCsv = eventBreakerExistingOrNewNewRuleTypeCsv
 		u.Type = EventBreakerExistingOrNewNewTypeCsv
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = EventBreakerExistingOrNewNewTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for EventBreakerExistingOrNewNew", string(data))
 }
 
 func (u EventBreakerExistingOrNewNew) MarshalJSON() ([]byte, error) {
@@ -1396,6 +1449,9 @@ func (u EventBreakerExistingOrNewNew) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.EventBreakerExistingOrNewNewRuleTypeCsv, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type EventBreakerExistingOrNewNew: all fields are null")
 }
 
@@ -1404,11 +1460,13 @@ type PipelineFunctionEventBreakerConfType string
 const (
 	PipelineFunctionEventBreakerConfTypeNew      PipelineFunctionEventBreakerConfType = "new"
 	PipelineFunctionEventBreakerConfTypeExisting PipelineFunctionEventBreakerConfType = "existing"
+	PipelineFunctionEventBreakerConfTypeUnknown  PipelineFunctionEventBreakerConfType = "UNKNOWN"
 )
 
 type PipelineFunctionEventBreakerConf struct {
 	EventBreakerExistingOrNewNew      *EventBreakerExistingOrNewNew      `queryParam:"inline" union:"member"`
 	EventBreakerExistingOrNewExisting *EventBreakerExistingOrNewExisting `queryParam:"inline" union:"member"`
+	UnknownRaw                        json.RawMessage                    `json:"-" union:"unknown"`
 
 	Type PipelineFunctionEventBreakerConfType
 }
@@ -1434,6 +1492,21 @@ func CreatePipelineFunctionEventBreakerConfExisting(existing EventBreakerExistin
 	}
 }
 
+func CreatePipelineFunctionEventBreakerConfUnknown(raw json.RawMessage) PipelineFunctionEventBreakerConf {
+	return PipelineFunctionEventBreakerConf{
+		UnknownRaw: raw,
+		Type:       PipelineFunctionEventBreakerConfTypeUnknown,
+	}
+}
+
+func (u PipelineFunctionEventBreakerConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PipelineFunctionEventBreakerConf) IsUnknown() bool {
+	return u.Type == PipelineFunctionEventBreakerConfTypeUnknown
+}
+
 func (u *PipelineFunctionEventBreakerConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1442,7 +1515,14 @@ func (u *PipelineFunctionEventBreakerConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionEventBreakerConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionEventBreakerConfTypeUnknown
+		return nil
 	}
 
 	switch dis.ExistingOrNew {
@@ -1464,9 +1544,12 @@ func (u *PipelineFunctionEventBreakerConf) UnmarshalJSON(data []byte) error {
 		u.EventBreakerExistingOrNewExisting = eventBreakerExistingOrNewExisting
 		u.Type = PipelineFunctionEventBreakerConfTypeExisting
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionEventBreakerConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionEventBreakerConf", string(data))
 }
 
 func (u PipelineFunctionEventBreakerConf) MarshalJSON() ([]byte, error) {
@@ -1478,6 +1561,9 @@ func (u PipelineFunctionEventBreakerConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.EventBreakerExistingOrNewExisting, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type PipelineFunctionEventBreakerConf: all fields are null")
 }
 
@@ -1502,7 +1588,7 @@ func (p PipelineFunctionEventBreaker) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionEventBreaker) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

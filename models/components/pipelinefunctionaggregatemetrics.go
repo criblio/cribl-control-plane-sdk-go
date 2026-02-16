@@ -73,7 +73,7 @@ func (a AggregateMetricsCumulativeFalseAggregation) MarshalJSON() ([]byte, error
 }
 
 func (a *AggregateMetricsCumulativeFalseAggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"metricType", "agg"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -104,7 +104,7 @@ func (a AggregateMetricsCumulativeFalseAdd) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AggregateMetricsCumulativeFalseAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -162,7 +162,7 @@ func (a AggregateMetricsCumulativeFalse) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AggregateMetricsCumulativeFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"timeWindow", "aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -313,7 +313,7 @@ func (a AggregateMetricsCumulativeTrueAggregation) MarshalJSON() ([]byte, error)
 }
 
 func (a *AggregateMetricsCumulativeTrueAggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"metricType", "agg"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -344,7 +344,7 @@ func (a AggregateMetricsCumulativeTrueAdd) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AggregateMetricsCumulativeTrueAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -398,7 +398,7 @@ func (a AggregateMetricsCumulativeTrue) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AggregateMetricsCumulativeTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"timeWindow", "aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -529,17 +529,43 @@ func CreatePipelineFunctionAggregateMetricsConfAggregateMetricsCumulativeFalse(a
 
 func (u *PipelineFunctionAggregateMetricsConf) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var aggregateMetricsCumulativeTrue AggregateMetricsCumulativeTrue = AggregateMetricsCumulativeTrue{}
 	if err := utils.UnmarshalJSON(data, &aggregateMetricsCumulativeTrue, "", true, nil); err == nil {
-		u.AggregateMetricsCumulativeTrue = &aggregateMetricsCumulativeTrue
-		u.Type = PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeTrue
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeTrue,
+			Value: &aggregateMetricsCumulativeTrue,
+		})
 	}
 
 	var aggregateMetricsCumulativeFalse AggregateMetricsCumulativeFalse = AggregateMetricsCumulativeFalse{}
 	if err := utils.UnmarshalJSON(data, &aggregateMetricsCumulativeFalse, "", true, nil); err == nil {
-		u.AggregateMetricsCumulativeFalse = &aggregateMetricsCumulativeFalse
-		u.Type = PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeFalse
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeFalse,
+			Value: &aggregateMetricsCumulativeFalse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregateMetricsConf", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregateMetricsConf", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(PipelineFunctionAggregateMetricsConfType)
+	switch best.Type {
+	case PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeTrue:
+		u.AggregateMetricsCumulativeTrue = best.Value.(*AggregateMetricsCumulativeTrue)
+		return nil
+	case PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeFalse:
+		u.AggregateMetricsCumulativeFalse = best.Value.(*AggregateMetricsCumulativeFalse)
 		return nil
 	}
 
@@ -579,7 +605,7 @@ func (p PipelineFunctionAggregateMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionAggregateMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
