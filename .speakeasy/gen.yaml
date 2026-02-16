@@ -40,7 +40,8 @@ go:
   defaultErrorName: APIError
   envVarPrefix: CRIBLCONTROLPLANE
   flattenGlobalSecurity: true
-  forwardCompatibleEnumsByDefault: false
+  forwardCompatibleEnumsByDefault: true
+  forwardCompatibleUnionsByDefault: tagged-only
   imports:
     option: openapi
     paths:
@@ -63,4 +64,4 @@ go:
   respectTitlesForPrimitiveUnionMembers: false
   responseFormat: envelope-http
   sdkPackageName: ""
-  unionStrategy: left-to-right
+  unionStrategy: populated-fields
