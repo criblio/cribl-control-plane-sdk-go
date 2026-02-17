@@ -549,7 +549,7 @@ func (i InputSystemMetricsFilter) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsFilter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"expr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -740,7 +740,7 @@ func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

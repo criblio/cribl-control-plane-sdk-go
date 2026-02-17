@@ -44,7 +44,7 @@ func (f FieldCondition) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FieldCondition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"leftFieldName", "rightFieldName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -82,7 +82,7 @@ func (j JoinConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (j *JoinConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &j, "", false, []string{"fieldConditions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &j, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -144,7 +144,7 @@ func (p PipelineFunctionJoin) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionJoin) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

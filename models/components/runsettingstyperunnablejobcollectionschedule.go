@@ -65,7 +65,7 @@ func (r RunSettingsTypeRunnableJobCollectionSchedule) MarshalJSON() ([]byte, err
 }
 
 func (r *RunSettingsTypeRunnableJobCollectionSchedule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"mode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil

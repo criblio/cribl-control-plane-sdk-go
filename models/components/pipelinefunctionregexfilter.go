@@ -53,7 +53,7 @@ func (p PipelineFunctionRegexFilter) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionRegexFilter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
