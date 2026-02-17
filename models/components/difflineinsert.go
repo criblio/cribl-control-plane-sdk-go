@@ -42,7 +42,7 @@ func (d DiffLineInsert) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DiffLineInsert) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"type", "newNumber", "content"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil

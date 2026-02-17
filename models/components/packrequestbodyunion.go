@@ -28,7 +28,7 @@ func (p PackRequestBody2) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PackRequestBody2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"source"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -131,7 +131,7 @@ func (p PackRequestBody1) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PackRequestBody1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -248,17 +248,43 @@ func CreatePackRequestBodyUnionPackRequestBody2(packRequestBody2 PackRequestBody
 
 func (u *PackRequestBodyUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var packRequestBody1 PackRequestBody1 = PackRequestBody1{}
 	if err := utils.UnmarshalJSON(data, &packRequestBody1, "", true, nil); err == nil {
-		u.PackRequestBody1 = &packRequestBody1
-		u.Type = PackRequestBodyUnionTypePackRequestBody1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PackRequestBodyUnionTypePackRequestBody1,
+			Value: &packRequestBody1,
+		})
 	}
 
 	var packRequestBody2 PackRequestBody2 = PackRequestBody2{}
 	if err := utils.UnmarshalJSON(data, &packRequestBody2, "", true, nil); err == nil {
-		u.PackRequestBody2 = &packRequestBody2
-		u.Type = PackRequestBodyUnionTypePackRequestBody2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PackRequestBodyUnionTypePackRequestBody2,
+			Value: &packRequestBody2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PackRequestBodyUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PackRequestBodyUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(PackRequestBodyUnionType)
+	switch best.Type {
+	case PackRequestBodyUnionTypePackRequestBody1:
+		u.PackRequestBody1 = best.Value.(*PackRequestBody1)
+		return nil
+	case PackRequestBodyUnionTypePackRequestBody2:
+		u.PackRequestBody2 = best.Value.(*PackRequestBody2)
 		return nil
 	}
 

@@ -46,7 +46,7 @@ func (s SimplePivotConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SimplePivotConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"labelField", "dataFields", "qualifierFields"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -94,7 +94,7 @@ func (p PipelineFunctionPivot) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionPivot) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

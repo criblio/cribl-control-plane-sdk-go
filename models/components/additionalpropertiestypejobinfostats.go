@@ -42,17 +42,43 @@ func CreateAdditionalPropertiesTypeJobInfoStatsMapOfNumber(mapOfNumber map[strin
 
 func (u *AdditionalPropertiesTypeJobInfoStats) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
-		u.Number = &number
-		u.Type = AdditionalPropertiesTypeJobInfoStatsTypeNumber
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  AdditionalPropertiesTypeJobInfoStatsTypeNumber,
+			Value: &number,
+		})
 	}
 
 	var mapOfNumber map[string]float64 = map[string]float64{}
 	if err := utils.UnmarshalJSON(data, &mapOfNumber, "", true, nil); err == nil {
-		u.MapOfNumber = mapOfNumber
-		u.Type = AdditionalPropertiesTypeJobInfoStatsTypeMapOfNumber
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  AdditionalPropertiesTypeJobInfoStatsTypeMapOfNumber,
+			Value: mapOfNumber,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for AdditionalPropertiesTypeJobInfoStats", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for AdditionalPropertiesTypeJobInfoStats", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(AdditionalPropertiesTypeJobInfoStatsType)
+	switch best.Type {
+	case AdditionalPropertiesTypeJobInfoStatsTypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	case AdditionalPropertiesTypeJobInfoStatsTypeMapOfNumber:
+		u.MapOfNumber = best.Value.(map[string]float64)
 		return nil
 	}
 
