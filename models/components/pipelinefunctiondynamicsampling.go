@@ -75,7 +75,7 @@ func (p PipelineFunctionDynamicSamplingConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionDynamicSamplingConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"mode", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -137,7 +137,7 @@ func (p PipelineFunctionDynamicSampling) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionDynamicSampling) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

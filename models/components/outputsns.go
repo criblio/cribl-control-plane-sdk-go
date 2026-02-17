@@ -151,7 +151,7 @@ func (o OutputSns) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSns) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicArn", "messageGroupId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

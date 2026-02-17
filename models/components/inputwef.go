@@ -90,7 +90,7 @@ func (m MTLSSettings) MarshalJSON() ([]byte, error) {
 }
 
 func (m *MTLSSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -258,7 +258,7 @@ func (q Query) MarshalJSON() ([]byte, error) {
 }
 
 func (q *Query) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &q, "", false, []string{"path", "queryExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &q, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -311,7 +311,7 @@ func (s Subscription) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Subscription) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "contentFormat", "heartbeatInterval", "batchTimeout", "targets"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -484,7 +484,7 @@ func (i InputWef) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port", "subscriptions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

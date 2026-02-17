@@ -75,7 +75,7 @@ func (p PipelineFunctionMvExpandConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMvExpandConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"sourceFields"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -137,7 +137,7 @@ func (p PipelineFunctionMvExpand) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMvExpand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

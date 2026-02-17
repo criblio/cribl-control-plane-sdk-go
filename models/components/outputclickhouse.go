@@ -193,7 +193,7 @@ func (c ColumnMapping) MarshalJSON() ([]byte, error) {
 }
 
 func (c *ColumnMapping) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -341,7 +341,7 @@ func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputClickHouse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

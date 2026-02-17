@@ -75,7 +75,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -125,7 +125,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeList) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -184,7 +184,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -273,7 +273,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPa
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -310,7 +310,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) 
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -462,7 +462,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -499,7 +499,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -651,7 +651,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPag
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -688,7 +688,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) M
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -840,7 +840,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagi
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -877,7 +877,7 @@ func (r RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Ma
 }
 
 func (r *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -974,6 +974,7 @@ const (
 	RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP struct {
@@ -981,6 +982,7 @@ type RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                    json.RawMessage                                                                `json:"-" union:"unknown"`
 
 	Type RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPType
 }
@@ -1033,6 +1035,21 @@ func CreateRestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPOther(other RestAu
 	}
 }
 
+func CreateRestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1041,7 +1058,14 @@ func (u *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -1081,9 +1105,12 @@ func (u *RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data
 		u.RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -1103,16 +1130,20 @@ func (u RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]by
 		return utils.MarshalJSON(u.RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationHmacRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationHmacDiscoveryType string
 
 const (
-	RestAuthenticationHmacDiscoveryTypeHTTP RestAuthenticationHmacDiscoveryType = "http"
-	RestAuthenticationHmacDiscoveryTypeJSON RestAuthenticationHmacDiscoveryType = "json"
-	RestAuthenticationHmacDiscoveryTypeList RestAuthenticationHmacDiscoveryType = "list"
-	RestAuthenticationHmacDiscoveryTypeNone RestAuthenticationHmacDiscoveryType = "none"
+	RestAuthenticationHmacDiscoveryTypeHTTP    RestAuthenticationHmacDiscoveryType = "http"
+	RestAuthenticationHmacDiscoveryTypeJSON    RestAuthenticationHmacDiscoveryType = "json"
+	RestAuthenticationHmacDiscoveryTypeList    RestAuthenticationHmacDiscoveryType = "list"
+	RestAuthenticationHmacDiscoveryTypeNone    RestAuthenticationHmacDiscoveryType = "none"
+	RestAuthenticationHmacDiscoveryTypeUnknown RestAuthenticationHmacDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationHmacDiscovery struct {
@@ -1120,6 +1151,7 @@ type RestAuthenticationHmacDiscovery struct {
 	RestAuthenticationHmacRestDiscoveryDiscoverTypeJSON *RestAuthenticationHmacRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationHmacRestDiscoveryDiscoverTypeList *RestAuthenticationHmacRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationHmacRestDiscoveryDiscoverTypeNone *RestAuthenticationHmacRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                          json.RawMessage                                      `json:"-" union:"unknown"`
 
 	Type RestAuthenticationHmacDiscoveryType
 }
@@ -1169,6 +1201,21 @@ func CreateRestAuthenticationHmacDiscoveryNone(none RestAuthenticationHmacRestDi
 	}
 }
 
+func CreateRestAuthenticationHmacDiscoveryUnknown(raw json.RawMessage) RestAuthenticationHmacDiscovery {
+	return RestAuthenticationHmacDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationHmacDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationHmacDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationHmacDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationHmacDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationHmacDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1177,7 +1224,14 @@ func (u *RestAuthenticationHmacDiscovery) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -1217,9 +1271,12 @@ func (u *RestAuthenticationHmacDiscovery) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationHmacRestDiscoveryDiscoverTypeNone = restAuthenticationHmacRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationHmacDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacDiscovery", string(data))
 }
 
 func (u RestAuthenticationHmacDiscovery) MarshalJSON() ([]byte, error) {
@@ -1239,6 +1296,9 @@ func (u RestAuthenticationHmacDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationHmacRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationHmacDiscovery: all fields are null")
 }
 
@@ -1295,7 +1355,7 @@ func (r RestAuthenticationHmacRestPaginationTypeRequestPage) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationHmacRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1387,7 +1447,7 @@ func (r RestAuthenticationHmacRestPaginationTypeRequestOffset) MarshalJSON() ([]
 }
 
 func (r *RestAuthenticationHmacRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1464,7 +1524,7 @@ func (r RestAuthenticationHmacRestPaginationTypeResponseHeaderLink) MarshalJSON(
 }
 
 func (r *RestAuthenticationHmacRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1511,7 +1571,7 @@ func (r RestAuthenticationHmacRestPaginationTypeResponseHeader) MarshalJSON() ([
 }
 
 func (r *RestAuthenticationHmacRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1553,7 +1613,7 @@ func (r RestAuthenticationHmacRestPaginationTypeResponseBody) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationHmacRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1596,7 +1656,7 @@ func (r RestAuthenticationHmacRestPaginationTypeNone) MarshalJSON() ([]byte, err
 }
 
 func (r *RestAuthenticationHmacRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1618,6 +1678,7 @@ const (
 	RestAuthenticationHmacPaginationUnionTypeResponseHeaderLink RestAuthenticationHmacPaginationUnionType = "response_header_link"
 	RestAuthenticationHmacPaginationUnionTypeRequestOffset      RestAuthenticationHmacPaginationUnionType = "request_offset"
 	RestAuthenticationHmacPaginationUnionTypeRequestPage        RestAuthenticationHmacPaginationUnionType = "request_page"
+	RestAuthenticationHmacPaginationUnionTypeUnknown            RestAuthenticationHmacPaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationHmacPaginationUnion struct {
@@ -1627,6 +1688,7 @@ type RestAuthenticationHmacPaginationUnion struct {
 	RestAuthenticationHmacRestPaginationTypeResponseHeaderLink *RestAuthenticationHmacRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationHmacRestPaginationTypeRequestOffset      *RestAuthenticationHmacRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationHmacRestPaginationTypeRequestPage        *RestAuthenticationHmacRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type RestAuthenticationHmacPaginationUnionType
 }
@@ -1703,6 +1765,21 @@ func CreateRestAuthenticationHmacPaginationUnionRequestPage(requestPage RestAuth
 	}
 }
 
+func CreateRestAuthenticationHmacPaginationUnionUnknown(raw json.RawMessage) RestAuthenticationHmacPaginationUnion {
+	return RestAuthenticationHmacPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationHmacPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationHmacPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationHmacPaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationHmacPaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationHmacPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1711,7 +1788,14 @@ func (u *RestAuthenticationHmacPaginationUnion) UnmarshalJSON(data []byte) error
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -1769,9 +1853,12 @@ func (u *RestAuthenticationHmacPaginationUnion) UnmarshalJSON(data []byte) error
 		u.RestAuthenticationHmacRestPaginationTypeRequestPage = restAuthenticationHmacRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationHmacPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacPaginationUnion", string(data))
 }
 
 func (u RestAuthenticationHmacPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -1799,6 +1886,9 @@ func (u RestAuthenticationHmacPaginationUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationHmacRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationHmacPaginationUnion: all fields are null")
 }
 
@@ -1820,7 +1910,7 @@ func (r RestAuthenticationHmacRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, 
 }
 
 func (r *RestAuthenticationHmacRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1907,7 +1997,7 @@ func (r RestAuthenticationHmacRestRetryRulesTypeStatic) MarshalJSON() ([]byte, e
 }
 
 func (r *RestAuthenticationHmacRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1994,7 +2084,7 @@ func (r RestAuthenticationHmacRestRetryRulesTypeNone) MarshalJSON() ([]byte, err
 }
 
 func (r *RestAuthenticationHmacRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2069,12 +2159,14 @@ const (
 	RestAuthenticationHmacRetryRulesTypeNone    RestAuthenticationHmacRetryRulesType = "none"
 	RestAuthenticationHmacRetryRulesTypeStatic  RestAuthenticationHmacRetryRulesType = "static"
 	RestAuthenticationHmacRetryRulesTypeBackoff RestAuthenticationHmacRetryRulesType = "backoff"
+	RestAuthenticationHmacRetryRulesTypeUnknown RestAuthenticationHmacRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationHmacRetryRules struct {
 	RestAuthenticationHmacRestRetryRulesTypeNone    *RestAuthenticationHmacRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationHmacRestRetryRulesTypeStatic  *RestAuthenticationHmacRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationHmacRestRetryRulesTypeBackoff *RestAuthenticationHmacRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                      json.RawMessage                                  `json:"-" union:"unknown"`
 
 	Type RestAuthenticationHmacRetryRulesType
 }
@@ -2115,6 +2207,21 @@ func CreateRestAuthenticationHmacRetryRulesBackoff(backoff RestAuthenticationHma
 	}
 }
 
+func CreateRestAuthenticationHmacRetryRulesUnknown(raw json.RawMessage) RestAuthenticationHmacRetryRules {
+	return RestAuthenticationHmacRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationHmacRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationHmacRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationHmacRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationHmacRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationHmacRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -2123,7 +2230,14 @@ func (u *RestAuthenticationHmacRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -2154,9 +2268,12 @@ func (u *RestAuthenticationHmacRetryRules) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationHmacRestRetryRulesTypeBackoff = restAuthenticationHmacRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationHmacRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationHmacRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacRetryRules", string(data))
 }
 
 func (u RestAuthenticationHmacRetryRules) MarshalJSON() ([]byte, error) {
@@ -2172,6 +2289,9 @@ func (u RestAuthenticationHmacRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationHmacRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationHmacRetryRules: all fields are null")
 }
 
@@ -2259,7 +2379,7 @@ func (r RestAuthenticationHmac) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationHmac) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "hmacFunctionId", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2562,7 +2682,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone) Marsha
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2612,7 +2732,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList) Marsha
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2671,7 +2791,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJSON) Marsha
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2760,7 +2880,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2797,7 +2917,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2949,7 +3069,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2986,7 +3106,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3138,7 +3258,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3175,7 +3295,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3327,7 +3447,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3364,7 +3484,7 @@ func (r RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscover
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3461,6 +3581,7 @@ const (
 	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP struct {
@@ -3468,6 +3589,7 @@ type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                                 json.RawMessage                                                                             `json:"-" union:"unknown"`
 
 	Type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPType
 }
@@ -3520,6 +3642,21 @@ func CreateRestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPOther
 	}
 }
 
+func CreateRestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -3528,7 +3665,14 @@ func (u *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP) Unmar
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -3568,9 +3712,12 @@ func (u *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP) Unmar
 		u.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -3590,16 +3737,20 @@ func (u RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP) Marsha
 		return utils.MarshalJSON(u.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationGoogleOauthSecretDiscoveryType string
 
 const (
-	RestAuthenticationGoogleOauthSecretDiscoveryTypeHTTP RestAuthenticationGoogleOauthSecretDiscoveryType = "http"
-	RestAuthenticationGoogleOauthSecretDiscoveryTypeJSON RestAuthenticationGoogleOauthSecretDiscoveryType = "json"
-	RestAuthenticationGoogleOauthSecretDiscoveryTypeList RestAuthenticationGoogleOauthSecretDiscoveryType = "list"
-	RestAuthenticationGoogleOauthSecretDiscoveryTypeNone RestAuthenticationGoogleOauthSecretDiscoveryType = "none"
+	RestAuthenticationGoogleOauthSecretDiscoveryTypeHTTP    RestAuthenticationGoogleOauthSecretDiscoveryType = "http"
+	RestAuthenticationGoogleOauthSecretDiscoveryTypeJSON    RestAuthenticationGoogleOauthSecretDiscoveryType = "json"
+	RestAuthenticationGoogleOauthSecretDiscoveryTypeList    RestAuthenticationGoogleOauthSecretDiscoveryType = "list"
+	RestAuthenticationGoogleOauthSecretDiscoveryTypeNone    RestAuthenticationGoogleOauthSecretDiscoveryType = "none"
+	RestAuthenticationGoogleOauthSecretDiscoveryTypeUnknown RestAuthenticationGoogleOauthSecretDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationGoogleOauthSecretDiscovery struct {
@@ -3607,6 +3758,7 @@ type RestAuthenticationGoogleOauthSecretDiscovery struct {
 	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJSON *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone *RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                       json.RawMessage                                                   `json:"-" union:"unknown"`
 
 	Type RestAuthenticationGoogleOauthSecretDiscoveryType
 }
@@ -3656,6 +3808,21 @@ func CreateRestAuthenticationGoogleOauthSecretDiscoveryNone(none RestAuthenticat
 	}
 }
 
+func CreateRestAuthenticationGoogleOauthSecretDiscoveryUnknown(raw json.RawMessage) RestAuthenticationGoogleOauthSecretDiscovery {
+	return RestAuthenticationGoogleOauthSecretDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationGoogleOauthSecretDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationGoogleOauthSecretDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationGoogleOauthSecretDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationGoogleOauthSecretDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationGoogleOauthSecretDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -3664,7 +3831,14 @@ func (u *RestAuthenticationGoogleOauthSecretDiscovery) UnmarshalJSON(data []byte
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -3704,9 +3878,12 @@ func (u *RestAuthenticationGoogleOauthSecretDiscovery) UnmarshalJSON(data []byte
 		u.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone = restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationGoogleOauthSecretDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretDiscovery", string(data))
 }
 
 func (u RestAuthenticationGoogleOauthSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -3726,6 +3903,9 @@ func (u RestAuthenticationGoogleOauthSecretDiscovery) MarshalJSON() ([]byte, err
 		return utils.MarshalJSON(u.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthSecretDiscovery: all fields are null")
 }
 
@@ -3782,7 +3962,7 @@ func (r RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage) Marsha
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3874,7 +4054,7 @@ func (r RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset) Mars
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3951,7 +4131,7 @@ func (r RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink)
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3998,7 +4178,7 @@ func (r RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader) Mar
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4040,7 +4220,7 @@ func (r RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody) Marsh
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4083,7 +4263,7 @@ func (r RestAuthenticationGoogleOauthSecretRestPaginationTypeNone) MarshalJSON()
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4105,6 +4285,7 @@ const (
 	RestAuthenticationGoogleOauthSecretPaginationUnionTypeResponseHeaderLink RestAuthenticationGoogleOauthSecretPaginationUnionType = "response_header_link"
 	RestAuthenticationGoogleOauthSecretPaginationUnionTypeRequestOffset      RestAuthenticationGoogleOauthSecretPaginationUnionType = "request_offset"
 	RestAuthenticationGoogleOauthSecretPaginationUnionTypeRequestPage        RestAuthenticationGoogleOauthSecretPaginationUnionType = "request_page"
+	RestAuthenticationGoogleOauthSecretPaginationUnionTypeUnknown            RestAuthenticationGoogleOauthSecretPaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationGoogleOauthSecretPaginationUnion struct {
@@ -4114,6 +4295,7 @@ type RestAuthenticationGoogleOauthSecretPaginationUnion struct {
 	RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset      *RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage        *RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                              json.RawMessage                                                          `json:"-" union:"unknown"`
 
 	Type RestAuthenticationGoogleOauthSecretPaginationUnionType
 }
@@ -4190,6 +4372,21 @@ func CreateRestAuthenticationGoogleOauthSecretPaginationUnionRequestPage(request
 	}
 }
 
+func CreateRestAuthenticationGoogleOauthSecretPaginationUnionUnknown(raw json.RawMessage) RestAuthenticationGoogleOauthSecretPaginationUnion {
+	return RestAuthenticationGoogleOauthSecretPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationGoogleOauthSecretPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationGoogleOauthSecretPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationGoogleOauthSecretPaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationGoogleOauthSecretPaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationGoogleOauthSecretPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -4198,7 +4395,14 @@ func (u *RestAuthenticationGoogleOauthSecretPaginationUnion) UnmarshalJSON(data 
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -4256,9 +4460,12 @@ func (u *RestAuthenticationGoogleOauthSecretPaginationUnion) UnmarshalJSON(data 
 		u.RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage = restAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationGoogleOauthSecretPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretPaginationUnion", string(data))
 }
 
 func (u RestAuthenticationGoogleOauthSecretPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -4286,6 +4493,9 @@ func (u RestAuthenticationGoogleOauthSecretPaginationUnion) MarshalJSON() ([]byt
 		return utils.MarshalJSON(u.RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthSecretPaginationUnion: all fields are null")
 }
 
@@ -4307,7 +4517,7 @@ func (r RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff) MarshalJSO
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4394,7 +4604,7 @@ func (r RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic) MarshalJSON
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4481,7 +4691,7 @@ func (r RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) MarshalJSON()
 }
 
 func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4556,12 +4766,14 @@ const (
 	RestAuthenticationGoogleOauthSecretRetryRulesTypeNone    RestAuthenticationGoogleOauthSecretRetryRulesType = "none"
 	RestAuthenticationGoogleOauthSecretRetryRulesTypeStatic  RestAuthenticationGoogleOauthSecretRetryRulesType = "static"
 	RestAuthenticationGoogleOauthSecretRetryRulesTypeBackoff RestAuthenticationGoogleOauthSecretRetryRulesType = "backoff"
+	RestAuthenticationGoogleOauthSecretRetryRulesTypeUnknown RestAuthenticationGoogleOauthSecretRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationGoogleOauthSecretRetryRules struct {
 	RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone    *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic  *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                                   json.RawMessage                                               `json:"-" union:"unknown"`
 
 	Type RestAuthenticationGoogleOauthSecretRetryRulesType
 }
@@ -4602,6 +4814,21 @@ func CreateRestAuthenticationGoogleOauthSecretRetryRulesBackoff(backoff RestAuth
 	}
 }
 
+func CreateRestAuthenticationGoogleOauthSecretRetryRulesUnknown(raw json.RawMessage) RestAuthenticationGoogleOauthSecretRetryRules {
+	return RestAuthenticationGoogleOauthSecretRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationGoogleOauthSecretRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationGoogleOauthSecretRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationGoogleOauthSecretRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationGoogleOauthSecretRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationGoogleOauthSecretRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -4610,7 +4837,14 @@ func (u *RestAuthenticationGoogleOauthSecretRetryRules) UnmarshalJSON(data []byt
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -4641,9 +4875,12 @@ func (u *RestAuthenticationGoogleOauthSecretRetryRules) UnmarshalJSON(data []byt
 		u.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff = restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationGoogleOauthSecretRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthSecretRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretRetryRules", string(data))
 }
 
 func (u RestAuthenticationGoogleOauthSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -4659,6 +4896,9 @@ func (u RestAuthenticationGoogleOauthSecretRetryRules) MarshalJSON() ([]byte, er
 		return utils.MarshalJSON(u.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthSecretRetryRules: all fields are null")
 }
 
@@ -4750,7 +4990,7 @@ func (r RestAuthenticationGoogleOauthSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationGoogleOauthSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "scopes", "textSecret", "subject", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5067,7 +5307,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone) MarshalJSON(
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5117,7 +5357,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList) MarshalJSON(
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5176,7 +5416,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJSON) MarshalJSON(
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5265,7 +5505,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5302,7 +5542,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5454,7 +5694,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5491,7 +5731,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5643,7 +5883,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5680,7 +5920,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5832,7 +6072,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5869,7 +6109,7 @@ func (r RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5966,6 +6206,7 @@ const (
 	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP struct {
@@ -5973,6 +6214,7 @@ type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                           json.RawMessage                                                                       `json:"-" union:"unknown"`
 
 	Type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPType
 }
@@ -6025,6 +6267,21 @@ func CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPOther(other
 	}
 }
 
+func CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -6033,7 +6290,14 @@ func (u *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -6073,9 +6337,12 @@ func (u *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 		u.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -6095,16 +6362,20 @@ func (u RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP) MarshalJSON(
 		return utils.MarshalJSON(u.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationGoogleOauthDiscoveryType string
 
 const (
-	RestAuthenticationGoogleOauthDiscoveryTypeHTTP RestAuthenticationGoogleOauthDiscoveryType = "http"
-	RestAuthenticationGoogleOauthDiscoveryTypeJSON RestAuthenticationGoogleOauthDiscoveryType = "json"
-	RestAuthenticationGoogleOauthDiscoveryTypeList RestAuthenticationGoogleOauthDiscoveryType = "list"
-	RestAuthenticationGoogleOauthDiscoveryTypeNone RestAuthenticationGoogleOauthDiscoveryType = "none"
+	RestAuthenticationGoogleOauthDiscoveryTypeHTTP    RestAuthenticationGoogleOauthDiscoveryType = "http"
+	RestAuthenticationGoogleOauthDiscoveryTypeJSON    RestAuthenticationGoogleOauthDiscoveryType = "json"
+	RestAuthenticationGoogleOauthDiscoveryTypeList    RestAuthenticationGoogleOauthDiscoveryType = "list"
+	RestAuthenticationGoogleOauthDiscoveryTypeNone    RestAuthenticationGoogleOauthDiscoveryType = "none"
+	RestAuthenticationGoogleOauthDiscoveryTypeUnknown RestAuthenticationGoogleOauthDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationGoogleOauthDiscovery struct {
@@ -6112,6 +6383,7 @@ type RestAuthenticationGoogleOauthDiscovery struct {
 	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJSON *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone *RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type RestAuthenticationGoogleOauthDiscoveryType
 }
@@ -6161,6 +6433,21 @@ func CreateRestAuthenticationGoogleOauthDiscoveryNone(none RestAuthenticationGoo
 	}
 }
 
+func CreateRestAuthenticationGoogleOauthDiscoveryUnknown(raw json.RawMessage) RestAuthenticationGoogleOauthDiscovery {
+	return RestAuthenticationGoogleOauthDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationGoogleOauthDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationGoogleOauthDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationGoogleOauthDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationGoogleOauthDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationGoogleOauthDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -6169,7 +6456,14 @@ func (u *RestAuthenticationGoogleOauthDiscovery) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -6209,9 +6503,12 @@ func (u *RestAuthenticationGoogleOauthDiscovery) UnmarshalJSON(data []byte) erro
 		u.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone = restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationGoogleOauthDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthDiscovery", string(data))
 }
 
 func (u RestAuthenticationGoogleOauthDiscovery) MarshalJSON() ([]byte, error) {
@@ -6231,6 +6528,9 @@ func (u RestAuthenticationGoogleOauthDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthDiscovery: all fields are null")
 }
 
@@ -6287,7 +6587,7 @@ func (r RestAuthenticationGoogleOauthRestPaginationTypeRequestPage) MarshalJSON(
 }
 
 func (r *RestAuthenticationGoogleOauthRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6379,7 +6679,7 @@ func (r RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset) MarshalJSO
 }
 
 func (r *RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6456,7 +6756,7 @@ func (r RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink) Marsh
 }
 
 func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6503,7 +6803,7 @@ func (r RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader) MarshalJS
 }
 
 func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6545,7 +6845,7 @@ func (r RestAuthenticationGoogleOauthRestPaginationTypeResponseBody) MarshalJSON
 }
 
 func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6588,7 +6888,7 @@ func (r RestAuthenticationGoogleOauthRestPaginationTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationGoogleOauthRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6610,6 +6910,7 @@ const (
 	RestAuthenticationGoogleOauthPaginationUnionTypeResponseHeaderLink RestAuthenticationGoogleOauthPaginationUnionType = "response_header_link"
 	RestAuthenticationGoogleOauthPaginationUnionTypeRequestOffset      RestAuthenticationGoogleOauthPaginationUnionType = "request_offset"
 	RestAuthenticationGoogleOauthPaginationUnionTypeRequestPage        RestAuthenticationGoogleOauthPaginationUnionType = "request_page"
+	RestAuthenticationGoogleOauthPaginationUnionTypeUnknown            RestAuthenticationGoogleOauthPaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationGoogleOauthPaginationUnion struct {
@@ -6619,6 +6920,7 @@ type RestAuthenticationGoogleOauthPaginationUnion struct {
 	RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink *RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset      *RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthRestPaginationTypeRequestPage        *RestAuthenticationGoogleOauthRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                        json.RawMessage                                                    `json:"-" union:"unknown"`
 
 	Type RestAuthenticationGoogleOauthPaginationUnionType
 }
@@ -6695,6 +6997,21 @@ func CreateRestAuthenticationGoogleOauthPaginationUnionRequestPage(requestPage R
 	}
 }
 
+func CreateRestAuthenticationGoogleOauthPaginationUnionUnknown(raw json.RawMessage) RestAuthenticationGoogleOauthPaginationUnion {
+	return RestAuthenticationGoogleOauthPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationGoogleOauthPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationGoogleOauthPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationGoogleOauthPaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationGoogleOauthPaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationGoogleOauthPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -6703,7 +7020,14 @@ func (u *RestAuthenticationGoogleOauthPaginationUnion) UnmarshalJSON(data []byte
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -6761,9 +7085,12 @@ func (u *RestAuthenticationGoogleOauthPaginationUnion) UnmarshalJSON(data []byte
 		u.RestAuthenticationGoogleOauthRestPaginationTypeRequestPage = restAuthenticationGoogleOauthRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationGoogleOauthPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthPaginationUnion", string(data))
 }
 
 func (u RestAuthenticationGoogleOauthPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -6791,6 +7118,9 @@ func (u RestAuthenticationGoogleOauthPaginationUnion) MarshalJSON() ([]byte, err
 		return utils.MarshalJSON(u.RestAuthenticationGoogleOauthRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthPaginationUnion: all fields are null")
 }
 
@@ -6812,7 +7142,7 @@ func (r RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff) MarshalJSON() ([
 }
 
 func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6899,7 +7229,7 @@ func (r RestAuthenticationGoogleOauthRestRetryRulesTypeStatic) MarshalJSON() ([]
 }
 
 func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6986,7 +7316,7 @@ func (r RestAuthenticationGoogleOauthRestRetryRulesTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7061,12 +7391,14 @@ const (
 	RestAuthenticationGoogleOauthRetryRulesTypeNone    RestAuthenticationGoogleOauthRetryRulesType = "none"
 	RestAuthenticationGoogleOauthRetryRulesTypeStatic  RestAuthenticationGoogleOauthRetryRulesType = "static"
 	RestAuthenticationGoogleOauthRetryRulesTypeBackoff RestAuthenticationGoogleOauthRetryRulesType = "backoff"
+	RestAuthenticationGoogleOauthRetryRulesTypeUnknown RestAuthenticationGoogleOauthRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationGoogleOauthRetryRules struct {
 	RestAuthenticationGoogleOauthRestRetryRulesTypeNone    *RestAuthenticationGoogleOauthRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthRestRetryRulesTypeStatic  *RestAuthenticationGoogleOauthRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                             json.RawMessage                                         `json:"-" union:"unknown"`
 
 	Type RestAuthenticationGoogleOauthRetryRulesType
 }
@@ -7107,6 +7439,21 @@ func CreateRestAuthenticationGoogleOauthRetryRulesBackoff(backoff RestAuthentica
 	}
 }
 
+func CreateRestAuthenticationGoogleOauthRetryRulesUnknown(raw json.RawMessage) RestAuthenticationGoogleOauthRetryRules {
+	return RestAuthenticationGoogleOauthRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationGoogleOauthRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationGoogleOauthRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationGoogleOauthRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationGoogleOauthRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationGoogleOauthRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -7115,7 +7462,14 @@ func (u *RestAuthenticationGoogleOauthRetryRules) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -7146,9 +7500,12 @@ func (u *RestAuthenticationGoogleOauthRetryRules) UnmarshalJSON(data []byte) err
 		u.RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff = restAuthenticationGoogleOauthRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationGoogleOauthRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationGoogleOauthRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthRetryRules", string(data))
 }
 
 func (u RestAuthenticationGoogleOauthRetryRules) MarshalJSON() ([]byte, error) {
@@ -7164,6 +7521,9 @@ func (u RestAuthenticationGoogleOauthRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthRetryRules: all fields are null")
 }
 
@@ -7255,7 +7615,7 @@ func (r RestAuthenticationGoogleOauth) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationGoogleOauth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "scopes", "serviceAccountCredentials", "subject", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7572,7 +7932,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone) MarshalJSON(
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7622,7 +7982,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList) MarshalJSON(
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7681,7 +8041,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON) MarshalJSON(
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7770,7 +8130,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7807,7 +8167,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7959,7 +8319,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7996,7 +8356,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8148,7 +8508,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8185,7 +8545,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8337,7 +8697,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8374,7 +8734,7 @@ func (r RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8471,6 +8831,7 @@ const (
 	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP struct {
@@ -8478,6 +8839,7 @@ type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                           json.RawMessage                                                                       `json:"-" union:"unknown"`
 
 	Type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPType
 }
@@ -8530,6 +8892,21 @@ func CreateRestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPOther(other
 	}
 }
 
+func CreateRestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -8538,7 +8915,14 @@ func (u *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -8578,9 +8962,12 @@ func (u *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 		u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -8600,16 +8987,20 @@ func (u RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP) MarshalJSON(
 		return utils.MarshalJSON(u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationOauthSecretDiscoveryType string
 
 const (
-	RestAuthenticationOauthSecretDiscoveryTypeHTTP RestAuthenticationOauthSecretDiscoveryType = "http"
-	RestAuthenticationOauthSecretDiscoveryTypeJSON RestAuthenticationOauthSecretDiscoveryType = "json"
-	RestAuthenticationOauthSecretDiscoveryTypeList RestAuthenticationOauthSecretDiscoveryType = "list"
-	RestAuthenticationOauthSecretDiscoveryTypeNone RestAuthenticationOauthSecretDiscoveryType = "none"
+	RestAuthenticationOauthSecretDiscoveryTypeHTTP    RestAuthenticationOauthSecretDiscoveryType = "http"
+	RestAuthenticationOauthSecretDiscoveryTypeJSON    RestAuthenticationOauthSecretDiscoveryType = "json"
+	RestAuthenticationOauthSecretDiscoveryTypeList    RestAuthenticationOauthSecretDiscoveryType = "list"
+	RestAuthenticationOauthSecretDiscoveryTypeNone    RestAuthenticationOauthSecretDiscoveryType = "none"
+	RestAuthenticationOauthSecretDiscoveryTypeUnknown RestAuthenticationOauthSecretDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationOauthSecretDiscovery struct {
@@ -8617,6 +9008,7 @@ type RestAuthenticationOauthSecretDiscovery struct {
 	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type RestAuthenticationOauthSecretDiscoveryType
 }
@@ -8666,6 +9058,21 @@ func CreateRestAuthenticationOauthSecretDiscoveryNone(none RestAuthenticationOau
 	}
 }
 
+func CreateRestAuthenticationOauthSecretDiscoveryUnknown(raw json.RawMessage) RestAuthenticationOauthSecretDiscovery {
+	return RestAuthenticationOauthSecretDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationOauthSecretDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationOauthSecretDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationOauthSecretDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationOauthSecretDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationOauthSecretDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -8674,7 +9081,14 @@ func (u *RestAuthenticationOauthSecretDiscovery) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -8714,9 +9128,12 @@ func (u *RestAuthenticationOauthSecretDiscovery) UnmarshalJSON(data []byte) erro
 		u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone = restAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationOauthSecretDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationOauthSecretDiscovery", string(data))
 }
 
 func (u RestAuthenticationOauthSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -8736,6 +9153,9 @@ func (u RestAuthenticationOauthSecretDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthSecretDiscovery: all fields are null")
 }
 
@@ -8792,7 +9212,7 @@ func (r RestAuthenticationOauthSecretRestPaginationTypeRequestPage) MarshalJSON(
 }
 
 func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8884,7 +9304,7 @@ func (r RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) MarshalJSO
 }
 
 func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8961,7 +9381,7 @@ func (r RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink) Marsh
 }
 
 func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9008,7 +9428,7 @@ func (r RestAuthenticationOauthSecretRestPaginationTypeResponseHeader) MarshalJS
 }
 
 func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9050,7 +9470,7 @@ func (r RestAuthenticationOauthSecretRestPaginationTypeResponseBody) MarshalJSON
 }
 
 func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9093,7 +9513,7 @@ func (r RestAuthenticationOauthSecretRestPaginationTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationOauthSecretRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9115,6 +9535,7 @@ const (
 	RestAuthenticationOauthSecretPaginationUnionTypeResponseHeaderLink RestAuthenticationOauthSecretPaginationUnionType = "response_header_link"
 	RestAuthenticationOauthSecretPaginationUnionTypeRequestOffset      RestAuthenticationOauthSecretPaginationUnionType = "request_offset"
 	RestAuthenticationOauthSecretPaginationUnionTypeRequestPage        RestAuthenticationOauthSecretPaginationUnionType = "request_page"
+	RestAuthenticationOauthSecretPaginationUnionTypeUnknown            RestAuthenticationOauthSecretPaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationOauthSecretPaginationUnion struct {
@@ -9124,6 +9545,7 @@ type RestAuthenticationOauthSecretPaginationUnion struct {
 	RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink *RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthSecretRestPaginationTypeRequestOffset      *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthSecretRestPaginationTypeRequestPage        *RestAuthenticationOauthSecretRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                        json.RawMessage                                                    `json:"-" union:"unknown"`
 
 	Type RestAuthenticationOauthSecretPaginationUnionType
 }
@@ -9200,6 +9622,21 @@ func CreateRestAuthenticationOauthSecretPaginationUnionRequestPage(requestPage R
 	}
 }
 
+func CreateRestAuthenticationOauthSecretPaginationUnionUnknown(raw json.RawMessage) RestAuthenticationOauthSecretPaginationUnion {
+	return RestAuthenticationOauthSecretPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationOauthSecretPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationOauthSecretPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationOauthSecretPaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationOauthSecretPaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationOauthSecretPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -9208,7 +9645,14 @@ func (u *RestAuthenticationOauthSecretPaginationUnion) UnmarshalJSON(data []byte
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -9266,9 +9710,12 @@ func (u *RestAuthenticationOauthSecretPaginationUnion) UnmarshalJSON(data []byte
 		u.RestAuthenticationOauthSecretRestPaginationTypeRequestPage = restAuthenticationOauthSecretRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationOauthSecretPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationOauthSecretPaginationUnion", string(data))
 }
 
 func (u RestAuthenticationOauthSecretPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -9296,6 +9743,9 @@ func (u RestAuthenticationOauthSecretPaginationUnion) MarshalJSON() ([]byte, err
 		return utils.MarshalJSON(u.RestAuthenticationOauthSecretRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthSecretPaginationUnion: all fields are null")
 }
 
@@ -9317,7 +9767,7 @@ func (r RestAuthenticationOauthSecretRestRetryRulesTypeBackoff) MarshalJSON() ([
 }
 
 func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9404,7 +9854,7 @@ func (r RestAuthenticationOauthSecretRestRetryRulesTypeStatic) MarshalJSON() ([]
 }
 
 func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9491,7 +9941,7 @@ func (r RestAuthenticationOauthSecretRestRetryRulesTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9566,12 +10016,14 @@ const (
 	RestAuthenticationOauthSecretRetryRulesTypeNone    RestAuthenticationOauthSecretRetryRulesType = "none"
 	RestAuthenticationOauthSecretRetryRulesTypeStatic  RestAuthenticationOauthSecretRetryRulesType = "static"
 	RestAuthenticationOauthSecretRetryRulesTypeBackoff RestAuthenticationOauthSecretRetryRulesType = "backoff"
+	RestAuthenticationOauthSecretRetryRulesTypeUnknown RestAuthenticationOauthSecretRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationOauthSecretRetryRules struct {
 	RestAuthenticationOauthSecretRestRetryRulesTypeNone    *RestAuthenticationOauthSecretRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthSecretRestRetryRulesTypeStatic  *RestAuthenticationOauthSecretRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthSecretRestRetryRulesTypeBackoff *RestAuthenticationOauthSecretRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                             json.RawMessage                                         `json:"-" union:"unknown"`
 
 	Type RestAuthenticationOauthSecretRetryRulesType
 }
@@ -9612,6 +10064,21 @@ func CreateRestAuthenticationOauthSecretRetryRulesBackoff(backoff RestAuthentica
 	}
 }
 
+func CreateRestAuthenticationOauthSecretRetryRulesUnknown(raw json.RawMessage) RestAuthenticationOauthSecretRetryRules {
+	return RestAuthenticationOauthSecretRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationOauthSecretRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationOauthSecretRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationOauthSecretRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationOauthSecretRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationOauthSecretRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -9620,7 +10087,14 @@ func (u *RestAuthenticationOauthSecretRetryRules) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -9651,9 +10125,12 @@ func (u *RestAuthenticationOauthSecretRetryRules) UnmarshalJSON(data []byte) err
 		u.RestAuthenticationOauthSecretRestRetryRulesTypeBackoff = restAuthenticationOauthSecretRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationOauthSecretRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthSecretRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationOauthSecretRetryRules", string(data))
 }
 
 func (u RestAuthenticationOauthSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -9669,6 +10146,9 @@ func (u RestAuthenticationOauthSecretRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationOauthSecretRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthSecretRetryRules: all fields are null")
 }
 
@@ -9769,7 +10249,7 @@ func (r RestAuthenticationOauthSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationOauthSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "authHeaderExpr", "clientSecretParamName", "textSecret", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10121,7 +10601,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10171,7 +10651,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeList) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10230,7 +10710,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10319,7 +10799,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherP
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10356,7 +10836,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther)
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10508,7 +10988,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWi
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10545,7 +11025,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWi
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10697,7 +11177,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPa
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10734,7 +11214,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) 
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10886,7 +11366,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPag
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10923,7 +11403,7 @@ func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) M
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11020,6 +11500,7 @@ const (
 	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP struct {
@@ -11027,6 +11508,7 @@ type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                     json.RawMessage                                                                 `json:"-" union:"unknown"`
 
 	Type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPType
 }
@@ -11079,6 +11561,21 @@ func CreateRestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPOther(other RestA
 	}
 }
 
+func CreateRestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -11087,7 +11584,14 @@ func (u *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(dat
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -11127,9 +11631,12 @@ func (u *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(dat
 		u.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -11149,16 +11656,20 @@ func (u RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]b
 		return utils.MarshalJSON(u.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationOauthDiscoveryType string
 
 const (
-	RestAuthenticationOauthDiscoveryTypeHTTP RestAuthenticationOauthDiscoveryType = "http"
-	RestAuthenticationOauthDiscoveryTypeJSON RestAuthenticationOauthDiscoveryType = "json"
-	RestAuthenticationOauthDiscoveryTypeList RestAuthenticationOauthDiscoveryType = "list"
-	RestAuthenticationOauthDiscoveryTypeNone RestAuthenticationOauthDiscoveryType = "none"
+	RestAuthenticationOauthDiscoveryTypeHTTP    RestAuthenticationOauthDiscoveryType = "http"
+	RestAuthenticationOauthDiscoveryTypeJSON    RestAuthenticationOauthDiscoveryType = "json"
+	RestAuthenticationOauthDiscoveryTypeList    RestAuthenticationOauthDiscoveryType = "list"
+	RestAuthenticationOauthDiscoveryTypeNone    RestAuthenticationOauthDiscoveryType = "none"
+	RestAuthenticationOauthDiscoveryTypeUnknown RestAuthenticationOauthDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationOauthDiscovery struct {
@@ -11166,6 +11677,7 @@ type RestAuthenticationOauthDiscovery struct {
 	RestAuthenticationOauthRestDiscoveryDiscoverTypeJSON *RestAuthenticationOauthRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthRestDiscoveryDiscoverTypeList *RestAuthenticationOauthRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthRestDiscoveryDiscoverTypeNone *RestAuthenticationOauthRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                           json.RawMessage                                       `json:"-" union:"unknown"`
 
 	Type RestAuthenticationOauthDiscoveryType
 }
@@ -11215,6 +11727,21 @@ func CreateRestAuthenticationOauthDiscoveryNone(none RestAuthenticationOauthRest
 	}
 }
 
+func CreateRestAuthenticationOauthDiscoveryUnknown(raw json.RawMessage) RestAuthenticationOauthDiscovery {
+	return RestAuthenticationOauthDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationOauthDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationOauthDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationOauthDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationOauthDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationOauthDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -11223,7 +11750,14 @@ func (u *RestAuthenticationOauthDiscovery) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -11263,9 +11797,12 @@ func (u *RestAuthenticationOauthDiscovery) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationOauthRestDiscoveryDiscoverTypeNone = restAuthenticationOauthRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationOauthDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationOauthDiscovery", string(data))
 }
 
 func (u RestAuthenticationOauthDiscovery) MarshalJSON() ([]byte, error) {
@@ -11285,6 +11822,9 @@ func (u RestAuthenticationOauthDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationOauthRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthDiscovery: all fields are null")
 }
 
@@ -11341,7 +11881,7 @@ func (r RestAuthenticationOauthRestPaginationTypeRequestPage) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11433,7 +11973,7 @@ func (r RestAuthenticationOauthRestPaginationTypeRequestOffset) MarshalJSON() ([
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11510,7 +12050,7 @@ func (r RestAuthenticationOauthRestPaginationTypeResponseHeaderLink) MarshalJSON
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11557,7 +12097,7 @@ func (r RestAuthenticationOauthRestPaginationTypeResponseHeader) MarshalJSON() (
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11599,7 +12139,7 @@ func (r RestAuthenticationOauthRestPaginationTypeResponseBody) MarshalJSON() ([]
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11642,7 +12182,7 @@ func (r RestAuthenticationOauthRestPaginationTypeNone) MarshalJSON() ([]byte, er
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11664,6 +12204,7 @@ const (
 	RestAuthenticationOauthPaginationUnionTypeResponseHeaderLink RestAuthenticationOauthPaginationUnionType = "response_header_link"
 	RestAuthenticationOauthPaginationUnionTypeRequestOffset      RestAuthenticationOauthPaginationUnionType = "request_offset"
 	RestAuthenticationOauthPaginationUnionTypeRequestPage        RestAuthenticationOauthPaginationUnionType = "request_page"
+	RestAuthenticationOauthPaginationUnionTypeUnknown            RestAuthenticationOauthPaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationOauthPaginationUnion struct {
@@ -11673,6 +12214,7 @@ type RestAuthenticationOauthPaginationUnion struct {
 	RestAuthenticationOauthRestPaginationTypeResponseHeaderLink *RestAuthenticationOauthRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthRestPaginationTypeRequestOffset      *RestAuthenticationOauthRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthRestPaginationTypeRequestPage        *RestAuthenticationOauthRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                  json.RawMessage                                              `json:"-" union:"unknown"`
 
 	Type RestAuthenticationOauthPaginationUnionType
 }
@@ -11749,6 +12291,21 @@ func CreateRestAuthenticationOauthPaginationUnionRequestPage(requestPage RestAut
 	}
 }
 
+func CreateRestAuthenticationOauthPaginationUnionUnknown(raw json.RawMessage) RestAuthenticationOauthPaginationUnion {
+	return RestAuthenticationOauthPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationOauthPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationOauthPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationOauthPaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationOauthPaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationOauthPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -11757,7 +12314,14 @@ func (u *RestAuthenticationOauthPaginationUnion) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -11815,9 +12379,12 @@ func (u *RestAuthenticationOauthPaginationUnion) UnmarshalJSON(data []byte) erro
 		u.RestAuthenticationOauthRestPaginationTypeRequestPage = restAuthenticationOauthRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationOauthPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationOauthPaginationUnion", string(data))
 }
 
 func (u RestAuthenticationOauthPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -11845,6 +12412,9 @@ func (u RestAuthenticationOauthPaginationUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationOauthRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthPaginationUnion: all fields are null")
 }
 
@@ -11866,7 +12436,7 @@ func (r RestAuthenticationOauthRestRetryRulesTypeBackoff) MarshalJSON() ([]byte,
 }
 
 func (r *RestAuthenticationOauthRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11953,7 +12523,7 @@ func (r RestAuthenticationOauthRestRetryRulesTypeStatic) MarshalJSON() ([]byte, 
 }
 
 func (r *RestAuthenticationOauthRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12040,7 +12610,7 @@ func (r RestAuthenticationOauthRestRetryRulesTypeNone) MarshalJSON() ([]byte, er
 }
 
 func (r *RestAuthenticationOauthRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12115,12 +12685,14 @@ const (
 	RestAuthenticationOauthRetryRulesTypeNone    RestAuthenticationOauthRetryRulesType = "none"
 	RestAuthenticationOauthRetryRulesTypeStatic  RestAuthenticationOauthRetryRulesType = "static"
 	RestAuthenticationOauthRetryRulesTypeBackoff RestAuthenticationOauthRetryRulesType = "backoff"
+	RestAuthenticationOauthRetryRulesTypeUnknown RestAuthenticationOauthRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationOauthRetryRules struct {
 	RestAuthenticationOauthRestRetryRulesTypeNone    *RestAuthenticationOauthRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthRestRetryRulesTypeStatic  *RestAuthenticationOauthRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationOauthRestRetryRulesTypeBackoff *RestAuthenticationOauthRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                       json.RawMessage                                   `json:"-" union:"unknown"`
 
 	Type RestAuthenticationOauthRetryRulesType
 }
@@ -12161,6 +12733,21 @@ func CreateRestAuthenticationOauthRetryRulesBackoff(backoff RestAuthenticationOa
 	}
 }
 
+func CreateRestAuthenticationOauthRetryRulesUnknown(raw json.RawMessage) RestAuthenticationOauthRetryRules {
+	return RestAuthenticationOauthRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationOauthRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationOauthRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationOauthRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationOauthRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationOauthRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -12169,7 +12756,14 @@ func (u *RestAuthenticationOauthRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -12200,9 +12794,12 @@ func (u *RestAuthenticationOauthRetryRules) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationOauthRestRetryRulesTypeBackoff = restAuthenticationOauthRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationOauthRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationOauthRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationOauthRetryRules", string(data))
 }
 
 func (u RestAuthenticationOauthRetryRules) MarshalJSON() ([]byte, error) {
@@ -12218,6 +12815,9 @@ func (u RestAuthenticationOauthRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationOauthRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthRetryRules: all fields are null")
 }
 
@@ -12318,7 +12918,7 @@ func (r RestAuthenticationOauth) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationOauth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "authHeaderExpr", "clientSecretParamName", "clientSecretParamValue", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12670,7 +13270,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) MarshalJSON(
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12720,7 +13320,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) MarshalJSON(
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12779,7 +13379,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON) MarshalJSON(
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12868,7 +13468,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12905,7 +13505,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13057,7 +13657,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13094,7 +13694,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13246,7 +13846,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13283,7 +13883,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13435,7 +14035,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13472,7 +14072,7 @@ func (r RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13569,6 +14169,7 @@ const (
 	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP struct {
@@ -13576,6 +14177,7 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                           json.RawMessage                                                                       `json:"-" union:"unknown"`
 
 	Type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPType
 }
@@ -13628,6 +14230,21 @@ func CreateRestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPOther(other
 	}
 }
 
+func CreateRestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -13636,7 +14253,14 @@ func (u *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -13676,9 +14300,12 @@ func (u *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 		u.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -13698,16 +14325,20 @@ func (u RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP) MarshalJSON(
 		return utils.MarshalJSON(u.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationLoginSecretDiscoveryType string
 
 const (
-	RestAuthenticationLoginSecretDiscoveryTypeHTTP RestAuthenticationLoginSecretDiscoveryType = "http"
-	RestAuthenticationLoginSecretDiscoveryTypeJSON RestAuthenticationLoginSecretDiscoveryType = "json"
-	RestAuthenticationLoginSecretDiscoveryTypeList RestAuthenticationLoginSecretDiscoveryType = "list"
-	RestAuthenticationLoginSecretDiscoveryTypeNone RestAuthenticationLoginSecretDiscoveryType = "none"
+	RestAuthenticationLoginSecretDiscoveryTypeHTTP    RestAuthenticationLoginSecretDiscoveryType = "http"
+	RestAuthenticationLoginSecretDiscoveryTypeJSON    RestAuthenticationLoginSecretDiscoveryType = "json"
+	RestAuthenticationLoginSecretDiscoveryTypeList    RestAuthenticationLoginSecretDiscoveryType = "list"
+	RestAuthenticationLoginSecretDiscoveryTypeNone    RestAuthenticationLoginSecretDiscoveryType = "none"
+	RestAuthenticationLoginSecretDiscoveryTypeUnknown RestAuthenticationLoginSecretDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationLoginSecretDiscovery struct {
@@ -13715,6 +14346,7 @@ type RestAuthenticationLoginSecretDiscovery struct {
 	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type RestAuthenticationLoginSecretDiscoveryType
 }
@@ -13764,6 +14396,21 @@ func CreateRestAuthenticationLoginSecretDiscoveryNone(none RestAuthenticationLog
 	}
 }
 
+func CreateRestAuthenticationLoginSecretDiscoveryUnknown(raw json.RawMessage) RestAuthenticationLoginSecretDiscovery {
+	return RestAuthenticationLoginSecretDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationLoginSecretDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationLoginSecretDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationLoginSecretDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationLoginSecretDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationLoginSecretDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -13772,7 +14419,14 @@ func (u *RestAuthenticationLoginSecretDiscovery) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -13812,9 +14466,12 @@ func (u *RestAuthenticationLoginSecretDiscovery) UnmarshalJSON(data []byte) erro
 		u.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone = restAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationLoginSecretDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLoginSecretDiscovery", string(data))
 }
 
 func (u RestAuthenticationLoginSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -13834,6 +14491,9 @@ func (u RestAuthenticationLoginSecretDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginSecretDiscovery: all fields are null")
 }
 
@@ -13890,7 +14550,7 @@ func (r RestAuthenticationLoginSecretRestPaginationTypeRequestPage) MarshalJSON(
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13982,7 +14642,7 @@ func (r RestAuthenticationLoginSecretRestPaginationTypeRequestOffset) MarshalJSO
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14059,7 +14719,7 @@ func (r RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink) Marsh
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14106,7 +14766,7 @@ func (r RestAuthenticationLoginSecretRestPaginationTypeResponseHeader) MarshalJS
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14148,7 +14808,7 @@ func (r RestAuthenticationLoginSecretRestPaginationTypeResponseBody) MarshalJSON
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14191,7 +14851,7 @@ func (r RestAuthenticationLoginSecretRestPaginationTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14213,6 +14873,7 @@ const (
 	RestAuthenticationLoginSecretPaginationUnionTypeResponseHeaderLink RestAuthenticationLoginSecretPaginationUnionType = "response_header_link"
 	RestAuthenticationLoginSecretPaginationUnionTypeRequestOffset      RestAuthenticationLoginSecretPaginationUnionType = "request_offset"
 	RestAuthenticationLoginSecretPaginationUnionTypeRequestPage        RestAuthenticationLoginSecretPaginationUnionType = "request_page"
+	RestAuthenticationLoginSecretPaginationUnionTypeUnknown            RestAuthenticationLoginSecretPaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationLoginSecretPaginationUnion struct {
@@ -14222,6 +14883,7 @@ type RestAuthenticationLoginSecretPaginationUnion struct {
 	RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink *RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginSecretRestPaginationTypeRequestOffset      *RestAuthenticationLoginSecretRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginSecretRestPaginationTypeRequestPage        *RestAuthenticationLoginSecretRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                        json.RawMessage                                                    `json:"-" union:"unknown"`
 
 	Type RestAuthenticationLoginSecretPaginationUnionType
 }
@@ -14298,6 +14960,21 @@ func CreateRestAuthenticationLoginSecretPaginationUnionRequestPage(requestPage R
 	}
 }
 
+func CreateRestAuthenticationLoginSecretPaginationUnionUnknown(raw json.RawMessage) RestAuthenticationLoginSecretPaginationUnion {
+	return RestAuthenticationLoginSecretPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationLoginSecretPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationLoginSecretPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationLoginSecretPaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationLoginSecretPaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationLoginSecretPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -14306,7 +14983,14 @@ func (u *RestAuthenticationLoginSecretPaginationUnion) UnmarshalJSON(data []byte
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -14364,9 +15048,12 @@ func (u *RestAuthenticationLoginSecretPaginationUnion) UnmarshalJSON(data []byte
 		u.RestAuthenticationLoginSecretRestPaginationTypeRequestPage = restAuthenticationLoginSecretRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationLoginSecretPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLoginSecretPaginationUnion", string(data))
 }
 
 func (u RestAuthenticationLoginSecretPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -14394,6 +15081,9 @@ func (u RestAuthenticationLoginSecretPaginationUnion) MarshalJSON() ([]byte, err
 		return utils.MarshalJSON(u.RestAuthenticationLoginSecretRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginSecretPaginationUnion: all fields are null")
 }
 
@@ -14415,7 +15105,7 @@ func (r RestAuthenticationLoginSecretRestRetryRulesTypeBackoff) MarshalJSON() ([
 }
 
 func (r *RestAuthenticationLoginSecretRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14502,7 +15192,7 @@ func (r RestAuthenticationLoginSecretRestRetryRulesTypeStatic) MarshalJSON() ([]
 }
 
 func (r *RestAuthenticationLoginSecretRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14589,7 +15279,7 @@ func (r RestAuthenticationLoginSecretRestRetryRulesTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationLoginSecretRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14664,12 +15354,14 @@ const (
 	RestAuthenticationLoginSecretRetryRulesTypeNone    RestAuthenticationLoginSecretRetryRulesType = "none"
 	RestAuthenticationLoginSecretRetryRulesTypeStatic  RestAuthenticationLoginSecretRetryRulesType = "static"
 	RestAuthenticationLoginSecretRetryRulesTypeBackoff RestAuthenticationLoginSecretRetryRulesType = "backoff"
+	RestAuthenticationLoginSecretRetryRulesTypeUnknown RestAuthenticationLoginSecretRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationLoginSecretRetryRules struct {
 	RestAuthenticationLoginSecretRestRetryRulesTypeNone    *RestAuthenticationLoginSecretRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginSecretRestRetryRulesTypeStatic  *RestAuthenticationLoginSecretRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginSecretRestRetryRulesTypeBackoff *RestAuthenticationLoginSecretRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                             json.RawMessage                                         `json:"-" union:"unknown"`
 
 	Type RestAuthenticationLoginSecretRetryRulesType
 }
@@ -14710,6 +15402,21 @@ func CreateRestAuthenticationLoginSecretRetryRulesBackoff(backoff RestAuthentica
 	}
 }
 
+func CreateRestAuthenticationLoginSecretRetryRulesUnknown(raw json.RawMessage) RestAuthenticationLoginSecretRetryRules {
+	return RestAuthenticationLoginSecretRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationLoginSecretRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationLoginSecretRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationLoginSecretRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationLoginSecretRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -14718,7 +15425,14 @@ func (u *RestAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -14749,9 +15463,12 @@ func (u *RestAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []byte) err
 		u.RestAuthenticationLoginSecretRestRetryRulesTypeBackoff = restAuthenticationLoginSecretRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationLoginSecretRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginSecretRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLoginSecretRetryRules", string(data))
 }
 
 func (u RestAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -14767,6 +15484,9 @@ func (u RestAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationLoginSecretRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginSecretRetryRules: all fields are null")
 }
 
@@ -14865,7 +15585,7 @@ func (r RestAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationLoginSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "credentialsSecret", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15210,7 +15930,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15260,7 +15980,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeList) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15319,7 +16039,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15408,7 +16128,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherP
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15445,7 +16165,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther)
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15597,7 +16317,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWi
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15634,7 +16354,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWi
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15786,7 +16506,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPa
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15823,7 +16543,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) 
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15975,7 +16695,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPag
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16012,7 +16732,7 @@ func (r RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) M
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16109,6 +16829,7 @@ const (
 	RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP struct {
@@ -16116,6 +16837,7 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                     json.RawMessage                                                                 `json:"-" union:"unknown"`
 
 	Type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPType
 }
@@ -16168,6 +16890,21 @@ func CreateRestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPOther(other RestA
 	}
 }
 
+func CreateRestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -16176,7 +16913,14 @@ func (u *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(dat
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -16216,9 +16960,12 @@ func (u *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(dat
 		u.RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -16238,16 +16985,20 @@ func (u RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]b
 		return utils.MarshalJSON(u.RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationLoginDiscoveryType string
 
 const (
-	RestAuthenticationLoginDiscoveryTypeHTTP RestAuthenticationLoginDiscoveryType = "http"
-	RestAuthenticationLoginDiscoveryTypeJSON RestAuthenticationLoginDiscoveryType = "json"
-	RestAuthenticationLoginDiscoveryTypeList RestAuthenticationLoginDiscoveryType = "list"
-	RestAuthenticationLoginDiscoveryTypeNone RestAuthenticationLoginDiscoveryType = "none"
+	RestAuthenticationLoginDiscoveryTypeHTTP    RestAuthenticationLoginDiscoveryType = "http"
+	RestAuthenticationLoginDiscoveryTypeJSON    RestAuthenticationLoginDiscoveryType = "json"
+	RestAuthenticationLoginDiscoveryTypeList    RestAuthenticationLoginDiscoveryType = "list"
+	RestAuthenticationLoginDiscoveryTypeNone    RestAuthenticationLoginDiscoveryType = "none"
+	RestAuthenticationLoginDiscoveryTypeUnknown RestAuthenticationLoginDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationLoginDiscovery struct {
@@ -16255,6 +17006,7 @@ type RestAuthenticationLoginDiscovery struct {
 	RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON *RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginRestDiscoveryDiscoverTypeList *RestAuthenticationLoginRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginRestDiscoveryDiscoverTypeNone *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                           json.RawMessage                                       `json:"-" union:"unknown"`
 
 	Type RestAuthenticationLoginDiscoveryType
 }
@@ -16304,6 +17056,21 @@ func CreateRestAuthenticationLoginDiscoveryNone(none RestAuthenticationLoginRest
 	}
 }
 
+func CreateRestAuthenticationLoginDiscoveryUnknown(raw json.RawMessage) RestAuthenticationLoginDiscovery {
+	return RestAuthenticationLoginDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationLoginDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationLoginDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationLoginDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationLoginDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationLoginDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -16312,7 +17079,14 @@ func (u *RestAuthenticationLoginDiscovery) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -16352,9 +17126,12 @@ func (u *RestAuthenticationLoginDiscovery) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationLoginRestDiscoveryDiscoverTypeNone = restAuthenticationLoginRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationLoginDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLoginDiscovery", string(data))
 }
 
 func (u RestAuthenticationLoginDiscovery) MarshalJSON() ([]byte, error) {
@@ -16374,6 +17151,9 @@ func (u RestAuthenticationLoginDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationLoginRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginDiscovery: all fields are null")
 }
 
@@ -16430,7 +17210,7 @@ func (r RestAuthenticationLoginRestPaginationTypeRequestPage) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16522,7 +17302,7 @@ func (r RestAuthenticationLoginRestPaginationTypeRequestOffset) MarshalJSON() ([
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16599,7 +17379,7 @@ func (r RestAuthenticationLoginRestPaginationTypeResponseHeaderLink) MarshalJSON
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16646,7 +17426,7 @@ func (r RestAuthenticationLoginRestPaginationTypeResponseHeader) MarshalJSON() (
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16688,7 +17468,7 @@ func (r RestAuthenticationLoginRestPaginationTypeResponseBody) MarshalJSON() ([]
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16731,7 +17511,7 @@ func (r RestAuthenticationLoginRestPaginationTypeNone) MarshalJSON() ([]byte, er
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16753,6 +17533,7 @@ const (
 	RestAuthenticationLoginPaginationUnionTypeResponseHeaderLink RestAuthenticationLoginPaginationUnionType = "response_header_link"
 	RestAuthenticationLoginPaginationUnionTypeRequestOffset      RestAuthenticationLoginPaginationUnionType = "request_offset"
 	RestAuthenticationLoginPaginationUnionTypeRequestPage        RestAuthenticationLoginPaginationUnionType = "request_page"
+	RestAuthenticationLoginPaginationUnionTypeUnknown            RestAuthenticationLoginPaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationLoginPaginationUnion struct {
@@ -16762,6 +17543,7 @@ type RestAuthenticationLoginPaginationUnion struct {
 	RestAuthenticationLoginRestPaginationTypeResponseHeaderLink *RestAuthenticationLoginRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginRestPaginationTypeRequestOffset      *RestAuthenticationLoginRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginRestPaginationTypeRequestPage        *RestAuthenticationLoginRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                  json.RawMessage                                              `json:"-" union:"unknown"`
 
 	Type RestAuthenticationLoginPaginationUnionType
 }
@@ -16838,6 +17620,21 @@ func CreateRestAuthenticationLoginPaginationUnionRequestPage(requestPage RestAut
 	}
 }
 
+func CreateRestAuthenticationLoginPaginationUnionUnknown(raw json.RawMessage) RestAuthenticationLoginPaginationUnion {
+	return RestAuthenticationLoginPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationLoginPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationLoginPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationLoginPaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationLoginPaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationLoginPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -16846,7 +17643,14 @@ func (u *RestAuthenticationLoginPaginationUnion) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -16904,9 +17708,12 @@ func (u *RestAuthenticationLoginPaginationUnion) UnmarshalJSON(data []byte) erro
 		u.RestAuthenticationLoginRestPaginationTypeRequestPage = restAuthenticationLoginRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationLoginPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLoginPaginationUnion", string(data))
 }
 
 func (u RestAuthenticationLoginPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -16934,6 +17741,9 @@ func (u RestAuthenticationLoginPaginationUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationLoginRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginPaginationUnion: all fields are null")
 }
 
@@ -16955,7 +17765,7 @@ func (r RestAuthenticationLoginRestRetryRulesTypeBackoff) MarshalJSON() ([]byte,
 }
 
 func (r *RestAuthenticationLoginRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17042,7 +17852,7 @@ func (r RestAuthenticationLoginRestRetryRulesTypeStatic) MarshalJSON() ([]byte, 
 }
 
 func (r *RestAuthenticationLoginRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17129,7 +17939,7 @@ func (r RestAuthenticationLoginRestRetryRulesTypeNone) MarshalJSON() ([]byte, er
 }
 
 func (r *RestAuthenticationLoginRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17204,12 +18014,14 @@ const (
 	RestAuthenticationLoginRetryRulesTypeNone    RestAuthenticationLoginRetryRulesType = "none"
 	RestAuthenticationLoginRetryRulesTypeStatic  RestAuthenticationLoginRetryRulesType = "static"
 	RestAuthenticationLoginRetryRulesTypeBackoff RestAuthenticationLoginRetryRulesType = "backoff"
+	RestAuthenticationLoginRetryRulesTypeUnknown RestAuthenticationLoginRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationLoginRetryRules struct {
 	RestAuthenticationLoginRestRetryRulesTypeNone    *RestAuthenticationLoginRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginRestRetryRulesTypeStatic  *RestAuthenticationLoginRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationLoginRestRetryRulesTypeBackoff *RestAuthenticationLoginRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                       json.RawMessage                                   `json:"-" union:"unknown"`
 
 	Type RestAuthenticationLoginRetryRulesType
 }
@@ -17250,6 +18062,21 @@ func CreateRestAuthenticationLoginRetryRulesBackoff(backoff RestAuthenticationLo
 	}
 }
 
+func CreateRestAuthenticationLoginRetryRulesUnknown(raw json.RawMessage) RestAuthenticationLoginRetryRules {
+	return RestAuthenticationLoginRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationLoginRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationLoginRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationLoginRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationLoginRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -17258,7 +18085,14 @@ func (u *RestAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -17289,9 +18123,12 @@ func (u *RestAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationLoginRestRetryRulesTypeBackoff = restAuthenticationLoginRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationLoginRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationLoginRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLoginRetryRules", string(data))
 }
 
 func (u RestAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
@@ -17307,6 +18144,9 @@ func (u RestAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationLoginRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginRetryRules: all fields are null")
 }
 
@@ -17405,7 +18245,7 @@ func (r RestAuthenticationLogin) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationLogin) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "username", "password", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17757,7 +18597,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) MarshalJSON(
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17807,7 +18647,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) MarshalJSON(
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17866,7 +18706,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON) MarshalJSON(
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17955,7 +18795,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17992,7 +18832,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18144,7 +18984,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18181,7 +19021,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18333,7 +19173,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18370,7 +19210,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18522,7 +19362,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18559,7 +19399,7 @@ func (r RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18656,6 +19496,7 @@ const (
 	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP struct {
@@ -18663,6 +19504,7 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                           json.RawMessage                                                                       `json:"-" union:"unknown"`
 
 	Type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPType
 }
@@ -18715,6 +19557,21 @@ func CreateRestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPOther(other
 	}
 }
 
+func CreateRestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -18723,7 +19580,14 @@ func (u *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -18763,9 +19627,12 @@ func (u *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 		u.RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -18785,16 +19652,20 @@ func (u RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP) MarshalJSON(
 		return utils.MarshalJSON(u.RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationBasicSecretDiscoveryType string
 
 const (
-	RestAuthenticationBasicSecretDiscoveryTypeHTTP RestAuthenticationBasicSecretDiscoveryType = "http"
-	RestAuthenticationBasicSecretDiscoveryTypeJSON RestAuthenticationBasicSecretDiscoveryType = "json"
-	RestAuthenticationBasicSecretDiscoveryTypeList RestAuthenticationBasicSecretDiscoveryType = "list"
-	RestAuthenticationBasicSecretDiscoveryTypeNone RestAuthenticationBasicSecretDiscoveryType = "none"
+	RestAuthenticationBasicSecretDiscoveryTypeHTTP    RestAuthenticationBasicSecretDiscoveryType = "http"
+	RestAuthenticationBasicSecretDiscoveryTypeJSON    RestAuthenticationBasicSecretDiscoveryType = "json"
+	RestAuthenticationBasicSecretDiscoveryTypeList    RestAuthenticationBasicSecretDiscoveryType = "list"
+	RestAuthenticationBasicSecretDiscoveryTypeNone    RestAuthenticationBasicSecretDiscoveryType = "none"
+	RestAuthenticationBasicSecretDiscoveryTypeUnknown RestAuthenticationBasicSecretDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationBasicSecretDiscovery struct {
@@ -18802,6 +19673,7 @@ type RestAuthenticationBasicSecretDiscovery struct {
 	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type RestAuthenticationBasicSecretDiscoveryType
 }
@@ -18851,6 +19723,21 @@ func CreateRestAuthenticationBasicSecretDiscoveryNone(none RestAuthenticationBas
 	}
 }
 
+func CreateRestAuthenticationBasicSecretDiscoveryUnknown(raw json.RawMessage) RestAuthenticationBasicSecretDiscovery {
+	return RestAuthenticationBasicSecretDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationBasicSecretDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationBasicSecretDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationBasicSecretDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationBasicSecretDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationBasicSecretDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -18859,7 +19746,14 @@ func (u *RestAuthenticationBasicSecretDiscovery) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -18899,9 +19793,12 @@ func (u *RestAuthenticationBasicSecretDiscovery) UnmarshalJSON(data []byte) erro
 		u.RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone = restAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationBasicSecretDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicSecretDiscovery", string(data))
 }
 
 func (u RestAuthenticationBasicSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -18921,6 +19818,9 @@ func (u RestAuthenticationBasicSecretDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationBasicSecretDiscovery: all fields are null")
 }
 
@@ -18977,7 +19877,7 @@ func (r RestAuthenticationBasicSecretRestPaginationTypeRequestPage) MarshalJSON(
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19069,7 +19969,7 @@ func (r RestAuthenticationBasicSecretRestPaginationTypeRequestOffset) MarshalJSO
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19146,7 +20046,7 @@ func (r RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink) Marsh
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19193,7 +20093,7 @@ func (r RestAuthenticationBasicSecretRestPaginationTypeResponseHeader) MarshalJS
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19235,7 +20135,7 @@ func (r RestAuthenticationBasicSecretRestPaginationTypeResponseBody) MarshalJSON
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19278,7 +20178,7 @@ func (r RestAuthenticationBasicSecretRestPaginationTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19300,6 +20200,7 @@ const (
 	RestAuthenticationBasicSecretPaginationUnionTypeResponseHeaderLink RestAuthenticationBasicSecretPaginationUnionType = "response_header_link"
 	RestAuthenticationBasicSecretPaginationUnionTypeRequestOffset      RestAuthenticationBasicSecretPaginationUnionType = "request_offset"
 	RestAuthenticationBasicSecretPaginationUnionTypeRequestPage        RestAuthenticationBasicSecretPaginationUnionType = "request_page"
+	RestAuthenticationBasicSecretPaginationUnionTypeUnknown            RestAuthenticationBasicSecretPaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationBasicSecretPaginationUnion struct {
@@ -19309,6 +20210,7 @@ type RestAuthenticationBasicSecretPaginationUnion struct {
 	RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink *RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicSecretRestPaginationTypeRequestOffset      *RestAuthenticationBasicSecretRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicSecretRestPaginationTypeRequestPage        *RestAuthenticationBasicSecretRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                        json.RawMessage                                                    `json:"-" union:"unknown"`
 
 	Type RestAuthenticationBasicSecretPaginationUnionType
 }
@@ -19385,6 +20287,21 @@ func CreateRestAuthenticationBasicSecretPaginationUnionRequestPage(requestPage R
 	}
 }
 
+func CreateRestAuthenticationBasicSecretPaginationUnionUnknown(raw json.RawMessage) RestAuthenticationBasicSecretPaginationUnion {
+	return RestAuthenticationBasicSecretPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationBasicSecretPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationBasicSecretPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationBasicSecretPaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationBasicSecretPaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationBasicSecretPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -19393,7 +20310,14 @@ func (u *RestAuthenticationBasicSecretPaginationUnion) UnmarshalJSON(data []byte
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -19451,9 +20375,12 @@ func (u *RestAuthenticationBasicSecretPaginationUnion) UnmarshalJSON(data []byte
 		u.RestAuthenticationBasicSecretRestPaginationTypeRequestPage = restAuthenticationBasicSecretRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationBasicSecretPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicSecretPaginationUnion", string(data))
 }
 
 func (u RestAuthenticationBasicSecretPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -19481,6 +20408,9 @@ func (u RestAuthenticationBasicSecretPaginationUnion) MarshalJSON() ([]byte, err
 		return utils.MarshalJSON(u.RestAuthenticationBasicSecretRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationBasicSecretPaginationUnion: all fields are null")
 }
 
@@ -19502,7 +20432,7 @@ func (r RestAuthenticationBasicSecretRestRetryRulesTypeBackoff) MarshalJSON() ([
 }
 
 func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19589,7 +20519,7 @@ func (r RestAuthenticationBasicSecretRestRetryRulesTypeStatic) MarshalJSON() ([]
 }
 
 func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19676,7 +20606,7 @@ func (r RestAuthenticationBasicSecretRestRetryRulesTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19751,12 +20681,14 @@ const (
 	RestAuthenticationBasicSecretRetryRulesTypeNone    RestAuthenticationBasicSecretRetryRulesType = "none"
 	RestAuthenticationBasicSecretRetryRulesTypeStatic  RestAuthenticationBasicSecretRetryRulesType = "static"
 	RestAuthenticationBasicSecretRetryRulesTypeBackoff RestAuthenticationBasicSecretRetryRulesType = "backoff"
+	RestAuthenticationBasicSecretRetryRulesTypeUnknown RestAuthenticationBasicSecretRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationBasicSecretRetryRules struct {
 	RestAuthenticationBasicSecretRestRetryRulesTypeNone    *RestAuthenticationBasicSecretRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicSecretRestRetryRulesTypeStatic  *RestAuthenticationBasicSecretRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicSecretRestRetryRulesTypeBackoff *RestAuthenticationBasicSecretRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                             json.RawMessage                                         `json:"-" union:"unknown"`
 
 	Type RestAuthenticationBasicSecretRetryRulesType
 }
@@ -19797,6 +20729,21 @@ func CreateRestAuthenticationBasicSecretRetryRulesBackoff(backoff RestAuthentica
 	}
 }
 
+func CreateRestAuthenticationBasicSecretRetryRulesUnknown(raw json.RawMessage) RestAuthenticationBasicSecretRetryRules {
+	return RestAuthenticationBasicSecretRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationBasicSecretRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationBasicSecretRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationBasicSecretRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationBasicSecretRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -19805,7 +20752,14 @@ func (u *RestAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -19836,9 +20790,12 @@ func (u *RestAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) err
 		u.RestAuthenticationBasicSecretRestRetryRulesTypeBackoff = restAuthenticationBasicSecretRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationBasicSecretRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicSecretRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicSecretRetryRules", string(data))
 }
 
 func (u RestAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -19854,6 +20811,9 @@ func (u RestAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationBasicSecretRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationBasicSecretRetryRules: all fields are null")
 }
 
@@ -19941,7 +20901,7 @@ func (r RestAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationBasicSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "credentialsSecret", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20244,7 +21204,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20294,7 +21254,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeList) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20353,7 +21313,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20442,7 +21402,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherP
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20479,7 +21439,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther)
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20631,7 +21591,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWi
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20668,7 +21628,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWi
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20820,7 +21780,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPa
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20857,7 +21817,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) 
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21009,7 +21969,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPag
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21046,7 +22006,7 @@ func (r RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) M
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21143,6 +22103,7 @@ const (
 	RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP struct {
@@ -21150,6 +22111,7 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                     json.RawMessage                                                                 `json:"-" union:"unknown"`
 
 	Type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPType
 }
@@ -21202,6 +22164,21 @@ func CreateRestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPOther(other RestA
 	}
 }
 
+func CreateRestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -21210,7 +22187,14 @@ func (u *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(dat
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -21250,9 +22234,12 @@ func (u *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(dat
 		u.RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -21272,16 +22259,20 @@ func (u RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]b
 		return utils.MarshalJSON(u.RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationBasicDiscoveryType string
 
 const (
-	RestAuthenticationBasicDiscoveryTypeHTTP RestAuthenticationBasicDiscoveryType = "http"
-	RestAuthenticationBasicDiscoveryTypeJSON RestAuthenticationBasicDiscoveryType = "json"
-	RestAuthenticationBasicDiscoveryTypeList RestAuthenticationBasicDiscoveryType = "list"
-	RestAuthenticationBasicDiscoveryTypeNone RestAuthenticationBasicDiscoveryType = "none"
+	RestAuthenticationBasicDiscoveryTypeHTTP    RestAuthenticationBasicDiscoveryType = "http"
+	RestAuthenticationBasicDiscoveryTypeJSON    RestAuthenticationBasicDiscoveryType = "json"
+	RestAuthenticationBasicDiscoveryTypeList    RestAuthenticationBasicDiscoveryType = "list"
+	RestAuthenticationBasicDiscoveryTypeNone    RestAuthenticationBasicDiscoveryType = "none"
+	RestAuthenticationBasicDiscoveryTypeUnknown RestAuthenticationBasicDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationBasicDiscovery struct {
@@ -21289,6 +22280,7 @@ type RestAuthenticationBasicDiscovery struct {
 	RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON *RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicRestDiscoveryDiscoverTypeList *RestAuthenticationBasicRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicRestDiscoveryDiscoverTypeNone *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                           json.RawMessage                                       `json:"-" union:"unknown"`
 
 	Type RestAuthenticationBasicDiscoveryType
 }
@@ -21338,6 +22330,21 @@ func CreateRestAuthenticationBasicDiscoveryNone(none RestAuthenticationBasicRest
 	}
 }
 
+func CreateRestAuthenticationBasicDiscoveryUnknown(raw json.RawMessage) RestAuthenticationBasicDiscovery {
+	return RestAuthenticationBasicDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationBasicDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationBasicDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationBasicDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationBasicDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationBasicDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -21346,7 +22353,14 @@ func (u *RestAuthenticationBasicDiscovery) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -21386,9 +22400,12 @@ func (u *RestAuthenticationBasicDiscovery) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationBasicRestDiscoveryDiscoverTypeNone = restAuthenticationBasicRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationBasicDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicDiscovery", string(data))
 }
 
 func (u RestAuthenticationBasicDiscovery) MarshalJSON() ([]byte, error) {
@@ -21408,6 +22425,9 @@ func (u RestAuthenticationBasicDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationBasicRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationBasicDiscovery: all fields are null")
 }
 
@@ -21464,7 +22484,7 @@ func (r RestAuthenticationBasicRestPaginationTypeRequestPage) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationBasicRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21556,7 +22576,7 @@ func (r RestAuthenticationBasicRestPaginationTypeRequestOffset) MarshalJSON() ([
 }
 
 func (r *RestAuthenticationBasicRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21633,7 +22653,7 @@ func (r RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) MarshalJSON
 }
 
 func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21680,7 +22700,7 @@ func (r RestAuthenticationBasicRestPaginationTypeResponseHeader) MarshalJSON() (
 }
 
 func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21722,7 +22742,7 @@ func (r RestAuthenticationBasicRestPaginationTypeResponseBody) MarshalJSON() ([]
 }
 
 func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21765,7 +22785,7 @@ func (r RestAuthenticationBasicRestPaginationTypeNone) MarshalJSON() ([]byte, er
 }
 
 func (r *RestAuthenticationBasicRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21787,6 +22807,7 @@ const (
 	RestAuthenticationBasicPaginationUnionTypeResponseHeaderLink RestAuthenticationBasicPaginationUnionType = "response_header_link"
 	RestAuthenticationBasicPaginationUnionTypeRequestOffset      RestAuthenticationBasicPaginationUnionType = "request_offset"
 	RestAuthenticationBasicPaginationUnionTypeRequestPage        RestAuthenticationBasicPaginationUnionType = "request_page"
+	RestAuthenticationBasicPaginationUnionTypeUnknown            RestAuthenticationBasicPaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationBasicPaginationUnion struct {
@@ -21796,6 +22817,7 @@ type RestAuthenticationBasicPaginationUnion struct {
 	RestAuthenticationBasicRestPaginationTypeResponseHeaderLink *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicRestPaginationTypeRequestOffset      *RestAuthenticationBasicRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicRestPaginationTypeRequestPage        *RestAuthenticationBasicRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                  json.RawMessage                                              `json:"-" union:"unknown"`
 
 	Type RestAuthenticationBasicPaginationUnionType
 }
@@ -21872,6 +22894,21 @@ func CreateRestAuthenticationBasicPaginationUnionRequestPage(requestPage RestAut
 	}
 }
 
+func CreateRestAuthenticationBasicPaginationUnionUnknown(raw json.RawMessage) RestAuthenticationBasicPaginationUnion {
+	return RestAuthenticationBasicPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationBasicPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationBasicPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationBasicPaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationBasicPaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationBasicPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -21880,7 +22917,14 @@ func (u *RestAuthenticationBasicPaginationUnion) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -21938,9 +22982,12 @@ func (u *RestAuthenticationBasicPaginationUnion) UnmarshalJSON(data []byte) erro
 		u.RestAuthenticationBasicRestPaginationTypeRequestPage = restAuthenticationBasicRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationBasicPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicPaginationUnion", string(data))
 }
 
 func (u RestAuthenticationBasicPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -21968,6 +23015,9 @@ func (u RestAuthenticationBasicPaginationUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationBasicRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationBasicPaginationUnion: all fields are null")
 }
 
@@ -21989,7 +23039,7 @@ func (r RestAuthenticationBasicRestRetryRulesTypeBackoff) MarshalJSON() ([]byte,
 }
 
 func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22076,7 +23126,7 @@ func (r RestAuthenticationBasicRestRetryRulesTypeStatic) MarshalJSON() ([]byte, 
 }
 
 func (r *RestAuthenticationBasicRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22163,7 +23213,7 @@ func (r RestAuthenticationBasicRestRetryRulesTypeNone) MarshalJSON() ([]byte, er
 }
 
 func (r *RestAuthenticationBasicRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22238,12 +23288,14 @@ const (
 	RestAuthenticationBasicRetryRulesTypeNone    RestAuthenticationBasicRetryRulesType = "none"
 	RestAuthenticationBasicRetryRulesTypeStatic  RestAuthenticationBasicRetryRulesType = "static"
 	RestAuthenticationBasicRetryRulesTypeBackoff RestAuthenticationBasicRetryRulesType = "backoff"
+	RestAuthenticationBasicRetryRulesTypeUnknown RestAuthenticationBasicRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationBasicRetryRules struct {
 	RestAuthenticationBasicRestRetryRulesTypeNone    *RestAuthenticationBasicRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicRestRetryRulesTypeStatic  *RestAuthenticationBasicRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationBasicRestRetryRulesTypeBackoff *RestAuthenticationBasicRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                       json.RawMessage                                   `json:"-" union:"unknown"`
 
 	Type RestAuthenticationBasicRetryRulesType
 }
@@ -22284,6 +23336,21 @@ func CreateRestAuthenticationBasicRetryRulesBackoff(backoff RestAuthenticationBa
 	}
 }
 
+func CreateRestAuthenticationBasicRetryRulesUnknown(raw json.RawMessage) RestAuthenticationBasicRetryRules {
+	return RestAuthenticationBasicRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationBasicRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationBasicRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationBasicRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationBasicRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -22292,7 +23359,14 @@ func (u *RestAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -22323,9 +23397,12 @@ func (u *RestAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationBasicRestRetryRulesTypeBackoff = restAuthenticationBasicRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationBasicRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationBasicRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicRetryRules", string(data))
 }
 
 func (u RestAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
@@ -22341,6 +23418,9 @@ func (u RestAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationBasicRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationBasicRetryRules: all fields are null")
 }
 
@@ -22428,7 +23508,7 @@ func (r RestAuthenticationBasic) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationBasic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "username", "password", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22738,7 +23818,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22788,7 +23868,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeList) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22847,7 +23927,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22936,7 +24016,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPa
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22973,7 +24053,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) 
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23125,7 +24205,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23162,7 +24242,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23314,7 +24394,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPag
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23351,7 +24431,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) M
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23503,7 +24583,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagi
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23540,7 +24620,7 @@ func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Ma
 }
 
 func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23637,6 +24717,7 @@ const (
 	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP struct {
@@ -23644,6 +24725,7 @@ type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP struct {
 	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                    json.RawMessage                                                                `json:"-" union:"unknown"`
 
 	Type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType
 }
@@ -23696,6 +24778,21 @@ func CreateRestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPOther(other RestAu
 	}
 }
 
+func CreateRestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP {
+	return RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -23704,7 +24801,14 @@ func (u *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -23744,9 +24848,12 @@ func (u *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data
 		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -23766,16 +24873,20 @@ func (u RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]by
 		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestAuthenticationNoneDiscoveryType string
 
 const (
-	RestAuthenticationNoneDiscoveryTypeHTTP RestAuthenticationNoneDiscoveryType = "http"
-	RestAuthenticationNoneDiscoveryTypeJSON RestAuthenticationNoneDiscoveryType = "json"
-	RestAuthenticationNoneDiscoveryTypeList RestAuthenticationNoneDiscoveryType = "list"
-	RestAuthenticationNoneDiscoveryTypeNone RestAuthenticationNoneDiscoveryType = "none"
+	RestAuthenticationNoneDiscoveryTypeHTTP    RestAuthenticationNoneDiscoveryType = "http"
+	RestAuthenticationNoneDiscoveryTypeJSON    RestAuthenticationNoneDiscoveryType = "json"
+	RestAuthenticationNoneDiscoveryTypeList    RestAuthenticationNoneDiscoveryType = "list"
+	RestAuthenticationNoneDiscoveryTypeNone    RestAuthenticationNoneDiscoveryType = "none"
+	RestAuthenticationNoneDiscoveryTypeUnknown RestAuthenticationNoneDiscoveryType = "UNKNOWN"
 )
 
 type RestAuthenticationNoneDiscovery struct {
@@ -23783,6 +24894,7 @@ type RestAuthenticationNoneDiscovery struct {
 	RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON *RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestAuthenticationNoneRestDiscoveryDiscoverTypeList *RestAuthenticationNoneRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestAuthenticationNoneRestDiscoveryDiscoverTypeNone *RestAuthenticationNoneRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                          json.RawMessage                                      `json:"-" union:"unknown"`
 
 	Type RestAuthenticationNoneDiscoveryType
 }
@@ -23832,6 +24944,21 @@ func CreateRestAuthenticationNoneDiscoveryNone(none RestAuthenticationNoneRestDi
 	}
 }
 
+func CreateRestAuthenticationNoneDiscoveryUnknown(raw json.RawMessage) RestAuthenticationNoneDiscovery {
+	return RestAuthenticationNoneDiscovery{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationNoneDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationNoneDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationNoneDiscovery) IsUnknown() bool {
+	return u.Type == RestAuthenticationNoneDiscoveryTypeUnknown
+}
+
 func (u *RestAuthenticationNoneDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -23840,7 +24967,14 @@ func (u *RestAuthenticationNoneDiscovery) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNoneDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNoneDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -23880,9 +25014,12 @@ func (u *RestAuthenticationNoneDiscovery) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeNone = restAuthenticationNoneRestDiscoveryDiscoverTypeNone
 		u.Type = RestAuthenticationNoneDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNoneDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationNoneDiscovery", string(data))
 }
 
 func (u RestAuthenticationNoneDiscovery) MarshalJSON() ([]byte, error) {
@@ -23902,6 +25039,9 @@ func (u RestAuthenticationNoneDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationNoneDiscovery: all fields are null")
 }
 
@@ -23958,7 +25098,7 @@ func (r RestAuthenticationNoneRestPaginationTypeRequestPage) MarshalJSON() ([]by
 }
 
 func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24050,7 +25190,7 @@ func (r RestAuthenticationNoneRestPaginationTypeRequestOffset) MarshalJSON() ([]
 }
 
 func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24127,7 +25267,7 @@ func (r RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) MarshalJSON(
 }
 
 func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24174,7 +25314,7 @@ func (r RestAuthenticationNoneRestPaginationTypeResponseHeader) MarshalJSON() ([
 }
 
 func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24216,7 +25356,7 @@ func (r RestAuthenticationNoneRestPaginationTypeResponseBody) MarshalJSON() ([]b
 }
 
 func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24259,7 +25399,7 @@ func (r RestAuthenticationNoneRestPaginationTypeNone) MarshalJSON() ([]byte, err
 }
 
 func (r *RestAuthenticationNoneRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24281,6 +25421,7 @@ const (
 	RestAuthenticationNonePaginationUnionTypeResponseHeaderLink RestAuthenticationNonePaginationUnionType = "response_header_link"
 	RestAuthenticationNonePaginationUnionTypeRequestOffset      RestAuthenticationNonePaginationUnionType = "request_offset"
 	RestAuthenticationNonePaginationUnionTypeRequestPage        RestAuthenticationNonePaginationUnionType = "request_page"
+	RestAuthenticationNonePaginationUnionTypeUnknown            RestAuthenticationNonePaginationUnionType = "UNKNOWN"
 )
 
 type RestAuthenticationNonePaginationUnion struct {
@@ -24290,6 +25431,7 @@ type RestAuthenticationNonePaginationUnion struct {
 	RestAuthenticationNoneRestPaginationTypeResponseHeaderLink *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestAuthenticationNoneRestPaginationTypeRequestOffset      *RestAuthenticationNoneRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestAuthenticationNoneRestPaginationTypeRequestPage        *RestAuthenticationNoneRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type RestAuthenticationNonePaginationUnionType
 }
@@ -24366,6 +25508,21 @@ func CreateRestAuthenticationNonePaginationUnionRequestPage(requestPage RestAuth
 	}
 }
 
+func CreateRestAuthenticationNonePaginationUnionUnknown(raw json.RawMessage) RestAuthenticationNonePaginationUnion {
+	return RestAuthenticationNonePaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationNonePaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationNonePaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationNonePaginationUnion) IsUnknown() bool {
+	return u.Type == RestAuthenticationNonePaginationUnionTypeUnknown
+}
+
 func (u *RestAuthenticationNonePaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -24374,7 +25531,14 @@ func (u *RestAuthenticationNonePaginationUnion) UnmarshalJSON(data []byte) error
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNonePaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNonePaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -24432,9 +25596,12 @@ func (u *RestAuthenticationNonePaginationUnion) UnmarshalJSON(data []byte) error
 		u.RestAuthenticationNoneRestPaginationTypeRequestPage = restAuthenticationNoneRestPaginationTypeRequestPage
 		u.Type = RestAuthenticationNonePaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNonePaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationNonePaginationUnion", string(data))
 }
 
 func (u RestAuthenticationNonePaginationUnion) MarshalJSON() ([]byte, error) {
@@ -24462,6 +25629,9 @@ func (u RestAuthenticationNonePaginationUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationNoneRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationNonePaginationUnion: all fields are null")
 }
 
@@ -24483,7 +25653,7 @@ func (r RestAuthenticationNoneRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, 
 }
 
 func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24570,7 +25740,7 @@ func (r RestAuthenticationNoneRestRetryRulesTypeStatic) MarshalJSON() ([]byte, e
 }
 
 func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24657,7 +25827,7 @@ func (r RestAuthenticationNoneRestRetryRulesTypeNone) MarshalJSON() ([]byte, err
 }
 
 func (r *RestAuthenticationNoneRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24732,12 +25902,14 @@ const (
 	RestAuthenticationNoneRetryRulesTypeNone    RestAuthenticationNoneRetryRulesType = "none"
 	RestAuthenticationNoneRetryRulesTypeStatic  RestAuthenticationNoneRetryRulesType = "static"
 	RestAuthenticationNoneRetryRulesTypeBackoff RestAuthenticationNoneRetryRulesType = "backoff"
+	RestAuthenticationNoneRetryRulesTypeUnknown RestAuthenticationNoneRetryRulesType = "UNKNOWN"
 )
 
 type RestAuthenticationNoneRetryRules struct {
 	RestAuthenticationNoneRestRetryRulesTypeNone    *RestAuthenticationNoneRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestAuthenticationNoneRestRetryRulesTypeStatic  *RestAuthenticationNoneRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestAuthenticationNoneRestRetryRulesTypeBackoff *RestAuthenticationNoneRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                      json.RawMessage                                  `json:"-" union:"unknown"`
 
 	Type RestAuthenticationNoneRetryRulesType
 }
@@ -24778,6 +25950,21 @@ func CreateRestAuthenticationNoneRetryRulesBackoff(backoff RestAuthenticationNon
 	}
 }
 
+func CreateRestAuthenticationNoneRetryRulesUnknown(raw json.RawMessage) RestAuthenticationNoneRetryRules {
+	return RestAuthenticationNoneRetryRules{
+		UnknownRaw: raw,
+		Type:       RestAuthenticationNoneRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestAuthenticationNoneRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestAuthenticationNoneRetryRules) IsUnknown() bool {
+	return u.Type == RestAuthenticationNoneRetryRulesTypeUnknown
+}
+
 func (u *RestAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -24786,7 +25973,14 @@ func (u *RestAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNoneRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNoneRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -24817,9 +26011,12 @@ func (u *RestAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationNoneRestRetryRulesTypeBackoff = restAuthenticationNoneRestRetryRulesTypeBackoff
 		u.Type = RestAuthenticationNoneRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestAuthenticationNoneRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationNoneRetryRules", string(data))
 }
 
 func (u RestAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
@@ -24835,6 +26032,9 @@ func (u RestAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationNoneRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestAuthenticationNoneRetryRules: all fields are null")
 }
 
@@ -24920,7 +26120,7 @@ func (r RestAuthenticationNone) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestAuthenticationNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "collectUrl", "collectMethod"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25213,7 +26413,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25263,7 +26463,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeList) MarshalJSON() ([]by
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25322,7 +26522,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]by
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25411,7 +26611,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPa
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25448,7 +26648,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) 
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25600,7 +26800,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25637,7 +26837,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25789,7 +26989,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPag
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25826,7 +27026,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) M
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25978,7 +27178,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagi
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26015,7 +27215,7 @@ func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Ma
 }
 
 func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26112,6 +27312,7 @@ const (
 	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypePost         RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeOther        RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP struct {
@@ -26119,6 +27320,7 @@ type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP struct {
 	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                    json.RawMessage                                                                `json:"-" union:"unknown"`
 
 	Type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType
 }
@@ -26171,6 +27373,21 @@ func CreateRestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPOther(other RestCo
 	}
 }
 
+func CreateRestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP {
+	return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -26179,7 +27396,14 @@ func (u *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -26219,9 +27443,12 @@ func (u *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data
 		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -26241,16 +27468,20 @@ func (u RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]by
 		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestCollectMethodOtherDiscoveryType string
 
 const (
-	RestCollectMethodOtherDiscoveryTypeHTTP RestCollectMethodOtherDiscoveryType = "http"
-	RestCollectMethodOtherDiscoveryTypeJSON RestCollectMethodOtherDiscoveryType = "json"
-	RestCollectMethodOtherDiscoveryTypeList RestCollectMethodOtherDiscoveryType = "list"
-	RestCollectMethodOtherDiscoveryTypeNone RestCollectMethodOtherDiscoveryType = "none"
+	RestCollectMethodOtherDiscoveryTypeHTTP    RestCollectMethodOtherDiscoveryType = "http"
+	RestCollectMethodOtherDiscoveryTypeJSON    RestCollectMethodOtherDiscoveryType = "json"
+	RestCollectMethodOtherDiscoveryTypeList    RestCollectMethodOtherDiscoveryType = "list"
+	RestCollectMethodOtherDiscoveryTypeNone    RestCollectMethodOtherDiscoveryType = "none"
+	RestCollectMethodOtherDiscoveryTypeUnknown RestCollectMethodOtherDiscoveryType = "UNKNOWN"
 )
 
 type RestCollectMethodOtherDiscovery struct {
@@ -26258,6 +27489,7 @@ type RestCollectMethodOtherDiscovery struct {
 	RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestDiscoveryDiscoverTypeList *RestCollectMethodOtherRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestDiscoveryDiscoverTypeNone *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                          json.RawMessage                                      `json:"-" union:"unknown"`
 
 	Type RestCollectMethodOtherDiscoveryType
 }
@@ -26307,6 +27539,21 @@ func CreateRestCollectMethodOtherDiscoveryNone(none RestCollectMethodOtherRestDi
 	}
 }
 
+func CreateRestCollectMethodOtherDiscoveryUnknown(raw json.RawMessage) RestCollectMethodOtherDiscovery {
+	return RestCollectMethodOtherDiscovery{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodOtherDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodOtherDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodOtherDiscovery) IsUnknown() bool {
+	return u.Type == RestCollectMethodOtherDiscoveryTypeUnknown
+}
+
 func (u *RestCollectMethodOtherDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -26315,7 +27562,14 @@ func (u *RestCollectMethodOtherDiscovery) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -26355,9 +27609,12 @@ func (u *RestCollectMethodOtherDiscovery) UnmarshalJSON(data []byte) error {
 		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeNone = restCollectMethodOtherRestDiscoveryDiscoverTypeNone
 		u.Type = RestCollectMethodOtherDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodOtherDiscovery", string(data))
 }
 
 func (u RestCollectMethodOtherDiscovery) MarshalJSON() ([]byte, error) {
@@ -26377,6 +27634,9 @@ func (u RestCollectMethodOtherDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodOtherDiscovery: all fields are null")
 }
 
@@ -26405,7 +27665,7 @@ func (r RestCollectMethodOtherRestPaginationTypeRequestPage) MarshalJSON() ([]by
 }
 
 func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26497,7 +27757,7 @@ func (r RestCollectMethodOtherRestPaginationTypeRequestOffset) MarshalJSON() ([]
 }
 
 func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26574,7 +27834,7 @@ func (r RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) MarshalJSON(
 }
 
 func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26621,7 +27881,7 @@ func (r RestCollectMethodOtherRestPaginationTypeResponseHeader) MarshalJSON() ([
 }
 
 func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26663,7 +27923,7 @@ func (r RestCollectMethodOtherRestPaginationTypeResponseBody) MarshalJSON() ([]b
 }
 
 func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26706,7 +27966,7 @@ func (r RestCollectMethodOtherRestPaginationTypeNone) MarshalJSON() ([]byte, err
 }
 
 func (r *RestCollectMethodOtherRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26728,6 +27988,7 @@ const (
 	RestCollectMethodOtherPaginationUnionTypeResponseHeaderLink RestCollectMethodOtherPaginationUnionType = "response_header_link"
 	RestCollectMethodOtherPaginationUnionTypeRequestOffset      RestCollectMethodOtherPaginationUnionType = "request_offset"
 	RestCollectMethodOtherPaginationUnionTypeRequestPage        RestCollectMethodOtherPaginationUnionType = "request_page"
+	RestCollectMethodOtherPaginationUnionTypeUnknown            RestCollectMethodOtherPaginationUnionType = "UNKNOWN"
 )
 
 type RestCollectMethodOtherPaginationUnion struct {
@@ -26737,6 +27998,7 @@ type RestCollectMethodOtherPaginationUnion struct {
 	RestCollectMethodOtherRestPaginationTypeResponseHeaderLink *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestPaginationTypeRequestOffset      *RestCollectMethodOtherRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestPaginationTypeRequestPage        *RestCollectMethodOtherRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type RestCollectMethodOtherPaginationUnionType
 }
@@ -26813,6 +28075,21 @@ func CreateRestCollectMethodOtherPaginationUnionRequestPage(requestPage RestColl
 	}
 }
 
+func CreateRestCollectMethodOtherPaginationUnionUnknown(raw json.RawMessage) RestCollectMethodOtherPaginationUnion {
+	return RestCollectMethodOtherPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodOtherPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodOtherPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodOtherPaginationUnion) IsUnknown() bool {
+	return u.Type == RestCollectMethodOtherPaginationUnionTypeUnknown
+}
+
 func (u *RestCollectMethodOtherPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -26821,7 +28098,14 @@ func (u *RestCollectMethodOtherPaginationUnion) UnmarshalJSON(data []byte) error
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -26879,9 +28163,12 @@ func (u *RestCollectMethodOtherPaginationUnion) UnmarshalJSON(data []byte) error
 		u.RestCollectMethodOtherRestPaginationTypeRequestPage = restCollectMethodOtherRestPaginationTypeRequestPage
 		u.Type = RestCollectMethodOtherPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodOtherPaginationUnion", string(data))
 }
 
 func (u RestCollectMethodOtherPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -26909,6 +28196,9 @@ func (u RestCollectMethodOtherPaginationUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodOtherRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodOtherPaginationUnion: all fields are null")
 }
 
@@ -26961,7 +28251,7 @@ func (r RestCollectMethodOtherRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, 
 }
 
 func (r *RestCollectMethodOtherRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27048,7 +28338,7 @@ func (r RestCollectMethodOtherRestRetryRulesTypeStatic) MarshalJSON() ([]byte, e
 }
 
 func (r *RestCollectMethodOtherRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27135,7 +28425,7 @@ func (r RestCollectMethodOtherRestRetryRulesTypeNone) MarshalJSON() ([]byte, err
 }
 
 func (r *RestCollectMethodOtherRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27210,12 +28500,14 @@ const (
 	RestCollectMethodOtherRetryRulesTypeNone    RestCollectMethodOtherRetryRulesType = "none"
 	RestCollectMethodOtherRetryRulesTypeStatic  RestCollectMethodOtherRetryRulesType = "static"
 	RestCollectMethodOtherRetryRulesTypeBackoff RestCollectMethodOtherRetryRulesType = "backoff"
+	RestCollectMethodOtherRetryRulesTypeUnknown RestCollectMethodOtherRetryRulesType = "UNKNOWN"
 )
 
 type RestCollectMethodOtherRetryRules struct {
 	RestCollectMethodOtherRestRetryRulesTypeNone    *RestCollectMethodOtherRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestRetryRulesTypeStatic  *RestCollectMethodOtherRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestRetryRulesTypeBackoff *RestCollectMethodOtherRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                      json.RawMessage                                  `json:"-" union:"unknown"`
 
 	Type RestCollectMethodOtherRetryRulesType
 }
@@ -27256,6 +28548,21 @@ func CreateRestCollectMethodOtherRetryRulesBackoff(backoff RestCollectMethodOthe
 	}
 }
 
+func CreateRestCollectMethodOtherRetryRulesUnknown(raw json.RawMessage) RestCollectMethodOtherRetryRules {
+	return RestCollectMethodOtherRetryRules{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodOtherRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodOtherRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodOtherRetryRules) IsUnknown() bool {
+	return u.Type == RestCollectMethodOtherRetryRulesTypeUnknown
+}
+
 func (u *RestCollectMethodOtherRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -27264,7 +28571,14 @@ func (u *RestCollectMethodOtherRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -27295,9 +28609,12 @@ func (u *RestCollectMethodOtherRetryRules) UnmarshalJSON(data []byte) error {
 		u.RestCollectMethodOtherRestRetryRulesTypeBackoff = restCollectMethodOtherRestRetryRulesTypeBackoff
 		u.Type = RestCollectMethodOtherRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodOtherRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodOtherRetryRules", string(data))
 }
 
 func (u RestCollectMethodOtherRetryRules) MarshalJSON() ([]byte, error) {
@@ -27313,6 +28630,9 @@ func (u RestCollectMethodOtherRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodOtherRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodOtherRetryRules: all fields are null")
 }
 
@@ -27398,7 +28718,7 @@ func (r RestCollectMethodOther) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestCollectMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"collectMethod", "collectVerb", "collectUrl", "authentication"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27691,7 +29011,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) MarshalJSON(
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27741,7 +29061,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) MarshalJSON(
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27800,7 +29120,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) MarshalJSON(
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27889,7 +29209,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27926,7 +29246,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28078,7 +29398,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28115,7 +29435,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28267,7 +29587,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28304,7 +29624,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28456,7 +29776,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28493,7 +29813,7 @@ func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethod
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28590,6 +29910,7 @@ const (
 	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypePost         RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeOther        RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP struct {
@@ -28597,6 +29918,7 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP struct {
 	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                           json.RawMessage                                                                       `json:"-" union:"unknown"`
 
 	Type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPType
 }
@@ -28649,6 +29971,21 @@ func CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPOther(other
 	}
 }
 
+func CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP {
+	return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -28657,7 +29994,14 @@ func (u *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -28697,9 +30041,12 @@ func (u *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP) UnmarshalJS
 		u.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -28719,16 +30066,20 @@ func (u RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP) MarshalJSON(
 		return utils.MarshalJSON(u.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestCollectMethodPostWithBodyDiscoveryType string
 
 const (
-	RestCollectMethodPostWithBodyDiscoveryTypeHTTP RestCollectMethodPostWithBodyDiscoveryType = "http"
-	RestCollectMethodPostWithBodyDiscoveryTypeJSON RestCollectMethodPostWithBodyDiscoveryType = "json"
-	RestCollectMethodPostWithBodyDiscoveryTypeList RestCollectMethodPostWithBodyDiscoveryType = "list"
-	RestCollectMethodPostWithBodyDiscoveryTypeNone RestCollectMethodPostWithBodyDiscoveryType = "none"
+	RestCollectMethodPostWithBodyDiscoveryTypeHTTP    RestCollectMethodPostWithBodyDiscoveryType = "http"
+	RestCollectMethodPostWithBodyDiscoveryTypeJSON    RestCollectMethodPostWithBodyDiscoveryType = "json"
+	RestCollectMethodPostWithBodyDiscoveryTypeList    RestCollectMethodPostWithBodyDiscoveryType = "list"
+	RestCollectMethodPostWithBodyDiscoveryTypeNone    RestCollectMethodPostWithBodyDiscoveryType = "none"
+	RestCollectMethodPostWithBodyDiscoveryTypeUnknown RestCollectMethodPostWithBodyDiscoveryType = "UNKNOWN"
 )
 
 type RestCollectMethodPostWithBodyDiscovery struct {
@@ -28736,6 +30087,7 @@ type RestCollectMethodPostWithBodyDiscovery struct {
 	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
 	Type RestCollectMethodPostWithBodyDiscoveryType
 }
@@ -28785,6 +30137,21 @@ func CreateRestCollectMethodPostWithBodyDiscoveryNone(none RestCollectMethodPost
 	}
 }
 
+func CreateRestCollectMethodPostWithBodyDiscoveryUnknown(raw json.RawMessage) RestCollectMethodPostWithBodyDiscovery {
+	return RestCollectMethodPostWithBodyDiscovery{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodPostWithBodyDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodPostWithBodyDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodPostWithBodyDiscovery) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostWithBodyDiscoveryTypeUnknown
+}
+
 func (u *RestCollectMethodPostWithBodyDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -28793,7 +30160,14 @@ func (u *RestCollectMethodPostWithBodyDiscovery) UnmarshalJSON(data []byte) erro
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -28833,9 +30207,12 @@ func (u *RestCollectMethodPostWithBodyDiscovery) UnmarshalJSON(data []byte) erro
 		u.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone = restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone
 		u.Type = RestCollectMethodPostWithBodyDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyDiscovery", string(data))
 }
 
 func (u RestCollectMethodPostWithBodyDiscovery) MarshalJSON() ([]byte, error) {
@@ -28855,6 +30232,9 @@ func (u RestCollectMethodPostWithBodyDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodPostWithBodyDiscovery: all fields are null")
 }
 
@@ -28883,7 +30263,7 @@ func (r RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) MarshalJSON(
 }
 
 func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28975,7 +30355,7 @@ func (r RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) MarshalJSO
 }
 
 func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29052,7 +30432,7 @@ func (r RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) Marsh
 }
 
 func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29099,7 +30479,7 @@ func (r RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) MarshalJS
 }
 
 func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29141,7 +30521,7 @@ func (r RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) MarshalJSON
 }
 
 func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29184,7 +30564,7 @@ func (r RestCollectMethodPostWithBodyRestPaginationTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29206,6 +30586,7 @@ const (
 	RestCollectMethodPostWithBodyPaginationUnionTypeResponseHeaderLink RestCollectMethodPostWithBodyPaginationUnionType = "response_header_link"
 	RestCollectMethodPostWithBodyPaginationUnionTypeRequestOffset      RestCollectMethodPostWithBodyPaginationUnionType = "request_offset"
 	RestCollectMethodPostWithBodyPaginationUnionTypeRequestPage        RestCollectMethodPostWithBodyPaginationUnionType = "request_page"
+	RestCollectMethodPostWithBodyPaginationUnionTypeUnknown            RestCollectMethodPostWithBodyPaginationUnionType = "UNKNOWN"
 )
 
 type RestCollectMethodPostWithBodyPaginationUnion struct {
@@ -29215,6 +30596,7 @@ type RestCollectMethodPostWithBodyPaginationUnion struct {
 	RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset      *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestPaginationTypeRequestPage        *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                        json.RawMessage                                                    `json:"-" union:"unknown"`
 
 	Type RestCollectMethodPostWithBodyPaginationUnionType
 }
@@ -29291,6 +30673,21 @@ func CreateRestCollectMethodPostWithBodyPaginationUnionRequestPage(requestPage R
 	}
 }
 
+func CreateRestCollectMethodPostWithBodyPaginationUnionUnknown(raw json.RawMessage) RestCollectMethodPostWithBodyPaginationUnion {
+	return RestCollectMethodPostWithBodyPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodPostWithBodyPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodPostWithBodyPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodPostWithBodyPaginationUnion) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostWithBodyPaginationUnionTypeUnknown
+}
+
 func (u *RestCollectMethodPostWithBodyPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -29299,7 +30696,14 @@ func (u *RestCollectMethodPostWithBodyPaginationUnion) UnmarshalJSON(data []byte
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -29357,9 +30761,12 @@ func (u *RestCollectMethodPostWithBodyPaginationUnion) UnmarshalJSON(data []byte
 		u.RestCollectMethodPostWithBodyRestPaginationTypeRequestPage = restCollectMethodPostWithBodyRestPaginationTypeRequestPage
 		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyPaginationUnion", string(data))
 }
 
 func (u RestCollectMethodPostWithBodyPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -29387,6 +30794,9 @@ func (u RestCollectMethodPostWithBodyPaginationUnion) MarshalJSON() ([]byte, err
 		return utils.MarshalJSON(u.RestCollectMethodPostWithBodyRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodPostWithBodyPaginationUnion: all fields are null")
 }
 
@@ -29439,7 +30849,7 @@ func (r RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff) MarshalJSON() ([
 }
 
 func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29526,7 +30936,7 @@ func (r RestCollectMethodPostWithBodyRestRetryRulesTypeStatic) MarshalJSON() ([]
 }
 
 func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29613,7 +31023,7 @@ func (r RestCollectMethodPostWithBodyRestRetryRulesTypeNone) MarshalJSON() ([]by
 }
 
 func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29688,12 +31098,14 @@ const (
 	RestCollectMethodPostWithBodyRetryRulesTypeNone    RestCollectMethodPostWithBodyRetryRulesType = "none"
 	RestCollectMethodPostWithBodyRetryRulesTypeStatic  RestCollectMethodPostWithBodyRetryRulesType = "static"
 	RestCollectMethodPostWithBodyRetryRulesTypeBackoff RestCollectMethodPostWithBodyRetryRulesType = "backoff"
+	RestCollectMethodPostWithBodyRetryRulesTypeUnknown RestCollectMethodPostWithBodyRetryRulesType = "UNKNOWN"
 )
 
 type RestCollectMethodPostWithBodyRetryRules struct {
 	RestCollectMethodPostWithBodyRestRetryRulesTypeNone    *RestCollectMethodPostWithBodyRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestRetryRulesTypeStatic  *RestCollectMethodPostWithBodyRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                             json.RawMessage                                         `json:"-" union:"unknown"`
 
 	Type RestCollectMethodPostWithBodyRetryRulesType
 }
@@ -29734,6 +31146,21 @@ func CreateRestCollectMethodPostWithBodyRetryRulesBackoff(backoff RestCollectMet
 	}
 }
 
+func CreateRestCollectMethodPostWithBodyRetryRulesUnknown(raw json.RawMessage) RestCollectMethodPostWithBodyRetryRules {
+	return RestCollectMethodPostWithBodyRetryRules{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodPostWithBodyRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodPostWithBodyRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodPostWithBodyRetryRules) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostWithBodyRetryRulesTypeUnknown
+}
+
 func (u *RestCollectMethodPostWithBodyRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -29742,7 +31169,14 @@ func (u *RestCollectMethodPostWithBodyRetryRules) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -29773,9 +31207,12 @@ func (u *RestCollectMethodPostWithBodyRetryRules) UnmarshalJSON(data []byte) err
 		u.RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff = restCollectMethodPostWithBodyRestRetryRulesTypeBackoff
 		u.Type = RestCollectMethodPostWithBodyRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostWithBodyRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyRetryRules", string(data))
 }
 
 func (u RestCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, error) {
@@ -29791,6 +31228,9 @@ func (u RestCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodPostWithBodyRetryRules: all fields are null")
 }
 
@@ -29876,7 +31316,7 @@ func (r RestCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestCollectMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"collectMethod", "collectBody", "collectUrl", "authentication"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30169,7 +31609,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]byt
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30219,7 +31659,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeList) MarshalJSON() ([]byt
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30278,7 +31718,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]byt
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30367,7 +31807,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPag
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30404,7 +31844,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) M
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30556,7 +31996,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWith
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30593,7 +32033,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWith
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30745,7 +32185,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagi
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30782,7 +32222,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) Ma
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30934,7 +32374,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagin
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30971,7 +32411,7 @@ func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Mar
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31068,6 +32508,7 @@ const (
 	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypePost         RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeOther        RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP struct {
@@ -31075,6 +32516,7 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP struct {
 	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                   json.RawMessage                                                               `json:"-" union:"unknown"`
 
 	Type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPType
 }
@@ -31127,6 +32569,21 @@ func CreateRestCollectMethodPostRestDiscoveryDiscoverTypeHTTPOther(other RestCol
 	}
 }
 
+func CreateRestCollectMethodPostRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP {
+	return RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -31135,7 +32592,14 @@ func (u *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data 
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -31175,9 +32639,12 @@ func (u *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data 
 		u.RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -31197,16 +32664,20 @@ func (u RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byt
 		return utils.MarshalJSON(u.RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestCollectMethodPostDiscoveryType string
 
 const (
-	RestCollectMethodPostDiscoveryTypeHTTP RestCollectMethodPostDiscoveryType = "http"
-	RestCollectMethodPostDiscoveryTypeJSON RestCollectMethodPostDiscoveryType = "json"
-	RestCollectMethodPostDiscoveryTypeList RestCollectMethodPostDiscoveryType = "list"
-	RestCollectMethodPostDiscoveryTypeNone RestCollectMethodPostDiscoveryType = "none"
+	RestCollectMethodPostDiscoveryTypeHTTP    RestCollectMethodPostDiscoveryType = "http"
+	RestCollectMethodPostDiscoveryTypeJSON    RestCollectMethodPostDiscoveryType = "json"
+	RestCollectMethodPostDiscoveryTypeList    RestCollectMethodPostDiscoveryType = "list"
+	RestCollectMethodPostDiscoveryTypeNone    RestCollectMethodPostDiscoveryType = "none"
+	RestCollectMethodPostDiscoveryTypeUnknown RestCollectMethodPostDiscoveryType = "UNKNOWN"
 )
 
 type RestCollectMethodPostDiscovery struct {
@@ -31214,6 +32685,7 @@ type RestCollectMethodPostDiscovery struct {
 	RestCollectMethodPostRestDiscoveryDiscoverTypeJSON *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestDiscoveryDiscoverTypeList *RestCollectMethodPostRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestDiscoveryDiscoverTypeNone *RestCollectMethodPostRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                         json.RawMessage                                     `json:"-" union:"unknown"`
 
 	Type RestCollectMethodPostDiscoveryType
 }
@@ -31263,6 +32735,21 @@ func CreateRestCollectMethodPostDiscoveryNone(none RestCollectMethodPostRestDisc
 	}
 }
 
+func CreateRestCollectMethodPostDiscoveryUnknown(raw json.RawMessage) RestCollectMethodPostDiscovery {
+	return RestCollectMethodPostDiscovery{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodPostDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodPostDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodPostDiscovery) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostDiscoveryTypeUnknown
+}
+
 func (u *RestCollectMethodPostDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -31271,7 +32758,14 @@ func (u *RestCollectMethodPostDiscovery) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -31311,9 +32805,12 @@ func (u *RestCollectMethodPostDiscovery) UnmarshalJSON(data []byte) error {
 		u.RestCollectMethodPostRestDiscoveryDiscoverTypeNone = restCollectMethodPostRestDiscoveryDiscoverTypeNone
 		u.Type = RestCollectMethodPostDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostDiscovery", string(data))
 }
 
 func (u RestCollectMethodPostDiscovery) MarshalJSON() ([]byte, error) {
@@ -31333,6 +32830,9 @@ func (u RestCollectMethodPostDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodPostRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodPostDiscovery: all fields are null")
 }
 
@@ -31361,7 +32861,7 @@ func (r RestCollectMethodPostRestPaginationTypeRequestPage) MarshalJSON() ([]byt
 }
 
 func (r *RestCollectMethodPostRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31453,7 +32953,7 @@ func (r RestCollectMethodPostRestPaginationTypeRequestOffset) MarshalJSON() ([]b
 }
 
 func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31530,7 +33030,7 @@ func (r RestCollectMethodPostRestPaginationTypeResponseHeaderLink) MarshalJSON()
 }
 
 func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31577,7 +33077,7 @@ func (r RestCollectMethodPostRestPaginationTypeResponseHeader) MarshalJSON() ([]
 }
 
 func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31619,7 +33119,7 @@ func (r RestCollectMethodPostRestPaginationTypeResponseBody) MarshalJSON() ([]by
 }
 
 func (r *RestCollectMethodPostRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31662,7 +33162,7 @@ func (r RestCollectMethodPostRestPaginationTypeNone) MarshalJSON() ([]byte, erro
 }
 
 func (r *RestCollectMethodPostRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31684,6 +33184,7 @@ const (
 	RestCollectMethodPostPaginationUnionTypeResponseHeaderLink RestCollectMethodPostPaginationUnionType = "response_header_link"
 	RestCollectMethodPostPaginationUnionTypeRequestOffset      RestCollectMethodPostPaginationUnionType = "request_offset"
 	RestCollectMethodPostPaginationUnionTypeRequestPage        RestCollectMethodPostPaginationUnionType = "request_page"
+	RestCollectMethodPostPaginationUnionTypeUnknown            RestCollectMethodPostPaginationUnionType = "UNKNOWN"
 )
 
 type RestCollectMethodPostPaginationUnion struct {
@@ -31693,6 +33194,7 @@ type RestCollectMethodPostPaginationUnion struct {
 	RestCollectMethodPostRestPaginationTypeResponseHeaderLink *RestCollectMethodPostRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestPaginationTypeRequestOffset      *RestCollectMethodPostRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestPaginationTypeRequestPage        *RestCollectMethodPostRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                json.RawMessage                                            `json:"-" union:"unknown"`
 
 	Type RestCollectMethodPostPaginationUnionType
 }
@@ -31769,6 +33271,21 @@ func CreateRestCollectMethodPostPaginationUnionRequestPage(requestPage RestColle
 	}
 }
 
+func CreateRestCollectMethodPostPaginationUnionUnknown(raw json.RawMessage) RestCollectMethodPostPaginationUnion {
+	return RestCollectMethodPostPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodPostPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodPostPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodPostPaginationUnion) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostPaginationUnionTypeUnknown
+}
+
 func (u *RestCollectMethodPostPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -31777,7 +33294,14 @@ func (u *RestCollectMethodPostPaginationUnion) UnmarshalJSON(data []byte) error 
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -31835,9 +33359,12 @@ func (u *RestCollectMethodPostPaginationUnion) UnmarshalJSON(data []byte) error 
 		u.RestCollectMethodPostRestPaginationTypeRequestPage = restCollectMethodPostRestPaginationTypeRequestPage
 		u.Type = RestCollectMethodPostPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostPaginationUnion", string(data))
 }
 
 func (u RestCollectMethodPostPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -31865,6 +33392,9 @@ func (u RestCollectMethodPostPaginationUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodPostRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodPostPaginationUnion: all fields are null")
 }
 
@@ -31917,7 +33447,7 @@ func (r RestCollectMethodPostRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, e
 }
 
 func (r *RestCollectMethodPostRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -32004,7 +33534,7 @@ func (r RestCollectMethodPostRestRetryRulesTypeStatic) MarshalJSON() ([]byte, er
 }
 
 func (r *RestCollectMethodPostRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -32091,7 +33621,7 @@ func (r RestCollectMethodPostRestRetryRulesTypeNone) MarshalJSON() ([]byte, erro
 }
 
 func (r *RestCollectMethodPostRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -32166,12 +33696,14 @@ const (
 	RestCollectMethodPostRetryRulesTypeNone    RestCollectMethodPostRetryRulesType = "none"
 	RestCollectMethodPostRetryRulesTypeStatic  RestCollectMethodPostRetryRulesType = "static"
 	RestCollectMethodPostRetryRulesTypeBackoff RestCollectMethodPostRetryRulesType = "backoff"
+	RestCollectMethodPostRetryRulesTypeUnknown RestCollectMethodPostRetryRulesType = "UNKNOWN"
 )
 
 type RestCollectMethodPostRetryRules struct {
 	RestCollectMethodPostRestRetryRulesTypeNone    *RestCollectMethodPostRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestRetryRulesTypeStatic  *RestCollectMethodPostRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestRetryRulesTypeBackoff *RestCollectMethodPostRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                     json.RawMessage                                 `json:"-" union:"unknown"`
 
 	Type RestCollectMethodPostRetryRulesType
 }
@@ -32212,6 +33744,21 @@ func CreateRestCollectMethodPostRetryRulesBackoff(backoff RestCollectMethodPostR
 	}
 }
 
+func CreateRestCollectMethodPostRetryRulesUnknown(raw json.RawMessage) RestCollectMethodPostRetryRules {
+	return RestCollectMethodPostRetryRules{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodPostRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodPostRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodPostRetryRules) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostRetryRulesTypeUnknown
+}
+
 func (u *RestCollectMethodPostRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -32220,7 +33767,14 @@ func (u *RestCollectMethodPostRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -32251,9 +33805,12 @@ func (u *RestCollectMethodPostRetryRules) UnmarshalJSON(data []byte) error {
 		u.RestCollectMethodPostRestRetryRulesTypeBackoff = restCollectMethodPostRestRetryRulesTypeBackoff
 		u.Type = RestCollectMethodPostRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostRetryRules", string(data))
 }
 
 func (u RestCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
@@ -32269,6 +33826,9 @@ func (u RestCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodPostRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodPostRetryRules: all fields are null")
 }
 
@@ -32354,7 +33914,7 @@ func (r RestCollectMethodPost) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestCollectMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"collectMethod", "collectUrl", "authentication"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -32647,7 +34207,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]byte
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -32697,7 +34257,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeList) MarshalJSON() ([]byte
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "itemList"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -32756,7 +34316,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]byte
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType", "manualDiscoverResult"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -32845,7 +34405,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagi
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -32882,7 +34442,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) Ma
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverVerb", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -33034,7 +34594,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithB
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -33071,7 +34631,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithB
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverBody", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -33223,7 +34783,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagin
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -33260,7 +34820,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) Mar
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -33412,7 +34972,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagina
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -33449,7 +35009,7 @@ func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Mars
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverMethod", "discoverType", "discoverUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -33546,6 +35106,7 @@ const (
 	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypePost         RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPType = "post"
 	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
 	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeOther        RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPType = "other"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
 )
 
 type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP struct {
@@ -33553,6 +35114,7 @@ type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP struct {
 	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
+	UnknownRaw                                                                  json.RawMessage                                                              `json:"-" union:"unknown"`
 
 	Type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPType
 }
@@ -33605,6 +35167,21 @@ func CreateRestCollectMethodGetRestDiscoveryDiscoverTypeHTTPOther(other RestColl
 	}
 }
 
+func CreateRestCollectMethodGetRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP {
+	return RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
+	return u.Type == RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeUnknown
+}
+
 func (u *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -33613,7 +35190,14 @@ func (u *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data [
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverMethod {
@@ -33653,9 +35237,12 @@ func (u *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data [
 		u.RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 		u.Type = RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeOther
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP", string(data))
 }
 
 func (u RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
@@ -33675,16 +35262,20 @@ func (u RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte
 		return utils.MarshalJSON(u.RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP: all fields are null")
 }
 
 type RestCollectMethodGetDiscoveryType string
 
 const (
-	RestCollectMethodGetDiscoveryTypeHTTP RestCollectMethodGetDiscoveryType = "http"
-	RestCollectMethodGetDiscoveryTypeJSON RestCollectMethodGetDiscoveryType = "json"
-	RestCollectMethodGetDiscoveryTypeList RestCollectMethodGetDiscoveryType = "list"
-	RestCollectMethodGetDiscoveryTypeNone RestCollectMethodGetDiscoveryType = "none"
+	RestCollectMethodGetDiscoveryTypeHTTP    RestCollectMethodGetDiscoveryType = "http"
+	RestCollectMethodGetDiscoveryTypeJSON    RestCollectMethodGetDiscoveryType = "json"
+	RestCollectMethodGetDiscoveryTypeList    RestCollectMethodGetDiscoveryType = "list"
+	RestCollectMethodGetDiscoveryTypeNone    RestCollectMethodGetDiscoveryType = "none"
+	RestCollectMethodGetDiscoveryTypeUnknown RestCollectMethodGetDiscoveryType = "UNKNOWN"
 )
 
 type RestCollectMethodGetDiscovery struct {
@@ -33692,6 +35283,7 @@ type RestCollectMethodGetDiscovery struct {
 	RestCollectMethodGetRestDiscoveryDiscoverTypeJSON *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestDiscoveryDiscoverTypeList *RestCollectMethodGetRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestDiscoveryDiscoverTypeNone *RestCollectMethodGetRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
+	UnknownRaw                                        json.RawMessage                                    `json:"-" union:"unknown"`
 
 	Type RestCollectMethodGetDiscoveryType
 }
@@ -33741,6 +35333,21 @@ func CreateRestCollectMethodGetDiscoveryNone(none RestCollectMethodGetRestDiscov
 	}
 }
 
+func CreateRestCollectMethodGetDiscoveryUnknown(raw json.RawMessage) RestCollectMethodGetDiscovery {
+	return RestCollectMethodGetDiscovery{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodGetDiscoveryTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodGetDiscovery) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodGetDiscovery) IsUnknown() bool {
+	return u.Type == RestCollectMethodGetDiscoveryTypeUnknown
+}
+
 func (u *RestCollectMethodGetDiscovery) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -33749,7 +35356,14 @@ func (u *RestCollectMethodGetDiscovery) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetDiscoveryTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetDiscoveryTypeUnknown
+		return nil
 	}
 
 	switch dis.DiscoverType {
@@ -33789,9 +35403,12 @@ func (u *RestCollectMethodGetDiscovery) UnmarshalJSON(data []byte) error {
 		u.RestCollectMethodGetRestDiscoveryDiscoverTypeNone = restCollectMethodGetRestDiscoveryDiscoverTypeNone
 		u.Type = RestCollectMethodGetDiscoveryTypeNone
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetDiscoveryTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetDiscovery", string(data))
 }
 
 func (u RestCollectMethodGetDiscovery) MarshalJSON() ([]byte, error) {
@@ -33811,6 +35428,9 @@ func (u RestCollectMethodGetDiscovery) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodGetRestDiscoveryDiscoverTypeNone, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodGetDiscovery: all fields are null")
 }
 
@@ -33839,7 +35459,7 @@ func (r RestCollectMethodGetRestPaginationTypeRequestPage) MarshalJSON() ([]byte
 }
 
 func (r *RestCollectMethodGetRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "pageField", "sizeField", "size", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -33931,7 +35551,7 @@ func (r RestCollectMethodGetRestPaginationTypeRequestOffset) MarshalJSON() ([]by
 }
 
 func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "offsetField", "limitField", "limit", "maxPages", "zeroIndexed"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -34008,7 +35628,7 @@ func (r RestCollectMethodGetRestPaginationTypeResponseHeaderLink) MarshalJSON() 
 }
 
 func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "nextRelationAttribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -34055,7 +35675,7 @@ func (r RestCollectMethodGetRestPaginationTypeResponseHeader) MarshalJSON() ([]b
 }
 
 func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -34097,7 +35717,7 @@ func (r RestCollectMethodGetRestPaginationTypeResponseBody) MarshalJSON() ([]byt
 }
 
 func (r *RestCollectMethodGetRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "attribute", "maxPages"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -34140,7 +35760,7 @@ func (r RestCollectMethodGetRestPaginationTypeNone) MarshalJSON() ([]byte, error
 }
 
 func (r *RestCollectMethodGetRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -34162,6 +35782,7 @@ const (
 	RestCollectMethodGetPaginationUnionTypeResponseHeaderLink RestCollectMethodGetPaginationUnionType = "response_header_link"
 	RestCollectMethodGetPaginationUnionTypeRequestOffset      RestCollectMethodGetPaginationUnionType = "request_offset"
 	RestCollectMethodGetPaginationUnionTypeRequestPage        RestCollectMethodGetPaginationUnionType = "request_page"
+	RestCollectMethodGetPaginationUnionTypeUnknown            RestCollectMethodGetPaginationUnionType = "UNKNOWN"
 )
 
 type RestCollectMethodGetPaginationUnion struct {
@@ -34171,6 +35792,7 @@ type RestCollectMethodGetPaginationUnion struct {
 	RestCollectMethodGetRestPaginationTypeResponseHeaderLink *RestCollectMethodGetRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestPaginationTypeRequestOffset      *RestCollectMethodGetRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestPaginationTypeRequestPage        *RestCollectMethodGetRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
+	UnknownRaw                                               json.RawMessage                                           `json:"-" union:"unknown"`
 
 	Type RestCollectMethodGetPaginationUnionType
 }
@@ -34247,6 +35869,21 @@ func CreateRestCollectMethodGetPaginationUnionRequestPage(requestPage RestCollec
 	}
 }
 
+func CreateRestCollectMethodGetPaginationUnionUnknown(raw json.RawMessage) RestCollectMethodGetPaginationUnion {
+	return RestCollectMethodGetPaginationUnion{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodGetPaginationUnionTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodGetPaginationUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodGetPaginationUnion) IsUnknown() bool {
+	return u.Type == RestCollectMethodGetPaginationUnionTypeUnknown
+}
+
 func (u *RestCollectMethodGetPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -34255,7 +35892,14 @@ func (u *RestCollectMethodGetPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetPaginationUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetPaginationUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -34313,9 +35957,12 @@ func (u *RestCollectMethodGetPaginationUnion) UnmarshalJSON(data []byte) error {
 		u.RestCollectMethodGetRestPaginationTypeRequestPage = restCollectMethodGetRestPaginationTypeRequestPage
 		u.Type = RestCollectMethodGetPaginationUnionTypeRequestPage
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetPaginationUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetPaginationUnion", string(data))
 }
 
 func (u RestCollectMethodGetPaginationUnion) MarshalJSON() ([]byte, error) {
@@ -34343,6 +35990,9 @@ func (u RestCollectMethodGetPaginationUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodGetRestPaginationTypeRequestPage, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodGetPaginationUnion: all fields are null")
 }
 
@@ -34395,7 +36045,7 @@ func (r RestCollectMethodGetRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, er
 }
 
 func (r *RestCollectMethodGetRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -34482,7 +36132,7 @@ func (r RestCollectMethodGetRestRetryRulesTypeStatic) MarshalJSON() ([]byte, err
 }
 
 func (r *RestCollectMethodGetRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -34569,7 +36219,7 @@ func (r RestCollectMethodGetRestRetryRulesTypeNone) MarshalJSON() ([]byte, error
 }
 
 func (r *RestCollectMethodGetRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -34644,12 +36294,14 @@ const (
 	RestCollectMethodGetRetryRulesTypeNone    RestCollectMethodGetRetryRulesType = "none"
 	RestCollectMethodGetRetryRulesTypeStatic  RestCollectMethodGetRetryRulesType = "static"
 	RestCollectMethodGetRetryRulesTypeBackoff RestCollectMethodGetRetryRulesType = "backoff"
+	RestCollectMethodGetRetryRulesTypeUnknown RestCollectMethodGetRetryRulesType = "UNKNOWN"
 )
 
 type RestCollectMethodGetRetryRules struct {
 	RestCollectMethodGetRestRetryRulesTypeNone    *RestCollectMethodGetRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestRetryRulesTypeStatic  *RestCollectMethodGetRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestRetryRulesTypeBackoff *RestCollectMethodGetRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                    json.RawMessage                                `json:"-" union:"unknown"`
 
 	Type RestCollectMethodGetRetryRulesType
 }
@@ -34690,6 +36342,21 @@ func CreateRestCollectMethodGetRetryRulesBackoff(backoff RestCollectMethodGetRes
 	}
 }
 
+func CreateRestCollectMethodGetRetryRulesUnknown(raw json.RawMessage) RestCollectMethodGetRetryRules {
+	return RestCollectMethodGetRetryRules{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodGetRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodGetRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodGetRetryRules) IsUnknown() bool {
+	return u.Type == RestCollectMethodGetRetryRulesTypeUnknown
+}
+
 func (u *RestCollectMethodGetRetryRules) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -34698,7 +36365,14 @@ func (u *RestCollectMethodGetRetryRules) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetRetryRulesTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -34729,9 +36403,12 @@ func (u *RestCollectMethodGetRetryRules) UnmarshalJSON(data []byte) error {
 		u.RestCollectMethodGetRestRetryRulesTypeBackoff = restCollectMethodGetRestRetryRulesTypeBackoff
 		u.Type = RestCollectMethodGetRetryRulesTypeBackoff
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodGetRetryRulesTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetRetryRules", string(data))
 }
 
 func (u RestCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
@@ -34747,6 +36424,9 @@ func (u RestCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestCollectMethodGetRestRetryRulesTypeBackoff, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectMethodGetRetryRules: all fields are null")
 }
 
@@ -34832,7 +36512,7 @@ func (r RestCollectMethodGet) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RestCollectMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"collectMethod", "collectUrl", "authentication"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -35075,6 +36755,7 @@ const (
 	RestCollectorConfTypeGoogleOauth       RestCollectorConfType = "google_oauth"
 	RestCollectorConfTypeGoogleOauthSecret RestCollectorConfType = "google_oauthSecret"
 	RestCollectorConfTypeHmac              RestCollectorConfType = "hmac"
+	RestCollectorConfTypeUnknown           RestCollectorConfType = "UNKNOWN"
 )
 
 type RestCollectorConf struct {
@@ -35092,6 +36773,7 @@ type RestCollectorConf struct {
 	RestAuthenticationGoogleOauth       *RestAuthenticationGoogleOauth       `queryParam:"inline" union:"member"`
 	RestAuthenticationGoogleOauthSecret *RestAuthenticationGoogleOauthSecret `queryParam:"inline" union:"member"`
 	RestAuthenticationHmac              *RestAuthenticationHmac              `queryParam:"inline" union:"member"`
+	UnknownRaw                          json.RawMessage                      `json:"-" union:"unknown"`
 
 	Type RestCollectorConfType
 }
@@ -35216,6 +36898,21 @@ func CreateRestCollectorConfHmac(hmac RestAuthenticationHmac) RestCollectorConf 
 	}
 }
 
+func CreateRestCollectorConfUnknown(raw json.RawMessage) RestCollectorConf {
+	return RestCollectorConf{
+		UnknownRaw: raw,
+		Type:       RestCollectorConfTypeUnknown,
+	}
+}
+
+func (u RestCollectorConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectorConf) IsUnknown() bool {
+	return u.Type == RestCollectorConfTypeUnknown
+}
+
 func (u *RestCollectorConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -35224,7 +36921,14 @@ func (u *RestCollectorConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectorConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectorConfTypeUnknown
+		return nil
 	}
 
 	switch dis.Authentication {
@@ -35318,9 +37022,12 @@ func (u *RestCollectorConf) UnmarshalJSON(data []byte) error {
 		u.RestAuthenticationHmac = restAuthenticationHmac
 		u.Type = RestCollectorConfTypeHmac
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectorConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectorConf", string(data))
 }
 
 func (u RestCollectorConf) MarshalJSON() ([]byte, error) {
@@ -35380,5 +37087,8 @@ func (u RestCollectorConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.RestAuthenticationHmac, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type RestCollectorConf: all fields are null")
 }

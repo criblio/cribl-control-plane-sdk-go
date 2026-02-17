@@ -44,7 +44,7 @@ func (u UnionConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (u *UnionConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"searchJobId", "stageIds"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -85,7 +85,7 @@ func (p PipelineFunctionUnion) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionUnion) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

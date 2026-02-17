@@ -70,7 +70,7 @@ func (p PipelineFunctionAggregationConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionAggregationConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -202,7 +202,7 @@ func (p PipelineFunctionAggregation) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionAggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

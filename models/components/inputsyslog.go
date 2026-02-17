@@ -107,7 +107,7 @@ func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "tcpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -463,7 +463,7 @@ func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "udpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -755,17 +755,43 @@ func CreateInputSyslogInputSyslogSyslog2(inputSyslogSyslog2 InputSyslogSyslog2) 
 
 func (u *InputSyslog) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var inputSyslogSyslog1 InputSyslogSyslog1 = InputSyslogSyslog1{}
 	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog1, "", true, nil); err == nil {
-		u.InputSyslogSyslog1 = &inputSyslogSyslog1
-		u.Type = InputSyslogTypeInputSyslogSyslog1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputSyslogTypeInputSyslogSyslog1,
+			Value: &inputSyslogSyslog1,
+		})
 	}
 
 	var inputSyslogSyslog2 InputSyslogSyslog2 = InputSyslogSyslog2{}
 	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog2, "", true, nil); err == nil {
-		u.InputSyslogSyslog2 = &inputSyslogSyslog2
-		u.Type = InputSyslogTypeInputSyslogSyslog2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputSyslogTypeInputSyslogSyslog2,
+			Value: &inputSyslogSyslog2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSyslog", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSyslog", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(InputSyslogType)
+	switch best.Type {
+	case InputSyslogTypeInputSyslogSyslog1:
+		u.InputSyslogSyslog1 = best.Value.(*InputSyslogSyslog1)
+		return nil
+	case InputSyslogTypeInputSyslogSyslog2:
+		u.InputSyslogSyslog2 = best.Value.(*InputSyslogSyslog2)
 		return nil
 	}
 
