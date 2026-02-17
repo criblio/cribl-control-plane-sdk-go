@@ -48,7 +48,7 @@ func (t TemplateDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TemplateDefinition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"id", "content", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -98,7 +98,7 @@ func (p PipelineFunctionHandlebarsConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionHandlebarsConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"templates"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -153,7 +153,7 @@ func (p PipelineFunctionHandlebars) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionHandlebars) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

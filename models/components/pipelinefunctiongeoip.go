@@ -44,7 +44,7 @@ func (a AdditionalField) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AdditionalField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"extraInField", "extraOutField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -96,7 +96,7 @@ func (p PipelineFunctionGeoipConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionGeoipConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"file"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -158,7 +158,7 @@ func (p PipelineFunctionGeoip) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionGeoip) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

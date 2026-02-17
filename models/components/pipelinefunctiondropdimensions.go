@@ -46,7 +46,7 @@ func (p PipelineFunctionDropDimensionsConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionDropDimensionsConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "dropDimensions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -94,7 +94,7 @@ func (p PipelineFunctionDropDimensions) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionDropDimensions) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

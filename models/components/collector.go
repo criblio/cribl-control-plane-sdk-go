@@ -22,6 +22,7 @@ const (
 	CollectorTypeS3                 CollectorType = "s3"
 	CollectorTypeScript             CollectorType = "script"
 	CollectorTypeSplunk             CollectorType = "splunk"
+	CollectorTypeUnknown            CollectorType = "UNKNOWN"
 )
 
 // Collector configuration
@@ -36,6 +37,7 @@ type Collector struct {
 	CollectorS3                 *CollectorS3                 `queryParam:"inline" union:"member"`
 	CollectorScript             *CollectorScript             `queryParam:"inline" union:"member"`
 	CollectorSplunk             *CollectorSplunk             `queryParam:"inline" union:"member"`
+	UnknownRaw                  json.RawMessage              `json:"-" union:"unknown"`
 
 	Type CollectorType
 }
@@ -160,6 +162,21 @@ func CreateCollectorSplunk(splunk CollectorSplunk) Collector {
 	}
 }
 
+func CreateCollectorUnknown(raw json.RawMessage) Collector {
+	return Collector{
+		UnknownRaw: raw,
+		Type:       CollectorTypeUnknown,
+	}
+}
+
+func (u Collector) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u Collector) IsUnknown() bool {
+	return u.Type == CollectorTypeUnknown
+}
+
 func (u *Collector) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -168,7 +185,14 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = CollectorTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = CollectorTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -262,9 +286,12 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		u.CollectorSplunk = collectorSplunk
 		u.Type = CollectorTypeSplunk
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = CollectorTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Collector", string(data))
 }
 
 func (u Collector) MarshalJSON() ([]byte, error) {
@@ -308,5 +335,8 @@ func (u Collector) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CollectorSplunk, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type Collector: all fields are null")
 }

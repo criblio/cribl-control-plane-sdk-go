@@ -32,7 +32,7 @@ func (b BackupsSettings1) MarshalJSON() ([]byte, error) {
 }
 
 func (b *BackupsSettings1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &b, "", false, []string{"backupPersistence", "backupsDirectory"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -86,17 +86,43 @@ func CreateBackupsSettingsUnionBackupsSettings2(backupsSettings2 BackupsSettings
 
 func (u *BackupsSettingsUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var backupsSettings1 BackupsSettings1 = BackupsSettings1{}
 	if err := utils.UnmarshalJSON(data, &backupsSettings1, "", true, nil); err == nil {
-		u.BackupsSettings1 = &backupsSettings1
-		u.Type = BackupsSettingsUnionTypeBackupsSettings1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BackupsSettingsUnionTypeBackupsSettings1,
+			Value: &backupsSettings1,
+		})
 	}
 
 	var backupsSettings2 BackupsSettings2 = BackupsSettings2{}
 	if err := utils.UnmarshalJSON(data, &backupsSettings2, "", true, nil); err == nil {
-		u.BackupsSettings2 = &backupsSettings2
-		u.Type = BackupsSettingsUnionTypeBackupsSettings2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BackupsSettingsUnionTypeBackupsSettings2,
+			Value: &backupsSettings2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for BackupsSettingsUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for BackupsSettingsUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(BackupsSettingsUnionType)
+	switch best.Type {
+	case BackupsSettingsUnionTypeBackupsSettings1:
+		u.BackupsSettings1 = best.Value.(*BackupsSettings1)
+		return nil
+	case BackupsSettingsUnionTypeBackupsSettings2:
+		u.BackupsSettings2 = best.Value.(*BackupsSettings2)
 		return nil
 	}
 

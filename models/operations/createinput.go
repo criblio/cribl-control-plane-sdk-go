@@ -201,7 +201,7 @@ func (i InputCloudflareHec) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCloudflareHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port", "hecAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -488,7 +488,7 @@ func (a AuthTokenZscalerHec) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthTokenZscalerHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -611,7 +611,7 @@ func (i InputZscalerHec) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputZscalerHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port", "hecAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -962,7 +962,7 @@ func (i InputSecurityLake) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSecurityLake) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1361,7 +1361,7 @@ func (i InputNetflow) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputNetflow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1611,7 +1611,7 @@ func (i InputWizWebhook) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWizWebhook) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1937,7 +1937,7 @@ func (c ContentConfigWiz) MarshalJSON() ([]byte, error) {
 }
 
 func (c *ContentConfigWiz) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"contentType", "contentQuery", "cronSchedule", "earliest", "latest"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2095,7 +2095,7 @@ func (i InputWiz) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWiz) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "endpoint", "authUrl", "clientId", "contentConfig"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2318,7 +2318,7 @@ func (i InputJournalFilesRule) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputJournalFilesRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"filter"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2378,7 +2378,7 @@ func (i InputJournalFiles) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputJournalFiles) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "path", "journals"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2575,7 +2575,7 @@ func (i InputRawUDP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputRawUDP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2833,7 +2833,7 @@ func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWinEventLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "logNames"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3068,7 +3068,7 @@ func (m MTLSSettings) MarshalJSON() ([]byte, error) {
 }
 
 func (m *MTLSSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3236,7 +3236,7 @@ func (q Query) MarshalJSON() ([]byte, error) {
 }
 
 func (q *Query) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &q, "", false, []string{"path", "queryExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &q, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3289,7 +3289,7 @@ func (s Subscription) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Subscription) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "contentFormat", "heartbeatInterval", "batchTimeout", "targets"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3458,7 +3458,7 @@ func (i InputWef) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port", "subscriptions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3718,7 +3718,7 @@ func (a Allow) MarshalJSON() ([]byte, error) {
 }
 
 func (a *Allow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"procname", "config"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3907,7 +3907,7 @@ func (i InputAppscope) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputAppscope) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4211,7 +4211,7 @@ func (i InputTCP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputTCP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4526,7 +4526,7 @@ func (i InputFile) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputFile) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4841,7 +4841,7 @@ func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "tcpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5170,7 +5170,7 @@ func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "udpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5441,17 +5441,43 @@ func CreateInputSyslogInputSyslogSyslog2(inputSyslogSyslog2 InputSyslogSyslog2) 
 
 func (u *InputSyslog) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var inputSyslogSyslog1 InputSyslogSyslog1 = InputSyslogSyslog1{}
 	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog1, "", true, nil); err == nil {
-		u.InputSyslogSyslog1 = &inputSyslogSyslog1
-		u.Type = InputSyslogTypeInputSyslogSyslog1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputSyslogTypeInputSyslogSyslog1,
+			Value: &inputSyslogSyslog1,
+		})
 	}
 
 	var inputSyslogSyslog2 InputSyslogSyslog2 = InputSyslogSyslog2{}
 	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog2, "", true, nil); err == nil {
-		u.InputSyslogSyslog2 = &inputSyslogSyslog2
-		u.Type = InputSyslogTypeInputSyslogSyslog2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputSyslogTypeInputSyslogSyslog2,
+			Value: &inputSyslogSyslog2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSyslog", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSyslog", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(InputSyslogType)
+	switch best.Type {
+	case InputSyslogTypeInputSyslogSyslog1:
+		u.InputSyslogSyslog1 = best.Value.(*InputSyslogSyslog1)
+		return nil
+	case InputSyslogTypeInputSyslogSyslog2:
+		u.InputSyslogSyslog2 = best.Value.(*InputSyslogSyslog2)
 		return nil
 	}
 
@@ -5586,7 +5612,7 @@ func (i InputSqs) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSqs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "queueName", "queueType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5883,7 +5909,7 @@ func (i InputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6171,7 +6197,7 @@ func (i InputOpenTelemetry) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOpenTelemetry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6565,7 +6591,7 @@ func (v V3User) MarshalJSON() ([]byte, error) {
 }
 
 func (v *V3User) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &v, "", false, []string{"name"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &v, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6620,7 +6646,7 @@ func (s SNMPv3Authentication) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SNMPv3Authentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"v3AuthEnabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6691,7 +6717,7 @@ func (i InputSnmp) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6955,7 +6981,7 @@ func (i InputS3Inventory) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputS3Inventory) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7412,7 +7438,7 @@ func (i InputS3) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputS3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7806,7 +7832,7 @@ func (i InputMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8007,7 +8033,7 @@ func (i InputCriblmetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblmetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8285,7 +8311,7 @@ func (i InputKinesis) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKinesis) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "streamName", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8626,7 +8652,7 @@ func (i InputHTTPRaw) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputHTTPRaw) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8890,7 +8916,7 @@ func (s Sample) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Sample) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"sample", "eventsPerSec"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8939,7 +8965,7 @@ func (i InputDatagen) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputDatagen) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "samples"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9071,7 +9097,7 @@ func (p ProxyModeDatadogAgent) MarshalJSON() ([]byte, error) {
 }
 
 func (p *ProxyModeDatadogAgent) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"enabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9149,7 +9175,7 @@ func (i InputDatadogAgent) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputDatadogAgent) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9461,7 +9487,7 @@ func (i InputCrowdstrike) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCrowdstrike) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10353,7 +10379,7 @@ func (i InputWindowsMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWindowsMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10531,7 +10557,7 @@ func (i InputKubeEvents) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKubeEvents) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10663,7 +10689,7 @@ func (r RuleKubeLogs) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RuleKubeLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"filter"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10724,7 +10750,7 @@ func (i InputKubeLogs) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKubeLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10986,7 +11012,7 @@ func (i InputKubeMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKubeMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11589,7 +11615,7 @@ func (i InputSystemState) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12255,7 +12281,7 @@ func (c ContainerFilter) MarshalJSON() ([]byte, error) {
 }
 
 func (c *ContainerFilter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"expr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12446,7 +12472,7 @@ func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12647,7 +12673,7 @@ func (i InputTcpjson) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputTcpjson) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12933,7 +12959,7 @@ func (a AuthTokensExt) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthTokensExt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13039,7 +13065,7 @@ func (i InputCriblLakeHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblLakeHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13349,7 +13375,7 @@ func (i InputCriblHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13614,7 +13640,7 @@ func (i InputCriblTCP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblTCP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13826,7 +13852,7 @@ func (i InputCribl) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCribl) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14000,7 +14026,7 @@ func (i InputGooglePubsub) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputGooglePubsub) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "topicName", "subscriptionName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14261,7 +14287,7 @@ func (i InputFirehose) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputFirehose) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14544,7 +14570,7 @@ func (i InputExec) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputExec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "command"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14786,7 +14812,7 @@ func (i InputEventhub) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputEventhub) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "brokers", "topics"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15128,7 +15154,7 @@ func (c CertOptions) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CertOptions) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"privKeyPath", "certPath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15240,7 +15266,7 @@ func (i InputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "url", "interval"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15647,7 +15673,7 @@ func (i InputOffice365Service) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOffice365Service) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "tenantId", "appId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15974,7 +16000,7 @@ func (i InputOffice365Mgmt) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOffice365Mgmt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "planType", "tenantId", "appId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16270,7 +16296,7 @@ func (t Target) MarshalJSON() ([]byte, error) {
 }
 
 func (t *Target) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"host"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16316,7 +16342,7 @@ func (p PodFilter) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PodFilter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"filter"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16431,7 +16457,7 @@ func (i InputEdgePrometheus) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputEdgePrometheus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "discoveryType", "interval"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16953,7 +16979,7 @@ func (i InputPrometheus) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputPrometheus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "interval", "logLevel"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17394,7 +17420,7 @@ func (i InputPrometheusRw) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputPrometheusRw) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port", "prometheusAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17793,7 +17819,7 @@ func (i InputLoki) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputLoki) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port", "lokiAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18446,7 +18472,7 @@ func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputGrafanaGrafana2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port", "lokiAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19022,7 +19048,7 @@ func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputGrafanaGrafana1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port", "prometheusAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19272,17 +19298,43 @@ func CreateInputGrafanaInputGrafanaGrafana2(inputGrafanaGrafana2 InputGrafanaGra
 
 func (u *InputGrafana) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var inputGrafanaGrafana1 InputGrafanaGrafana1 = InputGrafanaGrafana1{}
 	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana1, "", true, nil); err == nil {
-		u.InputGrafanaGrafana1 = &inputGrafanaGrafana1
-		u.Type = InputGrafanaTypeInputGrafanaGrafana1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputGrafanaTypeInputGrafanaGrafana1,
+			Value: &inputGrafanaGrafana1,
+		})
 	}
 
 	var inputGrafanaGrafana2 InputGrafanaGrafana2 = InputGrafanaGrafana2{}
 	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana2, "", true, nil); err == nil {
-		u.InputGrafanaGrafana2 = &inputGrafanaGrafana2
-		u.Type = InputGrafanaTypeInputGrafanaGrafana2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputGrafanaTypeInputGrafanaGrafana2,
+			Value: &inputGrafanaGrafana2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(InputGrafanaType)
+	switch best.Type {
+	case InputGrafanaTypeInputGrafanaGrafana1:
+		u.InputGrafanaGrafana1 = best.Value.(*InputGrafanaGrafana1)
+		return nil
+	case InputGrafanaTypeInputGrafanaGrafana2:
+		u.InputGrafanaGrafana2 = best.Value.(*InputGrafanaGrafana2)
 		return nil
 	}
 
@@ -19404,7 +19456,7 @@ func (i InputConfluentCloud) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputConfluentCloud) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "brokers", "topics"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19781,7 +19833,7 @@ func (p ProxyModeElastic) MarshalJSON() ([]byte, error) {
 }
 
 func (p *ProxyModeElastic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"enabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19921,7 +19973,7 @@ func (i InputElastic) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputElastic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port", "elasticAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20270,7 +20322,7 @@ func (i InputAzureBlob) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputAzureBlob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20551,7 +20603,7 @@ func (a AuthTokenSplunkHec) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthTokenSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20684,7 +20736,7 @@ func (i InputSplunkHec) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port", "splunkHecAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20990,7 +21042,7 @@ func (e EndpointParam) MarshalJSON() ([]byte, error) {
 }
 
 func (e *EndpointParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21021,7 +21073,7 @@ func (e EndpointHeader) MarshalJSON() ([]byte, error) {
 }
 
 func (e *EndpointHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21190,7 +21242,7 @@ func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSplunkSearch) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "searchHead", "search", "cronSchedule", "endpoint", "outputMode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21566,7 +21618,7 @@ func (a AuthTokenSplunk) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthTokenSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21699,7 +21751,7 @@ func (i InputSplunk) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21997,7 +22049,7 @@ func (i InputHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22352,7 +22404,7 @@ func (i InputMsk) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputMsk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "brokers", "topics", "awsAuthenticationMethod", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22790,7 +22842,7 @@ func (i InputKafka) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKafka) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type", "brokers", "topics"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23100,7 +23152,7 @@ func (i InputCollection) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCollection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

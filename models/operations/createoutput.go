@@ -176,7 +176,7 @@ func (o OutputCloudflareR2) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputCloudflareR2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "endpoint", "bucket", "stagePath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -664,7 +664,7 @@ func (a Authentication) MarshalJSON() ([]byte, error) {
 }
 
 func (a *Authentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"disabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -858,7 +858,7 @@ func (o OutputMicrosoftFabric) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputMicrosoftFabric) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "topic", "bootstrap_server"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1246,7 +1246,7 @@ func (o OutputDatabricks) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDatabricks) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "workspaceId", "scope", "clientId", "catalog", "schema", "eventsVolumeName", "clientTextSecret"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1666,7 +1666,7 @@ func (c CustomLabel) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CustomLabel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1802,7 +1802,7 @@ func (o OutputChronicle) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputChronicle) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "region", "logType", "gcpProjectId", "gcpInstance"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2328,7 +2328,7 @@ func (o OutputSentinelOneAiSiem) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "region", "endpoint"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -2880,7 +2880,7 @@ func (o OutputDynatraceOtlp) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDynatraceOtlp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "protocol", "endpoint", "otlpVersion", "endpointType", "tokenSecret"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3437,7 +3437,7 @@ func (o OutputDynatraceHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDynatraceHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "format", "endpoint", "telemetryType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3793,7 +3793,7 @@ func (h HostNetflow) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HostNetflow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3841,7 +3841,7 @@ func (o OutputNetflow) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputNetflow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "hosts"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -3981,7 +3981,7 @@ func (u URLXsiam) MarshalJSON() ([]byte, error) {
 }
 
 func (u *URLXsiam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4106,7 +4106,7 @@ func (o OutputXsiam) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputXsiam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4597,7 +4597,7 @@ func (c ColumnMapping) MarshalJSON() ([]byte, error) {
 }
 
 func (c *ColumnMapping) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -4759,7 +4759,7 @@ func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputClickHouse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "url", "database", "tableName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5245,7 +5245,7 @@ func (o OutputDiskSpool) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDiskSpool) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5456,7 +5456,7 @@ func (o OutputCriblLake) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputCriblLake) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -5967,7 +5967,7 @@ func (o OutputSecurityLake) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSecurityLake) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "bucket", "region", "assumeRoleArn", "stagePath", "accountId", "customSource"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -6548,7 +6548,7 @@ func (o OutputDlS3) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDlS3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "bucket", "stagePath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7121,7 +7121,7 @@ func (o OutputCrowdstrikeNextGenSiem) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputCrowdstrikeNextGenSiem) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "url", "format"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7512,7 +7512,7 @@ func (o OutputHumioHec) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputHumioHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "url", "format"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -7913,7 +7913,7 @@ func (o OutputCriblSearchEngine) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputCriblSearchEngine) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8356,7 +8356,7 @@ func (o OutputCriblHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputCriblHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -8783,7 +8783,7 @@ func (o OutputCriblTCP) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputCriblTCP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9233,7 +9233,7 @@ func (o OutputDataset) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDataset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -9680,7 +9680,7 @@ func (o OutputServiceNow) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputServiceNow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "endpoint", "tokenSecret", "otlpVersion", "protocol"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10189,7 +10189,7 @@ func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputOpenTelemetry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "endpoint"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10680,7 +10680,7 @@ func (o OutputRing) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputRing) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -10925,7 +10925,7 @@ func (o OutputPrometheus) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputPrometheus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11413,7 +11413,7 @@ func (o OutputLoki) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputLoki) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -11857,7 +11857,7 @@ func (o OutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputGrafanaCloudGrafanaCloud2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "prometheusUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12273,7 +12273,7 @@ func (o OutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputGrafanaCloudGrafanaCloud1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "lokiUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -12600,17 +12600,43 @@ func CreateOutputGrafanaCloudOutputGrafanaCloudGrafanaCloud2(outputGrafanaCloudG
 
 func (u *OutputGrafanaCloud) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var outputGrafanaCloudGrafanaCloud1 OutputGrafanaCloudGrafanaCloud1 = OutputGrafanaCloudGrafanaCloud1{}
 	if err := utils.UnmarshalJSON(data, &outputGrafanaCloudGrafanaCloud1, "", true, nil); err == nil {
-		u.OutputGrafanaCloudGrafanaCloud1 = &outputGrafanaCloudGrafanaCloud1
-		u.Type = OutputGrafanaCloudTypeOutputGrafanaCloudGrafanaCloud1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OutputGrafanaCloudTypeOutputGrafanaCloudGrafanaCloud1,
+			Value: &outputGrafanaCloudGrafanaCloud1,
+		})
 	}
 
 	var outputGrafanaCloudGrafanaCloud2 OutputGrafanaCloudGrafanaCloud2 = OutputGrafanaCloudGrafanaCloud2{}
 	if err := utils.UnmarshalJSON(data, &outputGrafanaCloudGrafanaCloud2, "", true, nil); err == nil {
-		u.OutputGrafanaCloudGrafanaCloud2 = &outputGrafanaCloudGrafanaCloud2
-		u.Type = OutputGrafanaCloudTypeOutputGrafanaCloudGrafanaCloud2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OutputGrafanaCloudTypeOutputGrafanaCloudGrafanaCloud2,
+			Value: &outputGrafanaCloudGrafanaCloud2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputGrafanaCloud", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputGrafanaCloud", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(OutputGrafanaCloudType)
+	switch best.Type {
+	case OutputGrafanaCloudTypeOutputGrafanaCloudGrafanaCloud1:
+		u.OutputGrafanaCloudGrafanaCloud1 = best.Value.(*OutputGrafanaCloudGrafanaCloud1)
+		return nil
+	case OutputGrafanaCloudTypeOutputGrafanaCloudGrafanaCloud2:
+		u.OutputGrafanaCloudGrafanaCloud2 = best.Value.(*OutputGrafanaCloudGrafanaCloud2)
 		return nil
 	}
 
@@ -12866,7 +12892,7 @@ func (o OutputDatadog) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDatadog) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13359,7 +13385,7 @@ func (o OutputSumoLogic) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSumoLogic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13666,7 +13692,7 @@ func (h HostSnmp) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HostSnmp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13710,7 +13736,7 @@ func (o OutputSnmp) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSnmp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "hosts"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -13926,7 +13952,7 @@ func (o OutputSqs) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSqs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "queueName", "queueType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14352,7 +14378,7 @@ func (o OutputSns) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSns) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "topicArn", "messageGroupId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14642,7 +14668,7 @@ func (c CreateOutputRule) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateOutputRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"filter", "output"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14698,7 +14724,7 @@ func (o OutputRouter) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputRouter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "rules"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -14858,7 +14884,7 @@ func (o OutputGraphite) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputGraphite) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "protocol", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15158,7 +15184,7 @@ func (o OutputStatsdExt) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputStatsdExt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "protocol", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15458,7 +15484,7 @@ func (o OutputStatsd) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputStatsd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "protocol", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -15804,7 +15830,7 @@ func (o OutputMinio) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputMinio) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "endpoint", "bucket", "stagePath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16328,7 +16354,7 @@ func (o OutputCloudwatch) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputCloudwatch) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "logGroupName", "logStreamName", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -16797,7 +16823,7 @@ func (o OutputInfluxdb) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputInfluxdb) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17310,7 +17336,7 @@ func (o OutputNewrelicEvents) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputNewrelicEvents) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "accountId", "eventType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17654,7 +17680,7 @@ func (m Metadatum) MarshalJSON() ([]byte, error) {
 }
 
 func (m *Metadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -17777,7 +17803,7 @@ func (o OutputNewrelic) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputNewrelic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18195,7 +18221,7 @@ func (o OutputElasticCloud) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputElasticCloud) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "url", "index"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18554,7 +18580,7 @@ func (u URLElastic) MarshalJSON() ([]byte, error) {
 }
 
 func (u *URLElastic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -18687,7 +18713,7 @@ func (o OutputElastic) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputElastic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "index"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19171,7 +19197,7 @@ func (o OutputMsk) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputMsk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "brokers", "topic", "awsAuthenticationMethod", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -19661,7 +19687,7 @@ func (o OutputConfluentCloud) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputConfluentCloud) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "brokers", "topic"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20067,7 +20093,7 @@ func (o OutputKafka) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputKafka) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "brokers", "topic"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20455,7 +20481,7 @@ func (o OutputExabeam) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputExabeam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "bucket", "region", "stagePath", "endpoint", "collectorInstanceId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -20826,7 +20852,7 @@ func (o OutputGooglePubsub) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputGooglePubsub) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "topicName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21287,7 +21313,7 @@ func (o OutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputGoogleCloudLogging) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "logLocationType", "logNameExpression", "logLocationExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -21941,7 +21967,7 @@ func (o OutputGoogleCloudStorage) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputGoogleCloudStorage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "bucket", "region", "endpoint", "stagePath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22448,7 +22474,7 @@ func (e ExtraLogType) MarshalJSON() ([]byte, error) {
 }
 
 func (e *ExtraLogType) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -22606,7 +22632,7 @@ func (o OutputGoogleChronicle) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputGoogleChronicle) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "logFormatType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23068,7 +23094,7 @@ func (o OutputAzureEventhub) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputAzureEventhub) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "brokers", "topic"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23443,7 +23469,7 @@ func (o OutputHoneycomb) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputHoneycomb) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "dataset"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -23853,7 +23879,7 @@ func (o OutputKinesis) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputKinesis) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "streamName", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24284,7 +24310,7 @@ func (o OutputAzureLogs) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputAzureLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "logType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24701,7 +24727,7 @@ func (e ExtentTag) MarshalJSON() ([]byte, error) {
 }
 
 func (e *ExtentTag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24730,7 +24756,7 @@ func (i IngestIfNotExist) MarshalJSON() ([]byte, error) {
 }
 
 func (i *IngestIfNotExist) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -24807,7 +24833,7 @@ func (a AdditionalProperty) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AdditionalProperty) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"key", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25012,7 +25038,7 @@ func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputAzureDataExplorer) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "clusterUrl", "database", "table", "oauthEndpoint", "tenantId", "clientId", "scope", "oauthType", "compress"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -25775,7 +25801,7 @@ func (o OutputAzureBlob) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputAzureBlob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "containerName", "stagePath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26335,7 +26361,7 @@ func (o OutputS3) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputS3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "bucket", "stagePath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -26903,7 +26929,7 @@ func (o OutputFilesystem) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputFilesystem) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "destPath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27327,7 +27353,7 @@ func (o OutputSignalfx) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSignalfx) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "realm"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -27709,7 +27735,7 @@ func (o OutputWavefront) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputWavefront) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "domain"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28091,7 +28117,7 @@ func (o OutputTcpjson) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputTcpjson) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28490,7 +28516,7 @@ func (o OutputWizHec) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputWizHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "wiz_connector_id", "wiz_environment", "data_center", "wiz_sourcetype"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28839,7 +28865,7 @@ func (u URLSplunkHec) MarshalJSON() ([]byte, error) {
 }
 
 func (u *URLSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -28969,7 +28995,7 @@ func (o OutputSplunkHec) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29386,7 +29412,7 @@ func (i IndexerDiscoveryConfigs) MarshalJSON() ([]byte, error) {
 }
 
 func (i *IndexerDiscoveryConfigs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"site", "masterUri", "refreshIntervalSec"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29548,7 +29574,7 @@ func (o OutputSplunkLb) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSplunkLb) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "hosts"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29952,7 +29978,7 @@ func (o OutputSplunk) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30483,7 +30509,7 @@ func (o OutputSyslog) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSyslog) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -30825,7 +30851,7 @@ func (o OutputDevnull) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDevnull) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31092,7 +31118,7 @@ func (o OutputSentinel) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSentinel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "loginUrl", "secret", "client_id", "endpointURLConfiguration"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31587,7 +31613,7 @@ func (u URLWebhook) MarshalJSON() ([]byte, error) {
 }
 
 func (u *URLWebhook) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -31741,7 +31767,7 @@ func (o OutputWebhook) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputWebhook) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -32253,7 +32279,7 @@ func (o OutputDefault) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDefault) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "defaultId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

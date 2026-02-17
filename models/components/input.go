@@ -72,6 +72,7 @@ const (
 	InputTypeSecurityLake         InputType = "security_lake"
 	InputTypeZscalerHec           InputType = "zscaler_hec"
 	InputTypeCloudflareHec        InputType = "cloudflare_hec"
+	InputTypeUnknown              InputType = "UNKNOWN"
 )
 
 type Input struct {
@@ -135,6 +136,7 @@ type Input struct {
 	InputSecurityLake         *InputSecurityLake         `queryParam:"inline" union:"member"`
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
 	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
+	UnknownRaw                json.RawMessage            `json:"-" union:"unknown"`
 
 	Type InputType
 }
@@ -853,6 +855,21 @@ func CreateInputCloudflareHec(cloudflareHec InputCloudflareHec) Input {
 	}
 }
 
+func CreateInputUnknown(raw json.RawMessage) Input {
+	return Input{
+		UnknownRaw: raw,
+		Type:       InputTypeUnknown,
+	}
+}
+
+func (u Input) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u Input) IsUnknown() bool {
+	return u.Type == InputTypeUnknown
+}
+
 func (u *Input) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -861,7 +878,14 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = InputTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = InputTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -1405,9 +1429,12 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		u.InputCloudflareHec = inputCloudflareHec
 		u.Type = InputTypeCloudflareHec
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = InputTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Input", string(data))
 }
 
 func (u Input) MarshalJSON() ([]byte, error) {
@@ -1651,5 +1678,8 @@ func (u Input) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.InputCloudflareHec, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type Input: all fields are null")
 }

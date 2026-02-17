@@ -81,7 +81,7 @@ func (s SendConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SendConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"searchId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -171,7 +171,7 @@ func (p PipelineFunctionSend) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSend) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

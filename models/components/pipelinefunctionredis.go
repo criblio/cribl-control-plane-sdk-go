@@ -48,7 +48,7 @@ func (c Command) MarshalJSON() ([]byte, error) {
 }
 
 func (c *Command) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -153,7 +153,7 @@ func (p PipelineFunctionRedisConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionRedisConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -215,7 +215,7 @@ func (p PipelineFunctionRedis) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionRedis) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -43,7 +43,7 @@ func (o OutputSplunkHecURL) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSplunkHecURL) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -173,7 +173,7 @@ func (o OutputSplunkHec) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
