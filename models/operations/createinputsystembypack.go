@@ -6981,42 +6981,12 @@ func (e *CreateInputSystemByPackTypeSnmp) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type CreateInputSystemByPackPrivacyProtocol string
-
-const (
-	// CreateInputSystemByPackPrivacyProtocolNone None
-	CreateInputSystemByPackPrivacyProtocolNone CreateInputSystemByPackPrivacyProtocol = "none"
-	// CreateInputSystemByPackPrivacyProtocolDes DES
-	CreateInputSystemByPackPrivacyProtocolDes CreateInputSystemByPackPrivacyProtocol = "des"
-	// CreateInputSystemByPackPrivacyProtocolAes AES128
-	CreateInputSystemByPackPrivacyProtocolAes CreateInputSystemByPackPrivacyProtocol = "aes"
-	// CreateInputSystemByPackPrivacyProtocolAes256b AES256b (Blumenthal)
-	CreateInputSystemByPackPrivacyProtocolAes256b CreateInputSystemByPackPrivacyProtocol = "aes256b"
-	// CreateInputSystemByPackPrivacyProtocolAes256r AES256r (Reeder)
-	CreateInputSystemByPackPrivacyProtocolAes256r CreateInputSystemByPackPrivacyProtocol = "aes256r"
-)
-
-func (e CreateInputSystemByPackPrivacyProtocol) ToPointer() *CreateInputSystemByPackPrivacyProtocol {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSystemByPackPrivacyProtocol) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "des", "aes", "aes256b", "aes256r":
-			return true
-		}
-	}
-	return false
-}
-
 type CreateInputSystemByPackV3User struct {
-	Name         string                                          `json:"name"`
-	AuthProtocol *components.AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
-	AuthKey      *string                                         `json:"authKey,omitempty"`
-	PrivProtocol *CreateInputSystemByPackPrivacyProtocol         `json:"privProtocol,omitempty"`
-	PrivKey      *string                                         `json:"privKey,omitempty"`
+	Name         string                                                                       `json:"name"`
+	AuthProtocol *components.AuthenticationProtocolOptionsV3User                              `json:"authProtocol,omitempty"`
+	AuthKey      *string                                                                      `json:"authKey,omitempty"`
+	PrivProtocol *components.PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone `json:"privProtocol,omitempty"`
+	PrivKey      *string                                                                      `json:"privKey,omitempty"`
 }
 
 func (c CreateInputSystemByPackV3User) MarshalJSON() ([]byte, error) {
@@ -7051,7 +7021,7 @@ func (c *CreateInputSystemByPackV3User) GetAuthKey() *string {
 	return c.AuthKey
 }
 
-func (c *CreateInputSystemByPackV3User) GetPrivProtocol() *CreateInputSystemByPackPrivacyProtocol {
+func (c *CreateInputSystemByPackV3User) GetPrivProtocol() *components.PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone {
 	if c == nil {
 		return nil
 	}

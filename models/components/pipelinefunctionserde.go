@@ -4,6 +4,7 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
@@ -32,22 +33,22 @@ func (e *PipelineFunctionSerdeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-type OperationMode string
+// SerdeTypeGrokOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type SerdeTypeGrokOperationMode string
 
 const (
-	// OperationModeExtract Extract
-	OperationModeExtract OperationMode = "extract"
-	// OperationModeReserialize Reserialize
-	OperationModeReserialize OperationMode = "reserialize"
+	// SerdeTypeGrokOperationModeExtract Extract
+	SerdeTypeGrokOperationModeExtract SerdeTypeGrokOperationMode = "extract"
+	// SerdeTypeGrokOperationModeReserialize Reserialize
+	SerdeTypeGrokOperationModeReserialize SerdeTypeGrokOperationMode = "reserialize"
 )
 
-func (e OperationMode) ToPointer() *OperationMode {
+func (e SerdeTypeGrokOperationMode) ToPointer() *SerdeTypeGrokOperationMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OperationMode) IsExact() bool {
+func (e *SerdeTypeGrokOperationMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "extract", "reserialize":
@@ -57,94 +58,902 @@ func (e *OperationMode) IsExact() bool {
 	return false
 }
 
-type PipelineFunctionSerdeConf struct {
-	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-	Mode OperationMode `json:"mode"`
+type SerdeTypeGrok struct {
 	// Parser or formatter type to use
-	Type       TypeOptions `json:"type"`
-	DelimChar  any         `json:"delimChar,omitempty"`
-	QuoteChar  any         `json:"quoteChar,omitempty"`
-	EscapeChar any         `json:"escapeChar,omitempty"`
-	NullValue  any         `json:"nullValue,omitempty"`
+	Type TypeOptions `json:"type"`
+	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+	Pattern     string                              `json:"pattern"`
+	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitempty"`
+	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+	Mode SerdeTypeGrokOperationMode `json:"mode"`
 	// Field containing text to be parsed
 	SrcField *string `json:"srcField,omitempty"`
 	// Name of the field to add fields to. Extract mode only.
-	DstField    *string `json:"dstField,omitempty"`
-	CleanFields any     `json:"cleanFields,omitempty"`
+	DstField *string `json:"dstField,omitempty"`
 }
 
-func (p PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (s SerdeTypeGrok) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (p *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (s *SerdeTypeGrok) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionSerdeConf) GetMode() OperationMode {
-	if p == nil {
-		return OperationMode("")
-	}
-	return p.Mode
-}
-
-func (p *PipelineFunctionSerdeConf) GetType() TypeOptions {
-	if p == nil {
+func (s *SerdeTypeGrok) GetType() TypeOptions {
+	if s == nil {
 		return TypeOptions("")
 	}
-	return p.Type
+	return s.Type
 }
 
-func (p *PipelineFunctionSerdeConf) GetDelimChar() any {
-	if p == nil {
-		return nil
+func (s *SerdeTypeGrok) GetPattern() string {
+	if s == nil {
+		return ""
 	}
-	return p.DelimChar
+	return s.Pattern
 }
 
-func (p *PipelineFunctionSerdeConf) GetQuoteChar() any {
-	if p == nil {
+func (s *SerdeTypeGrok) GetPatternList() []ItemsTypeSerdeTypeGrokPatternList {
+	if s == nil {
 		return nil
 	}
-	return p.QuoteChar
+	return s.PatternList
 }
 
-func (p *PipelineFunctionSerdeConf) GetEscapeChar() any {
-	if p == nil {
-		return nil
+func (s *SerdeTypeGrok) GetMode() SerdeTypeGrokOperationMode {
+	if s == nil {
+		return SerdeTypeGrokOperationMode("")
 	}
-	return p.EscapeChar
+	return s.Mode
 }
 
-func (p *PipelineFunctionSerdeConf) GetNullValue() any {
-	if p == nil {
+func (s *SerdeTypeGrok) GetSrcField() *string {
+	if s == nil {
 		return nil
 	}
-	return p.NullValue
+	return s.SrcField
 }
 
-func (p *PipelineFunctionSerdeConf) GetSrcField() *string {
-	if p == nil {
+func (s *SerdeTypeGrok) GetDstField() *string {
+	if s == nil {
 		return nil
 	}
-	return p.SrcField
+	return s.DstField
 }
 
-func (p *PipelineFunctionSerdeConf) GetDstField() *string {
-	if p == nil {
-		return nil
-	}
-	return p.DstField
+// SerdeTypeRegexOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type SerdeTypeRegexOperationMode string
+
+const (
+	// SerdeTypeRegexOperationModeExtract Extract
+	SerdeTypeRegexOperationModeExtract SerdeTypeRegexOperationMode = "extract"
+	// SerdeTypeRegexOperationModeReserialize Reserialize
+	SerdeTypeRegexOperationModeReserialize SerdeTypeRegexOperationMode = "reserialize"
+)
+
+func (e SerdeTypeRegexOperationMode) ToPointer() *SerdeTypeRegexOperationMode {
+	return &e
 }
 
-func (p *PipelineFunctionSerdeConf) GetCleanFields() any {
-	if p == nil {
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeRegexOperationMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "extract", "reserialize":
+			return true
+		}
+	}
+	return false
+}
+
+type SerdeTypeRegex struct {
+	// Parser or formatter type to use
+	Type TypeOptions `json:"type"`
+	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
+	Regex     string                             `json:"regex"`
+	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitempty"`
+	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
+	Iterations *float64 `json:"iterations,omitempty"`
+	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
+	FieldNameExpression *string `json:"fieldNameExpression,omitempty"`
+	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
+	Overwrite *bool `json:"overwrite,omitempty"`
+	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+	Mode SerdeTypeRegexOperationMode `json:"mode"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitempty"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitempty"`
+}
+
+func (s SerdeTypeRegex) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SerdeTypeRegex) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SerdeTypeRegex) GetType() TypeOptions {
+	if s == nil {
+		return TypeOptions("")
+	}
+	return s.Type
+}
+
+func (s *SerdeTypeRegex) GetRegex() string {
+	if s == nil {
+		return ""
+	}
+	return s.Regex
+}
+
+func (s *SerdeTypeRegex) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
+	if s == nil {
 		return nil
 	}
-	return p.CleanFields
+	return s.RegexList
+}
+
+func (s *SerdeTypeRegex) GetIterations() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Iterations
+}
+
+func (s *SerdeTypeRegex) GetFieldNameExpression() *string {
+	if s == nil {
+		return nil
+	}
+	return s.FieldNameExpression
+}
+
+func (s *SerdeTypeRegex) GetOverwrite() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Overwrite
+}
+
+func (s *SerdeTypeRegex) GetMode() SerdeTypeRegexOperationMode {
+	if s == nil {
+		return SerdeTypeRegexOperationMode("")
+	}
+	return s.Mode
+}
+
+func (s *SerdeTypeRegex) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeRegex) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
+}
+
+// SerdeTypeJSONOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type SerdeTypeJSONOperationMode string
+
+const (
+	// SerdeTypeJSONOperationModeExtract Extract
+	SerdeTypeJSONOperationModeExtract SerdeTypeJSONOperationMode = "extract"
+	// SerdeTypeJSONOperationModeReserialize Reserialize
+	SerdeTypeJSONOperationModeReserialize SerdeTypeJSONOperationMode = "reserialize"
+)
+
+func (e SerdeTypeJSONOperationMode) ToPointer() *SerdeTypeJSONOperationMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeJSONOperationMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "extract", "reserialize":
+			return true
+		}
+	}
+	return false
+}
+
+type SerdeTypeJSON struct {
+	// Parser or formatter type to use
+	Type TypeOptions `json:"type"`
+	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+	Keep []string `json:"keep,omitempty"`
+	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+	Remove []string `json:"remove,omitempty"`
+	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitempty"`
+	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+	Mode SerdeTypeJSONOperationMode `json:"mode"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitempty"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitempty"`
+}
+
+func (s SerdeTypeJSON) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SerdeTypeJSON) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SerdeTypeJSON) GetType() TypeOptions {
+	if s == nil {
+		return TypeOptions("")
+	}
+	return s.Type
+}
+
+func (s *SerdeTypeJSON) GetKeep() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Keep
+}
+
+func (s *SerdeTypeJSON) GetRemove() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Remove
+}
+
+func (s *SerdeTypeJSON) GetFieldFilterExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.FieldFilterExpr
+}
+
+func (s *SerdeTypeJSON) GetMode() SerdeTypeJSONOperationMode {
+	if s == nil {
+		return SerdeTypeJSONOperationMode("")
+	}
+	return s.Mode
+}
+
+func (s *SerdeTypeJSON) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeJSON) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
+}
+
+// SerdeTypeCsvOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type SerdeTypeCsvOperationMode string
+
+const (
+	// SerdeTypeCsvOperationModeExtract Extract
+	SerdeTypeCsvOperationModeExtract SerdeTypeCsvOperationMode = "extract"
+	// SerdeTypeCsvOperationModeReserialize Reserialize
+	SerdeTypeCsvOperationModeReserialize SerdeTypeCsvOperationMode = "reserialize"
+)
+
+func (e SerdeTypeCsvOperationMode) ToPointer() *SerdeTypeCsvOperationMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeCsvOperationMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "extract", "reserialize":
+			return true
+		}
+	}
+	return false
+}
+
+type SerdeTypeCsv struct {
+	// Parser or formatter type to use
+	Type TypeOptions `json:"type"`
+	// The fields to be extracted, listed in order. Will auto-generate if empty.
+	Fields []string `json:"fields,omitempty"`
+	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+	Keep []string `json:"keep,omitempty"`
+	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+	Remove []string `json:"remove,omitempty"`
+	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitempty"`
+	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+	Mode SerdeTypeCsvOperationMode `json:"mode"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitempty"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitempty"`
+}
+
+func (s SerdeTypeCsv) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SerdeTypeCsv) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SerdeTypeCsv) GetType() TypeOptions {
+	if s == nil {
+		return TypeOptions("")
+	}
+	return s.Type
+}
+
+func (s *SerdeTypeCsv) GetFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SerdeTypeCsv) GetKeep() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Keep
+}
+
+func (s *SerdeTypeCsv) GetRemove() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Remove
+}
+
+func (s *SerdeTypeCsv) GetFieldFilterExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.FieldFilterExpr
+}
+
+func (s *SerdeTypeCsv) GetMode() SerdeTypeCsvOperationMode {
+	if s == nil {
+		return SerdeTypeCsvOperationMode("")
+	}
+	return s.Mode
+}
+
+func (s *SerdeTypeCsv) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeCsv) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
+}
+
+// SerdeTypeDelimOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type SerdeTypeDelimOperationMode string
+
+const (
+	// SerdeTypeDelimOperationModeExtract Extract
+	SerdeTypeDelimOperationModeExtract SerdeTypeDelimOperationMode = "extract"
+	// SerdeTypeDelimOperationModeReserialize Reserialize
+	SerdeTypeDelimOperationModeReserialize SerdeTypeDelimOperationMode = "reserialize"
+)
+
+func (e SerdeTypeDelimOperationMode) ToPointer() *SerdeTypeDelimOperationMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeDelimOperationMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "extract", "reserialize":
+			return true
+		}
+	}
+	return false
+}
+
+type SerdeTypeDelim struct {
+	// Parser or formatter type to use
+	Type TypeOptions `json:"type"`
+	// The fields to be extracted, listed in order. Will auto-generate if empty.
+	Fields []string `json:"fields,omitempty"`
+	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+	Keep []string `json:"keep,omitempty"`
+	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+	Remove []string `json:"remove,omitempty"`
+	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitempty"`
+	// Delimiter character to use to split values
+	DelimChar *string `json:"delimChar,omitempty"`
+	// Character used to quote literal values
+	QuoteChar *string `json:"quoteChar,omitempty"`
+	// Escape character used to escape delimiter or quote character
+	EscapeChar *string `json:"escapeChar,omitempty"`
+	// Field value representing the null value. Null fields will be omitted.
+	NullValue *string `json:"nullValue,omitempty"`
+	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+	Mode SerdeTypeDelimOperationMode `json:"mode"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitempty"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitempty"`
+}
+
+func (s SerdeTypeDelim) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SerdeTypeDelim) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SerdeTypeDelim) GetType() TypeOptions {
+	if s == nil {
+		return TypeOptions("")
+	}
+	return s.Type
+}
+
+func (s *SerdeTypeDelim) GetFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SerdeTypeDelim) GetKeep() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Keep
+}
+
+func (s *SerdeTypeDelim) GetRemove() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Remove
+}
+
+func (s *SerdeTypeDelim) GetFieldFilterExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.FieldFilterExpr
+}
+
+func (s *SerdeTypeDelim) GetDelimChar() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DelimChar
+}
+
+func (s *SerdeTypeDelim) GetQuoteChar() *string {
+	if s == nil {
+		return nil
+	}
+	return s.QuoteChar
+}
+
+func (s *SerdeTypeDelim) GetEscapeChar() *string {
+	if s == nil {
+		return nil
+	}
+	return s.EscapeChar
+}
+
+func (s *SerdeTypeDelim) GetNullValue() *string {
+	if s == nil {
+		return nil
+	}
+	return s.NullValue
+}
+
+func (s *SerdeTypeDelim) GetMode() SerdeTypeDelimOperationMode {
+	if s == nil {
+		return SerdeTypeDelimOperationMode("")
+	}
+	return s.Mode
+}
+
+func (s *SerdeTypeDelim) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeDelim) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
+}
+
+// SerdeTypeKvpOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type SerdeTypeKvpOperationMode string
+
+const (
+	// SerdeTypeKvpOperationModeExtract Extract
+	SerdeTypeKvpOperationModeExtract SerdeTypeKvpOperationMode = "extract"
+	// SerdeTypeKvpOperationModeReserialize Reserialize
+	SerdeTypeKvpOperationModeReserialize SerdeTypeKvpOperationMode = "reserialize"
+)
+
+func (e SerdeTypeKvpOperationMode) ToPointer() *SerdeTypeKvpOperationMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeKvpOperationMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "extract", "reserialize":
+			return true
+		}
+	}
+	return false
+}
+
+type SerdeTypeKvp struct {
+	// Parser or formatter type to use
+	Type TypeOptions `json:"type"`
+	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+	Keep []string `json:"keep,omitempty"`
+	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+	Remove []string `json:"remove,omitempty"`
+	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitempty"`
+	// Clean field names by replacing non [a-zA-Z0-9] characters with _
+	CleanFields *bool `json:"cleanFields,omitempty"`
+	// A list of characters that may be present in a key name, even though they are normally separator or control characters
+	AllowedKeyChars []string `json:"allowedKeyChars,omitempty"`
+	// A list of characters that may be present in a value, even though they are normally separator or control characters
+	AllowedValueChars []string `json:"allowedValueChars,omitempty"`
+	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+	Mode SerdeTypeKvpOperationMode `json:"mode"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitempty"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitempty"`
+}
+
+func (s SerdeTypeKvp) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SerdeTypeKvp) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SerdeTypeKvp) GetType() TypeOptions {
+	if s == nil {
+		return TypeOptions("")
+	}
+	return s.Type
+}
+
+func (s *SerdeTypeKvp) GetKeep() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Keep
+}
+
+func (s *SerdeTypeKvp) GetRemove() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Remove
+}
+
+func (s *SerdeTypeKvp) GetFieldFilterExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.FieldFilterExpr
+}
+
+func (s *SerdeTypeKvp) GetCleanFields() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.CleanFields
+}
+
+func (s *SerdeTypeKvp) GetAllowedKeyChars() []string {
+	if s == nil {
+		return nil
+	}
+	return s.AllowedKeyChars
+}
+
+func (s *SerdeTypeKvp) GetAllowedValueChars() []string {
+	if s == nil {
+		return nil
+	}
+	return s.AllowedValueChars
+}
+
+func (s *SerdeTypeKvp) GetMode() SerdeTypeKvpOperationMode {
+	if s == nil {
+		return SerdeTypeKvpOperationMode("")
+	}
+	return s.Mode
+}
+
+func (s *SerdeTypeKvp) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeKvp) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
+}
+
+type PipelineFunctionSerdeConfType string
+
+const (
+	PipelineFunctionSerdeConfTypeKvp     PipelineFunctionSerdeConfType = "kvp"
+	PipelineFunctionSerdeConfTypeDelim   PipelineFunctionSerdeConfType = "delim"
+	PipelineFunctionSerdeConfTypeCsv     PipelineFunctionSerdeConfType = "csv"
+	PipelineFunctionSerdeConfTypeJSON    PipelineFunctionSerdeConfType = "json"
+	PipelineFunctionSerdeConfTypeRegex   PipelineFunctionSerdeConfType = "regex"
+	PipelineFunctionSerdeConfTypeGrok    PipelineFunctionSerdeConfType = "grok"
+	PipelineFunctionSerdeConfTypeUnknown PipelineFunctionSerdeConfType = "UNKNOWN"
+)
+
+type PipelineFunctionSerdeConf struct {
+	SerdeTypeKvp   *SerdeTypeKvp   `queryParam:"inline" union:"member"`
+	SerdeTypeDelim *SerdeTypeDelim `queryParam:"inline" union:"member"`
+	SerdeTypeCsv   *SerdeTypeCsv   `queryParam:"inline" union:"member"`
+	SerdeTypeJSON  *SerdeTypeJSON  `queryParam:"inline" union:"member"`
+	SerdeTypeRegex *SerdeTypeRegex `queryParam:"inline" union:"member"`
+	SerdeTypeGrok  *SerdeTypeGrok  `queryParam:"inline" union:"member"`
+	UnknownRaw     json.RawMessage `json:"-" union:"unknown"`
+
+	Type PipelineFunctionSerdeConfType
+}
+
+func CreatePipelineFunctionSerdeConfKvp(kvp SerdeTypeKvp) PipelineFunctionSerdeConf {
+	typ := PipelineFunctionSerdeConfTypeKvp
+
+	typStr := TypeOptions(typ)
+	kvp.Type = typStr
+
+	return PipelineFunctionSerdeConf{
+		SerdeTypeKvp: &kvp,
+		Type:         typ,
+	}
+}
+
+func CreatePipelineFunctionSerdeConfDelim(delim SerdeTypeDelim) PipelineFunctionSerdeConf {
+	typ := PipelineFunctionSerdeConfTypeDelim
+
+	typStr := TypeOptions(typ)
+	delim.Type = typStr
+
+	return PipelineFunctionSerdeConf{
+		SerdeTypeDelim: &delim,
+		Type:           typ,
+	}
+}
+
+func CreatePipelineFunctionSerdeConfCsv(csv SerdeTypeCsv) PipelineFunctionSerdeConf {
+	typ := PipelineFunctionSerdeConfTypeCsv
+
+	typStr := TypeOptions(typ)
+	csv.Type = typStr
+
+	return PipelineFunctionSerdeConf{
+		SerdeTypeCsv: &csv,
+		Type:         typ,
+	}
+}
+
+func CreatePipelineFunctionSerdeConfJSON(json SerdeTypeJSON) PipelineFunctionSerdeConf {
+	typ := PipelineFunctionSerdeConfTypeJSON
+
+	typStr := TypeOptions(typ)
+	json.Type = typStr
+
+	return PipelineFunctionSerdeConf{
+		SerdeTypeJSON: &json,
+		Type:          typ,
+	}
+}
+
+func CreatePipelineFunctionSerdeConfRegex(regex SerdeTypeRegex) PipelineFunctionSerdeConf {
+	typ := PipelineFunctionSerdeConfTypeRegex
+
+	typStr := TypeOptions(typ)
+	regex.Type = typStr
+
+	return PipelineFunctionSerdeConf{
+		SerdeTypeRegex: &regex,
+		Type:           typ,
+	}
+}
+
+func CreatePipelineFunctionSerdeConfGrok(grok SerdeTypeGrok) PipelineFunctionSerdeConf {
+	typ := PipelineFunctionSerdeConfTypeGrok
+
+	typStr := TypeOptions(typ)
+	grok.Type = typStr
+
+	return PipelineFunctionSerdeConf{
+		SerdeTypeGrok: &grok,
+		Type:          typ,
+	}
+}
+
+func CreatePipelineFunctionSerdeConfUnknown(raw json.RawMessage) PipelineFunctionSerdeConf {
+	return PipelineFunctionSerdeConf{
+		UnknownRaw: raw,
+		Type:       PipelineFunctionSerdeConfTypeUnknown,
+	}
+}
+
+func (u PipelineFunctionSerdeConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PipelineFunctionSerdeConf) IsUnknown() bool {
+	return u.Type == PipelineFunctionSerdeConfTypeUnknown
+}
+
+func (u *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionSerdeConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionSerdeConfTypeUnknown
+		return nil
+	}
+
+	switch dis.Type {
+	case "kvp":
+		serdeTypeKvp := new(SerdeTypeKvp)
+		if err := utils.UnmarshalJSON(data, &serdeTypeKvp, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kvp) type SerdeTypeKvp within PipelineFunctionSerdeConf: %w", string(data), err)
+		}
+
+		u.SerdeTypeKvp = serdeTypeKvp
+		u.Type = PipelineFunctionSerdeConfTypeKvp
+		return nil
+	case "delim":
+		serdeTypeDelim := new(SerdeTypeDelim)
+		if err := utils.UnmarshalJSON(data, &serdeTypeDelim, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == delim) type SerdeTypeDelim within PipelineFunctionSerdeConf: %w", string(data), err)
+		}
+
+		u.SerdeTypeDelim = serdeTypeDelim
+		u.Type = PipelineFunctionSerdeConfTypeDelim
+		return nil
+	case "csv":
+		serdeTypeCsv := new(SerdeTypeCsv)
+		if err := utils.UnmarshalJSON(data, &serdeTypeCsv, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == csv) type SerdeTypeCsv within PipelineFunctionSerdeConf: %w", string(data), err)
+		}
+
+		u.SerdeTypeCsv = serdeTypeCsv
+		u.Type = PipelineFunctionSerdeConfTypeCsv
+		return nil
+	case "json":
+		serdeTypeJSON := new(SerdeTypeJSON)
+		if err := utils.UnmarshalJSON(data, &serdeTypeJSON, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == json) type SerdeTypeJSON within PipelineFunctionSerdeConf: %w", string(data), err)
+		}
+
+		u.SerdeTypeJSON = serdeTypeJSON
+		u.Type = PipelineFunctionSerdeConfTypeJSON
+		return nil
+	case "regex":
+		serdeTypeRegex := new(SerdeTypeRegex)
+		if err := utils.UnmarshalJSON(data, &serdeTypeRegex, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == regex) type SerdeTypeRegex within PipelineFunctionSerdeConf: %w", string(data), err)
+		}
+
+		u.SerdeTypeRegex = serdeTypeRegex
+		u.Type = PipelineFunctionSerdeConfTypeRegex
+		return nil
+	case "grok":
+		serdeTypeGrok := new(SerdeTypeGrok)
+		if err := utils.UnmarshalJSON(data, &serdeTypeGrok, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == grok) type SerdeTypeGrok within PipelineFunctionSerdeConf: %w", string(data), err)
+		}
+
+		u.SerdeTypeGrok = serdeTypeGrok
+		u.Type = PipelineFunctionSerdeConfTypeGrok
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionSerdeConfTypeUnknown
+		return nil
+	}
+
+}
+
+func (u PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
+	if u.SerdeTypeKvp != nil {
+		return utils.MarshalJSON(u.SerdeTypeKvp, "", true)
+	}
+
+	if u.SerdeTypeDelim != nil {
+		return utils.MarshalJSON(u.SerdeTypeDelim, "", true)
+	}
+
+	if u.SerdeTypeCsv != nil {
+		return utils.MarshalJSON(u.SerdeTypeCsv, "", true)
+	}
+
+	if u.SerdeTypeJSON != nil {
+		return utils.MarshalJSON(u.SerdeTypeJSON, "", true)
+	}
+
+	if u.SerdeTypeRegex != nil {
+		return utils.MarshalJSON(u.SerdeTypeRegex, "", true)
+	}
+
+	if u.SerdeTypeGrok != nil {
+		return utils.MarshalJSON(u.SerdeTypeGrok, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type PipelineFunctionSerdeConf: all fields are null")
 }
 
 type PipelineFunctionSerde struct {
@@ -214,6 +1023,30 @@ func (p *PipelineFunctionSerde) GetConf() PipelineFunctionSerdeConf {
 		return PipelineFunctionSerdeConf{}
 	}
 	return p.Conf
+}
+
+func (p *PipelineFunctionSerde) GetConfKvp() *SerdeTypeKvp {
+	return p.GetConf().SerdeTypeKvp
+}
+
+func (p *PipelineFunctionSerde) GetConfDelim() *SerdeTypeDelim {
+	return p.GetConf().SerdeTypeDelim
+}
+
+func (p *PipelineFunctionSerde) GetConfCsv() *SerdeTypeCsv {
+	return p.GetConf().SerdeTypeCsv
+}
+
+func (p *PipelineFunctionSerde) GetConfJSON() *SerdeTypeJSON {
+	return p.GetConf().SerdeTypeJSON
+}
+
+func (p *PipelineFunctionSerde) GetConfRegex() *SerdeTypeRegex {
+	return p.GetConf().SerdeTypeRegex
+}
+
+func (p *PipelineFunctionSerde) GetConfGrok() *SerdeTypeGrok {
+	return p.GetConf().SerdeTypeGrok
 }
 
 func (p *PipelineFunctionSerde) GetGroupID() *string {

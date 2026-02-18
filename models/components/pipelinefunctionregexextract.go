@@ -32,33 +32,10 @@ func (e *PipelineFunctionRegexExtractID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionRegexExtractRegexList struct {
-	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex string `json:"regex"`
-}
-
-func (p PipelineFunctionRegexExtractRegexList) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionRegexExtractRegexList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionRegexExtractRegexList) GetRegex() string {
-	if p == nil {
-		return ""
-	}
-	return p.Regex
-}
-
 type PipelineFunctionRegexExtractConf struct {
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     string                                  `json:"regex"`
-	RegexList []PipelineFunctionRegexExtractRegexList `json:"regexList,omitempty"`
+	Regex     string                             `json:"regex"`
+	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitempty"`
 	// Field on which to perform regex field extraction
 	Source *string `json:"source,omitempty"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
@@ -87,7 +64,7 @@ func (p *PipelineFunctionRegexExtractConf) GetRegex() string {
 	return p.Regex
 }
 
-func (p *PipelineFunctionRegexExtractConf) GetRegexList() []PipelineFunctionRegexExtractRegexList {
+func (p *PipelineFunctionRegexExtractConf) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
 	if p == nil {
 		return nil
 	}

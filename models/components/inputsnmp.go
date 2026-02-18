@@ -31,42 +31,12 @@ func (e *InputSnmpType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PrivacyProtocol string
-
-const (
-	// PrivacyProtocolNone None
-	PrivacyProtocolNone PrivacyProtocol = "none"
-	// PrivacyProtocolDes DES
-	PrivacyProtocolDes PrivacyProtocol = "des"
-	// PrivacyProtocolAes AES128
-	PrivacyProtocolAes PrivacyProtocol = "aes"
-	// PrivacyProtocolAes256b AES256b (Blumenthal)
-	PrivacyProtocolAes256b PrivacyProtocol = "aes256b"
-	// PrivacyProtocolAes256r AES256r (Reeder)
-	PrivacyProtocolAes256r PrivacyProtocol = "aes256r"
-)
-
-func (e PrivacyProtocol) ToPointer() *PrivacyProtocol {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PrivacyProtocol) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "des", "aes", "aes256b", "aes256r":
-			return true
-		}
-	}
-	return false
-}
-
 type InputSnmpV3User struct {
-	Name         string                               `json:"name"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
-	AuthKey      *string                              `json:"authKey,omitempty"`
-	PrivProtocol *PrivacyProtocol                     `json:"privProtocol,omitempty"`
-	PrivKey      *string                              `json:"privKey,omitempty"`
+	Name         string                                                            `json:"name"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User                              `json:"authProtocol,omitempty"`
+	AuthKey      *string                                                           `json:"authKey,omitempty"`
+	PrivProtocol *PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone `json:"privProtocol,omitempty"`
+	PrivKey      *string                                                           `json:"privKey,omitempty"`
 }
 
 func (i InputSnmpV3User) MarshalJSON() ([]byte, error) {
@@ -101,7 +71,7 @@ func (i *InputSnmpV3User) GetAuthKey() *string {
 	return i.AuthKey
 }
 
-func (i *InputSnmpV3User) GetPrivProtocol() *PrivacyProtocol {
+func (i *InputSnmpV3User) GetPrivProtocol() *PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone {
 	if i == nil {
 		return nil
 	}

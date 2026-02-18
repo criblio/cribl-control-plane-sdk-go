@@ -4,6 +4,7 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
@@ -32,7 +33,13 @@ func (e *PipelineFunctionAggregationID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionAggregationConf struct {
+type AggregationCumulativeFalse struct {
+	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
+	Cumulative *bool `json:"cumulative,omitempty"`
+	// The tumbling window tolerance to late events. Must be a valid time string (such as 10s).
+	LagTolerance *string `json:"lagTolerance,omitempty"`
+	// How long to wait before flushing a bucket that has not received events. Must be a valid time string (such as 10s).
+	IdleTimeLimit *string `json:"idleTimeLimit,omitempty"`
 	// Pass through the original events along with the aggregation events
 	Passthrough *bool `json:"passthrough,omitempty"`
 	// Preserve the structure of the original aggregation event's groupby fields
@@ -53,8 +60,6 @@ type PipelineFunctionAggregationConf struct {
 	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
 	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
 	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
-	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `json:"cumulative,omitempty"`
 	// Allows Cribl Search-specific aggregation configuration
 	SearchAggMode *string `json:"searchAggMode,omitempty"`
 	// Set of key-value pairs to evaluate and add/set
@@ -65,120 +70,372 @@ type PipelineFunctionAggregationConf struct {
 	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
 }
 
-func (p PipelineFunctionAggregationConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (a AggregationCumulativeFalse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
 }
 
-func (p *PipelineFunctionAggregationConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (a *AggregationCumulativeFalse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionAggregationConf) GetPassthrough() *bool {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetCumulative() *bool {
+	if a == nil {
 		return nil
 	}
-	return p.Passthrough
+	return a.Cumulative
 }
 
-func (p *PipelineFunctionAggregationConf) GetPreserveGroupBys() *bool {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetLagTolerance() *string {
+	if a == nil {
 		return nil
 	}
-	return p.PreserveGroupBys
+	return a.LagTolerance
 }
 
-func (p *PipelineFunctionAggregationConf) GetSufficientStatsOnly() *bool {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetIdleTimeLimit() *string {
+	if a == nil {
 		return nil
 	}
-	return p.SufficientStatsOnly
+	return a.IdleTimeLimit
 }
 
-func (p *PipelineFunctionAggregationConf) GetMetricsMode() *bool {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetPassthrough() *bool {
+	if a == nil {
 		return nil
 	}
-	return p.MetricsMode
+	return a.Passthrough
 }
 
-func (p *PipelineFunctionAggregationConf) GetPrefix() *string {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetPreserveGroupBys() *bool {
+	if a == nil {
 		return nil
 	}
-	return p.Prefix
+	return a.PreserveGroupBys
 }
 
-func (p *PipelineFunctionAggregationConf) GetTimeWindow() string {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetSufficientStatsOnly() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.SufficientStatsOnly
+}
+
+func (a *AggregationCumulativeFalse) GetMetricsMode() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.MetricsMode
+}
+
+func (a *AggregationCumulativeFalse) GetPrefix() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Prefix
+}
+
+func (a *AggregationCumulativeFalse) GetTimeWindow() string {
+	if a == nil {
 		return ""
 	}
-	return p.TimeWindow
+	return a.TimeWindow
 }
 
-func (p *PipelineFunctionAggregationConf) GetAggregations() []string {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetAggregations() []string {
+	if a == nil {
 		return []string{}
 	}
-	return p.Aggregations
+	return a.Aggregations
 }
 
-func (p *PipelineFunctionAggregationConf) GetGroupbys() []string {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetGroupbys() []string {
+	if a == nil {
 		return nil
 	}
-	return p.Groupbys
+	return a.Groupbys
 }
 
-func (p *PipelineFunctionAggregationConf) GetFlushEventLimit() *float64 {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetFlushEventLimit() *float64 {
+	if a == nil {
 		return nil
 	}
-	return p.FlushEventLimit
+	return a.FlushEventLimit
 }
 
-func (p *PipelineFunctionAggregationConf) GetFlushMemLimit() *string {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetFlushMemLimit() *string {
+	if a == nil {
 		return nil
 	}
-	return p.FlushMemLimit
+	return a.FlushMemLimit
 }
 
-func (p *PipelineFunctionAggregationConf) GetCumulative() *bool {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetSearchAggMode() *string {
+	if a == nil {
 		return nil
 	}
-	return p.Cumulative
+	return a.SearchAggMode
 }
 
-func (p *PipelineFunctionAggregationConf) GetSearchAggMode() *string {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetAdd() []ItemsTypeAdd {
+	if a == nil {
 		return nil
 	}
-	return p.SearchAggMode
+	return a.Add
 }
 
-func (p *PipelineFunctionAggregationConf) GetAdd() []ItemsTypeAdd {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetShouldTreatDotsAsLiterals() *bool {
+	if a == nil {
 		return nil
 	}
-	return p.Add
+	return a.ShouldTreatDotsAsLiterals
 }
 
-func (p *PipelineFunctionAggregationConf) GetShouldTreatDotsAsLiterals() *bool {
-	if p == nil {
+func (a *AggregationCumulativeFalse) GetFlushOnInputClose() *bool {
+	if a == nil {
 		return nil
 	}
-	return p.ShouldTreatDotsAsLiterals
+	return a.FlushOnInputClose
 }
 
-func (p *PipelineFunctionAggregationConf) GetFlushOnInputClose() *bool {
-	if p == nil {
+type AggregationCumulativeTrue struct {
+	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
+	Cumulative *bool `json:"cumulative,omitempty"`
+	// Pass through the original events along with the aggregation events
+	Passthrough *bool `json:"passthrough,omitempty"`
+	// Preserve the structure of the original aggregation event's groupby fields
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
+	// Output only statistics that are sufficient for the supplied aggregations
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
+	// Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
+	MetricsMode *bool `json:"metricsMode,omitempty"`
+	// A prefix that is prepended to all of the fields output by this Aggregations Function
+	Prefix *string `json:"prefix,omitempty"`
+	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
+	TimeWindow string `json:"timeWindow"`
+	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
+	Aggregations []string `json:"aggregations"`
+	// Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
+	Groupbys []string `json:"groupbys,omitempty"`
+	// The maximum number of events to include in any given aggregation event
+	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
+	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
+	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
+	// Allows Cribl Search-specific aggregation configuration
+	SearchAggMode *string `json:"searchAggMode,omitempty"`
+	// Set of key-value pairs to evaluate and add/set
+	Add []ItemsTypeAdd `json:"add,omitempty"`
+	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
+	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
+}
+
+func (a AggregationCumulativeTrue) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AggregationCumulativeTrue) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AggregationCumulativeTrue) GetCumulative() *bool {
+	if a == nil {
 		return nil
 	}
-	return p.FlushOnInputClose
+	return a.Cumulative
+}
+
+func (a *AggregationCumulativeTrue) GetPassthrough() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.Passthrough
+}
+
+func (a *AggregationCumulativeTrue) GetPreserveGroupBys() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.PreserveGroupBys
+}
+
+func (a *AggregationCumulativeTrue) GetSufficientStatsOnly() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.SufficientStatsOnly
+}
+
+func (a *AggregationCumulativeTrue) GetMetricsMode() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.MetricsMode
+}
+
+func (a *AggregationCumulativeTrue) GetPrefix() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Prefix
+}
+
+func (a *AggregationCumulativeTrue) GetTimeWindow() string {
+	if a == nil {
+		return ""
+	}
+	return a.TimeWindow
+}
+
+func (a *AggregationCumulativeTrue) GetAggregations() []string {
+	if a == nil {
+		return []string{}
+	}
+	return a.Aggregations
+}
+
+func (a *AggregationCumulativeTrue) GetGroupbys() []string {
+	if a == nil {
+		return nil
+	}
+	return a.Groupbys
+}
+
+func (a *AggregationCumulativeTrue) GetFlushEventLimit() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.FlushEventLimit
+}
+
+func (a *AggregationCumulativeTrue) GetFlushMemLimit() *string {
+	if a == nil {
+		return nil
+	}
+	return a.FlushMemLimit
+}
+
+func (a *AggregationCumulativeTrue) GetSearchAggMode() *string {
+	if a == nil {
+		return nil
+	}
+	return a.SearchAggMode
+}
+
+func (a *AggregationCumulativeTrue) GetAdd() []ItemsTypeAdd {
+	if a == nil {
+		return nil
+	}
+	return a.Add
+}
+
+func (a *AggregationCumulativeTrue) GetShouldTreatDotsAsLiterals() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.ShouldTreatDotsAsLiterals
+}
+
+func (a *AggregationCumulativeTrue) GetFlushOnInputClose() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.FlushOnInputClose
+}
+
+type PipelineFunctionAggregationConfType string
+
+const (
+	PipelineFunctionAggregationConfTypeAggregationCumulativeTrue  PipelineFunctionAggregationConfType = "AggregationCumulativeTrue"
+	PipelineFunctionAggregationConfTypeAggregationCumulativeFalse PipelineFunctionAggregationConfType = "AggregationCumulativeFalse"
+)
+
+type PipelineFunctionAggregationConf struct {
+	AggregationCumulativeTrue  *AggregationCumulativeTrue  `queryParam:"inline" union:"member"`
+	AggregationCumulativeFalse *AggregationCumulativeFalse `queryParam:"inline" union:"member"`
+
+	Type PipelineFunctionAggregationConfType
+}
+
+func CreatePipelineFunctionAggregationConfAggregationCumulativeTrue(aggregationCumulativeTrue AggregationCumulativeTrue) PipelineFunctionAggregationConf {
+	typ := PipelineFunctionAggregationConfTypeAggregationCumulativeTrue
+
+	return PipelineFunctionAggregationConf{
+		AggregationCumulativeTrue: &aggregationCumulativeTrue,
+		Type:                      typ,
+	}
+}
+
+func CreatePipelineFunctionAggregationConfAggregationCumulativeFalse(aggregationCumulativeFalse AggregationCumulativeFalse) PipelineFunctionAggregationConf {
+	typ := PipelineFunctionAggregationConfTypeAggregationCumulativeFalse
+
+	return PipelineFunctionAggregationConf{
+		AggregationCumulativeFalse: &aggregationCumulativeFalse,
+		Type:                       typ,
+	}
+}
+
+func (u *PipelineFunctionAggregationConf) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var aggregationCumulativeTrue AggregationCumulativeTrue = AggregationCumulativeTrue{}
+	if err := utils.UnmarshalJSON(data, &aggregationCumulativeTrue, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PipelineFunctionAggregationConfTypeAggregationCumulativeTrue,
+			Value: &aggregationCumulativeTrue,
+		})
+	}
+
+	var aggregationCumulativeFalse AggregationCumulativeFalse = AggregationCumulativeFalse{}
+	if err := utils.UnmarshalJSON(data, &aggregationCumulativeFalse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PipelineFunctionAggregationConfTypeAggregationCumulativeFalse,
+			Value: &aggregationCumulativeFalse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregationConf", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregationConf", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(PipelineFunctionAggregationConfType)
+	switch best.Type {
+	case PipelineFunctionAggregationConfTypeAggregationCumulativeTrue:
+		u.AggregationCumulativeTrue = best.Value.(*AggregationCumulativeTrue)
+		return nil
+	case PipelineFunctionAggregationConfTypeAggregationCumulativeFalse:
+		u.AggregationCumulativeFalse = best.Value.(*AggregationCumulativeFalse)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregationConf", string(data))
+}
+
+func (u PipelineFunctionAggregationConf) MarshalJSON() ([]byte, error) {
+	if u.AggregationCumulativeTrue != nil {
+		return utils.MarshalJSON(u.AggregationCumulativeTrue, "", true)
+	}
+
+	if u.AggregationCumulativeFalse != nil {
+		return utils.MarshalJSON(u.AggregationCumulativeFalse, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type PipelineFunctionAggregationConf: all fields are null")
 }
 
 type PipelineFunctionAggregation struct {
