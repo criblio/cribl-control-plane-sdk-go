@@ -13,7 +13,7 @@ type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone struct {
 	PrivProtocol *string                              `json:"privProtocol,omitempty"`
 	PrivKey      string                               `json:"privKey"`
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
-	AuthKey      any                                  `json:"authKey"`
+	AuthKey      string                               `json:"authKey"`
 	Name         string                               `json:"name"`
 }
 
@@ -49,9 +49,9 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetAuthP
 	return s.AuthProtocol
 }
 
-func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetAuthKey() any {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetAuthKey() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.AuthKey
 }
@@ -66,7 +66,7 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetName(
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone struct {
 	PrivProtocol *string                              `json:"privProtocol,omitempty"`
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
-	AuthKey      any                                  `json:"authKey"`
+	AuthKey      string                               `json:"authKey"`
 	Name         string                               `json:"name"`
 }
 
@@ -95,9 +95,9 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetAuthProt
 	return s.AuthProtocol
 }
 
-func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetAuthKey() any {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetAuthKey() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.AuthKey
 }
@@ -293,7 +293,6 @@ func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error
 type SnmpTrapSerializeV3UserAuthProtocolNone struct {
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
 	Name         *string                              `json:"name,omitempty"`
-	AuthKey      any                                  `json:"authKey,omitempty"`
 	PrivProtocol *string                              `json:"privProtocol,omitempty"`
 }
 
@@ -320,13 +319,6 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetName() *string {
 		return nil
 	}
 	return s.Name
-}
-
-func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetAuthKey() any {
-	if s == nil {
-		return nil
-	}
-	return s.AuthKey
 }
 
 func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetPrivProtocol() *string {

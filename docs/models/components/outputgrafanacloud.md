@@ -15,3 +15,15 @@ outputGrafanaCloud := components.CreateOutputGrafanaCloudOutputGrafanaCloudGrafa
 outputGrafanaCloud := components.CreateOutputGrafanaCloudOutputGrafanaCloudGrafanaCloud2(components.OutputGrafanaCloudGrafanaCloud2{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch outputGrafanaCloud.Type {
+	case components.OutputGrafanaCloudTypeOutputGrafanaCloudGrafanaCloud1:
+		// outputGrafanaCloud.OutputGrafanaCloudGrafanaCloud1 is populated
+	case components.OutputGrafanaCloudTypeOutputGrafanaCloudGrafanaCloud2:
+		// outputGrafanaCloud.OutputGrafanaCloudGrafanaCloud2 is populated
+}
+```

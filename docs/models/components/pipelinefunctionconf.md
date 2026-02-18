@@ -393,3 +393,143 @@ pipelineFunctionConf := components.CreatePipelineFunctionConfWindow(components.P
 pipelineFunctionConf := components.CreatePipelineFunctionConfXMLUnroll(components.PipelineFunctionXMLUnroll{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch pipelineFunctionConf.Type {
+	case components.PipelineFunctionConfTypeAggregateMetrics:
+		// pipelineFunctionConf.PipelineFunctionAggregateMetrics is populated
+	case components.PipelineFunctionConfTypeAggregation:
+		// pipelineFunctionConf.PipelineFunctionAggregation is populated
+	case components.PipelineFunctionConfTypeAutoTimestamp:
+		// pipelineFunctionConf.PipelineFunctionAutoTimestamp is populated
+	case components.PipelineFunctionConfTypeCef:
+		// pipelineFunctionConf.PipelineFunctionCef is populated
+	case components.PipelineFunctionConfTypeChain:
+		// pipelineFunctionConf.PipelineFunctionChain is populated
+	case components.PipelineFunctionConfTypeClone:
+		// pipelineFunctionConf.PipelineFunctionClone is populated
+	case components.PipelineFunctionConfTypeCode:
+		// pipelineFunctionConf.PipelineFunctionCode is populated
+	case components.PipelineFunctionConfTypeComment:
+		// pipelineFunctionConf.PipelineFunctionComment is populated
+	case components.PipelineFunctionConfTypeDistinct:
+		// pipelineFunctionConf.PipelineFunctionDistinct is populated
+	case components.PipelineFunctionConfTypeDNSLookup:
+		// pipelineFunctionConf.PipelineFunctionDNSLookup is populated
+	case components.PipelineFunctionConfTypeDrop:
+		// pipelineFunctionConf.PipelineFunctionDrop is populated
+	case components.PipelineFunctionConfTypeDropDimensions:
+		// pipelineFunctionConf.PipelineFunctionDropDimensions is populated
+	case components.PipelineFunctionConfTypeDynamicSampling:
+		// pipelineFunctionConf.PipelineFunctionDynamicSampling is populated
+	case components.PipelineFunctionConfTypeEval:
+		// pipelineFunctionConf.PipelineFunctionEval is populated
+	case components.PipelineFunctionConfTypeEventBreaker:
+		// pipelineFunctionConf.PipelineFunctionEventBreaker is populated
+	case components.PipelineFunctionConfTypeEventstats:
+		// pipelineFunctionConf.PipelineFunctionEventstats is populated
+	case components.PipelineFunctionConfTypeExternaldata:
+		// pipelineFunctionConf.PipelineFunctionExternaldata is populated
+	case components.PipelineFunctionConfTypeFlatten:
+		// pipelineFunctionConf.PipelineFunctionFlatten is populated
+	case components.PipelineFunctionConfTypeFoldkeys:
+		// pipelineFunctionConf.PipelineFunctionFoldkeys is populated
+	case components.PipelineFunctionConfTypeGenStats:
+		// pipelineFunctionConf.PipelineFunctionGenStats is populated
+	case components.PipelineFunctionConfTypeGeoip:
+		// pipelineFunctionConf.PipelineFunctionGeoip is populated
+	case components.PipelineFunctionConfTypeGrok:
+		// pipelineFunctionConf.PipelineFunctionGrok is populated
+	case components.PipelineFunctionConfTypeHandlebars:
+		// pipelineFunctionConf.PipelineFunctionHandlebars is populated
+	case components.PipelineFunctionConfTypeJoin:
+		// pipelineFunctionConf.PipelineFunctionJoin is populated
+	case components.PipelineFunctionConfTypeJSONUnroll:
+		// pipelineFunctionConf.PipelineFunctionJSONUnroll is populated
+	case components.PipelineFunctionConfTypeLakeExport:
+		// pipelineFunctionConf.PipelineFunctionLakeExport is populated
+	case components.PipelineFunctionConfTypeLimit:
+		// pipelineFunctionConf.PipelineFunctionLimit is populated
+	case components.PipelineFunctionConfTypeLocalSearchDatatypeParser:
+		// pipelineFunctionConf.PipelineFunctionLocalSearchDatatypeParser is populated
+	case components.PipelineFunctionConfTypeLocalSearchRulesetRunner:
+		// pipelineFunctionConf.PipelineFunctionLocalSearchRulesetRunner is populated
+	case components.PipelineFunctionConfTypeLookup:
+		// pipelineFunctionConf.PipelineFunctionLookup is populated
+	case components.PipelineFunctionConfTypeMask:
+		// pipelineFunctionConf.PipelineFunctionMask is populated
+	case components.PipelineFunctionConfTypeMvExpand:
+		// pipelineFunctionConf.PipelineFunctionMvExpand is populated
+	case components.PipelineFunctionConfTypeMvPull:
+		// pipelineFunctionConf.PipelineFunctionMvPull is populated
+	case components.PipelineFunctionConfTypeNotificationPolicies:
+		// pipelineFunctionConf.PipelineFunctionNotificationPolicies is populated
+	case components.PipelineFunctionConfTypeNotifications:
+		// pipelineFunctionConf.PipelineFunctionNotifications is populated
+	case components.PipelineFunctionConfTypeNotify:
+		// pipelineFunctionConf.PipelineFunctionNotify is populated
+	case components.PipelineFunctionConfTypeNumerify:
+		// pipelineFunctionConf.PipelineFunctionNumerify is populated
+	case components.PipelineFunctionConfTypeOtlpLogs:
+		// pipelineFunctionConf.PipelineFunctionOtlpLogs is populated
+	case components.PipelineFunctionConfTypeOtlpMetrics:
+		// pipelineFunctionConf.PipelineFunctionOtlpMetrics is populated
+	case components.PipelineFunctionConfTypeOtlpTraces:
+		// pipelineFunctionConf.PipelineFunctionOtlpTraces is populated
+	case components.PipelineFunctionConfTypePack:
+		// pipelineFunctionConf.PipelineFunctionPack is populated
+	case components.PipelineFunctionConfTypePivot:
+		// pipelineFunctionConf.PipelineFunctionPivot is populated
+	case components.PipelineFunctionConfTypePublishMetrics:
+		// pipelineFunctionConf.PipelineFunctionPublishMetrics is populated
+	case components.PipelineFunctionConfTypeRedis:
+		// pipelineFunctionConf.PipelineFunctionRedis is populated
+	case components.PipelineFunctionConfTypeRegexExtract:
+		// pipelineFunctionConf.PipelineFunctionRegexExtract is populated
+	case components.PipelineFunctionConfTypeRegexFilter:
+		// pipelineFunctionConf.PipelineFunctionRegexFilter is populated
+	case components.PipelineFunctionConfTypeRename:
+		// pipelineFunctionConf.PipelineFunctionRename is populated
+	case components.PipelineFunctionConfTypeRollupMetrics:
+		// pipelineFunctionConf.PipelineFunctionRollupMetrics is populated
+	case components.PipelineFunctionConfTypeSampling:
+		// pipelineFunctionConf.PipelineFunctionSampling is populated
+	case components.PipelineFunctionConfTypeSend:
+		// pipelineFunctionConf.PipelineFunctionSend is populated
+	case components.PipelineFunctionConfTypeSensitiveDataScanner:
+		// pipelineFunctionConf.PipelineFunctionSensitiveDataScanner is populated
+	case components.PipelineFunctionConfTypeSerde:
+		// pipelineFunctionConf.PipelineFunctionSerde is populated
+	case components.PipelineFunctionConfTypeSerialize:
+		// pipelineFunctionConf.PipelineFunctionSerialize is populated
+	case components.PipelineFunctionConfTypeSidlookup:
+		// pipelineFunctionConf.PipelineFunctionSidlookup is populated
+	case components.PipelineFunctionConfTypeSignalFilter:
+		// pipelineFunctionConf.PipelineFunctionSignalFilter is populated
+	case components.PipelineFunctionConfTypeSnmpTrapSerialize:
+		// pipelineFunctionConf.PipelineFunctionSnmpTrapSerialize is populated
+	case components.PipelineFunctionConfTypeSort:
+		// pipelineFunctionConf.PipelineFunctionSort is populated
+	case components.PipelineFunctionConfTypeStore:
+		// pipelineFunctionConf.PipelineFunctionStore is populated
+	case components.PipelineFunctionConfTypeSuppress:
+		// pipelineFunctionConf.PipelineFunctionSuppress is populated
+	case components.PipelineFunctionConfTypeTee:
+		// pipelineFunctionConf.PipelineFunctionTee is populated
+	case components.PipelineFunctionConfTypeTrimTimestamp:
+		// pipelineFunctionConf.PipelineFunctionTrimTimestamp is populated
+	case components.PipelineFunctionConfTypeUnion:
+		// pipelineFunctionConf.PipelineFunctionUnion is populated
+	case components.PipelineFunctionConfTypeUnroll:
+		// pipelineFunctionConf.PipelineFunctionUnroll is populated
+	case components.PipelineFunctionConfTypeWindow:
+		// pipelineFunctionConf.PipelineFunctionWindow is populated
+	case components.PipelineFunctionConfTypeXMLUnroll:
+		// pipelineFunctionConf.PipelineFunctionXMLUnroll is populated
+	default:
+		// Unknown type - use pipelineFunctionConf.GetUnknownRaw() for raw JSON
+}
+```

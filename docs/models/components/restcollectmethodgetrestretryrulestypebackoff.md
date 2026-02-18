@@ -15,3 +15,15 @@ restCollectMethodGetRestRetryRulesTypeBackoff := components.CreateRestCollectMet
 restCollectMethodGetRestRetryRulesTypeBackoff := components.CreateRestCollectMethodGetRestRetryRulesTypeBackoffRestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue(components.RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restCollectMethodGetRestRetryRulesTypeBackoff.Type {
+	case components.RestCollectMethodGetRestRetryRulesTypeBackoffTypeRestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse:
+		// restCollectMethodGetRestRetryRulesTypeBackoff.RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse is populated
+	case components.RestCollectMethodGetRestRetryRulesTypeBackoffTypeRestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue:
+		// restCollectMethodGetRestRetryRulesTypeBackoff.RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue is populated
+}
+```

@@ -21,3 +21,19 @@ healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP := components.C
 healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPPostWithBody(components.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP.Type {
+	case components.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypeGet:
+		// healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypePost:
+		// healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	default:
+		// Unknown type - use healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```

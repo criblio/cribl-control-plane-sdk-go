@@ -15,3 +15,15 @@ restCollectMethodPostRestRetryRulesTypeStatic := components.CreateRestCollectMet
 restCollectMethodPostRestRetryRulesTypeStatic := components.CreateRestCollectMethodPostRestRetryRulesTypeStaticRestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue(components.RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restCollectMethodPostRestRetryRulesTypeStatic.Type {
+	case components.RestCollectMethodPostRestRetryRulesTypeStaticTypeRestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse:
+		// restCollectMethodPostRestRetryRulesTypeStatic.RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse is populated
+	case components.RestCollectMethodPostRestRetryRulesTypeStaticTypeRestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue:
+		// restCollectMethodPostRestRetryRulesTypeStatic.RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue is populated
+}
+```

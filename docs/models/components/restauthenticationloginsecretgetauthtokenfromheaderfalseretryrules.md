@@ -21,3 +21,19 @@ restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules := components
 restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesBackoff(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoff{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules.Type {
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesTypeNone:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone is populated
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesTypeStatic:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStatic is populated
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesTypeBackoff:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoff is populated
+	default:
+		// Unknown type - use restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules.GetUnknownRaw() for raw JSON
+}
+```

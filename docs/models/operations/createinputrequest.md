@@ -365,3 +365,131 @@ createInputRequest := operations.CreateCreateInputRequestZscalerHec(operations.C
 createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operations.CreateInputInputCloudflareHec{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch createInputRequest.Type {
+	case operations.CreateInputRequestTypeCollection:
+		// createInputRequest.CreateInputInputCollection is populated
+	case operations.CreateInputRequestTypeKafka:
+		// createInputRequest.CreateInputInputKafka is populated
+	case operations.CreateInputRequestTypeMsk:
+		// createInputRequest.CreateInputInputMsk is populated
+	case operations.CreateInputRequestTypeHTTP:
+		// createInputRequest.CreateInputInputHTTP is populated
+	case operations.CreateInputRequestTypeSplunk:
+		// createInputRequest.CreateInputInputSplunk is populated
+	case operations.CreateInputRequestTypeSplunkSearch:
+		// createInputRequest.CreateInputInputSplunkSearch is populated
+	case operations.CreateInputRequestTypeSplunkHec:
+		// createInputRequest.CreateInputInputSplunkHec is populated
+	case operations.CreateInputRequestTypeAzureBlob:
+		// createInputRequest.CreateInputInputAzureBlob is populated
+	case operations.CreateInputRequestTypeElastic:
+		// createInputRequest.CreateInputInputElastic is populated
+	case operations.CreateInputRequestTypeConfluentCloud:
+		// createInputRequest.CreateInputInputConfluentCloud is populated
+	case operations.CreateInputRequestTypeGrafana:
+		// createInputRequest.CreateInputInputGrafanaUnion is populated
+	case operations.CreateInputRequestTypeLoki:
+		// createInputRequest.CreateInputInputLoki is populated
+	case operations.CreateInputRequestTypePrometheusRw:
+		// createInputRequest.CreateInputInputPrometheusRw is populated
+	case operations.CreateInputRequestTypePrometheus:
+		// createInputRequest.CreateInputInputPrometheus is populated
+	case operations.CreateInputRequestTypeEdgePrometheus:
+		// createInputRequest.CreateInputInputEdgePrometheus is populated
+	case operations.CreateInputRequestTypeOffice365Mgmt:
+		// createInputRequest.CreateInputInputOffice365Mgmt is populated
+	case operations.CreateInputRequestTypeOffice365Service:
+		// createInputRequest.CreateInputInputOffice365Service is populated
+	case operations.CreateInputRequestTypeOffice365MsgTrace:
+		// createInputRequest.CreateInputInputOffice365MsgTrace is populated
+	case operations.CreateInputRequestTypeEventhub:
+		// createInputRequest.CreateInputInputEventhub is populated
+	case operations.CreateInputRequestTypeExec:
+		// createInputRequest.CreateInputInputExec is populated
+	case operations.CreateInputRequestTypeFirehose:
+		// createInputRequest.CreateInputInputFirehose is populated
+	case operations.CreateInputRequestTypeGooglePubsub:
+		// createInputRequest.CreateInputInputGooglePubsub is populated
+	case operations.CreateInputRequestTypeCribl:
+		// createInputRequest.CreateInputInputCribl is populated
+	case operations.CreateInputRequestTypeCriblTCP:
+		// createInputRequest.CreateInputInputCriblTCP is populated
+	case operations.CreateInputRequestTypeCriblHTTP:
+		// createInputRequest.CreateInputInputCriblHTTP is populated
+	case operations.CreateInputRequestTypeCriblLakeHTTP:
+		// createInputRequest.CreateInputInputCriblLakeHTTP is populated
+	case operations.CreateInputRequestTypeTcpjson:
+		// createInputRequest.CreateInputInputTcpjson is populated
+	case operations.CreateInputRequestTypeSystemMetrics:
+		// createInputRequest.CreateInputInputSystemMetrics is populated
+	case operations.CreateInputRequestTypeSystemState:
+		// createInputRequest.CreateInputInputSystemState is populated
+	case operations.CreateInputRequestTypeKubeMetrics:
+		// createInputRequest.CreateInputInputKubeMetrics is populated
+	case operations.CreateInputRequestTypeKubeLogs:
+		// createInputRequest.CreateInputInputKubeLogs is populated
+	case operations.CreateInputRequestTypeKubeEvents:
+		// createInputRequest.CreateInputInputKubeEvents is populated
+	case operations.CreateInputRequestTypeWindowsMetrics:
+		// createInputRequest.CreateInputInputWindowsMetrics is populated
+	case operations.CreateInputRequestTypeCrowdstrike:
+		// createInputRequest.CreateInputInputCrowdstrike is populated
+	case operations.CreateInputRequestTypeDatadogAgent:
+		// createInputRequest.CreateInputInputDatadogAgent is populated
+	case operations.CreateInputRequestTypeDatagen:
+		// createInputRequest.CreateInputInputDatagen is populated
+	case operations.CreateInputRequestTypeHTTPRaw:
+		// createInputRequest.CreateInputInputHTTPRaw is populated
+	case operations.CreateInputRequestTypeKinesis:
+		// createInputRequest.CreateInputInputKinesis is populated
+	case operations.CreateInputRequestTypeCriblmetrics:
+		// createInputRequest.CreateInputInputCriblmetrics is populated
+	case operations.CreateInputRequestTypeMetrics:
+		// createInputRequest.CreateInputInputMetrics is populated
+	case operations.CreateInputRequestTypeS3:
+		// createInputRequest.CreateInputInputS3 is populated
+	case operations.CreateInputRequestTypeS3Inventory:
+		// createInputRequest.CreateInputInputS3Inventory is populated
+	case operations.CreateInputRequestTypeSnmp:
+		// createInputRequest.CreateInputInputSnmp is populated
+	case operations.CreateInputRequestTypeOpenTelemetry:
+		// createInputRequest.CreateInputInputOpenTelemetry is populated
+	case operations.CreateInputRequestTypeModelDrivenTelemetry:
+		// createInputRequest.CreateInputInputModelDrivenTelemetry is populated
+	case operations.CreateInputRequestTypeSqs:
+		// createInputRequest.CreateInputInputSqs is populated
+	case operations.CreateInputRequestTypeSyslog:
+		// createInputRequest.CreateInputInputSyslogUnion is populated
+	case operations.CreateInputRequestTypeFile:
+		// createInputRequest.CreateInputInputFile is populated
+	case operations.CreateInputRequestTypeTCP:
+		// createInputRequest.CreateInputInputTCP is populated
+	case operations.CreateInputRequestTypeAppscope:
+		// createInputRequest.CreateInputInputAppscope is populated
+	case operations.CreateInputRequestTypeWef:
+		// createInputRequest.CreateInputInputWef is populated
+	case operations.CreateInputRequestTypeWinEventLogs:
+		// createInputRequest.CreateInputInputWinEventLogs is populated
+	case operations.CreateInputRequestTypeRawUDP:
+		// createInputRequest.CreateInputInputRawUDP is populated
+	case operations.CreateInputRequestTypeJournalFiles:
+		// createInputRequest.CreateInputInputJournalFiles is populated
+	case operations.CreateInputRequestTypeWiz:
+		// createInputRequest.CreateInputInputWiz is populated
+	case operations.CreateInputRequestTypeWizWebhook:
+		// createInputRequest.CreateInputInputWizWebhook is populated
+	case operations.CreateInputRequestTypeNetflow:
+		// createInputRequest.CreateInputInputNetflow is populated
+	case operations.CreateInputRequestTypeSecurityLake:
+		// createInputRequest.CreateInputInputSecurityLake is populated
+	case operations.CreateInputRequestTypeZscalerHec:
+		// createInputRequest.CreateInputInputZscalerHec is populated
+	case operations.CreateInputRequestTypeCloudflareHec:
+		// createInputRequest.CreateInputInputCloudflareHec is populated
+}
+```

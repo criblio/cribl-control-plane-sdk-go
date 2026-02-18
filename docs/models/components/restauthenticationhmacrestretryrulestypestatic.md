@@ -15,3 +15,15 @@ restAuthenticationHmacRestRetryRulesTypeStatic := components.CreateRestAuthentic
 restAuthenticationHmacRestRetryRulesTypeStatic := components.CreateRestAuthenticationHmacRestRetryRulesTypeStaticRestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue(components.RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationHmacRestRetryRulesTypeStatic.Type {
+	case components.RestAuthenticationHmacRestRetryRulesTypeStaticTypeRestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse:
+		// restAuthenticationHmacRestRetryRulesTypeStatic.RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse is populated
+	case components.RestAuthenticationHmacRestRetryRulesTypeStaticTypeRestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue:
+		// restAuthenticationHmacRestRetryRulesTypeStatic.RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue is populated
+}
+```

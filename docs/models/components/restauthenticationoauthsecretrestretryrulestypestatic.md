@@ -15,3 +15,15 @@ restAuthenticationOauthSecretRestRetryRulesTypeStatic := components.CreateRestAu
 restAuthenticationOauthSecretRestRetryRulesTypeStatic := components.CreateRestAuthenticationOauthSecretRestRetryRulesTypeStaticRestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue(components.RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationOauthSecretRestRetryRulesTypeStatic.Type {
+	case components.RestAuthenticationOauthSecretRestRetryRulesTypeStaticTypeRestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse:
+		// restAuthenticationOauthSecretRestRetryRulesTypeStatic.RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse is populated
+	case components.RestAuthenticationOauthSecretRestRetryRulesTypeStaticTypeRestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue:
+		// restAuthenticationOauthSecretRestRetryRulesTypeStatic.RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue is populated
+}
+```
