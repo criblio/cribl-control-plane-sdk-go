@@ -39,3 +39,25 @@ restCollectMethodOtherPaginationUnion := components.CreateRestCollectMethodOther
 restCollectMethodOtherPaginationUnion := components.CreateRestCollectMethodOtherPaginationUnionRequestPage(components.RestCollectMethodOtherRestPaginationTypeRequestPage{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restCollectMethodOtherPaginationUnion.Type {
+	case components.RestCollectMethodOtherPaginationUnionTypeNone:
+		// restCollectMethodOtherPaginationUnion.RestCollectMethodOtherRestPaginationTypeNone is populated
+	case components.RestCollectMethodOtherPaginationUnionTypeResponseBody:
+		// restCollectMethodOtherPaginationUnion.RestCollectMethodOtherRestPaginationTypeResponseBody is populated
+	case components.RestCollectMethodOtherPaginationUnionTypeResponseHeader:
+		// restCollectMethodOtherPaginationUnion.RestCollectMethodOtherRestPaginationTypeResponseHeader is populated
+	case components.RestCollectMethodOtherPaginationUnionTypeResponseHeaderLink:
+		// restCollectMethodOtherPaginationUnion.RestCollectMethodOtherRestPaginationTypeResponseHeaderLink is populated
+	case components.RestCollectMethodOtherPaginationUnionTypeRequestOffset:
+		// restCollectMethodOtherPaginationUnion.RestCollectMethodOtherRestPaginationTypeRequestOffset is populated
+	case components.RestCollectMethodOtherPaginationUnionTypeRequestPage:
+		// restCollectMethodOtherPaginationUnion.RestCollectMethodOtherRestPaginationTypeRequestPage is populated
+	default:
+		// Unknown type - use restCollectMethodOtherPaginationUnion.GetUnknownRaw() for raw JSON
+}
+```

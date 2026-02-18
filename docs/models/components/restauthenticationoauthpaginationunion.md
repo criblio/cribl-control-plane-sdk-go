@@ -39,3 +39,25 @@ restAuthenticationOauthPaginationUnion := components.CreateRestAuthenticationOau
 restAuthenticationOauthPaginationUnion := components.CreateRestAuthenticationOauthPaginationUnionRequestPage(components.RestAuthenticationOauthRestPaginationTypeRequestPage{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationOauthPaginationUnion.Type {
+	case components.RestAuthenticationOauthPaginationUnionTypeNone:
+		// restAuthenticationOauthPaginationUnion.RestAuthenticationOauthRestPaginationTypeNone is populated
+	case components.RestAuthenticationOauthPaginationUnionTypeResponseBody:
+		// restAuthenticationOauthPaginationUnion.RestAuthenticationOauthRestPaginationTypeResponseBody is populated
+	case components.RestAuthenticationOauthPaginationUnionTypeResponseHeader:
+		// restAuthenticationOauthPaginationUnion.RestAuthenticationOauthRestPaginationTypeResponseHeader is populated
+	case components.RestAuthenticationOauthPaginationUnionTypeResponseHeaderLink:
+		// restAuthenticationOauthPaginationUnion.RestAuthenticationOauthRestPaginationTypeResponseHeaderLink is populated
+	case components.RestAuthenticationOauthPaginationUnionTypeRequestOffset:
+		// restAuthenticationOauthPaginationUnion.RestAuthenticationOauthRestPaginationTypeRequestOffset is populated
+	case components.RestAuthenticationOauthPaginationUnionTypeRequestPage:
+		// restAuthenticationOauthPaginationUnion.RestAuthenticationOauthRestPaginationTypeRequestPage is populated
+	default:
+		// Unknown type - use restAuthenticationOauthPaginationUnion.GetUnknownRaw() for raw JSON
+}
+```

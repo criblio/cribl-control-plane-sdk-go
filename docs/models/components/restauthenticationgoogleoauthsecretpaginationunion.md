@@ -39,3 +39,25 @@ restAuthenticationGoogleOauthSecretPaginationUnion := components.CreateRestAuthe
 restAuthenticationGoogleOauthSecretPaginationUnion := components.CreateRestAuthenticationGoogleOauthSecretPaginationUnionRequestPage(components.RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationGoogleOauthSecretPaginationUnion.Type {
+	case components.RestAuthenticationGoogleOauthSecretPaginationUnionTypeNone:
+		// restAuthenticationGoogleOauthSecretPaginationUnion.RestAuthenticationGoogleOauthSecretRestPaginationTypeNone is populated
+	case components.RestAuthenticationGoogleOauthSecretPaginationUnionTypeResponseBody:
+		// restAuthenticationGoogleOauthSecretPaginationUnion.RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody is populated
+	case components.RestAuthenticationGoogleOauthSecretPaginationUnionTypeResponseHeader:
+		// restAuthenticationGoogleOauthSecretPaginationUnion.RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader is populated
+	case components.RestAuthenticationGoogleOauthSecretPaginationUnionTypeResponseHeaderLink:
+		// restAuthenticationGoogleOauthSecretPaginationUnion.RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink is populated
+	case components.RestAuthenticationGoogleOauthSecretPaginationUnionTypeRequestOffset:
+		// restAuthenticationGoogleOauthSecretPaginationUnion.RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset is populated
+	case components.RestAuthenticationGoogleOauthSecretPaginationUnionTypeRequestPage:
+		// restAuthenticationGoogleOauthSecretPaginationUnion.RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage is populated
+	default:
+		// Unknown type - use restAuthenticationGoogleOauthSecretPaginationUnion.GetUnknownRaw() for raw JSON
+}
+```
