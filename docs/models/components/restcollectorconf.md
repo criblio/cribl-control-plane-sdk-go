@@ -63,3 +63,33 @@ restCollectorConf := components.CreateRestCollectorConfGoogleOauthSecret(compone
 restCollectorConf := components.CreateRestCollectorConfHmac(components.RestAuthenticationHmac{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restCollectorConf.Type {
+	case components.RestCollectorConfTypeNone:
+		// restCollectorConf.RestAuthenticationNone is populated
+	case components.RestCollectorConfTypeBasic:
+		// restCollectorConf.RestAuthenticationBasic is populated
+	case components.RestCollectorConfTypeBasicSecret:
+		// restCollectorConf.RestAuthenticationBasicSecret is populated
+	case components.RestCollectorConfTypeLogin:
+		// restCollectorConf.RestAuthenticationLogin is populated
+	case components.RestCollectorConfTypeLoginSecret:
+		// restCollectorConf.RestAuthenticationLoginSecret is populated
+	case components.RestCollectorConfTypeOauth:
+		// restCollectorConf.RestAuthenticationOauth is populated
+	case components.RestCollectorConfTypeOauthSecret:
+		// restCollectorConf.RestAuthenticationOauthSecret is populated
+	case components.RestCollectorConfTypeGoogleOauth:
+		// restCollectorConf.RestAuthenticationGoogleOauth is populated
+	case components.RestCollectorConfTypeGoogleOauthSecret:
+		// restCollectorConf.RestAuthenticationGoogleOauthSecret is populated
+	case components.RestCollectorConfTypeHmac:
+		// restCollectorConf.RestAuthenticationHmac is populated
+	default:
+		// Unknown type - use restCollectorConf.GetUnknownRaw() for raw JSON
+}
+```

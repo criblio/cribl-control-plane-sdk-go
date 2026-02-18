@@ -425,3 +425,151 @@ createOutputRequest := operations.CreateCreateOutputRequestMicrosoftFabric(opera
 createOutputRequest := operations.CreateCreateOutputRequestCloudflareR2(operations.CreateOutputOutputCloudflareR2{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch createOutputRequest.Type {
+	case operations.CreateOutputRequestTypeDefault:
+		// createOutputRequest.CreateOutputOutputDefault is populated
+	case operations.CreateOutputRequestTypeWebhook:
+		// createOutputRequest.CreateOutputOutputWebhook is populated
+	case operations.CreateOutputRequestTypeSentinel:
+		// createOutputRequest.CreateOutputOutputSentinel is populated
+	case operations.CreateOutputRequestTypeDevnull:
+		// createOutputRequest.CreateOutputOutputDevnull is populated
+	case operations.CreateOutputRequestTypeSyslog:
+		// createOutputRequest.CreateOutputOutputSyslog is populated
+	case operations.CreateOutputRequestTypeSplunk:
+		// createOutputRequest.CreateOutputOutputSplunk is populated
+	case operations.CreateOutputRequestTypeSplunkLb:
+		// createOutputRequest.CreateOutputOutputSplunkLb is populated
+	case operations.CreateOutputRequestTypeSplunkHec:
+		// createOutputRequest.CreateOutputOutputSplunkHec is populated
+	case operations.CreateOutputRequestTypeWizHec:
+		// createOutputRequest.CreateOutputOutputWizHec is populated
+	case operations.CreateOutputRequestTypeTcpjson:
+		// createOutputRequest.CreateOutputOutputTcpjson is populated
+	case operations.CreateOutputRequestTypeWavefront:
+		// createOutputRequest.CreateOutputOutputWavefront is populated
+	case operations.CreateOutputRequestTypeSignalfx:
+		// createOutputRequest.CreateOutputOutputSignalfx is populated
+	case operations.CreateOutputRequestTypeFilesystem:
+		// createOutputRequest.CreateOutputOutputFilesystem is populated
+	case operations.CreateOutputRequestTypeS3:
+		// createOutputRequest.CreateOutputOutputS3 is populated
+	case operations.CreateOutputRequestTypeAzureBlob:
+		// createOutputRequest.CreateOutputOutputAzureBlob is populated
+	case operations.CreateOutputRequestTypeAzureDataExplorer:
+		// createOutputRequest.CreateOutputOutputAzureDataExplorer is populated
+	case operations.CreateOutputRequestTypeAzureLogs:
+		// createOutputRequest.CreateOutputOutputAzureLogs is populated
+	case operations.CreateOutputRequestTypeKinesis:
+		// createOutputRequest.CreateOutputOutputKinesis is populated
+	case operations.CreateOutputRequestTypeHoneycomb:
+		// createOutputRequest.CreateOutputOutputHoneycomb is populated
+	case operations.CreateOutputRequestTypeAzureEventhub:
+		// createOutputRequest.CreateOutputOutputAzureEventhub is populated
+	case operations.CreateOutputRequestTypeGoogleChronicle:
+		// createOutputRequest.CreateOutputOutputGoogleChronicle is populated
+	case operations.CreateOutputRequestTypeGoogleCloudStorage:
+		// createOutputRequest.CreateOutputOutputGoogleCloudStorage is populated
+	case operations.CreateOutputRequestTypeGoogleCloudLogging:
+		// createOutputRequest.CreateOutputOutputGoogleCloudLogging is populated
+	case operations.CreateOutputRequestTypeGooglePubsub:
+		// createOutputRequest.CreateOutputOutputGooglePubsub is populated
+	case operations.CreateOutputRequestTypeExabeam:
+		// createOutputRequest.CreateOutputOutputExabeam is populated
+	case operations.CreateOutputRequestTypeKafka:
+		// createOutputRequest.CreateOutputOutputKafka is populated
+	case operations.CreateOutputRequestTypeConfluentCloud:
+		// createOutputRequest.CreateOutputOutputConfluentCloud is populated
+	case operations.CreateOutputRequestTypeMsk:
+		// createOutputRequest.CreateOutputOutputMsk is populated
+	case operations.CreateOutputRequestTypeElastic:
+		// createOutputRequest.CreateOutputOutputElastic is populated
+	case operations.CreateOutputRequestTypeElasticCloud:
+		// createOutputRequest.CreateOutputOutputElasticCloud is populated
+	case operations.CreateOutputRequestTypeNewrelic:
+		// createOutputRequest.CreateOutputOutputNewrelic is populated
+	case operations.CreateOutputRequestTypeNewrelicEvents:
+		// createOutputRequest.CreateOutputOutputNewrelicEvents is populated
+	case operations.CreateOutputRequestTypeInfluxdb:
+		// createOutputRequest.CreateOutputOutputInfluxdb is populated
+	case operations.CreateOutputRequestTypeCloudwatch:
+		// createOutputRequest.CreateOutputOutputCloudwatch is populated
+	case operations.CreateOutputRequestTypeMinio:
+		// createOutputRequest.CreateOutputOutputMinio is populated
+	case operations.CreateOutputRequestTypeStatsd:
+		// createOutputRequest.CreateOutputOutputStatsd is populated
+	case operations.CreateOutputRequestTypeStatsdExt:
+		// createOutputRequest.CreateOutputOutputStatsdExt is populated
+	case operations.CreateOutputRequestTypeGraphite:
+		// createOutputRequest.CreateOutputOutputGraphite is populated
+	case operations.CreateOutputRequestTypeRouter:
+		// createOutputRequest.CreateOutputOutputRouter is populated
+	case operations.CreateOutputRequestTypeSns:
+		// createOutputRequest.CreateOutputOutputSns is populated
+	case operations.CreateOutputRequestTypeSqs:
+		// createOutputRequest.CreateOutputOutputSqs is populated
+	case operations.CreateOutputRequestTypeSnmp:
+		// createOutputRequest.CreateOutputOutputSnmp is populated
+	case operations.CreateOutputRequestTypeSumoLogic:
+		// createOutputRequest.CreateOutputOutputSumoLogic is populated
+	case operations.CreateOutputRequestTypeDatadog:
+		// createOutputRequest.CreateOutputOutputDatadog is populated
+	case operations.CreateOutputRequestTypeGrafanaCloud:
+		// createOutputRequest.CreateOutputOutputGrafanaCloudUnion is populated
+	case operations.CreateOutputRequestTypeLoki:
+		// createOutputRequest.CreateOutputOutputLoki is populated
+	case operations.CreateOutputRequestTypePrometheus:
+		// createOutputRequest.CreateOutputOutputPrometheus is populated
+	case operations.CreateOutputRequestTypeRing:
+		// createOutputRequest.CreateOutputOutputRing is populated
+	case operations.CreateOutputRequestTypeOpenTelemetry:
+		// createOutputRequest.CreateOutputOutputOpenTelemetry is populated
+	case operations.CreateOutputRequestTypeServiceNow:
+		// createOutputRequest.CreateOutputOutputServiceNow is populated
+	case operations.CreateOutputRequestTypeDataset:
+		// createOutputRequest.CreateOutputOutputDataset is populated
+	case operations.CreateOutputRequestTypeCriblTCP:
+		// createOutputRequest.CreateOutputOutputCriblTCP is populated
+	case operations.CreateOutputRequestTypeCriblHTTP:
+		// createOutputRequest.CreateOutputOutputCriblHTTP is populated
+	case operations.CreateOutputRequestTypeCriblSearchEngine:
+		// createOutputRequest.CreateOutputOutputCriblSearchEngine is populated
+	case operations.CreateOutputRequestTypeHumioHec:
+		// createOutputRequest.CreateOutputOutputHumioHec is populated
+	case operations.CreateOutputRequestTypeCrowdstrikeNextGenSiem:
+		// createOutputRequest.CreateOutputOutputCrowdstrikeNextGenSiem is populated
+	case operations.CreateOutputRequestTypeDlS3:
+		// createOutputRequest.CreateOutputOutputDlS3 is populated
+	case operations.CreateOutputRequestTypeSecurityLake:
+		// createOutputRequest.CreateOutputOutputSecurityLake is populated
+	case operations.CreateOutputRequestTypeCriblLake:
+		// createOutputRequest.CreateOutputOutputCriblLake is populated
+	case operations.CreateOutputRequestTypeDiskSpool:
+		// createOutputRequest.CreateOutputOutputDiskSpool is populated
+	case operations.CreateOutputRequestTypeClickHouse:
+		// createOutputRequest.CreateOutputOutputClickHouse is populated
+	case operations.CreateOutputRequestTypeXsiam:
+		// createOutputRequest.CreateOutputOutputXsiam is populated
+	case operations.CreateOutputRequestTypeNetflow:
+		// createOutputRequest.CreateOutputOutputNetflow is populated
+	case operations.CreateOutputRequestTypeDynatraceHTTP:
+		// createOutputRequest.CreateOutputOutputDynatraceHTTP is populated
+	case operations.CreateOutputRequestTypeDynatraceOtlp:
+		// createOutputRequest.CreateOutputOutputDynatraceOtlp is populated
+	case operations.CreateOutputRequestTypeSentinelOneAiSiem:
+		// createOutputRequest.CreateOutputOutputSentinelOneAiSiem is populated
+	case operations.CreateOutputRequestTypeChronicle:
+		// createOutputRequest.CreateOutputOutputChronicle is populated
+	case operations.CreateOutputRequestTypeDatabricks:
+		// createOutputRequest.CreateOutputOutputDatabricks is populated
+	case operations.CreateOutputRequestTypeMicrosoftFabric:
+		// createOutputRequest.CreateOutputOutputMicrosoftFabric is populated
+	case operations.CreateOutputRequestTypeCloudflareR2:
+		// createOutputRequest.CreateOutputOutputCloudflareR2 is populated
+}
+```
