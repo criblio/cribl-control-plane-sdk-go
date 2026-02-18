@@ -365,3 +365,131 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyCloudflareHec(operations.CreateInputSystemByPackInputCloudflareHec{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch createInputSystemByPackRequestBody.Type {
+	case operations.CreateInputSystemByPackRequestBodyTypeCollection:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCollection is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeKafka:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputKafka is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeMsk:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputMsk is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeHTTP:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputHTTP is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSplunk:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSplunk is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSplunkSearch:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSplunkSearch is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSplunkHec:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSplunkHec is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeAzureBlob:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputAzureBlob is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeElastic:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputElastic is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeConfluentCloud:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputConfluentCloud is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeGrafana:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputGrafanaUnion is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeLoki:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputLoki is populated
+	case operations.CreateInputSystemByPackRequestBodyTypePrometheusRw:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputPrometheusRw is populated
+	case operations.CreateInputSystemByPackRequestBodyTypePrometheus:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputPrometheus is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeEdgePrometheus:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputEdgePrometheus is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeOffice365Mgmt:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOffice365Mgmt is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeOffice365Service:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOffice365Service is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeOffice365MsgTrace:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOffice365MsgTrace is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeEventhub:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputEventhub is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeExec:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputExec is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeFirehose:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputFirehose is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeGooglePubsub:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputGooglePubsub is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeCribl:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCribl is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeCriblTCP:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCriblTCP is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeCriblHTTP:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCriblHTTP is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeCriblLakeHTTP:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCriblLakeHTTP is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeTcpjson:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputTcpjson is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSystemMetrics:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSystemMetrics is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSystemState:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSystemState is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeKubeMetrics:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputKubeMetrics is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeKubeLogs:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputKubeLogs is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeKubeEvents:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputKubeEvents is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeWindowsMetrics:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputWindowsMetrics is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeCrowdstrike:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCrowdstrike is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeDatadogAgent:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputDatadogAgent is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeDatagen:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputDatagen is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeHTTPRaw:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputHTTPRaw is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeKinesis:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputKinesis is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeCriblmetrics:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCriblmetrics is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeMetrics:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputMetrics is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeS3:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputS3 is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeS3Inventory:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputS3Inventory is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSnmp:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSnmp is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeOpenTelemetry:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOpenTelemetry is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeModelDrivenTelemetry:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputModelDrivenTelemetry is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSqs:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSqs is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSyslog:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSyslogUnion is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeFile:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputFile is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeTCP:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputTCP is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeAppscope:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputAppscope is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeWef:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputWef is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeWinEventLogs:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputWinEventLogs is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeRawUDP:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputRawUDP is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeJournalFiles:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputJournalFiles is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeWiz:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputWiz is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeWizWebhook:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputWizWebhook is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeNetflow:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputNetflow is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSecurityLake:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSecurityLake is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeZscalerHec:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputZscalerHec is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeCloudflareHec:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCloudflareHec is populated
+}
+```

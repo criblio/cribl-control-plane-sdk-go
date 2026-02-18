@@ -39,3 +39,25 @@ restAuthenticationNonePaginationUnion := components.CreateRestAuthenticationNone
 restAuthenticationNonePaginationUnion := components.CreateRestAuthenticationNonePaginationUnionRequestPage(components.RestAuthenticationNoneRestPaginationTypeRequestPage{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationNonePaginationUnion.Type {
+	case components.RestAuthenticationNonePaginationUnionTypeNone:
+		// restAuthenticationNonePaginationUnion.RestAuthenticationNoneRestPaginationTypeNone is populated
+	case components.RestAuthenticationNonePaginationUnionTypeResponseBody:
+		// restAuthenticationNonePaginationUnion.RestAuthenticationNoneRestPaginationTypeResponseBody is populated
+	case components.RestAuthenticationNonePaginationUnionTypeResponseHeader:
+		// restAuthenticationNonePaginationUnion.RestAuthenticationNoneRestPaginationTypeResponseHeader is populated
+	case components.RestAuthenticationNonePaginationUnionTypeResponseHeaderLink:
+		// restAuthenticationNonePaginationUnion.RestAuthenticationNoneRestPaginationTypeResponseHeaderLink is populated
+	case components.RestAuthenticationNonePaginationUnionTypeRequestOffset:
+		// restAuthenticationNonePaginationUnion.RestAuthenticationNoneRestPaginationTypeRequestOffset is populated
+	case components.RestAuthenticationNonePaginationUnionTypeRequestPage:
+		// restAuthenticationNonePaginationUnion.RestAuthenticationNoneRestPaginationTypeRequestPage is populated
+	default:
+		// Unknown type - use restAuthenticationNonePaginationUnion.GetUnknownRaw() for raw JSON
+}
+```
