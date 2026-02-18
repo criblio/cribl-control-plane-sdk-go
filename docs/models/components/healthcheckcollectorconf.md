@@ -45,3 +45,27 @@ healthCheckCollectorConf := components.CreateHealthCheckCollectorConfOauth(compo
 healthCheckCollectorConf := components.CreateHealthCheckCollectorConfOauthSecret(components.HealthCheckAuthenticationOauthSecret{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch healthCheckCollectorConf.Type {
+	case components.HealthCheckCollectorConfTypeNone:
+		// healthCheckCollectorConf.HealthCheckAuthenticationNone is populated
+	case components.HealthCheckCollectorConfTypeBasic:
+		// healthCheckCollectorConf.HealthCheckAuthenticationBasic is populated
+	case components.HealthCheckCollectorConfTypeBasicSecret:
+		// healthCheckCollectorConf.HealthCheckAuthenticationBasicSecret is populated
+	case components.HealthCheckCollectorConfTypeLogin:
+		// healthCheckCollectorConf.HealthCheckAuthenticationLogin is populated
+	case components.HealthCheckCollectorConfTypeLoginSecret:
+		// healthCheckCollectorConf.HealthCheckAuthenticationLoginSecret is populated
+	case components.HealthCheckCollectorConfTypeOauth:
+		// healthCheckCollectorConf.HealthCheckAuthenticationOauth is populated
+	case components.HealthCheckCollectorConfTypeOauthSecret:
+		// healthCheckCollectorConf.HealthCheckAuthenticationOauthSecret is populated
+	default:
+		// Unknown type - use healthCheckCollectorConf.GetUnknownRaw() for raw JSON
+}
+```

@@ -21,3 +21,19 @@ healthCheckAuthenticationLoginRetryRules := components.CreateHealthCheckAuthenti
 healthCheckAuthenticationLoginRetryRules := components.CreateHealthCheckAuthenticationLoginRetryRulesBackoff(components.HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch healthCheckAuthenticationLoginRetryRules.Type {
+	case components.HealthCheckAuthenticationLoginRetryRulesTypeNone:
+		// healthCheckAuthenticationLoginRetryRules.HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone is populated
+	case components.HealthCheckAuthenticationLoginRetryRulesTypeStatic:
+		// healthCheckAuthenticationLoginRetryRules.HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic is populated
+	case components.HealthCheckAuthenticationLoginRetryRulesTypeBackoff:
+		// healthCheckAuthenticationLoginRetryRules.HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff is populated
+	default:
+		// Unknown type - use healthCheckAuthenticationLoginRetryRules.GetUnknownRaw() for raw JSON
+}
+```
