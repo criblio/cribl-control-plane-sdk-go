@@ -1,16 +1,29 @@
 # RestAuthenticationBasicRestRetryRulesTypeStatic
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                          | Type                                                                                                                                           | Required                                                                                                                                       | Description                                                                                                                                    |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Type`                                                                                                                                         | [components.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../../models/components/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                                             | The algorithm to use when performing HTTP retries                                                                                              |
-| `Interval`                                                                                                                                     | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Limit`                                                                                                                                        | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Codes`                                                                                                                                        | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `EnableHeader`                                                                                                                                 | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `RetryConnectTimeout`                                                                                                                          | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `RetryConnectReset`                                                                                                                            | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Multiplier`                                                                                                                                   | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `MaxIntervalMs`                                                                                                                                | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
+### RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse
+
+```go
+restAuthenticationBasicRestRetryRulesTypeStatic := components.CreateRestAuthenticationBasicRestRetryRulesTypeStaticRestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse(components.RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse{/* values here */})
+```
+
+### RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue
+
+```go
+restAuthenticationBasicRestRetryRulesTypeStatic := components.CreateRestAuthenticationBasicRestRetryRulesTypeStaticRestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue(components.RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationBasicRestRetryRulesTypeStatic.Type {
+	case components.RestAuthenticationBasicRestRetryRulesTypeStaticTypeRestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse:
+		// restAuthenticationBasicRestRetryRulesTypeStatic.RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse is populated
+	case components.RestAuthenticationBasicRestRetryRulesTypeStaticTypeRestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue:
+		// restAuthenticationBasicRestRetryRulesTypeStatic.RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue is populated
+}
+```

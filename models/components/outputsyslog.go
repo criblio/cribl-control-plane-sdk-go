@@ -161,22 +161,22 @@ func (e *MessageFormat) IsExact() bool {
 	return false
 }
 
-// TimestampFormat - Timestamp format to use when serializing event's time field
-type TimestampFormat string
+// TimestampFormatEnum - Timestamp format to use when serializing event's time field
+type TimestampFormatEnum string
 
 const (
-	// TimestampFormatSyslog Syslog
-	TimestampFormatSyslog TimestampFormat = "syslog"
-	// TimestampFormatIso8601 ISO8601
-	TimestampFormatIso8601 TimestampFormat = "iso8601"
+	// TimestampFormatEnumSyslog Syslog
+	TimestampFormatEnumSyslog TimestampFormatEnum = "syslog"
+	// TimestampFormatEnumIso8601 ISO8601
+	TimestampFormatEnumIso8601 TimestampFormatEnum = "iso8601"
 )
 
-func (e TimestampFormat) ToPointer() *TimestampFormat {
+func (e TimestampFormatEnum) ToPointer() *TimestampFormatEnum {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *TimestampFormat) IsExact() bool {
+func (e *TimestampFormatEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "syslog", "iso8601":
@@ -223,7 +223,7 @@ type OutputSyslog struct {
 	// The syslog message format depending on the receiver's support
 	MessageFormat *MessageFormat `json:"messageFormat,omitempty"`
 	// Timestamp format to use when serializing event's time field
-	TimestampFormat *TimestampFormat `json:"timestampFormat,omitempty"`
+	TimestampFormat *TimestampFormatEnum `json:"timestampFormat,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
 	// Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.
@@ -375,7 +375,7 @@ func (o *OutputSyslog) GetMessageFormat() *MessageFormat {
 	return o.MessageFormat
 }
 
-func (o *OutputSyslog) GetTimestampFormat() *TimestampFormat {
+func (o *OutputSyslog) GetTimestampFormat() *TimestampFormatEnum {
 	if o == nil {
 		return nil
 	}

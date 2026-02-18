@@ -3,44 +3,219 @@
 package components
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FunctionConfSchemaOtlpTraces struct {
-	DropNonTraceEvents *bool               `json:"dropNonTraceEvents,omitempty"`
-	OtlpVersion        *OtlpVersionOptions `json:"otlpVersion,omitempty"`
+type OTLPTracesBatchOTLPTracesTrue struct {
 	// Batch OTLP traces by shared top-level `resource` attributes
 	BatchOTLPTraces *bool `json:"batchOTLPTraces,omitempty"`
+	// Number of spans after which a batch will be sent, regardless of the timeout
+	SendBatchSize *float64 `json:"sendBatchSize,omitempty"`
+	// Time duration after which a batch will be sent, regardless of size
+	Timeout *float64 `json:"timeout,omitempty"`
+	// Maximum batch size. Enter 0 for no maximum.
+	SendBatchMaxSize *float64 `json:"sendBatchMaxSize,omitempty"`
+	// When set, this processor will create one batcher instance per distinct combination of values in the metadata
+	MetadataKeys []any `json:"metadataKeys,omitempty"`
+	// Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
+	MetadataCardinalityLimit *float64            `json:"metadataCardinalityLimit,omitempty"`
+	DropNonTraceEvents       *bool               `json:"dropNonTraceEvents,omitempty"`
+	OtlpVersion              *OtlpVersionOptions `json:"otlpVersion,omitempty"`
 }
 
-func (f FunctionConfSchemaOtlpTraces) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
+func (o OTLPTracesBatchOTLPTracesTrue) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (f *FunctionConfSchemaOtlpTraces) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+func (o *OTLPTracesBatchOTLPTracesTrue) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionConfSchemaOtlpTraces) GetDropNonTraceEvents() *bool {
-	if f == nil {
+func (o *OTLPTracesBatchOTLPTracesTrue) GetBatchOTLPTraces() *bool {
+	if o == nil {
 		return nil
 	}
-	return f.DropNonTraceEvents
+	return o.BatchOTLPTraces
 }
 
-func (f *FunctionConfSchemaOtlpTraces) GetOtlpVersion() *OtlpVersionOptions {
-	if f == nil {
+func (o *OTLPTracesBatchOTLPTracesTrue) GetSendBatchSize() *float64 {
+	if o == nil {
 		return nil
 	}
-	return f.OtlpVersion
+	return o.SendBatchSize
 }
 
-func (f *FunctionConfSchemaOtlpTraces) GetBatchOTLPTraces() *bool {
-	if f == nil {
+func (o *OTLPTracesBatchOTLPTracesTrue) GetTimeout() *float64 {
+	if o == nil {
 		return nil
 	}
-	return f.BatchOTLPTraces
+	return o.Timeout
+}
+
+func (o *OTLPTracesBatchOTLPTracesTrue) GetSendBatchMaxSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.SendBatchMaxSize
+}
+
+func (o *OTLPTracesBatchOTLPTracesTrue) GetMetadataKeys() []any {
+	if o == nil {
+		return nil
+	}
+	return o.MetadataKeys
+}
+
+func (o *OTLPTracesBatchOTLPTracesTrue) GetMetadataCardinalityLimit() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MetadataCardinalityLimit
+}
+
+func (o *OTLPTracesBatchOTLPTracesTrue) GetDropNonTraceEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DropNonTraceEvents
+}
+
+func (o *OTLPTracesBatchOTLPTracesTrue) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+type OTLPTracesBatchOTLPTracesFalse struct {
+	// Batch OTLP traces by shared top-level `resource` attributes
+	BatchOTLPTraces    *bool               `json:"batchOTLPTraces,omitempty"`
+	DropNonTraceEvents *bool               `json:"dropNonTraceEvents,omitempty"`
+	OtlpVersion        *OtlpVersionOptions `json:"otlpVersion,omitempty"`
+}
+
+func (o OTLPTracesBatchOTLPTracesFalse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OTLPTracesBatchOTLPTracesFalse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OTLPTracesBatchOTLPTracesFalse) GetBatchOTLPTraces() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.BatchOTLPTraces
+}
+
+func (o *OTLPTracesBatchOTLPTracesFalse) GetDropNonTraceEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DropNonTraceEvents
+}
+
+func (o *OTLPTracesBatchOTLPTracesFalse) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+type FunctionConfSchemaOtlpTracesType string
+
+const (
+	FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesFalse FunctionConfSchemaOtlpTracesType = "OtlpTracesBatchOTLPTracesFalse"
+	FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesTrue  FunctionConfSchemaOtlpTracesType = "OtlpTracesBatchOTLPTracesTrue"
+)
+
+type FunctionConfSchemaOtlpTraces struct {
+	OTLPTracesBatchOTLPTracesFalse *OTLPTracesBatchOTLPTracesFalse `queryParam:"inline" union:"member"`
+	OTLPTracesBatchOTLPTracesTrue  *OTLPTracesBatchOTLPTracesTrue  `queryParam:"inline" union:"member"`
+
+	Type FunctionConfSchemaOtlpTracesType
+}
+
+func CreateFunctionConfSchemaOtlpTracesOTLPTracesBatchOTLPTracesFalse(otlpTracesBatchOTLPTracesFalse OTLPTracesBatchOTLPTracesFalse) FunctionConfSchemaOtlpTraces {
+	typ := FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesFalse
+
+	return FunctionConfSchemaOtlpTraces{
+		OTLPTracesBatchOTLPTracesFalse: &otlpTracesBatchOTLPTracesFalse,
+		Type:                           typ,
+	}
+}
+
+func CreateFunctionConfSchemaOtlpTracesOTLPTracesBatchOTLPTracesTrue(otlpTracesBatchOTLPTracesTrue OTLPTracesBatchOTLPTracesTrue) FunctionConfSchemaOtlpTraces {
+	typ := FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesTrue
+
+	return FunctionConfSchemaOtlpTraces{
+		OTLPTracesBatchOTLPTracesTrue: &otlpTracesBatchOTLPTracesTrue,
+		Type:                          typ,
+	}
+}
+
+func (u *FunctionConfSchemaOtlpTraces) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var otlpTracesBatchOTLPTracesFalse OTLPTracesBatchOTLPTracesFalse = OTLPTracesBatchOTLPTracesFalse{}
+	if err := utils.UnmarshalJSON(data, &otlpTracesBatchOTLPTracesFalse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesFalse,
+			Value: &otlpTracesBatchOTLPTracesFalse,
+		})
+	}
+
+	var otlpTracesBatchOTLPTracesTrue OTLPTracesBatchOTLPTracesTrue = OTLPTracesBatchOTLPTracesTrue{}
+	if err := utils.UnmarshalJSON(data, &otlpTracesBatchOTLPTracesTrue, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesTrue,
+			Value: &otlpTracesBatchOTLPTracesTrue,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpTraces", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpTraces", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(FunctionConfSchemaOtlpTracesType)
+	switch best.Type {
+	case FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesFalse:
+		u.OTLPTracesBatchOTLPTracesFalse = best.Value.(*OTLPTracesBatchOTLPTracesFalse)
+		return nil
+	case FunctionConfSchemaOtlpTracesTypeOTLPTracesBatchOTLPTracesTrue:
+		u.OTLPTracesBatchOTLPTracesTrue = best.Value.(*OTLPTracesBatchOTLPTracesTrue)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpTraces", string(data))
+}
+
+func (u FunctionConfSchemaOtlpTraces) MarshalJSON() ([]byte, error) {
+	if u.OTLPTracesBatchOTLPTracesFalse != nil {
+		return utils.MarshalJSON(u.OTLPTracesBatchOTLPTracesFalse, "", true)
+	}
+
+	if u.OTLPTracesBatchOTLPTracesTrue != nil {
+		return utils.MarshalJSON(u.OTLPTracesBatchOTLPTracesTrue, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type FunctionConfSchemaOtlpTraces: all fields are null")
 }

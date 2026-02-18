@@ -3,53 +3,237 @@
 package components
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FunctionConfSchemaOtlpMetrics struct {
+type OTLPMetricsBatchOTLPMetricsTrue struct {
+	// Batch OTLP metrics by shared top-level `resource` attributes
+	BatchOTLPMetrics *bool `json:"batchOTLPMetrics,omitempty"`
+	// Number of metric data points after which a batch will be sent, regardless of the timeout
+	SendBatchSize *float64 `json:"sendBatchSize,omitempty"`
+	// Time duration after which a batch will be sent, regardless of size
+	Timeout *float64 `json:"timeout,omitempty"`
+	// Maximum batch size. Enter 0 for no maximum.
+	SendBatchMaxSize *float64 `json:"sendBatchMaxSize,omitempty"`
+	// When set, this processor will create one batcher instance per distinct combination of values in the metadata
+	MetadataKeys []any `json:"metadataKeys,omitempty"`
+	// Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
+	MetadataCardinalityLimit *float64 `json:"metadataCardinalityLimit,omitempty"`
 	// The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
 	ResourceAttributePrefixes []string            `json:"resourceAttributePrefixes,omitempty"`
 	DropNonMetricEvents       *bool               `json:"dropNonMetricEvents,omitempty"`
 	OtlpVersion               *OtlpVersionOptions `json:"otlpVersion,omitempty"`
-	// Batch OTLP metrics by shared top-level `resource` attributes
-	BatchOTLPMetrics *bool `json:"batchOTLPMetrics,omitempty"`
 }
 
-func (f FunctionConfSchemaOtlpMetrics) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
+func (o OTLPMetricsBatchOTLPMetricsTrue) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (f *FunctionConfSchemaOtlpMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+func (o *OTLPMetricsBatchOTLPMetricsTrue) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionConfSchemaOtlpMetrics) GetResourceAttributePrefixes() []string {
-	if f == nil {
+func (o *OTLPMetricsBatchOTLPMetricsTrue) GetBatchOTLPMetrics() *bool {
+	if o == nil {
 		return nil
 	}
-	return f.ResourceAttributePrefixes
+	return o.BatchOTLPMetrics
 }
 
-func (f *FunctionConfSchemaOtlpMetrics) GetDropNonMetricEvents() *bool {
-	if f == nil {
+func (o *OTLPMetricsBatchOTLPMetricsTrue) GetSendBatchSize() *float64 {
+	if o == nil {
 		return nil
 	}
-	return f.DropNonMetricEvents
+	return o.SendBatchSize
 }
 
-func (f *FunctionConfSchemaOtlpMetrics) GetOtlpVersion() *OtlpVersionOptions {
-	if f == nil {
+func (o *OTLPMetricsBatchOTLPMetricsTrue) GetTimeout() *float64 {
+	if o == nil {
 		return nil
 	}
-	return f.OtlpVersion
+	return o.Timeout
 }
 
-func (f *FunctionConfSchemaOtlpMetrics) GetBatchOTLPMetrics() *bool {
-	if f == nil {
+func (o *OTLPMetricsBatchOTLPMetricsTrue) GetSendBatchMaxSize() *float64 {
+	if o == nil {
 		return nil
 	}
-	return f.BatchOTLPMetrics
+	return o.SendBatchMaxSize
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsTrue) GetMetadataKeys() []any {
+	if o == nil {
+		return nil
+	}
+	return o.MetadataKeys
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsTrue) GetMetadataCardinalityLimit() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MetadataCardinalityLimit
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsTrue) GetResourceAttributePrefixes() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceAttributePrefixes
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsTrue) GetDropNonMetricEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DropNonMetricEvents
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsTrue) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+type OTLPMetricsBatchOTLPMetricsFalse struct {
+	// Batch OTLP metrics by shared top-level `resource` attributes
+	BatchOTLPMetrics *bool `json:"batchOTLPMetrics,omitempty"`
+	// The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
+	ResourceAttributePrefixes []string            `json:"resourceAttributePrefixes,omitempty"`
+	DropNonMetricEvents       *bool               `json:"dropNonMetricEvents,omitempty"`
+	OtlpVersion               *OtlpVersionOptions `json:"otlpVersion,omitempty"`
+}
+
+func (o OTLPMetricsBatchOTLPMetricsFalse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsFalse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsFalse) GetBatchOTLPMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.BatchOTLPMetrics
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsFalse) GetResourceAttributePrefixes() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceAttributePrefixes
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsFalse) GetDropNonMetricEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DropNonMetricEvents
+}
+
+func (o *OTLPMetricsBatchOTLPMetricsFalse) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+type FunctionConfSchemaOtlpMetricsType string
+
+const (
+	FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsFalse FunctionConfSchemaOtlpMetricsType = "OtlpMetricsBatchOTLPMetricsFalse"
+	FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsTrue  FunctionConfSchemaOtlpMetricsType = "OtlpMetricsBatchOTLPMetricsTrue"
+)
+
+type FunctionConfSchemaOtlpMetrics struct {
+	OTLPMetricsBatchOTLPMetricsFalse *OTLPMetricsBatchOTLPMetricsFalse `queryParam:"inline" union:"member"`
+	OTLPMetricsBatchOTLPMetricsTrue  *OTLPMetricsBatchOTLPMetricsTrue  `queryParam:"inline" union:"member"`
+
+	Type FunctionConfSchemaOtlpMetricsType
+}
+
+func CreateFunctionConfSchemaOtlpMetricsOTLPMetricsBatchOTLPMetricsFalse(otlpMetricsBatchOTLPMetricsFalse OTLPMetricsBatchOTLPMetricsFalse) FunctionConfSchemaOtlpMetrics {
+	typ := FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsFalse
+
+	return FunctionConfSchemaOtlpMetrics{
+		OTLPMetricsBatchOTLPMetricsFalse: &otlpMetricsBatchOTLPMetricsFalse,
+		Type:                             typ,
+	}
+}
+
+func CreateFunctionConfSchemaOtlpMetricsOTLPMetricsBatchOTLPMetricsTrue(otlpMetricsBatchOTLPMetricsTrue OTLPMetricsBatchOTLPMetricsTrue) FunctionConfSchemaOtlpMetrics {
+	typ := FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsTrue
+
+	return FunctionConfSchemaOtlpMetrics{
+		OTLPMetricsBatchOTLPMetricsTrue: &otlpMetricsBatchOTLPMetricsTrue,
+		Type:                            typ,
+	}
+}
+
+func (u *FunctionConfSchemaOtlpMetrics) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var otlpMetricsBatchOTLPMetricsFalse OTLPMetricsBatchOTLPMetricsFalse = OTLPMetricsBatchOTLPMetricsFalse{}
+	if err := utils.UnmarshalJSON(data, &otlpMetricsBatchOTLPMetricsFalse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsFalse,
+			Value: &otlpMetricsBatchOTLPMetricsFalse,
+		})
+	}
+
+	var otlpMetricsBatchOTLPMetricsTrue OTLPMetricsBatchOTLPMetricsTrue = OTLPMetricsBatchOTLPMetricsTrue{}
+	if err := utils.UnmarshalJSON(data, &otlpMetricsBatchOTLPMetricsTrue, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsTrue,
+			Value: &otlpMetricsBatchOTLPMetricsTrue,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpMetrics", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpMetrics", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(FunctionConfSchemaOtlpMetricsType)
+	switch best.Type {
+	case FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsFalse:
+		u.OTLPMetricsBatchOTLPMetricsFalse = best.Value.(*OTLPMetricsBatchOTLPMetricsFalse)
+		return nil
+	case FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsTrue:
+		u.OTLPMetricsBatchOTLPMetricsTrue = best.Value.(*OTLPMetricsBatchOTLPMetricsTrue)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FunctionConfSchemaOtlpMetrics", string(data))
+}
+
+func (u FunctionConfSchemaOtlpMetrics) MarshalJSON() ([]byte, error) {
+	if u.OTLPMetricsBatchOTLPMetricsFalse != nil {
+		return utils.MarshalJSON(u.OTLPMetricsBatchOTLPMetricsFalse, "", true)
+	}
+
+	if u.OTLPMetricsBatchOTLPMetricsTrue != nil {
+		return utils.MarshalJSON(u.OTLPMetricsBatchOTLPMetricsTrue, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type FunctionConfSchemaOtlpMetrics: all fields are null")
 }
