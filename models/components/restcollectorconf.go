@@ -2678,17 +2678,24 @@ func (u RestAuthenticationHmacPaginationUnion) MarshalJSON() ([]byte, error) {
 }
 
 type RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -2702,7 +2709,7 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) Unmars
 	return nil
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -2723,49 +2730,49 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetTyp
 	return r.Type
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -2773,16 +2780,23 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue) GetRet
 }
 
 type RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -2796,7 +2810,7 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) Unmar
 	return nil
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -2810,49 +2824,49 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetTy
 	return r.Type
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -2949,17 +2963,21 @@ func (u RestAuthenticationHmacRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, 
 }
 
 type RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -2973,7 +2991,7 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) Unmarsh
 	return nil
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -2994,66 +3012,56 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetType
 	return r.Type
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -3067,7 +3075,7 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) Unmars
 	return nil
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -3081,53 +3089,39 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetTyp
 	return r.Type
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationHmacRestRetryRulesTypeStaticType string
@@ -3221,15 +3215,7 @@ func (u RestAuthenticationHmacRestRetryRulesTypeStatic) MarshalJSON() ([]byte, e
 
 type RestAuthenticationHmacRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationHmacRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -3248,62 +3234,6 @@ func (r *RestAuthenticationHmacRestRetryRulesTypeNone) GetType() RetryTypeOption
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationHmacRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationHmacRetryRulesType string
@@ -6408,17 +6338,24 @@ func (u RestAuthenticationGoogleOauthSecretPaginationUnion) MarshalJSON() ([]byt
 }
 
 type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -6432,7 +6369,7 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeade
 	return nil
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -6453,49 +6390,49 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeade
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -6503,16 +6440,23 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeade
 }
 
 type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -6526,7 +6470,7 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeade
 	return nil
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -6540,49 +6484,49 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeade
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -6679,17 +6623,21 @@ func (u RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff) MarshalJSO
 }
 
 type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -6703,7 +6651,7 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeader
 	return nil
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -6724,66 +6672,56 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeader
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -6797,7 +6735,7 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeader
 	return nil
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -6811,53 +6749,39 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeader
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticType string
@@ -6951,15 +6875,7 @@ func (u RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic) MarshalJSON
 
 type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -6978,62 +6894,6 @@ func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) GetType() Re
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationGoogleOauthSecretRetryRulesType string
@@ -10156,17 +10016,24 @@ func (u RestAuthenticationGoogleOauthPaginationUnion) MarshalJSON() ([]byte, err
 }
 
 type RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -10180,7 +10047,7 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue)
 	return nil
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -10201,49 +10068,49 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue)
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -10251,16 +10118,23 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderTrue)
 }
 
 type RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -10274,7 +10148,7 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse
 	return nil
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -10288,49 +10162,49 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -10427,17 +10301,21 @@ func (u RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff) MarshalJSON() ([
 }
 
 type RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -10451,7 +10329,7 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) 
 	return nil
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -10472,66 +10350,56 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) 
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -10545,7 +10413,7 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse)
 	return nil
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -10559,53 +10427,39 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse)
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationGoogleOauthRestRetryRulesTypeStaticType string
@@ -10699,15 +10553,7 @@ func (u RestAuthenticationGoogleOauthRestRetryRulesTypeStatic) MarshalJSON() ([]
 
 type RestAuthenticationGoogleOauthRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationGoogleOauthRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -10726,62 +10572,6 @@ func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) GetType() RetryTyp
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationGoogleOauthRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationGoogleOauthRetryRulesType string
@@ -13904,17 +13694,24 @@ func (u RestAuthenticationOauthSecretPaginationUnion) MarshalJSON() ([]byte, err
 }
 
 type RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -13928,7 +13725,7 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue)
 	return nil
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -13949,49 +13746,49 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue)
 	return r.Type
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -13999,16 +13796,23 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue)
 }
 
 type RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -14022,7 +13826,7 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse
 	return nil
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -14036,49 +13840,49 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse
 	return r.Type
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -14175,17 +13979,21 @@ func (u RestAuthenticationOauthSecretRestRetryRulesTypeBackoff) MarshalJSON() ([
 }
 
 type RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -14199,7 +14007,7 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) 
 	return nil
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -14220,66 +14028,56 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) 
 	return r.Type
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -14293,7 +14091,7 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse)
 	return nil
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -14307,53 +14105,39 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse)
 	return r.Type
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationOauthSecretRestRetryRulesTypeStaticType string
@@ -14447,15 +14231,7 @@ func (u RestAuthenticationOauthSecretRestRetryRulesTypeStatic) MarshalJSON() ([]
 
 type RestAuthenticationOauthSecretRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationOauthSecretRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -14474,62 +14250,6 @@ func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) GetType() RetryTyp
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationOauthSecretRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationOauthSecretRetryRulesType string
@@ -17696,17 +17416,24 @@ func (u RestAuthenticationOauthPaginationUnion) MarshalJSON() ([]byte, error) {
 }
 
 type RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -17720,7 +17447,7 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) Unmar
 	return nil
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -17741,49 +17468,49 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetTy
 	return r.Type
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -17791,16 +17518,23 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderTrue) GetRe
 }
 
 type RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -17814,7 +17548,7 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) Unma
 	return nil
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -17828,49 +17562,49 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetT
 	return r.Type
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -17967,17 +17701,21 @@ func (u RestAuthenticationOauthRestRetryRulesTypeBackoff) MarshalJSON() ([]byte,
 }
 
 type RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -17991,7 +17729,7 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) Unmars
 	return nil
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -18012,66 +17750,56 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetTyp
 	return r.Type
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -18085,7 +17813,7 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) Unmar
 	return nil
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -18099,53 +17827,39 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetTy
 	return r.Type
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationOauthRestRetryRulesTypeStaticType string
@@ -18239,15 +17953,7 @@ func (u RestAuthenticationOauthRestRetryRulesTypeStatic) MarshalJSON() ([]byte, 
 
 type RestAuthenticationOauthRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationOauthRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -18266,62 +17972,6 @@ func (r *RestAuthenticationOauthRestRetryRulesTypeNone) GetType() RetryTypeOptio
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationOauthRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationOauthRetryRulesType string
@@ -21488,17 +21138,24 @@ func (u RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationUnion) 
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -21512,7 +21169,7 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -21533,49 +21190,49 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -21583,16 +21240,23 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -21606,7 +21270,7 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -21620,49 +21284,49 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -21759,17 +21423,21 @@ func (u RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTyp
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -21783,7 +21451,7 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -21804,66 +21472,56 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -21877,7 +21535,7 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -21891,53 +21549,39 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticType string
@@ -22031,15 +21675,7 @@ func (u RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTyp
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -22058,62 +21694,6 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTy
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRulesType string
@@ -25271,17 +24851,24 @@ func (u RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationUnion)
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -25295,7 +24882,7 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -25316,49 +24903,49 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -25366,16 +24953,23 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -25389,7 +24983,7 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -25403,49 +24997,49 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -25542,17 +25136,21 @@ func (u RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTy
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -25566,7 +25164,7 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -25587,66 +25185,56 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -25660,7 +25248,7 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -25674,53 +25262,39 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticType string
@@ -25814,15 +25388,7 @@ func (u RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTy
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -25841,62 +25407,6 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesT
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesType string
@@ -29152,17 +28662,24 @@ func (u RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationUnion) Marsha
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -29176,7 +28693,7 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBack
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -29197,49 +28714,49 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBack
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -29247,16 +28764,23 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBack
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -29270,7 +28794,7 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBack
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -29284,49 +28808,49 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBack
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -29423,17 +28947,21 @@ func (u RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeBacko
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -29447,7 +28975,7 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStat
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -29468,66 +28996,56 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStat
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -29541,7 +29059,7 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStat
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -29555,53 +29073,39 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStat
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStaticType string
@@ -29695,15 +29199,7 @@ func (u RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeStati
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -29722,62 +29218,6 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRulesType string
@@ -32942,17 +32382,24 @@ func (u RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationUnion) Marsh
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -32966,7 +32413,7 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBac
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -32987,49 +32434,49 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBac
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -33037,16 +32484,23 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBac
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -33060,7 +32514,7 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBac
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -33074,49 +32528,49 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBac
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -33213,17 +32667,21 @@ func (u RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeBack
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -33237,7 +32695,7 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeSta
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -33258,66 +32716,56 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeSta
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -33331,7 +32779,7 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeSta
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -33345,53 +32793,39 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeSta
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticType string
@@ -33485,15 +32919,7 @@ func (u RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStat
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -33512,62 +32938,6 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNon
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRulesType string
@@ -36830,17 +36200,24 @@ func (u RestAuthenticationBasicSecretPaginationUnion) MarshalJSON() ([]byte, err
 }
 
 type RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -36854,7 +36231,7 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue)
 	return nil
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -36875,49 +36252,49 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue)
 	return r.Type
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -36925,16 +36302,23 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTrue)
 }
 
 type RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -36948,7 +36332,7 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse
 	return nil
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -36962,49 +36346,49 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse
 	return r.Type
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -37101,17 +36485,21 @@ func (u RestAuthenticationBasicSecretRestRetryRulesTypeBackoff) MarshalJSON() ([
 }
 
 type RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -37125,7 +36513,7 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) 
 	return nil
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -37146,66 +36534,56 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) 
 	return r.Type
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -37219,7 +36597,7 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse)
 	return nil
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -37233,53 +36611,39 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse)
 	return r.Type
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationBasicSecretRestRetryRulesTypeStaticType string
@@ -37373,15 +36737,7 @@ func (u RestAuthenticationBasicSecretRestRetryRulesTypeStatic) MarshalJSON() ([]
 
 type RestAuthenticationBasicSecretRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationBasicSecretRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -37400,62 +36756,6 @@ func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) GetType() RetryTyp
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationBasicSecretRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationBasicSecretRetryRulesType string
@@ -40560,17 +39860,24 @@ func (u RestAuthenticationBasicPaginationUnion) MarshalJSON() ([]byte, error) {
 }
 
 type RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -40584,7 +39891,7 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) Unmar
 	return nil
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -40605,49 +39912,49 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetTy
 	return r.Type
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -40655,16 +39962,23 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue) GetRe
 }
 
 type RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -40678,7 +39992,7 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) Unma
 	return nil
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -40692,49 +40006,49 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetT
 	return r.Type
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -40831,17 +40145,21 @@ func (u RestAuthenticationBasicRestRetryRulesTypeBackoff) MarshalJSON() ([]byte,
 }
 
 type RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -40855,7 +40173,7 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) Unmars
 	return nil
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -40876,66 +40194,56 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetTyp
 	return r.Type
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -40949,7 +40257,7 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) Unmar
 	return nil
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -40963,53 +40271,39 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetTy
 	return r.Type
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationBasicRestRetryRulesTypeStaticType string
@@ -41103,15 +40397,7 @@ func (u RestAuthenticationBasicRestRetryRulesTypeStatic) MarshalJSON() ([]byte, 
 
 type RestAuthenticationBasicRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationBasicRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -41130,62 +40416,6 @@ func (r *RestAuthenticationBasicRestRetryRulesTypeNone) GetType() RetryTypeOptio
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationBasicRetryRulesType string
@@ -44297,17 +43527,24 @@ func (u RestAuthenticationNonePaginationUnion) MarshalJSON() ([]byte, error) {
 }
 
 type RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -44321,7 +43558,7 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) Unmars
 	return nil
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -44342,49 +43579,49 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetTyp
 	return r.Type
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -44392,16 +43629,23 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderTrue) GetRet
 }
 
 type RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -44415,7 +43659,7 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) Unmar
 	return nil
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -44429,49 +43673,49 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetTy
 	return r.Type
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -44568,17 +43812,21 @@ func (u RestAuthenticationNoneRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, 
 }
 
 type RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -44592,7 +43840,7 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) Unmarsh
 	return nil
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -44613,66 +43861,56 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetType
 	return r.Type
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -44686,7 +43924,7 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) Unmars
 	return nil
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -44700,53 +43938,39 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetTyp
 	return r.Type
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestAuthenticationNoneRestRetryRulesTypeStaticType string
@@ -44840,15 +44064,7 @@ func (u RestAuthenticationNoneRestRetryRulesTypeStatic) MarshalJSON() ([]byte, e
 
 type RestAuthenticationNoneRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestAuthenticationNoneRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -44867,62 +44083,6 @@ func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetType() RetryTypeOption
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestAuthenticationNoneRetryRulesType string
@@ -48018,17 +47178,24 @@ func (e *RestCollectMethodOtherAuthentication) IsExact() bool {
 }
 
 type RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -48042,7 +47209,7 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) Unmars
 	return nil
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -48063,49 +47230,49 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetTyp
 	return r.Type
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -48113,16 +47280,23 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetRet
 }
 
 type RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -48136,7 +47310,7 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) Unmar
 	return nil
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -48150,49 +47324,49 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetTy
 	return r.Type
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -48289,17 +47463,21 @@ func (u RestCollectMethodOtherRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, 
 }
 
 type RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -48313,7 +47491,7 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) Unmarsh
 	return nil
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -48334,66 +47512,56 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetType
 	return r.Type
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -48407,7 +47575,7 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) Unmars
 	return nil
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -48421,53 +47589,39 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetTyp
 	return r.Type
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestCollectMethodOtherRestRetryRulesTypeStaticType string
@@ -48561,15 +47715,7 @@ func (u RestCollectMethodOtherRestRetryRulesTypeStatic) MarshalJSON() ([]byte, e
 
 type RestCollectMethodOtherRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -48588,62 +47734,6 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeNone) GetType() RetryTypeOption
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestCollectMethodOtherRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestCollectMethodOtherRetryRulesType string
@@ -51765,17 +50855,24 @@ func (e *RestCollectMethodPostWithBodyAuthentication) IsExact() bool {
 }
 
 type RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -51789,7 +50886,7 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue)
 	return nil
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -51810,49 +50907,49 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue)
 	return r.Type
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -51860,16 +50957,23 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue)
 }
 
 type RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -51883,7 +50987,7 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse
 	return nil
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -51897,49 +51001,49 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse
 	return r.Type
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -52036,17 +51140,21 @@ func (u RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff) MarshalJSON() ([
 }
 
 type RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -52060,7 +51168,7 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) 
 	return nil
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -52081,66 +51189,56 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) 
 	return r.Type
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -52154,7 +51252,7 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse)
 	return nil
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -52168,53 +51266,39 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse)
 	return r.Type
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestCollectMethodPostWithBodyRestRetryRulesTypeStaticType string
@@ -52308,15 +51392,7 @@ func (u RestCollectMethodPostWithBodyRestRetryRulesTypeStatic) MarshalJSON() ([]
 
 type RestCollectMethodPostWithBodyRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -52335,62 +51411,6 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) GetType() RetryTyp
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestCollectMethodPostWithBodyRetryRulesType string
@@ -55495,17 +54515,24 @@ func (e *RestCollectMethodPostAuthentication) IsExact() bool {
 }
 
 type RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -55519,7 +54546,7 @@ func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) Unmarsh
 	return nil
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -55540,49 +54567,49 @@ func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetType
 	return r.Type
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -55590,16 +54617,23 @@ func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetr
 }
 
 type RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -55613,7 +54647,7 @@ func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) Unmars
 	return nil
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -55627,49 +54661,49 @@ func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetTyp
 	return r.Type
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -55766,17 +54800,21 @@ func (u RestCollectMethodPostRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, e
 }
 
 type RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -55790,7 +54828,7 @@ func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) Unmarsha
 	return nil
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -55811,66 +54849,56 @@ func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetType(
 	return r.Type
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -55884,7 +54912,7 @@ func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) Unmarsh
 	return nil
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -55898,53 +54926,39 @@ func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetType
 	return r.Type
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestCollectMethodPostRestRetryRulesTypeStaticType string
@@ -56038,15 +55052,7 @@ func (u RestCollectMethodPostRestRetryRulesTypeStatic) MarshalJSON() ([]byte, er
 
 type RestCollectMethodPostRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -56065,62 +55071,6 @@ func (r *RestCollectMethodPostRestRetryRulesTypeNone) GetType() RetryTypeOptions
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestCollectMethodPostRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestCollectMethodPostRetryRulesType string
@@ -59224,17 +58174,24 @@ func (e *RestCollectMethodGetAuthentication) IsExact() bool {
 }
 
 type RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -59248,7 +58205,7 @@ func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) Unmarsha
 	return nil
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -59269,49 +58226,49 @@ func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetType(
 	return r.Type
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -59319,16 +58276,23 @@ func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetry
 }
 
 type RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between a failed request and the first retry
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier    *float64 `json:"multiplier,omitempty"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -59342,7 +58306,7 @@ func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) Unmarsh
 	return nil
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -59356,49 +58320,49 @@ func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetType
 	return r.Type
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetMultiplier() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetMaxIntervalMs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
@@ -59495,17 +58459,21 @@ func (u RestCollectMethodGetRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, er
 }
 
 type RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue struct {
-	EnableHeader    any     `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader    *bool   `json:"enableHeader,omitempty"`
 	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -59519,7 +58487,7 @@ func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) Unmarshal
 	return nil
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -59540,66 +58508,56 @@ func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetType()
 	return r.Type
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
 type RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse struct {
-	EnableHeader any `json:"enableHeader,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitempty"`
+	// Maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitempty"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -59613,7 +58571,7 @@ func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) Unmarsha
 	return nil
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetEnableHeader() *bool {
 	if r == nil {
 		return nil
 	}
@@ -59627,53 +58585,39 @@ func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetType(
 	return r.Type
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetInterval() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetLimit() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetCodes() []float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectTimeout() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() any {
+func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetRetryConnectReset() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
 }
 
 type RestCollectMethodGetRestRetryRulesTypeStaticType string
@@ -59767,15 +58711,7 @@ func (u RestCollectMethodGetRestRetryRulesTypeStatic) MarshalJSON() ([]byte, err
 
 type RestCollectMethodGetRestRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (r RestCollectMethodGetRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -59794,62 +58730,6 @@ func (r *RestCollectMethodGetRestRetryRulesTypeNone) GetType() RetryTypeOptionsH
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeNone) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeNone) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeNone) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeNone) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeNone) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeNone) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeNone) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestCollectMethodGetRestRetryRulesTypeNone) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
 }
 
 type RestCollectMethodGetRetryRulesType string

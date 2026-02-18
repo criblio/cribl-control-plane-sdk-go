@@ -423,3 +423,153 @@ output := components.CreateOutputMicrosoftFabric(components.OutputMicrosoftFabri
 output := components.CreateOutputCloudflareR2(components.OutputCloudflareR2{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch output.Type {
+	case components.OutputTypeDefault:
+		// output.OutputDefault is populated
+	case components.OutputTypeWebhook:
+		// output.OutputWebhook is populated
+	case components.OutputTypeSentinel:
+		// output.OutputSentinel is populated
+	case components.OutputTypeDevnull:
+		// output.OutputDevnull is populated
+	case components.OutputTypeSyslog:
+		// output.OutputSyslog is populated
+	case components.OutputTypeSplunk:
+		// output.OutputSplunk is populated
+	case components.OutputTypeSplunkLb:
+		// output.OutputSplunkLb is populated
+	case components.OutputTypeSplunkHec:
+		// output.OutputSplunkHec is populated
+	case components.OutputTypeWizHec:
+		// output.OutputWizHec is populated
+	case components.OutputTypeTcpjson:
+		// output.OutputTcpjson is populated
+	case components.OutputTypeWavefront:
+		// output.OutputWavefront is populated
+	case components.OutputTypeSignalfx:
+		// output.OutputSignalfx is populated
+	case components.OutputTypeFilesystem:
+		// output.OutputFilesystem is populated
+	case components.OutputTypeS3:
+		// output.OutputS3 is populated
+	case components.OutputTypeAzureBlob:
+		// output.OutputAzureBlob is populated
+	case components.OutputTypeAzureDataExplorer:
+		// output.OutputAzureDataExplorer is populated
+	case components.OutputTypeAzureLogs:
+		// output.OutputAzureLogs is populated
+	case components.OutputTypeKinesis:
+		// output.OutputKinesis is populated
+	case components.OutputTypeHoneycomb:
+		// output.OutputHoneycomb is populated
+	case components.OutputTypeAzureEventhub:
+		// output.OutputAzureEventhub is populated
+	case components.OutputTypeGoogleChronicle:
+		// output.OutputGoogleChronicle is populated
+	case components.OutputTypeGoogleCloudStorage:
+		// output.OutputGoogleCloudStorage is populated
+	case components.OutputTypeGoogleCloudLogging:
+		// output.OutputGoogleCloudLogging is populated
+	case components.OutputTypeGooglePubsub:
+		// output.OutputGooglePubsub is populated
+	case components.OutputTypeExabeam:
+		// output.OutputExabeam is populated
+	case components.OutputTypeKafka:
+		// output.OutputKafka is populated
+	case components.OutputTypeConfluentCloud:
+		// output.OutputConfluentCloud is populated
+	case components.OutputTypeMsk:
+		// output.OutputMsk is populated
+	case components.OutputTypeElastic:
+		// output.OutputElastic is populated
+	case components.OutputTypeElasticCloud:
+		// output.OutputElasticCloud is populated
+	case components.OutputTypeNewrelic:
+		// output.OutputNewrelic is populated
+	case components.OutputTypeNewrelicEvents:
+		// output.OutputNewrelicEvents is populated
+	case components.OutputTypeInfluxdb:
+		// output.OutputInfluxdb is populated
+	case components.OutputTypeCloudwatch:
+		// output.OutputCloudwatch is populated
+	case components.OutputTypeMinio:
+		// output.OutputMinio is populated
+	case components.OutputTypeStatsd:
+		// output.OutputStatsd is populated
+	case components.OutputTypeStatsdExt:
+		// output.OutputStatsdExt is populated
+	case components.OutputTypeGraphite:
+		// output.OutputGraphite is populated
+	case components.OutputTypeRouter:
+		// output.OutputRouter is populated
+	case components.OutputTypeSns:
+		// output.OutputSns is populated
+	case components.OutputTypeSqs:
+		// output.OutputSqs is populated
+	case components.OutputTypeSnmp:
+		// output.OutputSnmp is populated
+	case components.OutputTypeSumoLogic:
+		// output.OutputSumoLogic is populated
+	case components.OutputTypeDatadog:
+		// output.OutputDatadog is populated
+	case components.OutputTypeGrafanaCloud:
+		// output.OutputGrafanaCloud is populated
+	case components.OutputTypeLoki:
+		// output.OutputLoki is populated
+	case components.OutputTypePrometheus:
+		// output.OutputPrometheus is populated
+	case components.OutputTypeRing:
+		// output.OutputRing is populated
+	case components.OutputTypeOpenTelemetry:
+		// output.OutputOpenTelemetry is populated
+	case components.OutputTypeServiceNow:
+		// output.OutputServiceNow is populated
+	case components.OutputTypeDataset:
+		// output.OutputDataset is populated
+	case components.OutputTypeCriblTCP:
+		// output.OutputCriblTCP is populated
+	case components.OutputTypeCriblHTTP:
+		// output.OutputCriblHTTP is populated
+	case components.OutputTypeCriblSearchEngine:
+		// output.OutputCriblSearchEngine is populated
+	case components.OutputTypeHumioHec:
+		// output.OutputHumioHec is populated
+	case components.OutputTypeCrowdstrikeNextGenSiem:
+		// output.OutputCrowdstrikeNextGenSiem is populated
+	case components.OutputTypeDlS3:
+		// output.OutputDlS3 is populated
+	case components.OutputTypeSecurityLake:
+		// output.OutputSecurityLake is populated
+	case components.OutputTypeCriblLake:
+		// output.OutputCriblLake is populated
+	case components.OutputTypeDiskSpool:
+		// output.OutputDiskSpool is populated
+	case components.OutputTypeClickHouse:
+		// output.OutputClickHouse is populated
+	case components.OutputTypeXsiam:
+		// output.OutputXsiam is populated
+	case components.OutputTypeNetflow:
+		// output.OutputNetflow is populated
+	case components.OutputTypeDynatraceHTTP:
+		// output.OutputDynatraceHTTP is populated
+	case components.OutputTypeDynatraceOtlp:
+		// output.OutputDynatraceOtlp is populated
+	case components.OutputTypeSentinelOneAiSiem:
+		// output.OutputSentinelOneAiSiem is populated
+	case components.OutputTypeChronicle:
+		// output.OutputChronicle is populated
+	case components.OutputTypeDatabricks:
+		// output.OutputDatabricks is populated
+	case components.OutputTypeMicrosoftFabric:
+		// output.OutputMicrosoftFabric is populated
+	case components.OutputTypeCloudflareR2:
+		// output.OutputCloudflareR2 is populated
+	default:
+		// Unknown type - use output.GetUnknownRaw() for raw JSON
+}
+```
