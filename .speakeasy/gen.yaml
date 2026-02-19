@@ -56,7 +56,7 @@ go:
   methodArguments: require-security-and-request
   modulePath: ""
   multipartArrayFormat: legacy
-  nullableOptionalWrapper: false
+  nullableOptionalWrapper: true
   outputModelSuffix: output
   packageName: github.com/criblio/cribl-control-plane-sdk-go
   respectRequiredFields: false
