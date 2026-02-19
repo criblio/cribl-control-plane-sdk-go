@@ -1,0 +1,39 @@
+# HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPGet(components.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPPost(components.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPPostWithBody(components.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP.Type {
+	case components.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypeGet:
+		// healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypePost:
+		// healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	default:
+		// Unknown type - use healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```

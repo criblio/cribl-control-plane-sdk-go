@@ -1,0 +1,11 @@
+# UpdateHecTokenRequest
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `AllowedIndexesAtToken`                                                                  | []*string*                                                                               | :heavy_minus_sign:                                                                       | N/A                                                                                      |
+| `Description`                                                                            | **string*                                                                                | :heavy_minus_sign:                                                                       | N/A                                                                                      |
+| `Enabled`                                                                                | **bool*                                                                                  | :heavy_minus_sign:                                                                       | N/A                                                                                      |
+| `Metadata`                                                                               | [][components.EventBreakerRuleFields](../../models/components/eventbreakerrulefields.md) | :heavy_minus_sign:                                                                       | N/A                                                                                      |

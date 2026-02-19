@@ -1,0 +1,9 @@
+# GetConfigGroupACLTeamsByProductAndIDResponse
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                          | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                  | :heavy_check_mark:                                                                                  | N/A                                                                                                 |
+| `CountedTeamAccessControlList`                                                                      | [*components.CountedTeamAccessControlList](../../models/components/countedteamaccesscontrollist.md) | :heavy_minus_sign:                                                                                  | a list of TeamAccessControlList objects                                                             |

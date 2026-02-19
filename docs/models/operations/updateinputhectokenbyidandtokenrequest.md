@@ -1,0 +1,10 @@
+# UpdateInputHecTokenByIDAndTokenRequest
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `ID`                                                                                 | *string*                                                                             | :heavy_check_mark:                                                                   | The <code>id</code> of the Splunk HEC Source.                                        |
+| `Token`                                                                              | *string*                                                                             | :heavy_check_mark:                                                                   | The <code>id</code> of the HEC token to update.                                      |
+| `UpdateHecTokenRequest`                                                              | [components.UpdateHecTokenRequest](../../models/components/updatehectokenrequest.md) | :heavy_check_mark:                                                                   | UpdateHecTokenRequest object                                                         |

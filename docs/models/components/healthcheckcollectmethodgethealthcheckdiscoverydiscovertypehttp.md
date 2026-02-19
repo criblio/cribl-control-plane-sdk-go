@@ -1,0 +1,39 @@
+# HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPGet(components.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPPost(components.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPPostWithBody(components.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP.Type {
+	case components.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypeGet:
+		// healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypePost:
+		// healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	default:
+		// Unknown type - use healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```
