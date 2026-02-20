@@ -279,12 +279,12 @@ func (e *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                              `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -309,7 +309,7 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -328,13 +328,6 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -409,13 +402,13 @@ func (e *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                      `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -440,7 +433,7 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -459,13 +452,6 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -540,13 +526,13 @@ func (e *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                     `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -571,7 +557,7 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -590,13 +576,6 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -1764,12 +1743,12 @@ func (e *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                        `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -1794,7 +1773,7 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -1813,13 +1792,6 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -1894,13 +1866,13 @@ func (e *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 
 type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -1925,7 +1897,7 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -1944,13 +1916,6 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -2025,13 +1990,13 @@ func (e *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 
 type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                               `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -2056,7 +2021,7 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -2075,13 +2040,6 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -3249,12 +3207,12 @@ func (e *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                              `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -3279,7 +3237,7 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -3298,13 +3256,6 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -3379,13 +3330,13 @@ func (e *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                      `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -3410,7 +3361,7 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -3429,13 +3380,6 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -3510,13 +3454,13 @@ func (e *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                     `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -3541,7 +3485,7 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -3560,13 +3504,6 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -4725,12 +4662,12 @@ func (e *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                        `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -4755,7 +4692,7 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -4774,13 +4711,6 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -4855,13 +4785,13 @@ func (e *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 
 type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -4886,7 +4816,7 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -4905,13 +4835,6 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -4986,13 +4909,13 @@ func (e *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 
 type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                               `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -5017,7 +4940,7 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -5036,13 +4959,6 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -6210,12 +6126,12 @@ func (e *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                              `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -6240,7 +6156,7 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -6259,13 +6175,6 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -6340,13 +6249,13 @@ func (e *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                      `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -6371,7 +6280,7 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -6390,13 +6299,6 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -6471,13 +6373,13 @@ func (e *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                     `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -6502,7 +6404,7 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -6521,13 +6423,6 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -7641,12 +7536,12 @@ func (e *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                        `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -7671,7 +7566,7 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -7690,13 +7585,6 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -7771,13 +7659,13 @@ func (e *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 
 type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -7802,7 +7690,7 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -7821,13 +7709,6 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -7902,13 +7783,13 @@ func (e *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 
 type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                               `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -7933,7 +7814,7 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -7952,13 +7833,6 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -9081,12 +8955,12 @@ func (e *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                       `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -9111,7 +8985,7 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -9130,13 +9004,6 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -9211,13 +9078,13 @@ func (e *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 
 type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                               `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -9242,7 +9109,7 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -9261,13 +9128,6 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -9342,13 +9202,13 @@ func (e *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 
 type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                              `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -9373,7 +9233,7 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -9392,13 +9252,6 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -10502,12 +10355,12 @@ func (e *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                              `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -10532,7 +10385,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -10551,13 +10404,6 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -10632,13 +10478,13 @@ func (e *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                      `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -10663,7 +10509,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -10682,13 +10528,6 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -10763,13 +10602,13 @@ func (e *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                     `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -10794,7 +10633,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -10813,13 +10652,6 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -11933,12 +11765,12 @@ func (e *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                      `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -11963,7 +11795,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -11982,13 +11814,6 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -12063,13 +11888,13 @@ func (e *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 
 type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                              `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -12094,7 +11919,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -12113,13 +11938,6 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -12194,13 +12012,13 @@ func (e *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 
 type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                             `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -12225,7 +12043,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -12244,13 +12062,6 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -13396,12 +13207,12 @@ func (e *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                     `json:"discoverBody,omitempty"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -13426,7 +13237,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -13445,13 +13256,6 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -13526,13 +13330,13 @@ func (e *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 
 type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                             `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -13557,7 +13361,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -13576,13 +13380,6 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -13657,13 +13454,13 @@ func (e *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 
 type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                            `json:"discoverRequestParams,omitempty"`
+	DiscoverMethod HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitempty"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitempty"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitempty"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -13688,7 +13485,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -13707,13 +13504,6 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
