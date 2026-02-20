@@ -1,24 +1,24 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 0d5ad34b05273618b9b7707bc6c5c834
-  docVersion: 4.17.0-alpha.1771393551164-7cc6a375
-  speakeasyVersion: 1.722.0
-  generationVersion: 2.829.1
-  releaseVersion: 0.6.0-rc.25
-  configChecksum: cf94f713959765cf4eb414910c5a84fb
+  docChecksum: 86428a2e506bf8b7d75903f799346416
+  docVersion: 4.17.0-alpha.1771589747951-c3d7ab45
+  speakeasyVersion: 1.723.0
+  generationVersion: 2.835.2
+  releaseVersion: 0.6.0-rc.26
+  configChecksum: 0b7b90e73a6499945d87446f254dbace
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 11debe90-7ae3-413b-8fbe-e2bb3a460d12
-  pristine_commit_hash: 3c74f69d6e547f4754c06591c19b02a82bcebb17
-  pristine_tree_hash: 5767b4567926e3b669e5b613fc2b04d2c44eb371
+  generation_id: c499de3c-7894-4e4b-9a98-16c4c5f8e89f
+  pristine_commit_hash: 00ec228443dfda6699338502f3a49c16bf5c3749
+  pristine_tree_hash: abab7bc4b566d69df8bfe526a82e7743b3ffd44e
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.13
-    core: 3.13.12
+    core: 3.13.15
     defaultEnabledRetries: 0.2.0
     deprecations: 2.81.3
     devContainers: 2.90.0
@@ -32,7 +32,7 @@ features:
     inputOutputModels: 2.83.0
     intellisenseMarkdownSupport: 0.1.0
     jsonlResponses: 0.2.0
-    nameOverrides: 2.81.2
+    nameOverrides: 2.81.4
     nullables: 0.2.1
     oauth2ClientCredentials: 1.1.1
     openEnums: 0.1.0
@@ -96,8 +96,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:c86e0cee0471d832cadf4a2bd37d729eb570b5f7
-    pristine_git_object: 86b9e7b06098e1523a1a5880fb4119314a36d401
+    last_write_checksum: sha1:d2858a9384245f28311d249f74f3975f582bac30
+    pristine_git_object: 278e66107ffa0d9d1c4b557751148e722b29829b
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -804,8 +804,8 @@ trackedFiles:
     pristine_git_object: 8aa2f8d5912d518f5da032a1845b7935e222f835
   docs/models/components/databaseconnectionconfig.md:
     id: ac3e9f286529
-    last_write_checksum: sha1:9bba3631d78511f541895b95401c27893e208dc8
-    pristine_git_object: 2a81cff24e5fdd36093439df29fa4d5a84b6686a
+    last_write_checksum: sha1:28dc1b702a00028509658048e219ae4c5adcc2e8
+    pristine_git_object: c3fcd21e33fbbed035b5acb9f9af2c775c2f7b66
   docs/models/components/databaseconnectiontype.md:
     id: b1dd377fc76b
     last_write_checksum: sha1:95b04f17ad1a74acec08405902f8950b73b3086f
@@ -15840,8 +15840,8 @@ trackedFiles:
     pristine_git_object: 480965500623fbb43a914d2895217b3f3ecaf38b
   docs/sdks/databaseconnections/README.md:
     id: ef33daf326f1
-    last_write_checksum: sha1:9f2db0677dd877526b68969821ef4e26b58a9903
-    pristine_git_object: 941cc29e08b23e93b8e7dac2bcddec6c0cc5d745
+    last_write_checksum: sha1:71ac141c637bde4fe98796315c1ea2baf5c884eb
+    pristine_git_object: 30cfc3c67fd8bf6d5dc94079cedb4a28816585cc
   docs/sdks/destinations/README.md:
     id: e83d288899aa
     last_write_checksum: sha1:4dcf37207b32dfedc2657912133947bb4685d35d
@@ -16072,8 +16072,8 @@ trackedFiles:
     pristine_git_object: f66814c73ace94d8e71d785fd6161fb405745754
   internal/utils/utils.go:
     id: 1133b2a27019
-    last_write_checksum: sha1:66b0ef3c302e2edad3496775a6e5b452caceefd6
-    pristine_git_object: ee4300f7b7469c4e66572ada7b95f7ff7f2e506a
+    last_write_checksum: sha1:9604f4dc11014d690e29293d336952af02a5fdfe
+    pristine_git_object: c7f17a634bb0a3f9d63bd38656ef39860d28b081
   lakedatasets.go:
     id: e34a454ed396
     last_write_checksum: sha1:8602d0d1b487efacbf554abcceb37e4bc1fba21e
@@ -16528,8 +16528,8 @@ trackedFiles:
     pristine_git_object: bf76ca012132840d4a2620487fcbd5e42e94124f
   models/components/databaseconnectionconfig.go:
     id: bb035f86eaa7
-    last_write_checksum: sha1:3b9d07366f6df9fb9059d1a85384e89b1e09bde7
-    pristine_git_object: e5283ca46109af2e6c6e26b2a6f903b616fcb3c6
+    last_write_checksum: sha1:5a58a33065d569752e41d56a8251f5a38ae6286f
+    pristine_git_object: 38c61250ce578056b3064f0e0a6f7221c6491f92
   models/components/databaseconnectiontype.go:
     id: 8c3bdf48e09f
     last_write_checksum: sha1:a8ca070f27aed2cf10347e522343878566838aaf
@@ -17098,10 +17098,14 @@ trackedFiles:
     id: 376ef8547021
     last_write_checksum: sha1:0ffef68823d35666d7287532f4d85aedddc1b336
     pristine_git_object: 5df16964f3b388d7dbf4c82d70de91d508741823
+  models/components/healthcheckauthenticationbasic.go:
+    id: 46bdb8817f51
+    last_write_checksum: sha1:a08343e9c0c72cc2db56847168dec5feb4903326
+    pristine_git_object: ce7d3fa20347c5556aa644d8a5ce8c8f63138a2b
   models/components/healthcheckcollectorconf.go:
     id: ef617a1e14a1
-    last_write_checksum: sha1:b30cf9fc6929b9a04eaf12294dbeec8c51173d89
-    pristine_git_object: 7f49b36827e128082c6c691a10473d865825f229
+    last_write_checksum: sha1:1d5eebe352b1f6bf51301b9b5d50535fd81e4355
+    pristine_git_object: 2b00d11ae7061c81ba2d2f97f3e3d893b0098ec5
   models/components/healthcounttype.go:
     id: cbaf45c6fe59
     last_write_checksum: sha1:3a77c83c88b5ed52453b77410b7bdacc99647b2e
@@ -18334,10 +18338,34 @@ trackedFiles:
     id: 0327fc249fa1
     last_write_checksum: sha1:8a3b6bbcd3e1c6ee0ef0d1a9d086608475a80125
     pristine_git_object: 46745c9985108a81098201f25ef1299518eec63a
+  models/components/restauthenticationbasicsecretstatetracking.go:
+    id: 090bcea6ae21
+    last_write_checksum: sha1:bef3f0f456950fe320b70cdaf047f51afa9e5a28
+    pristine_git_object: 105b9eed80a4821d3bf974caea626cae77b96936
+  models/components/restauthenticationgoogleoauthrestdiscoverydiscovertypehttpenablediscovercodefalsepagination.go:
+    id: 1a708e5565b2
+    last_write_checksum: sha1:19f24842987f84c2251e36b31f9824d87aaf2eb7
+    pristine_git_object: d54b9d02618a3754754ab39464dde45b59a662d6
+  ? models/components/restauthenticationlogingetauthtokenfromheadertruerestdiscoverydiscovertypehttpenablediscovercodefalsediscovermethod.go
+  : id: ffc4467d8148
+    last_write_checksum: sha1:794bad082a6cee536a1418b3d3dbf005541565f0
+    pristine_git_object: 9649c0fcadfccc3d6ad4bb64a88ec10516dc36a9
+  models/components/restauthenticationoauth.go:
+    id: 8c7ab8265625
+    last_write_checksum: sha1:56937df1f9e79513f77f102653bdee669d76d6d8
+    pristine_git_object: 77b2fddd3a64740e9ea2a480d8b9f67ef8c74a1a
+  models/components/restcollectmethodotherrestdiscoverydiscovertypehttpenablediscovercodefalsediscovertype.go:
+    id: bab004e8cab0
+    last_write_checksum: sha1:282056bd32123b6b7d6e8d052ade92b6a700b105
+    pristine_git_object: 75cc10fe362fa5bcad7cd1b585e29b2f6c9d4294
+  models/components/restcollectmethodpoststatetracking.go:
+    id: 8d943d540d65
+    last_write_checksum: sha1:aa112e7d9f42fd56bf7d7b1aa012875d3321b2d8
+    pristine_git_object: 37bc0fdfee2b50efe3279c848cefa17829ae00c7
   models/components/restcollectorconf.go:
     id: cd2661dc84db
-    last_write_checksum: sha1:337b60dd58ffcd3e43e7cca6815d4dda5307b2d9
-    pristine_git_object: 35c3b6949849c2081b0ad662d11e92fe5d6d9214
+    last_write_checksum: sha1:1ed77ed6d0d7473f5b6bc7d9ec918a3fef2f8867
+    pristine_git_object: 9f2f986df3abb7e8df29eea1ca3520c735167506
   models/components/retryrulestype.go:
     id: 4e66ab623bbd
     last_write_checksum: sha1:6fc9d39afec98fdeabcf93ff8f5df0a9fe1236b6
@@ -18650,30 +18678,46 @@ trackedFiles:
     id: ee940d2ba343
     last_write_checksum: sha1:a9ab749bfa277c46b51f7f2f4821c2cb91320511
     pristine_git_object: aa9e75797275e5270638f09a435ae91af152113a
-  models/operations/createinput.go:
-    id: c604df8e9fa1
-    last_write_checksum: sha1:1c0b0a8b32135bd8ad5a29ed3186fb8c6f5d18ba
-    pristine_git_object: 10226182a584963c64592b0f777cd43261be78a6
   models/operations/createinputhectokenbyid.go:
     id: cd5aa65c4690
     last_write_checksum: sha1:fa691706ebdbf9350fd8fe7c1ca129042ad930d8
     pristine_git_object: 1a16a65bfb1bcaad581115d642956bdb8a05c401
-  models/operations/createinputsystembypack.go:
-    id: 61e784891f5b
-    last_write_checksum: sha1:95b0fc1880684e1b29bd697598317f0be8389214
-    pristine_git_object: 024332a1fd7bd39146bd68a7ba9fd57986756902
+  models/operations/createinputinputcribllakehttp.go:
+    id: a4d1d1563a86
+    last_write_checksum: sha1:da0543aef3a7383a77fe82d61e37b43019b29f06
+    pristine_git_object: fc34a651b93072e62e905e3238c78aeab4cbdab9
+  models/operations/createinputresponse.go:
+    id: 4a65919a7957
+    last_write_checksum: sha1:9354c1836a2a9f5a186bd2c5afe3ec8df04a972c
+    pristine_git_object: 01516378a69bc48a71d7da3e8c0b7e37b682fd77
+  models/operations/createinputsystembypackinputcribllakehttp.go:
+    id: 9076f5e073ea
+    last_write_checksum: sha1:6d645974d4a94f37c9ecccd52960ba762c6e774e
+    pristine_git_object: 54ec9dd9e22b1ddb8f28ef9ddf2f334328a77a29
+  models/operations/createinputsystembypackresponse.go:
+    id: 7f6c1101c884
+    last_write_checksum: sha1:1a89a98112a25fa56f3e69136ffd3a96ac05f1f8
+    pristine_git_object: 3c5f48cad04dce9b89aa9dde66f3f0235d357653
   models/operations/createinputsystemhectokenbypackandid.go:
     id: 106b6f03830d
     last_write_checksum: sha1:b537564e2edefce7530c970ea4dc4a829b209cef
     pristine_git_object: 1d4796b1b0b62925b6fc64cdb4d23de90a12088c
-  models/operations/createoutput.go:
-    id: 60f055d92a1e
-    last_write_checksum: sha1:66c61d681817983864f4f6bdd180e2c93a769dca
-    pristine_git_object: 2f617ed9d8e2de0fd6b6bb71fb39ae95091efbff
-  models/operations/createoutputsystembypack.go:
-    id: bf58b3188c3d
-    last_write_checksum: sha1:38f9a2db8c60f0eaebcc25521e59018dca35758e
-    pristine_git_object: 88eacf92c5c02644b9f31b7c7db1904c982f2883
+  models/operations/createoutputpqcontrolsnewrelic.go:
+    id: 2e92a972ec8f
+    last_write_checksum: sha1:1dece0a3407adfd1a24a5fa3884b4f5cb67c2638
+    pristine_git_object: eee913d460579e8420fd5842b61345e3117b91ba
+  models/operations/createoutputresponse.go:
+    id: 512acef0833a
+    last_write_checksum: sha1:35eb6c3f3e3ab6298659cf3af5204bb3c3fc23d0
+    pristine_git_object: ebf297d345a89e3151a6e7d48c6f8e4125967a87
+  models/operations/createoutputsystembypackpqcontrolsnewrelic.go:
+    id: 4c98ead1eeea
+    last_write_checksum: sha1:169347f4ad38a264a1622a1893cd21ef15a5123b
+    pristine_git_object: 106ea4f778277810f9c0b68fb448a85c6a225166
+  models/operations/createoutputsystembypackresponse.go:
+    id: 5ebdc5cb5320
+    last_write_checksum: sha1:b8214f13f529cd6a254a61bb45e6b8ce88584c8d
+    pristine_git_object: a3685faa745326ca3cae190cf5e15c32cf4bdcc9
   models/operations/createoutputsystemtestbypackandid.go:
     id: 3c3fbdbac29f
     last_write_checksum: sha1:335fa443d59c9a5a2962f75f1d7cc2b1944affed
@@ -23887,7 +23931,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesMySQLWithSecret:
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "mysql", "description": "Analytics MySQL database", "id": "mysql-analytics-db", "tags": "analytics,mysql"}
+        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "mysql", "description": "Analytics MySQL database", "id": "mysql-analytics-db", "tags": "analytics,mysql", "textSecret": "mysql-analytics-connection"}
       responses:
         "200":
           application/json: {}
@@ -23903,7 +23947,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesPostgreSQLWithSecret:
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 10000, "databaseType": "postgres", "description": "Logs PostgreSQL database", "id": "postgres-logs", "tags": "logs,postgres"}
+        application/json: {"authType": "secret", "connectionTimeout": 10000, "databaseType": "postgres", "description": "Logs PostgreSQL database", "id": "postgres-logs", "tags": "logs,postgres", "textSecret": "postgres-logs-connection"}
       responses:
         "200":
           application/json: {}
@@ -23919,7 +23963,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesSQLServerWithSecret:
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "sqlserver", "description": "CRM SQL Server database", "id": "sqlserver-crm", "requestTimeout": 15000, "tags": "crm,sqlserver,sales"}
+        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "sqlserver", "description": "CRM SQL Server database", "id": "sqlserver-crm", "requestTimeout": 15000, "tags": "crm,sqlserver,sales", "textSecret": "sqlserver-crm-connection"}
       responses:
         "200":
           application/json: {}
@@ -23943,7 +23987,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesOracleWithSecret:
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 20000, "databaseType": "oracle", "description": "Oracle data warehouse", "id": "oracle-warehouse", "password": "Warehouse_Pass789!", "tags": "warehouse,oracle,reporting", "user": "warehouse_user"}
+        application/json: {"authType": "secret", "connectionTimeout": 20000, "databaseType": "oracle", "description": "Oracle data warehouse", "id": "oracle-warehouse", "password": "Warehouse_Pass789!", "tags": "warehouse,oracle,reporting", "textSecret": "oracle-warehouse-connection", "user": "warehouse_user"}
       responses:
         "200":
           application/json: {}
@@ -23951,7 +23995,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesOracleWithCredentialsSecrets:
       requestBody:
-        application/json: {"authType": "secrets", "connectionTimeout": 15000, "credsSecrets": "oracle-secure-credentials", "databaseType": "oracle", "description": "High-security Oracle database with credential secrets", "id": "oracle-secure-db", "tags": "secure,oracle,sensitive-data"}
+        application/json: {"authType": "secrets", "connectionTimeout": 15000, "credsSecrets": "oracle-secure-credentials", "databaseType": "oracle", "description": "High-security Oracle database with credential secrets", "id": "oracle-secure-db", "tags": "secure,oracle,sensitive-data", "textSecret": "oracle-secure-connection"}
       responses:
         "200":
           application/json: {}
@@ -24002,7 +24046,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "mysql", "description": "Analytics MySQL database", "id": "mysql-analytics-db", "tags": "analytics,mysql"}
+        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "mysql", "description": "Analytics MySQL database", "id": "mysql-analytics-db", "tags": "analytics,mysql", "textSecret": "mysql-analytics-connection"}
       responses:
         "200":
           application/json: {}
@@ -24024,7 +24068,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 10000, "databaseType": "postgres", "description": "Logs PostgreSQL database", "id": "postgres-logs", "tags": "logs,postgres"}
+        application/json: {"authType": "secret", "connectionTimeout": 10000, "databaseType": "postgres", "description": "Logs PostgreSQL database", "id": "postgres-logs", "tags": "logs,postgres", "textSecret": "postgres-logs-connection"}
       responses:
         "200":
           application/json: {}
@@ -24046,7 +24090,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "sqlserver", "description": "CRM SQL Server database", "id": "sqlserver-crm", "requestTimeout": 15000, "tags": "crm,sqlserver,sales"}
+        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "sqlserver", "description": "CRM SQL Server database", "id": "sqlserver-crm", "requestTimeout": 15000, "tags": "crm,sqlserver,sales", "textSecret": "sqlserver-crm-connection"}
       responses:
         "200":
           application/json: {}
@@ -24079,7 +24123,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 20000, "databaseType": "oracle", "description": "Oracle data warehouse", "id": "oracle-warehouse", "password": "Warehouse_Pass789!", "tags": "warehouse,oracle,reporting", "user": "warehouse_user"}
+        application/json: {"authType": "secret", "connectionTimeout": 20000, "databaseType": "oracle", "description": "Oracle data warehouse", "id": "oracle-warehouse", "password": "Warehouse_Pass789!", "tags": "warehouse,oracle,reporting", "textSecret": "oracle-warehouse-connection", "user": "warehouse_user"}
       responses:
         "200":
           application/json: {}
@@ -24090,7 +24134,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secrets", "connectionTimeout": 15000, "credsSecrets": "oracle-secure-credentials", "databaseType": "oracle", "description": "High-security Oracle database with credential secrets", "id": "oracle-secure-db", "tags": "secure,oracle,sensitive-data"}
+        application/json: {"authType": "secrets", "connectionTimeout": 15000, "credsSecrets": "oracle-secure-credentials", "databaseType": "oracle", "description": "High-security Oracle database with credential secrets", "id": "oracle-secure-db", "tags": "secure,oracle,sensitive-data", "textSecret": "oracle-secure-connection"}
       responses:
         "200":
           application/json: {}
@@ -29492,7 +29536,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.DatabaseConnections.Create()`: \n  *  `request.Request.TextSecret` **Added**\n  *  `response.Items[].TextSecret` **Added**\n* `CriblControlPlane.DatabaseConnections.Delete()`:  `response.Items[].TextSecret` **Added**\n* `CriblControlPlane.DatabaseConnections.Get()`:  `response.Items[].TextSecret` **Added**\n* `CriblControlPlane.DatabaseConnections.Update()`: \n  *  `request.DatabaseConnectionConfig.TextSecret` **Added**\n  *  `response.Items[].TextSecret` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
