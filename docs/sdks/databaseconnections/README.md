@@ -85,6 +85,7 @@ func main() {
         Description: "Analytics MySQL database",
         ID: "mysql-analytics-db",
         Tags: criblcontrolplanesdkgo.Pointer("analytics,mysql"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("mysql-analytics-connection"),
     })
     if err != nil {
         log.Fatal(err)
@@ -169,6 +170,7 @@ func main() {
         Description: "High-security Oracle database with credential secrets",
         ID: "oracle-secure-db",
         Tags: criblcontrolplanesdkgo.Pointer("secure,oracle,sensitive-data"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("oracle-secure-connection"),
     })
     if err != nil {
         log.Fatal(err)
@@ -210,6 +212,7 @@ func main() {
         ID: "oracle-warehouse",
         Password: criblcontrolplanesdkgo.Pointer("Warehouse_Pass789!"),
         Tags: criblcontrolplanesdkgo.Pointer("warehouse,oracle,reporting"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("oracle-warehouse-connection"),
         User: criblcontrolplanesdkgo.Pointer("warehouse_user"),
     })
     if err != nil {
@@ -292,6 +295,7 @@ func main() {
         Description: "Logs PostgreSQL database",
         ID: "postgres-logs",
         Tags: criblcontrolplanesdkgo.Pointer("logs,postgres"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("postgres-logs-connection"),
     })
     if err != nil {
         log.Fatal(err)
@@ -416,6 +420,7 @@ func main() {
         ID: "sqlserver-crm",
         RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
         Tags: criblcontrolplanesdkgo.Pointer("crm,sqlserver,sales"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("sqlserver-crm-connection"),
     })
     if err != nil {
         log.Fatal(err)
@@ -635,6 +640,7 @@ func main() {
         Description: "Analytics MySQL database",
         ID: "mysql-analytics-db",
         Tags: criblcontrolplanesdkgo.Pointer("analytics,mysql"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("mysql-analytics-connection"),
     })
     if err != nil {
         log.Fatal(err)
@@ -719,6 +725,7 @@ func main() {
         Description: "High-security Oracle database with credential secrets",
         ID: "oracle-secure-db",
         Tags: criblcontrolplanesdkgo.Pointer("secure,oracle,sensitive-data"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("oracle-secure-connection"),
     })
     if err != nil {
         log.Fatal(err)
@@ -760,6 +767,7 @@ func main() {
         ID: "oracle-warehouse",
         Password: criblcontrolplanesdkgo.Pointer("Warehouse_Pass789!"),
         Tags: criblcontrolplanesdkgo.Pointer("warehouse,oracle,reporting"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("oracle-warehouse-connection"),
         User: criblcontrolplanesdkgo.Pointer("warehouse_user"),
     })
     if err != nil {
@@ -842,6 +850,7 @@ func main() {
         Description: "Logs PostgreSQL database",
         ID: "postgres-logs",
         Tags: criblcontrolplanesdkgo.Pointer("logs,postgres"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("postgres-logs-connection"),
     })
     if err != nil {
         log.Fatal(err)
@@ -966,6 +975,7 @@ func main() {
         ID: "sqlserver-crm",
         RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
         Tags: criblcontrolplanesdkgo.Pointer("crm,sqlserver,sales"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("sqlserver-crm-connection"),
     })
     if err != nil {
         log.Fatal(err)
