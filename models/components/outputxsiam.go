@@ -55,7 +55,6 @@ func (e *OutputXsiamAuthenticationMethod) IsExact() bool {
 }
 
 type OutputXsiamURL struct {
-	URL any `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitempty"`
 }
@@ -69,13 +68,6 @@ func (o *OutputXsiamURL) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (o *OutputXsiamURL) GetURL() any {
-	if o == nil {
-		return nil
-	}
-	return o.URL
 }
 
 func (o *OutputXsiamURL) GetWeight() *float64 {

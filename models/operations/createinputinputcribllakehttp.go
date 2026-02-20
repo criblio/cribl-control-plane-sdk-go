@@ -60,7 +60,6 @@ type CreateInputAuthTokenCloudflareHec struct {
 	AuthType *CreateInputAuthTokenAuthenticationMethod `json:"authType,omitempty"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitempty"`
-	Token       any     `json:"token,omitempty"`
 	Enabled     *bool   `json:"enabled,omitempty"`
 	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -92,13 +91,6 @@ func (c *CreateInputAuthTokenCloudflareHec) GetTokenSecret() *string {
 		return nil
 	}
 	return c.TokenSecret
-}
-
-func (c *CreateInputAuthTokenCloudflareHec) GetToken() any {
-	if c == nil {
-		return nil
-	}
-	return c.Token
 }
 
 func (c *CreateInputAuthTokenCloudflareHec) GetEnabled() *bool {
@@ -280,8 +272,7 @@ type CreateInputInputCloudflareHec struct {
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitempty"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
@@ -472,13 +463,6 @@ func (c *CreateInputInputCloudflareHec) GetKeepAliveTimeout() *float64 {
 		return nil
 	}
 	return c.KeepAliveTimeout
-}
-
-func (c *CreateInputInputCloudflareHec) GetEnableHealthCheck() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHealthCheck
 }
 
 func (c *CreateInputInputCloudflareHec) GetIPAllowlistRegex() *string {
@@ -710,8 +694,7 @@ type CreateInputInputZscalerHec struct {
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitempty"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
@@ -902,13 +885,6 @@ func (c *CreateInputInputZscalerHec) GetKeepAliveTimeout() *float64 {
 		return nil
 	}
 	return c.KeepAliveTimeout
-}
-
-func (c *CreateInputInputZscalerHec) GetEnableHealthCheck() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHealthCheck
 }
 
 func (c *CreateInputInputZscalerHec) GetIPAllowlistRegex() *string {
@@ -3355,8 +3331,6 @@ type CreateInputMTLSSettings struct {
 	MaxVersion      *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitempty"`
 	// Enable OCSP check of certificate
 	OcspCheck *bool `json:"ocspCheck,omitempty"`
-	Keytab    any   `json:"keytab,omitempty"`
-	Principal any   `json:"principal,omitempty"`
 	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
 	OcspCheckFailClose *bool `json:"ocspCheckFailClose,omitempty"`
 }
@@ -3454,20 +3428,6 @@ func (c *CreateInputMTLSSettings) GetOcspCheck() *bool {
 		return nil
 	}
 	return c.OcspCheck
-}
-
-func (c *CreateInputMTLSSettings) GetKeytab() any {
-	if c == nil {
-		return nil
-	}
-	return c.Keytab
-}
-
-func (c *CreateInputMTLSSettings) GetPrincipal() any {
-	if c == nil {
-		return nil
-	}
-	return c.Principal
 }
 
 func (c *CreateInputMTLSSettings) GetOcspCheckFailClose() *bool {
@@ -6620,10 +6580,7 @@ type CreateInputInputOpenTelemetry struct {
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket  *int64 `json:"maxRequestsPerSocket,omitempty"`
-	EnableProxyHeader     any    `json:"enableProxyHeader,omitempty"`
-	CaptureHeaders        any    `json:"captureHeaders,omitempty"`
-	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
 	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
@@ -6781,27 +6738,6 @@ func (c *CreateInputInputOpenTelemetry) GetMaxRequestsPerSocket() *int64 {
 		return nil
 	}
 	return c.MaxRequestsPerSocket
-}
-
-func (c *CreateInputInputOpenTelemetry) GetEnableProxyHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableProxyHeader
-}
-
-func (c *CreateInputInputOpenTelemetry) GetCaptureHeaders() any {
-	if c == nil {
-		return nil
-	}
-	return c.CaptureHeaders
-}
-
-func (c *CreateInputInputOpenTelemetry) GetActivityLogSampleRate() any {
-	if c == nil {
-		return nil
-	}
-	return c.ActivityLogSampleRate
 }
 
 func (c *CreateInputInputOpenTelemetry) GetRequestTimeout() *float64 {

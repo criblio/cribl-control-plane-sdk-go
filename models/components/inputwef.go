@@ -79,8 +79,6 @@ type MTLSSettings struct {
 	MaxVersion      *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitempty"`
 	// Enable OCSP check of certificate
 	OcspCheck *bool `json:"ocspCheck,omitempty"`
-	Keytab    any   `json:"keytab,omitempty"`
-	Principal any   `json:"principal,omitempty"`
 	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
 	OcspCheckFailClose *bool `json:"ocspCheckFailClose,omitempty"`
 }
@@ -178,20 +176,6 @@ func (m *MTLSSettings) GetOcspCheck() *bool {
 		return nil
 	}
 	return m.OcspCheck
-}
-
-func (m *MTLSSettings) GetKeytab() any {
-	if m == nil {
-		return nil
-	}
-	return m.Keytab
-}
-
-func (m *MTLSSettings) GetPrincipal() any {
-	if m == nil {
-		return nil
-	}
-	return m.Principal
 }
 
 func (m *MTLSSettings) GetOcspCheckFailClose() *bool {

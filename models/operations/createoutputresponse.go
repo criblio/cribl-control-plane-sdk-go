@@ -11228,8 +11228,7 @@ type CreateOutputOutputWizHec struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags   []string `json:"streamtags,omitempty"`
-	LoadBalanced any      `json:"loadBalanced,omitempty"`
+	Streamtags []string `json:"streamtags,omitempty"`
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
 	NextQueue *string `json:"nextQueue,omitempty"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
@@ -11256,8 +11255,7 @@ type CreateOutputOutputWizHec struct {
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders        []string `json:"safeHeaders,omitempty"`
-	EnableMultiMetrics any      `json:"enableMultiMetrics,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
@@ -11361,13 +11359,6 @@ func (c *CreateOutputOutputWizHec) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputWizHec) GetLoadBalanced() any {
-	if c == nil {
-		return nil
-	}
-	return c.LoadBalanced
-}
-
 func (c *CreateOutputOutputWizHec) GetNextQueue() *string {
 	if c == nil {
 		return nil
@@ -11457,13 +11448,6 @@ func (c *CreateOutputOutputWizHec) GetSafeHeaders() []string {
 		return nil
 	}
 	return c.SafeHeaders
-}
-
-func (c *CreateOutputOutputWizHec) GetEnableMultiMetrics() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableMultiMetrics
 }
 
 func (c *CreateOutputOutputWizHec) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {

@@ -76,7 +76,6 @@ type OutputCloudflareR2 struct {
 	AwsAuthenticationMethod *OutputCloudflareR2AuthenticationMethod `json:"awsAuthenticationMethod,omitempty"`
 	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
-	Region       any     `json:"region,omitempty"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
@@ -85,7 +84,6 @@ type OutputCloudflareR2 struct {
 	DestPath *string `json:"destPath,omitempty"`
 	// Signature version to use for signing MinIO requests
 	SignatureVersion *SignatureVersionOptions5 `json:"signatureVersion,omitempty"`
-	ObjectACL        any                       `json:"objectACL,omitempty"`
 	// Storage class to select for uploaded objects
 	StorageClass *StorageClassOptions2 `json:"storageClass,omitempty"`
 	// Server-side encryption for uploaded objects
@@ -253,13 +251,6 @@ func (o *OutputCloudflareR2) GetAwsSecretKey() *string {
 	return o.AwsSecretKey
 }
 
-func (o *OutputCloudflareR2) GetRegion() any {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
 func (o *OutputCloudflareR2) GetStagePath() string {
 	if o == nil {
 		return ""
@@ -286,13 +277,6 @@ func (o *OutputCloudflareR2) GetSignatureVersion() *SignatureVersionOptions5 {
 		return nil
 	}
 	return o.SignatureVersion
-}
-
-func (o *OutputCloudflareR2) GetObjectACL() any {
-	if o == nil {
-		return nil
-	}
-	return o.ObjectACL
 }
 
 func (o *OutputCloudflareR2) GetStorageClass() *StorageClassOptions2 {
