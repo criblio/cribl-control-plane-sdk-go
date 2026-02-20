@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.17.0-alpha.1771389470557-74544221 and generator version 2.829.1
+// Generated from OpenAPI doc version 4.17.0-alpha.1771542228560-9472a7c3 and generator version 2.829.1
 
 import (
 	"context"
@@ -41,7 +41,14 @@ func Float64(f float64) *float64 { return &f }
 // Pointer provides a helper function to return a pointer to a type
 func Pointer[T any](v T) *T { return &v }
 
-// CriblControlPlane - Cribl API Reference: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
+// CriblControlPlane - Cribl API Reference: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources.
+// Base URL contexts for reference:
+// - Leader context: /api/v1
+// - Worker Group or Edge Fleet context: /api/v1/m/{groupName}
+// - Host (Worker or Edge Node) context: /api/v1/w/{nodeId}
+// - Search context: /api/v1/m/default_search
+//
+// https://docs.cribl.io - See our complementary product documentation
 type CriblControlPlane struct {
 	SDKVersion          string
 	DatabaseConnections *DatabaseConnections
@@ -114,9 +121,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.6.0-beta.34",
+		SDKVersion: "0.6.0-beta.35",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.6.0-beta.34 2.829.1 4.17.0-alpha.1771389470557-74544221 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.6.0-beta.35 2.829.1 4.17.0-alpha.1771542228560-9472a7c3 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}

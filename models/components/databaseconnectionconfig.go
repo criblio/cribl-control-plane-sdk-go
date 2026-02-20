@@ -14,6 +14,7 @@ type DatabaseConnectionConfig struct {
 	Password          *string                `json:"password,omitempty"`
 	RequestTimeout    *float64               `json:"requestTimeout,omitempty"`
 	Tags              *string                `json:"tags,omitempty"`
+	TextSecret        *string                `json:"textSecret,omitempty"`
 	User              *string                `json:"user,omitempty"`
 }
 
@@ -92,6 +93,13 @@ func (d *DatabaseConnectionConfig) GetTags() *string {
 		return nil
 	}
 	return d.Tags
+}
+
+func (d *DatabaseConnectionConfig) GetTextSecret() *string {
+	if d == nil {
+		return nil
+	}
+	return d.TextSecret
 }
 
 func (d *DatabaseConnectionConfig) GetUser() *string {
