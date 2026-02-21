@@ -19,7 +19,7 @@ func (f FunctionConfSchemaSidlookupField) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionConfSchemaSidlookupField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"expr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil

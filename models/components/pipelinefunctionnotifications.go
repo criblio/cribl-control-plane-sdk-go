@@ -46,7 +46,7 @@ func (p PipelineFunctionNotificationsConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionNotificationsConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "field", "deduplicate"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -94,7 +94,7 @@ func (p PipelineFunctionNotifications) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionNotifications) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

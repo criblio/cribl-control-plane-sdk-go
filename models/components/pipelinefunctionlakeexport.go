@@ -52,7 +52,7 @@ func (l LakeExportConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (l *LakeExportConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"searchJobId", "dataset"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -121,7 +121,7 @@ func (p PipelineFunctionLakeExport) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionLakeExport) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

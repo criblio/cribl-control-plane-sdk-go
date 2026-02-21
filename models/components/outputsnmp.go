@@ -43,7 +43,7 @@ func (o OutputSnmpHost) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSnmpHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -87,7 +87,7 @@ func (o OutputSnmp) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSnmp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "hosts"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

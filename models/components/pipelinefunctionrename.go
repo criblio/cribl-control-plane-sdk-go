@@ -53,7 +53,7 @@ func (p PipelineFunctionRename) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionRename) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -44,7 +44,7 @@ func (p PipelineFunctionPackConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionPackConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"unpackedFields"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -85,7 +85,7 @@ func (p PipelineFunctionPack) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionPack) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

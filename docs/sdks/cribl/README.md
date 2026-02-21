@@ -93,32 +93,9 @@ func main() {
 
     res, err := s.System.Settings.Cribl.Update(ctx, components.SystemSettingsConf{
         API: components.APITypeSystemSettingsConf{
-            BaseURL: criblcontrolplanesdkgo.Pointer("https://both-draw.com/"),
-            DisableAPICache: criblcontrolplanesdkgo.Pointer(true),
             Disabled: false,
-            Headers: map[string]string{
-
-            },
             Host: "meaty-spring.biz",
-            IdleSessionTTL: criblcontrolplanesdkgo.Pointer[float64](89.27),
-            ListenOnPort: criblcontrolplanesdkgo.Pointer(true),
-            LoginRateLimit: criblcontrolplanesdkgo.Pointer("<value>"),
             Port: 2424.38,
-            Protocol: criblcontrolplanesdkgo.Pointer("<value>"),
-            Scripts: criblcontrolplanesdkgo.Pointer(true),
-            SensitiveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Ssl: &components.SslTypeSystemSettingsConfAPI{
-                CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                CertPath: "<value>",
-                Disabled: true,
-                Passphrase: "<value>",
-                PrivKeyPath: "<value>",
-            },
-            SsoRateLimit: criblcontrolplanesdkgo.Pointer("<value>"),
-            WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
         },
         Backups: components.CreateBackupsSettingsUnionBackupsSettings1(
             components.BackupsSettings1{
@@ -126,11 +103,6 @@ func main() {
                 BackupsDirectory: "<value>",
             },
         ),
-        CustomLogo: &components.CustomLogoTypeSystemSettingsConf{
-            Enabled: false,
-            LogoDescription: criblcontrolplanesdkgo.Pointer("<value>"),
-            LogoImage: criblcontrolplanesdkgo.Pointer("<value>"),
-        },
         Pii: components.CreatePiiSettingsUnionPiiSettings1(
             components.PiiSettings1{
                 EnablePiiDetection: false,
@@ -154,17 +126,6 @@ func main() {
                 DisableSNIRouting: false,
             },
         ),
-        Sockets: &components.SocketsTypeSystemSettingsConf{
-            Directory: criblcontrolplanesdkgo.Pointer("/usr/ports"),
-        },
-        Support: &components.SupportTypeSystemSettingsConf{
-            FeatureFlagOverrides: []components.ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides{
-                components.ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides{
-                    Disabled: true,
-                    FlagID: "<id>",
-                },
-            },
-        },
         System: components.SystemTypeSystemSettingsConf{
             Intercom: false,
             Upgrade: components.UpgradeOptionsSystemSettingsConfSystemAPI,
@@ -186,27 +147,11 @@ func main() {
                 RetryDelay: criblcontrolplanesdkgo.Pointer[float64](4374.4),
             },
         ),
-        UpgradeSettings: components.UpgradeSettings{
-            AutomaticUpgradeCheckPeriod: criblcontrolplanesdkgo.Pointer("<value>"),
-            DisableAutomaticUpgrade: criblcontrolplanesdkgo.Pointer(false),
-            EnableLegacyEdgeUpgrade: criblcontrolplanesdkgo.Pointer(false),
-            PackageUrls: []components.UpgradePackageUrls{
-                components.UpgradePackageUrls{
-                    PackageHashURL: criblcontrolplanesdkgo.Pointer("https://thrifty-teammate.net/"),
-                    PackageURL: "https://skeletal-dwell.info/",
-                },
-            },
-            UpgradeSource: criblcontrolplanesdkgo.Pointer("<value>"),
-        },
+        UpgradeSettings: components.UpgradeSettings{},
         Workers: components.WorkersTypeSystemSettingsConf{
             Count: 2124.14,
-            EnableHeapSnapshots: criblcontrolplanesdkgo.Pointer(true),
-            LoadThrottlePerc: criblcontrolplanesdkgo.Pointer[float64](2538.71),
             Memory: 20.53,
             Minimum: 6157.83,
-            StartupMaxConns: criblcontrolplanesdkgo.Pointer[float64](4731.29),
-            StartupThrottleTimeout: criblcontrolplanesdkgo.Pointer[float64](1613.48),
-            V8SingleThread: criblcontrolplanesdkgo.Pointer(true),
         },
     })
     if err != nil {

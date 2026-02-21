@@ -17,7 +17,7 @@ func (o Os) MarshalJSON() ([]byte, error) {
 }
 
 func (o *Os) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"addresses"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -64,17 +64,43 @@ func CreateOsUnionOs(os Os) OsUnion {
 
 func (u *OsUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var hostOsTypeHeartbeatMetadata HostOsTypeHeartbeatMetadata = HostOsTypeHeartbeatMetadata{}
 	if err := utils.UnmarshalJSON(data, &hostOsTypeHeartbeatMetadata, "", true, nil); err == nil {
-		u.HostOsTypeHeartbeatMetadata = &hostOsTypeHeartbeatMetadata
-		u.Type = OsUnionTypeHostOsTypeHeartbeatMetadata
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OsUnionTypeHostOsTypeHeartbeatMetadata,
+			Value: &hostOsTypeHeartbeatMetadata,
+		})
 	}
 
 	var os Os = Os{}
 	if err := utils.UnmarshalJSON(data, &os, "", true, nil); err == nil {
-		u.Os = &os
-		u.Type = OsUnionTypeOs
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OsUnionTypeOs,
+			Value: &os,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OsUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OsUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(OsUnionType)
+	switch best.Type {
+	case OsUnionTypeHostOsTypeHeartbeatMetadata:
+		u.HostOsTypeHeartbeatMetadata = best.Value.(*HostOsTypeHeartbeatMetadata)
+		return nil
+	case OsUnionTypeOs:
+		u.Os = best.Value.(*Os)
 		return nil
 	}
 

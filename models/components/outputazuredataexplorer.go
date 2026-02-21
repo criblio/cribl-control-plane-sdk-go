@@ -139,7 +139,7 @@ func (e ExtentTag) MarshalJSON() ([]byte, error) {
 }
 
 func (e *ExtentTag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -168,7 +168,7 @@ func (i IngestIfNotExist) MarshalJSON() ([]byte, error) {
 }
 
 func (i *IngestIfNotExist) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -245,7 +245,7 @@ func (a AdditionalProperty) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AdditionalProperty) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"key", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -450,7 +450,7 @@ func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputAzureDataExplorer) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "clusterUrl", "database", "table", "oauthEndpoint", "tenantId", "clientId", "scope", "oauthType", "compress"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

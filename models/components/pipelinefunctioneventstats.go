@@ -48,7 +48,7 @@ func (e EventstatsConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (e *EventstatsConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -103,7 +103,7 @@ func (p PipelineFunctionEventstats) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionEventstats) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

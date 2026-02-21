@@ -18,7 +18,7 @@ func (e EnvVar) MarshalJSON() ([]byte, error) {
 }
 
 func (e *EnvVar) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -54,7 +54,7 @@ func (s ScriptCollectorConf) MarshalJSON() ([]byte, error) {
 }
 
 func (s *ScriptCollectorConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"discoverScript", "collectScript"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil

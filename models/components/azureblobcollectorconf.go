@@ -46,7 +46,7 @@ func (a AzureBlobAuthTypeClientCertExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AzureBlobAuthTypeClientCertExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -107,7 +107,7 @@ func (a AzureBlobAuthTypeClientCert) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AzureBlobAuthTypeClientCert) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"storageAccountName", "tenantId", "clientId", "certificate", "containerName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -269,7 +269,7 @@ func (a AzureBlobAuthTypeClientSecretExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AzureBlobAuthTypeClientSecretExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -331,7 +331,7 @@ func (a AzureBlobAuthTypeClientSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AzureBlobAuthTypeClientSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"storageAccountName", "tenantId", "clientId", "clientTextSecret", "containerName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -493,7 +493,7 @@ func (a AzureBlobAuthTypeSecretExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AzureBlobAuthTypeSecretExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -545,7 +545,7 @@ func (a AzureBlobAuthTypeSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AzureBlobAuthTypeSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"textSecret", "containerName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -672,7 +672,7 @@ func (a AzureBlobAuthTypeManualExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AzureBlobAuthTypeManualExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -724,7 +724,7 @@ func (a AzureBlobAuthTypeManual) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AzureBlobAuthTypeManual) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"connectionString", "containerName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -821,6 +821,7 @@ const (
 	AzureBlobCollectorConfTypeSecret       AzureBlobCollectorConfType = "secret"
 	AzureBlobCollectorConfTypeClientSecret AzureBlobCollectorConfType = "clientSecret"
 	AzureBlobCollectorConfTypeClientCert   AzureBlobCollectorConfType = "clientCert"
+	AzureBlobCollectorConfTypeUnknown      AzureBlobCollectorConfType = "UNKNOWN"
 )
 
 type AzureBlobCollectorConf struct {
@@ -828,6 +829,7 @@ type AzureBlobCollectorConf struct {
 	AzureBlobAuthTypeSecret       *AzureBlobAuthTypeSecret       `queryParam:"inline" union:"member"`
 	AzureBlobAuthTypeClientSecret *AzureBlobAuthTypeClientSecret `queryParam:"inline" union:"member"`
 	AzureBlobAuthTypeClientCert   *AzureBlobAuthTypeClientCert   `queryParam:"inline" union:"member"`
+	UnknownRaw                    json.RawMessage                `json:"-" union:"unknown"`
 
 	Type AzureBlobCollectorConfType
 }
@@ -880,6 +882,21 @@ func CreateAzureBlobCollectorConfClientCert(clientCert AzureBlobAuthTypeClientCe
 	}
 }
 
+func CreateAzureBlobCollectorConfUnknown(raw json.RawMessage) AzureBlobCollectorConf {
+	return AzureBlobCollectorConf{
+		UnknownRaw: raw,
+		Type:       AzureBlobCollectorConfTypeUnknown,
+	}
+}
+
+func (u AzureBlobCollectorConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u AzureBlobCollectorConf) IsUnknown() bool {
+	return u.Type == AzureBlobCollectorConfTypeUnknown
+}
+
 func (u *AzureBlobCollectorConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -888,7 +905,14 @@ func (u *AzureBlobCollectorConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = AzureBlobCollectorConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = AzureBlobCollectorConfTypeUnknown
+		return nil
 	}
 
 	switch dis.AuthType {
@@ -928,9 +952,12 @@ func (u *AzureBlobCollectorConf) UnmarshalJSON(data []byte) error {
 		u.AzureBlobAuthTypeClientCert = azureBlobAuthTypeClientCert
 		u.Type = AzureBlobCollectorConfTypeClientCert
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = AzureBlobCollectorConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for AzureBlobCollectorConf", string(data))
 }
 
 func (u AzureBlobCollectorConf) MarshalJSON() ([]byte, error) {
@@ -950,5 +977,8 @@ func (u AzureBlobCollectorConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.AzureBlobAuthTypeClientCert, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type AzureBlobCollectorConf: all fields are null")
 }

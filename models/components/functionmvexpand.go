@@ -53,7 +53,7 @@ func (f FunctionMvExpand) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionMvExpand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"__filename", "group", "id", "loadTime", "modTime", "name", "uischema", "version"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -84,7 +84,7 @@ func (r RunnableJobExecutor) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RunnableJobExecutor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"executor", "run"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -54,7 +54,7 @@ func (p PipelineFunctionSuppressConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSuppressConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"keyExpr", "allow", "suppressPeriodSec"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -130,7 +130,7 @@ func (p PipelineFunctionSuppress) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSuppress) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -150,7 +150,7 @@ func (o OutputMsk) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputMsk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "brokers", "topic", "awsAuthenticationMethod", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

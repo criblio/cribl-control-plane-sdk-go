@@ -72,7 +72,7 @@ func (a Aggregation) MarshalJSON() ([]byte, error) {
 }
 
 func (a *Aggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"metricType", "agg"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -103,7 +103,7 @@ func (p PipelineFunctionAggregateMetricsAdd) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionAggregateMetricsAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -157,7 +157,7 @@ func (p PipelineFunctionAggregateMetricsConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionAggregateMetricsConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -275,7 +275,7 @@ func (p PipelineFunctionAggregateMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionAggregateMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -393,3 +393,143 @@ functionResponse := components.CreateFunctionResponseWindow(components.FunctionW
 functionResponse := components.CreateFunctionResponseXMLUnroll(components.FunctionXMLUnroll{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch functionResponse.Type {
+	case components.FunctionResponseTypeAggregateMetrics:
+		// functionResponse.FunctionAggregateMetrics is populated
+	case components.FunctionResponseTypeAggregation:
+		// functionResponse.FunctionAggregation is populated
+	case components.FunctionResponseTypeAutoTimestamp:
+		// functionResponse.FunctionAutoTimestamp is populated
+	case components.FunctionResponseTypeCef:
+		// functionResponse.FunctionCef is populated
+	case components.FunctionResponseTypeChain:
+		// functionResponse.FunctionChain is populated
+	case components.FunctionResponseTypeClone:
+		// functionResponse.FunctionClone is populated
+	case components.FunctionResponseTypeCode:
+		// functionResponse.FunctionCode is populated
+	case components.FunctionResponseTypeComment:
+		// functionResponse.FunctionComment is populated
+	case components.FunctionResponseTypeDistinct:
+		// functionResponse.FunctionDistinct is populated
+	case components.FunctionResponseTypeDNSLookup:
+		// functionResponse.FunctionDNSLookup is populated
+	case components.FunctionResponseTypeDrop:
+		// functionResponse.FunctionDrop is populated
+	case components.FunctionResponseTypeDropDimensions:
+		// functionResponse.FunctionDropDimensions is populated
+	case components.FunctionResponseTypeDynamicSampling:
+		// functionResponse.FunctionDynamicSampling is populated
+	case components.FunctionResponseTypeEval:
+		// functionResponse.FunctionEval is populated
+	case components.FunctionResponseTypeEventBreaker:
+		// functionResponse.FunctionEventBreaker is populated
+	case components.FunctionResponseTypeEventstats:
+		// functionResponse.FunctionEventstats is populated
+	case components.FunctionResponseTypeExternaldata:
+		// functionResponse.FunctionExternaldata is populated
+	case components.FunctionResponseTypeFlatten:
+		// functionResponse.FunctionFlatten is populated
+	case components.FunctionResponseTypeFoldkeys:
+		// functionResponse.FunctionFoldkeys is populated
+	case components.FunctionResponseTypeGenStats:
+		// functionResponse.FunctionGenStats is populated
+	case components.FunctionResponseTypeGeoip:
+		// functionResponse.FunctionGeoip is populated
+	case components.FunctionResponseTypeGrok:
+		// functionResponse.FunctionGrok is populated
+	case components.FunctionResponseTypeHandlebars:
+		// functionResponse.FunctionHandlebars is populated
+	case components.FunctionResponseTypeJoin:
+		// functionResponse.FunctionJoin is populated
+	case components.FunctionResponseTypeJSONUnroll:
+		// functionResponse.FunctionJSONUnroll is populated
+	case components.FunctionResponseTypeLakeExport:
+		// functionResponse.FunctionLakeExport is populated
+	case components.FunctionResponseTypeLimit:
+		// functionResponse.FunctionLimit is populated
+	case components.FunctionResponseTypeLocalSearchDatatypeParser:
+		// functionResponse.FunctionLocalSearchDatatypeParser is populated
+	case components.FunctionResponseTypeLocalSearchRulesetRunner:
+		// functionResponse.FunctionLocalSearchRulesetRunner is populated
+	case components.FunctionResponseTypeLookup:
+		// functionResponse.FunctionLookup is populated
+	case components.FunctionResponseTypeMask:
+		// functionResponse.FunctionMask is populated
+	case components.FunctionResponseTypeMvExpand:
+		// functionResponse.FunctionMvExpand is populated
+	case components.FunctionResponseTypeMvPull:
+		// functionResponse.FunctionMvPull is populated
+	case components.FunctionResponseTypeNotificationPolicies:
+		// functionResponse.FunctionNotificationPolicies is populated
+	case components.FunctionResponseTypeNotifications:
+		// functionResponse.FunctionNotifications is populated
+	case components.FunctionResponseTypeNotify:
+		// functionResponse.FunctionNotify is populated
+	case components.FunctionResponseTypeNumerify:
+		// functionResponse.FunctionNumerify is populated
+	case components.FunctionResponseTypeOtlpLogs:
+		// functionResponse.FunctionOtlpLogs is populated
+	case components.FunctionResponseTypeOtlpMetrics:
+		// functionResponse.FunctionOtlpMetrics is populated
+	case components.FunctionResponseTypeOtlpTraces:
+		// functionResponse.FunctionOtlpTraces is populated
+	case components.FunctionResponseTypePack:
+		// functionResponse.FunctionPack is populated
+	case components.FunctionResponseTypePivot:
+		// functionResponse.FunctionPivot is populated
+	case components.FunctionResponseTypePublishMetrics:
+		// functionResponse.FunctionPublishMetrics is populated
+	case components.FunctionResponseTypeRedis:
+		// functionResponse.FunctionRedis is populated
+	case components.FunctionResponseTypeRegexExtract:
+		// functionResponse.FunctionRegexExtract is populated
+	case components.FunctionResponseTypeRegexFilter:
+		// functionResponse.FunctionRegexFilter is populated
+	case components.FunctionResponseTypeRename:
+		// functionResponse.FunctionRename is populated
+	case components.FunctionResponseTypeRollupMetrics:
+		// functionResponse.FunctionRollupMetrics is populated
+	case components.FunctionResponseTypeSampling:
+		// functionResponse.FunctionSampling is populated
+	case components.FunctionResponseTypeSend:
+		// functionResponse.FunctionSend is populated
+	case components.FunctionResponseTypeSensitiveDataScanner:
+		// functionResponse.FunctionSensitiveDataScanner is populated
+	case components.FunctionResponseTypeSerde:
+		// functionResponse.FunctionSerde is populated
+	case components.FunctionResponseTypeSerialize:
+		// functionResponse.FunctionSerialize is populated
+	case components.FunctionResponseTypeSidlookup:
+		// functionResponse.FunctionSidlookup is populated
+	case components.FunctionResponseTypeSignalFilter:
+		// functionResponse.FunctionSignalFilter is populated
+	case components.FunctionResponseTypeSnmpTrapSerialize:
+		// functionResponse.FunctionSnmpTrapSerialize is populated
+	case components.FunctionResponseTypeSort:
+		// functionResponse.FunctionSort is populated
+	case components.FunctionResponseTypeStore:
+		// functionResponse.FunctionStore is populated
+	case components.FunctionResponseTypeSuppress:
+		// functionResponse.FunctionSuppress is populated
+	case components.FunctionResponseTypeTee:
+		// functionResponse.FunctionTee is populated
+	case components.FunctionResponseTypeTrimTimestamp:
+		// functionResponse.FunctionTrimTimestamp is populated
+	case components.FunctionResponseTypeUnion:
+		// functionResponse.FunctionUnion is populated
+	case components.FunctionResponseTypeUnroll:
+		// functionResponse.FunctionUnroll is populated
+	case components.FunctionResponseTypeWindow:
+		// functionResponse.FunctionWindow is populated
+	case components.FunctionResponseTypeXMLUnroll:
+		// functionResponse.FunctionXMLUnroll is populated
+	default:
+		// Unknown type - use functionResponse.GetUnknownRaw() for raw JSON
+}
+```
