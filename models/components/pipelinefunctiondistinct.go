@@ -50,7 +50,7 @@ func (d DistinctConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DistinctConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"groupBy"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -112,7 +112,7 @@ func (p PipelineFunctionDistinct) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionDistinct) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

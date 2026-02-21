@@ -147,7 +147,7 @@ func (i InputOffice365Mgmt) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOffice365Mgmt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "planType", "tenantId", "appId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

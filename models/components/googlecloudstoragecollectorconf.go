@@ -45,7 +45,7 @@ func (g GoogleCloudStorageAuthTypeSecretExtractor) MarshalJSON() ([]byte, error)
 }
 
 func (g *GoogleCloudStorageAuthTypeSecretExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -97,7 +97,7 @@ func (g GoogleCloudStorageAuthTypeSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GoogleCloudStorageAuthTypeSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"textSecret", "bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -223,7 +223,7 @@ func (g GoogleCloudStorageAuthTypeManualExtractor) MarshalJSON() ([]byte, error)
 }
 
 func (g *GoogleCloudStorageAuthTypeManualExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -275,7 +275,7 @@ func (g GoogleCloudStorageAuthTypeManual) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GoogleCloudStorageAuthTypeManual) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"serviceAccountCredentials", "bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -401,7 +401,7 @@ func (g GoogleCloudStorageAuthTypeAutoExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GoogleCloudStorageAuthTypeAutoExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -451,7 +451,7 @@ func (g GoogleCloudStorageAuthTypeAuto) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GoogleCloudStorageAuthTypeAuto) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -537,15 +537,17 @@ func (g *GoogleCloudStorageAuthTypeAuto) GetParquetChunkDownloadTimeout() *float
 type GoogleCloudStorageCollectorConfType string
 
 const (
-	GoogleCloudStorageCollectorConfTypeAuto   GoogleCloudStorageCollectorConfType = "auto"
-	GoogleCloudStorageCollectorConfTypeManual GoogleCloudStorageCollectorConfType = "manual"
-	GoogleCloudStorageCollectorConfTypeSecret GoogleCloudStorageCollectorConfType = "secret"
+	GoogleCloudStorageCollectorConfTypeAuto    GoogleCloudStorageCollectorConfType = "auto"
+	GoogleCloudStorageCollectorConfTypeManual  GoogleCloudStorageCollectorConfType = "manual"
+	GoogleCloudStorageCollectorConfTypeSecret  GoogleCloudStorageCollectorConfType = "secret"
+	GoogleCloudStorageCollectorConfTypeUnknown GoogleCloudStorageCollectorConfType = "UNKNOWN"
 )
 
 type GoogleCloudStorageCollectorConf struct {
 	GoogleCloudStorageAuthTypeAuto   *GoogleCloudStorageAuthTypeAuto   `queryParam:"inline" union:"member"`
 	GoogleCloudStorageAuthTypeManual *GoogleCloudStorageAuthTypeManual `queryParam:"inline" union:"member"`
 	GoogleCloudStorageAuthTypeSecret *GoogleCloudStorageAuthTypeSecret `queryParam:"inline" union:"member"`
+	UnknownRaw                       json.RawMessage                   `json:"-" union:"unknown"`
 
 	Type GoogleCloudStorageCollectorConfType
 }
@@ -586,6 +588,21 @@ func CreateGoogleCloudStorageCollectorConfSecret(secret GoogleCloudStorageAuthTy
 	}
 }
 
+func CreateGoogleCloudStorageCollectorConfUnknown(raw json.RawMessage) GoogleCloudStorageCollectorConf {
+	return GoogleCloudStorageCollectorConf{
+		UnknownRaw: raw,
+		Type:       GoogleCloudStorageCollectorConfTypeUnknown,
+	}
+}
+
+func (u GoogleCloudStorageCollectorConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u GoogleCloudStorageCollectorConf) IsUnknown() bool {
+	return u.Type == GoogleCloudStorageCollectorConfTypeUnknown
+}
+
 func (u *GoogleCloudStorageCollectorConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -594,7 +611,14 @@ func (u *GoogleCloudStorageCollectorConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = GoogleCloudStorageCollectorConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = GoogleCloudStorageCollectorConfTypeUnknown
+		return nil
 	}
 
 	switch dis.AuthType {
@@ -625,9 +649,12 @@ func (u *GoogleCloudStorageCollectorConf) UnmarshalJSON(data []byte) error {
 		u.GoogleCloudStorageAuthTypeSecret = googleCloudStorageAuthTypeSecret
 		u.Type = GoogleCloudStorageCollectorConfTypeSecret
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = GoogleCloudStorageCollectorConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GoogleCloudStorageCollectorConf", string(data))
 }
 
 func (u GoogleCloudStorageCollectorConf) MarshalJSON() ([]byte, error) {
@@ -643,5 +670,8 @@ func (u GoogleCloudStorageCollectorConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.GoogleCloudStorageAuthTypeSecret, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type GoogleCloudStorageCollectorConf: all fields are null")
 }

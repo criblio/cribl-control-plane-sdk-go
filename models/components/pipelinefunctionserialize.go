@@ -85,7 +85,7 @@ func (p PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSerializeConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -168,7 +168,7 @@ func (p PipelineFunctionSerialize) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSerialize) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

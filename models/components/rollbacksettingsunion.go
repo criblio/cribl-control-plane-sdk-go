@@ -33,7 +33,7 @@ func (r RollbackSettings1) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RollbackSettings1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"rollbackEnabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -94,17 +94,43 @@ func CreateRollbackSettingsUnionRollbackSettings2(rollbackSettings2 RollbackSett
 
 func (u *RollbackSettingsUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var rollbackSettings1 RollbackSettings1 = RollbackSettings1{}
 	if err := utils.UnmarshalJSON(data, &rollbackSettings1, "", true, nil); err == nil {
-		u.RollbackSettings1 = &rollbackSettings1
-		u.Type = RollbackSettingsUnionTypeRollbackSettings1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RollbackSettingsUnionTypeRollbackSettings1,
+			Value: &rollbackSettings1,
+		})
 	}
 
 	var rollbackSettings2 RollbackSettings2 = RollbackSettings2{}
 	if err := utils.UnmarshalJSON(data, &rollbackSettings2, "", true, nil); err == nil {
-		u.RollbackSettings2 = &rollbackSettings2
-		u.Type = RollbackSettingsUnionTypeRollbackSettings2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RollbackSettingsUnionTypeRollbackSettings2,
+			Value: &rollbackSettings2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RollbackSettingsUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RollbackSettingsUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RollbackSettingsUnionType)
+	switch best.Type {
+	case RollbackSettingsUnionTypeRollbackSettings1:
+		u.RollbackSettings1 = best.Value.(*RollbackSettings1)
+		return nil
+	case RollbackSettingsUnionTypeRollbackSettings2:
+		u.RollbackSettings2 = best.Value.(*RollbackSettings2)
 		return nil
 	}
 

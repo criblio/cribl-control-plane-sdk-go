@@ -99,7 +99,7 @@ func (c CertOptions) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CertOptions) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"privKeyPath", "certPath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -211,7 +211,7 @@ func (i InputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "url", "interval"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

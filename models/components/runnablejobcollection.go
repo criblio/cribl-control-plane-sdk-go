@@ -161,7 +161,7 @@ func (r RunnableJobCollectionRun) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RunnableJobCollectionRun) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"mode"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -304,7 +304,7 @@ func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RunnableJobCollection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"collector", "run"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil

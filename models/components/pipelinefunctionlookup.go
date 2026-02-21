@@ -44,7 +44,7 @@ func (i InField) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"eventField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -78,7 +78,7 @@ func (o OutField) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"lookupField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -127,7 +127,7 @@ func (p PipelineFunctionLookupConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionLookupConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"file"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -217,7 +217,7 @@ func (p PipelineFunctionLookup) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionLookup) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

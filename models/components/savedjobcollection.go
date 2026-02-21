@@ -37,7 +37,7 @@ func (s SavedJobCollection) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SavedJobCollection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "collector"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil

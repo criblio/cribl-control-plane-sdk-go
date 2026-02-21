@@ -393,3 +393,141 @@ pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputWindow(co
 pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputXMLUnroll(components.PipelineFunctionXMLUnroll{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch pipelineFunctionConfInput.Type {
+	case components.PipelineFunctionConfInputTypeAggregateMetrics:
+		// pipelineFunctionConfInput.PipelineFunctionAggregateMetrics is populated
+	case components.PipelineFunctionConfInputTypeAggregation:
+		// pipelineFunctionConfInput.PipelineFunctionAggregation is populated
+	case components.PipelineFunctionConfInputTypeAutoTimestamp:
+		// pipelineFunctionConfInput.PipelineFunctionAutoTimestamp is populated
+	case components.PipelineFunctionConfInputTypeCef:
+		// pipelineFunctionConfInput.PipelineFunctionCefInput is populated
+	case components.PipelineFunctionConfInputTypeChain:
+		// pipelineFunctionConfInput.PipelineFunctionChain is populated
+	case components.PipelineFunctionConfInputTypeClone:
+		// pipelineFunctionConfInput.PipelineFunctionClone is populated
+	case components.PipelineFunctionConfInputTypeCode:
+		// pipelineFunctionConfInput.PipelineFunctionCode is populated
+	case components.PipelineFunctionConfInputTypeComment:
+		// pipelineFunctionConfInput.PipelineFunctionComment is populated
+	case components.PipelineFunctionConfInputTypeDistinct:
+		// pipelineFunctionConfInput.PipelineFunctionDistinct is populated
+	case components.PipelineFunctionConfInputTypeDNSLookup:
+		// pipelineFunctionConfInput.PipelineFunctionDNSLookup is populated
+	case components.PipelineFunctionConfInputTypeDrop:
+		// pipelineFunctionConfInput.PipelineFunctionDrop is populated
+	case components.PipelineFunctionConfInputTypeDropDimensions:
+		// pipelineFunctionConfInput.PipelineFunctionDropDimensions is populated
+	case components.PipelineFunctionConfInputTypeDynamicSampling:
+		// pipelineFunctionConfInput.PipelineFunctionDynamicSampling is populated
+	case components.PipelineFunctionConfInputTypeEval:
+		// pipelineFunctionConfInput.PipelineFunctionEval is populated
+	case components.PipelineFunctionConfInputTypeEventBreaker:
+		// pipelineFunctionConfInput.PipelineFunctionEventBreaker is populated
+	case components.PipelineFunctionConfInputTypeEventstats:
+		// pipelineFunctionConfInput.PipelineFunctionEventstats is populated
+	case components.PipelineFunctionConfInputTypeExternaldata:
+		// pipelineFunctionConfInput.PipelineFunctionExternaldata is populated
+	case components.PipelineFunctionConfInputTypeFlatten:
+		// pipelineFunctionConfInput.PipelineFunctionFlatten is populated
+	case components.PipelineFunctionConfInputTypeFoldkeys:
+		// pipelineFunctionConfInput.PipelineFunctionFoldkeys is populated
+	case components.PipelineFunctionConfInputTypeGenStats:
+		// pipelineFunctionConfInput.PipelineFunctionGenStats is populated
+	case components.PipelineFunctionConfInputTypeGeoip:
+		// pipelineFunctionConfInput.PipelineFunctionGeoip is populated
+	case components.PipelineFunctionConfInputTypeGrok:
+		// pipelineFunctionConfInput.PipelineFunctionGrok is populated
+	case components.PipelineFunctionConfInputTypeHandlebars:
+		// pipelineFunctionConfInput.PipelineFunctionHandlebars is populated
+	case components.PipelineFunctionConfInputTypeJoin:
+		// pipelineFunctionConfInput.PipelineFunctionJoin is populated
+	case components.PipelineFunctionConfInputTypeJSONUnroll:
+		// pipelineFunctionConfInput.PipelineFunctionJSONUnroll is populated
+	case components.PipelineFunctionConfInputTypeLakeExport:
+		// pipelineFunctionConfInput.PipelineFunctionLakeExport is populated
+	case components.PipelineFunctionConfInputTypeLimit:
+		// pipelineFunctionConfInput.PipelineFunctionLimit is populated
+	case components.PipelineFunctionConfInputTypeLocalSearchDatatypeParser:
+		// pipelineFunctionConfInput.PipelineFunctionLocalSearchDatatypeParser is populated
+	case components.PipelineFunctionConfInputTypeLocalSearchRulesetRunner:
+		// pipelineFunctionConfInput.PipelineFunctionLocalSearchRulesetRunner is populated
+	case components.PipelineFunctionConfInputTypeLookup:
+		// pipelineFunctionConfInput.PipelineFunctionLookup is populated
+	case components.PipelineFunctionConfInputTypeMask:
+		// pipelineFunctionConfInput.PipelineFunctionMask is populated
+	case components.PipelineFunctionConfInputTypeMvExpand:
+		// pipelineFunctionConfInput.PipelineFunctionMvExpand is populated
+	case components.PipelineFunctionConfInputTypeMvPull:
+		// pipelineFunctionConfInput.PipelineFunctionMvPull is populated
+	case components.PipelineFunctionConfInputTypeNotificationPolicies:
+		// pipelineFunctionConfInput.PipelineFunctionNotificationPolicies is populated
+	case components.PipelineFunctionConfInputTypeNotifications:
+		// pipelineFunctionConfInput.PipelineFunctionNotifications is populated
+	case components.PipelineFunctionConfInputTypeNotify:
+		// pipelineFunctionConfInput.PipelineFunctionNotify is populated
+	case components.PipelineFunctionConfInputTypeNumerify:
+		// pipelineFunctionConfInput.PipelineFunctionNumerify is populated
+	case components.PipelineFunctionConfInputTypeOtlpLogs:
+		// pipelineFunctionConfInput.PipelineFunctionOtlpLogs is populated
+	case components.PipelineFunctionConfInputTypeOtlpMetrics:
+		// pipelineFunctionConfInput.PipelineFunctionOtlpMetrics is populated
+	case components.PipelineFunctionConfInputTypeOtlpTraces:
+		// pipelineFunctionConfInput.PipelineFunctionOtlpTraces is populated
+	case components.PipelineFunctionConfInputTypePack:
+		// pipelineFunctionConfInput.PipelineFunctionPack is populated
+	case components.PipelineFunctionConfInputTypePivot:
+		// pipelineFunctionConfInput.PipelineFunctionPivot is populated
+	case components.PipelineFunctionConfInputTypePublishMetrics:
+		// pipelineFunctionConfInput.PipelineFunctionPublishMetrics is populated
+	case components.PipelineFunctionConfInputTypeRedis:
+		// pipelineFunctionConfInput.PipelineFunctionRedis is populated
+	case components.PipelineFunctionConfInputTypeRegexExtract:
+		// pipelineFunctionConfInput.PipelineFunctionRegexExtract is populated
+	case components.PipelineFunctionConfInputTypeRegexFilter:
+		// pipelineFunctionConfInput.PipelineFunctionRegexFilter is populated
+	case components.PipelineFunctionConfInputTypeRename:
+		// pipelineFunctionConfInput.PipelineFunctionRename is populated
+	case components.PipelineFunctionConfInputTypeRollupMetrics:
+		// pipelineFunctionConfInput.PipelineFunctionRollupMetrics is populated
+	case components.PipelineFunctionConfInputTypeSampling:
+		// pipelineFunctionConfInput.PipelineFunctionSampling is populated
+	case components.PipelineFunctionConfInputTypeSend:
+		// pipelineFunctionConfInput.PipelineFunctionSend is populated
+	case components.PipelineFunctionConfInputTypeSensitiveDataScanner:
+		// pipelineFunctionConfInput.PipelineFunctionSensitiveDataScanner is populated
+	case components.PipelineFunctionConfInputTypeSerde:
+		// pipelineFunctionConfInput.PipelineFunctionSerde is populated
+	case components.PipelineFunctionConfInputTypeSerialize:
+		// pipelineFunctionConfInput.PipelineFunctionSerialize is populated
+	case components.PipelineFunctionConfInputTypeSidlookup:
+		// pipelineFunctionConfInput.PipelineFunctionSidlookup is populated
+	case components.PipelineFunctionConfInputTypeSignalFilter:
+		// pipelineFunctionConfInput.PipelineFunctionSignalFilter is populated
+	case components.PipelineFunctionConfInputTypeSnmpTrapSerialize:
+		// pipelineFunctionConfInput.PipelineFunctionSnmpTrapSerialize is populated
+	case components.PipelineFunctionConfInputTypeSort:
+		// pipelineFunctionConfInput.PipelineFunctionSort is populated
+	case components.PipelineFunctionConfInputTypeStore:
+		// pipelineFunctionConfInput.PipelineFunctionStore is populated
+	case components.PipelineFunctionConfInputTypeSuppress:
+		// pipelineFunctionConfInput.PipelineFunctionSuppress is populated
+	case components.PipelineFunctionConfInputTypeTee:
+		// pipelineFunctionConfInput.PipelineFunctionTee is populated
+	case components.PipelineFunctionConfInputTypeTrimTimestamp:
+		// pipelineFunctionConfInput.PipelineFunctionTrimTimestamp is populated
+	case components.PipelineFunctionConfInputTypeUnion:
+		// pipelineFunctionConfInput.PipelineFunctionUnion is populated
+	case components.PipelineFunctionConfInputTypeUnroll:
+		// pipelineFunctionConfInput.PipelineFunctionUnroll is populated
+	case components.PipelineFunctionConfInputTypeWindow:
+		// pipelineFunctionConfInput.PipelineFunctionWindow is populated
+	case components.PipelineFunctionConfInputTypeXMLUnroll:
+		// pipelineFunctionConfInput.PipelineFunctionXMLUnroll is populated
+}
+```

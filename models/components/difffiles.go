@@ -86,17 +86,43 @@ func CreateChecksumBeforeArrayOfStr(arrayOfStr []string) ChecksumBefore {
 
 func (u *ChecksumBefore) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		u.Str = &str
-		u.Type = ChecksumBeforeTypeStr
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChecksumBeforeTypeStr,
+			Value: &str,
+		})
 	}
 
 	var arrayOfStr []string = []string{}
 	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
-		u.ArrayOfStr = arrayOfStr
-		u.Type = ChecksumBeforeTypeArrayOfStr
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChecksumBeforeTypeArrayOfStr,
+			Value: arrayOfStr,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(ChecksumBeforeType)
+	switch best.Type {
+	case ChecksumBeforeTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case ChecksumBeforeTypeArrayOfStr:
+		u.ArrayOfStr = best.Value.([]string)
 		return nil
 	}
 
@@ -149,17 +175,43 @@ func CreateOldModeArrayOfStr(arrayOfStr []string) OldMode {
 
 func (u *OldMode) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		u.Str = &str
-		u.Type = OldModeTypeStr
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OldModeTypeStr,
+			Value: &str,
+		})
 	}
 
 	var arrayOfStr []string = []string{}
 	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
-		u.ArrayOfStr = arrayOfStr
-		u.Type = OldModeTypeArrayOfStr
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OldModeTypeArrayOfStr,
+			Value: arrayOfStr,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(OldModeType)
+	switch best.Type {
+	case OldModeTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case OldModeTypeArrayOfStr:
+		u.ArrayOfStr = best.Value.([]string)
 		return nil
 	}
 

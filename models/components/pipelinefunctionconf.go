@@ -77,6 +77,7 @@ const (
 	PipelineFunctionConfTypeUnroll                    PipelineFunctionConfType = "unroll"
 	PipelineFunctionConfTypeWindow                    PipelineFunctionConfType = "window"
 	PipelineFunctionConfTypeXMLUnroll                 PipelineFunctionConfType = "xml_unroll"
+	PipelineFunctionConfTypeUnknown                   PipelineFunctionConfType = "UNKNOWN"
 )
 
 type PipelineFunctionConf struct {
@@ -145,6 +146,7 @@ type PipelineFunctionConf struct {
 	PipelineFunctionUnroll                    *PipelineFunctionUnroll                    `queryParam:"inline" union:"member"`
 	PipelineFunctionWindow                    *PipelineFunctionWindow                    `queryParam:"inline" union:"member"`
 	PipelineFunctionXMLUnroll                 *PipelineFunctionXMLUnroll                 `queryParam:"inline" union:"member"`
+	UnknownRaw                                json.RawMessage                            `json:"-" union:"unknown"`
 
 	Type PipelineFunctionConfType
 }
@@ -929,6 +931,21 @@ func CreatePipelineFunctionConfXMLUnroll(xmlUnroll PipelineFunctionXMLUnroll) Pi
 	}
 }
 
+func CreatePipelineFunctionConfUnknown(raw json.RawMessage) PipelineFunctionConf {
+	return PipelineFunctionConf{
+		UnknownRaw: raw,
+		Type:       PipelineFunctionConfTypeUnknown,
+	}
+}
+
+func (u PipelineFunctionConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PipelineFunctionConf) IsUnknown() bool {
+	return u.Type == PipelineFunctionConfTypeUnknown
+}
+
 func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -937,7 +954,14 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionConfTypeUnknown
+		return nil
 	}
 
 	switch dis.ID {
@@ -1526,9 +1550,12 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 		u.PipelineFunctionXMLUnroll = pipelineFunctionXMLUnroll
 		u.Type = PipelineFunctionConfTypeXMLUnroll
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionConf", string(data))
 }
 
 func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
@@ -1792,5 +1819,8 @@ func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.PipelineFunctionXMLUnroll, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type PipelineFunctionConf: all fields are null")
 }

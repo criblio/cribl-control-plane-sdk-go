@@ -17,9 +17,9 @@ Actions related to Packs
 
 Install a Pack.<br><br>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
 
-### Example Usage
+### Example Usage: PackInstallExamplesEmptyPack
 
-<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" -->
+<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesEmptyPack" -->
 ```go
 package main
 
@@ -47,10 +47,10 @@ func main() {
             Spec: criblcontrolplanesdkgo.Pointer("<value>"),
             Version: criblcontrolplanesdkgo.Pointer("<value>"),
             MinLogStreamVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-            DisplayName: criblcontrolplanesdkgo.Pointer("June30"),
+            DisplayName: criblcontrolplanesdkgo.Pointer("Amely_Gusikowski"),
             Author: criblcontrolplanesdkgo.Pointer("<value>"),
-            Description: criblcontrolplanesdkgo.Pointer("and banish crossly abacus"),
-            Source: criblcontrolplanesdkgo.Pointer("https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl"),
+            Description: criblcontrolplanesdkgo.Pointer("crowded that truly sideboard ample yahoo gracious enraged"),
+            Source: criblcontrolplanesdkgo.Pointer("<value>"),
             Tags: &components.TagsTypePackInstallInfo{
                 DataType: []string{
                     "double",
@@ -69,8 +69,162 @@ func main() {
                     "<value 1>",
                 },
             },
+            AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
+            Force: criblcontrolplanesdkgo.Pointer(true),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInstallInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PackInstallExamplesGitRepository
+
+<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesGitRepository" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody2(
+        components.PackRequestBody2{
+            Source: "git+https://github.com/criblio/cribl_ocsf_postprocessing",
+            AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInstallInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PackInstallExamplesPackDispensary
+
+<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesPackDispensary" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody2(
+        components.PackRequestBody2{
+            Source: "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl",
             AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(true),
             Force: criblcontrolplanesdkgo.Pointer(true),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInstallInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PackInstallExamplesURL
+
+<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesURL" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody2(
+        components.PackRequestBody2{
+            Source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
+            AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInstallInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PackInstallExamplesUploadedFile
+
+<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesUploadedFile" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody1(
+        components.PackRequestBody1{
+            ID: "cribl-search-missing-logs",
+            Source: criblcontrolplanesdkgo.Pointer("cribl-search-missing-logs-1.0.1.Do7DH5I.crbl"),
+            AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
         },
     ))
     if err != nil {
@@ -341,7 +495,7 @@ Upgrade the specified Pack.</br></br>If the Pack includes any user–modified ve
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="updatePacksById" method="patch" path="/packs/{id}" -->
+<!-- UsageSnippet language="go" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeExamplesUpgradeFromURL" -->
 ```go
 package main
 
@@ -364,10 +518,7 @@ func main() {
     )
 
     res, err := s.Packs.Update(ctx, "<id>", components.PackUpgradeRequest{
-        AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(true),
-        Minor: criblcontrolplanesdkgo.Pointer("<value>"),
         Source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
-        Spec: criblcontrolplanesdkgo.Pointer("<value>"),
     })
     if err != nil {
         log.Fatal(err)

@@ -45,7 +45,7 @@ func (p PipelineFunctionSensitiveDataScannerRule) MarshalJSON() ([]byte, error) 
 }
 
 func (p *PipelineFunctionSensitiveDataScannerRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"rulesetId", "replaceExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -82,7 +82,7 @@ func (f Flag) MarshalJSON() ([]byte, error) {
 }
 
 func (f *Flag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -120,7 +120,7 @@ func (p PipelineFunctionSensitiveDataScannerConf) MarshalJSON() ([]byte, error) 
 }
 
 func (p *PipelineFunctionSensitiveDataScannerConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"rules"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -189,7 +189,7 @@ func (p PipelineFunctionSensitiveDataScanner) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSensitiveDataScanner) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

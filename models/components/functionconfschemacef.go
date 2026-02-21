@@ -17,7 +17,7 @@ func (h Header) MarshalJSON() ([]byte, error) {
 }
 
 func (h *Header) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -48,7 +48,7 @@ func (e Extension) MarshalJSON() ([]byte, error) {
 }
 
 func (e *Extension) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -119,7 +119,7 @@ func (h HeaderInput) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HeaderInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil

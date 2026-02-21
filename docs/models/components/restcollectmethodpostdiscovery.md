@@ -27,3 +27,21 @@ restCollectMethodPostDiscovery := components.CreateRestCollectMethodPostDiscover
 restCollectMethodPostDiscovery := components.CreateRestCollectMethodPostDiscoveryNone(components.RestCollectMethodPostRestDiscoveryDiscoverTypeNone{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restCollectMethodPostDiscovery.Type {
+	case components.RestCollectMethodPostDiscoveryTypeHTTP:
+		// restCollectMethodPostDiscovery.RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP is populated
+	case components.RestCollectMethodPostDiscoveryTypeJSON:
+		// restCollectMethodPostDiscovery.RestCollectMethodPostRestDiscoveryDiscoverTypeJSON is populated
+	case components.RestCollectMethodPostDiscoveryTypeList:
+		// restCollectMethodPostDiscovery.RestCollectMethodPostRestDiscoveryDiscoverTypeList is populated
+	case components.RestCollectMethodPostDiscoveryTypeNone:
+		// restCollectMethodPostDiscovery.RestCollectMethodPostRestDiscoveryDiscoverTypeNone is populated
+	default:
+		// Unknown type - use restCollectMethodPostDiscovery.GetUnknownRaw() for raw JSON
+}
+```

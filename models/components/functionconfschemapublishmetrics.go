@@ -51,7 +51,7 @@ func (f FunctionConfSchemaPublishMetricsField) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionConfSchemaPublishMetricsField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"inFieldName", "metricType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil

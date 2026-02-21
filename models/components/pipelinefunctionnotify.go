@@ -126,7 +126,7 @@ func (n NotifyConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (n *NotifyConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"group", "notificationId", "searchId", "savedQueryId", "searchUrl", "authToken", "messagesEndpoint"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -251,7 +251,7 @@ func (p PipelineFunctionNotify) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionNotify) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

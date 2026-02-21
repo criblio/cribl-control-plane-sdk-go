@@ -44,7 +44,7 @@ func (p PipelineFunctionUnrollConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionUnrollConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"srcExpr", "dstField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -85,7 +85,7 @@ func (p PipelineFunctionUnroll) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionUnroll) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
