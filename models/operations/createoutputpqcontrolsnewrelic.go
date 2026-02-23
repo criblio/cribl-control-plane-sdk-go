@@ -78,7 +78,6 @@ type CreateOutputOutputCloudflareR2 struct {
 	AwsAuthenticationMethod *CreateOutputAuthenticationMethodCloudflareR2 `json:"awsAuthenticationMethod,omitzero"`
 	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	Region       any     `json:"region,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
@@ -87,7 +86,6 @@ type CreateOutputOutputCloudflareR2 struct {
 	DestPath *string `json:"destPath,omitzero"`
 	// Signature version to use for signing MinIO requests
 	SignatureVersion *components.SignatureVersionOptions5 `json:"signatureVersion,omitzero"`
-	ObjectACL        any                                  `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
 	StorageClass *components.StorageClassOptions2 `json:"storageClass,omitzero"`
 	// Server-side encryption for uploaded objects
@@ -255,13 +253,6 @@ func (c *CreateOutputOutputCloudflareR2) GetAwsSecretKey() *string {
 	return c.AwsSecretKey
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetRegion() any {
-	if c == nil {
-		return nil
-	}
-	return c.Region
-}
-
 func (c *CreateOutputOutputCloudflareR2) GetStagePath() string {
 	if c == nil {
 		return ""
@@ -288,13 +279,6 @@ func (c *CreateOutputOutputCloudflareR2) GetSignatureVersion() *components.Signa
 		return nil
 	}
 	return c.SignatureVersion
-}
-
-func (c *CreateOutputOutputCloudflareR2) GetObjectACL() any {
-	if c == nil {
-		return nil
-	}
-	return c.ObjectACL
 }
 
 func (c *CreateOutputOutputCloudflareR2) GetStorageClass() *components.StorageClassOptions2 {
@@ -4044,7 +4028,6 @@ func (e *CreateOutputAuthenticationMethodXsiam) IsExact() bool {
 }
 
 type CreateOutputURLXsiam struct {
-	URL any `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitzero"`
 }
@@ -4058,13 +4041,6 @@ func (c *CreateOutputURLXsiam) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *CreateOutputURLXsiam) GetURL() any {
-	if c == nil {
-		return nil
-	}
-	return c.URL
 }
 
 func (c *CreateOutputURLXsiam) GetWeight() *float64 {

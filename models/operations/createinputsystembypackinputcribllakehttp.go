@@ -60,7 +60,6 @@ type CreateInputSystemByPackAuthTokenCloudflareHec struct {
 	AuthType *CreateInputSystemByPackAuthTokenAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
-	Token       any     `json:"token,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -92,13 +91,6 @@ func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetTokenSecret() *string
 		return nil
 	}
 	return c.TokenSecret
-}
-
-func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetToken() any {
-	if c == nil {
-		return nil
-	}
-	return c.Token
 }
 
 func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetEnabled() *bool {
@@ -280,8 +272,7 @@ type CreateInputSystemByPackInputCloudflareHec struct {
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitzero"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitzero"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
@@ -472,13 +463,6 @@ func (c *CreateInputSystemByPackInputCloudflareHec) GetKeepAliveTimeout() *float
 		return nil
 	}
 	return c.KeepAliveTimeout
-}
-
-func (c *CreateInputSystemByPackInputCloudflareHec) GetEnableHealthCheck() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHealthCheck
 }
 
 func (c *CreateInputSystemByPackInputCloudflareHec) GetIPAllowlistRegex() *string {
@@ -710,8 +694,7 @@ type CreateInputSystemByPackInputZscalerHec struct {
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitzero"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitzero"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
@@ -902,13 +885,6 @@ func (c *CreateInputSystemByPackInputZscalerHec) GetKeepAliveTimeout() *float64 
 		return nil
 	}
 	return c.KeepAliveTimeout
-}
-
-func (c *CreateInputSystemByPackInputZscalerHec) GetEnableHealthCheck() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHealthCheck
 }
 
 func (c *CreateInputSystemByPackInputZscalerHec) GetIPAllowlistRegex() *string {
@@ -3355,8 +3331,6 @@ type CreateInputSystemByPackMTLSSettings struct {
 	MaxVersion      *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
 	// Enable OCSP check of certificate
 	OcspCheck *bool `json:"ocspCheck,omitzero"`
-	Keytab    any   `json:"keytab,omitzero"`
-	Principal any   `json:"principal,omitzero"`
 	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
 	OcspCheckFailClose *bool `json:"ocspCheckFailClose,omitzero"`
 }
@@ -3454,20 +3428,6 @@ func (c *CreateInputSystemByPackMTLSSettings) GetOcspCheck() *bool {
 		return nil
 	}
 	return c.OcspCheck
-}
-
-func (c *CreateInputSystemByPackMTLSSettings) GetKeytab() any {
-	if c == nil {
-		return nil
-	}
-	return c.Keytab
-}
-
-func (c *CreateInputSystemByPackMTLSSettings) GetPrincipal() any {
-	if c == nil {
-		return nil
-	}
-	return c.Principal
 }
 
 func (c *CreateInputSystemByPackMTLSSettings) GetOcspCheckFailClose() *bool {
@@ -6620,10 +6580,7 @@ type CreateInputSystemByPackInputOpenTelemetry struct {
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket  *int64 `json:"maxRequestsPerSocket,omitzero"`
-	EnableProxyHeader     any    `json:"enableProxyHeader,omitzero"`
-	CaptureHeaders        any    `json:"captureHeaders,omitzero"`
-	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitzero"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
@@ -6781,27 +6738,6 @@ func (c *CreateInputSystemByPackInputOpenTelemetry) GetMaxRequestsPerSocket() *i
 		return nil
 	}
 	return c.MaxRequestsPerSocket
-}
-
-func (c *CreateInputSystemByPackInputOpenTelemetry) GetEnableProxyHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableProxyHeader
-}
-
-func (c *CreateInputSystemByPackInputOpenTelemetry) GetCaptureHeaders() any {
-	if c == nil {
-		return nil
-	}
-	return c.CaptureHeaders
-}
-
-func (c *CreateInputSystemByPackInputOpenTelemetry) GetActivityLogSampleRate() any {
-	if c == nil {
-		return nil
-	}
-	return c.ActivityLogSampleRate
 }
 
 func (c *CreateInputSystemByPackInputOpenTelemetry) GetRequestTimeout() *float64 {

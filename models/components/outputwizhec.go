@@ -56,8 +56,7 @@ type OutputWizHec struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags   []string `json:"streamtags,omitzero"`
-	LoadBalanced any      `json:"loadBalanced,omitzero"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
 	NextQueue *string `json:"nextQueue,omitzero"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
@@ -84,8 +83,7 @@ type OutputWizHec struct {
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders        []string `json:"safeHeaders,omitzero"`
-	EnableMultiMetrics any      `json:"enableMultiMetrics,omitzero"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
@@ -189,13 +187,6 @@ func (o *OutputWizHec) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputWizHec) GetLoadBalanced() any {
-	if o == nil {
-		return nil
-	}
-	return o.LoadBalanced
-}
-
 func (o *OutputWizHec) GetNextQueue() *string {
 	if o == nil {
 		return nil
@@ -285,13 +276,6 @@ func (o *OutputWizHec) GetSafeHeaders() []string {
 		return nil
 	}
 	return o.SafeHeaders
-}
-
-func (o *OutputWizHec) GetEnableMultiMetrics() any {
-	if o == nil {
-		return nil
-	}
-	return o.EnableMultiMetrics
 }
 
 func (o *OutputWizHec) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
