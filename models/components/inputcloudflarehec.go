@@ -58,7 +58,6 @@ type InputCloudflareHecAuthToken struct {
 	AuthType *InputCloudflareHecAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
-	Token       any     `json:"token,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -90,13 +89,6 @@ func (i *InputCloudflareHecAuthToken) GetTokenSecret() *string {
 		return nil
 	}
 	return i.TokenSecret
-}
-
-func (i *InputCloudflareHecAuthToken) GetToken() any {
-	if i == nil {
-		return nil
-	}
-	return i.Token
 }
 
 func (i *InputCloudflareHecAuthToken) GetEnabled() *bool {
@@ -278,8 +270,7 @@ type InputCloudflareHec struct {
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitzero"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitzero"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
@@ -470,13 +461,6 @@ func (i *InputCloudflareHec) GetKeepAliveTimeout() *float64 {
 		return nil
 	}
 	return i.KeepAliveTimeout
-}
-
-func (i *InputCloudflareHec) GetEnableHealthCheck() any {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHealthCheck
 }
 
 func (i *InputCloudflareHec) GetIPAllowlistRegex() *string {

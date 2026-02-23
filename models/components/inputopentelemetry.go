@@ -107,10 +107,7 @@ type InputOpenTelemetry struct {
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket  *int64 `json:"maxRequestsPerSocket,omitzero"`
-	EnableProxyHeader     any    `json:"enableProxyHeader,omitzero"`
-	CaptureHeaders        any    `json:"captureHeaders,omitzero"`
-	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitzero"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
@@ -268,27 +265,6 @@ func (i *InputOpenTelemetry) GetMaxRequestsPerSocket() *int64 {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
-}
-
-func (i *InputOpenTelemetry) GetEnableProxyHeader() any {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputOpenTelemetry) GetCaptureHeaders() any {
-	if i == nil {
-		return nil
-	}
-	return i.CaptureHeaders
-}
-
-func (i *InputOpenTelemetry) GetActivityLogSampleRate() any {
-	if i == nil {
-		return nil
-	}
-	return i.ActivityLogSampleRate
 }
 
 func (i *InputOpenTelemetry) GetRequestTimeout() *float64 {
