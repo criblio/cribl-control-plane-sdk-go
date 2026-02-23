@@ -76,6 +76,8 @@ type GetProductsWorkersByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of MasterWorkerEntry objects
 	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
+
+	Next func() (*GetProductsWorkersByProductResponse, error)
 }
 
 func (g *GetProductsWorkersByProductResponse) GetHTTPMeta() components.HTTPMetadata {
