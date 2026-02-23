@@ -63,13 +63,13 @@ func (e *RedisAuthTypeTextSecretAuthenticationMethod) IsExact() bool {
 
 type RedisAuthTypeTextSecretCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (r RedisAuthTypeTextSecretCommand) MarshalJSON() ([]byte, error) {
@@ -139,16 +139,16 @@ func (e *RedisAuthTypeTextSecretDeploymentType) IsExact() bool {
 }
 
 type RedisAuthTypeTextSecret struct {
-	AuthType *RedisAuthTypeTextSecretAuthenticationMethod `json:"authType,omitempty"`
+	AuthType *RedisAuthTypeTextSecretAuthenticationMethod `json:"authType,omitzero"`
 	// Secret that references Redis admin password
 	TextSecret string                           `json:"textSecret"`
 	Commands   []RedisAuthTypeTextSecretCommand `json:"commands"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisAuthTypeTextSecretDeploymentType `json:"deploymentType,omitempty"`
+	DeploymentType *RedisAuthTypeTextSecretDeploymentType `json:"deploymentType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (r RedisAuthTypeTextSecret) MarshalJSON() ([]byte, error) {
@@ -234,13 +234,13 @@ func (e *RedisAuthTypeCredentialsSecretAuthenticationMethod) IsExact() bool {
 
 type RedisAuthTypeCredentialsSecretCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (r RedisAuthTypeCredentialsSecretCommand) MarshalJSON() ([]byte, error) {
@@ -310,16 +310,16 @@ func (e *RedisAuthTypeCredentialsSecretDeploymentType) IsExact() bool {
 }
 
 type RedisAuthTypeCredentialsSecret struct {
-	AuthType *RedisAuthTypeCredentialsSecretAuthenticationMethod `json:"authType,omitempty"`
+	AuthType *RedisAuthTypeCredentialsSecretAuthenticationMethod `json:"authType,omitzero"`
 	// Secret that references Redis username and password
 	CredentialsSecret string                                  `json:"credentialsSecret"`
 	Commands          []RedisAuthTypeCredentialsSecretCommand `json:"commands"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisAuthTypeCredentialsSecretDeploymentType `json:"deploymentType,omitempty"`
+	DeploymentType *RedisAuthTypeCredentialsSecretDeploymentType `json:"deploymentType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (r RedisAuthTypeCredentialsSecret) MarshalJSON() ([]byte, error) {
@@ -405,13 +405,13 @@ func (e *RedisAuthTypeManualAuthenticationMethod) IsExact() bool {
 
 type RedisAuthTypeManualCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (r RedisAuthTypeManualCommand) MarshalJSON() ([]byte, error) {
@@ -481,16 +481,16 @@ func (e *RedisAuthTypeManualDeploymentType) IsExact() bool {
 }
 
 type RedisAuthTypeManual struct {
-	AuthType *RedisAuthTypeManualAuthenticationMethod `json:"authType,omitempty"`
-	Username *string                                  `json:"username,omitempty"`
+	AuthType *RedisAuthTypeManualAuthenticationMethod `json:"authType,omitzero"`
+	Username *string                                  `json:"username,omitzero"`
 	Password string                                   `json:"password"`
 	Commands []RedisAuthTypeManualCommand             `json:"commands"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisAuthTypeManualDeploymentType `json:"deploymentType,omitempty"`
+	DeploymentType *RedisAuthTypeManualDeploymentType `json:"deploymentType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (r RedisAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -583,13 +583,13 @@ func (e *RedisAuthTypeNoneAuthenticationMethod) IsExact() bool {
 
 type RedisAuthTypeNoneCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (r RedisAuthTypeNoneCommand) MarshalJSON() ([]byte, error) {
@@ -659,14 +659,14 @@ func (e *RedisAuthTypeNoneDeploymentType) IsExact() bool {
 }
 
 type RedisAuthTypeNone struct {
-	AuthType *RedisAuthTypeNoneAuthenticationMethod `json:"authType,omitempty"`
+	AuthType *RedisAuthTypeNoneAuthenticationMethod `json:"authType,omitzero"`
 	Commands []RedisAuthTypeNoneCommand             `json:"commands"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisAuthTypeNoneDeploymentType `json:"deploymentType,omitempty"`
+	DeploymentType *RedisAuthTypeNoneDeploymentType `json:"deploymentType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (r RedisAuthTypeNone) MarshalJSON() ([]byte, error) {
@@ -776,13 +776,13 @@ func (r *RedisDeploymentTypeSentinelTLSFalseRootNode) GetPort() float64 {
 
 type RedisDeploymentTypeSentinelTLSFalseCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (r RedisDeploymentTypeSentinelTLSFalseCommand) MarshalJSON() ([]byte, error) {
@@ -854,18 +854,18 @@ func (e *RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod) IsExact() bool
 
 type RedisDeploymentTypeSentinelTLSFalse struct {
 	// Use TLS for connections to this cluster
-	TLS *bool `json:"tls,omitempty"`
+	TLS *bool `json:"tls,omitzero"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisDeploymentTypeSentinelTLSFalseDeploymentType `json:"deploymentType,omitempty"`
+	DeploymentType *RedisDeploymentTypeSentinelTLSFalseDeploymentType `json:"deploymentType,omitzero"`
 	MasterName     string                                             `json:"masterName"`
 	// List of sentinels to be used
-	RootNodes []RedisDeploymentTypeSentinelTLSFalseRootNode            `json:"rootNodes,omitempty"`
+	RootNodes []RedisDeploymentTypeSentinelTLSFalseRootNode            `json:"rootNodes,omitzero"`
 	Commands  []RedisDeploymentTypeSentinelTLSFalseCommand             `json:"commands"`
-	AuthType  *RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod `json:"authType,omitempty"`
+	AuthType  *RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (r RedisDeploymentTypeSentinelTLSFalse) MarshalJSON() ([]byte, error) {
@@ -996,13 +996,13 @@ func (r *RedisDeploymentTypeSentinelTLSTrueRootNode) GetPort() float64 {
 
 type RedisDeploymentTypeSentinelTLSTrueCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (r RedisDeploymentTypeSentinelTLSTrueCommand) MarshalJSON() ([]byte, error) {
@@ -1074,19 +1074,19 @@ func (e *RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod) IsExact() bool 
 
 type RedisDeploymentTypeSentinelTLSTrue struct {
 	// Use TLS for connections to this cluster
-	TLS        *bool                                            `json:"tls,omitempty"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeClusterTLSTrue `json:"tlsOptions,omitempty"`
+	TLS        *bool                                            `json:"tls,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeClusterTLSTrue `json:"tlsOptions,omitzero"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisDeploymentTypeSentinelTLSTrueDeploymentType `json:"deploymentType,omitempty"`
+	DeploymentType *RedisDeploymentTypeSentinelTLSTrueDeploymentType `json:"deploymentType,omitzero"`
 	MasterName     string                                            `json:"masterName"`
 	// List of sentinels to be used
-	RootNodes []RedisDeploymentTypeSentinelTLSTrueRootNode            `json:"rootNodes,omitempty"`
+	RootNodes []RedisDeploymentTypeSentinelTLSTrueRootNode            `json:"rootNodes,omitzero"`
 	Commands  []RedisDeploymentTypeSentinelTLSTrueCommand             `json:"commands"`
-	AuthType  *RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod `json:"authType,omitempty"`
+	AuthType  *RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (r RedisDeploymentTypeSentinelTLSTrue) MarshalJSON() ([]byte, error) {
@@ -1340,13 +1340,13 @@ func (e *RedisDeploymentTypeClusterTLSFalseScaleReads) IsExact() bool {
 
 type RedisDeploymentTypeClusterTLSFalseCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (r RedisDeploymentTypeClusterTLSFalseCommand) MarshalJSON() ([]byte, error) {
@@ -1418,19 +1418,19 @@ func (e *RedisDeploymentTypeClusterTLSFalseAuthenticationMethod) IsExact() bool 
 
 type RedisDeploymentTypeClusterTLSFalse struct {
 	// Use TLS for connections to this cluster
-	TLS *bool `json:"tls,omitempty"`
+	TLS *bool `json:"tls,omitzero"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisDeploymentTypeClusterTLSFalseDeploymentType `json:"deploymentType,omitempty"`
+	DeploymentType *RedisDeploymentTypeClusterTLSFalseDeploymentType `json:"deploymentType,omitzero"`
 	// Root nodes to which the cluster connection should be initiated
-	RootNodes []RedisDeploymentTypeClusterTLSFalseRootNode `json:"rootNodes,omitempty"`
+	RootNodes []RedisDeploymentTypeClusterTLSFalseRootNode `json:"rootNodes,omitzero"`
 	// Which nodes read commands should be sent to
-	ScaleReads *RedisDeploymentTypeClusterTLSFalseScaleReads           `json:"scaleReads,omitempty"`
+	ScaleReads *RedisDeploymentTypeClusterTLSFalseScaleReads           `json:"scaleReads,omitzero"`
 	Commands   []RedisDeploymentTypeClusterTLSFalseCommand             `json:"commands"`
-	AuthType   *RedisDeploymentTypeClusterTLSFalseAuthenticationMethod `json:"authType,omitempty"`
+	AuthType   *RedisDeploymentTypeClusterTLSFalseAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (r RedisDeploymentTypeClusterTLSFalse) MarshalJSON() ([]byte, error) {
@@ -1588,13 +1588,13 @@ func (e *RedisDeploymentTypeClusterTLSTrueScaleReads) IsExact() bool {
 
 type RedisDeploymentTypeClusterTLSTrueCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (r RedisDeploymentTypeClusterTLSTrueCommand) MarshalJSON() ([]byte, error) {
@@ -1666,20 +1666,20 @@ func (e *RedisDeploymentTypeClusterTLSTrueAuthenticationMethod) IsExact() bool {
 
 type RedisDeploymentTypeClusterTLSTrue struct {
 	// Use TLS for connections to this cluster
-	TLS        *bool                                            `json:"tls,omitempty"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeClusterTLSTrue `json:"tlsOptions,omitempty"`
+	TLS        *bool                                            `json:"tls,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeClusterTLSTrue `json:"tlsOptions,omitzero"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisDeploymentTypeClusterTLSTrueDeploymentType `json:"deploymentType,omitempty"`
+	DeploymentType *RedisDeploymentTypeClusterTLSTrueDeploymentType `json:"deploymentType,omitzero"`
 	// Root nodes to which the cluster connection should be initiated
-	RootNodes []RedisDeploymentTypeClusterTLSTrueRootNode `json:"rootNodes,omitempty"`
+	RootNodes []RedisDeploymentTypeClusterTLSTrueRootNode `json:"rootNodes,omitzero"`
 	// Which nodes read commands should be sent to
-	ScaleReads *RedisDeploymentTypeClusterTLSTrueScaleReads           `json:"scaleReads,omitempty"`
+	ScaleReads *RedisDeploymentTypeClusterTLSTrueScaleReads           `json:"scaleReads,omitzero"`
 	Commands   []RedisDeploymentTypeClusterTLSTrueCommand             `json:"commands"`
-	AuthType   *RedisDeploymentTypeClusterTLSTrueAuthenticationMethod `json:"authType,omitempty"`
+	AuthType   *RedisDeploymentTypeClusterTLSTrueAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (r RedisDeploymentTypeClusterTLSTrue) MarshalJSON() ([]byte, error) {
@@ -1874,23 +1874,23 @@ func (e *RedisDeploymentTypeStandaloneDeploymentType) IsExact() bool {
 
 type TLSOptions struct {
 	// Reject certificates that are not authorized by a CA in the 'CA certificate path', or by another trusted CA (such as the system's CA)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Server name for the SNI (Server Name Indication) TLS extension. Must be a host name, not an IP address.
-	Servername *string `json:"servername,omitempty"`
+	Servername *string `json:"servername,omitzero"`
 	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
+	CertificateName *string `json:"certificateName,omitzero"`
 	// Path on client in which to find CA certificates to verify the server's certificate. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
+	CaPath *string `json:"caPath,omitzero"`
 	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	PrivKeyPath *string `json:"privKeyPath,omitzero"`
 	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
+	CertPath *string `json:"certPath,omitzero"`
 	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
+	Passphrase *string `json:"passphrase,omitzero"`
 	// Minimum TLS version to use when connecting
-	MinVersion *MinimumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions `json:"minVersion,omitempty"`
+	MinVersion *MinimumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions `json:"minVersion,omitzero"`
 	// Maximum TLS version to use when connecting
-	MaxVersion *MaximumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions `json:"maxVersion,omitempty"`
+	MaxVersion *MaximumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions `json:"maxVersion,omitzero"`
 }
 
 func (t TLSOptions) MarshalJSON() ([]byte, error) {
@@ -1969,13 +1969,13 @@ func (t *TLSOptions) GetMaxVersion() *MaximumTLSVersionOptionsRedisDeploymentTyp
 
 type RedisDeploymentTypeStandaloneCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (r RedisDeploymentTypeStandaloneCommand) MarshalJSON() ([]byte, error) {
@@ -2047,16 +2047,16 @@ func (e *RedisDeploymentTypeStandaloneAuthenticationMethod) IsExact() bool {
 
 type RedisDeploymentTypeStandalone struct {
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisDeploymentTypeStandaloneDeploymentType `json:"deploymentType,omitempty"`
+	DeploymentType *RedisDeploymentTypeStandaloneDeploymentType `json:"deploymentType,omitzero"`
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	URL        string                                             `json:"url"`
-	TLSOptions *TLSOptions                                        `json:"tlsOptions,omitempty"`
+	TLSOptions *TLSOptions                                        `json:"tlsOptions,omitzero"`
 	Commands   []RedisDeploymentTypeStandaloneCommand             `json:"commands"`
-	AuthType   *RedisDeploymentTypeStandaloneAuthenticationMethod `json:"authType,omitempty"`
+	AuthType   *RedisDeploymentTypeStandaloneAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (r RedisDeploymentTypeStandalone) MarshalJSON() ([]byte, error) {
@@ -2305,18 +2305,18 @@ func (u PipelineFunctionRedisConf) MarshalJSON() ([]byte, error) {
 
 type PipelineFunctionRedis struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionRedisID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                     `json:"final,omitempty"`
+	Final *bool                     `json:"final,omitzero"`
 	Conf  PipelineFunctionRedisConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionRedis) MarshalJSON() ([]byte, error) {

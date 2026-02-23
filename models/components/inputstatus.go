@@ -8,7 +8,7 @@ type InputStatus struct {
 	// Status information for the Source or Destination, aggregated across all Worker Processes.
 	Status StatusType `json:"status"`
 	// Type of the Source or Destination.
-	Type *string `json:"type,omitempty"`
+	Type *string `json:"type,omitzero"`
 }
 
 func (i *InputStatus) GetID() string {

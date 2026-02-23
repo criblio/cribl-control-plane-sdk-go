@@ -8,11 +8,11 @@ import (
 
 type FunctionConfSchemaFoldkeys struct {
 	// When enabled (default), only the folded keys are kept. When disabled, the original entries are retained alongside the folded keys.
-	DeleteOriginal *bool `json:"deleteOriginal,omitempty"`
+	DeleteOriginal *bool `json:"deleteOriginal,omitzero"`
 	// Character or string used to separate key levels to be folded. Defaults to the dot (.) character.
-	Separator *string `json:"separator,omitempty"`
+	Separator *string `json:"separator,omitzero"`
 	// Optional regular expression to select a subset of the keys to fold.
-	SelectionRegExp *string `json:"selectionRegExp,omitempty"`
+	SelectionRegExp *string `json:"selectionRegExp,omitzero"`
 }
 
 func (f FunctionConfSchemaFoldkeys) MarshalJSON() ([]byte, error) {

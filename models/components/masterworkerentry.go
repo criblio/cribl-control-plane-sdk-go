@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type MasterWorkerEntryType string
 
 const (
@@ -37,21 +41,32 @@ func (m *MasterWorkerEntryWorkers) GetCount() float64 {
 }
 
 type MasterWorkerEntry struct {
-	ConnectionProtocol *ConnectionProtocol       `json:"connectionProtocol,omitempty"`
-	Deployable         *bool                     `json:"deployable,omitempty"`
-	Disconnected       *bool                     `json:"disconnected,omitempty"`
+	ConnectionProtocol *ConnectionProtocol       `json:"connectionProtocol,omitzero"`
+	Deployable         *bool                     `json:"deployable,omitzero"`
+	Disconnected       *bool                     `json:"disconnected,omitzero"`
 	FirstMsgTime       float64                   `json:"firstMsgTime"`
 	Group              string                    `json:"group"`
 	ID                 string                    `json:"id"`
 	Info               NodeProvidedInfo          `json:"info"`
-	LastMetrics        map[string]any            `json:"lastMetrics,omitempty"`
+	LastMetrics        map[string]any            `json:"lastMetrics,omitzero"`
 	LastMsgTime        float64                   `json:"lastMsgTime"`
-	Metadata           *HeartbeatMetadata        `json:"metadata,omitempty"`
-	NodeUpgradeStatus  *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitempty"`
-	Status             *string                   `json:"status,omitempty"`
-	Type               *MasterWorkerEntryType    `json:"type,omitempty"`
+	Metadata           *HeartbeatMetadata        `json:"metadata,omitzero"`
+	NodeUpgradeStatus  *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitzero"`
+	Status             *string                   `json:"status,omitzero"`
+	Type               *MasterWorkerEntryType    `json:"type,omitzero"`
 	WorkerProcesses    float64                   `json:"workerProcesses"`
-	Workers            *MasterWorkerEntryWorkers `json:"workers,omitempty"`
+	Workers            *MasterWorkerEntryWorkers `json:"workers,omitzero"`
+}
+
+func (m MasterWorkerEntry) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MasterWorkerEntry) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (m *MasterWorkerEntry) GetConnectionProtocol() *ConnectionProtocol {

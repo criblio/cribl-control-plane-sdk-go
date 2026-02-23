@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type DeployRequest struct {
-	Lookups []DeployRequestLookups `json:"lookups,omitempty"`
+	Lookups []DeployRequestLookups `json:"lookups,omitzero"`
 	Version string                 `json:"version"`
+}
+
+func (d DeployRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DeployRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DeployRequest) GetLookups() []DeployRequestLookups {

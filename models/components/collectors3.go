@@ -38,9 +38,9 @@ type CollectorS3 struct {
 	Type CollectorS3Type `json:"type"`
 	Conf S3CollectorConf `json:"conf"`
 	// Delete any files collected (where applicable)
-	Destructive *bool `json:"destructive,omitempty"`
+	Destructive *bool `json:"destructive,omitzero"`
 	// Character encoding to use when parsing ingested data.
-	Encoding *string `json:"encoding,omitempty"`
+	Encoding *string `json:"encoding,omitzero"`
 }
 
 func (c CollectorS3) MarshalJSON() ([]byte, error) {

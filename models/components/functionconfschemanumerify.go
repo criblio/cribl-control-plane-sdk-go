@@ -38,13 +38,13 @@ func (e *NumerifyFormatNoneFormat) IsExact() bool {
 }
 
 type NumerifyFormatNone struct {
-	Format *NumerifyFormatNoneFormat `json:"format,omitempty"`
+	Format *NumerifyFormatNoneFormat `json:"format,omitzero"`
 	// Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
-	Depth *int64 `json:"depth,omitempty"`
+	Depth *int64 `json:"depth,omitzero"`
 	// Fields to NOT numerify. Takes precedence over 'Include expression' when set. Supports wildcards. A '!' before field name(s) means: numerify all fields EXCEPT these. For syntax details, see [Wildcard Lists](https://docs.cribl.io/stream/introduction-reference/#wildcard-lists).
-	IgnoreFields []string `json:"ignoreFields,omitempty"`
+	IgnoreFields []string `json:"ignoreFields,omitzero"`
 	// Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
-	FilterExpr *string `json:"filterExpr,omitempty"`
+	FilterExpr *string `json:"filterExpr,omitzero"`
 }
 
 func (n NumerifyFormatNone) MarshalJSON() ([]byte, error) {
@@ -115,15 +115,15 @@ func (e *NumerifyFormatFixFormat) IsExact() bool {
 }
 
 type NumerifyFormatFix struct {
-	Format *NumerifyFormatFixFormat `json:"format,omitempty"`
+	Format *NumerifyFormatFixFormat `json:"format,omitzero"`
 	// Number of digits after the decimal point, between 0 and 20. If left blank, defaults to 2.
-	Digits *float64 `json:"digits,omitempty"`
+	Digits *float64 `json:"digits,omitzero"`
 	// Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
-	Depth *int64 `json:"depth,omitempty"`
+	Depth *int64 `json:"depth,omitzero"`
 	// Fields to NOT numerify. Takes precedence over 'Include expression' when set. Supports wildcards. A '!' before field name(s) means: numerify all fields EXCEPT these. For syntax details, see [Wildcard Lists](https://docs.cribl.io/stream/introduction-reference/#wildcard-lists).
-	IgnoreFields []string `json:"ignoreFields,omitempty"`
+	IgnoreFields []string `json:"ignoreFields,omitzero"`
 	// Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
-	FilterExpr *string `json:"filterExpr,omitempty"`
+	FilterExpr *string `json:"filterExpr,omitzero"`
 }
 
 func (n NumerifyFormatFix) MarshalJSON() ([]byte, error) {

@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -22,6 +23,17 @@ type DeleteDatabaseConnectionConfigByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of DatabaseConnectionConfig objects
 	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
+}
+
+func (d DeleteDatabaseConnectionConfigByIDResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DeleteDatabaseConnectionConfigByIDResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DeleteDatabaseConnectionConfigByIDResponse) GetHTTPMeta() components.HTTPMetadata {

@@ -9,18 +9,18 @@ import (
 )
 
 type PackRequestBody2 struct {
-	ID                  *string `json:"id,omitempty"`
-	Spec                *string `json:"spec,omitempty"`
-	Version             *string `json:"version,omitempty"`
-	MinLogStreamVersion *string `json:"minLogStreamVersion,omitempty"`
-	DisplayName         *string `json:"displayName,omitempty"`
-	Author              *string `json:"author,omitempty"`
-	Description         *string `json:"description,omitempty"`
+	ID                  *string `json:"id,omitzero"`
+	Spec                *string `json:"spec,omitzero"`
+	Version             *string `json:"version,omitzero"`
+	MinLogStreamVersion *string `json:"minLogStreamVersion,omitzero"`
+	DisplayName         *string `json:"displayName,omitzero"`
+	Author              *string `json:"author,omitzero"`
+	Description         *string `json:"description,omitzero"`
 	// The source of the pack. If not present, an empty pack will be created
 	Source               string                   `json:"source"`
-	Tags                 *TagsTypePackInstallInfo `json:"tags,omitempty"`
-	AllowCustomFunctions *bool                    `json:"allowCustomFunctions,omitempty"`
-	Force                *bool                    `json:"force,omitempty"`
+	Tags                 *TagsTypePackInstallInfo `json:"tags,omitzero"`
+	AllowCustomFunctions *bool                    `json:"allowCustomFunctions,omitzero"`
+	Force                *bool                    `json:"force,omitzero"`
 }
 
 func (p PackRequestBody2) MarshalJSON() ([]byte, error) {
@@ -113,17 +113,17 @@ func (p *PackRequestBody2) GetForce() *bool {
 
 type PackRequestBody1 struct {
 	ID                  string  `json:"id"`
-	Spec                *string `json:"spec,omitempty"`
-	Version             *string `json:"version,omitempty"`
-	MinLogStreamVersion *string `json:"minLogStreamVersion,omitempty"`
-	DisplayName         *string `json:"displayName,omitempty"`
-	Author              *string `json:"author,omitempty"`
-	Description         *string `json:"description,omitempty"`
+	Spec                *string `json:"spec,omitzero"`
+	Version             *string `json:"version,omitzero"`
+	MinLogStreamVersion *string `json:"minLogStreamVersion,omitzero"`
+	DisplayName         *string `json:"displayName,omitzero"`
+	Author              *string `json:"author,omitzero"`
+	Description         *string `json:"description,omitzero"`
 	// The source of the pack. If not present, an empty pack will be created
-	Source               *string                  `json:"source,omitempty"`
-	Tags                 *TagsTypePackInstallInfo `json:"tags,omitempty"`
-	AllowCustomFunctions *bool                    `json:"allowCustomFunctions,omitempty"`
-	Force                *bool                    `json:"force,omitempty"`
+	Source               *string                  `json:"source,omitzero"`
+	Tags                 *TagsTypePackInstallInfo `json:"tags,omitzero"`
+	AllowCustomFunctions *bool                    `json:"allowCustomFunctions,omitzero"`
+	Force                *bool                    `json:"force,omitzero"`
 }
 
 func (p PackRequestBody1) MarshalJSON() ([]byte, error) {

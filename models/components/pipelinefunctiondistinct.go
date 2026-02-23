@@ -36,13 +36,13 @@ type DistinctConfiguration struct {
 	// Defines the properties that are concatenated to produce distinct key
 	GroupBy []string `json:"groupBy"`
 	// maximum number of tracked combinations
-	MaxCombinations *float64 `json:"maxCombinations,omitempty"`
+	MaxCombinations *float64 `json:"maxCombinations,omitzero"`
 	// maximum number of groupBy properties
-	MaxDepth *float64 `json:"maxDepth,omitempty"`
+	MaxDepth *float64 `json:"maxDepth,omitzero"`
 	// indicator that the operator runs on a federated executor
-	IsFederated *bool `json:"isFederated,omitempty"`
+	IsFederated *bool `json:"isFederated,omitzero"`
 	// Toggle this on to suppress generating previews of intermediate results
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
+	SuppressPreviews *bool `json:"suppressPreviews,omitzero"`
 }
 
 func (d DistinctConfiguration) MarshalJSON() ([]byte, error) {
@@ -93,18 +93,18 @@ func (d *DistinctConfiguration) GetSuppressPreviews() *bool {
 
 type PipelineFunctionDistinct struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionDistinctID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                 `json:"final,omitempty"`
+	Final *bool                 `json:"final,omitzero"`
 	Conf  DistinctConfiguration `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionDistinct) MarshalJSON() ([]byte, error) {

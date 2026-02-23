@@ -35,39 +35,39 @@ func (e *PipelineFunctionAggregationID) UnmarshalJSON(data []byte) error {
 
 type AggregationCumulativeFalse struct {
 	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `json:"cumulative,omitempty"`
+	Cumulative *bool `json:"cumulative,omitzero"`
 	// The tumbling window tolerance to late events. Must be a valid time string (such as 10s).
-	LagTolerance *string `json:"lagTolerance,omitempty"`
+	LagTolerance *string `json:"lagTolerance,omitzero"`
 	// How long to wait before flushing a bucket that has not received events. Must be a valid time string (such as 10s).
-	IdleTimeLimit *string `json:"idleTimeLimit,omitempty"`
+	IdleTimeLimit *string `json:"idleTimeLimit,omitzero"`
 	// Pass through the original events along with the aggregation events
-	Passthrough *bool `json:"passthrough,omitempty"`
+	Passthrough *bool `json:"passthrough,omitzero"`
 	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitzero"`
 	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitzero"`
 	// Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
-	MetricsMode *bool `json:"metricsMode,omitempty"`
+	MetricsMode *bool `json:"metricsMode,omitzero"`
 	// A prefix that is prepended to all of the fields output by this Aggregations Function
-	Prefix *string `json:"prefix,omitempty"`
+	Prefix *string `json:"prefix,omitzero"`
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
 	TimeWindow string `json:"timeWindow"`
 	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
 	Aggregations []string `json:"aggregations"`
 	// Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-	Groupbys []string `json:"groupbys,omitempty"`
+	Groupbys []string `json:"groupbys,omitzero"`
 	// The maximum number of events to include in any given aggregation event
-	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
+	FlushEventLimit *float64 `json:"flushEventLimit,omitzero"`
 	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
+	FlushMemLimit *string `json:"flushMemLimit,omitzero"`
 	// Allows Cribl Search-specific aggregation configuration
-	SearchAggMode *string `json:"searchAggMode,omitempty"`
+	SearchAggMode *string `json:"searchAggMode,omitzero"`
 	// Set of key-value pairs to evaluate and add/set
-	Add []ItemsTypeAdd `json:"add,omitempty"`
+	Add []ItemsTypeAdd `json:"add,omitzero"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitzero"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitzero"`
 }
 
 func (a AggregationCumulativeFalse) MarshalJSON() ([]byte, error) {
@@ -202,35 +202,35 @@ func (a *AggregationCumulativeFalse) GetFlushOnInputClose() *bool {
 
 type AggregationCumulativeTrue struct {
 	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `json:"cumulative,omitempty"`
+	Cumulative *bool `json:"cumulative,omitzero"`
 	// Pass through the original events along with the aggregation events
-	Passthrough *bool `json:"passthrough,omitempty"`
+	Passthrough *bool `json:"passthrough,omitzero"`
 	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitzero"`
 	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitzero"`
 	// Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
-	MetricsMode *bool `json:"metricsMode,omitempty"`
+	MetricsMode *bool `json:"metricsMode,omitzero"`
 	// A prefix that is prepended to all of the fields output by this Aggregations Function
-	Prefix *string `json:"prefix,omitempty"`
+	Prefix *string `json:"prefix,omitzero"`
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
 	TimeWindow string `json:"timeWindow"`
 	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
 	Aggregations []string `json:"aggregations"`
 	// Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-	Groupbys []string `json:"groupbys,omitempty"`
+	Groupbys []string `json:"groupbys,omitzero"`
 	// The maximum number of events to include in any given aggregation event
-	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
+	FlushEventLimit *float64 `json:"flushEventLimit,omitzero"`
 	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
+	FlushMemLimit *string `json:"flushMemLimit,omitzero"`
 	// Allows Cribl Search-specific aggregation configuration
-	SearchAggMode *string `json:"searchAggMode,omitempty"`
+	SearchAggMode *string `json:"searchAggMode,omitzero"`
 	// Set of key-value pairs to evaluate and add/set
-	Add []ItemsTypeAdd `json:"add,omitempty"`
+	Add []ItemsTypeAdd `json:"add,omitzero"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitzero"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitzero"`
 }
 
 func (a AggregationCumulativeTrue) MarshalJSON() ([]byte, error) {
@@ -440,18 +440,18 @@ func (u PipelineFunctionAggregationConf) MarshalJSON() ([]byte, error) {
 
 type PipelineFunctionAggregation struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionAggregationID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                           `json:"final,omitempty"`
+	Final *bool                           `json:"final,omitzero"`
 	Conf  PipelineFunctionAggregationConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionAggregation) MarshalJSON() ([]byte, error) {

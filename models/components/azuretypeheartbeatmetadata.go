@@ -2,18 +2,33 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type AzureTypeHeartbeatMetadata struct {
 	Enabled        bool              `json:"enabled"`
-	Hostname       *string           `json:"hostname,omitempty"`
-	InstanceID     *string           `json:"instanceId,omitempty"`
-	Name           *string           `json:"name,omitempty"`
-	Region         *string           `json:"region,omitempty"`
-	ResourceGroup  *string           `json:"resourceGroup,omitempty"`
-	SubscriptionID *string           `json:"subscriptionId,omitempty"`
-	Tags           map[string]string `json:"tags,omitempty"`
-	Type           *string           `json:"type,omitempty"`
-	VMID           *string           `json:"vmId,omitempty"`
-	Zone           *string           `json:"zone,omitempty"`
+	Hostname       *string           `json:"hostname,omitzero"`
+	InstanceID     *string           `json:"instanceId,omitzero"`
+	Name           *string           `json:"name,omitzero"`
+	Region         *string           `json:"region,omitzero"`
+	ResourceGroup  *string           `json:"resourceGroup,omitzero"`
+	SubscriptionID *string           `json:"subscriptionId,omitzero"`
+	Tags           map[string]string `json:"tags,omitzero"`
+	Type           *string           `json:"type,omitzero"`
+	VMID           *string           `json:"vmId,omitzero"`
+	Zone           *string           `json:"zone,omitzero"`
+}
+
+func (a AzureTypeHeartbeatMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AzureTypeHeartbeatMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (a *AzureTypeHeartbeatMetadata) GetEnabled() bool {

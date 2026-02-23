@@ -12,15 +12,15 @@ type ItemsTypeHosts struct {
 	// The port to connect to on the provided host
 	Port float64 `json:"port"`
 	// Whether to inherit TLS configs from group setting or disable TLS
-	TLS *TLSOptionsHostsItems `json:"tls,omitempty"`
+	TLS *TLSOptionsHostsItems `json:"tls,omitzero"`
 	// Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-	Servername *string `json:"servername,omitempty"`
+	Servername *string `json:"servername,omitzero"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `json:"weight,omitempty"`
+	Weight *float64 `json:"weight,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i ItemsTypeHosts) MarshalJSON() ([]byte, error) {

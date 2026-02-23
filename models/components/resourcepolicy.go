@@ -4,7 +4,7 @@ package components
 
 type ResourcePolicy struct {
 	Gid    string       `json:"gid"`
-	ID     *string      `json:"id,omitempty"`
+	ID     *string      `json:"id,omitzero"`
 	Policy string       `json:"policy"`
 	Type   RbacResource `json:"type"`
 }

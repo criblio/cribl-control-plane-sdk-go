@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 // ErrorTypeStatusPq - Error information for the persistent queue, if applicable.
 type ErrorTypeStatusPq struct {
 	// Additional details for the persistent queue error.
-	Details map[string]any `json:"details,omitempty"`
+	Details map[string]any `json:"details,omitzero"`
 	// Human-readable message that describes the persistent queue error.
 	Message string `json:"message"`
+}
+
+func (e ErrorTypeStatusPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ErrorTypeStatusPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ErrorTypeStatusPq) GetDetails() map[string]any {

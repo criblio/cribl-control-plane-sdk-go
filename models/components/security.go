@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type Security struct {
 	BearerAuth  *string            `security:"scheme,type=http,subtype=bearer,name=Authorization,env=criblcontrolplane_bearer_auth"`
 	ClientOauth *SchemeClientOauth `security:"scheme,type=oauth2,subtype=client_credentials"`
+}
+
+func (s Security) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Security) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *Security) GetBearerAuth() *string {

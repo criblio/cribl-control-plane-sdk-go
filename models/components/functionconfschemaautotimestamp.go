@@ -67,26 +67,26 @@ func (t *Timestamp) GetStrptime() string {
 
 type FunctionConfSchemaAutoTimestamp struct {
 	// Field to search for a timestamp
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Field to place timestamp in
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 	// Timezone to assign to timestamps without timezone info
-	DefaultTimezone *string `json:"defaultTimezone,omitempty"`
+	DefaultTimezone *string `json:"defaultTimezone,omitzero"`
 	// Expression to use to format time. Current time, as a JavaScript Date object, is in global `time`. You can access other fields' values via __e.<fieldName>.
-	TimeExpression *string `json:"timeExpression,omitempty"`
+	TimeExpression *string `json:"timeExpression,omitzero"`
 	// The offset into the string from which to look for a timestamp
-	Offset *float64 `json:"offset,omitempty"`
+	Offset *float64 `json:"offset,omitzero"`
 	// Maximum string length at which to look for a timestamp
-	MaxLen *float64 `json:"maxLen,omitempty"`
+	MaxLen *float64 `json:"maxLen,omitzero"`
 	// How to set the time field if no timestamp is found
-	DefaultTime *DefaultTime `json:"defaultTime,omitempty"`
+	DefaultTime *DefaultTime `json:"defaultTime,omitzero"`
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to the Default time.
-	LatestDateAllowed *string `json:"latestDateAllowed,omitempty"`
-	Spacer            *string `json:"spacer,omitempty"`
+	LatestDateAllowed *string `json:"latestDateAllowed,omitzero"`
+	Spacer            *string `json:"spacer,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to the Default time.
-	EarliestDateAllowed *string `json:"earliestDateAllowed,omitempty"`
+	EarliestDateAllowed *string `json:"earliestDateAllowed,omitzero"`
 	// Add regex/strptime pairs to extract additional timestamp formats
-	Timestamps []Timestamp `json:"timestamps,omitempty"`
+	Timestamps []Timestamp `json:"timestamps,omitzero"`
 }
 
 func (f FunctionConfSchemaAutoTimestamp) MarshalJSON() ([]byte, error) {

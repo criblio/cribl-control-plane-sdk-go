@@ -10,9 +10,9 @@ import (
 )
 
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone struct {
-	PrivProtocol *string                              `json:"privProtocol,omitempty"`
+	PrivProtocol *string                              `json:"privProtocol,omitzero"`
 	PrivKey      string                               `json:"privKey"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
 	AuthKey      string                               `json:"authKey"`
 	Name         string                               `json:"name"`
 }
@@ -64,8 +64,8 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetName(
 }
 
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone struct {
-	PrivProtocol *string                              `json:"privProtocol,omitempty"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
+	PrivProtocol *string                              `json:"privProtocol,omitzero"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
 	AuthKey      string                               `json:"authKey"`
 	Name         string                               `json:"name"`
 }
@@ -291,9 +291,9 @@ func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error
 }
 
 type SnmpTrapSerializeV3UserAuthProtocolNone struct {
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
-	Name         *string                              `json:"name,omitempty"`
-	PrivProtocol *string                              `json:"privProtocol,omitempty"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
+	Name         *string                              `json:"name,omitzero"`
+	PrivProtocol *string                              `json:"privProtocol,omitzero"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNone) MarshalJSON() ([]byte, error) {
@@ -537,10 +537,10 @@ func (u V3User) MarshalJSON() ([]byte, error) {
 
 type FunctionConfSchemaSnmpTrapSerialize struct {
 	// Prevent event serialization if any required fields are missing. When disabled, @{product} will attempt to serialize the event even if required fields are missing, which could cause unexpected behavior at the downstream receiver.
-	Strict *bool `json:"strict,omitempty"`
+	Strict *bool `json:"strict,omitzero"`
 	// When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
-	DropFailedEvents *bool   `json:"dropFailedEvents,omitempty"`
-	V3User           *V3User `json:"v3User,omitempty"`
+	DropFailedEvents *bool   `json:"dropFailedEvents,omitzero"`
+	V3User           *V3User `json:"v3User,omitzero"`
 }
 
 func (f FunctionConfSchemaSnmpTrapSerialize) MarshalJSON() ([]byte, error) {
