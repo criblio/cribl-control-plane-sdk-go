@@ -17,6 +17,7 @@ generation:
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
     sharedNestedComponentsJan2026: true
+    nameOverrideFeb2026: true
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -49,7 +50,7 @@ go:
       operations: models/operations
       shared: models/components
       webhooks: models/webhooks
-  includeEmptyObjects: false
+  includeEmptyObjects: true
   inferUnionDiscriminators: false
   inputModelSuffix: input
   maxMethodParams: 4
