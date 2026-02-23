@@ -10,8 +10,8 @@ type ExecutorTypeRunnableJobExecutor struct {
 	// The type of executor to run
 	Type string `json:"type"`
 	// Determines whether or not to write task results to disk
-	StoreTaskResults *bool                                                    `json:"storeTaskResults,omitempty"`
-	Conf             *ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor `json:"conf,omitempty"`
+	StoreTaskResults *bool                                                    `json:"storeTaskResults,omitzero"`
+	Conf             *ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor `json:"conf,omitzero"`
 }
 
 func (e ExecutorTypeRunnableJobExecutor) MarshalJSON() ([]byte, error) {

@@ -23,10 +23,10 @@ func (u *UpgradeGroupSettings2) UnmarshalJSON(data []byte) error {
 }
 
 type UpgradeGroupSettings1 struct {
-	IsRolling  *bool    `json:"isRolling,omitempty"`
-	Quantity   *float64 `json:"quantity,omitempty"`
-	RetryCount *float64 `json:"retryCount,omitempty"`
-	RetryDelay *float64 `json:"retryDelay,omitempty"`
+	IsRolling  *bool    `json:"isRolling,omitzero"`
+	Quantity   *float64 `json:"quantity,omitzero"`
+	RetryCount *float64 `json:"retryCount,omitzero"`
+	RetryDelay *float64 `json:"retryDelay,omitzero"`
 }
 
 func (u UpgradeGroupSettings1) MarshalJSON() ([]byte, error) {

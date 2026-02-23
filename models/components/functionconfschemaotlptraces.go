@@ -10,19 +10,19 @@ import (
 
 type OTLPTracesBatchOTLPTracesTrue struct {
 	// Batch OTLP traces by shared top-level `resource` attributes
-	BatchOTLPTraces *bool `json:"batchOTLPTraces,omitempty"`
+	BatchOTLPTraces *bool `json:"batchOTLPTraces,omitzero"`
 	// Number of spans after which a batch will be sent, regardless of the timeout
-	SendBatchSize *float64 `json:"sendBatchSize,omitempty"`
+	SendBatchSize *float64 `json:"sendBatchSize,omitzero"`
 	// Time duration after which a batch will be sent, regardless of size
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Maximum batch size. Enter 0 for no maximum.
-	SendBatchMaxSize *float64 `json:"sendBatchMaxSize,omitempty"`
+	SendBatchMaxSize *float64 `json:"sendBatchMaxSize,omitzero"`
 	// When set, this processor will create one batcher instance per distinct combination of values in the metadata
-	MetadataKeys []any `json:"metadataKeys,omitempty"`
+	MetadataKeys []any `json:"metadataKeys,omitzero"`
 	// Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
-	MetadataCardinalityLimit *float64            `json:"metadataCardinalityLimit,omitempty"`
-	DropNonTraceEvents       *bool               `json:"dropNonTraceEvents,omitempty"`
-	OtlpVersion              *OtlpVersionOptions `json:"otlpVersion,omitempty"`
+	MetadataCardinalityLimit *float64            `json:"metadataCardinalityLimit,omitzero"`
+	DropNonTraceEvents       *bool               `json:"dropNonTraceEvents,omitzero"`
+	OtlpVersion              *OtlpVersionOptions `json:"otlpVersion,omitzero"`
 }
 
 func (o OTLPTracesBatchOTLPTracesTrue) MarshalJSON() ([]byte, error) {
@@ -94,9 +94,9 @@ func (o *OTLPTracesBatchOTLPTracesTrue) GetOtlpVersion() *OtlpVersionOptions {
 
 type OTLPTracesBatchOTLPTracesFalse struct {
 	// Batch OTLP traces by shared top-level `resource` attributes
-	BatchOTLPTraces    *bool               `json:"batchOTLPTraces,omitempty"`
-	DropNonTraceEvents *bool               `json:"dropNonTraceEvents,omitempty"`
-	OtlpVersion        *OtlpVersionOptions `json:"otlpVersion,omitempty"`
+	BatchOTLPTraces    *bool               `json:"batchOTLPTraces,omitzero"`
+	DropNonTraceEvents *bool               `json:"dropNonTraceEvents,omitzero"`
+	OtlpVersion        *OtlpVersionOptions `json:"otlpVersion,omitzero"`
 }
 
 func (o OTLPTracesBatchOTLPTracesFalse) MarshalJSON() ([]byte, error) {

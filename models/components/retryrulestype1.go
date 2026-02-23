@@ -10,19 +10,19 @@ type RetryRulesType1 struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitempty"`
+	Multiplier *float64 `json:"multiplier,omitzero"`
 	// List of http codes that trigger a retry. Leave empty to use the default list of 429, 500, and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitempty"`
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RetryRulesType1) MarshalJSON() ([]byte, error) {

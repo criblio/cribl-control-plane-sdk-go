@@ -12,11 +12,11 @@ type CaptureParams struct {
 	// Maximum number of events to capture.
 	MaxEvents int64 `json:"maxEvents"`
 	// How long to wait before increasing the capture sample size. Specify <code>1</code> second or longer.
-	StepDuration *int64 `json:"stepDuration,omitempty"`
+	StepDuration *int64 `json:"stepDuration,omitzero"`
 	// Unique ID of the Worker.
-	WorkerID *string `json:"workerId,omitempty"`
+	WorkerID *string `json:"workerId,omitzero"`
 	// Maximum number of Workers that can capture initially. A value of <code>0</code> means unlimited (all available Workers can capture).
-	WorkerThreshold *int64 `json:"workerThreshold,omitempty"`
+	WorkerThreshold *int64 `json:"workerThreshold,omitzero"`
 }
 
 func (c *CaptureParams) GetDuration() float64 {

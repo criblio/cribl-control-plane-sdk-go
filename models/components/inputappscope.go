@@ -35,7 +35,7 @@ type Allow struct {
 	// Specify the name of a process or family of processes.
 	Procname string `json:"procname"`
 	// Specify a string to substring-match against process command-line.
-	Arg *string `json:"arg,omitempty"`
+	Arg *string `json:"arg,omitzero"`
 	// Choose a config to apply to processes that match the process name and/or argument.
 	Config string `json:"config"`
 }
@@ -74,9 +74,9 @@ func (a *Allow) GetConfig() string {
 
 type InputAppscopeFilter struct {
 	// Specify processes that AppScope should be loaded into, and the config to use.
-	Allow []Allow `json:"allow,omitempty"`
+	Allow []Allow `json:"allow,omitzero"`
 	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
-	TransportURL *string `json:"transportURL,omitempty"`
+	TransportURL *string `json:"transportURL,omitzero"`
 }
 
 func (i InputAppscopeFilter) MarshalJSON() ([]byte, error) {
@@ -106,16 +106,16 @@ func (i *InputAppscopeFilter) GetTransportURL() *string {
 
 type InputAppscopePersistence struct {
 	// Spool events and metrics on disk for Cribl Edge and Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (i InputAppscopePersistence) MarshalJSON() ([]byte, error) {
@@ -173,64 +173,64 @@ func (i *InputAppscopePersistence) GetDestPath() *string {
 
 type InputAppscope struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitempty"`
+	ID       *string           `json:"id,omitzero"`
 	Type     InputAppscopeType `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
+	Disabled *bool             `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
-	EnableUnixPath *bool                     `json:"enableUnixPath,omitempty"`
-	Filter         *InputAppscopeFilter      `json:"filter,omitempty"`
-	Persistence    *InputAppscopePersistence `json:"persistence,omitempty"`
+	EnableUnixPath *bool                     `json:"enableUnixPath,omitzero"`
+	Filter         *InputAppscopeFilter      `json:"filter,omitzero"`
+	Persistence    *InputAppscopePersistence `json:"persistence,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                     `json:"description,omitempty"`
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                     `json:"description,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `json:"host,omitempty"`
+	Host *string `json:"host,omitzero"`
 	// Port to listen on
-	Port *float64                   `json:"port,omitempty"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	Port *float64                   `json:"port,omitzero"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Path to the UNIX domain socket to listen on.
-	UnixSocketPath *string `json:"unixSocketPath,omitempty"`
+	UnixSocketPath *string `json:"unixSocketPath,omitzero"`
 	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
-	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	UnixSocketPerms *string `json:"unixSocketPerms,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputAppscope) MarshalJSON() ([]byte, error) {

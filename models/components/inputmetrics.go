@@ -33,46 +33,46 @@ func (e *InputMetricsType) UnmarshalJSON(data []byte) error {
 
 type InputMetrics struct {
 	// Unique ID for this input
-	ID       *string          `json:"id,omitempty"`
+	ID       *string          `json:"id,omitzero"`
 	Type     InputMetricsType `json:"type"`
-	Disabled *bool            `json:"disabled,omitempty"`
+	Disabled *bool            `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
-	UDPPort *float64 `json:"udpPort,omitempty"`
+	UDPPort *float64 `json:"udpPort,omitzero"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
-	TCPPort *float64 `json:"tcpPort,omitempty"`
+	TCPPort *float64 `json:"tcpPort,omitzero"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitempty"`
-	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
+	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitzero"`
+	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
-	Description        *string  `json:"description,omitempty"`
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
+	Description        *string  `json:"description,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
-	TemplateUDPPort *string `json:"__template_udpPort,omitempty"`
+	TemplateUDPPort *string `json:"__template_udpPort,omitzero"`
 	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
-	TemplateTCPPort *string `json:"__template_tcpPort,omitempty"`
+	TemplateTCPPort *string `json:"__template_tcpPort,omitzero"`
 }
 
 func (i InputMetrics) MarshalJSON() ([]byte, error) {

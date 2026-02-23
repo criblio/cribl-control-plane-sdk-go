@@ -9,16 +9,16 @@ import (
 type KafkaSchemaRegistryAuthenticationType struct {
 	Disabled bool `json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
-	SchemaRegistryURL *string `json:"schemaRegistryURL,omitempty"`
+	SchemaRegistryURL *string `json:"schemaRegistryURL,omitzero"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for the Schema Registry to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Maximum number of times to try fetching schemas from the Schema Registry
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
-	Auth *AuthTypeKafkaSchemaRegistry                  `json:"auth,omitempty"`
-	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	Auth *AuthTypeKafkaSchemaRegistry                  `json:"auth,omitzero"`
+	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 }
 
 func (k KafkaSchemaRegistryAuthenticationType) MarshalJSON() ([]byte, error) {

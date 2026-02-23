@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -31,6 +32,17 @@ type ListConfigGroupByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of ConfigGroup objects
 	CountedConfigGroup *components.CountedConfigGroup
+}
+
+func (l ListConfigGroupByProductResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListConfigGroupByProductResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (l *ListConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata {

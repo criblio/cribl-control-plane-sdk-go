@@ -33,59 +33,59 @@ func (e *InputTCPType) UnmarshalJSON(data []byte) error {
 
 type InputTCP struct {
 	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
+	ID       *string      `json:"id,omitzero"`
 	Type     InputTCPType `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
+	Disabled *bool        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
-	EnableHeader *bool           `json:"enableHeader,omitempty"`
-	Preprocess   *PreprocessType `json:"preprocess,omitempty"`
-	Description  *string         `json:"description,omitempty"`
+	EnableHeader *bool           `json:"enableHeader,omitzero"`
+	Preprocess   *PreprocessType `json:"preprocess,omitzero"`
+	Description  *string         `json:"description,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputTCP) MarshalJSON() ([]byte, error) {

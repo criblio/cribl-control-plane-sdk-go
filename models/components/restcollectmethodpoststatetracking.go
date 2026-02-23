@@ -60,18 +60,18 @@ func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFa
 }
 
 type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalse struct {
-	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitempty"`
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                   `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                      `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalsePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                      `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalsePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalse) MarshalJSON() ([]byte, error) {
@@ -218,7 +218,7 @@ func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscover
 
 type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTrue struct {
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat string `json:"discoverResponseFormat"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -226,11 +226,11 @@ type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverPars
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                           `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTrueDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                              `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTruePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                              `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTruePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField  *string `json:"discoverDataField,omitempty"`
-	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitempty"`
+	DiscoverDataField  *string `json:"discoverDataField,omitzero"`
+	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTrue) MarshalJSON() ([]byte, error) {
@@ -384,17 +384,17 @@ func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscover
 
 type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalse struct {
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalseDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                            `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalseDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                               `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalsePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                               `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalsePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField  *string `json:"discoverDataField,omitempty"`
-	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitempty"`
+	DiscoverDataField  *string `json:"discoverDataField,omitzero"`
+	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalse) MarshalJSON() ([]byte, error) {
@@ -824,15 +824,15 @@ type RestCollectMethodOtherRestPaginationTypeRequestPage struct {
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField string `json:"pageField"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitempty"`
+	Page *float64 `json:"page,omitzero"`
 	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	SizeField string `json:"sizeField"`
 	// Maximum number of records to collect per page
 	Size float64 `json:"size"`
 	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitempty"`
+	TotalPageField *string `json:"totalPageField,omitzero"`
 	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitempty"`
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
@@ -918,13 +918,13 @@ type RestCollectMethodOtherRestPaginationTypeRequestOffset struct {
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	OffsetField string `json:"offsetField"`
 	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitempty"`
+	Offset *float64 `json:"offset,omitzero"`
 	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	LimitField string `json:"limitField"`
 	// Maximum number of records to collect per request
 	Limit float64 `json:"limit"`
 	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitempty"`
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
@@ -1003,7 +1003,7 @@ type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink struct {
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
 	NextRelationAttribute string `json:"nextRelationAttribute"`
 	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitempty"`
+	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 }
@@ -1094,7 +1094,7 @@ type RestCollectMethodOtherRestPaginationTypeResponseBody struct {
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitempty"`
+	LastPageExpr *string `json:"lastPageExpr,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestPaginationTypeResponseBody) MarshalJSON() ([]byte, error) {
@@ -1414,23 +1414,23 @@ func (e *RestCollectMethodOtherAuthentication) IsExact() bool {
 
 type RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader    *bool   `json:"enableHeader,omitempty"`
-	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
+	EnableHeader    *bool   `json:"enableHeader,omitzero"`
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between a failed request and the first retry
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitempty"`
-	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	Multiplier    *float64 `json:"multiplier,omitzero"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -1516,22 +1516,22 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderTrue) GetRet
 
 type RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitempty"`
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between a failed request and the first retry
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitempty"`
-	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	Multiplier    *float64 `json:"multiplier,omitzero"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -1699,20 +1699,20 @@ func (u RestCollectMethodOtherRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, 
 
 type RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader    *bool   `json:"enableHeader,omitempty"`
-	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
+	EnableHeader    *bool   `json:"enableHeader,omitzero"`
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -1784,19 +1784,19 @@ func (r *RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderTrue) GetRetr
 
 type RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitempty"`
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -2109,7 +2109,7 @@ func (u RestCollectMethodOtherRetryRules) MarshalJSON() ([]byte, error) {
 
 type RestCollectMethodOtherStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled *bool `json:"enabled,omitzero"`
 }
 
 func (r RestCollectMethodOtherStateTracking) MarshalJSON() ([]byte, error) {
@@ -2131,7 +2131,7 @@ func (r *RestCollectMethodOtherStateTracking) GetEnabled() *bool {
 }
 
 type RestCollectMethodOtherScheduling struct {
-	StateTracking *RestCollectMethodOtherStateTracking `json:"stateTracking,omitempty"`
+	StateTracking *RestCollectMethodOtherStateTracking `json:"stateTracking,omitzero"`
 }
 
 func (r RestCollectMethodOtherScheduling) MarshalJSON() ([]byte, error) {
@@ -2157,33 +2157,33 @@ type RestCollectMethodOther struct {
 	// Custom HTTP method to use for the Collect operation
 	CollectVerb string `json:"collectVerb"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody          *string                                             `json:"collectBody,omitempty"`
-	CollectRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestParams,omitempty"`
-	Discovery            *RestCollectMethodOtherDiscovery                    `json:"discovery,omitempty"`
+	CollectBody          *string                                             `json:"collectBody,omitzero"`
+	CollectRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestParams,omitzero"`
+	Discovery            *RestCollectMethodOtherDiscovery                    `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL            string                                              `json:"collectUrl"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitempty"`
-	Pagination            *RestCollectMethodOtherPaginationUnion              `json:"pagination,omitempty"`
+	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
+	Pagination            *RestCollectMethodOtherPaginationUnion              `json:"pagination,omitzero"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication RestCollectMethodOtherAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Decode the URL before sending requests (including pagination requests)
-	DecodeURL *bool `json:"decodeUrl,omitempty"`
+	DecodeURL *bool `json:"decodeUrl,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Enable to add response headers to the resHeaders field under the __collectible object
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// Stop pagination when the Event Breaker produces no events
-	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitempty"`
+	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string                          `json:"safeHeaders,omitempty"`
-	RetryRules  *RestCollectMethodOtherRetryRules `json:"retryRules,omitempty"`
-	Scheduling  *RestCollectMethodOtherScheduling `json:"__scheduling,omitempty"`
+	SafeHeaders []string                          `json:"safeHeaders,omitzero"`
+	RetryRules  *RestCollectMethodOtherRetryRules `json:"retryRules,omitzero"`
+	Scheduling  *RestCollectMethodOtherScheduling `json:"__scheduling,omitzero"`
 }
 
 func (r RestCollectMethodOther) MarshalJSON() ([]byte, error) {
@@ -2585,7 +2585,7 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON struct {
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult string `json:"manualDiscoverResult"`
 	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]byte, error) {
@@ -2700,19 +2700,19 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOth
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                             `json:"discoverBody,omitempty"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitempty"`
+	DiscoverBody          *string                                             `json:"discoverBody,omitzero"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                   `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                      `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                      `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) MarshalJSON() ([]byte, error) {
@@ -2886,13 +2886,13 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                          `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                             `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                             `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -3046,18 +3046,18 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	DiscoverMethod        RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                                        `json:"discoverRequestParams,omitempty"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                                        `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                  `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                     `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                     `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) MarshalJSON() ([]byte, error) {
@@ -3211,18 +3211,18 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	DiscoverMethod        RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                                       `json:"discoverRequestParams,omitempty"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                                       `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                 `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                    `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                    `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) MarshalJSON() ([]byte, error) {
@@ -3375,20 +3375,20 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscove
 }
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTrue struct {
-	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitempty"`
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitempty"`
+	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTrueDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                         `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTrueDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                            `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTruePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                            `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTruePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTrue) MarshalJSON() ([]byte, error) {
@@ -3541,18 +3541,18 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscove
 }
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalse struct {
-	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitempty"`
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                          `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                             `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalsePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                             `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalsePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalse) MarshalJSON() ([]byte, error) {
@@ -3699,7 +3699,7 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictD
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTrue struct {
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat string `json:"discoverResponseFormat"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -3707,11 +3707,11 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDisco
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                                  `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTrueDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                                     `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTruePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                                     `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTruePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField  *string `json:"discoverDataField,omitempty"`
-	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitempty"`
+	DiscoverDataField  *string `json:"discoverDataField,omitzero"`
+	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTrue) MarshalJSON() ([]byte, error) {
@@ -3865,17 +3865,17 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictD
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalse struct {
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalseDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                                   `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalseDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                                      `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalsePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                                      `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalsePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField  *string `json:"discoverDataField,omitempty"`
-	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitempty"`
+	DiscoverDataField  *string `json:"discoverDataField,omitzero"`
+	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalse) MarshalJSON() ([]byte, error) {
@@ -4305,15 +4305,15 @@ type RestCollectMethodPostWithBodyRestPaginationTypeRequestPage struct {
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField string `json:"pageField"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitempty"`
+	Page *float64 `json:"page,omitzero"`
 	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	SizeField string `json:"sizeField"`
 	// Maximum number of records to collect per page
 	Size float64 `json:"size"`
 	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitempty"`
+	TotalPageField *string `json:"totalPageField,omitzero"`
 	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitempty"`
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
@@ -4399,13 +4399,13 @@ type RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset struct {
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	OffsetField string `json:"offsetField"`
 	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitempty"`
+	Offset *float64 `json:"offset,omitzero"`
 	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	LimitField string `json:"limitField"`
 	// Maximum number of records to collect per request
 	Limit float64 `json:"limit"`
 	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitempty"`
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
@@ -4484,7 +4484,7 @@ type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink struct {
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
 	NextRelationAttribute string `json:"nextRelationAttribute"`
 	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitempty"`
+	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 }
@@ -4575,7 +4575,7 @@ type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody struct {
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitempty"`
+	LastPageExpr *string `json:"lastPageExpr,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) MarshalJSON() ([]byte, error) {
@@ -4895,23 +4895,23 @@ func (e *RestCollectMethodPostWithBodyAuthentication) IsExact() bool {
 
 type RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader    *bool   `json:"enableHeader,omitempty"`
-	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
+	EnableHeader    *bool   `json:"enableHeader,omitzero"`
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between a failed request and the first retry
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitempty"`
-	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	Multiplier    *float64 `json:"multiplier,omitzero"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -4997,22 +4997,22 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderTrue)
 
 type RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitempty"`
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between a failed request and the first retry
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitempty"`
-	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	Multiplier    *float64 `json:"multiplier,omitzero"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -5180,20 +5180,20 @@ func (u RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff) MarshalJSON() ([
 
 type RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader    *bool   `json:"enableHeader,omitempty"`
-	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
+	EnableHeader    *bool   `json:"enableHeader,omitzero"`
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -5265,19 +5265,19 @@ func (r *RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue) 
 
 type RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitempty"`
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -5590,7 +5590,7 @@ func (u RestCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, error) {
 
 type RestCollectMethodPostWithBodyStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled *bool `json:"enabled,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyStateTracking) MarshalJSON() ([]byte, error) {
@@ -5612,7 +5612,7 @@ func (r *RestCollectMethodPostWithBodyStateTracking) GetEnabled() *bool {
 }
 
 type RestCollectMethodPostWithBodyScheduling struct {
-	StateTracking *RestCollectMethodPostWithBodyStateTracking `json:"stateTracking,omitempty"`
+	StateTracking *RestCollectMethodPostWithBodyStateTracking `json:"stateTracking,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyScheduling) MarshalJSON() ([]byte, error) {
@@ -5637,31 +5637,31 @@ type RestCollectMethodPostWithBody struct {
 	CollectMethod RestCollectMethodPostWithBodyCollectMethod `json:"collectMethod"`
 	// Template for POST body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
 	CollectBody string                                  `json:"collectBody"`
-	Discovery   *RestCollectMethodPostWithBodyDiscovery `json:"discovery,omitempty"`
+	Discovery   *RestCollectMethodPostWithBodyDiscovery `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL            string                                              `json:"collectUrl"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitempty"`
-	Pagination            *RestCollectMethodPostWithBodyPaginationUnion       `json:"pagination,omitempty"`
+	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
+	Pagination            *RestCollectMethodPostWithBodyPaginationUnion       `json:"pagination,omitzero"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication RestCollectMethodPostWithBodyAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Decode the URL before sending requests (including pagination requests)
-	DecodeURL *bool `json:"decodeUrl,omitempty"`
+	DecodeURL *bool `json:"decodeUrl,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Enable to add response headers to the resHeaders field under the __collectible object
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// Stop pagination when the Event Breaker produces no events
-	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitempty"`
+	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string                                 `json:"safeHeaders,omitempty"`
-	RetryRules  *RestCollectMethodPostWithBodyRetryRules `json:"retryRules,omitempty"`
-	Scheduling  *RestCollectMethodPostWithBodyScheduling `json:"__scheduling,omitempty"`
+	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
+	RetryRules  *RestCollectMethodPostWithBodyRetryRules `json:"retryRules,omitzero"`
+	Scheduling  *RestCollectMethodPostWithBodyScheduling `json:"__scheduling,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -6049,7 +6049,7 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeJSON struct {
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult string `json:"manualDiscoverResult"`
 	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]byte, error) {
@@ -6164,19 +6164,19 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struc
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                             `json:"discoverBody,omitempty"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitempty"`
+	DiscoverBody          *string                                             `json:"discoverBody,omitzero"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                           `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                              `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                              `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) MarshalJSON() ([]byte, error) {
@@ -6350,13 +6350,13 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBod
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                  `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                     `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                     `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -6510,18 +6510,18 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPag
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	DiscoverMethod        RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                                `json:"discoverRequestParams,omitempty"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                                `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                          `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                             `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                             `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) MarshalJSON() ([]byte, error) {
@@ -6675,18 +6675,18 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagi
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	DiscoverMethod        RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                               `json:"discoverRequestParams,omitempty"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                               `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                         `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                            `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                            `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) MarshalJSON() ([]byte, error) {
@@ -6839,20 +6839,20 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTru
 }
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTrue struct {
-	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitempty"`
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitempty"`
+	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTrueDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                 `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTrueDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                    `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTruePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                    `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTruePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeTrue) MarshalJSON() ([]byte, error) {
@@ -7005,18 +7005,18 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFal
 }
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalse struct {
-	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitempty"`
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                  `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                     `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalsePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                     `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalsePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitempty"`
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalse) MarshalJSON() ([]byte, error) {
@@ -7163,7 +7163,7 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverP
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTrue struct {
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat string `json:"discoverResponseFormat"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -7171,11 +7171,11 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsi
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                          `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTrueDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                             `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTruePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                             `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTruePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField  *string `json:"discoverDataField,omitempty"`
-	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitempty"`
+	DiscoverDataField  *string `json:"discoverDataField,omitzero"`
+	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingTrue) MarshalJSON() ([]byte, error) {
@@ -7329,17 +7329,17 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverP
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalse struct {
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitempty"`
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalseDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            string                                                                                           `json:"discoverUrl"`
 	DiscoverMethod         RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalseDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                              `json:"discoverRequestHeaders,omitempty"`
-	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalsePagination    `json:"pagination,omitempty"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                              `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalsePagination    `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField  *string `json:"discoverDataField,omitempty"`
-	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitempty"`
+	DiscoverDataField  *string `json:"discoverDataField,omitzero"`
+	EnableDiscoverCode *bool   `json:"enableDiscoverCode,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPEnableStrictDiscoverParsingFalse) MarshalJSON() ([]byte, error) {
@@ -7769,15 +7769,15 @@ type RestCollectMethodPostRestPaginationTypeRequestPage struct {
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField string `json:"pageField"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitempty"`
+	Page *float64 `json:"page,omitzero"`
 	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	SizeField string `json:"sizeField"`
 	// Maximum number of records to collect per page
 	Size float64 `json:"size"`
 	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitempty"`
+	TotalPageField *string `json:"totalPageField,omitzero"`
 	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitempty"`
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
@@ -7863,13 +7863,13 @@ type RestCollectMethodPostRestPaginationTypeRequestOffset struct {
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	OffsetField string `json:"offsetField"`
 	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitempty"`
+	Offset *float64 `json:"offset,omitzero"`
 	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	LimitField string `json:"limitField"`
 	// Maximum number of records to collect per request
 	Limit float64 `json:"limit"`
 	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitempty"`
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
@@ -7948,7 +7948,7 @@ type RestCollectMethodPostRestPaginationTypeResponseHeaderLink struct {
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
 	NextRelationAttribute string `json:"nextRelationAttribute"`
 	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitempty"`
+	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 }
@@ -8039,7 +8039,7 @@ type RestCollectMethodPostRestPaginationTypeResponseBody struct {
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitempty"`
+	LastPageExpr *string `json:"lastPageExpr,omitzero"`
 }
 
 func (r RestCollectMethodPostRestPaginationTypeResponseBody) MarshalJSON() ([]byte, error) {
@@ -8359,23 +8359,23 @@ func (e *RestCollectMethodPostAuthentication) IsExact() bool {
 
 type RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader    *bool   `json:"enableHeader,omitempty"`
-	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
+	EnableHeader    *bool   `json:"enableHeader,omitzero"`
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between a failed request and the first retry
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitempty"`
-	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	Multiplier    *float64 `json:"multiplier,omitzero"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -8461,22 +8461,22 @@ func (r *RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue) GetRetr
 
 type RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitempty"`
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between a failed request and the first retry
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitempty"`
-	MaxIntervalMs *float64 `json:"maxIntervalMs,omitempty"`
+	Multiplier    *float64 `json:"multiplier,omitzero"`
+	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -8644,20 +8644,20 @@ func (u RestCollectMethodPostRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, e
 
 type RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader    *bool   `json:"enableHeader,omitempty"`
-	RetryHeaderName *string `json:"retryHeaderName,omitempty"`
+	EnableHeader    *bool   `json:"enableHeader,omitzero"`
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -8729,19 +8729,19 @@ func (r *RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue) GetRetry
 
 type RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitempty"`
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
+	Codes []float64 `json:"codes,omitzero"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -9054,7 +9054,7 @@ func (u RestCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
 
 type RestCollectMethodPostStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled *bool `json:"enabled,omitzero"`
 }
 
 func (r RestCollectMethodPostStateTracking) MarshalJSON() ([]byte, error) {

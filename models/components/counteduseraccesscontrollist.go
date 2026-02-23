@@ -2,10 +2,25 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type CountedUserAccessControlList struct {
 	// number of items present in the items array
-	Count *int64                  `json:"count,omitempty"`
-	Items []UserAccessControlList `json:"items,omitempty"`
+	Count *int64                  `json:"count,omitzero"`
+	Items []UserAccessControlList `json:"items,omitzero"`
+}
+
+func (c CountedUserAccessControlList) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CountedUserAccessControlList) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CountedUserAccessControlList) GetCount() *int64 {

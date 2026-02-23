@@ -37,7 +37,7 @@ type PipelineFunctionSensitiveDataScannerRule struct {
 	RulesetID string `json:"rulesetId"`
 	// A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
 	ReplaceExpr string `json:"replaceExpr"`
-	Disabled    *bool  `json:"disabled,omitempty"`
+	Disabled    *bool  `json:"disabled,omitzero"`
 }
 
 func (p PipelineFunctionSensitiveDataScannerRule) MarshalJSON() ([]byte, error) {
@@ -73,7 +73,7 @@ func (p *PipelineFunctionSensitiveDataScannerRule) GetDisabled() *bool {
 }
 
 type Flag struct {
-	Name  *string `json:"name,omitempty"`
+	Name  *string `json:"name,omitzero"`
 	Value string  `json:"value"`
 }
 
@@ -105,14 +105,14 @@ func (f *Flag) GetValue() string {
 type PipelineFunctionSensitiveDataScannerConf struct {
 	Rules []PipelineFunctionSensitiveDataScannerRule `json:"rules"`
 	// Rulesets act on the events contained in these fields. Mitigation expressions apply to the scan results. Supports wildcards (*).
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 	// Fields that the mitigation expression will not be applied to. Supports wildcards (*).
-	ExcludeFields []string `json:"excludeFields,omitempty"`
+	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// Fields to add when mitigation is applied to an event
-	Flags []Flag `json:"flags,omitempty"`
+	Flags []Flag `json:"flags,omitzero"`
 	// Add matching ruleset IDs to a field called "__detected"
-	IncludeDetectedRules *bool `json:"includeDetectedRules,omitempty"`
-	BackgroundDetection  *bool `json:"backgroundDetection,omitempty"`
+	IncludeDetectedRules *bool `json:"includeDetectedRules,omitzero"`
+	BackgroundDetection  *bool `json:"backgroundDetection,omitzero"`
 }
 
 func (p PipelineFunctionSensitiveDataScannerConf) MarshalJSON() ([]byte, error) {
@@ -170,18 +170,18 @@ func (p *PipelineFunctionSensitiveDataScannerConf) GetBackgroundDetection() *boo
 
 type PipelineFunctionSensitiveDataScanner struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionSensitiveDataScannerID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                                    `json:"final,omitempty"`
+	Final *bool                                    `json:"final,omitzero"`
 	Conf  PipelineFunctionSensitiveDataScannerConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionSensitiveDataScanner) MarshalJSON() ([]byte, error) {

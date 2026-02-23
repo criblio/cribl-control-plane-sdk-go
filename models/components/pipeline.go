@@ -2,12 +2,16 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type PipelineGroups struct {
 	Name string `json:"name"`
 	// Short description of this group
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// Whether this group is disabled
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 }
 
 func (p *PipelineGroups) GetName() string {
@@ -33,15 +37,26 @@ func (p *PipelineGroups) GetDisabled() *bool {
 
 type PipelineConf struct {
 	// Time (in ms) to wait for an async function to complete processing of a data item
-	AsyncFuncTimeout *int64 `json:"asyncFuncTimeout,omitempty"`
+	AsyncFuncTimeout *int64 `json:"asyncFuncTimeout,omitzero"`
 	// The output destination for events processed by this Pipeline
-	Output      *string `json:"output,omitempty"`
-	Description *string `json:"description,omitempty"`
+	Output      *string `json:"output,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// List of Functions to pass data through
-	Functions []PipelineFunctionConf    `json:"functions,omitempty"`
-	Groups    map[string]PipelineGroups `json:"groups,omitempty"`
+	Functions []PipelineFunctionConf    `json:"functions,omitzero"`
+	Groups    map[string]PipelineGroups `json:"groups,omitzero"`
+}
+
+func (p PipelineConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PipelineConf) GetAsyncFuncTimeout() *int64 {
@@ -107,15 +122,26 @@ func (p *Pipeline) GetConf() PipelineConf {
 
 type ConfInput struct {
 	// Time (in ms) to wait for an async function to complete processing of a data item
-	AsyncFuncTimeout *int64 `json:"asyncFuncTimeout,omitempty"`
+	AsyncFuncTimeout *int64 `json:"asyncFuncTimeout,omitzero"`
 	// The output destination for events processed by this Pipeline
-	Output      *string `json:"output,omitempty"`
-	Description *string `json:"description,omitempty"`
+	Output      *string `json:"output,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// List of Functions to pass data through
-	Functions []PipelineFunctionConfInput `json:"functions,omitempty"`
-	Groups    map[string]PipelineGroups   `json:"groups,omitempty"`
+	Functions []PipelineFunctionConfInput `json:"functions,omitzero"`
+	Groups    map[string]PipelineGroups   `json:"groups,omitzero"`
+}
+
+func (c ConfInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ConfInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *ConfInput) GetAsyncFuncTimeout() *int64 {

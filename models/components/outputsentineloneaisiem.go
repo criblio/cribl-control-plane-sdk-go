@@ -98,107 +98,107 @@ func (o *OutputSentinelOneAiSiemPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSentinelOneAiSiem struct {
 	// Unique ID for this output
-	ID   *string                     `json:"id,omitempty"`
+	ID   *string                     `json:"id,omitzero"`
 	Type OutputSentinelOneAiSiemType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
 	Region Region `json:"region"`
 	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
 	Endpoint AISIEMEndpointPath `json:"endpoint"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                      `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                      `json:"description,omitzero"`
 	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
-	BaseURL *string `json:"baseUrl,omitempty"`
+	BaseURL *string `json:"baseUrl,omitzero"`
 	// Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
-	HostExpression *string `json:"hostExpression,omitempty"`
+	HostExpression *string `json:"hostExpression,omitzero"`
 	// Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
-	SourceExpression *string `json:"sourceExpression,omitempty"`
+	SourceExpression *string `json:"sourceExpression,omitzero"`
 	// Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
-	SourceTypeExpression *string `json:"sourceTypeExpression,omitempty"`
+	SourceTypeExpression *string `json:"sourceTypeExpression,omitzero"`
 	// Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
-	DataSourceCategoryExpression *string `json:"dataSourceCategoryExpression,omitempty"`
+	DataSourceCategoryExpression *string `json:"dataSourceCategoryExpression,omitzero"`
 	// Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
-	DataSourceNameExpression *string `json:"dataSourceNameExpression,omitempty"`
+	DataSourceNameExpression *string `json:"dataSourceNameExpression,omitzero"`
 	// Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
-	DataSourceVendorExpression *string `json:"dataSourceVendorExpression,omitempty"`
+	DataSourceVendorExpression *string `json:"dataSourceVendorExpression,omitzero"`
 	// Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
-	EventTypeExpression *string `json:"eventTypeExpression,omitempty"`
+	EventTypeExpression *string `json:"eventTypeExpression,omitzero"`
 	// Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
-	Host *string `json:"host,omitempty"`
+	Host *string `json:"host,omitzero"`
 	// Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
-	Source *string `json:"source,omitempty"`
+	Source *string `json:"source,omitzero"`
 	// Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
-	SourceType *string `json:"sourceType,omitempty"`
+	SourceType *string `json:"sourceType,omitzero"`
 	// Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
-	DataSourceCategory *string `json:"dataSourceCategory,omitempty"`
+	DataSourceCategory *string `json:"dataSourceCategory,omitzero"`
 	// Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
-	DataSourceName *string `json:"dataSourceName,omitempty"`
+	DataSourceName *string `json:"dataSourceName,omitzero"`
 	// Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
-	DataSourceVendor *string `json:"dataSourceVendor,omitempty"`
+	DataSourceVendor *string `json:"dataSourceVendor,omitzero"`
 	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
-	EventType *string `json:"eventType,omitempty"`
+	EventType *string `json:"eventType,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions          `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputSentinelOneAiSiemPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions          `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputSentinelOneAiSiemPqControls `json:"pqControls,omitzero"`
 }
 
 func (o OutputSentinelOneAiSiem) MarshalJSON() ([]byte, error) {

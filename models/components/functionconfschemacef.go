@@ -7,7 +7,7 @@ import (
 )
 
 type Header struct {
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`
 }
@@ -70,11 +70,11 @@ func (e *Extension) GetValue() string {
 
 type FunctionConfSchemaCef struct {
 	// The field to which the CEF formatted event will be output
-	OutputField *string `json:"outputField,omitempty"`
+	OutputField *string `json:"outputField,omitzero"`
 	// Set of header key/value pairs
-	Header []Header `json:"header,omitempty"`
+	Header []Header `json:"header,omitzero"`
 	// Set of extension key-value pairs
-	Extension []Extension `json:"extension,omitempty"`
+	Extension []Extension `json:"extension,omitzero"`
 }
 
 func (f FunctionConfSchemaCef) MarshalJSON() ([]byte, error) {
@@ -134,11 +134,11 @@ func (h *HeaderInput) GetValue() string {
 
 type FunctionConfSchemaCefInput struct {
 	// The field to which the CEF formatted event will be output
-	OutputField *string `json:"outputField,omitempty"`
+	OutputField *string `json:"outputField,omitzero"`
 	// Set of header key/value pairs
-	Header []HeaderInput `json:"header,omitempty"`
+	Header []HeaderInput `json:"header,omitzero"`
 	// Set of extension key-value pairs
-	Extension []Extension `json:"extension,omitempty"`
+	Extension []Extension `json:"extension,omitzero"`
 }
 
 func (f FunctionConfSchemaCefInput) MarshalJSON() ([]byte, error) {

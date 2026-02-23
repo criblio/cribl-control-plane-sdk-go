@@ -64,7 +64,7 @@ type LookupDbLookupFalseMatchModeExactInField struct {
 	// Field name as it appears in events
 	EventField string `json:"eventField"`
 	// Optional: The field name as it appears in the lookup file. Defaults to event field name
-	LookupField *string `json:"lookupField,omitempty"`
+	LookupField *string `json:"lookupField,omitzero"`
 }
 
 func (l LookupDbLookupFalseMatchModeExactInField) MarshalJSON() ([]byte, error) {
@@ -96,9 +96,9 @@ type LookupDbLookupFalseMatchModeExactOutField struct {
 	// The field name as it appears in the lookup file
 	LookupField string `json:"lookupField"`
 	// Optional: Field name to add to event. Defaults to lookup field name.
-	EventField *string `json:"eventField,omitempty"`
+	EventField *string `json:"eventField,omitzero"`
 	// Optional: Value to assign if lookup entry is not found
-	DefaultValue *string `json:"defaultValue,omitempty"`
+	DefaultValue *string `json:"defaultValue,omitzero"`
 }
 
 func (l LookupDbLookupFalseMatchModeExactOutField) MarshalJSON() ([]byte, error) {
@@ -135,21 +135,21 @@ func (l *LookupDbLookupFalseMatchModeExactOutField) GetDefaultValue() *string {
 
 type LookupDbLookupFalseMatchModeExact struct {
 	// Specifies the matching method based on the format and logic used in the lookup file
-	MatchMode *LookupDbLookupFalseMatchModeExactMatchMode `json:"matchMode,omitempty"`
+	MatchMode *LookupDbLookupFalseMatchModeExactMatchMode `json:"matchMode,omitzero"`
 	// Whether to ignore case when performing lookups using Match Mode: Exact
-	IgnoreCase *bool `json:"ignoreCase,omitempty"`
+	IgnoreCase *bool `json:"ignoreCase,omitzero"`
 	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup *bool `json:"dbLookup,omitempty"`
+	DbLookup *bool `json:"dbLookup,omitzero"`
 	// Checks the lookup file periodically for changes and reloads it if modified. Set to -1 to disable reloading (default). Useful for lookups not managed by Stream or not updated by an external process. [Learn more](https://docs.cribl.io/stream/lookup-function/#advanced-settings)
-	ReloadPeriodSec *float64 `json:"reloadPeriodSec,omitempty"`
+	ReloadPeriodSec *float64 `json:"reloadPeriodSec,omitzero"`
 	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
 	File string `json:"file"`
 	// Fields that should be used to key into the lookup table
-	InFields []LookupDbLookupFalseMatchModeExactInField `json:"inFields,omitempty"`
+	InFields []LookupDbLookupFalseMatchModeExactInField `json:"inFields,omitzero"`
 	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []LookupDbLookupFalseMatchModeExactOutField `json:"outFields,omitempty"`
+	OutFields []LookupDbLookupFalseMatchModeExactOutField `json:"outFields,omitzero"`
 	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `json:"addToEvent,omitempty"`
+	AddToEvent *bool `json:"addToEvent,omitzero"`
 }
 
 func (l LookupDbLookupFalseMatchModeExact) MarshalJSON() ([]byte, error) {
@@ -274,7 +274,7 @@ type LookupDbLookupFalseMatchModeCidrInField struct {
 	// Field name as it appears in events
 	EventField string `json:"eventField"`
 	// Optional: The field name as it appears in the lookup file. Defaults to event field name
-	LookupField *string `json:"lookupField,omitempty"`
+	LookupField *string `json:"lookupField,omitzero"`
 }
 
 func (l LookupDbLookupFalseMatchModeCidrInField) MarshalJSON() ([]byte, error) {
@@ -306,9 +306,9 @@ type LookupDbLookupFalseMatchModeCidrOutField struct {
 	// The field name as it appears in the lookup file
 	LookupField string `json:"lookupField"`
 	// Optional: Field name to add to event. Defaults to lookup field name.
-	EventField *string `json:"eventField,omitempty"`
+	EventField *string `json:"eventField,omitzero"`
 	// Optional: Value to assign if lookup entry is not found
-	DefaultValue *string `json:"defaultValue,omitempty"`
+	DefaultValue *string `json:"defaultValue,omitzero"`
 }
 
 func (l LookupDbLookupFalseMatchModeCidrOutField) MarshalJSON() ([]byte, error) {
@@ -345,21 +345,21 @@ func (l *LookupDbLookupFalseMatchModeCidrOutField) GetDefaultValue() *string {
 
 type LookupDbLookupFalseMatchModeCidr struct {
 	// Specifies the matching method based on the format and logic used in the lookup file
-	MatchMode *LookupDbLookupFalseMatchModeCidrMatchMode `json:"matchMode,omitempty"`
+	MatchMode *LookupDbLookupFalseMatchModeCidrMatchMode `json:"matchMode,omitzero"`
 	// Further defines how to handle multiple matches: return the first match, the most specific match, or all matches
-	MatchType *MatchType `json:"matchType,omitempty"`
+	MatchType *MatchType `json:"matchType,omitzero"`
 	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup *bool `json:"dbLookup,omitempty"`
+	DbLookup *bool `json:"dbLookup,omitzero"`
 	// Checks the lookup file periodically for changes and reloads it if modified. Set to -1 to disable reloading (default). Useful for lookups not managed by Stream or not updated by an external process. [Learn more](https://docs.cribl.io/stream/lookup-function/#advanced-settings)
-	ReloadPeriodSec *float64 `json:"reloadPeriodSec,omitempty"`
+	ReloadPeriodSec *float64 `json:"reloadPeriodSec,omitzero"`
 	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
 	File string `json:"file"`
 	// Fields that should be used to key into the lookup table
-	InFields []LookupDbLookupFalseMatchModeCidrInField `json:"inFields,omitempty"`
+	InFields []LookupDbLookupFalseMatchModeCidrInField `json:"inFields,omitzero"`
 	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []LookupDbLookupFalseMatchModeCidrOutField `json:"outFields,omitempty"`
+	OutFields []LookupDbLookupFalseMatchModeCidrOutField `json:"outFields,omitzero"`
 	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `json:"addToEvent,omitempty"`
+	AddToEvent *bool `json:"addToEvent,omitzero"`
 }
 
 func (l LookupDbLookupFalseMatchModeCidr) MarshalJSON() ([]byte, error) {
@@ -548,7 +548,7 @@ type LookupDbLookupTrueInField struct {
 	// Field name as it appears in events
 	EventField string `json:"eventField"`
 	// Optional: The field name as it appears in the lookup file. Defaults to event field name
-	LookupField *string `json:"lookupField,omitempty"`
+	LookupField *string `json:"lookupField,omitzero"`
 }
 
 func (l LookupDbLookupTrueInField) MarshalJSON() ([]byte, error) {
@@ -580,9 +580,9 @@ type LookupDbLookupTrueOutField struct {
 	// The field name as it appears in the lookup file
 	LookupField string `json:"lookupField"`
 	// Optional: Field name to add to event. Defaults to lookup field name.
-	EventField *string `json:"eventField,omitempty"`
+	EventField *string `json:"eventField,omitzero"`
 	// Optional: Value to assign if lookup entry is not found
-	DefaultValue *string `json:"defaultValue,omitempty"`
+	DefaultValue *string `json:"defaultValue,omitzero"`
 }
 
 func (l LookupDbLookupTrueOutField) MarshalJSON() ([]byte, error) {
@@ -619,15 +619,15 @@ func (l *LookupDbLookupTrueOutField) GetDefaultValue() *string {
 
 type LookupDbLookupTrue struct {
 	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup *bool `json:"dbLookup,omitempty"`
+	DbLookup *bool `json:"dbLookup,omitzero"`
 	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
 	File string `json:"file"`
 	// Fields that should be used to key into the lookup table
-	InFields []LookupDbLookupTrueInField `json:"inFields,omitempty"`
+	InFields []LookupDbLookupTrueInField `json:"inFields,omitzero"`
 	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []LookupDbLookupTrueOutField `json:"outFields,omitempty"`
+	OutFields []LookupDbLookupTrueOutField `json:"outFields,omitzero"`
 	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `json:"addToEvent,omitempty"`
+	AddToEvent *bool `json:"addToEvent,omitzero"`
 }
 
 func (l LookupDbLookupTrue) MarshalJSON() ([]byte, error) {
@@ -767,18 +767,18 @@ func (u PipelineFunctionLookupConf) MarshalJSON() ([]byte, error) {
 
 type PipelineFunctionLookup struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionLookupID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitempty"`
+	Final *bool                      `json:"final,omitzero"`
 	Conf  PipelineFunctionLookupConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionLookup) MarshalJSON() ([]byte, error) {

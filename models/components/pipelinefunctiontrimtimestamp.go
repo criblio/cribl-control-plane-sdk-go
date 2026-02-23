@@ -34,18 +34,18 @@ func (e *PipelineFunctionTrimTimestampID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionTrimTimestamp struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionTrimTimestampID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                           `json:"final,omitempty"`
+	Final *bool                           `json:"final,omitzero"`
 	Conf  FunctionConfSchemaTrimTimestamp `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionTrimTimestamp) MarshalJSON() ([]byte, error) {

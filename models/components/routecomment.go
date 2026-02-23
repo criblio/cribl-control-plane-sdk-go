@@ -6,7 +6,7 @@ type RouteComment struct {
 	// Brief description of the Route.
 	Comment string `json:"comment"`
 	// Unique identifier for the Route Group that the Route is associated with.
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 	// Unique identifier for the comment.
 	ID string `json:"id"`
 	// Relative position of the comment among all comments for the Route.

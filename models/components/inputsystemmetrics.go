@@ -62,9 +62,9 @@ func (e *InputSystemMetricsSystemMode) IsExact() bool {
 
 type InputSystemMetricsSystem struct {
 	// Select the level of detail for system metrics
-	Mode *InputSystemMetricsSystemMode `json:"mode,omitempty"`
+	Mode *InputSystemMetricsSystemMode `json:"mode,omitzero"`
 	// Generate metrics for the numbers of processes in various states
-	Processes *bool `json:"processes,omitempty"`
+	Processes *bool `json:"processes,omitzero"`
 }
 
 func (i InputSystemMetricsSystem) MarshalJSON() ([]byte, error) {
@@ -123,13 +123,13 @@ func (e *InputSystemMetricsCPUMode) IsExact() bool {
 
 type InputSystemMetricsCPU struct {
 	// Select the level of detail for CPU metrics
-	Mode *InputSystemMetricsCPUMode `json:"mode,omitempty"`
+	Mode *InputSystemMetricsCPUMode `json:"mode,omitzero"`
 	// Generate metrics for each CPU
-	PerCPU *bool `json:"perCpu,omitempty"`
+	PerCPU *bool `json:"perCpu,omitzero"`
 	// Generate metrics for all CPU states
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate raw, monotonic CPU time counters
-	Time *bool `json:"time,omitempty"`
+	Time *bool `json:"time,omitzero"`
 }
 
 func (i InputSystemMetricsCPU) MarshalJSON() ([]byte, error) {
@@ -202,9 +202,9 @@ func (e *InputSystemMetricsMemoryMode) IsExact() bool {
 
 type InputSystemMetricsMemory struct {
 	// Select the level of detail for memory metrics
-	Mode *InputSystemMetricsMemoryMode `json:"mode,omitempty"`
+	Mode *InputSystemMetricsMemoryMode `json:"mode,omitzero"`
 	// Generate metrics for all memory states
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 }
 
 func (i InputSystemMetricsMemory) MarshalJSON() ([]byte, error) {
@@ -263,15 +263,15 @@ func (e *InputSystemMetricsNetworkMode) IsExact() bool {
 
 type InputSystemMetricsNetwork struct {
 	// Select the level of detail for network metrics
-	Mode *InputSystemMetricsNetworkMode `json:"mode,omitempty"`
+	Mode *InputSystemMetricsNetworkMode `json:"mode,omitzero"`
 	// Generate full network metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
-	Protocols *bool `json:"protocols,omitempty"`
+	Protocols *bool `json:"protocols,omitzero"`
 	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
-	Devices []string `json:"devices,omitempty"`
+	Devices []string `json:"devices,omitzero"`
 	// Generate separate metrics for each interface
-	PerInterface *bool `json:"perInterface,omitempty"`
+	PerInterface *bool `json:"perInterface,omitzero"`
 }
 
 func (i InputSystemMetricsNetwork) MarshalJSON() ([]byte, error) {
@@ -351,19 +351,19 @@ func (e *InputSystemMetricsDiskMode) IsExact() bool {
 
 type InputSystemMetricsDisk struct {
 	// Select the level of detail for disk metrics
-	Mode *InputSystemMetricsDiskMode `json:"mode,omitempty"`
+	Mode *InputSystemMetricsDiskMode `json:"mode,omitzero"`
 	// Generate full disk metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate filesystem inode metrics
-	Inodes *bool `json:"inodes,omitempty"`
+	Inodes *bool `json:"inodes,omitzero"`
 	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
-	Devices []string `json:"devices,omitempty"`
+	Devices []string `json:"devices,omitzero"`
 	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
-	Mountpoints []string `json:"mountpoints,omitempty"`
+	Mountpoints []string `json:"mountpoints,omitzero"`
 	// Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
-	Fstypes []string `json:"fstypes,omitempty"`
+	Fstypes []string `json:"fstypes,omitzero"`
 	// Generate separate metrics for each device
-	PerDevice *bool `json:"perDevice,omitempty"`
+	PerDevice *bool `json:"perDevice,omitzero"`
 }
 
 func (i InputSystemMetricsDisk) MarshalJSON() ([]byte, error) {
@@ -427,11 +427,11 @@ func (i *InputSystemMetricsDisk) GetPerDevice() *bool {
 }
 
 type InputSystemMetricsCustom struct {
-	System  *InputSystemMetricsSystem  `json:"system,omitempty"`
-	CPU     *InputSystemMetricsCPU     `json:"cpu,omitempty"`
-	Memory  *InputSystemMetricsMemory  `json:"memory,omitempty"`
-	Network *InputSystemMetricsNetwork `json:"network,omitempty"`
-	Disk    *InputSystemMetricsDisk    `json:"disk,omitempty"`
+	System  *InputSystemMetricsSystem  `json:"system,omitzero"`
+	CPU     *InputSystemMetricsCPU     `json:"cpu,omitzero"`
+	Memory  *InputSystemMetricsMemory  `json:"memory,omitzero"`
+	Network *InputSystemMetricsNetwork `json:"network,omitzero"`
+	Disk    *InputSystemMetricsDisk    `json:"disk,omitzero"`
 }
 
 func (i InputSystemMetricsCustom) MarshalJSON() ([]byte, error) {
@@ -482,8 +482,8 @@ func (i *InputSystemMetricsCustom) GetDisk() *InputSystemMetricsDisk {
 
 type InputSystemMetricsHost struct {
 	// Select level of detail for host metrics
-	Mode   *ModeOptionsHost          `json:"mode,omitempty"`
-	Custom *InputSystemMetricsCustom `json:"custom,omitempty"`
+	Mode   *ModeOptionsHost          `json:"mode,omitzero"`
+	Custom *InputSystemMetricsCustom `json:"custom,omitzero"`
 }
 
 func (i InputSystemMetricsHost) MarshalJSON() ([]byte, error) {
@@ -564,19 +564,19 @@ func (i *InputSystemMetricsFilter) GetExpr() string {
 
 type Container struct {
 	// Select the level of detail for container metrics
-	Mode *ContainerMode `json:"mode,omitempty"`
+	Mode *ContainerMode `json:"mode,omitzero"`
 	// Full paths for Docker's UNIX-domain socket
-	DockerSocket []string `json:"dockerSocket,omitempty"`
+	DockerSocket []string `json:"dockerSocket,omitzero"`
 	// Timeout, in seconds, for the Docker API
-	DockerTimeout *float64 `json:"dockerTimeout,omitempty"`
+	DockerTimeout *float64 `json:"dockerTimeout,omitzero"`
 	// Containers matching any of these will be included. All are included if no filters are added.
-	Filters []InputSystemMetricsFilter `json:"filters,omitempty"`
+	Filters []InputSystemMetricsFilter `json:"filters,omitzero"`
 	// Include stopped and paused containers
-	AllContainers *bool `json:"allContainers,omitempty"`
+	AllContainers *bool `json:"allContainers,omitzero"`
 	// Generate separate metrics for each device
-	PerDevice *bool `json:"perDevice,omitempty"`
+	PerDevice *bool `json:"perDevice,omitzero"`
 	// Generate full container metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 }
 
 func (c Container) MarshalJSON() ([]byte, error) {
@@ -641,16 +641,16 @@ func (c *Container) GetDetail() *bool {
 
 type InputSystemMetricsPersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (i InputSystemMetricsPersistence) MarshalJSON() ([]byte, error) {
@@ -708,31 +708,31 @@ func (i *InputSystemMetricsPersistence) GetDestPath() *string {
 
 type InputSystemMetrics struct {
 	// Unique ID for this input
-	ID       *string                `json:"id,omitempty"`
+	ID       *string                `json:"id,omitzero"`
 	Type     InputSystemMetricsType `json:"type"`
-	Disabled *bool                  `json:"disabled,omitempty"`
+	Disabled *bool                  `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval  *float64                `json:"interval,omitempty"`
-	Host      *InputSystemMetricsHost `json:"host,omitempty"`
-	Process   *ProcessType            `json:"process,omitempty"`
-	Container *Container              `json:"container,omitempty"`
+	Interval  *float64                `json:"interval,omitzero"`
+	Host      *InputSystemMetricsHost `json:"host,omitzero"`
+	Process   *ProcessType            `json:"process,omitzero"`
+	Container *Container              `json:"container,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata            `json:"metadata,omitempty"`
-	Persistence *InputSystemMetricsPersistence `json:"persistence,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []ItemsTypeMetadata            `json:"metadata,omitzero"`
+	Persistence *InputSystemMetricsPersistence `json:"persistence,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 }
 
 func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {

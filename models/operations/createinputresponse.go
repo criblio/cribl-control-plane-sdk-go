@@ -37,56 +37,56 @@ type CreateInputInputCriblHTTP struct {
 	// Unique ID for this input
 	ID       string                   `json:"id"`
 	Type     CreateInputTypeCriblHTTP `json:"type"`
-	Disabled *bool                    `json:"disabled,omitempty"`
+	Disabled *bool                    `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
-	AuthTokens []components.ItemsTypeAuthTokens      `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []components.ItemsTypeAuthTokens      `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (c CreateInputInputCriblHTTP) MarshalJSON() ([]byte, error) {
@@ -330,46 +330,46 @@ type CreateInputInputCriblTCP struct {
 	// Unique ID for this input
 	ID       string                  `json:"id"`
 	Type     CreateInputTypeCriblTCP `json:"type"`
-	Disabled *bool                   `json:"disabled,omitempty"`
+	Disabled *bool                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
-	AuthTokens  []components.ItemsTypeAuthTokens `json:"authTokens,omitempty"`
-	Description *string                          `json:"description,omitempty"`
+	AuthTokens  []components.ItemsTypeAuthTokens `json:"authTokens,omitzero"`
+	Description *string                          `json:"description,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (c CreateInputInputCriblTCP) MarshalJSON() ([]byte, error) {
@@ -578,24 +578,24 @@ type CreateInputInputCribl struct {
 	// Unique ID for this input
 	ID       string               `json:"id"`
 	Type     CreateInputTypeCribl `json:"type"`
-	Disabled *bool                `json:"disabled,omitempty"`
+	Disabled *bool                `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
-	Filter      *string                                   `json:"filter,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Filter      *string                                   `json:"filter,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 }
 
 func (c CreateInputInputCribl) MarshalJSON() ([]byte, error) {
@@ -727,55 +727,55 @@ type CreateInputInputGooglePubsub struct {
 	// Unique ID for this input
 	ID       string                      `json:"id"`
 	Type     CreateInputTypeGooglePubsub `json:"type"`
-	Disabled *bool                       `json:"disabled,omitempty"`
+	Disabled *bool                       `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
 	TopicName string `json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
 	SubscriptionName string `json:"subscriptionName"`
 	// Use when the subscription is not created by this Source and topic is not known
-	MonitorSubscription *bool `json:"monitorSubscription,omitempty"`
+	MonitorSubscription *bool `json:"monitorSubscription,omitzero"`
 	// Create topic if it does not exist
-	CreateTopic *bool `json:"createTopic,omitempty"`
+	CreateTopic *bool `json:"createTopic,omitzero"`
 	// Create subscription if it does not exist
-	CreateSubscription *bool `json:"createSubscription,omitempty"`
+	CreateSubscription *bool `json:"createSubscription,omitzero"`
 	// Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *components.GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
+	GoogleAuthMethod *components.GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
-	MaxBacklog *float64 `json:"maxBacklog,omitempty"`
+	MaxBacklog *float64 `json:"maxBacklog,omitzero"`
 	// How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Pull request timeout, in milliseconds
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
-	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
+	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
-	TemplateTopicName *string `json:"__template_topicName,omitempty"`
+	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
-	TemplateSubscriptionName *string `json:"__template_subscriptionName,omitempty"`
+	TemplateSubscriptionName *string `json:"__template_subscriptionName,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
+	TemplateRegion *string `json:"__template_region,omitzero"`
 }
 
 func (c CreateInputInputGooglePubsub) MarshalJSON() ([]byte, error) {
@@ -1012,56 +1012,56 @@ type CreateInputInputFirehose struct {
 	// Unique ID for this input
 	ID       string                  `json:"id"`
 	Type     CreateInputTypeFirehose `json:"type"`
-	Disabled *bool                   `json:"disabled,omitempty"`
+	Disabled *bool                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                              `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []string                              `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (c CreateInputInputFirehose) MarshalJSON() ([]byte, error) {
@@ -1328,37 +1328,37 @@ type CreateInputInputExec struct {
 	// Unique ID for this input
 	ID       string                   `json:"id"`
 	Type     CreateInputInputExecType `json:"type"`
-	Disabled *bool                    `json:"disabled,omitempty"`
+	Disabled *bool                    `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Maximum number of retry attempts in the event that the command fails
-	Retries *float64 `json:"retries,omitempty"`
+	Retries *float64 `json:"retries,omitzero"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-	ScheduleType *CreateInputScheduleType `json:"scheduleType,omitempty"`
+	ScheduleType *CreateInputScheduleType `json:"scheduleType,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Interval between command executions in seconds.
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
-	CronSchedule *string `json:"cronSchedule,omitempty"`
+	CronSchedule *string `json:"cronSchedule,omitzero"`
 }
 
 func (c CreateInputInputExec) MarshalJSON() ([]byte, error) {
@@ -1532,75 +1532,75 @@ type CreateInputInputEventhub struct {
 	// Unique ID for this input
 	ID       string                  `json:"id"`
 	Type     CreateInputTypeEventhub `json:"type"`
-	Disabled *bool                   `json:"disabled,omitempty"`
+	Disabled *bool                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
 	Brokers []string `json:"brokers"`
 	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
 	Topics []string `json:"topics"`
 	// The consumer group this instance belongs to. Default is 'Cribl'.
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 	// Start reading from earliest available data; relevant only during initial subscription
-	FromBeginning *bool `json:"fromBeginning,omitempty"`
+	FromBeginning *bool `json:"fromBeginning,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType1       `json:"sasl,omitempty"`
-	TLS  *components.TLSSettingsClientSideType `json:"tls,omitempty"`
+	Sasl *components.AuthenticationType1       `json:"sasl,omitzero"`
+	TLS  *components.TLSSettingsClientSideType `json:"tls,omitzero"`
 	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
 	//       Value must be lower than rebalanceTimeout.
 	//       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-	SessionTimeout *float64 `json:"sessionTimeout,omitempty"`
+	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
 	//       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
 	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
 	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitempty"`
+	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitzero"`
 	//       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
 	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
 	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-	HeartbeatInterval *float64 `json:"heartbeatInterval,omitempty"`
+	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitzero"`
 	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
-	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitempty"`
+	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitzero"`
 	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
-	MaxBytes *float64 `json:"maxBytes,omitempty"`
+	MaxBytes *float64 `json:"maxBytes,omitzero"`
 	// Maximum number of network errors before the consumer re-creates a socket
-	MaxSocketErrors *float64 `json:"maxSocketErrors,omitempty"`
+	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Minimize duplicate events by starting only one consumer for each topic partition
-	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitempty"`
+	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 }
 
 func (c CreateInputInputEventhub) MarshalJSON() ([]byte, error) {
@@ -1936,11 +1936,11 @@ func (e *CreateInputLogLevelOffice365MsgTrace) IsExact() bool {
 
 type CreateInputCertOptions struct {
 	// The name of the predefined certificate.
-	CertificateName *string `json:"certificateName,omitempty"`
+	CertificateName *string `json:"certificateName,omitzero"`
 	// Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
 	PrivKeyPath string `json:"privKeyPath"`
 	// Passphrase to use to decrypt the private key.
-	Passphrase *string `json:"passphrase,omitempty"`
+	Passphrase *string `json:"passphrase,omitzero"`
 	// Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
 	CertPath string `json:"certPath"`
 }
@@ -1988,81 +1988,81 @@ type CreateInputInputOffice365MsgTrace struct {
 	// Unique ID for this input
 	ID       string                           `json:"id"`
 	Type     CreateInputTypeOffice365MsgTrace `json:"type"`
-	Disabled *bool                            `json:"disabled,omitempty"`
+	Disabled *bool                            `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// URL to use when retrieving report data.
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
 	Interval float64 `json:"interval"`
 	// Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
-	StartDate *string `json:"startDate,omitempty"`
+	StartDate *string `json:"startDate,omitzero"`
 	// Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
-	EndDate *string `json:"endDate,omitempty"`
+	EndDate *string `json:"endDate,omitzero"`
 	// HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Disables time filtering of events when a date range is specified.
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *CreateInputAuthenticationMethodOffice365MsgTrace `json:"authType,omitempty"`
+	AuthType *CreateInputAuthenticationMethodOffice365MsgTrace `json:"authType,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitempty"`
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
 	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel *CreateInputLogLevelOffice365MsgTrace `json:"logLevel,omitempty"`
+	LogLevel *CreateInputLogLevelOffice365MsgTrace `json:"logLevel,omitzero"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitempty"`
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	RetryRules  *components.RetryRulesType1    `json:"retryRules,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules  *components.RetryRulesType1    `json:"retryRules,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Username to run Message Trace API call.
-	Username *string `json:"username,omitempty"`
+	Username *string `json:"username,omitzero"`
 	// Password to run Message Trace API call.
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials.
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string `json:"tenantId,omitzero"`
 	// client_id to pass in the OAuth request parameter.
-	ClientID *string `json:"clientId,omitempty"`
+	ClientID *string `json:"clientId,omitzero"`
 	// Resource to pass in the OAuth request parameter.
-	Resource *string `json:"resource,omitempty"`
+	Resource *string `json:"resource,omitzero"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *components.SubscriptionPlanOptions `json:"planType,omitempty"`
+	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
-	TextSecret  *string                 `json:"textSecret,omitempty"`
-	CertOptions *CreateInputCertOptions `json:"certOptions,omitempty"`
+	TextSecret  *string                 `json:"textSecret,omitzero"`
+	CertOptions *CreateInputCertOptions `json:"certOptions,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
+	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-	TemplateClientID *string `json:"__template_clientId,omitempty"`
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
 	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
-	TemplateResource *string `json:"__template_resource,omitempty"`
+	TemplateResource *string `json:"__template_resource,omitzero"`
 }
 
 func (c CreateInputInputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
@@ -2395,13 +2395,13 @@ func (e *CreateInputTypeOffice365Service) UnmarshalJSON(data []byte) error {
 
 type CreateInputContentConfigOffice365Service struct {
 	// Office 365 Services API Content Type
-	ContentType *string `json:"contentType,omitempty"`
+	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
-	Description *string  `json:"description,omitempty"`
-	Interval    *float64 `json:"interval,omitempty"`
+	Description *string  `json:"description,omitzero"`
+	Interval    *float64 `json:"interval,omitzero"`
 	// Collector runtime Log Level
-	LogLevel *components.LogLevelOptionsContentConfigItems `json:"logLevel,omitempty"`
-	Enabled  *bool                                         `json:"enabled,omitempty"`
+	LogLevel *components.LogLevelOptionsContentConfigItems `json:"logLevel,omitzero"`
+	Enabled  *bool                                         `json:"enabled,omitzero"`
 }
 
 func (c CreateInputContentConfigOffice365Service) MarshalJSON() ([]byte, error) {
@@ -2454,56 +2454,56 @@ type CreateInputInputOffice365Service struct {
 	// Unique ID for this input
 	ID       string                          `json:"id"`
 	Type     CreateInputTypeOffice365Service `json:"type"`
-	Disabled *bool                           `json:"disabled,omitempty"`
+	Disabled *bool                           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *components.SubscriptionPlanOptions `json:"planType,omitempty"`
+	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Office 365 Azure Tenant ID
 	TenantID string `json:"tenantId"`
 	// Office 365 Azure Application ID
 	AppID string `json:"appId"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitempty"`
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
-	ContentConfig []CreateInputContentConfigOffice365Service `json:"contentConfig,omitempty"`
-	RetryRules    *components.RetryRulesType1                `json:"retryRules,omitempty"`
+	ContentConfig []CreateInputContentConfigOffice365Service `json:"contentConfig,omitzero"`
+	RetryRules    *components.RetryRulesType1                `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitempty"`
-	Description *string                                  `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
+	Description *string                                  `json:"description,omitzero"`
 	// Office 365 Azure client secret
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
-	TemplateAppID *string `json:"__template_appId,omitempty"`
+	TemplateAppID *string `json:"__template_appId,omitzero"`
 	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
-	TemplateClientSecret *string `json:"__template_clientSecret,omitempty"`
+	TemplateClientSecret *string `json:"__template_clientSecret,omitzero"`
 }
 
 func (c CreateInputInputOffice365Service) MarshalJSON() ([]byte, error) {
@@ -2745,13 +2745,13 @@ func (e *CreateInputTypeOffice365Mgmt) UnmarshalJSON(data []byte) error {
 
 type CreateInputContentConfigOffice365Mgmt struct {
 	// Office 365 Management Activity API Content Type
-	ContentType *string `json:"contentType,omitempty"`
+	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
-	Description *string  `json:"description,omitempty"`
-	Interval    *float64 `json:"interval,omitempty"`
+	Description *string  `json:"description,omitzero"`
+	Interval    *float64 `json:"interval,omitzero"`
 	// Collector runtime Log Level
-	LogLevel *components.LogLevelOptionsContentConfigItems `json:"logLevel,omitempty"`
-	Enabled  *bool                                         `json:"enabled,omitempty"`
+	LogLevel *components.LogLevelOptionsContentConfigItems `json:"logLevel,omitzero"`
+	Enabled  *bool                                         `json:"enabled,omitzero"`
 }
 
 func (c CreateInputContentConfigOffice365Mgmt) MarshalJSON() ([]byte, error) {
@@ -2804,20 +2804,20 @@ type CreateInputInputOffice365Mgmt struct {
 	// Unique ID for this input
 	ID       string                       `json:"id"`
 	Type     CreateInputTypeOffice365Mgmt `json:"type"`
-	Disabled *bool                        `json:"disabled,omitempty"`
+	Disabled *bool                        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
 	PlanType components.SubscriptionPlanOptions `json:"planType"`
 	// Office 365 Azure Tenant ID
@@ -2825,41 +2825,41 @@ type CreateInputInputOffice365Mgmt struct {
 	// Office 365 Azure Application ID
 	AppID string `json:"appId"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitempty"`
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
-	PublisherIdentifier *string `json:"publisherIdentifier,omitempty"`
+	PublisherIdentifier *string `json:"publisherIdentifier,omitzero"`
 	// Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
-	ContentConfig []CreateInputContentConfigOffice365Mgmt `json:"contentConfig,omitempty"`
+	ContentConfig []CreateInputContentConfigOffice365Mgmt `json:"contentConfig,omitzero"`
 	// Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
-	IngestionLag *float64                    `json:"ingestionLag,omitempty"`
-	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitempty"`
+	IngestionLag *float64                    `json:"ingestionLag,omitzero"`
+	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitempty"`
-	Description *string                                  `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
+	Description *string                                  `json:"description,omitzero"`
 	// Office 365 Azure client secret
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
-	TemplateAppID *string `json:"__template_appId,omitempty"`
+	TemplateAppID *string `json:"__template_appId,omitzero"`
 	// Binds 'publisherIdentifier' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'publisherIdentifier' at runtime.
-	TemplatePublisherIdentifier *string `json:"__template_publisherIdentifier,omitempty"`
+	TemplatePublisherIdentifier *string `json:"__template_publisherIdentifier,omitzero"`
 	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
-	TemplateClientSecret *string `json:"__template_clientSecret,omitempty"`
+	TemplateClientSecret *string `json:"__template_clientSecret,omitzero"`
 }
 
 func (c CreateInputInputOffice365Mgmt) MarshalJSON() ([]byte, error) {
@@ -3177,13 +3177,13 @@ func (e *CreateInputAuthenticationMethodEdgePrometheus) IsExact() bool {
 
 type CreateInputTarget struct {
 	// Protocol to use when collecting metrics
-	Protocol *components.ProtocolOptionsTargetsItems `json:"protocol,omitempty"`
+	Protocol *components.ProtocolOptionsTargetsItems `json:"protocol,omitzero"`
 	// Name of host from which to pull metrics.
 	Host string `json:"host"`
 	// The port number in the metrics URL for discovered targets.
-	Port *float64 `json:"port,omitempty"`
+	Port *float64 `json:"port,omitzero"`
 	// Path to use when collecting metrics from discovered targets
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 }
 
 func (c CreateInputTarget) MarshalJSON() ([]byte, error) {
@@ -3229,7 +3229,7 @@ type CreateInputPodFilter struct {
 	// JavaScript expression applied to pods objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (c CreateInputPodFilter) MarshalJSON() ([]byte, error) {
@@ -3261,100 +3261,100 @@ type CreateInputInputEdgePrometheus struct {
 	// Unique ID for this input
 	ID       string                        `json:"id"`
 	Type     CreateInputTypeEdgePrometheus `json:"type"`
-	Disabled *bool                         `json:"disabled,omitempty"`
+	Disabled *bool                         `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Other dimensions to include in events
-	DimensionList []string `json:"dimensionList,omitempty"`
+	DimensionList []string `json:"dimensionList,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType CreateInputDiscoveryTypeEdgePrometheus `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
 	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64                     `json:"timeout,omitempty"`
-	Persistence *components.DiskSpoolingType `json:"persistence,omitempty"`
+	Timeout     *float64                     `json:"timeout,omitzero"`
+	Persistence *components.DiskSpoolingType `json:"persistence,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *CreateInputAuthenticationMethodEdgePrometheus `json:"authType,omitempty"`
-	Description *string                                        `json:"description,omitempty"`
-	Targets     []CreateInputTarget                            `json:"targets,omitempty"`
+	AuthType    *CreateInputAuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
+	Description *string                                        `json:"description,omitzero"`
+	Targets     []CreateInputTarget                            `json:"targets,omitzero"`
 	// DNS record type to resolve
-	RecordType *components.RecordTypeOptions `json:"recordType,omitempty"`
+	RecordType *components.RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `json:"scrapePort,omitempty"`
+	ScrapePort *float64 `json:"scrapePort,omitzero"`
 	// List of DNS names to resolve
-	NameList []string `json:"nameList,omitempty"`
+	NameList []string `json:"nameList,omitzero"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *components.ProtocolOptionsTargetsItems `json:"scrapeProtocol,omitempty"`
+	ScrapeProtocol *components.ProtocolOptionsTargetsItems `json:"scrapeProtocol,omitzero"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `json:"scrapePath,omitempty"`
+	ScrapePath *string `json:"scrapePath,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsAPIKey               *string                                                `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `json:"usePublicIp,omitempty"`
+	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
-	SearchFilter []components.ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
-	AwsSecretKey *string                            `json:"awsSecretKey,omitempty"`
+	SearchFilter []components.ItemsTypeSearchFilter `json:"searchFilter,omitzero"`
+	AwsSecretKey *string                            `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *components.SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitempty"`
+	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitzero"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `json:"scrapePortExpr,omitempty"`
+	ScrapePortExpr *string `json:"scrapePortExpr,omitzero"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `json:"scrapePathExpr,omitempty"`
+	ScrapePathExpr *string `json:"scrapePathExpr,omitzero"`
 	//   Add rules to decide which pods to discover for metrics.
 	//   Pods are searched if no rules are given or of all the rules'
 	//   expressions evaluate to true.
 	//
-	PodFilter []CreateInputPodFilter `json:"podFilter,omitempty"`
+	PodFilter []CreateInputPodFilter `json:"podFilter,omitzero"`
 	// Username for Prometheus Basic authentication
-	Username *string `json:"username,omitempty"`
+	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (c CreateInputInputEdgePrometheus) MarshalJSON() ([]byte, error) {
@@ -3827,103 +3827,103 @@ type CreateInputInputPrometheus struct {
 	// Unique ID for this input
 	ID       string                    `json:"id"`
 	Type     CreateInputTypePrometheus `json:"type"`
-	Disabled *bool                     `json:"disabled,omitempty"`
+	Disabled *bool                     `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Other dimensions to include in events
-	DimensionList []string `json:"dimensionList,omitempty"`
+	DimensionList []string `json:"dimensionList,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *CreateInputDiscoveryTypePrometheus `json:"discoveryType,omitempty"`
+	DiscoveryType *CreateInputDiscoveryTypePrometheus `json:"discoveryType,omitzero"`
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
 	Interval float64 `json:"interval"`
 	// Collector runtime log level
 	LogLevel CreateInputLogLevelPrometheus `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitempty"`
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
-	Description *string                                     `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
+	Description *string                                     `json:"description,omitzero"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
-	TargetList []string `json:"targetList,omitempty"`
+	TargetList []string `json:"targetList,omitzero"`
 	// DNS record type to resolve
-	RecordType *components.RecordTypeOptions `json:"recordType,omitempty"`
+	RecordType *components.RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets
-	ScrapePort *float64 `json:"scrapePort,omitempty"`
+	ScrapePort *float64 `json:"scrapePort,omitzero"`
 	// List of DNS names to resolve
-	NameList []string `json:"nameList,omitempty"`
+	NameList []string `json:"nameList,omitzero"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *CreateInputMetricsProtocol `json:"scrapeProtocol,omitempty"`
+	ScrapeProtocol *CreateInputMetricsProtocol `json:"scrapeProtocol,omitzero"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `json:"scrapePath,omitempty"`
+	ScrapePath *string `json:"scrapePath,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsAPIKey               *string                                                `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `json:"usePublicIp,omitempty"`
+	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
-	SearchFilter []components.ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
-	AwsSecretKey *string                            `json:"awsSecretKey,omitempty"`
+	SearchFilter []components.ItemsTypeSearchFilter `json:"searchFilter,omitzero"`
+	AwsSecretKey *string                            `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *components.SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Username for Prometheus Basic authentication
-	Username *string `json:"username,omitempty"`
+	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
-	TemplateLogLevel *string `json:"__template_logLevel,omitempty"`
+	TemplateLogLevel *string `json:"__template_logLevel,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (c CreateInputInputPrometheus) MarshalJSON() ([]byte, error) {
@@ -4335,68 +4335,68 @@ type CreateInputInputPrometheusRw struct {
 	// Unique ID for this input
 	ID       string                      `json:"id"`
 	Type     CreateInputTypePrometheusRw `json:"type"`
-	Disabled *bool                       `json:"disabled,omitempty"`
+	Disabled *bool                       `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Prometheus requests. Defaults to /write, which will expand as: http://<your‑upstream‑URL>:<your‑port>/write.
 	PrometheusAPI string `json:"prometheusAPI"`
 	// Remote Write authentication type
-	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitempty"`
+	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
-	Username    *string                        `json:"username,omitempty"`
-	Password    *string                        `json:"password,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	Username    *string                        `json:"username,omitzero"`
+	Password    *string                        `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
-	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitempty"`
+	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitzero"`
 }
 
 func (c CreateInputInputPrometheusRw) MarshalJSON() ([]byte, error) {
@@ -4689,66 +4689,66 @@ type CreateInputInputLoki struct {
 	// Unique ID for this input
 	ID       string              `json:"id"`
 	Type     CreateInputTypeLoki `json:"type"`
-	Disabled *bool               `json:"disabled,omitempty"`
+	Disabled *bool               `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'.
 	LokiAPI string `json:"lokiAPI"`
 	// Loki logs authentication type
-	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
+	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
-	Username    *string                        `json:"username,omitempty"`
-	Password    *string                        `json:"password,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	Username    *string                        `json:"username,omitzero"`
+	Password    *string                        `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (c CreateInputInputLoki) MarshalJSON() ([]byte, error) {
@@ -5032,15 +5032,15 @@ func (e *CreateInputInputGrafanaType2) UnmarshalJSON(data []byte) error {
 
 type CreateInputPrometheusAuth2 struct {
 	// Remote Write authentication type
-	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitempty"`
-	Username *string                                             `json:"username,omitempty"`
-	Password *string                                             `json:"password,omitempty"`
+	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
+	Username *string                                             `json:"username,omitzero"`
+	Password *string                                             `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (c CreateInputPrometheusAuth2) MarshalJSON() ([]byte, error) {
@@ -5098,15 +5098,15 @@ func (c *CreateInputPrometheusAuth2) GetTextSecret() *string {
 
 type CreateInputLokiAuth2 struct {
 	// Loki logs authentication type
-	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
-	Username *string                                       `json:"username,omitempty"`
-	Password *string                                       `json:"password,omitempty"`
+	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
+	Username *string                                       `json:"username,omitzero"`
+	Password *string                                       `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (c CreateInputLokiAuth2) MarshalJSON() ([]byte, error) {
@@ -5166,60 +5166,60 @@ type CreateInputInputGrafanaGrafana2 struct {
 	// Unique ID for this input
 	ID       string                       `json:"id"`
 	Type     CreateInputInputGrafanaType2 `json:"type"`
-	Disabled *bool                        `json:"disabled,omitempty"`
+	Disabled *bool                        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Maximum time to wait for additional data, after the last response was sent, before closing a socket connection. This can be very useful when Grafana Agent remote write's request frequency is high so, reusing connections, would help mitigating the cost of creating a new connection per request. Note that Grafana Agent's embedded Prometheus would attempt to keep connections open for up to 5 minutes.
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
-	PrometheusAPI *string `json:"prometheusAPI,omitempty"`
+	PrometheusAPI *string `json:"prometheusAPI,omitzero"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
 	LokiAPI        string                      `json:"lokiAPI"`
-	PrometheusAuth *CreateInputPrometheusAuth2 `json:"prometheusAuth,omitempty"`
-	LokiAuth       *CreateInputLokiAuth2       `json:"lokiAuth,omitempty"`
+	PrometheusAuth *CreateInputPrometheusAuth2 `json:"prometheusAuth,omitzero"`
+	LokiAuth       *CreateInputLokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (c CreateInputInputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
@@ -5482,15 +5482,15 @@ func (e *CreateInputInputGrafanaType1) UnmarshalJSON(data []byte) error {
 
 type CreateInputPrometheusAuth1 struct {
 	// Remote Write authentication type
-	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitempty"`
-	Username *string                                             `json:"username,omitempty"`
-	Password *string                                             `json:"password,omitempty"`
+	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
+	Username *string                                             `json:"username,omitzero"`
+	Password *string                                             `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (c CreateInputPrometheusAuth1) MarshalJSON() ([]byte, error) {
@@ -5548,15 +5548,15 @@ func (c *CreateInputPrometheusAuth1) GetTextSecret() *string {
 
 type CreateInputLokiAuth1 struct {
 	// Loki logs authentication type
-	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
-	Username *string                                       `json:"username,omitempty"`
-	Password *string                                       `json:"password,omitempty"`
+	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
+	Username *string                                       `json:"username,omitzero"`
+	Password *string                                       `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (c CreateInputLokiAuth1) MarshalJSON() ([]byte, error) {
@@ -5616,60 +5616,60 @@ type CreateInputInputGrafanaGrafana1 struct {
 	// Unique ID for this input
 	ID       string                       `json:"id"`
 	Type     CreateInputInputGrafanaType1 `json:"type"`
-	Disabled *bool                        `json:"disabled,omitempty"`
+	Disabled *bool                        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Maximum time to wait for additional data, after the last response was sent, before closing a socket connection. This can be very useful when Grafana Agent remote write's request frequency is high so, reusing connections, would help mitigating the cost of creating a new connection per request. Note that Grafana Agent's embedded Prometheus would attempt to keep connections open for up to 5 minutes.
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI string `json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
-	LokiAPI        *string                     `json:"lokiAPI,omitempty"`
-	PrometheusAuth *CreateInputPrometheusAuth1 `json:"prometheusAuth,omitempty"`
-	LokiAuth       *CreateInputLokiAuth1       `json:"lokiAuth,omitempty"`
+	LokiAPI        *string                     `json:"lokiAPI,omitzero"`
+	PrometheusAuth *CreateInputPrometheusAuth1 `json:"prometheusAuth,omitzero"`
+	LokiAuth       *CreateInputLokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (c CreateInputInputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
@@ -6023,75 +6023,75 @@ type CreateInputInputConfluentCloud struct {
 	// Unique ID for this input
 	ID       string                        `json:"id"`
 	Type     CreateInputTypeConfluentCloud `json:"type"`
-	Disabled *bool                         `json:"disabled,omitempty"`
+	Disabled *bool                         `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                                                 `json:"brokers"`
-	TLS     *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	TLS     *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
-	FromBeginning       *bool                                             `json:"fromBeginning,omitempty"`
-	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	FromBeginning       *bool                                             `json:"fromBeginning,omitzero"`
+	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType `json:"sasl,omitempty"`
+	Sasl *components.AuthenticationType `json:"sasl,omitzero"`
 	//       Timeout used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires,
 	//       the broker will remove the client from the group and initiate a rebalance.
 	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
-	SessionTimeout *float64 `json:"sessionTimeout,omitempty"`
+	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
 	//       Maximum allowed time for each worker to join the group after a rebalance begins.
 	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
-	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitempty"`
+	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitzero"`
 	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
 	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
-	HeartbeatInterval *float64 `json:"heartbeatInterval,omitempty"`
+	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitzero"`
 	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
-	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitempty"`
+	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitzero"`
 	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
-	MaxBytes *float64 `json:"maxBytes,omitempty"`
+	MaxBytes *float64 `json:"maxBytes,omitzero"`
 	// Maximum number of network errors before the consumer re-creates a socket
-	MaxSocketErrors *float64 `json:"maxSocketErrors,omitempty"`
+	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 }
 
 func (c CreateInputInputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -6456,21 +6456,21 @@ type CreateInputProxyModeElastic struct {
 	// Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
 	Enabled bool `json:"enabled"`
 	// Enter credentials directly, or select a stored secret
-	AuthType *CreateInputProxyModeAuthenticationMethod `json:"authType,omitempty"`
-	Username *string                                   `json:"username,omitempty"`
-	Password *string                                   `json:"password,omitempty"`
+	AuthType *CreateInputProxyModeAuthenticationMethod `json:"authType,omitzero"`
+	Username *string                                   `json:"username,omitzero"`
+	Password *string                                   `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
-	URL *string `json:"url,omitempty"`
+	URL *string `json:"url,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// List of headers to remove from the request to proxy
-	RemoveHeaders []string `json:"removeHeaders,omitempty"`
+	RemoveHeaders []string `json:"removeHeaders,omitzero"`
 	// Amount of time, in seconds, to wait for a proxy request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
 func (c CreateInputProxyModeElastic) MarshalJSON() ([]byte, error) {
@@ -6558,70 +6558,70 @@ type CreateInputInputElastic struct {
 	// Unique ID for this input
 	ID       string                 `json:"id"`
 	Type     CreateInputTypeElastic `json:"type"`
-	Disabled *bool                  `json:"disabled,omitempty"`
+	Disabled *bool                  `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
 	ElasticAPI string                                `json:"elasticAPI"`
-	AuthType   *CreateInputAuthenticationTypeElastic `json:"authType,omitempty"`
+	AuthType   *CreateInputAuthenticationTypeElastic `json:"authType,omitzero"`
 	// The API version to use for communicating with the server
-	APIVersion *CreateInputAPIVersion `json:"apiVersion,omitempty"`
+	APIVersion *CreateInputAPIVersion `json:"apiVersion,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	ProxyMode   *CreateInputProxyModeElastic   `json:"proxyMode,omitempty"`
-	Description *string                        `json:"description,omitempty"`
-	Username    *string                        `json:"username,omitempty"`
-	Password    *string                        `json:"password,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	ProxyMode   *CreateInputProxyModeElastic   `json:"proxyMode,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	Username    *string                        `json:"username,omitzero"`
+	Password    *string                        `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header
-	AuthTokens []string `json:"authTokens,omitempty"`
+	AuthTokens []string `json:"authTokens,omitzero"`
 	// Custom version information to respond to requests
-	CustomAPIVersion *string `json:"customAPIVersion,omitempty"`
+	CustomAPIVersion *string `json:"customAPIVersion,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (c CreateInputInputElastic) MarshalJSON() ([]byte, error) {
@@ -6928,71 +6928,71 @@ type CreateInputInputAzureBlob struct {
 	// Unique ID for this input
 	ID       string                   `json:"id"`
 	Type     CreateInputTypeAzureBlob `json:"type"`
-	Disabled *bool                    `json:"disabled,omitempty"`
+	Disabled *bool                    `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `json:"fileFilter,omitempty"`
+	FileFilter *string `json:"fileFilter,omitzero"`
 	// The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
+	NumReceivers *float64 `json:"numReceivers,omitzero"`
 	// The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
+	MaxMessages *float64 `json:"maxMessages,omitzero"`
 	// The duration (in seconds) which pollers should be validated and restarted if exited
-	ServicePeriodSecs *float64 `json:"servicePeriodSecs,omitempty"`
+	ServicePeriodSecs *float64 `json:"servicePeriodSecs,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `json:"skipOnError,omitempty"`
+	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                                `json:"parquetChunkDownloadTimeout,omitempty"`
-	AuthType                    *components.AuthenticationMethodOptions `json:"authType,omitempty"`
-	Description                 *string                                 `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                                `json:"parquetChunkDownloadTimeout,omitzero"`
+	AuthType                    *components.AuthenticationMethodOptions `json:"authType,omitzero"`
+	Description                 *string                                 `json:"description,omitzero"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
-	ConnectionString *string `json:"connectionString,omitempty"`
+	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// The name of your Azure storage account
-	StorageAccountName *string `json:"storageAccountName,omitempty"`
+	StorageAccountName *string `json:"storageAccountName,omitzero"`
 	// The service principal's tenant ID
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string `json:"tenantId,omitzero"`
 	// The service principal's client ID
-	ClientID *string `json:"clientId,omitempty"`
+	ClientID *string `json:"clientId,omitzero"`
 	// The Azure cloud to use. Defaults to Azure Public Cloud.
-	AzureCloud *string `json:"azureCloud,omitempty"`
+	AzureCloud *string `json:"azureCloud,omitzero"`
 	// Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
-	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
+	EndpointSuffix *string `json:"endpointSuffix,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string                                                `json:"clientTextSecret,omitempty"`
-	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
+	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
+	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
-	TemplateQueueName *string `json:"__template_queueName,omitempty"`
+	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
-	TemplateConnectionString *string `json:"__template_connectionString,omitempty"`
+	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-	TemplateClientID *string `json:"__template_clientId,omitempty"`
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
 }
 
 func (c CreateInputInputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -7290,18 +7290,18 @@ func (e *CreateInputTypeSplunkHec) UnmarshalJSON(data []byte) error {
 
 type CreateInputAuthTokenSplunkHec struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Select or create a stored text secret
-	TokenSecret *string `json:"tokenSecret,omitempty"`
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Shared secret to be provided by any client (Authorization: <token>)
 	Token   string `json:"token"`
-	Enabled *bool  `json:"enabled,omitempty"`
+	Enabled *bool  `json:"enabled,omitzero"`
 	// Optional token description
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
-	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
+	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 }
 
 func (c CreateInputAuthTokenSplunkHec) MarshalJSON() ([]byte, error) {
@@ -7368,79 +7368,79 @@ type CreateInputInputSplunkHec struct {
 	// Unique ID for this input
 	ID       string                   `json:"id"`
 	Type     CreateInputTypeSplunkHec `json:"type"`
-	Disabled *bool                    `json:"disabled,omitempty"`
+	Disabled *bool                    `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []CreateInputAuthTokenSplunkHec       `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []CreateInputAuthTokenSplunkHec       `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitempty"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitzero"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
-	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// Enable Splunk HEC acknowledgements
-	SplunkHecAcks *bool `json:"splunkHecAcks,omitempty"`
+	SplunkHecAcks *bool `json:"splunkHecAcks,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
+	UseFwdTimezone *bool `json:"useFwdTimezone,omitzero"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `json:"dropControlFields,omitempty"`
+	DropControlFields *bool `json:"dropControlFields,omitzero"`
 	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
+	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
-	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
-	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
-	Description      *string `json:"description,omitempty"`
+	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
+	Description      *string `json:"description,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
-	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitempty"`
+	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
 }
 
 func (c CreateInputInputSplunkHec) MarshalJSON() ([]byte, error) {
@@ -7886,28 +7886,28 @@ type CreateInputInputSplunkSearch struct {
 	// Unique ID for this input
 	ID       string                      `json:"id"`
 	Type     CreateInputTypeSplunkSearch `json:"type"`
-	Disabled *bool                       `json:"disabled,omitempty"`
+	Disabled *bool                       `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead string `json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
+	Earliest *string `json:"earliest,omitzero"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
+	Latest *string `json:"latest,omitzero"`
 	// A cron schedule on which to run this job
 	CronSchedule string `json:"cronSchedule"`
 	// REST API used to create a search
@@ -7915,47 +7915,47 @@ type CreateInputInputSplunkSearch struct {
 	// Format of the returned output
 	OutputMode components.OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional request parameters to send to the endpoint
-	EndpointParams []CreateInputEndpointParam `json:"endpointParams,omitempty"`
+	EndpointParams []CreateInputEndpointParam `json:"endpointParams,omitzero"`
 	// Optional request headers to send to the endpoint
-	EndpointHeaders []CreateInputEndpointHeader `json:"endpointHeaders,omitempty"`
+	EndpointHeaders []CreateInputEndpointHeader `json:"endpointHeaders,omitzero"`
 	// Collector runtime log level (verbosity)
-	LogLevel *CreateInputLogLevelSplunkSearch `json:"logLevel,omitempty"`
+	LogLevel *CreateInputLogLevelSplunkSearch `json:"logLevel,omitzero"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding *string `json:"encoding,omitempty"`
+	Encoding *string `json:"encoding,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitempty"`
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	RetryRules *components.RetryRulesType     `json:"retryRules,omitempty"`
+	Metadata   []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules *components.RetryRulesType     `json:"retryRules,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Splunk Search authentication type
-	AuthType    *CreateInputAuthenticationTypeSplunkSearch `json:"authType,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
-	Username    *string                                    `json:"username,omitempty"`
-	Password    *string                                    `json:"password,omitempty"`
+	AuthType    *CreateInputAuthenticationTypeSplunkSearch `json:"authType,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
+	Username    *string                                    `json:"username,omitzero"`
+	Password    *string                                    `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (c CreateInputInputSplunkSearch) MarshalJSON() ([]byte, error) {
@@ -8275,7 +8275,7 @@ func (e *CreateInputTypeSplunk) UnmarshalJSON(data []byte) error {
 type CreateInputAuthTokenSplunk struct {
 	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
 	Token       string  `json:"token"`
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (c CreateInputAuthTokenSplunk) MarshalJSON() ([]byte, error) {
@@ -8359,60 +8359,60 @@ type CreateInputInputSplunk struct {
 	// Unique ID for this input
 	ID       string                `json:"id"`
 	Type     CreateInputTypeSplunk `json:"type"`
-	Disabled *bool                 `json:"disabled,omitempty"`
+	Disabled *bool                 `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
-	AuthTokens []CreateInputAuthTokenSplunk `json:"authTokens,omitempty"`
+	AuthTokens []CreateInputAuthTokenSplunk `json:"authTokens,omitzero"`
 	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *CreateInputMaxS2SVersion `json:"maxS2Sversion,omitempty"`
-	Description   *string                   `json:"description,omitempty"`
+	MaxS2Sversion *CreateInputMaxS2SVersion `json:"maxS2Sversion,omitzero"`
+	Description   *string                   `json:"description,omitzero"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
+	UseFwdTimezone *bool `json:"useFwdTimezone,omitzero"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `json:"dropControlFields,omitempty"`
+	DropControlFields *bool `json:"dropControlFields,omitzero"`
 	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
+	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
-	Compress *CreateInputCompression `json:"compress,omitempty"`
+	Compress *CreateInputCompression `json:"compress,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (c CreateInputInputSplunk) MarshalJSON() ([]byte, error) {
@@ -8670,67 +8670,67 @@ type CreateInputInputHTTP struct {
 	// Unique ID for this input
 	ID       string              `json:"id"`
 	Type     CreateInputTypeHTTP `json:"type"`
-	Disabled *bool               `json:"disabled,omitempty"`
+	Disabled *bool               `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                              `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []string                              `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
-	CriblAPI *string `json:"criblAPI,omitempty"`
+	CriblAPI *string `json:"criblAPI,omitzero"`
 	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
-	ElasticAPI *string `json:"elasticAPI,omitempty"`
+	ElasticAPI *string `json:"elasticAPI,omitzero"`
 	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
-	SplunkHecAPI  *string `json:"splunkHecAPI,omitempty"`
-	SplunkHecAcks *bool   `json:"splunkHecAcks,omitempty"`
+	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
+	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
-	Description   *string                             `json:"description,omitempty"`
+	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
+	Description   *string                             `json:"description,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
+	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
+	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
-	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitempty"`
+	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
 }
 
 func (c CreateInputInputHTTP) MarshalJSON() ([]byte, error) {
@@ -9016,107 +9016,107 @@ type CreateInputInputMsk struct {
 	// Unique ID for this input
 	ID       string             `json:"id"`
 	Type     CreateInputTypeMsk `json:"type"`
-	Disabled *bool              `json:"disabled,omitempty"`
+	Disabled *bool              `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
-	FromBeginning *bool `json:"fromBeginning,omitempty"`
+	FromBeginning *bool `json:"fromBeginning,omitzero"`
 	//       Timeout used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires,
 	//       the broker will remove the client from the group and initiate a rebalance.
 	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
-	SessionTimeout *float64 `json:"sessionTimeout,omitempty"`
+	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
 	//       Maximum allowed time for each worker to join the group after a rebalance begins.
 	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
-	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitempty"`
+	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitzero"`
 	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
 	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
-	HeartbeatInterval *float64 `json:"heartbeatInterval,omitempty"`
+	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// Fields to add to events from this input
-	Metadata            []components.ItemsTypeMetadata                    `json:"metadata,omitempty"`
-	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	Metadata            []components.ItemsTypeMetadata                    `json:"metadata,omitzero"`
+	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                               `json:"awsSecretKey,omitempty"`
+	AwsSecretKey            *string                                               `json:"awsSecretKey,omitzero"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing MSK cluster requests
-	SignatureVersion *components.SignatureVersionOptions `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptions `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access MSK
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                                 `json:"durationSeconds,omitempty"`
-	TLS             *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	DurationSeconds *float64                                                 `json:"durationSeconds,omitzero"`
+	TLS             *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitzero"`
 	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
-	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitempty"`
+	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitzero"`
 	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
-	MaxBytes *float64 `json:"maxBytes,omitempty"`
+	MaxBytes *float64 `json:"maxBytes,omitzero"`
 	// Maximum number of network errors before the consumer re-creates a socket
-	MaxSocketErrors *float64 `json:"maxSocketErrors,omitempty"`
-	Description     *string  `json:"description,omitempty"`
-	AwsAPIKey       *string  `json:"awsApiKey,omitempty"`
+	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
+	Description     *string  `json:"description,omitzero"`
+	AwsAPIKey       *string  `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
 func (c CreateInputInputMsk) MarshalJSON() ([]byte, error) {
@@ -9521,75 +9521,75 @@ type CreateInputInputKafka struct {
 	// Unique ID for this input
 	ID       string               `json:"id"`
 	Type     CreateInputTypeKafka `json:"type"`
-	Disabled *bool                `json:"disabled,omitempty"`
+	Disabled *bool                `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
-	FromBeginning       *bool                                             `json:"fromBeginning,omitempty"`
-	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	FromBeginning       *bool                                             `json:"fromBeginning,omitzero"`
+	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType                           `json:"sasl,omitempty"`
-	TLS  *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	Sasl *components.AuthenticationType                           `json:"sasl,omitzero"`
+	TLS  *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	//       Timeout used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires,
 	//       the broker will remove the client from the group and initiate a rebalance.
 	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
-	SessionTimeout *float64 `json:"sessionTimeout,omitempty"`
+	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
 	//       Maximum allowed time for each worker to join the group after a rebalance begins.
 	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
-	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitempty"`
+	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitzero"`
 	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
 	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
-	HeartbeatInterval *float64 `json:"heartbeatInterval,omitempty"`
+	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitzero"`
 	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
-	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitempty"`
+	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitzero"`
 	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
-	MaxBytes *float64 `json:"maxBytes,omitempty"`
+	MaxBytes *float64 `json:"maxBytes,omitzero"`
 	// Maximum number of network errors before the consumer re-creates a socket
-	MaxSocketErrors *float64 `json:"maxSocketErrors,omitempty"`
+	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 }
 
 func (c CreateInputInputKafka) MarshalJSON() ([]byte, error) {
@@ -9875,31 +9875,31 @@ type CreateInputInputCollection struct {
 	// Unique ID for this input
 	ID       string                    `json:"id"`
 	Type     CreateInputTypeCollection `json:"type"`
-	Disabled *bool                     `json:"disabled,omitempty"`
+	Disabled *bool                     `json:"disabled,omitzero"`
 	// Pipeline to process results
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64                   `json:"staleChannelFlushMs,omitempty"`
-	Preprocess          *components.PreprocessType `json:"preprocess,omitempty"`
+	StaleChannelFlushMs *float64                   `json:"staleChannelFlushMs,omitzero"`
+	Preprocess          *components.PreprocessType `json:"preprocess,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Destination to send results to
-	Output *string `json:"output,omitempty"`
+	Output *string `json:"output,omitzero"`
 }
 
 func (c CreateInputInputCollection) MarshalJSON() ([]byte, error) {
@@ -11675,6 +11675,17 @@ type CreateInputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
 	CountedInput *components.CountedInput
+}
+
+func (c CreateInputResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CreateInputResponse) GetHTTPMeta() components.HTTPMetadata {

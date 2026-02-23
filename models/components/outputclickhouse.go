@@ -110,13 +110,13 @@ func (e *MappingType) IsExact() bool {
 }
 
 type StatsDestination struct {
-	URL         *string `json:"url,omitempty"`
-	Database    *string `json:"database,omitempty"`
-	TableName   *string `json:"tableName,omitempty"`
-	AuthType    *string `json:"authType,omitempty"`
-	Username    *string `json:"username,omitempty"`
-	SQLUsername *string `json:"sqlUsername,omitempty"`
-	Password    *string `json:"password,omitempty"`
+	URL         *string `json:"url,omitzero"`
+	Database    *string `json:"database,omitzero"`
+	TableName   *string `json:"tableName,omitzero"`
+	AuthType    *string `json:"authType,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	SQLUsername *string `json:"sqlUsername,omitzero"`
+	Password    *string `json:"password,omitzero"`
 }
 
 func (s StatsDestination) MarshalJSON() ([]byte, error) {
@@ -183,7 +183,7 @@ type ColumnMapping struct {
 	// Name of the column in ClickHouse that will store field value
 	ColumnName string `json:"columnName"`
 	// Type of the column in the ClickHouse database
-	ColumnType *string `json:"columnType,omitempty"`
+	ColumnType *string `json:"columnType,omitzero"`
 	// JavaScript expression to compute value to be inserted into ClickHouse table
 	ColumnValueExpression string `json:"columnValueExpression"`
 }
@@ -236,104 +236,104 @@ func (o *OutputClickHousePqControls) UnmarshalJSON(data []byte) error {
 
 type OutputClickHouse struct {
 	// Unique ID for this output
-	ID   *string              `json:"id,omitempty"`
+	ID   *string              `json:"id,omitzero"`
 	Type OutputClickHouseType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the ClickHouse instance. Example: http://localhost:8123/
 	URL      string                              `json:"url"`
-	AuthType *OutputClickHouseAuthenticationType `json:"authType,omitempty"`
+	AuthType *OutputClickHouseAuthenticationType `json:"authType,omitzero"`
 	Database string                              `json:"database"`
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-	Format *OutputClickHouseFormat `json:"format,omitempty"`
+	Format *OutputClickHouseFormat `json:"format,omitzero"`
 	// How event fields are mapped to ClickHouse columns.
-	MappingType *MappingType `json:"mappingType,omitempty"`
+	MappingType *MappingType `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
-	AsyncInserts *bool                       `json:"asyncInserts,omitempty"`
-	TLS          *TLSSettingsClientSideType1 `json:"tls,omitempty"`
+	AsyncInserts *bool                       `json:"asyncInserts,omitzero"`
+	TLS          *TLSSettingsClientSideType1 `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Log the most recent event that fails to match the table schema
-	DumpFormatErrorsToDisk *bool             `json:"dumpFormatErrorsToDisk,omitempty"`
-	StatsDestination       *StatsDestination `json:"statsDestination,omitempty"`
+	DumpFormatErrorsToDisk *bool             `json:"dumpFormatErrorsToDisk,omitzero"`
+	StatsDestination       *StatsDestination `json:"statsDestination,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                      `json:"description,omitempty"`
-	Username       *string                      `json:"username,omitempty"`
-	Password       *string                      `json:"password,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                      `json:"description,omitzero"`
+	Username       *string                      `json:"username,omitzero"`
+	Password       *string                      `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
-	SQLUsername *string `json:"sqlUsername,omitempty"`
+	SQLUsername *string `json:"sqlUsername,omitzero"`
 	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
-	WaitForAsyncInserts *bool `json:"waitForAsyncInserts,omitempty"`
+	WaitForAsyncInserts *bool `json:"waitForAsyncInserts,omitzero"`
 	// Fields to exclude from sending to ClickHouse
-	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
 	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
-	DescribeTable  *string         `json:"describeTable,omitempty"`
-	ColumnMappings []ColumnMapping `json:"columnMappings,omitempty"`
+	DescribeTable  *string         `json:"describeTable,omitzero"`
+	ColumnMappings []ColumnMapping `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions   `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputClickHousePqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions   `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputClickHousePqControls `json:"pqControls,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
+	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
-	TemplateDatabase *string `json:"__template_database,omitempty"`
+	TemplateDatabase *string `json:"__template_database,omitzero"`
 	// Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
-	TemplateTableName *string `json:"__template_tableName,omitempty"`
+	TemplateTableName *string `json:"__template_tableName,omitzero"`
 }
 
 func (o OutputClickHouse) MarshalJSON() ([]byte, error) {

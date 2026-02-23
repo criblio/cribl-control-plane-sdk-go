@@ -2,8 +2,23 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type SupportTypeSystemSettingsConf struct {
-	FeatureFlagOverrides []ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides `json:"featureFlagOverrides,omitempty"`
+	FeatureFlagOverrides []ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides `json:"featureFlagOverrides,omitzero"`
+}
+
+func (s SupportTypeSystemSettingsConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SupportTypeSystemSettingsConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *SupportTypeSystemSettingsConf) GetFeatureFlagOverrides() []ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides {
