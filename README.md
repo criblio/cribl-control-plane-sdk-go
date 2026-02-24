@@ -25,6 +25,7 @@ Complementary API reference documentation is available at https://docs.cribl.io/
   * [Json Streaming](#json-streaming)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
+  * [Pagination](#pagination)
   * [Custom HTTP Client](#custom-http-client)
 
 <!-- End Table of Contents [toc] -->
@@ -730,6 +731,68 @@ func main() {
 
 ```
 <!-- No Error Handling [errors] -->
+
+<!-- Start Pagination [pagination] -->
+## Pagination
+
+Some of the endpoints in this SDK support pagination. To use pagination, you make your SDK calls as usual, but the
+returned response object will have a `Next` method that can be called to pull down the next group of results. If the
+return value of `Next` is `nil`, then there are no more pages to be fetched.
+
+Here's an example of one such pagination call:
+```go
+package main
+
+import (
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := criblcontrolplanesdkgo.New(
+		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
+	)
+
+	res, err := s.Nodes.List(ctx, operations.GetProductsWorkersByProductRequest{
+		Product:   components.ProductsBaseStream,
+		FilterExp: criblcontrolplanesdkgo.Pointer("<value>"),
+		SortExp:   criblcontrolplanesdkgo.Pointer("<value>"),
+		Filter:    criblcontrolplanesdkgo.Pointer("<value>"),
+		Sort:      criblcontrolplanesdkgo.Pointer("<value>"),
+		Limit:     criblcontrolplanesdkgo.Pointer[int64](881129),
+		Offset:    criblcontrolplanesdkgo.Pointer[int64](990978),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.CountedMasterWorkerEntry != nil {
+		for {
+			// handle items
+
+			res, err = res.Next()
+
+			if err != nil {
+				// handle error
+			}
+
+			if res == nil {
+				break
+			}
+		}
+	}
+}
+
+```
+<!-- End Pagination [pagination] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client

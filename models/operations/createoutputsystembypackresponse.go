@@ -10,6 +10,98 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateOutputSystemByPackTypeNewrelic string
+
+const (
+	CreateOutputSystemByPackTypeNewrelicNewrelic CreateOutputSystemByPackTypeNewrelic = "newrelic"
+)
+
+func (e CreateOutputSystemByPackTypeNewrelic) ToPointer() *CreateOutputSystemByPackTypeNewrelic {
+	return &e
+}
+func (e *CreateOutputSystemByPackTypeNewrelic) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "newrelic":
+		*e = CreateOutputSystemByPackTypeNewrelic(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeNewrelic: %v", v)
+	}
+}
+
+type CreateOutputSystemByPackFieldName string
+
+const (
+	CreateOutputSystemByPackFieldNameService   CreateOutputSystemByPackFieldName = "service"
+	CreateOutputSystemByPackFieldNameHostname  CreateOutputSystemByPackFieldName = "hostname"
+	CreateOutputSystemByPackFieldNameTimestamp CreateOutputSystemByPackFieldName = "timestamp"
+	CreateOutputSystemByPackFieldNameAuditID   CreateOutputSystemByPackFieldName = "auditId"
+)
+
+func (e CreateOutputSystemByPackFieldName) ToPointer() *CreateOutputSystemByPackFieldName {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateOutputSystemByPackFieldName) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "service", "hostname", "timestamp", "auditId":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateOutputSystemByPackMetadatum struct {
+	Name CreateOutputSystemByPackFieldName `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (c CreateOutputSystemByPackMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputSystemByPackMetadatum) GetName() CreateOutputSystemByPackFieldName {
+	if c == nil {
+		return CreateOutputSystemByPackFieldName("")
+	}
+	return c.Name
+}
+
+func (c *CreateOutputSystemByPackMetadatum) GetValue() string {
+	if c == nil {
+		return ""
+	}
+	return c.Value
+}
+
+type CreateOutputSystemByPackPqControlsNewrelic struct {
+}
+
+func (c CreateOutputSystemByPackPqControlsNewrelic) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackPqControlsNewrelic) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type CreateOutputSystemByPackOutputNewrelic struct {
 	// Unique ID for this output
 	ID   string                               `json:"id"`
@@ -15426,6 +15518,7 @@ const (
 	CreateOutputSystemByPackRequestBodyTypeCriblLake              CreateOutputSystemByPackRequestBodyType = "cribl_lake"
 	CreateOutputSystemByPackRequestBodyTypeDiskSpool              CreateOutputSystemByPackRequestBodyType = "disk_spool"
 	CreateOutputSystemByPackRequestBodyTypeClickHouse             CreateOutputSystemByPackRequestBodyType = "click_house"
+	CreateOutputSystemByPackRequestBodyTypeLocalSearchStorage     CreateOutputSystemByPackRequestBodyType = "local_search_storage"
 	CreateOutputSystemByPackRequestBodyTypeXsiam                  CreateOutputSystemByPackRequestBodyType = "xsiam"
 	CreateOutputSystemByPackRequestBodyTypeNetflow                CreateOutputSystemByPackRequestBodyType = "netflow"
 	CreateOutputSystemByPackRequestBodyTypeDynatraceHTTP          CreateOutputSystemByPackRequestBodyType = "dynatrace_http"
@@ -15500,6 +15593,7 @@ type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputCriblLake              *CreateOutputSystemByPackOutputCriblLake              `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputDiskSpool              *CreateOutputSystemByPackOutputDiskSpool              `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputClickHouse             *CreateOutputSystemByPackOutputClickHouse             `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputLocalSearchStorage     *CreateOutputSystemByPackOutputLocalSearchStorage     `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputXsiam                  *CreateOutputSystemByPackOutputXsiam                  `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputNetflow                *CreateOutputSystemByPackOutputNetflow                `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputDynatraceHTTP          *CreateOutputSystemByPackOutputDynatraceHTTP          `queryParam:"inline" union:"member"`
@@ -16242,6 +16336,18 @@ func CreateCreateOutputSystemByPackRequestBodyClickHouse(clickHouse CreateOutput
 	}
 }
 
+func CreateCreateOutputSystemByPackRequestBodyLocalSearchStorage(localSearchStorage CreateOutputSystemByPackOutputLocalSearchStorage) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeLocalSearchStorage
+
+	typStr := CreateOutputSystemByPackTypeLocalSearchStorage(typ)
+	localSearchStorage.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputLocalSearchStorage: &localSearchStorage,
+		Type: typ,
+	}
+}
+
 func CreateCreateOutputSystemByPackRequestBodyXsiam(xsiam CreateOutputSystemByPackOutputXsiam) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeXsiam
 
@@ -16911,6 +17017,15 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateOutputSystemByPackOutputClickHouse = createOutputSystemByPackOutputClickHouse
 		u.Type = CreateOutputSystemByPackRequestBodyTypeClickHouse
 		return nil
+	case "local_search_storage":
+		createOutputSystemByPackOutputLocalSearchStorage := new(CreateOutputSystemByPackOutputLocalSearchStorage)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputLocalSearchStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == local_search_storage) type CreateOutputSystemByPackOutputLocalSearchStorage within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputLocalSearchStorage = createOutputSystemByPackOutputLocalSearchStorage
+		u.Type = CreateOutputSystemByPackRequestBodyTypeLocalSearchStorage
+		return nil
 	case "xsiam":
 		createOutputSystemByPackOutputXsiam := new(CreateOutputSystemByPackOutputXsiam)
 		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputXsiam, "", true, nil); err != nil {
@@ -17242,6 +17357,10 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputClickHouse, "", true)
 	}
 
+	if u.CreateOutputSystemByPackOutputLocalSearchStorage != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputLocalSearchStorage, "", true)
+	}
+
 	if u.CreateOutputSystemByPackOutputXsiam != nil {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputXsiam, "", true)
 	}
@@ -17544,6 +17663,10 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyDiskSpool() *CreateOutpu
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyClickHouse() *CreateOutputSystemByPackOutputClickHouse {
 	return c.GetRequestBody().CreateOutputSystemByPackOutputClickHouse
+}
+
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyLocalSearchStorage() *CreateOutputSystemByPackOutputLocalSearchStorage {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputLocalSearchStorage
 }
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyXsiam() *CreateOutputSystemByPackOutputXsiam {

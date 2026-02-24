@@ -281,6 +281,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputClickHouse() *components
 	return u.GetOutput().OutputClickHouse
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputLocalSearchStorage() *components.OutputLocalSearchStorage {
+	return u.GetOutput().OutputLocalSearchStorage
+}
+
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputXsiam() *components.OutputXsiam {
 	return u.GetOutput().OutputXsiam
 }

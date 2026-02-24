@@ -10,6 +10,98 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateOutputTypeNewrelic string
+
+const (
+	CreateOutputTypeNewrelicNewrelic CreateOutputTypeNewrelic = "newrelic"
+)
+
+func (e CreateOutputTypeNewrelic) ToPointer() *CreateOutputTypeNewrelic {
+	return &e
+}
+func (e *CreateOutputTypeNewrelic) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "newrelic":
+		*e = CreateOutputTypeNewrelic(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateOutputTypeNewrelic: %v", v)
+	}
+}
+
+type CreateOutputFieldName string
+
+const (
+	CreateOutputFieldNameService   CreateOutputFieldName = "service"
+	CreateOutputFieldNameHostname  CreateOutputFieldName = "hostname"
+	CreateOutputFieldNameTimestamp CreateOutputFieldName = "timestamp"
+	CreateOutputFieldNameAuditID   CreateOutputFieldName = "auditId"
+)
+
+func (e CreateOutputFieldName) ToPointer() *CreateOutputFieldName {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateOutputFieldName) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "service", "hostname", "timestamp", "auditId":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateOutputMetadatum struct {
+	Name CreateOutputFieldName `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (c CreateOutputMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputMetadatum) GetName() CreateOutputFieldName {
+	if c == nil {
+		return CreateOutputFieldName("")
+	}
+	return c.Name
+}
+
+func (c *CreateOutputMetadatum) GetValue() string {
+	if c == nil {
+		return ""
+	}
+	return c.Value
+}
+
+type CreateOutputPqControlsNewrelic struct {
+}
+
+func (c CreateOutputPqControlsNewrelic) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputPqControlsNewrelic) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type CreateOutputOutputNewrelic struct {
 	// Unique ID for this output
 	ID   string                   `json:"id"`
@@ -15426,6 +15518,7 @@ const (
 	CreateOutputRequestTypeCriblLake              CreateOutputRequestType = "cribl_lake"
 	CreateOutputRequestTypeDiskSpool              CreateOutputRequestType = "disk_spool"
 	CreateOutputRequestTypeClickHouse             CreateOutputRequestType = "click_house"
+	CreateOutputRequestTypeLocalSearchStorage     CreateOutputRequestType = "local_search_storage"
 	CreateOutputRequestTypeXsiam                  CreateOutputRequestType = "xsiam"
 	CreateOutputRequestTypeNetflow                CreateOutputRequestType = "netflow"
 	CreateOutputRequestTypeDynatraceHTTP          CreateOutputRequestType = "dynatrace_http"
@@ -15500,6 +15593,7 @@ type CreateOutputRequest struct {
 	CreateOutputOutputCriblLake              *CreateOutputOutputCriblLake              `queryParam:"inline" union:"member"`
 	CreateOutputOutputDiskSpool              *CreateOutputOutputDiskSpool              `queryParam:"inline" union:"member"`
 	CreateOutputOutputClickHouse             *CreateOutputOutputClickHouse             `queryParam:"inline" union:"member"`
+	CreateOutputOutputLocalSearchStorage     *CreateOutputOutputLocalSearchStorage     `queryParam:"inline" union:"member"`
 	CreateOutputOutputXsiam                  *CreateOutputOutputXsiam                  `queryParam:"inline" union:"member"`
 	CreateOutputOutputNetflow                *CreateOutputOutputNetflow                `queryParam:"inline" union:"member"`
 	CreateOutputOutputDynatraceHTTP          *CreateOutputOutputDynatraceHTTP          `queryParam:"inline" union:"member"`
@@ -16242,6 +16336,18 @@ func CreateCreateOutputRequestClickHouse(clickHouse CreateOutputOutputClickHouse
 	}
 }
 
+func CreateCreateOutputRequestLocalSearchStorage(localSearchStorage CreateOutputOutputLocalSearchStorage) CreateOutputRequest {
+	typ := CreateOutputRequestTypeLocalSearchStorage
+
+	typStr := CreateOutputTypeLocalSearchStorage(typ)
+	localSearchStorage.Type = typStr
+
+	return CreateOutputRequest{
+		CreateOutputOutputLocalSearchStorage: &localSearchStorage,
+		Type:                                 typ,
+	}
+}
+
 func CreateCreateOutputRequestXsiam(xsiam CreateOutputOutputXsiam) CreateOutputRequest {
 	typ := CreateOutputRequestTypeXsiam
 
@@ -16911,6 +17017,15 @@ func (u *CreateOutputRequest) UnmarshalJSON(data []byte) error {
 		u.CreateOutputOutputClickHouse = createOutputOutputClickHouse
 		u.Type = CreateOutputRequestTypeClickHouse
 		return nil
+	case "local_search_storage":
+		createOutputOutputLocalSearchStorage := new(CreateOutputOutputLocalSearchStorage)
+		if err := utils.UnmarshalJSON(data, &createOutputOutputLocalSearchStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == local_search_storage) type CreateOutputOutputLocalSearchStorage within CreateOutputRequest: %w", string(data), err)
+		}
+
+		u.CreateOutputOutputLocalSearchStorage = createOutputOutputLocalSearchStorage
+		u.Type = CreateOutputRequestTypeLocalSearchStorage
+		return nil
 	case "xsiam":
 		createOutputOutputXsiam := new(CreateOutputOutputXsiam)
 		if err := utils.UnmarshalJSON(data, &createOutputOutputXsiam, "", true, nil); err != nil {
@@ -17240,6 +17355,10 @@ func (u CreateOutputRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CreateOutputOutputClickHouse != nil {
 		return utils.MarshalJSON(u.CreateOutputOutputClickHouse, "", true)
+	}
+
+	if u.CreateOutputOutputLocalSearchStorage != nil {
+		return utils.MarshalJSON(u.CreateOutputOutputLocalSearchStorage, "", true)
 	}
 
 	if u.CreateOutputOutputXsiam != nil {

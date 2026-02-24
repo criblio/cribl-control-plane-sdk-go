@@ -3,6 +3,7 @@ module github.com/criblio/cribl-control-plane-sdk-go
 go 1.22
 
 require (
+	github.com/spyzhov/ajson v0.8.0
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/sync v0.8.0
 )
