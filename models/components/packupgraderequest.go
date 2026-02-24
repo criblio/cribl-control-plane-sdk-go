@@ -3,10 +3,10 @@
 package components
 
 type PackUpgradeRequest struct {
-	AllowCustomFunctions *bool   `json:"allowCustomFunctions,omitempty"`
-	Minor                *string `json:"minor,omitempty"`
+	AllowCustomFunctions *bool   `json:"allowCustomFunctions,omitzero"`
+	Minor                *string `json:"minor,omitzero"`
 	Source               string  `json:"source"`
-	Spec                 *string `json:"spec,omitempty"`
+	Spec                 *string `json:"spec,omitzero"`
 }
 
 func (p *PackUpgradeRequest) GetAllowCustomFunctions() *bool {

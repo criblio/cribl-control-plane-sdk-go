@@ -9,9 +9,9 @@ import (
 type PreprocessTypeSavedJobCollectionInput struct {
 	Disabled bool `json:"disabled"`
 	// Command to feed the data through (via stdin) and process its output (stdout)
-	Command *string `json:"command,omitempty"`
+	Command *string `json:"command,omitzero"`
 	// Arguments to be added to the custom command
-	Args []string `json:"args,omitempty"`
+	Args []string `json:"args,omitzero"`
 }
 
 func (p PreprocessTypeSavedJobCollectionInput) MarshalJSON() ([]byte, error) {

@@ -63,11 +63,11 @@ type PipelineFunctionDynamicSamplingConf struct {
 	// Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
 	KeyExpr string `json:"keyExpr"`
 	// How often (in seconds) sample rates will be adjusted
-	SamplePeriod *float64 `json:"samplePeriod,omitempty"`
+	SamplePeriod *float64 `json:"samplePeriod,omitzero"`
 	// Minimum number of events that must be received in previous sample period for sampling mode to be applied to current period. If the number of events received for a sample group is less than this minimum, a sample rate of 1:1 is used.
-	MinEvents *float64 `json:"minEvents,omitempty"`
+	MinEvents *float64 `json:"minEvents,omitzero"`
 	// Maximum sampling rate. If computed sampling rate is above this value, it will be limited to this value.
-	MaxSampleRate *float64 `json:"maxSampleRate,omitempty"`
+	MaxSampleRate *float64 `json:"maxSampleRate,omitzero"`
 }
 
 func (p PipelineFunctionDynamicSamplingConf) MarshalJSON() ([]byte, error) {
@@ -118,18 +118,18 @@ func (p *PipelineFunctionDynamicSamplingConf) GetMaxSampleRate() *float64 {
 
 type PipelineFunctionDynamicSampling struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionDynamicSamplingID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                               `json:"final,omitempty"`
+	Final *bool                               `json:"final,omitzero"`
 	Conf  PipelineFunctionDynamicSamplingConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionDynamicSampling) MarshalJSON() ([]byte, error) {

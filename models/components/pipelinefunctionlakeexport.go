@@ -38,13 +38,13 @@ type LakeExportConfiguration struct {
 	// Name of the dataset
 	Dataset string `json:"dataset"`
 	// Name of the lake
-	Lake *string `json:"lake,omitempty"`
+	Lake *string `json:"lake,omitzero"`
 	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *bool `json:"tee,omitempty"`
+	Tee *bool `json:"tee,omitzero"`
 	// How often are stats flushed in ms
-	FlushMs *float64 `json:"flushMs,omitempty"`
+	FlushMs *float64 `json:"flushMs,omitzero"`
 	// Disables generation of intermediate stats. When true stats will be emitted only on end
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
+	SuppressPreviews *bool `json:"suppressPreviews,omitzero"`
 }
 
 func (l LakeExportConfiguration) MarshalJSON() ([]byte, error) {
@@ -102,18 +102,18 @@ func (l *LakeExportConfiguration) GetSuppressPreviews() *bool {
 
 type PipelineFunctionLakeExport struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionLakeExportID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                   `json:"final,omitempty"`
+	Final *bool                   `json:"final,omitzero"`
 	Conf  LakeExportConfiguration `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionLakeExport) MarshalJSON() ([]byte, error) {

@@ -8,23 +8,23 @@ import (
 
 type SavedJobExecutor struct {
 	// Unique ID for this Job
-	ID          *string                          `json:"id,omitempty"`
-	Description *string                          `json:"description,omitempty"`
+	ID          *string                          `json:"id,omitzero"`
+	Description *string                          `json:"description,omitzero"`
 	Type        JobTypeOptionsSavedJobCollection `json:"type"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
-	RemoveFields []string `json:"removeFields,omitempty"`
+	RemoveFields []string `json:"removeFields,omitzero"`
 	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution
-	ResumeOnBoot *bool `json:"resumeOnBoot,omitempty"`
+	ResumeOnBoot *bool `json:"resumeOnBoot,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Configuration for a scheduled job
-	Schedule *ScheduleTypeSavedJobCollection `json:"schedule,omitempty"`
+	Schedule *ScheduleTypeSavedJobCollection `json:"schedule,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string                     `json:"streamtags,omitempty"`
+	Streamtags []string                     `json:"streamtags,omitzero"`
 	Executor   ExecutorTypeSavedJobExecutor `json:"executor"`
 }
 

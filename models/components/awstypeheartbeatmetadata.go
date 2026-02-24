@@ -2,13 +2,28 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type AwsTypeHeartbeatMetadata struct {
 	Enabled    bool              `json:"enabled"`
 	InstanceID string            `json:"instanceId"`
 	Region     string            `json:"region"`
-	Tags       map[string]string `json:"tags,omitempty"`
+	Tags       map[string]string `json:"tags,omitzero"`
 	Type       string            `json:"type"`
 	Zone       string            `json:"zone"`
+}
+
+func (a AwsTypeHeartbeatMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AwsTypeHeartbeatMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (a *AwsTypeHeartbeatMetadata) GetEnabled() bool {

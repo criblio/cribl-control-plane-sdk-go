@@ -3,9 +3,9 @@
 package components
 
 type ConfigGroupLookupsLookup struct {
-	DeployedVersion *string `json:"deployedVersion,omitempty"`
+	DeployedVersion *string `json:"deployedVersion,omitzero"`
 	File            string  `json:"file"`
-	Version         *string `json:"version,omitempty"`
+	Version         *string `json:"version,omitzero"`
 }
 
 func (c *ConfigGroupLookupsLookup) GetDeployedVersion() *string {

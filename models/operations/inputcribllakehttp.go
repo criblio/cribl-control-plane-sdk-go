@@ -58,17 +58,17 @@ func (e *AuthTokenAuthenticationMethod) IsExact() bool {
 
 type AuthTokenCloudflareHec struct {
 	// Select Secret to use a text secret to authenticate
-	AuthType *AuthTokenAuthenticationMethod `json:"authType,omitempty"`
+	AuthType *AuthTokenAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
-	TokenSecret *string `json:"tokenSecret,omitempty"`
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       *string `json:"token,omitempty"`
-	Enabled     *bool   `json:"enabled,omitempty"`
-	Description *string `json:"description,omitempty"`
+	Token       *string `json:"token,omitzero"`
+	Enabled     *bool   `json:"enabled,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
-	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
+	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 }
 
 func (a AuthTokenCloudflareHec) MarshalJSON() ([]byte, error) {
@@ -135,65 +135,65 @@ type InputCloudflareHec struct {
 	// Unique ID for this input
 	ID       string            `json:"id"`
 	Type     TypeCloudflareHec `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
+	Disabled *bool             `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []AuthTokenCloudflareHec              `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []AuthTokenCloudflareHec              `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitempty"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitzero"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
-	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
-	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
 	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
-	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
-	Description      *string `json:"description,omitempty"`
+	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
+	Description      *string `json:"description,omitzero"`
 }
 
 func (i InputCloudflareHec) MarshalJSON() ([]byte, error) {
@@ -470,17 +470,17 @@ func (e *TypeZscalerHec) UnmarshalJSON(data []byte) error {
 
 type AuthTokenZscalerHec struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Select or create a stored text secret
-	TokenSecret *string `json:"tokenSecret,omitempty"`
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Shared secret to be provided by any client (Authorization: <token>)
 	Token       string  `json:"token"`
-	Enabled     *bool   `json:"enabled,omitempty"`
-	Description *string `json:"description,omitempty"`
+	Enabled     *bool   `json:"enabled,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
-	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
+	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 }
 
 func (a AuthTokenZscalerHec) MarshalJSON() ([]byte, error) {
@@ -547,63 +547,63 @@ type InputZscalerHec struct {
 	// Unique ID for this input
 	ID       string         `json:"id"`
 	Type     TypeZscalerHec `json:"type"`
-	Disabled *bool          `json:"disabled,omitempty"`
+	Disabled *bool          `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []AuthTokenZscalerHec                 `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []AuthTokenZscalerHec                 `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitempty"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitzero"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
-	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// Whether to enable Zscaler HEC acknowledgements
-	HecAcks *bool `json:"hecAcks,omitempty"`
+	HecAcks *bool `json:"hecAcks,omitzero"`
 	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
-	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
-	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
-	Description      *string `json:"description,omitempty"`
+	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
+	Description      *string `json:"description,omitzero"`
 }
 
 func (i InputZscalerHec) MarshalJSON() ([]byte, error) {
@@ -875,86 +875,86 @@ type InputSecurityLake struct {
 	// Unique ID for this input
 	ID       string                      `json:"id"`
 	Type     CreateInputTypeSecurityLake `json:"type"`
-	Disabled *bool                       `json:"disabled,omitempty"`
+	Disabled *bool                       `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `json:"fileFilter,omitempty"`
+	FileFilter *string `json:"fileFilter,omitzero"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
-	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsSecretKey            *string                                                `json:"awsSecretKey,omitzero"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
+	MaxMessages *float64 `json:"maxMessages,omitzero"`
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
+	NumReceivers *float64 `json:"numReceivers,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `json:"skipOnError,omitempty"`
+	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Attach SQS notification metadata to a __sqsMetadata field on each event
-	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitempty"`
+	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitzero"`
 	// Use Assume Role credentials to access Amazon S3
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitempty"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitzero"`
+	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                      `json:"parquetChunkDownloadTimeout,omitempty"`
-	Checkpointing               *components.CheckpointingType `json:"checkpointing,omitempty"`
+	ParquetChunkDownloadTimeout *float64                      `json:"parquetChunkDownloadTimeout,omitzero"`
+	Checkpointing               *components.CheckpointingType `json:"checkpointing,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `json:"pollTimeout,omitempty"`
+	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding    *string `json:"encoding,omitempty"`
-	Description *string `json:"description,omitempty"`
-	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
+	Encoding    *string `json:"encoding,omitzero"`
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret          *string                               `json:"awsSecret,omitempty"`
-	TagAfterProcessing *components.TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	AwsSecret          *string                               `json:"awsSecret,omitzero"`
+	TagAfterProcessing *components.TagAfterProcessingOptions `json:"tagAfterProcessing,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
 }
 
 func (i InputSecurityLake) MarshalJSON() ([]byte, error) {
@@ -1317,43 +1317,43 @@ type InputNetflow struct {
 	// Unique ID for this input
 	ID       string                 `json:"id"`
 	Type     CreateInputTypeNetflow `json:"type"`
-	Disabled *bool                  `json:"disabled,omitempty"`
+	Disabled *bool                  `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
-	EnablePassThrough *bool `json:"enablePassThrough,omitempty"`
+	EnablePassThrough *bool `json:"enablePassThrough,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
-	TemplateCacheMinutes *float64 `json:"templateCacheMinutes,omitempty"`
+	TemplateCacheMinutes *float64 `json:"templateCacheMinutes,omitzero"`
 	// Accept messages in Netflow V5 format.
-	V5Enabled *bool `json:"v5Enabled,omitempty"`
+	V5Enabled *bool `json:"v5Enabled,omitzero"`
 	// Accept messages in Netflow V9 format.
-	V9Enabled *bool `json:"v9Enabled,omitempty"`
+	V9Enabled *bool `json:"v9Enabled,omitzero"`
 	// Accept messages in IPFIX format.
-	IpfixEnabled *bool `json:"ipfixEnabled,omitempty"`
+	IpfixEnabled *bool `json:"ipfixEnabled,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 }
 
 func (i InputNetflow) MarshalJSON() ([]byte, error) {
@@ -1548,62 +1548,62 @@ type InputWizWebhook struct {
 	// Unique ID for this input
 	ID       string         `json:"id"`
 	Type     TypeWizWebhook `json:"type"`
-	Disabled *bool          `json:"disabled,omitempty"`
+	Disabled *bool          `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                              `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []string                              `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// List of URI paths accepted by this input. Wildcards are supported (such as /api/v*/hook). Defaults to allow all.
-	AllowedPaths []string `json:"allowedPaths,omitempty"`
+	AllowedPaths []string `json:"allowedPaths,omitzero"`
 	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
-	AllowedMethods []string `json:"allowedMethods,omitempty"`
+	AllowedMethods []string `json:"allowedMethods,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
-	Description   *string                             `json:"description,omitempty"`
+	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
+	Description   *string                             `json:"description,omitzero"`
 }
 
 func (i InputWizWebhook) MarshalJSON() ([]byte, error) {
@@ -1907,15 +1907,15 @@ func (e *ContentConfigLogLevel) IsExact() bool {
 type ContentConfigWiz struct {
 	// The name of the Wiz query
 	ContentType        string  `json:"contentType"`
-	ContentDescription *string `json:"contentDescription,omitempty"`
-	Enabled            *bool   `json:"enabled,omitempty"`
+	ContentDescription *string `json:"contentDescription,omitzero"`
+	Enabled            *bool   `json:"enabled,omitzero"`
 	// Track collection progress between consecutive scheduled executions
-	StateTracking *bool `json:"stateTracking,omitempty"`
+	StateTracking *bool `json:"stateTracking,omitzero"`
 	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
-	StateUpdateExpression *string `json:"stateUpdateExpression,omitempty"`
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
-	StateMergeExpression *string      `json:"stateMergeExpression,omitempty"`
-	ManageState          *ManageState `json:"manageState,omitempty"`
+	StateMergeExpression *string      `json:"stateMergeExpression,omitzero"`
+	ManageState          *ManageState `json:"manageState,omitzero"`
 	// Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
 	ContentQuery string `json:"contentQuery"`
 	// A cron schedule on which to run this job
@@ -1925,11 +1925,11 @@ type ContentConfigWiz struct {
 	// Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
 	Latest string `json:"latest"`
 	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Units default to seconds if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitempty"`
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// Collector runtime log level
-	LogLevel *ContentConfigLogLevel `json:"logLevel,omitempty"`
+	LogLevel *ContentConfigLogLevel `json:"logLevel,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
-	MaxPages *float64 `json:"maxPages,omitempty"`
+	MaxPages *float64 `json:"maxPages,omitzero"`
 }
 
 func (c ContentConfigWiz) MarshalJSON() ([]byte, error) {
@@ -2045,49 +2045,49 @@ type InputWiz struct {
 	// Unique ID for this input
 	ID       string  `json:"id"`
 	Type     TypeWiz `json:"type"`
-	Disabled *bool   `json:"disabled,omitempty"`
+	Disabled *bool   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
 	Endpoint string `json:"endpoint"`
 	// The authentication URL to generate an OAuth token
 	AuthURL string `json:"authUrl"`
 	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
-	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitzero"`
 	// The client ID of the Wiz application
 	ClientID      string             `json:"clientId"`
 	ContentConfig []ContentConfigWiz `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	RetryRules *components.RetryRulesType                 `json:"retryRules,omitempty"`
+	Metadata   []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	RetryRules *components.RetryRulesType                 `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitempty"`
-	Description *string                                  `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
+	Description *string                                  `json:"description,omitzero"`
 	// The client secret of the Wiz application
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (i InputWiz) MarshalJSON() ([]byte, error) {
@@ -2310,7 +2310,7 @@ type InputJournalFilesRule struct {
 	// JavaScript expression applied to Journal objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (i InputJournalFilesRule) MarshalJSON() ([]byte, error) {
@@ -2342,35 +2342,35 @@ type InputJournalFiles struct {
 	// Unique ID for this input
 	ID       string                `json:"id"`
 	Type     InputJournalFilesType `json:"type"`
-	Disabled *bool                 `json:"disabled,omitempty"`
+	Disabled *bool                 `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
 	Path string `json:"path"`
 	// Time, in seconds, between scanning for journals.
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// The full path of discovered journals are matched against this wildcard list.
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
-	Rules []InputJournalFilesRule `json:"rules,omitempty"`
+	Rules []InputJournalFilesRule `json:"rules,omitzero"`
 	// Skip log messages that are not part of the current boot session.
-	CurrentBoot *bool `json:"currentBoot,omitempty"`
+	CurrentBoot *bool `json:"currentBoot,omitzero"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
-	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	MaxAgeDur *string `json:"maxAgeDur,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 }
 
 func (i InputJournalFiles) MarshalJSON() ([]byte, error) {
@@ -2537,37 +2537,37 @@ type InputRawUDP struct {
 	// Unique ID for this input
 	ID       string     `json:"id"`
 	Type     TypeRawUDP `json:"type"`
-	Disabled *bool      `json:"disabled,omitempty"`
+	Disabled *bool      `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
-	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitzero"`
 	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
-	IngestRawBytes *bool `json:"ingestRawBytes,omitempty"`
+	IngestRawBytes *bool `json:"ingestRawBytes,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 }
 
 func (i InputRawUDP) MarshalJSON() ([]byte, error) {
@@ -2791,41 +2791,41 @@ type InputWinEventLogs struct {
 	// Unique ID for this input
 	ID       string           `json:"id"`
 	Type     TypeWinEventLogs `json:"type"`
-	Disabled *bool            `json:"disabled,omitempty"`
+	Disabled *bool            `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
-	ReadMode *ReadMode `json:"readMode,omitempty"`
+	ReadMode *ReadMode `json:"readMode,omitzero"`
 	// Format of individual events
-	EventFormat *EventFormat `json:"eventFormat,omitempty"`
+	EventFormat *EventFormat `json:"eventFormat,omitzero"`
 	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
-	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	BatchSize *float64 `json:"batchSize,omitempty"`
+	BatchSize *float64 `json:"batchSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
-	Description   *string  `json:"description,omitempty"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
+	Description   *string  `json:"description,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableJSONRendering *bool `json:"disableJsonRendering,omitempty"`
+	DisableJSONRendering *bool `json:"disableJsonRendering,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableXMLRendering *bool `json:"disableXmlRendering,omitempty"`
+	DisableXMLRendering *bool `json:"disableXmlRendering,omitzero"`
 }
 
 func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
@@ -3036,31 +3036,31 @@ func (e *AuthMethodAuthenticationMethod) IsExact() bool {
 
 type MTLSSettings struct {
 	// Enable TLS
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// Required for WEF certificate authentication
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Required for WEF certificate authentication
-	RequestCert *bool `json:"requestCert,omitempty"`
+	RequestCert *bool `json:"requestCert,omitzero"`
 	// Name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
+	CertificateName *string `json:"certificateName,omitzero"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
 	PrivKeyPath string `json:"privKeyPath"`
 	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
+	Passphrase *string `json:"passphrase,omitzero"`
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath string `json:"certPath"`
 	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
 	CaPath string `json:"caPath"`
 	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string                                                    `json:"commonNameRegex,omitempty"`
-	MinVersion      *components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitempty"`
-	MaxVersion      *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitempty"`
+	CommonNameRegex *string                                                    `json:"commonNameRegex,omitzero"`
+	MinVersion      *components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitzero"`
+	MaxVersion      *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
 	// Enable OCSP check of certificate
-	OcspCheck *bool `json:"ocspCheck,omitempty"`
-	Keytab    any   `json:"keytab,omitempty"`
-	Principal any   `json:"principal,omitempty"`
+	OcspCheck *bool `json:"ocspCheck,omitzero"`
+	Keytab    any   `json:"keytab,omitzero"`
+	Principal any   `json:"principal,omitzero"`
 	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
-	OcspCheckFailClose *bool `json:"ocspCheckFailClose,omitempty"`
+	OcspCheckFailClose *bool `json:"ocspCheckFailClose,omitzero"`
 }
 
 func (m MTLSSettings) MarshalJSON() ([]byte, error) {
@@ -3259,7 +3259,7 @@ func (q *Query) GetQueryExpression() string {
 type Subscription struct {
 	SubscriptionName string `json:"subscriptionName"`
 	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
-	Version *string `json:"version,omitempty"`
+	Version *string `json:"version,omitzero"`
 	// Content format in which the endpoint should deliver events
 	ContentFormat CreateInputFormat `json:"contentFormat"`
 	// Maximum time (in seconds) between endpoint checkins before considering it unavailable
@@ -3267,21 +3267,21 @@ type Subscription struct {
 	// Interval (in seconds) over which the endpoint should collect events before sending them to Stream
 	BatchTimeout float64 `json:"batchTimeout"`
 	// Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
-	ReadExistingEvents *bool `json:"readExistingEvents,omitempty"`
+	ReadExistingEvents *bool `json:"readExistingEvents,omitzero"`
 	// Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
-	SendBookmarks *bool `json:"sendBookmarks,omitempty"`
+	SendBookmarks *bool `json:"sendBookmarks,omitzero"`
 	// Receive compressed events from the source
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
 	Targets []string `json:"targets"`
 	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
-	Locale        *string           `json:"locale,omitempty"`
-	QuerySelector *QueryBuilderMode `json:"querySelector,omitempty"`
+	Locale        *string           `json:"locale,omitzero"`
+	QuerySelector *QueryBuilderMode `json:"querySelector,omitzero"`
 	// Fields to add to events ingested under this subscription
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Queries  []Query                                    `json:"queries,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Queries  []Query                                    `json:"queries,omitzero"`
 	// The XPath query to use for selecting events
-	XMLQuery *string `json:"xmlQuery,omitempty"`
+	XMLQuery *string `json:"xmlQuery,omitzero"`
 }
 
 func (s Subscription) MarshalJSON() ([]byte, error) {
@@ -3397,60 +3397,60 @@ type InputWef struct {
 	// Unique ID for this input
 	ID       string  `json:"id"`
 	Type     TypeWef `json:"type"`
-	Disabled *bool   `json:"disabled,omitempty"`
+	Disabled *bool   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// How to authenticate incoming client connections
-	AuthMethod *AuthMethodAuthenticationMethod `json:"authMethod,omitempty"`
-	TLS        *MTLSSettings                   `json:"tls,omitempty"`
+	AuthMethod *AuthMethodAuthenticationMethod `json:"authMethod,omitzero"`
+	TLS        *MTLSSettings                   `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
-	CaFingerprint *string `json:"caFingerprint,omitempty"`
+	CaFingerprint *string `json:"caFingerprint,omitzero"`
 	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
-	Keytab *string `json:"keytab,omitempty"`
+	Keytab *string `json:"keytab,omitzero"`
 	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
-	Principal *string `json:"principal,omitempty"`
+	Principal *string `json:"principal,omitzero"`
 	// Allow events to be ingested even if their MachineID does not match the client certificate CN
-	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitempty"`
+	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitzero"`
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []Subscription `json:"subscriptions"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
-	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
+	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitzero"`
 }
 
 func (i InputWef) MarshalJSON() ([]byte, error) {
@@ -3708,7 +3708,7 @@ type Allow struct {
 	// Specify the name of a process or family of processes.
 	Procname string `json:"procname"`
 	// Specify a string to substring-match against process command-line.
-	Arg *string `json:"arg,omitempty"`
+	Arg *string `json:"arg,omitzero"`
 	// Choose a config to apply to processes that match the process name and/or argument.
 	Config string `json:"config"`
 }
@@ -3747,9 +3747,9 @@ func (a *Allow) GetConfig() string {
 
 type FilterAppscope struct {
 	// Specify processes that AppScope should be loaded into, and the config to use.
-	Allow []Allow `json:"allow,omitempty"`
+	Allow []Allow `json:"allow,omitzero"`
 	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
-	TransportURL *string `json:"transportURL,omitempty"`
+	TransportURL *string `json:"transportURL,omitzero"`
 }
 
 func (f FilterAppscope) MarshalJSON() ([]byte, error) {
@@ -3779,16 +3779,16 @@ func (f *FilterAppscope) GetTransportURL() *string {
 
 type PersistenceAppscope struct {
 	// Spool events and metrics on disk for Cribl Edge and Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                             `json:"maxDataTime,omitempty"`
-	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
+	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (p PersistenceAppscope) MarshalJSON() ([]byte, error) {
@@ -3848,58 +3848,58 @@ type InputAppscope struct {
 	// Unique ID for this input
 	ID       string       `json:"id"`
 	Type     TypeAppscope `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
+	Disabled *bool        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
-	EnableUnixPath *bool                `json:"enableUnixPath,omitempty"`
-	Filter         *FilterAppscope      `json:"filter,omitempty"`
-	Persistence    *PersistenceAppscope `json:"persistence,omitempty"`
+	EnableUnixPath *bool                `json:"enableUnixPath,omitzero"`
+	Filter         *FilterAppscope      `json:"filter,omitzero"`
+	Persistence    *PersistenceAppscope `json:"persistence,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                                `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                                `json:"description,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `json:"host,omitempty"`
+	Host *string `json:"host,omitzero"`
 	// Port to listen on
-	Port *float64                              `json:"port,omitempty"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	Port *float64                              `json:"port,omitzero"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Path to the UNIX domain socket to listen on.
-	UnixSocketPath *string `json:"unixSocketPath,omitempty"`
+	UnixSocketPath *string `json:"unixSocketPath,omitzero"`
 	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
-	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	UnixSocketPerms *string `json:"unixSocketPerms,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (i InputAppscope) MarshalJSON() ([]byte, error) {
@@ -4157,53 +4157,53 @@ type InputTCP struct {
 	// Unique ID for this input
 	ID       string  `json:"id"`
 	Type     TypeTCP `json:"type"`
-	Disabled *bool   `json:"disabled,omitempty"`
+	Disabled *bool   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
-	EnableHeader *bool                                             `json:"enableHeader,omitempty"`
-	Preprocess   *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
-	Description  *string                                           `json:"description,omitempty"`
+	EnableHeader *bool                                             `json:"enableHeader,omitzero"`
+	Preprocess   *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitzero"`
+	Description  *string                                           `json:"description,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (i InputTCP) MarshalJSON() ([]byte, error) {
@@ -4465,60 +4465,60 @@ type InputFile struct {
 	// Unique ID for this input
 	ID       string        `json:"id"`
 	Type     InputFileType `json:"type"`
-	Disabled *bool         `json:"disabled,omitempty"`
+	Disabled *bool         `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Choose how to discover files to monitor
-	Mode *InputFileMode `json:"mode,omitempty"`
+	Mode *InputFileMode `json:"mode,omitzero"`
 	// Time, in seconds, between scanning for files
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// The full path of discovered files are matched against this wildcard list
-	Filenames []string `json:"filenames,omitempty"`
+	Filenames []string `json:"filenames,omitzero"`
 	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
+	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitzero"`
 	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `json:"tailOnly,omitempty"`
+	TailOnly *bool `json:"tailOnly,omitzero"`
 	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
+	IdleTimeout *float64 `json:"idleTimeout,omitzero"`
 	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
-	MinAgeDur *string `json:"minAgeDur,omitempty"`
+	MinAgeDur *string `json:"minAgeDur,omitzero"`
 	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
-	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	MaxAgeDur *string `json:"maxAgeDur,omitzero"`
 	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
+	CheckFileModTime *bool `json:"checkFileModTime,omitzero"`
 	// Forces files containing binary data to be streamed as text
-	ForceText *bool `json:"forceText,omitempty"`
+	ForceText *bool `json:"forceText,omitzero"`
 	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `json:"hashLen,omitempty"`
+	HashLen *float64 `json:"hashLen,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
-	Description         *string  `json:"description,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
+	Description         *string  `json:"description,omitzero"`
 	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
-	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
+	Depth                     *float64 `json:"depth,omitzero"`
+	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitzero"`
 	// Delete files after they have been collected
-	DeleteFiles *bool `json:"deleteFiles,omitempty"`
+	DeleteFiles *bool `json:"deleteFiles,omitzero"`
 	// Salt the file hash with the Source file path. Ensures that all files with the same header hash, such as CSV files, are ingested. Moving or renaming the file, or toggling this after starting the Source will cause re-ingestion.
-	SaltHash *bool `json:"saltHash,omitempty"`
+	SaltHash *bool `json:"saltHash,omitzero"`
 	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
+	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitzero"`
 }
 
 func (i InputFile) MarshalJSON() ([]byte, error) {
@@ -4776,64 +4776,64 @@ type InputSyslogSyslog2 struct {
 	// Unique ID for this input
 	ID       string           `json:"id"`
 	Type     InputSyslogType2 `json:"type"`
-	Disabled *bool            `json:"disabled,omitempty"`
+	Disabled *bool            `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
-	UDPPort *float64 `json:"udpPort,omitempty"`
+	UDPPort *float64 `json:"udpPort,omitzero"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
 	TCPPort float64 `json:"tcpPort"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// Treat UDP packet data received as full syslog message
-	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitzero"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Wildcard list of fields to keep from source data; * = ALL (default)
-	KeepFieldsList []string `json:"keepFieldsList,omitempty"`
+	KeepFieldsList []string `json:"keepFieldsList,omitzero"`
 	// Enable if incoming messages use octet counting per RFC 6587.
-	OctetCounting *bool `json:"octetCounting,omitempty"`
+	OctetCounting *bool `json:"octetCounting,omitzero"`
 	// Enable if we should infer the syslog framing of the incoming messages.
-	InferFraming *bool `json:"inferFraming,omitempty"`
+	InferFraming *bool `json:"inferFraming,omitzero"`
 	// Enable if we should infer octet counting only if the messages comply with RFC 5424.
-	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitempty"`
+	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitzero"`
 	// Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
-	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitempty"`
+	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitzero"`
 	// Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64                              `json:"socketMaxLifespan,omitempty"`
-	TLS               *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	SocketMaxLifespan *float64                              `json:"socketMaxLifespan,omitzero"`
+	TLS               *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitempty"`
-	Description         *string `json:"description,omitempty"`
+	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
+	Description         *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
-	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
+	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 }
 
 func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
@@ -5105,64 +5105,64 @@ type InputSyslogSyslog1 struct {
 	// Unique ID for this input
 	ID       string           `json:"id"`
 	Type     InputSyslogType1 `json:"type"`
-	Disabled *bool            `json:"disabled,omitempty"`
+	Disabled *bool            `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
 	UDPPort float64 `json:"udpPort"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
-	TCPPort *float64 `json:"tcpPort,omitempty"`
+	TCPPort *float64 `json:"tcpPort,omitzero"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// Treat UDP packet data received as full syslog message
-	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitzero"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Wildcard list of fields to keep from source data; * = ALL (default)
-	KeepFieldsList []string `json:"keepFieldsList,omitempty"`
+	KeepFieldsList []string `json:"keepFieldsList,omitzero"`
 	// Enable if incoming messages use octet counting per RFC 6587.
-	OctetCounting *bool `json:"octetCounting,omitempty"`
+	OctetCounting *bool `json:"octetCounting,omitzero"`
 	// Enable if we should infer the syslog framing of the incoming messages.
-	InferFraming *bool `json:"inferFraming,omitempty"`
+	InferFraming *bool `json:"inferFraming,omitzero"`
 	// Enable if we should infer octet counting only if the messages comply with RFC 5424.
-	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitempty"`
+	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitzero"`
 	// Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
-	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitempty"`
+	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitzero"`
 	// Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64                              `json:"socketMaxLifespan,omitempty"`
-	TLS               *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	SocketMaxLifespan *float64                              `json:"socketMaxLifespan,omitzero"`
+	TLS               *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitempty"`
-	Description         *string `json:"description,omitempty"`
+	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
+	Description         *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
-	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
+	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 }
 
 func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
@@ -5548,63 +5548,63 @@ type InputSqs struct {
 	// Unique ID for this input
 	ID       string             `json:"id"`
 	Type     CreateInputTypeSqs `json:"type"`
-	Disabled *bool              `json:"disabled,omitempty"`
+	Disabled *bool              `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// The queue type used (or created)
 	QueueType CreateInputQueueType `json:"queueType"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
-	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// Create queue if it does not exist
-	CreateQueue *bool `json:"createQueue,omitempty"`
+	CreateQueue *bool `json:"createQueue,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsSecretKey            *string                                                `json:"awsSecretKey,omitzero"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing SQS requests
-	SignatureVersion *components.SignatureVersionOptions3 `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptions3 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access SQS
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
+	MaxMessages *float64 `json:"maxMessages,omitzero"`
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `json:"pollTimeout,omitempty"`
-	Description *string  `json:"description,omitempty"`
-	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
+	PollTimeout *float64 `json:"pollTimeout,omitzero"`
+	Description *string  `json:"description,omitzero"`
+	AwsAPIKey   *string  `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
+	NumReceivers *float64 `json:"numReceivers,omitzero"`
 }
 
 func (i InputSqs) MarshalJSON() ([]byte, error) {
@@ -5876,32 +5876,32 @@ type InputModelDrivenTelemetry struct {
 	// Unique ID for this input
 	ID       string                   `json:"id"`
 	Type     TypeModelDrivenTelemetry `json:"type"`
-	Disabled *bool                    `json:"disabled,omitempty"`
+	Disabled *bool                    `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
-	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitempty"`
-	Description       *string  `json:"description,omitempty"`
+	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitzero"`
+	Description       *string  `json:"description,omitzero"`
 }
 
 func (i InputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
@@ -6111,85 +6111,85 @@ type InputOpenTelemetry struct {
 	// Unique ID for this input
 	ID       string                       `json:"id"`
 	Type     CreateInputTypeOpenTelemetry `json:"type"`
-	Disabled *bool                        `json:"disabled,omitempty"`
+	Disabled *bool                        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket  *int64 `json:"maxRequestsPerSocket,omitempty"`
-	EnableProxyHeader     any    `json:"enableProxyHeader,omitempty"`
-	CaptureHeaders        any    `json:"captureHeaders,omitempty"`
-	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitempty"`
+	MaxRequestsPerSocket  *int64 `json:"maxRequestsPerSocket,omitzero"`
+	EnableProxyHeader     any    `json:"enableProxyHeader,omitzero"`
+	CaptureHeaders        any    `json:"captureHeaders,omitzero"`
+	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Select whether to leverage gRPC or HTTP for OpenTelemetry
-	Protocol *CreateInputProtocol `json:"protocol,omitempty"`
+	Protocol *CreateInputProtocol `json:"protocol,omitzero"`
 	// Enable to extract each incoming span to a separate event
-	ExtractSpans *bool `json:"extractSpans,omitempty"`
+	ExtractSpans *bool `json:"extractSpans,omitzero"`
 	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
-	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
+	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// The version of OTLP Protobuf definitions to use when interpreting received data
-	OtlpVersion *CreateInputOTLPVersion `json:"otlpVersion,omitempty"`
+	OtlpVersion *CreateInputOTLPVersion `json:"otlpVersion,omitzero"`
 	// OpenTelemetry authentication type
-	AuthType *components.AuthenticationTypeOptions `json:"authType,omitempty"`
+	AuthType *components.AuthenticationTypeOptions `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
-	Description  *string  `json:"description,omitempty"`
-	Username     *string  `json:"username,omitempty"`
-	Password     *string  `json:"password,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
+	Description  *string  `json:"description,omitzero"`
+	Username     *string  `json:"username,omitzero"`
+	Password     *string  `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
+	LoginURL *string `json:"loginUrl,omitzero"`
 	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
+	SecretParamName *string `json:"secretParamName,omitzero"`
 	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 	// Enable to extract each incoming log record to a separate event
-	ExtractLogs *bool `json:"extractLogs,omitempty"`
+	ExtractLogs *bool `json:"extractLogs,omitzero"`
 }
 
 func (i InputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -6580,10 +6580,10 @@ func (e *PrivacyProtocol) IsExact() bool {
 
 type V3User struct {
 	Name         string                                          `json:"name"`
-	AuthProtocol *components.AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
-	AuthKey      *string                                         `json:"authKey,omitempty"`
-	PrivProtocol *PrivacyProtocol                                `json:"privProtocol,omitempty"`
-	PrivKey      *string                                         `json:"privKey,omitempty"`
+	AuthProtocol *components.AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
+	AuthKey      *string                                         `json:"authKey,omitzero"`
+	PrivProtocol *PrivacyProtocol                                `json:"privProtocol,omitzero"`
+	PrivKey      *string                                         `json:"privKey,omitzero"`
 }
 
 func (v V3User) MarshalJSON() ([]byte, error) {
@@ -6636,9 +6636,9 @@ func (v *V3User) GetPrivKey() *string {
 type SNMPv3Authentication struct {
 	V3AuthEnabled bool `json:"v3AuthEnabled"`
 	// Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
-	AllowUnmatchedTrap *bool `json:"allowUnmatchedTrap,omitempty"`
+	AllowUnmatchedTrap *bool `json:"allowUnmatchedTrap,omitzero"`
 	// User credentials for receiving v3 traps
-	V3Users []V3User `json:"v3Users,omitempty"`
+	V3Users []V3User `json:"v3Users,omitzero"`
 }
 
 func (s SNMPv3Authentication) MarshalJSON() ([]byte, error) {
@@ -6677,39 +6677,39 @@ type InputSnmp struct {
 	// Unique ID for this input
 	ID       string              `json:"id"`
 	Type     CreateInputTypeSnmp `json:"type"`
-	Disabled *bool               `json:"disabled,omitempty"`
+	Disabled *bool               `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
 	Port float64 `json:"port"`
 	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
-	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitempty"`
+	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitzero"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
-	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitempty"`
+	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitzero"`
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
-	BestEffortParsing *bool   `json:"bestEffortParsing,omitempty"`
-	Description       *string `json:"description,omitempty"`
+	BestEffortParsing *bool   `json:"bestEffortParsing,omitzero"`
+	Description       *string `json:"description,omitzero"`
 }
 
 func (i InputSnmp) MarshalJSON() ([]byte, error) {
@@ -6890,90 +6890,90 @@ type InputS3Inventory struct {
 	// Unique ID for this input
 	ID       string          `json:"id"`
 	Type     TypeS3Inventory `json:"type"`
-	Disabled *bool           `json:"disabled,omitempty"`
+	Disabled *bool           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `json:"fileFilter,omitempty"`
+	FileFilter *string `json:"fileFilter,omitzero"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
-	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsSecretKey            *string                                                `json:"awsSecretKey,omitzero"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
+	MaxMessages *float64 `json:"maxMessages,omitzero"`
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
+	NumReceivers *float64 `json:"numReceivers,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `json:"skipOnError,omitempty"`
+	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Attach SQS notification metadata to a __sqsMetadata field on each event
-	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitempty"`
+	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitzero"`
 	// Use Assume Role credentials to access Amazon S3
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitempty"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitzero"`
+	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                      `json:"parquetChunkDownloadTimeout,omitempty"`
-	Checkpointing               *components.CheckpointingType `json:"checkpointing,omitempty"`
+	ParquetChunkDownloadTimeout *float64                      `json:"parquetChunkDownloadTimeout,omitzero"`
+	Checkpointing               *components.CheckpointingType `json:"checkpointing,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `json:"pollTimeout,omitempty"`
+	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
-	ChecksumSuffix *string `json:"checksumSuffix,omitempty"`
+	ChecksumSuffix *string `json:"checksumSuffix,omitzero"`
 	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
-	MaxManifestSizeKB *int64 `json:"maxManifestSizeKB,omitempty"`
+	MaxManifestSizeKB *int64 `json:"maxManifestSizeKB,omitzero"`
 	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
-	ValidateInventoryFiles *bool   `json:"validateInventoryFiles,omitempty"`
-	Description            *string `json:"description,omitempty"`
-	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
+	ValidateInventoryFiles *bool   `json:"validateInventoryFiles,omitzero"`
+	Description            *string `json:"description,omitzero"`
+	AwsAPIKey              *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret          *string                               `json:"awsSecret,omitempty"`
-	TagAfterProcessing *components.TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	AwsSecret          *string                               `json:"awsSecret,omitzero"`
+	TagAfterProcessing *components.TagAfterProcessingOptions `json:"tagAfterProcessing,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
 }
 
 func (i InputS3Inventory) MarshalJSON() ([]byte, error) {
@@ -7350,87 +7350,87 @@ type InputS3 struct {
 	// Unique ID for this input
 	ID       string            `json:"id"`
 	Type     CreateInputTypeS3 `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
+	Disabled *bool             `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `json:"fileFilter,omitempty"`
+	FileFilter *string `json:"fileFilter,omitzero"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
-	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsSecretKey            *string                                                `json:"awsSecretKey,omitzero"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
+	MaxMessages *float64 `json:"maxMessages,omitzero"`
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
+	NumReceivers *float64 `json:"numReceivers,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `json:"skipOnError,omitempty"`
+	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Attach SQS notification metadata to a __sqsMetadata field on each event
-	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitempty"`
+	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitzero"`
 	// Use Assume Role credentials to access Amazon S3
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitempty"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitzero"`
+	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                      `json:"parquetChunkDownloadTimeout,omitempty"`
-	Checkpointing               *components.CheckpointingType `json:"checkpointing,omitempty"`
+	ParquetChunkDownloadTimeout *float64                      `json:"parquetChunkDownloadTimeout,omitzero"`
+	Checkpointing               *components.CheckpointingType `json:"checkpointing,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `json:"pollTimeout,omitempty"`
+	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding *string `json:"encoding,omitempty"`
+	Encoding *string `json:"encoding,omitzero"`
 	// Add a tag to processed S3 objects. Requires s3:GetObjectTagging and s3:PutObjectTagging AWS permissions.
-	TagAfterProcessing *bool   `json:"tagAfterProcessing,omitempty"`
-	Description        *string `json:"description,omitempty"`
-	AwsAPIKey          *string `json:"awsApiKey,omitempty"`
+	TagAfterProcessing *bool   `json:"tagAfterProcessing,omitzero"`
+	Description        *string `json:"description,omitzero"`
+	AwsAPIKey          *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
 }
 
 func (i InputS3) MarshalJSON() ([]byte, error) {
@@ -7793,38 +7793,38 @@ type InputMetrics struct {
 	// Unique ID for this input
 	ID       string      `json:"id"`
 	Type     TypeMetrics `json:"type"`
-	Disabled *bool       `json:"disabled,omitempty"`
+	Disabled *bool       `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
-	UDPPort *float64 `json:"udpPort,omitempty"`
+	UDPPort *float64 `json:"udpPort,omitzero"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
-	TCPPort *float64 `json:"tcpPort,omitempty"`
+	TCPPort *float64 `json:"tcpPort,omitzero"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool                                 `json:"enableProxyHeader,omitempty"`
-	TLS               *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	EnableProxyHeader *bool                                 `json:"enableProxyHeader,omitzero"`
+	TLS               *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
-	Description        *string  `json:"description,omitempty"`
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
+	Description        *string  `json:"description,omitzero"`
 }
 
 func (i InputMetrics) MarshalJSON() ([]byte, error) {
@@ -8005,27 +8005,27 @@ type InputCriblmetrics struct {
 	// Unique ID for this input
 	ID       string           `json:"id"`
 	Type     TypeCriblmetrics `json:"type"`
-	Disabled *bool            `json:"disabled,omitempty"`
+	Disabled *bool            `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// A prefix that is applied to the metrics provided by Cribl Stream
-	Prefix *string `json:"prefix,omitempty"`
+	Prefix *string `json:"prefix,omitzero"`
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
-	FullFidelity *bool `json:"fullFidelity,omitempty"`
+	FullFidelity *bool `json:"fullFidelity,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 }
 
 func (i InputCriblmetrics) MarshalJSON() ([]byte, error) {
@@ -8243,67 +8243,67 @@ type InputKinesis struct {
 	// Unique ID for this input
 	ID       string                 `json:"id"`
 	Type     CreateInputTypeKinesis `json:"type"`
-	Disabled *bool                  `json:"disabled,omitempty"`
+	Disabled *bool                  `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
-	ServiceInterval *float64 `json:"serviceInterval,omitempty"`
+	ServiceInterval *float64 `json:"serviceInterval,omitzero"`
 	// A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
-	ShardExpr *string `json:"shardExpr,omitempty"`
+	ShardExpr *string `json:"shardExpr,omitzero"`
 	// Location at which to start reading a shard for the first time
-	ShardIteratorType *ShardIteratorStart `json:"shardIteratorType,omitempty"`
+	ShardIteratorType *ShardIteratorStart `json:"shardIteratorType,omitzero"`
 	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-	PayloadFormat *RecordDataFormat `json:"payloadFormat,omitempty"`
+	PayloadFormat *RecordDataFormat `json:"payloadFormat,omitzero"`
 	// Maximum number of records per getRecords call
-	GetRecordsLimit *float64 `json:"getRecordsLimit,omitempty"`
+	GetRecordsLimit *float64 `json:"getRecordsLimit,omitzero"`
 	// Maximum number of records, across all shards, to pull down at once per Worker Process
-	GetRecordsLimitTotal *float64 `json:"getRecordsLimitTotal,omitempty"`
+	GetRecordsLimitTotal *float64 `json:"getRecordsLimitTotal,omitzero"`
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-	LoadBalancingAlgorithm *ShardLoadBalancing `json:"loadBalancingAlgorithm,omitempty"`
+	LoadBalancingAlgorithm *ShardLoadBalancing `json:"loadBalancingAlgorithm,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsSecretKey            *string                                                `json:"awsSecretKey,omitzero"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *components.SignatureVersionOptions2 `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptions2 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access Kinesis stream
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Verify Kinesis Producer Library (KPL) event checksums
-	VerifyKPLCheckSums *bool `json:"verifyKPLCheckSums,omitempty"`
+	VerifyKPLCheckSums *bool `json:"verifyKPLCheckSums,omitzero"`
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
-	AvoidDuplicates *bool `json:"avoidDuplicates,omitempty"`
+	AvoidDuplicates *bool `json:"avoidDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
-	AwsAPIKey   *string                                    `json:"awsApiKey,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
+	AwsAPIKey   *string                                    `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 }
 
 func (i InputKinesis) MarshalJSON() ([]byte, error) {
@@ -8589,62 +8589,62 @@ type InputHTTPRaw struct {
 	// Unique ID for this input
 	ID       string      `json:"id"`
 	Type     TypeHTTPRaw `json:"type"`
-	Disabled *bool       `json:"disabled,omitempty"`
+	Disabled *bool       `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                              `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []string                              `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// List of URI paths accepted by this input, wildcards are supported, e.g /api/v*/hook. Defaults to allow all.
-	AllowedPaths []string `json:"allowedPaths,omitempty"`
+	AllowedPaths []string `json:"allowedPaths,omitzero"`
 	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
-	AllowedMethods []string `json:"allowedMethods,omitempty"`
+	AllowedMethods []string `json:"allowedMethods,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
-	Description   *string                             `json:"description,omitempty"`
+	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
+	Description   *string                             `json:"description,omitzero"`
 }
 
 func (i InputHTTPRaw) MarshalJSON() ([]byte, error) {
@@ -8940,24 +8940,24 @@ type InputDatagen struct {
 	// Unique ID for this input
 	ID       string      `json:"id"`
 	Type     TypeDatagen `json:"type"`
-	Disabled *bool       `json:"disabled,omitempty"`
+	Disabled *bool       `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	Samples     []Sample                                  `json:"samples"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 }
 
 func (i InputDatagen) MarshalJSON() ([]byte, error) {
@@ -9089,7 +9089,7 @@ type ProxyModeDatadogAgent struct {
 	// Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
 	Enabled bool `json:"enabled"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 }
 
 func (p ProxyModeDatadogAgent) MarshalJSON() ([]byte, error) {
@@ -9121,53 +9121,53 @@ type InputDatadogAgent struct {
 	// Unique ID for this input
 	ID       string           `json:"id"`
 	Type     TypeDatadogAgent `json:"type"`
-	Disabled *bool            `json:"disabled,omitempty"`
+	Disabled *bool            `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
-	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
+	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	ProxyMode   *ProxyModeDatadogAgent                     `json:"proxyMode,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	ProxyMode   *ProxyModeDatadogAgent                     `json:"proxyMode,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 }
 
 func (i InputDatadogAgent) MarshalJSON() ([]byte, error) {
@@ -9404,82 +9404,82 @@ type InputCrowdstrike struct {
 	// Unique ID for this input
 	ID       string          `json:"id"`
 	Type     TypeCrowdstrike `json:"type"`
-	Disabled *bool           `json:"disabled,omitempty"`
+	Disabled *bool           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `json:"fileFilter,omitempty"`
+	FileFilter *string `json:"fileFilter,omitzero"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
-	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsSecretKey            *string                                                `json:"awsSecretKey,omitzero"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
+	MaxMessages *float64 `json:"maxMessages,omitzero"`
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
+	NumReceivers *float64 `json:"numReceivers,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `json:"skipOnError,omitempty"`
+	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Attach SQS notification metadata to a __sqsMetadata field on each event
-	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitempty"`
+	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitzero"`
 	// Use Assume Role credentials to access Amazon S3
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitempty"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool                                             `json:"enableSQSAssumeRole,omitzero"`
+	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata      []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Checkpointing *components.CheckpointingType              `json:"checkpointing,omitempty"`
+	Metadata      []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Checkpointing *components.CheckpointingType              `json:"checkpointing,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `json:"pollTimeout,omitempty"`
+	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding    *string `json:"encoding,omitempty"`
-	Description *string `json:"description,omitempty"`
-	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
+	Encoding    *string `json:"encoding,omitzero"`
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret          *string                               `json:"awsSecret,omitempty"`
-	TagAfterProcessing *components.TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	AwsSecret          *string                               `json:"awsSecret,omitzero"`
+	TagAfterProcessing *components.TagAfterProcessingOptions `json:"tagAfterProcessing,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
 }
 
 func (i InputCrowdstrike) MarshalJSON() ([]byte, error) {
@@ -9855,9 +9855,9 @@ func (e *SystemModeWindowsMetrics) IsExact() bool {
 
 type SystemWindowsMetrics struct {
 	// Select the level of details for system metrics
-	Mode *SystemModeWindowsMetrics `json:"mode,omitempty"`
+	Mode *SystemModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate metrics for all system information
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 }
 
 func (s SystemWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -9916,13 +9916,13 @@ func (e *CPUModeWindowsMetrics) IsExact() bool {
 
 type CPUWindowsMetrics struct {
 	// Select the level of details for CPU metrics
-	Mode *CPUModeWindowsMetrics `json:"mode,omitempty"`
+	Mode *CPUModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate metrics for each CPU
-	PerCPU *bool `json:"perCpu,omitempty"`
+	PerCPU *bool `json:"perCpu,omitzero"`
 	// Generate metrics for all CPU states
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate raw, monotonic CPU time counters
-	Time *bool `json:"time,omitempty"`
+	Time *bool `json:"time,omitzero"`
 }
 
 func (c CPUWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -9995,9 +9995,9 @@ func (e *MemoryModeWindowsMetrics) IsExact() bool {
 
 type MemoryWindowsMetrics struct {
 	// Select the level of details for memory metrics
-	Mode *MemoryModeWindowsMetrics `json:"mode,omitempty"`
+	Mode *MemoryModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate metrics for all memory states
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 }
 
 func (m MemoryWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -10056,15 +10056,15 @@ func (e *NetworkModeWindowsMetrics) IsExact() bool {
 
 type NetworkWindowsMetrics struct {
 	// Select the level of details for network metrics
-	Mode *NetworkModeWindowsMetrics `json:"mode,omitempty"`
+	Mode *NetworkModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate full network metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
-	Protocols *bool `json:"protocols,omitempty"`
+	Protocols *bool `json:"protocols,omitzero"`
 	// Network interfaces to include/exclude. All interfaces are included if this list is empty.
-	Devices []string `json:"devices,omitempty"`
+	Devices []string `json:"devices,omitzero"`
 	// Generate separate metrics for each interface
-	PerInterface *bool `json:"perInterface,omitempty"`
+	PerInterface *bool `json:"perInterface,omitzero"`
 }
 
 func (n NetworkWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -10144,13 +10144,13 @@ func (e *DiskModeWindowsMetrics) IsExact() bool {
 
 type DiskWindowsMetrics struct {
 	// Select the level of details for disk metrics
-	Mode *DiskModeWindowsMetrics `json:"mode,omitempty"`
+	Mode *DiskModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate separate metrics for each volume
-	PerVolume *bool `json:"perVolume,omitempty"`
+	PerVolume *bool `json:"perVolume,omitzero"`
 	// Generate full disk metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
-	Volumes []string `json:"volumes,omitempty"`
+	Volumes []string `json:"volumes,omitzero"`
 }
 
 func (d DiskWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -10193,11 +10193,11 @@ func (d *DiskWindowsMetrics) GetVolumes() []string {
 }
 
 type CustomWindowsMetrics struct {
-	System  *SystemWindowsMetrics  `json:"system,omitempty"`
-	CPU     *CPUWindowsMetrics     `json:"cpu,omitempty"`
-	Memory  *MemoryWindowsMetrics  `json:"memory,omitempty"`
-	Network *NetworkWindowsMetrics `json:"network,omitempty"`
-	Disk    *DiskWindowsMetrics    `json:"disk,omitempty"`
+	System  *SystemWindowsMetrics  `json:"system,omitzero"`
+	CPU     *CPUWindowsMetrics     `json:"cpu,omitzero"`
+	Memory  *MemoryWindowsMetrics  `json:"memory,omitzero"`
+	Network *NetworkWindowsMetrics `json:"network,omitzero"`
+	Disk    *DiskWindowsMetrics    `json:"disk,omitzero"`
 }
 
 func (c CustomWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -10248,8 +10248,8 @@ func (c *CustomWindowsMetrics) GetDisk() *DiskWindowsMetrics {
 
 type HostWindowsMetrics struct {
 	// Select level of detail for host metrics
-	Mode   *components.ModeOptionsHost `json:"mode,omitempty"`
-	Custom *CustomWindowsMetrics       `json:"custom,omitempty"`
+	Mode   *components.ModeOptionsHost `json:"mode,omitzero"`
+	Custom *CustomWindowsMetrics       `json:"custom,omitzero"`
 }
 
 func (h HostWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -10279,16 +10279,16 @@ func (h *HostWindowsMetrics) GetCustom() *CustomWindowsMetrics {
 
 type PersistenceWindowsMetrics struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                             `json:"maxDataTime,omitempty"`
-	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
+	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/windows_metrics
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (p PersistenceWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -10348,30 +10348,30 @@ type InputWindowsMetrics struct {
 	// Unique ID for this input
 	ID       string             `json:"id"`
 	Type     TypeWindowsMetrics `json:"type"`
-	Disabled *bool              `json:"disabled,omitempty"`
+	Disabled *bool              `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval *float64                `json:"interval,omitempty"`
-	Host     *HostWindowsMetrics     `json:"host,omitempty"`
-	Process  *components.ProcessType `json:"process,omitempty"`
+	Interval *float64                `json:"interval,omitzero"`
+	Host     *HostWindowsMetrics     `json:"host,omitzero"`
+	Process  *components.ProcessType `json:"process,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *PersistenceWindowsMetrics                 `json:"persistence,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Persistence *PersistenceWindowsMetrics                 `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
-	Description         *string `json:"description,omitempty"`
+	DisableNativeModule *bool   `json:"disableNativeModule,omitzero"`
+	Description         *string `json:"description,omitzero"`
 }
 
 func (i InputWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -10531,25 +10531,25 @@ type InputKubeEvents struct {
 	// Unique ID for this input
 	ID       string         `json:"id"`
 	Type     TypeKubeEvents `json:"type"`
-	Disabled *bool          `json:"disabled,omitempty"`
+	Disabled *bool          `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Filtering on event fields
-	Rules []components.ItemsTypeRules `json:"rules,omitempty"`
+	Rules []components.ItemsTypeRules `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 }
 
 func (i InputKubeEvents) MarshalJSON() ([]byte, error) {
@@ -10681,7 +10681,7 @@ type RuleKubeLogs struct {
 	// JavaScript expression applied to Pod objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (r RuleKubeLogs) MarshalJSON() ([]byte, error) {
@@ -10713,36 +10713,36 @@ type InputKubeLogs struct {
 	// Unique ID for this input
 	ID       string       `json:"id"`
 	Type     TypeKubeLogs `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
+	Disabled *bool        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between checks for new containers. Default is 15 secs.
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
-	Rules []RuleKubeLogs `json:"rules,omitempty"`
+	Rules []RuleKubeLogs `json:"rules,omitzero"`
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
-	Timestamps *bool `json:"timestamps,omitempty"`
+	Timestamps *bool `json:"timestamps,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *components.DiskSpoolingType               `json:"persistence,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Persistence *components.DiskSpoolingType               `json:"persistence,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitempty"`
-	Description         *string `json:"description,omitempty"`
+	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
+	Description         *string `json:"description,omitzero"`
 }
 
 func (i InputKubeLogs) MarshalJSON() ([]byte, error) {
@@ -10914,16 +10914,16 @@ func (e *TypeKubeMetrics) UnmarshalJSON(data []byte) error {
 
 type PersistenceKubeMetrics struct {
 	// Spool metrics on disk for Cribl Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                             `json:"maxDataTime,omitempty"`
-	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
+	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (p PersistenceKubeMetrics) MarshalJSON() ([]byte, error) {
@@ -10983,28 +10983,28 @@ type InputKubeMetrics struct {
 	// Unique ID for this input
 	ID       string          `json:"id"`
 	Type     TypeKubeMetrics `json:"type"`
-	Disabled *bool           `json:"disabled,omitempty"`
+	Disabled *bool           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
-	Rules []components.ItemsTypeRules `json:"rules,omitempty"`
+	Rules []components.ItemsTypeRules `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *PersistenceKubeMetrics                    `json:"persistence,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Persistence *PersistenceKubeMetrics                    `json:"persistence,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 }
 
 func (i InputKubeMetrics) MarshalJSON() ([]byte, error) {
@@ -11148,7 +11148,7 @@ func (e *TypeSystemState) UnmarshalJSON(data []byte) error {
 
 // HostsFile - Creates events based on entries collected from the hosts file
 type HostsFile struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (h HostsFile) MarshalJSON() ([]byte, error) {
@@ -11171,7 +11171,7 @@ func (h *HostsFile) GetEnable() *bool {
 
 // Interfaces - Creates events for each of the host’s network interfaces
 type Interfaces struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (i Interfaces) MarshalJSON() ([]byte, error) {
@@ -11194,7 +11194,7 @@ func (i *Interfaces) GetEnable() *bool {
 
 // DisksAndFileSystems - Creates events for physical disks, partitions, and file systems
 type DisksAndFileSystems struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (d DisksAndFileSystems) MarshalJSON() ([]byte, error) {
@@ -11217,7 +11217,7 @@ func (d *DisksAndFileSystems) GetEnable() *bool {
 
 // HostInfo - Creates events based on the host system’s current state
 type HostInfo struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (h HostInfo) MarshalJSON() ([]byte, error) {
@@ -11240,7 +11240,7 @@ func (h *HostInfo) GetEnable() *bool {
 
 // Routes - Creates events based on entries collected from the host’s network routes
 type Routes struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (r Routes) MarshalJSON() ([]byte, error) {
@@ -11263,7 +11263,7 @@ func (r *Routes) GetEnable() *bool {
 
 // DNS - Creates events for DNS resolvers and search entries
 type DNS struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (d DNS) MarshalJSON() ([]byte, error) {
@@ -11286,7 +11286,7 @@ func (d *DNS) GetEnable() *bool {
 
 // UsersAndGroups - Creates events for local users and groups
 type UsersAndGroups struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (u UsersAndGroups) MarshalJSON() ([]byte, error) {
@@ -11309,7 +11309,7 @@ func (u *UsersAndGroups) GetEnable() *bool {
 
 // Firewall - Creates events for Firewall rules entries
 type Firewall struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (f Firewall) MarshalJSON() ([]byte, error) {
@@ -11332,7 +11332,7 @@ func (f *Firewall) GetEnable() *bool {
 
 // Services - Creates events from the list of services
 type Services struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (s Services) MarshalJSON() ([]byte, error) {
@@ -11355,7 +11355,7 @@ func (s *Services) GetEnable() *bool {
 
 // ListeningPorts - Creates events from list of listening ports
 type ListeningPorts struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (l ListeningPorts) MarshalJSON() ([]byte, error) {
@@ -11378,7 +11378,7 @@ func (l *ListeningPorts) GetEnable() *bool {
 
 // LoggedInUsers - Creates events from list of logged-in users
 type LoggedInUsers struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (l LoggedInUsers) MarshalJSON() ([]byte, error) {
@@ -11401,27 +11401,27 @@ func (l *LoggedInUsers) GetEnable() *bool {
 
 type Collectors struct {
 	// Creates events based on entries collected from the hosts file
-	Hostsfile *HostsFile `json:"hostsfile,omitempty"`
+	Hostsfile *HostsFile `json:"hostsfile,omitzero"`
 	// Creates events for each of the host’s network interfaces
-	Interfaces *Interfaces `json:"interfaces,omitempty"`
+	Interfaces *Interfaces `json:"interfaces,omitzero"`
 	// Creates events for physical disks, partitions, and file systems
-	Disk *DisksAndFileSystems `json:"disk,omitempty"`
+	Disk *DisksAndFileSystems `json:"disk,omitzero"`
 	// Creates events based on the host system’s current state
-	Metadata *HostInfo `json:"metadata,omitempty"`
+	Metadata *HostInfo `json:"metadata,omitzero"`
 	// Creates events based on entries collected from the host’s network routes
-	Routes *Routes `json:"routes,omitempty"`
+	Routes *Routes `json:"routes,omitzero"`
 	// Creates events for DNS resolvers and search entries
-	DNS *DNS `json:"dns,omitempty"`
+	DNS *DNS `json:"dns,omitzero"`
 	// Creates events for local users and groups
-	User *UsersAndGroups `json:"user,omitempty"`
+	User *UsersAndGroups `json:"user,omitzero"`
 	// Creates events for Firewall rules entries
-	Firewall *Firewall `json:"firewall,omitempty"`
+	Firewall *Firewall `json:"firewall,omitzero"`
 	// Creates events from the list of services
-	Services *Services `json:"services,omitempty"`
+	Services *Services `json:"services,omitzero"`
 	// Creates events from list of listening ports
-	Ports *ListeningPorts `json:"ports,omitempty"`
+	Ports *ListeningPorts `json:"ports,omitzero"`
 	// Creates events from list of logged-in users
-	LoginUsers *LoggedInUsers `json:"loginUsers,omitempty"`
+	LoginUsers *LoggedInUsers `json:"loginUsers,omitzero"`
 }
 
 func (c Collectors) MarshalJSON() ([]byte, error) {
@@ -11514,16 +11514,16 @@ func (c *Collectors) GetLoginUsers() *LoggedInUsers {
 
 type PersistenceSystemState struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                             `json:"maxDataTime,omitempty"`
-	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
+	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (p PersistenceSystemState) MarshalJSON() ([]byte, error) {
@@ -11583,31 +11583,31 @@ type InputSystemState struct {
 	// Unique ID for this input
 	ID       string          `json:"id"`
 	Type     TypeSystemState `json:"type"`
-	Disabled *bool           `json:"disabled,omitempty"`
+	Disabled *bool           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Collectors  *Collectors                                `json:"collectors,omitempty"`
-	Persistence *PersistenceSystemState                    `json:"persistence,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Collectors  *Collectors                                `json:"collectors,omitzero"`
+	Persistence *PersistenceSystemState                    `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitempty"`
-	Description                *string `json:"description,omitempty"`
+	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitzero"`
+	Description                *string `json:"description,omitzero"`
 }
 
 func (i InputSystemState) MarshalJSON() ([]byte, error) {
@@ -11794,9 +11794,9 @@ func (e *SystemModeSystemMetrics) IsExact() bool {
 
 type SystemSystemMetrics struct {
 	// Select the level of detail for system metrics
-	Mode *SystemModeSystemMetrics `json:"mode,omitempty"`
+	Mode *SystemModeSystemMetrics `json:"mode,omitzero"`
 	// Generate metrics for the numbers of processes in various states
-	Processes *bool `json:"processes,omitempty"`
+	Processes *bool `json:"processes,omitzero"`
 }
 
 func (s SystemSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -11855,13 +11855,13 @@ func (e *CPUModeSystemMetrics) IsExact() bool {
 
 type CPUSystemMetrics struct {
 	// Select the level of detail for CPU metrics
-	Mode *CPUModeSystemMetrics `json:"mode,omitempty"`
+	Mode *CPUModeSystemMetrics `json:"mode,omitzero"`
 	// Generate metrics for each CPU
-	PerCPU *bool `json:"perCpu,omitempty"`
+	PerCPU *bool `json:"perCpu,omitzero"`
 	// Generate metrics for all CPU states
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate raw, monotonic CPU time counters
-	Time *bool `json:"time,omitempty"`
+	Time *bool `json:"time,omitzero"`
 }
 
 func (c CPUSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -11934,9 +11934,9 @@ func (e *MemoryModeSystemMetrics) IsExact() bool {
 
 type MemorySystemMetrics struct {
 	// Select the level of detail for memory metrics
-	Mode *MemoryModeSystemMetrics `json:"mode,omitempty"`
+	Mode *MemoryModeSystemMetrics `json:"mode,omitzero"`
 	// Generate metrics for all memory states
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 }
 
 func (m MemorySystemMetrics) MarshalJSON() ([]byte, error) {
@@ -11995,15 +11995,15 @@ func (e *NetworkModeSystemMetrics) IsExact() bool {
 
 type NetworkSystemMetrics struct {
 	// Select the level of detail for network metrics
-	Mode *NetworkModeSystemMetrics `json:"mode,omitempty"`
+	Mode *NetworkModeSystemMetrics `json:"mode,omitzero"`
 	// Generate full network metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
-	Protocols *bool `json:"protocols,omitempty"`
+	Protocols *bool `json:"protocols,omitzero"`
 	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
-	Devices []string `json:"devices,omitempty"`
+	Devices []string `json:"devices,omitzero"`
 	// Generate separate metrics for each interface
-	PerInterface *bool `json:"perInterface,omitempty"`
+	PerInterface *bool `json:"perInterface,omitzero"`
 }
 
 func (n NetworkSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -12083,19 +12083,19 @@ func (e *DiskModeSystemMetrics) IsExact() bool {
 
 type DiskSystemMetrics struct {
 	// Select the level of detail for disk metrics
-	Mode *DiskModeSystemMetrics `json:"mode,omitempty"`
+	Mode *DiskModeSystemMetrics `json:"mode,omitzero"`
 	// Generate full disk metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate filesystem inode metrics
-	Inodes *bool `json:"inodes,omitempty"`
+	Inodes *bool `json:"inodes,omitzero"`
 	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
-	Devices []string `json:"devices,omitempty"`
+	Devices []string `json:"devices,omitzero"`
 	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
-	Mountpoints []string `json:"mountpoints,omitempty"`
+	Mountpoints []string `json:"mountpoints,omitzero"`
 	// Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
-	Fstypes []string `json:"fstypes,omitempty"`
+	Fstypes []string `json:"fstypes,omitzero"`
 	// Generate separate metrics for each device
-	PerDevice *bool `json:"perDevice,omitempty"`
+	PerDevice *bool `json:"perDevice,omitzero"`
 }
 
 func (d DiskSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -12159,11 +12159,11 @@ func (d *DiskSystemMetrics) GetPerDevice() *bool {
 }
 
 type CustomSystemMetrics struct {
-	System  *SystemSystemMetrics  `json:"system,omitempty"`
-	CPU     *CPUSystemMetrics     `json:"cpu,omitempty"`
-	Memory  *MemorySystemMetrics  `json:"memory,omitempty"`
-	Network *NetworkSystemMetrics `json:"network,omitempty"`
-	Disk    *DiskSystemMetrics    `json:"disk,omitempty"`
+	System  *SystemSystemMetrics  `json:"system,omitzero"`
+	CPU     *CPUSystemMetrics     `json:"cpu,omitzero"`
+	Memory  *MemorySystemMetrics  `json:"memory,omitzero"`
+	Network *NetworkSystemMetrics `json:"network,omitzero"`
+	Disk    *DiskSystemMetrics    `json:"disk,omitzero"`
 }
 
 func (c CustomSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -12214,8 +12214,8 @@ func (c *CustomSystemMetrics) GetDisk() *DiskSystemMetrics {
 
 type HostSystemMetrics struct {
 	// Select level of detail for host metrics
-	Mode   *components.ModeOptionsHost `json:"mode,omitempty"`
-	Custom *CustomSystemMetrics        `json:"custom,omitempty"`
+	Mode   *components.ModeOptionsHost `json:"mode,omitzero"`
+	Custom *CustomSystemMetrics        `json:"custom,omitzero"`
 }
 
 func (h HostSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -12296,19 +12296,19 @@ func (c *ContainerFilter) GetExpr() string {
 
 type Container struct {
 	// Select the level of detail for container metrics
-	Mode *ContainerMode `json:"mode,omitempty"`
+	Mode *ContainerMode `json:"mode,omitzero"`
 	// Full paths for Docker's UNIX-domain socket
-	DockerSocket []string `json:"dockerSocket,omitempty"`
+	DockerSocket []string `json:"dockerSocket,omitzero"`
 	// Timeout, in seconds, for the Docker API
-	DockerTimeout *float64 `json:"dockerTimeout,omitempty"`
+	DockerTimeout *float64 `json:"dockerTimeout,omitzero"`
 	// Containers matching any of these will be included. All are included if no filters are added.
-	Filters []ContainerFilter `json:"filters,omitempty"`
+	Filters []ContainerFilter `json:"filters,omitzero"`
 	// Include stopped and paused containers
-	AllContainers *bool `json:"allContainers,omitempty"`
+	AllContainers *bool `json:"allContainers,omitzero"`
 	// Generate separate metrics for each device
-	PerDevice *bool `json:"perDevice,omitempty"`
+	PerDevice *bool `json:"perDevice,omitzero"`
 	// Generate full container metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 }
 
 func (c Container) MarshalJSON() ([]byte, error) {
@@ -12373,16 +12373,16 @@ func (c *Container) GetDetail() *bool {
 
 type PersistenceSystemMetrics struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                             `json:"maxDataTime,omitempty"`
-	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
+	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (p PersistenceSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -12442,29 +12442,29 @@ type InputSystemMetrics struct {
 	// Unique ID for this input
 	ID       string            `json:"id"`
 	Type     TypeSystemMetrics `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
+	Disabled *bool             `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval  *float64                `json:"interval,omitempty"`
-	Host      *HostSystemMetrics      `json:"host,omitempty"`
-	Process   *components.ProcessType `json:"process,omitempty"`
-	Container *Container              `json:"container,omitempty"`
+	Interval  *float64                `json:"interval,omitzero"`
+	Host      *HostSystemMetrics      `json:"host,omitzero"`
+	Process   *components.ProcessType `json:"process,omitzero"`
+	Container *Container              `json:"container,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *PersistenceSystemMetrics                  `json:"persistence,omitempty"`
-	Description *string                                    `json:"description,omitempty"`
+	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Persistence *PersistenceSystemMetrics                  `json:"persistence,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
 }
 
 func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -12624,48 +12624,48 @@ type InputTcpjson struct {
 	// Unique ID for this input
 	ID       string                 `json:"id"`
 	Type     CreateInputTypeTcpjson `json:"type"`
-	Disabled *bool                  `json:"disabled,omitempty"`
+	Disabled *bool                  `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                                `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                                `json:"description,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (i InputTcpjson) MarshalJSON() ([]byte, error) {
@@ -12878,9 +12878,9 @@ func (e *TypeCriblLakeHTTP) UnmarshalJSON(data []byte) error {
 }
 
 type SplunkHecMetadata struct {
-	Enabled               *bool    `json:"enabled,omitempty"`
-	DefaultDataset        *string  `json:"defaultDataset,omitempty"`
-	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
+	Enabled               *bool    `json:"enabled,omitzero"`
+	DefaultDataset        *string  `json:"defaultDataset,omitzero"`
+	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 }
 
 func (s SplunkHecMetadata) MarshalJSON() ([]byte, error) {
@@ -12916,8 +12916,8 @@ func (s *SplunkHecMetadata) GetAllowedIndexesAtToken() []string {
 }
 
 type ElasticsearchMetadata struct {
-	Enabled        *bool   `json:"enabled,omitempty"`
-	DefaultDataset *string `json:"defaultDataset,omitempty"`
+	Enabled        *bool   `json:"enabled,omitzero"`
+	DefaultDataset *string `json:"defaultDataset,omitzero"`
 }
 
 func (e ElasticsearchMetadata) MarshalJSON() ([]byte, error) {
@@ -12947,11 +12947,11 @@ func (e *ElasticsearchMetadata) GetDefaultDataset() *string {
 
 type AuthTokensExt struct {
 	Token       string  `json:"token"`
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata              []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	SplunkHecMetadata     *SplunkHecMetadata                         `json:"splunkHecMetadata,omitempty"`
-	ElasticsearchMetadata *ElasticsearchMetadata                     `json:"elasticsearchMetadata,omitempty"`
+	Metadata              []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	SplunkHecMetadata     *SplunkHecMetadata                         `json:"splunkHecMetadata,omitzero"`
+	ElasticsearchMetadata *ElasticsearchMetadata                     `json:"elasticsearchMetadata,omitzero"`
 }
 
 func (a AuthTokensExt) MarshalJSON() ([]byte, error) {
@@ -13004,60 +13004,60 @@ type InputCriblLakeHTTP struct {
 	// Unique ID for this input
 	ID       string            `json:"id"`
 	Type     TypeCriblLakeHTTP `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
+	Disabled *bool             `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *components.PqType                        `json:"pq,omitempty"`
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                              `json:"authTokens,omitempty"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []string                              `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
-	CriblAPI *string `json:"criblAPI,omitempty"`
+	CriblAPI *string `json:"criblAPI,omitzero"`
 	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
-	ElasticAPI *string `json:"elasticAPI,omitempty"`
+	ElasticAPI *string `json:"elasticAPI,omitzero"`
 	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
-	SplunkHecAPI  *string `json:"splunkHecAPI,omitempty"`
-	SplunkHecAcks *bool   `json:"splunkHecAcks,omitempty"`
+	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
+	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata      []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	AuthTokensExt []AuthTokensExt                            `json:"authTokensExt,omitempty"`
-	Description   *string                                    `json:"description,omitempty"`
+	Metadata      []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	AuthTokensExt []AuthTokensExt                            `json:"authTokensExt,omitzero"`
+	Description   *string                                    `json:"description,omitzero"`
 }
 
 func (i InputCriblLakeHTTP) MarshalJSON() ([]byte, error) {

@@ -2,22 +2,37 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type APITypeSystemSettingsConf struct {
-	BaseURL            *string                       `json:"baseUrl,omitempty"`
-	DisableAPICache    *bool                         `json:"disableApiCache,omitempty"`
+	BaseURL            *string                       `json:"baseUrl,omitzero"`
+	DisableAPICache    *bool                         `json:"disableApiCache,omitzero"`
 	Disabled           bool                          `json:"disabled"`
-	Headers            map[string]string             `json:"headers,omitempty"`
+	Headers            map[string]string             `json:"headers,omitzero"`
 	Host               string                        `json:"host"`
-	IdleSessionTTL     *float64                      `json:"idleSessionTTL,omitempty"`
-	ListenOnPort       *bool                         `json:"listenOnPort,omitempty"`
-	LoginRateLimit     *string                       `json:"loginRateLimit,omitempty"`
+	IdleSessionTTL     *float64                      `json:"idleSessionTTL,omitzero"`
+	ListenOnPort       *bool                         `json:"listenOnPort,omitzero"`
+	LoginRateLimit     *string                       `json:"loginRateLimit,omitzero"`
 	Port               float64                       `json:"port"`
-	Protocol           *string                       `json:"protocol,omitempty"`
-	Scripts            *bool                         `json:"scripts,omitempty"`
-	SensitiveFields    []string                      `json:"sensitiveFields,omitempty"`
-	Ssl                *SslTypeSystemSettingsConfAPI `json:"ssl,omitempty"`
-	SsoRateLimit       *string                       `json:"ssoRateLimit,omitempty"`
-	WorkerRemoteAccess *bool                         `json:"workerRemoteAccess,omitempty"`
+	Protocol           *string                       `json:"protocol,omitzero"`
+	Scripts            *bool                         `json:"scripts,omitzero"`
+	SensitiveFields    []string                      `json:"sensitiveFields,omitzero"`
+	Ssl                *SslTypeSystemSettingsConfAPI `json:"ssl,omitzero"`
+	SsoRateLimit       *string                       `json:"ssoRateLimit,omitzero"`
+	WorkerRemoteAccess *bool                         `json:"workerRemoteAccess,omitzero"`
+}
+
+func (a APITypeSystemSettingsConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *APITypeSystemSettingsConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (a *APITypeSystemSettingsConf) GetBaseURL() *string {

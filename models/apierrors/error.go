@@ -9,7 +9,7 @@ import (
 
 type Error struct {
 	// Error message
-	Message  *string                 `json:"message,omitempty"`
+	Message  *string                 `json:"message,omitzero"`
 	HTTPMeta components.HTTPMetadata `json:"-"`
 }
 

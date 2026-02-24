@@ -36,7 +36,7 @@ type InField struct {
 	// Field name as it appears in events
 	EventField string `json:"eventField"`
 	// Optional: The field name as it appears in the lookup file. Defaults to event field name
-	LookupField *string `json:"lookupField,omitempty"`
+	LookupField *string `json:"lookupField,omitzero"`
 }
 
 func (i InField) MarshalJSON() ([]byte, error) {
@@ -68,9 +68,9 @@ type OutField struct {
 	// The field name as it appears in the lookup file
 	LookupField string `json:"lookupField"`
 	// Optional: Field name to add to event. Defaults to lookup field name.
-	EventField *string `json:"eventField,omitempty"`
+	EventField *string `json:"eventField,omitzero"`
 	// Optional: Value to assign if lookup entry is not found
-	DefaultValue *string `json:"defaultValue,omitempty"`
+	DefaultValue *string `json:"defaultValue,omitzero"`
 }
 
 func (o OutField) MarshalJSON() ([]byte, error) {
@@ -109,17 +109,17 @@ type PipelineFunctionLookupConf struct {
 	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
 	File string `json:"file"`
 	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup        *bool `json:"dbLookup,omitempty"`
-	MatchMode       any   `json:"matchMode,omitempty"`
-	MatchType       any   `json:"matchType,omitempty"`
-	ReloadPeriodSec any   `json:"reloadPeriodSec,omitempty"`
+	DbLookup        *bool `json:"dbLookup,omitzero"`
+	MatchMode       any   `json:"matchMode,omitzero"`
+	MatchType       any   `json:"matchType,omitzero"`
+	ReloadPeriodSec any   `json:"reloadPeriodSec,omitzero"`
 	// Fields that should be used to key into the lookup table
-	InFields []InField `json:"inFields,omitempty"`
+	InFields []InField `json:"inFields,omitzero"`
 	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []OutField `json:"outFields,omitempty"`
+	OutFields []OutField `json:"outFields,omitzero"`
 	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `json:"addToEvent,omitempty"`
-	IgnoreCase any   `json:"ignoreCase,omitempty"`
+	AddToEvent *bool `json:"addToEvent,omitzero"`
+	IgnoreCase any   `json:"ignoreCase,omitzero"`
 }
 
 func (p PipelineFunctionLookupConf) MarshalJSON() ([]byte, error) {
@@ -198,18 +198,18 @@ func (p *PipelineFunctionLookupConf) GetIgnoreCase() any {
 
 type PipelineFunctionLookup struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionLookupID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitempty"`
+	Final *bool                      `json:"final,omitzero"`
 	Conf  PipelineFunctionLookupConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionLookup) MarshalJSON() ([]byte, error) {

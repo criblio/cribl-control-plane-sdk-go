@@ -102,13 +102,13 @@ func (s *SplunkAuthenticationLoginSecretCollectRequestHeader) GetValue() string 
 type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -181,13 +181,13 @@ func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff) GetRetryCon
 type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -260,13 +260,13 @@ func (s *SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic) GetMultiplie
 type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -496,28 +496,28 @@ type SplunkAuthenticationLoginSecret struct {
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
+	Earliest *string `json:"earliest,omitzero"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
+	Latest *string `json:"latest,omitzero"`
 	// REST API used to create a search
 	Endpoint string `json:"endpoint"`
 	// Format of the returned output
 	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []SplunkAuthenticationLoginSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []SplunkAuthenticationLoginSecretCollectRequestParam `json:"collectRequestParams,omitzero"`
 	// Optional collect request headers
-	CollectRequestHeaders []SplunkAuthenticationLoginSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
+	CollectRequestHeaders []SplunkAuthenticationLoginSecretCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitempty"`
-	RetryRules         *SplunkAuthenticationLoginSecretRetryRules `json:"retryRules,omitempty"`
+	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
+	RetryRules         *SplunkAuthenticationLoginSecretRetryRules `json:"retryRules,omitzero"`
 }
 
 func (s SplunkAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
@@ -785,13 +785,13 @@ func (s *SplunkAuthenticationLoginCollectRequestHeader) GetValue() string {
 type SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -864,13 +864,13 @@ func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff) GetRetryConnectRe
 type SplunkAuthenticationLoginSplunkRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -943,13 +943,13 @@ func (s *SplunkAuthenticationLoginSplunkRetryRulesTypeStatic) GetMultiplier() an
 type SplunkAuthenticationLoginSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationLoginSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -1179,28 +1179,28 @@ type SplunkAuthenticationLogin struct {
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
+	Earliest *string `json:"earliest,omitzero"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
+	Latest *string `json:"latest,omitzero"`
 	// REST API used to create a search
 	Endpoint string `json:"endpoint"`
 	// Format of the returned output
 	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []SplunkAuthenticationLoginCollectRequestParam `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []SplunkAuthenticationLoginCollectRequestParam `json:"collectRequestParams,omitzero"`
 	// Optional collect request headers
-	CollectRequestHeaders []SplunkAuthenticationLoginCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
+	CollectRequestHeaders []SplunkAuthenticationLoginCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitempty"`
-	RetryRules         *SplunkAuthenticationLoginRetryRules `json:"retryRules,omitempty"`
+	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitzero"`
+	RetryRules         *SplunkAuthenticationLoginRetryRules `json:"retryRules,omitzero"`
 }
 
 func (s SplunkAuthenticationLogin) MarshalJSON() ([]byte, error) {
@@ -1475,13 +1475,13 @@ func (s *SplunkAuthenticationTokenSecretCollectRequestHeader) GetValue() string 
 type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -1554,13 +1554,13 @@ func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff) GetRetryCon
 type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -1633,13 +1633,13 @@ func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic) GetMultiplie
 type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -1861,28 +1861,28 @@ type SplunkAuthenticationTokenSecret struct {
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
+	Earliest *string `json:"earliest,omitzero"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
+	Latest *string `json:"latest,omitzero"`
 	// REST API used to create a search
 	Endpoint string `json:"endpoint"`
 	// Format of the returned output
 	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []SplunkAuthenticationTokenSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []SplunkAuthenticationTokenSecretCollectRequestParam `json:"collectRequestParams,omitzero"`
 	// Optional collect request headers
-	CollectRequestHeaders []SplunkAuthenticationTokenSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
+	CollectRequestHeaders []SplunkAuthenticationTokenSecretCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitempty"`
-	RetryRules         *SplunkAuthenticationTokenSecretRetryRules `json:"retryRules,omitempty"`
+	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
+	RetryRules         *SplunkAuthenticationTokenSecretRetryRules `json:"retryRules,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSecret) MarshalJSON() ([]byte, error) {
@@ -2122,13 +2122,13 @@ func (s *SplunkAuthenticationTokenCollectRequestHeader) GetValue() string {
 type SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -2201,13 +2201,13 @@ func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff) GetRetryConnectRe
 type SplunkAuthenticationTokenSplunkRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -2280,13 +2280,13 @@ func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeStatic) GetMultiplier() an
 type SplunkAuthenticationTokenSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -2507,28 +2507,28 @@ type SplunkAuthenticationToken struct {
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
+	Earliest *string `json:"earliest,omitzero"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
+	Latest *string `json:"latest,omitzero"`
 	// REST API used to create a search
 	Endpoint string `json:"endpoint"`
 	// Format of the returned output
 	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []SplunkAuthenticationTokenCollectRequestParam `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []SplunkAuthenticationTokenCollectRequestParam `json:"collectRequestParams,omitzero"`
 	// Optional collect request headers
-	CollectRequestHeaders []SplunkAuthenticationTokenCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
+	CollectRequestHeaders []SplunkAuthenticationTokenCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitempty"`
-	RetryRules         *SplunkAuthenticationTokenRetryRules `json:"retryRules,omitempty"`
+	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitzero"`
+	RetryRules         *SplunkAuthenticationTokenRetryRules `json:"retryRules,omitzero"`
 }
 
 func (s SplunkAuthenticationToken) MarshalJSON() ([]byte, error) {
@@ -2768,13 +2768,13 @@ func (s *SplunkAuthenticationBasicSecretCollectRequestHeader) GetValue() string 
 type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -2847,13 +2847,13 @@ func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff) GetRetryCon
 type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -2926,13 +2926,13 @@ func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic) GetMultiplie
 type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -3154,28 +3154,28 @@ type SplunkAuthenticationBasicSecret struct {
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
+	Earliest *string `json:"earliest,omitzero"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
+	Latest *string `json:"latest,omitzero"`
 	// REST API used to create a search
 	Endpoint string `json:"endpoint"`
 	// Format of the returned output
 	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []SplunkAuthenticationBasicSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []SplunkAuthenticationBasicSecretCollectRequestParam `json:"collectRequestParams,omitzero"`
 	// Optional collect request headers
-	CollectRequestHeaders []SplunkAuthenticationBasicSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
+	CollectRequestHeaders []SplunkAuthenticationBasicSecretCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitempty"`
-	RetryRules         *SplunkAuthenticationBasicSecretRetryRules `json:"retryRules,omitempty"`
+	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
+	RetryRules         *SplunkAuthenticationBasicSecretRetryRules `json:"retryRules,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
@@ -3415,13 +3415,13 @@ func (s *SplunkAuthenticationBasicCollectRequestHeader) GetValue() string {
 type SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -3494,13 +3494,13 @@ func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff) GetRetryConnectRe
 type SplunkAuthenticationBasicSplunkRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -3573,13 +3573,13 @@ func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeStatic) GetMultiplier() an
 type SplunkAuthenticationBasicSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -3803,28 +3803,28 @@ type SplunkAuthenticationBasic struct {
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
+	Earliest *string `json:"earliest,omitzero"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
+	Latest *string `json:"latest,omitzero"`
 	// REST API used to create a search
 	Endpoint string `json:"endpoint"`
 	// Format of the returned output
 	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []SplunkAuthenticationBasicCollectRequestParam `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []SplunkAuthenticationBasicCollectRequestParam `json:"collectRequestParams,omitzero"`
 	// Optional collect request headers
-	CollectRequestHeaders []SplunkAuthenticationBasicCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
+	CollectRequestHeaders []SplunkAuthenticationBasicCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitempty"`
-	RetryRules         *SplunkAuthenticationBasicRetryRules `json:"retryRules,omitempty"`
+	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitzero"`
+	RetryRules         *SplunkAuthenticationBasicRetryRules `json:"retryRules,omitzero"`
 }
 
 func (s SplunkAuthenticationBasic) MarshalJSON() ([]byte, error) {
@@ -4071,13 +4071,13 @@ func (s *SplunkAuthenticationNoneCollectRequestHeader) GetValue() string {
 type SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -4150,13 +4150,13 @@ func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff) GetRetryConnectRes
 type SplunkAuthenticationNoneSplunkRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationNoneSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -4229,13 +4229,13 @@ func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeStatic) GetMultiplier() any
 type SplunkAuthenticationNoneSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
+	Interval            any                                                `json:"interval,omitzero"`
+	Limit               any                                                `json:"limit,omitzero"`
+	Multiplier          any                                                `json:"multiplier,omitzero"`
+	Codes               any                                                `json:"codes,omitzero"`
+	EnableHeader        any                                                `json:"enableHeader,omitzero"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitzero"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationNoneSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -4455,28 +4455,28 @@ type SplunkAuthenticationNone struct {
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
+	Earliest *string `json:"earliest,omitzero"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
+	Latest *string `json:"latest,omitzero"`
 	// REST API used to create a search
 	Endpoint string `json:"endpoint"`
 	// Format of the returned output
 	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []SplunkAuthenticationNoneCollectRequestParam `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []SplunkAuthenticationNoneCollectRequestParam `json:"collectRequestParams,omitzero"`
 	// Optional collect request headers
-	CollectRequestHeaders []SplunkAuthenticationNoneCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
+	CollectRequestHeaders []SplunkAuthenticationNoneCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                               `json:"handleEscapedChars,omitempty"`
-	RetryRules         *SplunkAuthenticationNoneRetryRules `json:"retryRules,omitempty"`
+	HandleEscapedChars *bool                               `json:"handleEscapedChars,omitzero"`
+	RetryRules         *SplunkAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
 }
 
 func (s SplunkAuthenticationNone) MarshalJSON() ([]byte, error) {

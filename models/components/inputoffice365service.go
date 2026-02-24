@@ -33,13 +33,13 @@ func (e *InputOffice365ServiceType) UnmarshalJSON(data []byte) error {
 
 type InputOffice365ServiceContentConfig struct {
 	// Office 365 Services API Content Type
-	ContentType *string `json:"contentType,omitempty"`
+	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
-	Description *string  `json:"description,omitempty"`
-	Interval    *float64 `json:"interval,omitempty"`
+	Description *string  `json:"description,omitzero"`
+	Interval    *float64 `json:"interval,omitzero"`
 	// Collector runtime Log Level
-	LogLevel *LogLevelOptionsContentConfigItems `json:"logLevel,omitempty"`
-	Enabled  *bool                              `json:"enabled,omitempty"`
+	LogLevel *LogLevelOptionsContentConfigItems `json:"logLevel,omitzero"`
+	Enabled  *bool                              `json:"enabled,omitzero"`
 }
 
 func (i InputOffice365ServiceContentConfig) MarshalJSON() ([]byte, error) {
@@ -90,52 +90,52 @@ func (i *InputOffice365ServiceContentConfig) GetEnabled() *bool {
 
 type InputOffice365Service struct {
 	// Unique ID for this input
-	ID       *string                   `json:"id,omitempty"`
+	ID       *string                   `json:"id,omitzero"`
 	Type     InputOffice365ServiceType `json:"type"`
-	Disabled *bool                     `json:"disabled,omitempty"`
+	Disabled *bool                     `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *SubscriptionPlanOptions `json:"planType,omitempty"`
+	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Office 365 Azure Tenant ID
 	TenantID string `json:"tenantId"`
 	// Office 365 Azure Application ID
 	AppID string `json:"appId"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitempty"`
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
-	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitempty"`
-	RetryRules    *RetryRulesType1                     `json:"retryRules,omitempty"`
+	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitzero"`
+	RetryRules    *RetryRulesType1                     `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitempty"`
-	Description *string                       `json:"description,omitempty"`
+	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Office 365 Azure client secret
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (i InputOffice365Service) MarshalJSON() ([]byte, error) {

@@ -59,7 +59,7 @@ func (e *ExistingOrNew) IsExact() bool {
 type PipelineFunctionEventBreakerConf struct {
 	ExistingOrNew ExistingOrNew `json:"existingOrNew"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
 }
 
 func (p PipelineFunctionEventBreakerConf) MarshalJSON() ([]byte, error) {
@@ -89,18 +89,18 @@ func (p *PipelineFunctionEventBreakerConf) GetShouldMarkCriblBreaker() *bool {
 
 type PipelineFunctionEventBreaker struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionEventBreakerID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                            `json:"final,omitempty"`
+	Final *bool                            `json:"final,omitzero"`
 	Conf  PipelineFunctionEventBreakerConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionEventBreaker) MarshalJSON() ([]byte, error) {

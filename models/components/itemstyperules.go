@@ -10,7 +10,7 @@ type ItemsTypeRules struct {
 	// JavaScript expression applied to Kubernetes objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (i ItemsTypeRules) MarshalJSON() ([]byte, error) {

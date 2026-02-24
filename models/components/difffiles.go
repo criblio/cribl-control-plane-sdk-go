@@ -14,7 +14,7 @@ type Block struct {
 	Lines         []DiffLine `json:"lines"`
 	NewStartLine  float64    `json:"newStartLine"`
 	OldStartLine  float64    `json:"oldStartLine"`
-	OldStartLine2 *float64   `json:"oldStartLine2,omitempty"`
+	OldStartLine2 *float64   `json:"oldStartLine2,omitzero"`
 }
 
 func (b *Block) GetHeader() string {
@@ -233,27 +233,27 @@ func (u OldMode) MarshalJSON() ([]byte, error) {
 type DiffFiles struct {
 	AddedLines          float64         `json:"addedLines"`
 	Blocks              []Block         `json:"blocks"`
-	ChangedPercentage   *float64        `json:"changedPercentage,omitempty"`
-	ChecksumAfter       *string         `json:"checksumAfter,omitempty"`
-	ChecksumBefore      *ChecksumBefore `json:"checksumBefore,omitempty"`
-	DeletedFileMode     *string         `json:"deletedFileMode,omitempty"`
+	ChangedPercentage   *float64        `json:"changedPercentage,omitzero"`
+	ChecksumAfter       *string         `json:"checksumAfter,omitzero"`
+	ChecksumBefore      *ChecksumBefore `json:"checksumBefore,omitzero"`
+	DeletedFileMode     *string         `json:"deletedFileMode,omitzero"`
 	DeletedLines        float64         `json:"deletedLines"`
-	IsBinary            *bool           `json:"isBinary,omitempty"`
+	IsBinary            *bool           `json:"isBinary,omitzero"`
 	IsCombined          bool            `json:"isCombined"`
-	IsCopy              *bool           `json:"isCopy,omitempty"`
-	IsDeleted           *bool           `json:"isDeleted,omitempty"`
+	IsCopy              *bool           `json:"isCopy,omitzero"`
+	IsDeleted           *bool           `json:"isDeleted,omitzero"`
 	IsGitDiff           bool            `json:"isGitDiff"`
-	IsNew               *bool           `json:"isNew,omitempty"`
-	IsRename            *bool           `json:"isRename,omitempty"`
-	IsTooBig            *bool           `json:"isTooBig,omitempty"`
+	IsNew               *bool           `json:"isNew,omitzero"`
+	IsRename            *bool           `json:"isRename,omitzero"`
+	IsTooBig            *bool           `json:"isTooBig,omitzero"`
 	Language            string          `json:"language"`
-	Mode                *string         `json:"mode,omitempty"`
-	NewFileMode         *string         `json:"newFileMode,omitempty"`
-	NewMode             *string         `json:"newMode,omitempty"`
+	Mode                *string         `json:"mode,omitzero"`
+	NewFileMode         *string         `json:"newFileMode,omitzero"`
+	NewMode             *string         `json:"newMode,omitzero"`
 	NewName             string          `json:"newName"`
-	OldMode             *OldMode        `json:"oldMode,omitempty"`
+	OldMode             *OldMode        `json:"oldMode,omitzero"`
 	OldName             string          `json:"oldName"`
-	UnchangedPercentage *float64        `json:"unchangedPercentage,omitempty"`
+	UnchangedPercentage *float64        `json:"unchangedPercentage,omitzero"`
 }
 
 func (d *DiffFiles) GetAddedLines() float64 {

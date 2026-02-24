@@ -7,10 +7,10 @@ import (
 )
 
 type FunctionConfSchemaOtlpTraces struct {
-	DropNonTraceEvents *bool               `json:"dropNonTraceEvents,omitempty"`
-	OtlpVersion        *OtlpVersionOptions `json:"otlpVersion,omitempty"`
+	DropNonTraceEvents *bool               `json:"dropNonTraceEvents,omitzero"`
+	OtlpVersion        *OtlpVersionOptions `json:"otlpVersion,omitzero"`
 	// Batch OTLP traces by shared top-level `resource` attributes
-	BatchOTLPTraces *bool `json:"batchOTLPTraces,omitempty"`
+	BatchOTLPTraces *bool `json:"batchOTLPTraces,omitzero"`
 }
 
 func (f FunctionConfSchemaOtlpTraces) MarshalJSON() ([]byte, error) {

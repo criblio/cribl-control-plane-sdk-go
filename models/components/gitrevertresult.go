@@ -2,10 +2,25 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type Audit struct {
-	Files *FilesTypeGitCommitSummary `json:"files,omitempty"`
-	Group *string                    `json:"group,omitempty"`
+	Files *FilesTypeGitCommitSummary `json:"files,omitzero"`
+	Group *string                    `json:"group,omitzero"`
 	ID    string                     `json:"id"`
+}
+
+func (a Audit) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *Audit) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (a *Audit) GetFiles() *FilesTypeGitCommitSummary {
