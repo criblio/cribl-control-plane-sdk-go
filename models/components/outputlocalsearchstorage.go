@@ -8,45 +8,45 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputClickHouseType string
+type OutputLocalSearchStorageType string
 
 const (
-	OutputClickHouseTypeClickHouse OutputClickHouseType = "click_house"
+	OutputLocalSearchStorageTypeLocalSearchStorage OutputLocalSearchStorageType = "local_search_storage"
 )
 
-func (e OutputClickHouseType) ToPointer() *OutputClickHouseType {
+func (e OutputLocalSearchStorageType) ToPointer() *OutputLocalSearchStorageType {
 	return &e
 }
-func (e *OutputClickHouseType) UnmarshalJSON(data []byte) error {
+func (e *OutputLocalSearchStorageType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
-	case "click_house":
-		*e = OutputClickHouseType(v)
+	case "local_search_storage":
+		*e = OutputLocalSearchStorageType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputClickHouseType: %v", v)
+		return fmt.Errorf("invalid value for OutputLocalSearchStorageType: %v", v)
 	}
 }
 
-// OutputClickHouseFormat - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-type OutputClickHouseFormat string
+// OutputLocalSearchStorageFormat - Data format to use when sending data. Defaults to JSON Compact.
+type OutputLocalSearchStorageFormat string
 
 const (
-	// OutputClickHouseFormatJSONCompactEachRowWithNames JSONCompactEachRowWithNames
-	OutputClickHouseFormatJSONCompactEachRowWithNames OutputClickHouseFormat = "json-compact-each-row-with-names"
-	// OutputClickHouseFormatJSONEachRow JSONEachRow
-	OutputClickHouseFormatJSONEachRow OutputClickHouseFormat = "json-each-row"
+	// OutputLocalSearchStorageFormatJSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputLocalSearchStorageFormatJSONCompactEachRowWithNames OutputLocalSearchStorageFormat = "json-compact-each-row-with-names"
+	// OutputLocalSearchStorageFormatJSONEachRow JSONEachRow
+	OutputLocalSearchStorageFormatJSONEachRow OutputLocalSearchStorageFormat = "json-each-row"
 )
 
-func (e OutputClickHouseFormat) ToPointer() *OutputClickHouseFormat {
+func (e OutputLocalSearchStorageFormat) ToPointer() *OutputLocalSearchStorageFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseFormat) IsExact() bool {
+func (e *OutputLocalSearchStorageFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "json-compact-each-row-with-names", "json-each-row":
@@ -56,22 +56,22 @@ func (e *OutputClickHouseFormat) IsExact() bool {
 	return false
 }
 
-// OutputClickHouseMappingType - How event fields are mapped to ClickHouse columns.
-type OutputClickHouseMappingType string
+// OutputLocalSearchStorageMappingType - How event fields are mapped to columns.
+type OutputLocalSearchStorageMappingType string
 
 const (
-	// OutputClickHouseMappingTypeAutomatic Automatic
-	OutputClickHouseMappingTypeAutomatic OutputClickHouseMappingType = "automatic"
-	// OutputClickHouseMappingTypeCustom Custom
-	OutputClickHouseMappingTypeCustom OutputClickHouseMappingType = "custom"
+	// OutputLocalSearchStorageMappingTypeAutomatic Automatic
+	OutputLocalSearchStorageMappingTypeAutomatic OutputLocalSearchStorageMappingType = "automatic"
+	// OutputLocalSearchStorageMappingTypeCustom Custom
+	OutputLocalSearchStorageMappingTypeCustom OutputLocalSearchStorageMappingType = "custom"
 )
 
-func (e OutputClickHouseMappingType) ToPointer() *OutputClickHouseMappingType {
+func (e OutputLocalSearchStorageMappingType) ToPointer() *OutputLocalSearchStorageMappingType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseMappingType) IsExact() bool {
+func (e *OutputLocalSearchStorageMappingType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "automatic", "custom":
@@ -81,65 +81,65 @@ func (e *OutputClickHouseMappingType) IsExact() bool {
 	return false
 }
 
-type OutputClickHouseColumnMapping struct {
-	// Name of the column in ClickHouse that will store field value
+type OutputLocalSearchStorageColumnMapping struct {
+	// Name of the column that will store field value
 	ColumnName string `json:"columnName"`
-	// Type of the column in the ClickHouse database
+	// Type of the column in the database
 	ColumnType *string `json:"columnType,omitzero"`
-	// JavaScript expression to compute value to be inserted into ClickHouse table
+	// JavaScript expression to compute value to be inserted into the table
 	ColumnValueExpression string `json:"columnValueExpression"`
 }
 
-func (o OutputClickHouseColumnMapping) MarshalJSON() ([]byte, error) {
+func (o OutputLocalSearchStorageColumnMapping) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputClickHouseColumnMapping) UnmarshalJSON(data []byte) error {
+func (o *OutputLocalSearchStorageColumnMapping) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputClickHouseColumnMapping) GetColumnName() string {
+func (o *OutputLocalSearchStorageColumnMapping) GetColumnName() string {
 	if o == nil {
 		return ""
 	}
 	return o.ColumnName
 }
 
-func (o *OutputClickHouseColumnMapping) GetColumnType() *string {
+func (o *OutputLocalSearchStorageColumnMapping) GetColumnType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ColumnType
 }
 
-func (o *OutputClickHouseColumnMapping) GetColumnValueExpression() string {
+func (o *OutputLocalSearchStorageColumnMapping) GetColumnValueExpression() string {
 	if o == nil {
 		return ""
 	}
 	return o.ColumnValueExpression
 }
 
-type OutputClickHousePqControls struct {
+type OutputLocalSearchStoragePqControls struct {
 }
 
-func (o OutputClickHousePqControls) MarshalJSON() ([]byte, error) {
+func (o OutputLocalSearchStoragePqControls) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputClickHousePqControls) UnmarshalJSON(data []byte) error {
+func (o *OutputLocalSearchStoragePqControls) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type OutputClickHouse struct {
+type OutputLocalSearchStorage struct {
 	// Unique ID for this output
-	ID   *string              `json:"id,omitzero"`
-	Type OutputClickHouseType `json:"type"`
+	ID   *string                      `json:"id,omitzero"`
+	Type OutputLocalSearchStorageType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -148,17 +148,17 @@ type OutputClickHouse struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	// URL of the database instance. Example: http://localhost:8123/
 	URL      string                      `json:"url"`
 	AuthType *AuthenticationTypeOptions1 `json:"authType,omitzero"`
 	Database string                      `json:"database"`
-	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	// Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
-	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-	Format *OutputClickHouseFormat `json:"format,omitzero"`
-	// How event fields are mapped to ClickHouse columns.
-	MappingType *OutputClickHouseMappingType `json:"mappingType,omitzero"`
-	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	// Data format to use when sending data. Defaults to JSON Compact.
+	Format *OutputLocalSearchStorageFormat `json:"format,omitzero"`
+	// How event fields are mapped to columns.
+	MappingType *OutputLocalSearchStorageMappingType `json:"mappingType,omitzero"`
+	// Collect data into batches for later processing. Disable to write to a table immediately.
 	AsyncInserts *bool                       `json:"asyncInserts,omitzero"`
 	TLS          *TLSSettingsClientSideType1 `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -202,13 +202,13 @@ type OutputClickHouse struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
 	SQLUsername *string `json:"sqlUsername,omitzero"`
-	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	// Cribl will wait for confirmation that data has been fully inserted into the database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
 	WaitForAsyncInserts *bool `json:"waitForAsyncInserts,omitzero"`
-	// Fields to exclude from sending to ClickHouse
+	// Fields to exclude from sending
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
-	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
-	DescribeTable  *string                         `json:"describeTable,omitzero"`
-	ColumnMappings []OutputClickHouseColumnMapping `json:"columnMappings,omitzero"`
+	// Retrieves the table schema and populates the Column Mapping table
+	DescribeTable  *string                                 `json:"describeTable,omitzero"`
+	ColumnMappings []OutputLocalSearchStorageColumnMapping `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -228,8 +228,8 @@ type OutputClickHouse struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions   `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputClickHousePqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions           `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputLocalSearchStoragePqControls `json:"pqControls,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
@@ -238,389 +238,389 @@ type OutputClickHouse struct {
 	TemplateTableName *string `json:"__template_tableName,omitzero"`
 }
 
-func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
+func (o OutputLocalSearchStorage) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputClickHouse) UnmarshalJSON(data []byte) error {
+func (o *OutputLocalSearchStorage) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputClickHouse) GetID() *string {
+func (o *OutputLocalSearchStorage) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *OutputClickHouse) GetType() OutputClickHouseType {
+func (o *OutputLocalSearchStorage) GetType() OutputLocalSearchStorageType {
 	if o == nil {
-		return OutputClickHouseType("")
+		return OutputLocalSearchStorageType("")
 	}
 	return o.Type
 }
 
-func (o *OutputClickHouse) GetPipeline() *string {
+func (o *OutputLocalSearchStorage) GetPipeline() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Pipeline
 }
 
-func (o *OutputClickHouse) GetSystemFields() []string {
+func (o *OutputLocalSearchStorage) GetSystemFields() []string {
 	if o == nil {
 		return nil
 	}
 	return o.SystemFields
 }
 
-func (o *OutputClickHouse) GetEnvironment() *string {
+func (o *OutputLocalSearchStorage) GetEnvironment() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Environment
 }
 
-func (o *OutputClickHouse) GetStreamtags() []string {
+func (o *OutputLocalSearchStorage) GetStreamtags() []string {
 	if o == nil {
 		return nil
 	}
 	return o.Streamtags
 }
 
-func (o *OutputClickHouse) GetURL() string {
+func (o *OutputLocalSearchStorage) GetURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.URL
 }
 
-func (o *OutputClickHouse) GetAuthType() *AuthenticationTypeOptions1 {
+func (o *OutputLocalSearchStorage) GetAuthType() *AuthenticationTypeOptions1 {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
 }
 
-func (o *OutputClickHouse) GetDatabase() string {
+func (o *OutputLocalSearchStorage) GetDatabase() string {
 	if o == nil {
 		return ""
 	}
 	return o.Database
 }
 
-func (o *OutputClickHouse) GetTableName() string {
+func (o *OutputLocalSearchStorage) GetTableName() string {
 	if o == nil {
 		return ""
 	}
 	return o.TableName
 }
 
-func (o *OutputClickHouse) GetFormat() *OutputClickHouseFormat {
+func (o *OutputLocalSearchStorage) GetFormat() *OutputLocalSearchStorageFormat {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputClickHouse) GetMappingType() *OutputClickHouseMappingType {
+func (o *OutputLocalSearchStorage) GetMappingType() *OutputLocalSearchStorageMappingType {
 	if o == nil {
 		return nil
 	}
 	return o.MappingType
 }
 
-func (o *OutputClickHouse) GetAsyncInserts() *bool {
+func (o *OutputLocalSearchStorage) GetAsyncInserts() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AsyncInserts
 }
 
-func (o *OutputClickHouse) GetTLS() *TLSSettingsClientSideType1 {
+func (o *OutputLocalSearchStorage) GetTLS() *TLSSettingsClientSideType1 {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *OutputClickHouse) GetConcurrency() *float64 {
+func (o *OutputLocalSearchStorage) GetConcurrency() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.Concurrency
 }
 
-func (o *OutputClickHouse) GetMaxPayloadSizeKB() *float64 {
+func (o *OutputLocalSearchStorage) GetMaxPayloadSizeKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxPayloadSizeKB
 }
 
-func (o *OutputClickHouse) GetMaxPayloadEvents() *float64 {
+func (o *OutputLocalSearchStorage) GetMaxPayloadEvents() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxPayloadEvents
 }
 
-func (o *OutputClickHouse) GetCompress() *bool {
+func (o *OutputLocalSearchStorage) GetCompress() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputClickHouse) GetRejectUnauthorized() *bool {
+func (o *OutputLocalSearchStorage) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RejectUnauthorized
 }
 
-func (o *OutputClickHouse) GetTimeoutSec() *float64 {
+func (o *OutputLocalSearchStorage) GetTimeoutSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TimeoutSec
 }
 
-func (o *OutputClickHouse) GetFlushPeriodSec() *float64 {
+func (o *OutputLocalSearchStorage) GetFlushPeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.FlushPeriodSec
 }
 
-func (o *OutputClickHouse) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputLocalSearchStorage) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if o == nil {
 		return nil
 	}
 	return o.ExtraHTTPHeaders
 }
 
-func (o *OutputClickHouse) GetUseRoundRobinDNS() *bool {
+func (o *OutputLocalSearchStorage) GetUseRoundRobinDNS() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputClickHouse) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+func (o *OutputLocalSearchStorage) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.FailedRequestLoggingMode
 }
 
-func (o *OutputClickHouse) GetSafeHeaders() []string {
+func (o *OutputLocalSearchStorage) GetSafeHeaders() []string {
 	if o == nil {
 		return nil
 	}
 	return o.SafeHeaders
 }
 
-func (o *OutputClickHouse) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputLocalSearchStorage) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputClickHouse) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+func (o *OutputLocalSearchStorage) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
 	return o.TimeoutRetrySettings
 }
 
-func (o *OutputClickHouse) GetResponseHonorRetryAfterHeader() *bool {
+func (o *OutputLocalSearchStorage) GetResponseHonorRetryAfterHeader() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
+func (o *OutputLocalSearchStorage) GetDumpFormatErrorsToDisk() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.DumpFormatErrorsToDisk
 }
 
-func (o *OutputClickHouse) GetStatsDestination() *StatsDestinationType {
+func (o *OutputLocalSearchStorage) GetStatsDestination() *StatsDestinationType {
 	if o == nil {
 		return nil
 	}
 	return o.StatsDestination
 }
 
-func (o *OutputClickHouse) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputLocalSearchStorage) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputClickHouse) GetDescription() *string {
+func (o *OutputLocalSearchStorage) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputClickHouse) GetUsername() *string {
+func (o *OutputLocalSearchStorage) GetUsername() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Username
 }
 
-func (o *OutputClickHouse) GetPassword() *string {
+func (o *OutputLocalSearchStorage) GetPassword() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Password
 }
 
-func (o *OutputClickHouse) GetCredentialsSecret() *string {
+func (o *OutputLocalSearchStorage) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
 }
 
-func (o *OutputClickHouse) GetSQLUsername() *string {
+func (o *OutputLocalSearchStorage) GetSQLUsername() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SQLUsername
 }
 
-func (o *OutputClickHouse) GetWaitForAsyncInserts() *bool {
+func (o *OutputLocalSearchStorage) GetWaitForAsyncInserts() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.WaitForAsyncInserts
 }
 
-func (o *OutputClickHouse) GetExcludeMappingFields() []string {
+func (o *OutputLocalSearchStorage) GetExcludeMappingFields() []string {
 	if o == nil {
 		return nil
 	}
 	return o.ExcludeMappingFields
 }
 
-func (o *OutputClickHouse) GetDescribeTable() *string {
+func (o *OutputLocalSearchStorage) GetDescribeTable() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DescribeTable
 }
 
-func (o *OutputClickHouse) GetColumnMappings() []OutputClickHouseColumnMapping {
+func (o *OutputLocalSearchStorage) GetColumnMappings() []OutputLocalSearchStorageColumnMapping {
 	if o == nil {
 		return nil
 	}
 	return o.ColumnMappings
 }
 
-func (o *OutputClickHouse) GetPqStrictOrdering() *bool {
+func (o *OutputLocalSearchStorage) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.PqStrictOrdering
 }
 
-func (o *OutputClickHouse) GetPqRatePerSec() *float64 {
+func (o *OutputLocalSearchStorage) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.PqRatePerSec
 }
 
-func (o *OutputClickHouse) GetPqMode() *ModeOptions {
+func (o *OutputLocalSearchStorage) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputClickHouse) GetPqMaxBufferSize() *float64 {
+func (o *OutputLocalSearchStorage) GetPqMaxBufferSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.PqMaxBufferSize
 }
 
-func (o *OutputClickHouse) GetPqMaxBackpressureSec() *float64 {
+func (o *OutputLocalSearchStorage) GetPqMaxBackpressureSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.PqMaxBackpressureSec
 }
 
-func (o *OutputClickHouse) GetPqMaxFileSize() *string {
+func (o *OutputLocalSearchStorage) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PqMaxFileSize
 }
 
-func (o *OutputClickHouse) GetPqMaxSize() *string {
+func (o *OutputLocalSearchStorage) GetPqMaxSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PqMaxSize
 }
 
-func (o *OutputClickHouse) GetPqPath() *string {
+func (o *OutputLocalSearchStorage) GetPqPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PqPath
 }
 
-func (o *OutputClickHouse) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputLocalSearchStorage) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputClickHouse) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputLocalSearchStorage) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqOnBackpressure
 }
 
-func (o *OutputClickHouse) GetPqControls() *OutputClickHousePqControls {
+func (o *OutputLocalSearchStorage) GetPqControls() *OutputLocalSearchStoragePqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
 }
 
-func (o *OutputClickHouse) GetTemplateURL() *string {
+func (o *OutputLocalSearchStorage) GetTemplateURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateURL
 }
 
-func (o *OutputClickHouse) GetTemplateDatabase() *string {
+func (o *OutputLocalSearchStorage) GetTemplateDatabase() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateDatabase
 }
 
-func (o *OutputClickHouse) GetTemplateTableName() *string {
+func (o *OutputLocalSearchStorage) GetTemplateTableName() *string {
 	if o == nil {
 		return nil
 	}

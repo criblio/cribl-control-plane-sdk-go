@@ -1668,6 +1668,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesLocalSearchStorage
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesLocalSearchStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestLocalSearchStorage(
+        operations.CreateOutputOutputLocalSearchStorage{
+            ID: "local-search-storage-output",
+            Type: operations.CreateOutputTypeLocalSearchStorageLocalSearchStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesLoki
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesLoki" -->
@@ -4638,6 +4680,47 @@ func main() {
             Type: components.OutputKinesisTypeKinesis,
             StreamName: "my-stream",
             Region: "us-east-1",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesLocalSearchStorage
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesLocalSearchStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputLocalSearchStorage(
+        components.OutputLocalSearchStorage{
+            ID: criblcontrolplanesdkgo.Pointer("local-search-storage-output"),
+            Type: components.OutputLocalSearchStorageTypeLocalSearchStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
         },
     ))
     if err != nil {
