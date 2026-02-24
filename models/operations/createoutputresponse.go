@@ -15,83 +15,83 @@ type OutputNewrelic struct {
 	ID   string       `json:"id"`
 	Type TypeNewrelic `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Which New Relic region endpoint to use.
-	Region *components.RegionOptions `json:"region,omitempty"`
+	Region *components.RegionOptions `json:"region,omitzero"`
 	// Name of the logtype to send with events, e.g.: observability, access_log. The event's 'sourcetype' field (if set) will override this value.
-	LogType *string `json:"logType,omitempty"`
+	LogType *string `json:"logType,omitzero"`
 	// Name of field to send as log message value. If not present, event will be serialized and sent as JSON.
-	MessageField *string `json:"messageField,omitempty"`
+	MessageField *string `json:"messageField,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadatum `json:"metadata,omitempty"`
+	Metadata []Metadatum `json:"metadata,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
-	Description        *string  `json:"description,omitempty"`
-	CustomURL          *string  `json:"customUrl,omitempty"`
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
+	Description        *string  `json:"description,omitzero"`
+	CustomURL          *string  `json:"customUrl,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsNewrelic                  `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsNewrelic                  `json:"pqControls,omitzero"`
 	// New Relic API key. Can be overridden using __newRelic_apiKey field.
-	APIKey *string `json:"apiKey,omitempty"`
+	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (o OutputNewrelic) MarshalJSON() ([]byte, error) {
@@ -441,75 +441,75 @@ type OutputElasticCloud struct {
 	ID   string           `json:"id"`
 	Type TypeElasticCloud `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Enter Cloud ID of the Elastic Cloud environment to send events to
 	URL string `json:"url"`
 	// Data stream or index to send events to. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be overwritten by an event's __index field.
 	Index string `json:"index"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Extra parameters to use in HTTP requests
-	ExtraParams []components.ItemsTypeSaslSaslExtensions `json:"extraParams,omitempty"`
-	Auth        *components.AuthType                     `json:"auth,omitempty"`
+	ExtraParams []components.ItemsTypeSaslSaslExtensions `json:"extraParams,omitzero"`
+	Auth        *components.AuthType                     `json:"auth,omitzero"`
 	// Optional Elastic Cloud Destination pipeline
-	ElasticPipeline *string `json:"elasticPipeline,omitempty"`
+	ElasticPipeline *string `json:"elasticPipeline,omitzero"`
 	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
-	IncludeDocID *bool `json:"includeDocId,omitempty"`
+	IncludeDocID *bool `json:"includeDocId,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsElasticCloud              `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsElasticCloud              `json:"pqControls,omitzero"`
 }
 
 func (o OutputElasticCloud) MarshalJSON() ([]byte, error) {
@@ -868,7 +868,7 @@ type URLElastic struct {
 	// The URL to an Elastic node to send events to. Example: http://elastic:9200/_bulk
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `json:"weight,omitempty"`
+	Weight *float64 `json:"weight,omitzero"`
 }
 
 func (u URLElastic) MarshalJSON() ([]byte, error) {
@@ -915,93 +915,93 @@ type OutputElastic struct {
 	ID   string                  `json:"id"`
 	Type CreateOutputTypeElastic `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool `json:"loadBalanced,omitempty"`
+	LoadBalanced *bool `json:"loadBalanced,omitzero"`
 	// Index or data stream to send events to. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be overwritten by an event's __index field.
 	Index string `json:"index"`
 	// Document type to use for events. Can be overwritten by an event's __type field.
-	DocType *string `json:"docType,omitempty"`
+	DocType *string `json:"docType,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                                    `json:"responseHonorRetryAfterHeader,omitempty"`
-	ExtraParams                   []components.ItemsTypeSaslSaslExtensions `json:"extraParams,omitempty"`
-	Auth                          *components.AuthType                     `json:"auth,omitempty"`
+	ResponseHonorRetryAfterHeader *bool                                    `json:"responseHonorRetryAfterHeader,omitzero"`
+	ExtraParams                   []components.ItemsTypeSaslSaslExtensions `json:"extraParams,omitzero"`
+	Auth                          *components.AuthType                     `json:"auth,omitzero"`
 	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
-	ElasticVersion *ElasticVersion `json:"elasticVersion,omitempty"`
+	ElasticVersion *ElasticVersion `json:"elasticVersion,omitzero"`
 	// Optional Elasticsearch destination pipeline
-	ElasticPipeline *string `json:"elasticPipeline,omitempty"`
+	ElasticPipeline *string `json:"elasticPipeline,omitzero"`
 	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
-	IncludeDocID *bool `json:"includeDocId,omitempty"`
+	IncludeDocID *bool `json:"includeDocId,omitzero"`
 	// Action to use when writing events. Must be set to `Create` when writing to a data stream.
-	WriteAction *WriteAction `json:"writeAction,omitempty"`
+	WriteAction *WriteAction `json:"writeAction,omitzero"`
 	// Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
-	RetryPartialErrors *bool `json:"retryPartialErrors,omitempty"`
+	RetryPartialErrors *bool `json:"retryPartialErrors,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
 	// The Cloud ID or URL to an Elastic cluster to send events to. Example: http://elastic:9200/_bulk
-	URL *string `json:"url,omitempty"`
+	URL *string `json:"url,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool        `json:"excludeSelf,omitempty"`
-	Urls        []URLElastic `json:"urls,omitempty"`
+	ExcludeSelf *bool        `json:"excludeSelf,omitzero"`
+	Urls        []URLElastic `json:"urls,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsElastic                   `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsElastic                   `json:"pqControls,omitzero"`
 }
 
 func (o OutputElastic) MarshalJSON() ([]byte, error) {
@@ -1393,99 +1393,99 @@ type OutputMsk struct {
 	ID   string              `json:"id"`
 	Type CreateOutputTypeMsk `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
 	Brokers []string `json:"brokers"`
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *components.AcknowledgmentsOptions1 `json:"ack,omitempty"`
+	Ack *components.AcknowledgmentsOptions1 `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *components.RecordDataFormatOptions1 `json:"format,omitempty"`
+	Format *components.RecordDataFormatOptions1 `json:"format,omitzero"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *components.CompressionOptions3 `json:"compression,omitempty"`
+	Compression *components.CompressionOptions3 `json:"compression,omitzero"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
-	FlushEventCount *float64 `json:"flushEventCount,omitempty"`
+	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                           `json:"flushPeriodSec,omitempty"`
-	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitempty"`
+	FlushPeriodSec      *float64                                           `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                               `json:"awsSecretKey,omitempty"`
+	AwsSecretKey            *string                                               `json:"awsSecretKey,omitzero"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing MSK cluster requests
-	SignatureVersion *components.SignatureVersionOptions `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptions `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access MSK
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                                 `json:"durationSeconds,omitempty"`
-	TLS             *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	DurationSeconds *float64                                                 `json:"durationSeconds,omitzero"`
+	TLS             *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
-	AwsAPIKey      *string                                 `json:"awsApiKey,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
+	AwsAPIKey      *string                                 `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Select a set of Protobuf definitions for the events you want to send
-	ProtobufLibraryID *string `json:"protobufLibraryId,omitempty"`
+	ProtobufLibraryID *string `json:"protobufLibraryId,omitzero"`
 	// Select the type of object you want the Protobuf definitions to use for event encoding
-	ProtobufEncodingID *string `json:"protobufEncodingId,omitempty"`
+	ProtobufEncodingID *string `json:"protobufEncodingId,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsMsk                       `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsMsk                       `json:"pqControls,omitzero"`
 }
 
 func (o OutputMsk) MarshalJSON() ([]byte, error) {
@@ -1905,77 +1905,77 @@ type OutputConfluentCloud struct {
 	ID   string                         `json:"id"`
 	Type CreateOutputTypeConfluentCloud `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
 	Brokers []string                                                 `json:"brokers"`
-	TLS     *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	TLS     *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *components.AcknowledgmentsOptions1 `json:"ack,omitempty"`
+	Ack *components.AcknowledgmentsOptions1 `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *components.RecordDataFormatOptions1 `json:"format,omitempty"`
+	Format *components.RecordDataFormatOptions1 `json:"format,omitzero"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *components.CompressionOptions3 `json:"compression,omitempty"`
+	Compression *components.CompressionOptions3 `json:"compression,omitzero"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
-	FlushEventCount *float64 `json:"flushEventCount,omitempty"`
+	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                           `json:"flushPeriodSec,omitempty"`
-	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitempty"`
+	FlushPeriodSec      *float64                                           `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType `json:"sasl,omitempty"`
+	Sasl *components.AuthenticationType `json:"sasl,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
 	// Select a set of Protobuf definitions for the events you want to send
-	ProtobufLibraryID *string `json:"protobufLibraryId,omitempty"`
+	ProtobufLibraryID *string `json:"protobufLibraryId,omitzero"`
 	// Select the type of object you want the Protobuf definitions to use for event encoding
-	ProtobufEncodingID *string `json:"protobufEncodingId,omitempty"`
+	ProtobufEncodingID *string `json:"protobufEncodingId,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsConfluentCloud            `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsConfluentCloud            `json:"pqControls,omitzero"`
 }
 
 func (o OutputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -2311,77 +2311,77 @@ type OutputKafka struct {
 	ID   string                `json:"id"`
 	Type CreateOutputTypeKafka `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
 	Brokers []string `json:"brokers"`
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *components.AcknowledgmentsOptions1 `json:"ack,omitempty"`
+	Ack *components.AcknowledgmentsOptions1 `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *components.RecordDataFormatOptions1 `json:"format,omitempty"`
+	Format *components.RecordDataFormatOptions1 `json:"format,omitzero"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *components.CompressionOptions3 `json:"compression,omitempty"`
+	Compression *components.CompressionOptions3 `json:"compression,omitzero"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
-	FlushEventCount *float64 `json:"flushEventCount,omitempty"`
+	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                           `json:"flushPeriodSec,omitempty"`
-	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitempty"`
+	FlushPeriodSec      *float64                                           `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType                           `json:"sasl,omitempty"`
-	TLS  *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	Sasl *components.AuthenticationType                           `json:"sasl,omitzero"`
+	TLS  *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
 	// Select a set of Protobuf definitions for the events you want to send
-	ProtobufLibraryID *string `json:"protobufLibraryId,omitempty"`
+	ProtobufLibraryID *string `json:"protobufLibraryId,omitzero"`
 	// Select the type of object you want the Protobuf definitions to use for event encoding
-	ProtobufEncodingID *string `json:"protobufEncodingId,omitempty"`
+	ProtobufEncodingID *string `json:"protobufEncodingId,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsKafka                     `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsKafka                     `json:"pqControls,omitzero"`
 }
 
 func (o OutputKafka) MarshalJSON() ([]byte, error) {
@@ -2703,13 +2703,13 @@ type OutputExabeam struct {
 	ID   string      `json:"id"`
 	Type TypeExabeam `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Name of the destination bucket. A constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a JavaScript Global Variable: `myBucket-${C.vars.myVar}`.
 	Bucket string `json:"bucket"`
 	// Region where the bucket is located
@@ -2719,57 +2719,57 @@ type OutputExabeam struct {
 	// Google Cloud Storage service endpoint
 	Endpoint string `json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion *components.SignatureVersionOptions4 `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptions4 `json:"signatureVersion,omitzero"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *components.ObjectACLOptions1 `json:"objectACL,omitempty"`
+	ObjectACL *components.ObjectACLOptions1 `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *components.StorageClassOptions1 `json:"storageClass,omitempty"`
+	StorageClass *components.StorageClassOptions1 `json:"storageClass,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
-	RetrySettings          *components.RetrySettingsType          `json:"retrySettings,omitempty"`
+	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
+	RetrySettings          *components.RetrySettingsType          `json:"retrySettings,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Enter an encoded string containing Exabeam configurations
-	EncodedConfiguration *string `json:"encodedConfiguration,omitempty"`
+	EncodedConfiguration *string `json:"encodedConfiguration,omitzero"`
 	// ID of the Exabeam Collector where data should be sent. Example: 11112222-3333-4444-5555-666677778888
 	//
 	CollectorInstanceID string `json:"collectorInstanceId"`
 	// Constant or JavaScript expression to create an Exabeam site name. Values that aren't successfully evaluated will be treated as string constants.
-	SiteName *string `json:"siteName,omitempty"`
+	SiteName *string `json:"siteName,omitzero"`
 	// Exabeam site ID. If left blank, @{product} will use the value of the Exabeam site name.
-	SiteID         *string `json:"siteId,omitempty"`
-	TimezoneOffset *string `json:"timezoneOffset,omitempty"`
+	SiteID         *string `json:"siteId,omitzero"`
+	TimezoneOffset *string `json:"timezoneOffset,omitzero"`
 	// HMAC access key. Can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
-	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
-	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
-	Description  *string `json:"description,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 }
 
 func (o OutputExabeam) MarshalJSON() ([]byte, error) {
@@ -3084,63 +3084,63 @@ type OutputGooglePubsub struct {
 	ID   string                       `json:"id"`
 	Type CreateOutputTypeGooglePubsub `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// ID of the topic to send events to.
 	TopicName string `json:"topicName"`
 	// If enabled, create topic if it does not exist.
-	CreateTopic *bool `json:"createTopic,omitempty"`
+	CreateTopic *bool `json:"createTopic,omitzero"`
 	// If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
-	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
+	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *components.GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
+	GoogleAuthMethod *components.GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// The maximum number of items the Google API should batch before it sends them to the topic.
-	BatchSize *float64 `json:"batchSize,omitempty"`
+	BatchSize *float64 `json:"batchSize,omitzero"`
 	// The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
-	BatchTimeout *float64 `json:"batchTimeout,omitempty"`
+	BatchTimeout *float64 `json:"batchTimeout,omitzero"`
 	// Maximum number of queued batches before blocking.
-	MaxQueueSize *float64 `json:"maxQueueSize,omitempty"`
+	MaxQueueSize *float64 `json:"maxQueueSize,omitzero"`
 	// Maximum size (KB) of batches to send.
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// Maximum time to wait before sending a batch (when batch size limit is not reached)
-	FlushPeriod *float64 `json:"flushPeriod,omitempty"`
+	FlushPeriod *float64 `json:"flushPeriod,omitzero"`
 	// The maximum number of in-progress API requests before backpressure is applied.
-	MaxInProgress *float64 `json:"maxInProgress,omitempty"`
+	MaxInProgress *float64 `json:"maxInProgress,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsGooglePubsub              `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsGooglePubsub              `json:"pqControls,omitzero"`
 }
 
 func (o OutputGooglePubsub) MarshalJSON() ([]byte, error) {
@@ -3473,135 +3473,135 @@ type OutputGoogleCloudLogging struct {
 	ID   string                 `json:"id"`
 	Type TypeGoogleCloudLogging `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags      []string        `json:"streamtags,omitempty"`
+	Streamtags      []string        `json:"streamtags,omitzero"`
 	LogLocationType LogLocationType `json:"logLocationType"`
 	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogNameExpression string `json:"logNameExpression"`
-	SanitizeLogNames  *bool  `json:"sanitizeLogNames,omitempty"`
+	SanitizeLogNames  *bool  `json:"sanitizeLogNames,omitzero"`
 	// Format to use when sending payload. Defaults to Text.
-	PayloadFormat *PayloadFormat `json:"payloadFormat,omitempty"`
+	PayloadFormat *PayloadFormat `json:"payloadFormat,omitzero"`
 	// Labels to apply to the log entry
-	LogLabels []components.ItemsTypeLogLabels `json:"logLabels,omitempty"`
+	LogLabels []components.ItemsTypeLogLabels `json:"logLabels,omitzero"`
 	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
-	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitzero"`
 	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
-	ResourceTypeLabels []components.ItemsTypeLogLabels `json:"resourceTypeLabels,omitempty"`
+	ResourceTypeLabels []components.ItemsTypeLogLabels `json:"resourceTypeLabels,omitzero"`
 	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
-	SeverityExpression *string `json:"severityExpression,omitempty"`
+	SeverityExpression *string `json:"severityExpression,omitzero"`
 	// JavaScript expression to compute the value of the insert ID field.
-	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	InsertIDExpression *string `json:"insertIdExpression,omitzero"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *components.GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
+	GoogleAuthMethod *components.GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// Maximum size, in KB, of the request body.
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Max number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Maximum number of ongoing requests before blocking.
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it.
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum number of requests to limit to per second.
-	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	RequestMethodExpression *string `json:"requestMethodExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	RequestURLExpression *string `json:"requestUrlExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	RequestSizeExpression *string `json:"requestSizeExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	StatusExpression *string `json:"statusExpression,omitempty"`
+	StatusExpression *string `json:"statusExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	UserAgentExpression *string `json:"userAgentExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	RemoteIPExpression *string `json:"remoteIpExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	ServerIPExpression *string `json:"serverIpExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RefererExpression *string `json:"refererExpression,omitempty"`
+	RefererExpression *string `json:"refererExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	LatencyExpression *string `json:"latencyExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	CacheHitExpression *string `json:"cacheHitExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	ProtocolExpression *string `json:"protocolExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-	IDExpression *string `json:"idExpression,omitempty"`
+	IDExpression *string `json:"idExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-	ProducerExpression *string `json:"producerExpression,omitempty"`
+	ProducerExpression *string `json:"producerExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-	FirstExpression *string `json:"firstExpression,omitempty"`
+	FirstExpression *string `json:"firstExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-	LastExpression *string `json:"lastExpression,omitempty"`
+	LastExpression *string `json:"lastExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
-	FileExpression *string `json:"fileExpression,omitempty"`
+	FileExpression *string `json:"fileExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
-	LineExpression *string `json:"lineExpression,omitempty"`
+	LineExpression *string `json:"lineExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
-	FunctionExpression *string `json:"functionExpression,omitempty"`
+	FunctionExpression *string `json:"functionExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
-	UIDExpression *string `json:"uidExpression,omitempty"`
+	UIDExpression *string `json:"uidExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
-	IndexExpression *string `json:"indexExpression,omitempty"`
+	IndexExpression *string `json:"indexExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
-	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitzero"`
 	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
-	TraceExpression *string `json:"traceExpression,omitempty"`
+	TraceExpression *string `json:"traceExpression,omitzero"`
 	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
-	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	SpanIDExpression *string `json:"spanIdExpression,omitzero"`
 	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
-	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	TraceSampledExpression *string `json:"traceSampledExpression,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
-	Description        *string  `json:"description,omitempty"`
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
+	Description        *string  `json:"description,omitzero"`
 	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogLocationExpression string `json:"logLocationExpression"`
 	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
-	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	PayloadExpression *string `json:"payloadExpression,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsGoogleCloudLogging        `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsGoogleCloudLogging        `json:"pqControls,omitzero"`
 }
 
 func (o OutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
@@ -4152,13 +4152,13 @@ type OutputGoogleCloudStorage struct {
 	ID   string                 `json:"id"`
 	Type TypeGoogleCloudStorage `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
 	Bucket string `json:"bucket"`
 	// Region where the bucket is located
@@ -4166,96 +4166,96 @@ type OutputGoogleCloudStorage struct {
 	// Google Cloud Storage service endpoint
 	Endpoint string `json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion        *components.SignatureVersionOptions4    `json:"signatureVersion,omitempty"`
-	AwsAuthenticationMethod *AuthenticationMethodGoogleCloudStorage `json:"awsAuthenticationMethod,omitempty"`
+	SignatureVersion        *components.SignatureVersionOptions4    `json:"signatureVersion,omitzero"`
+	AwsAuthenticationMethod *AuthenticationMethodGoogleCloudStorage `json:"awsAuthenticationMethod,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *components.ObjectACLOptions1 `json:"objectACL,omitempty"`
+	ObjectACL *components.ObjectACLOptions1 `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *components.StorageClassOptions1 `json:"storageClass,omitempty"`
+	StorageClass *components.StorageClassOptions1 `json:"storageClass,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
-	PartitionExpr *string `json:"partitionExpr,omitempty"`
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
 	// Format of the output data
-	Format *components.DataFormatOptions `json:"format,omitempty"`
+	Format *components.DataFormatOptions `json:"format,omitzero"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `json:"baseFileName,omitempty"`
+	BaseFileName *string `json:"baseFileName,omitzero"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `json:"fileNameSuffix,omitempty"`
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
-	HeaderLine *string `json:"headerLine,omitempty"`
+	HeaderLine *string `json:"headerLine,omitzero"`
 	// Buffer size used to write to a file
-	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitempty"`
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
+	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
-	Description          *string                       `json:"description,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	Description          *string                       `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *components.CompressionOptions2 `json:"compress,omitempty"`
+	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitempty"`
+	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `json:"automaticSchema,omitempty"`
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitempty"`
+	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitzero"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitempty"`
+	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitempty"`
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `json:"parquetPageSize,omitempty"`
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
 	// Log up to 3 rows that @{product} skips due to data mismatch
-	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `json:"enableStatistics,omitempty"`
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitempty"`
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool `json:"enablePageChecksum,omitempty"`
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
-	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
-	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 }
 
 func (o OutputGoogleCloudStorage) MarshalJSON() ([]byte, error) {
@@ -4762,7 +4762,7 @@ func (e *SendEventsAs) IsExact() bool {
 
 type ExtraLogType struct {
 	LogType     string  `json:"logType"`
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (e ExtraLogType) MarshalJSON() ([]byte, error) {
@@ -4832,95 +4832,95 @@ type OutputGoogleChronicle struct {
 	ID   string              `json:"id"`
 	Type TypeGoogleChronicle `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags           []string                             `json:"streamtags,omitempty"`
-	APIVersion           *CreateOutputAPIVersion              `json:"apiVersion,omitempty"`
-	AuthenticationMethod *AuthenticationMethodGoogleChronicle `json:"authenticationMethod,omitempty"`
+	Streamtags           []string                             `json:"streamtags,omitzero"`
+	APIVersion           *CreateOutputAPIVersion              `json:"apiVersion,omitzero"`
+	AuthenticationMethod *AuthenticationMethodGoogleChronicle `json:"authenticationMethod,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool        `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool        `json:"responseHonorRetryAfterHeader,omitzero"`
 	LogFormatType                 SendEventsAs `json:"logFormatType"`
 	// Regional endpoint to send events to
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
-	Description        *string  `json:"description,omitempty"`
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
+	Description        *string  `json:"description,omitzero"`
 	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
-	ExtraLogTypes []ExtraLogType `json:"extraLogTypes,omitempty"`
+	ExtraLogTypes []ExtraLogType `json:"extraLogTypes,omitzero"`
 	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
-	LogType *string `json:"logType,omitempty"`
+	LogType *string `json:"logType,omitzero"`
 	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
-	LogTextField *string `json:"logTextField,omitempty"`
+	LogTextField *string `json:"logTextField,omitzero"`
 	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
-	CustomerID *string `json:"customerId,omitempty"`
+	CustomerID *string `json:"customerId,omitzero"`
 	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
-	Namespace *string `json:"namespace,omitempty"`
+	Namespace *string `json:"namespace,omitzero"`
 	// Custom labels to be added to every batch
-	CustomLabels []components.ItemsTypeKeyValueMetadata `json:"customLabels,omitempty"`
+	CustomLabels []components.ItemsTypeKeyValueMetadata `json:"customLabels,omitzero"`
 	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
-	UdmType *UDMType `json:"udmType,omitempty"`
+	UdmType *UDMType `json:"udmType,omitzero"`
 	// Organization's API key in Google SecOps
-	APIKey *string `json:"apiKey,omitempty"`
+	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
-	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	APIKeySecret *string `json:"apiKeySecret,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
-	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsGoogleChronicle           `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsGoogleChronicle           `json:"pqControls,omitzero"`
 }
 
 func (o OutputGoogleChronicle) MarshalJSON() ([]byte, error) {
@@ -5319,70 +5319,70 @@ type OutputAzureEventhub struct {
 	ID   string            `json:"id"`
 	Type TypeAzureEventhub `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// List of Event Hubs Kafka brokers to connect to, eg. yourdomain.servicebus.windows.net:9093. The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
 	Brokers []string `json:"brokers"`
 	// The name of the Event Hub (Kafka Topic) to publish events. Can be overwritten using field __topicOut.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments
-	Ack *components.AcknowledgmentsOptions `json:"ack,omitempty"`
+	Ack *components.AcknowledgmentsOptions `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to the Event Hubs Kafka brokers
-	Format *components.RecordDataFormatOptions `json:"format,omitempty"`
+	Format *components.RecordDataFormatOptions `json:"format,omitzero"`
 	// Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// Maximum number of events in a batch before forcing a flush
-	FlushEventCount *float64 `json:"flushEventCount,omitempty"`
+	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType1       `json:"sasl,omitempty"`
-	TLS  *components.TLSSettingsClientSideType `json:"tls,omitempty"`
+	Sasl *components.AuthenticationType1       `json:"sasl,omitzero"`
+	TLS  *components.TLSSettingsClientSideType `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsAzureEventhub             `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsAzureEventhub             `json:"pqControls,omitzero"`
 }
 
 func (o OutputAzureEventhub) MarshalJSON() ([]byte, error) {
@@ -5690,74 +5690,74 @@ type OutputHoneycomb struct {
 	ID   string        `json:"id"`
 	Type TypeHoneycomb `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Name of the dataset to send events to – e.g., observability
 	Dataset string `json:"dataset"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions2 `json:"authType,omitempty"`
-	Description *string                                  `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	Description *string                                  `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsHoneycomb                 `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsHoneycomb                 `json:"pqControls,omitzero"`
 	// Team API key where the dataset belongs
-	Team *string `json:"team,omitempty"`
+	Team *string `json:"team,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (o OutputHoneycomb) MarshalJSON() ([]byte, error) {
@@ -6097,77 +6097,77 @@ type OutputKinesis struct {
 	ID   string                  `json:"id"`
 	Type CreateOutputTypeKinesis `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Kinesis stream name to send events to.
 	StreamName string `json:"streamName"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsSecretKey            *string                                                `json:"awsSecretKey,omitzero"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *components.SignatureVersionOptions2 `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptions2 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access Kinesis stream
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Maximum number of ongoing put requests before blocking.
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Compression type to use for records
-	Compression *CreateOutputCompression `json:"compression,omitempty"`
+	Compression *CreateOutputCompression `json:"compression,omitzero"`
 	// Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
-	UseListShards *bool `json:"useListShards,omitempty"`
+	UseListShards *bool `json:"useListShards,omitzero"`
 	// Batch events into a single record as NDJSON
-	AsNdjson *bool `json:"asNdjson,omitempty"`
+	AsNdjson *bool `json:"asNdjson,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
-	AwsAPIKey      *string                                 `json:"awsApiKey,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
+	AwsAPIKey      *string                                 `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Maximum number of records to send in a single request
-	MaxEventsPerFlush *float64 `json:"maxEventsPerFlush,omitempty"`
+	MaxEventsPerFlush *float64 `json:"maxEventsPerFlush,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsKinesis                   `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsKinesis                   `json:"pqControls,omitzero"`
 }
 
 func (o OutputKinesis) MarshalJSON() ([]byte, error) {
@@ -6526,79 +6526,79 @@ type OutputAzureLogs struct {
 	ID   string        `json:"id"`
 	Type TypeAzureLogs `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The Log Type of events sent to this LogAnalytics workspace. Defaults to `Cribl`. Use only letters, numbers, and `_` characters, and can't exceed 100 characters. Can be overwritten by event field __logType.
 	LogType string `json:"logType"`
 	// Optional Resource ID of the Azure resource to associate the data with. Can be overridden by the __resourceId event field. This ID populates the _ResourceId property, allowing the data to be included in resource-centric queries. If the ID is neither specified nor overridden, resource-centric queries will omit the data.
-	ResourceID *string `json:"resourceId,omitempty"`
+	ResourceID *string `json:"resourceId,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
-	Compress         *bool    `json:"compress,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
+	Compress         *bool    `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// The DNS name of the Log API endpoint that sends log data to a Log Analytics workspace in Azure Monitor. Defaults to .ods.opinsights.azure.com. @{product} will add a prefix and suffix to construct a URI in this format: <https://<Workspace_ID><your_DNS_name>/api/logs?api-version=<API version>.
-	APIURL *string `json:"apiUrl,omitempty"`
+	APIURL *string `json:"apiUrl,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter workspace ID and workspace key directly, or select a stored secret
-	AuthType    *AuthenticationMethodAzureLogs `json:"authType,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	AuthType    *AuthenticationMethodAzureLogs `json:"authType,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsAzureLogs                 `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsAzureLogs                 `json:"pqControls,omitzero"`
 	// Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
-	WorkspaceID *string `json:"workspaceId,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitzero"`
 	// Azure Log Analytics Workspace Primary or Secondary Shared Key. See Azure Dashboard Workspace > Advanced settings.
-	WorkspaceKey *string `json:"workspaceKey,omitempty"`
+	WorkspaceKey *string `json:"workspaceKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	KeypairSecret *string `json:"keypairSecret,omitempty"`
+	KeypairSecret *string `json:"keypairSecret,omitzero"`
 }
 
 func (o OutputAzureLogs) MarshalJSON() ([]byte, error) {
@@ -6968,7 +6968,7 @@ func (e *OauthTypeAuthenticationMethod) IsExact() bool {
 
 type Certificate struct {
 	// The certificate you registered as credentials for your app in the Azure portal
-	CertificateName *string `json:"certificateName,omitempty"`
+	CertificateName *string `json:"certificateName,omitzero"`
 }
 
 func (c Certificate) MarshalJSON() ([]byte, error) {
@@ -7014,7 +7014,7 @@ func (e *PrefixOptional) IsExact() bool {
 }
 
 type ExtentTag struct {
-	Prefix *PrefixOptional `json:"prefix,omitempty"`
+	Prefix *PrefixOptional `json:"prefix,omitzero"`
 	Value  string          `json:"value"`
 }
 
@@ -7168,13 +7168,13 @@ type OutputAzureDataExplorer struct {
 	ID   string                `json:"id"`
 	Type TypeAzureDataExplorer `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
 	ClusterURL string `json:"clusterUrl"`
 	// Name of the database containing the table where data will be ingested
@@ -7182,8 +7182,8 @@ type OutputAzureDataExplorer struct {
 	// Name of the table to ingest data into
 	Table string `json:"table"`
 	// When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
-	ValidateDatabaseSettings *bool          `json:"validateDatabaseSettings,omitempty"`
-	IngestMode               *IngestionMode `json:"ingestMode,omitempty"`
+	ValidateDatabaseSettings *bool          `json:"validateDatabaseSettings,omitzero"`
+	IngestMode               *IngestionMode `json:"ingestMode,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint components.MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint"`
 	// Directory ID (tenant identifier) in Azure Active Directory
@@ -7194,139 +7194,139 @@ type OutputAzureDataExplorer struct {
 	Scope string `json:"scope"`
 	// The type of OAuth 2.0 client credentials grant flow to use
 	OauthType   OauthTypeAuthenticationMethod `json:"oauthType"`
-	Description *string                       `json:"description,omitempty"`
+	Description *string                       `json:"description,omitzero"`
 	// The client secret that you generated for your app in the Azure portal
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret  *string      `json:"textSecret,omitempty"`
-	Certificate *Certificate `json:"certificate,omitempty"`
+	TextSecret  *string      `json:"textSecret,omitzero"`
+	Certificate *Certificate `json:"certificate,omitzero"`
 	// Format of the output data
-	Format *components.DataFormatOptions `json:"format,omitempty"`
+	Format *components.DataFormatOptions `json:"format,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress components.CompressionOptions2 `json:"compress"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitempty"`
+	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `json:"automaticSchema,omitempty"`
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitempty"`
+	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitzero"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitempty"`
+	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitempty"`
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `json:"parquetPageSize,omitempty"`
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
 	// Log up to 3 rows that @{product} skips due to data mismatch
-	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `json:"enableStatistics,omitempty"`
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitempty"`
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool `json:"enablePageChecksum,omitempty"`
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Send a JSON mapping object instead of specifying an existing named data mapping
-	IsMappingObj *bool `json:"isMappingObj,omitempty"`
+	IsMappingObj *bool `json:"isMappingObj,omitzero"`
 	// Enter a JSON object that defines your desired data mapping
-	MappingObj *string `json:"mappingObj,omitempty"`
+	MappingObj *string `json:"mappingObj,omitzero"`
 	// Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
-	MappingRef *string `json:"mappingRef,omitempty"`
+	MappingRef *string `json:"mappingRef,omitzero"`
 	// The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
-	IngestURL *string `json:"ingestUrl,omitempty"`
+	IngestURL *string `json:"ingestUrl,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `json:"stagePath,omitempty"`
+	StagePath *string `json:"stagePath,omitzero"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `json:"fileNameSuffix,omitempty"`
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// Maximum number of parts to upload in parallel per file
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
+	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool                         `json:"addIdToStagePath,omitempty"`
-	RetrySettings    *components.RetrySettingsType `json:"retrySettings,omitempty"`
+	AddIDToStagePath *bool                         `json:"addIdToStagePath,omitzero"`
+	RetrySettings    *components.RetrySettingsType `json:"retrySettings,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Bypass the data management service's aggregation mechanism
-	FlushImmediately *bool `json:"flushImmediately,omitempty"`
+	FlushImmediately *bool `json:"flushImmediately,omitzero"`
 	// Prevent blob deletion after ingestion is complete
-	RetainBlobOnSuccess *bool `json:"retainBlobOnSuccess,omitempty"`
+	RetainBlobOnSuccess *bool `json:"retainBlobOnSuccess,omitzero"`
 	// Strings or tags associated with the extent (ingested data shard)
-	ExtentTags []ExtentTag `json:"extentTags,omitempty"`
+	ExtentTags []ExtentTag `json:"extentTags,omitzero"`
 	// Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
-	IngestIfNotExists []IngestIfNotExist `json:"ingestIfNotExists,omitempty"`
+	IngestIfNotExists []IngestIfNotExist `json:"ingestIfNotExists,omitzero"`
 	// Level of ingestion status reporting. Defaults to FailuresOnly.
-	ReportLevel *ReportLevel `json:"reportLevel,omitempty"`
+	ReportLevel *ReportLevel `json:"reportLevel,omitzero"`
 	// Target of the ingestion status reporting. Defaults to Queue.
-	ReportMethod *ReportMethod `json:"reportMethod,omitempty"`
+	ReportMethod *ReportMethod `json:"reportMethod,omitzero"`
 	// Optionally, enter additional configuration properties to send to the ingestion service
-	AdditionalProperties []AdditionalProperty `json:"additionalProperties,omitempty"`
+	AdditionalProperties []AdditionalProperty `json:"additionalProperties,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable to close the connection immediately after sending the outgoing request
-	KeepAlive *bool `json:"keepAlive,omitempty"`
+	KeepAlive *bool `json:"keepAlive,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsAzureDataExplorer         `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsAzureDataExplorer         `json:"pqControls,omitzero"`
 }
 
 func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
@@ -7986,110 +7986,110 @@ type OutputAzureBlob struct {
 	ID   string                    `json:"id"`
 	Type CreateOutputTypeAzureBlob `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
 	ContainerName string `json:"containerName"`
 	// Create the configured container in Azure Blob Storage if it does not already exist
-	CreateContainer *bool `json:"createContainer,omitempty"`
+	CreateContainer *bool `json:"createContainer,omitzero"`
 	// Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
 	// Maximum number of parts to upload in parallel per file
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
-	PartitionExpr *string `json:"partitionExpr,omitempty"`
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
 	// Format of the output data
-	Format *components.DataFormatOptions `json:"format,omitempty"`
+	Format *components.DataFormatOptions `json:"format,omitzero"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `json:"baseFileName,omitempty"`
+	BaseFileName *string `json:"baseFileName,omitzero"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `json:"fileNameSuffix,omitempty"`
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
-	HeaderLine *string `json:"headerLine,omitempty"`
+	HeaderLine *string `json:"headerLine,omitzero"`
 	// Buffer size used to write to a file
-	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitempty"`
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
+	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                                   `json:"forceCloseOnShutdown,omitempty"`
-	RetrySettings        *components.RetrySettingsType           `json:"retrySettings,omitempty"`
-	AuthType             *components.AuthenticationMethodOptions `json:"authType,omitempty"`
-	StorageClass         *BlobAccessTier                         `json:"storageClass,omitempty"`
-	Description          *string                                 `json:"description,omitempty"`
+	ForceCloseOnShutdown *bool                                   `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType           `json:"retrySettings,omitzero"`
+	AuthType             *components.AuthenticationMethodOptions `json:"authType,omitzero"`
+	StorageClass         *BlobAccessTier                         `json:"storageClass,omitzero"`
+	Description          *string                                 `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *components.CompressionOptions2 `json:"compress,omitempty"`
+	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitempty"`
+	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `json:"automaticSchema,omitempty"`
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitempty"`
+	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitzero"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitempty"`
+	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitempty"`
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `json:"parquetPageSize,omitempty"`
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
 	// Log up to 3 rows that @{product} skips due to data mismatch
-	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `json:"enableStatistics,omitempty"`
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitempty"`
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool `json:"enablePageChecksum,omitempty"`
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
-	ConnectionString *string `json:"connectionString,omitempty"`
+	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// The name of your Azure storage account
-	StorageAccountName *string `json:"storageAccountName,omitempty"`
+	StorageAccountName *string `json:"storageAccountName,omitzero"`
 	// The service principal's tenant ID
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string `json:"tenantId,omitzero"`
 	// The service principal's client ID
-	ClientID *string `json:"clientId,omitempty"`
+	ClientID *string `json:"clientId,omitzero"`
 	// The Azure cloud to use. Defaults to Azure Public Cloud.
-	AzureCloud *string `json:"azureCloud,omitempty"`
+	AzureCloud *string `json:"azureCloud,omitzero"`
 	// Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
-	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
+	EndpointSuffix *string `json:"endpointSuffix,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string                                                `json:"clientTextSecret,omitempty"`
-	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
+	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
+	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 }
 
 func (o OutputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -8530,126 +8530,126 @@ type OutputS3 struct {
 	ID   string             `json:"id"`
 	Type CreateOutputTypeS3 `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Region where the S3 bucket is located
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access S3
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitempty"`
+	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass         *components.StorageClassOptions                           `json:"storageClass,omitempty"`
-	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitempty"`
+	StorageClass         *components.StorageClassOptions                           `json:"storageClass,omitzero"`
+	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
-	PartitionExpr *string `json:"partitionExpr,omitempty"`
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
 	// Format of the output data
-	Format *components.DataFormatOptions `json:"format,omitempty"`
+	Format *components.DataFormatOptions `json:"format,omitzero"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `json:"baseFileName,omitempty"`
+	BaseFileName *string `json:"baseFileName,omitzero"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `json:"fileNameSuffix,omitempty"`
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
-	HeaderLine *string `json:"headerLine,omitempty"`
+	HeaderLine *string `json:"headerLine,omitzero"`
 	// Buffer size used to write to a file
-	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitempty"`
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
+	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitempty"`
-	Description                   *string  `json:"description,omitempty"`
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	Description                   *string  `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *components.CompressionOptions2 `json:"compress,omitempty"`
+	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitempty"`
+	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `json:"automaticSchema,omitempty"`
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitempty"`
+	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitzero"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitempty"`
+	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitempty"`
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `json:"parquetPageSize,omitempty"`
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
 	// Log up to 3 rows that @{product} skips due to data mismatch
-	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `json:"enableStatistics,omitempty"`
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitempty"`
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool `json:"enablePageChecksum,omitempty"`
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 }
 
 func (o OutputS3) MarshalJSON() ([]byte, error) {
@@ -9139,85 +9139,85 @@ type OutputFilesystem struct {
 	ID   string         `json:"id"`
 	Type TypeFilesystem `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Final destination for the output files
 	DestPath string `json:"destPath"`
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
-	StagePath *string `json:"stagePath,omitempty"`
+	StagePath *string `json:"stagePath,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
-	PartitionExpr *string `json:"partitionExpr,omitempty"`
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
 	// Format of the output data
-	Format *components.DataFormatOptions `json:"format,omitempty"`
+	Format *components.DataFormatOptions `json:"format,omitzero"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `json:"baseFileName,omitempty"`
+	BaseFileName *string `json:"baseFileName,omitzero"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `json:"fileNameSuffix,omitempty"`
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
-	HeaderLine *string `json:"headerLine,omitempty"`
+	HeaderLine *string `json:"headerLine,omitzero"`
 	// Buffer size used to write to a file
-	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitempty"`
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
+	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
-	Description          *string                       `json:"description,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	Description          *string                       `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *components.CompressionOptions2 `json:"compress,omitempty"`
+	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitempty"`
+	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `json:"automaticSchema,omitempty"`
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitempty"`
+	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitzero"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitempty"`
+	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitempty"`
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `json:"parquetPageSize,omitempty"`
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
 	// Log up to 3 rows that @{product} skips due to data mismatch
-	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `json:"enableStatistics,omitempty"`
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitempty"`
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool `json:"enablePageChecksum,omitempty"`
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 }
 
 func (o OutputFilesystem) MarshalJSON() ([]byte, error) {
@@ -9574,74 +9574,74 @@ type OutputSignalfx struct {
 	ID   string       `json:"id"`
 	Type TypeSignalfx `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// SignalFx realm name, e.g. "us0". For a complete list of available SignalFx realm names, please check [here](https://docs.splunk.com/observability/en/get-started/service-description.html#sd-regions).
 	Realm string `json:"realm"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
 	// SignalFx API access token (see [here](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens))
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsSignalfx                  `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsSignalfx                  `json:"pqControls,omitzero"`
 }
 
 func (o OutputSignalfx) MarshalJSON() ([]byte, error) {
@@ -9956,74 +9956,74 @@ type OutputWavefront struct {
 	ID   string        `json:"id"`
 	Type TypeWavefront `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// WaveFront domain name, e.g. "longboard"
 	Domain string `json:"domain"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
 	// WaveFront API authentication token (see [here](https://docs.wavefront.com/wavefront_api.html#generating-an-api-token))
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsWavefront                 `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsWavefront                 `json:"pqControls,omitzero"`
 }
 
 func (o OutputWavefront) MarshalJSON() ([]byte, error) {
@@ -10338,74 +10338,74 @@ type OutputTcpjson struct {
 	ID   string                  `json:"id"`
 	Type CreateOutputTypeTcpjson `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Use load-balanced destinations
-	LoadBalanced *bool `json:"loadBalanced,omitempty"`
+	LoadBalanced *bool `json:"loadBalanced,omitzero"`
 	// Codec to use to compress the data before sending
-	Compression *components.CompressionOptions1 `json:"compression,omitempty"`
+	Compression *components.CompressionOptions1 `json:"compression,omitzero"`
 	// Use to troubleshoot issues with sending data
-	LogFailedRequests *bool `json:"logFailedRequests,omitempty"`
+	LogFailedRequests *bool `json:"logFailedRequests,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string                                                  `json:"throttleRatePerSec,omitempty"`
-	TLS                *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	ThrottleRatePerSec *string                                                  `json:"throttleRatePerSec,omitzero"`
+	TLS                *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64 `json:"writeTimeout,omitempty"`
+	WriteTimeout *float64 `json:"writeTimeout,omitzero"`
 	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
-	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitempty"`
+	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Upon connection, send a header-like record containing the auth token and other metadata.This record will not contain an actual event – only subsequent records will.
-	SendHeader *bool `json:"sendHeader,omitempty"`
+	SendHeader *bool `json:"sendHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                                `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                                `json:"description,omitzero"`
 	// The hostname of the receiver
-	Host *string `json:"host,omitempty"`
+	Host *string `json:"host,omitzero"`
 	// The port to connect to on the provided host
-	Port *float64 `json:"port,omitempty"`
+	Port *float64 `json:"port,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool `json:"excludeSelf,omitempty"`
+	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of hosts to load-balance data to
-	Hosts []components.ItemsTypeHosts `json:"hosts,omitempty"`
+	Hosts []components.ItemsTypeHosts `json:"hosts,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
 	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
-	MaxConcurrentSenders *float64 `json:"maxConcurrentSenders,omitempty"`
+	MaxConcurrentSenders *float64 `json:"maxConcurrentSenders,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsTcpjson                   `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsTcpjson                   `json:"pqControls,omitzero"`
 	// Optional authentication token to include as part of the connection header
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (o OutputTcpjson) MarshalJSON() ([]byte, error) {
@@ -10727,51 +10727,51 @@ type OutputWizHec struct {
 	ID   string     `json:"id"`
 	Type TypeWizHec `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags   []string `json:"streamtags,omitempty"`
-	LoadBalanced any      `json:"loadBalanced,omitempty"`
+	Streamtags   []string `json:"streamtags,omitzero"`
+	LoadBalanced any      `json:"loadBalanced,omitzero"`
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-	NextQueue *string `json:"nextQueue,omitempty"`
+	NextQueue *string `json:"nextQueue,omitzero"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-	TCPRouting *string                                `json:"tcpRouting,omitempty"`
-	TLS        *components.TLSSettingsClientSideType1 `json:"tls,omitempty"`
+	TCPRouting *string                                `json:"tcpRouting,omitzero"`
+	TLS        *components.TLSSettingsClientSideType1 `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders        []string `json:"safeHeaders,omitempty"`
-	EnableMultiMetrics any      `json:"enableMultiMetrics,omitempty"`
+	SafeHeaders        []string `json:"safeHeaders,omitzero"`
+	EnableMultiMetrics any      `json:"enableMultiMetrics,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
 	WizConnectorID string `json:"wiz_connector_id"`
 	// Your Wiz deployment environment.
@@ -10779,32 +10779,32 @@ type OutputWizHec struct {
 	// Your Wiz deployment data center (e.g., us1, us8, eu1). From Tenant Info → Data Center and Regions → Tenant Data Center in your Wiz console.
 	DataCenter    string  `json:"data_center"`
 	WizSourcetype string  `json:"wiz_sourcetype"`
-	Description   *string `json:"description,omitempty"`
+	Description   *string `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsWizHec                    `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsWizHec                    `json:"pqControls,omitzero"`
 	// Wiz Defend Auth token
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (o OutputWizHec) MarshalJSON() ([]byte, error) {
@@ -11153,7 +11153,7 @@ type URLSplunkHec struct {
 	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `json:"weight,omitempty"`
+	Weight *float64 `json:"weight,omitzero"`
 }
 
 func (u URLSplunkHec) MarshalJSON() ([]byte, error) {
@@ -11200,90 +11200,90 @@ type OutputSplunkHec struct {
 	ID   string                    `json:"id"`
 	Type CreateOutputTypeSplunkHec `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool `json:"loadBalanced,omitempty"`
+	LoadBalanced *bool `json:"loadBalanced,omitzero"`
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-	NextQueue *string `json:"nextQueue,omitempty"`
+	NextQueue *string `json:"nextQueue,omitzero"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-	TCPRouting *string                                `json:"tcpRouting,omitempty"`
-	TLS        *components.TLSSettingsClientSideType1 `json:"tls,omitempty"`
+	TCPRouting *string                                `json:"tcpRouting,omitzero"`
+	TLS        *components.TLSSettingsClientSideType1 `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
-	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitempty"`
+	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
 	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
-	URL *string `json:"url,omitempty"`
+	URL *string `json:"url,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool          `json:"excludeSelf,omitempty"`
-	Urls        []URLSplunkHec `json:"urls,omitempty"`
+	ExcludeSelf *bool          `json:"excludeSelf,omitzero"`
+	Urls        []URLSplunkHec `json:"urls,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
 	// Splunk HEC authentication token
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsSplunkHec                 `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsSplunkHec                 `json:"pqControls,omitzero"`
 }
 
 func (o OutputSplunkHec) MarshalJSON() ([]byte, error) {
@@ -11644,11 +11644,11 @@ func (e *TypeSplunkLb) UnmarshalJSON(data []byte) error {
 
 type CreateOutputAuthToken struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (c CreateOutputAuthToken) MarshalJSON() ([]byte, error) {
@@ -11692,15 +11692,15 @@ type IndexerDiscoveryConfigs struct {
 	// Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
 	RefreshIntervalSec float64 `json:"refreshIntervalSec"`
 	// During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Tokens required to authenticate to cluster manager for indexer discovery
-	AuthTokens []CreateOutputAuthToken `json:"authTokens,omitempty"`
+	AuthTokens []CreateOutputAuthToken `json:"authTokens,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (i IndexerDiscoveryConfigs) MarshalJSON() ([]byte, error) {
@@ -11789,80 +11789,80 @@ type OutputSplunkLb struct {
 	ID   string       `json:"id"`
 	Type TypeSplunkLb `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
 	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
-	MaxConcurrentSenders *float64 `json:"maxConcurrentSenders,omitempty"`
+	MaxConcurrentSenders *float64 `json:"maxConcurrentSenders,omitzero"`
 	// How to serialize nested fields into index-time fields
-	NestedFields *components.NestedFieldSerializationOptions `json:"nestedFields,omitempty"`
+	NestedFields *components.NestedFieldSerializationOptions `json:"nestedFields,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                                 `json:"writeTimeout,omitempty"`
-	TLS          *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	WriteTimeout *float64                                                 `json:"writeTimeout,omitzero"`
+	TLS          *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
-	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitempty"`
+	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitzero"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
-	EnableACK *bool `json:"enableACK,omitempty"`
+	EnableACK *bool `json:"enableACK,omitzero"`
 	// Use to troubleshoot issues with sending data
-	LogFailedRequests *bool `json:"logFailedRequests,omitempty"`
+	LogFailedRequests *bool `json:"logFailedRequests,omitzero"`
 	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *components.MaxS2SVersionOptions `json:"maxS2Sversion,omitempty"`
+	MaxS2Sversion *components.MaxS2SVersionOptions `json:"maxS2Sversion,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Automatically discover indexers in indexer clustering environment.
-	IndexerDiscovery *bool `json:"indexerDiscovery,omitempty"`
+	IndexerDiscovery *bool `json:"indexerDiscovery,omitzero"`
 	// How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
-	SenderUnhealthyTimeAllowance *float64 `json:"senderUnhealthyTimeAllowance,omitempty"`
+	SenderUnhealthyTimeAllowance *float64 `json:"senderUnhealthyTimeAllowance,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                                `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                                `json:"description,omitzero"`
 	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
-	MaxFailedHealthChecks *float64 `json:"maxFailedHealthChecks,omitempty"`
+	MaxFailedHealthChecks *float64 `json:"maxFailedHealthChecks,omitzero"`
 	// Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
-	Compress *components.CompressionOptions `json:"compress,omitempty"`
+	Compress *components.CompressionOptions `json:"compress,omitzero"`
 	// List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
-	IndexerDiscoveryConfigs *IndexerDiscoveryConfigs `json:"indexerDiscoveryConfigs,omitempty"`
+	IndexerDiscoveryConfigs *IndexerDiscoveryConfigs `json:"indexerDiscoveryConfigs,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool `json:"excludeSelf,omitempty"`
+	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of Splunk indexers to load-balance data to.
 	Hosts []components.ItemsTypeHosts `json:"hosts"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsSplunkLb                  `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsSplunkLb                  `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (o OutputSplunkLb) MarshalJSON() ([]byte, error) {
@@ -12205,68 +12205,68 @@ type OutputSplunk struct {
 	ID   string                 `json:"id"`
 	Type CreateOutputTypeSplunk `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The hostname of the receiver
 	Host string `json:"host"`
 	// The port to connect to on the provided host
 	Port float64 `json:"port"`
 	// How to serialize nested fields into index-time fields
-	NestedFields *components.NestedFieldSerializationOptions `json:"nestedFields,omitempty"`
+	NestedFields *components.NestedFieldSerializationOptions `json:"nestedFields,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                                 `json:"writeTimeout,omitempty"`
-	TLS          *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	WriteTimeout *float64                                                 `json:"writeTimeout,omitzero"`
+	TLS          *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
-	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitempty"`
+	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitzero"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
-	EnableACK *bool `json:"enableACK,omitempty"`
+	EnableACK *bool `json:"enableACK,omitzero"`
 	// Use to troubleshoot issues with sending data
-	LogFailedRequests *bool `json:"logFailedRequests,omitempty"`
+	LogFailedRequests *bool `json:"logFailedRequests,omitzero"`
 	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *components.MaxS2SVersionOptions `json:"maxS2Sversion,omitempty"`
+	MaxS2Sversion *components.MaxS2SVersionOptions `json:"maxS2Sversion,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                                `json:"description,omitempty"`
+	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                                `json:"description,omitzero"`
 	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
-	MaxFailedHealthChecks *float64 `json:"maxFailedHealthChecks,omitempty"`
+	MaxFailedHealthChecks *float64 `json:"maxFailedHealthChecks,omitzero"`
 	// Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
-	Compress *components.CompressionOptions `json:"compress,omitempty"`
+	Compress *components.CompressionOptions `json:"compress,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsSplunk                    `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsSplunk                    `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (o OutputSplunk) MarshalJSON() ([]byte, error) {
@@ -12722,82 +12722,82 @@ type OutputSyslog struct {
 	ID   string                 `json:"id"`
 	Type CreateOutputTypeSyslog `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The network protocol to use for sending out syslog messages
-	Protocol *ProtocolSyslog `json:"protocol,omitempty"`
+	Protocol *ProtocolSyslog `json:"protocol,omitzero"`
 	// Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
-	Facility *Facility `json:"facility,omitempty"`
+	Facility *Facility `json:"facility,omitzero"`
 	// Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
-	Severity *SeveritySyslog `json:"severity,omitempty"`
+	Severity *SeveritySyslog `json:"severity,omitzero"`
 	// Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
-	AppName *string `json:"appName,omitempty"`
+	AppName *string `json:"appName,omitzero"`
 	// The syslog message format depending on the receiver's support
-	MessageFormat *MessageFormat `json:"messageFormat,omitempty"`
+	MessageFormat *MessageFormat `json:"messageFormat,omitzero"`
 	// Timestamp format to use when serializing event's time field
-	TimestampFormat *TimestampFormat `json:"timestampFormat,omitempty"`
+	TimestampFormat *TimestampFormat `json:"timestampFormat,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.
-	OctetCountFraming *bool `json:"octetCountFraming,omitempty"`
+	OctetCountFraming *bool `json:"octetCountFraming,omitzero"`
 	// Use to troubleshoot issues with sending data
-	LogFailedRequests *bool   `json:"logFailedRequests,omitempty"`
-	Description       *string `json:"description,omitempty"`
+	LogFailedRequests *bool   `json:"logFailedRequests,omitzero"`
+	Description       *string `json:"description,omitzero"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool `json:"loadBalanced,omitempty"`
+	LoadBalanced *bool `json:"loadBalanced,omitzero"`
 	// The hostname of the receiver
-	Host *string `json:"host,omitempty"`
+	Host *string `json:"host,omitzero"`
 	// The port to connect to on the provided host
-	Port *float64 `json:"port,omitempty"`
+	Port *float64 `json:"port,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool `json:"excludeSelf,omitempty"`
+	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of hosts to load-balance data to
-	Hosts []components.ItemsTypeHosts `json:"hosts,omitempty"`
+	Hosts []components.ItemsTypeHosts `json:"hosts,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
 	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
-	MaxConcurrentSenders *float64 `json:"maxConcurrentSenders,omitempty"`
+	MaxConcurrentSenders *float64 `json:"maxConcurrentSenders,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                                 `json:"writeTimeout,omitempty"`
-	TLS          *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	WriteTimeout *float64                                                 `json:"writeTimeout,omitzero"`
+	TLS          *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
-	MaxRecordSize *float64 `json:"maxRecordSize,omitempty"`
+	MaxRecordSize *float64 `json:"maxRecordSize,omitzero"`
 	// How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every message sent will incur a DNS lookup.
-	UDPDNSResolvePeriodSec *float64 `json:"udpDnsResolvePeriodSec,omitempty"`
+	UDPDNSResolvePeriodSec *float64 `json:"udpDnsResolvePeriodSec,omitzero"`
 	// Send Syslog traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
-	EnableIPSpoofing *bool `json:"enableIpSpoofing,omitempty"`
+	EnableIPSpoofing *bool `json:"enableIpSpoofing,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsSyslog                    `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsSyslog                    `json:"pqControls,omitzero"`
 }
 
 func (o OutputSyslog) MarshalJSON() ([]byte, error) {
@@ -13133,13 +13133,13 @@ type OutputDevnull struct {
 	ID   string      `json:"id"`
 	Type TypeDevnull `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 }
 
 func (o OutputDevnull) MarshalJSON() ([]byte, error) {
@@ -13307,47 +13307,47 @@ type OutputSentinel struct {
 	ID   string       `json:"id"`
 	Type TypeSentinel `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Disable to close the connection immediately after sending the outgoing request
-	KeepAlive *bool `json:"keepAlive,omitempty"`
+	KeepAlive *bool `json:"keepAlive,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	AuthType       *AuthType                               `json:"authType,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	AuthType       *AuthType                               `json:"authType,omitzero"`
 	// URL for OAuth
 	LoginURL string `json:"loginUrl"`
 	// Secret parameter value to pass in request body
@@ -13355,58 +13355,58 @@ type OutputSentinel struct {
 	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
 	ClientID string `json:"client_id"`
 	// Scope to pass in the OAuth request
-	Scope *string `json:"scope,omitempty"`
+	Scope *string `json:"scope,omitzero"`
 	// Enter the data collection endpoint URL or the individual ID
 	EndpointURLConfiguration EndpointConfiguration `json:"endpointURLConfiguration"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64        `json:"totalMemoryLimitKB,omitempty"`
-	Description        *string         `json:"description,omitempty"`
-	Format             *FormatSentinel `json:"format,omitempty"`
+	TotalMemoryLimitKB *float64        `json:"totalMemoryLimitKB,omitzero"`
+	Description        *string         `json:"description,omitzero"`
+	Format             *FormatSentinel `json:"format,omitzero"`
 	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
-	CustomSourceExpression *string `json:"customSourceExpression,omitempty"`
+	CustomSourceExpression *string `json:"customSourceExpression,omitzero"`
 	// Whether to drop events when the source expression evaluates to null
-	CustomDropWhenNull *bool `json:"customDropWhenNull,omitempty"`
+	CustomDropWhenNull *bool `json:"customDropWhenNull,omitzero"`
 	// Delimiter string to insert between individual events. Defaults to newline character.
-	CustomEventDelimiter *string `json:"customEventDelimiter,omitempty"`
+	CustomEventDelimiter *string `json:"customEventDelimiter,omitzero"`
 	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
-	CustomContentType *string `json:"customContentType,omitempty"`
+	CustomContentType *string `json:"customContentType,omitzero"`
 	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
-	CustomPayloadExpression *string `json:"customPayloadExpression,omitempty"`
+	CustomPayloadExpression *string `json:"customPayloadExpression,omitzero"`
 	// HTTP content-type header value
-	AdvancedContentType *string `json:"advancedContentType,omitempty"`
+	AdvancedContentType *string `json:"advancedContentType,omitzero"`
 	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	FormatEventCode *string `json:"formatEventCode,omitzero"`
 	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	FormatPayloadCode *string `json:"formatPayloadCode,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsSentinel                  `json:"pqControls,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsSentinel                  `json:"pqControls,omitzero"`
 	// URL to send events to. Can be overwritten by an event's __url field.
-	URL *string `json:"url,omitempty"`
+	URL *string `json:"url,omitzero"`
 	// Immutable ID for the Data Collection Rule (DCR)
-	DcrID *string `json:"dcrID,omitempty"`
+	DcrID *string `json:"dcrID,omitzero"`
 	// Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
-	DceEndpoint *string `json:"dceEndpoint,omitempty"`
+	DceEndpoint *string `json:"dceEndpoint,omitzero"`
 	// The name of the stream (Sentinel table) in which to store the events
-	StreamName *string `json:"streamName,omitempty"`
+	StreamName *string `json:"streamName,omitzero"`
 }
 
 func (o OutputSentinel) MarshalJSON() ([]byte, error) {
@@ -13901,7 +13901,7 @@ type URLWebhook struct {
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `json:"weight,omitempty"`
+	Weight *float64 `json:"weight,omitzero"`
 }
 
 func (u URLWebhook) MarshalJSON() ([]byte, error) {
@@ -13934,128 +13934,128 @@ type OutputWebhook struct {
 	ID   string      `json:"id"`
 	Type TypeWebhook `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The method to use when sending events
-	Method *components.MethodOptions `json:"method,omitempty"`
+	Method *components.MethodOptions `json:"method,omitzero"`
 	// How to format events before sending out
-	Format *FormatWebhook `json:"format,omitempty"`
+	Format *FormatWebhook `json:"format,omitzero"`
 	// Disable to close the connection immediately after sending the outgoing request
-	KeepAlive *bool `json:"keepAlive,omitempty"`
+	KeepAlive *bool `json:"keepAlive,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Authentication method to use for the HTTP request
-	AuthType *AuthenticationTypeWebhook             `json:"authType,omitempty"`
-	TLS      *components.TLSSettingsClientSideType1 `json:"tls,omitempty"`
+	AuthType *AuthenticationTypeWebhook             `json:"authType,omitzero"`
+	TLS      *components.TLSSettingsClientSideType1 `json:"tls,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool   `json:"loadBalanced,omitempty"`
-	Description  *string `json:"description,omitempty"`
+	LoadBalanced *bool   `json:"loadBalanced,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
-	CustomSourceExpression *string `json:"customSourceExpression,omitempty"`
+	CustomSourceExpression *string `json:"customSourceExpression,omitzero"`
 	// Whether to drop events when the source expression evaluates to null
-	CustomDropWhenNull *bool `json:"customDropWhenNull,omitempty"`
+	CustomDropWhenNull *bool `json:"customDropWhenNull,omitzero"`
 	// Delimiter string to insert between individual events. Defaults to newline character.
-	CustomEventDelimiter *string `json:"customEventDelimiter,omitempty"`
+	CustomEventDelimiter *string `json:"customEventDelimiter,omitzero"`
 	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
-	CustomContentType *string `json:"customContentType,omitempty"`
+	CustomContentType *string `json:"customContentType,omitzero"`
 	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
-	CustomPayloadExpression *string `json:"customPayloadExpression,omitempty"`
+	CustomPayloadExpression *string `json:"customPayloadExpression,omitzero"`
 	// HTTP content-type header value
-	AdvancedContentType *string `json:"advancedContentType,omitempty"`
+	AdvancedContentType *string `json:"advancedContentType,omitzero"`
 	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	FormatEventCode *string `json:"formatEventCode,omitzero"`
 	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	FormatPayloadCode *string `json:"formatPayloadCode,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitempty"`
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *PqControlsWebhook                   `json:"pqControls,omitempty"`
-	Username         *string                              `json:"username,omitempty"`
-	Password         *string                              `json:"password,omitempty"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *PqControlsWebhook                   `json:"pqControls,omitzero"`
+	Username         *string                              `json:"username,omitzero"`
+	Password         *string                              `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
+	LoginURL *string `json:"loginUrl,omitzero"`
 	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
+	SecretParamName *string `json:"secretParamName,omitzero"`
 	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
-	URL *string `json:"url,omitempty"`
+	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool        `json:"excludeSelf,omitempty"`
-	Urls        []URLWebhook `json:"urls,omitempty"`
+	ExcludeSelf *bool        `json:"excludeSelf,omitzero"`
+	Urls        []URLWebhook `json:"urls,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
 }
 
 func (o OutputWebhook) MarshalJSON() ([]byte, error) {
@@ -14559,13 +14559,13 @@ type OutputDefault struct {
 	ID   string      `json:"id"`
 	Type TypeDefault `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
 	DefaultID string `json:"defaultId"`
 }
@@ -16553,6 +16553,17 @@ type CreateOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects
 	CountedOutput *components.CountedOutput
+}
+
+func (c CreateOutputResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CreateOutputResponse) GetHTTPMeta() components.HTTPMetadata {

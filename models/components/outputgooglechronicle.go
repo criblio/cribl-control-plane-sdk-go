@@ -109,7 +109,7 @@ func (e *SendEventsAs) IsExact() bool {
 
 type ExtraLogType struct {
 	LogType     string  `json:"logType"`
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (e ExtraLogType) MarshalJSON() ([]byte, error) {
@@ -176,98 +176,98 @@ func (o *OutputGoogleChroniclePqControls) UnmarshalJSON(data []byte) error {
 
 type OutputGoogleChronicle struct {
 	// Unique ID for this output
-	ID   *string                   `json:"id,omitempty"`
+	ID   *string                   `json:"id,omitzero"`
 	Type OutputGoogleChronicleType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags           []string                                   `json:"streamtags,omitempty"`
-	APIVersion           *OutputGoogleChronicleAPIVersion           `json:"apiVersion,omitempty"`
-	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod `json:"authenticationMethod,omitempty"`
+	Streamtags           []string                                   `json:"streamtags,omitzero"`
+	APIVersion           *OutputGoogleChronicleAPIVersion           `json:"apiVersion,omitzero"`
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod `json:"authenticationMethod,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool        `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool        `json:"responseHonorRetryAfterHeader,omitzero"`
 	LogFormatType                 SendEventsAs `json:"logFormatType"`
 	// Regional endpoint to send events to
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
-	Description        *string  `json:"description,omitempty"`
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
+	Description        *string  `json:"description,omitzero"`
 	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
-	ExtraLogTypes []ExtraLogType `json:"extraLogTypes,omitempty"`
+	ExtraLogTypes []ExtraLogType `json:"extraLogTypes,omitzero"`
 	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
-	LogType *string `json:"logType,omitempty"`
+	LogType *string `json:"logType,omitzero"`
 	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
-	LogTextField *string `json:"logTextField,omitempty"`
+	LogTextField *string `json:"logTextField,omitzero"`
 	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
-	CustomerID *string `json:"customerId,omitempty"`
+	CustomerID *string `json:"customerId,omitzero"`
 	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
-	Namespace *string `json:"namespace,omitempty"`
+	Namespace *string `json:"namespace,omitzero"`
 	// Custom labels to be added to every batch
-	CustomLabels []ItemsTypeKeyValueMetadata `json:"customLabels,omitempty"`
+	CustomLabels []ItemsTypeKeyValueMetadata `json:"customLabels,omitzero"`
 	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
-	UdmType *UDMType `json:"udmType,omitempty"`
+	UdmType *UDMType `json:"udmType,omitzero"`
 	// Organization's API key in Google SecOps
-	APIKey *string `json:"apiKey,omitempty"`
+	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
-	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	APIKeySecret *string `json:"apiKeySecret,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
-	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputGoogleChroniclePqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputGoogleChroniclePqControls `json:"pqControls,omitzero"`
 }
 
 func (o OutputGoogleChronicle) MarshalJSON() ([]byte, error) {

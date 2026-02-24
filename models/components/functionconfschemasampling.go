@@ -40,7 +40,7 @@ func (f *FunctionConfSchemaSamplingRule) GetRate() int64 {
 
 type FunctionConfSchemaSampling struct {
 	// Events matching these rules will be sampled at the given rate
-	Rules []FunctionConfSchemaSamplingRule `json:"rules,omitempty"`
+	Rules []FunctionConfSchemaSamplingRule `json:"rules,omitzero"`
 }
 
 func (f FunctionConfSchemaSampling) MarshalJSON() ([]byte, error) {

@@ -36,11 +36,11 @@ type PipelineFunctionXMLUnrollConf struct {
 	// Path to array to unroll. Example: ^root\.child\.ElementToUnroll$
 	Unroll string `json:"unroll"`
 	// Regex matching elements to copy into each unrolled event. Example: ^root\.(childA|childB|childC)$
-	Inherit *string `json:"inherit,omitempty"`
+	Inherit *string `json:"inherit,omitzero"`
 	// Add a field with this name, containing the index at which the item was located, starting from 0
-	UnrollIdxField *string `json:"unrollIdxField,omitempty"`
+	UnrollIdxField *string `json:"unrollIdxField,omitzero"`
 	// Pretty print the output XML
-	Pretty *bool `json:"pretty,omitempty"`
+	Pretty *bool `json:"pretty,omitzero"`
 }
 
 func (p PipelineFunctionXMLUnrollConf) MarshalJSON() ([]byte, error) {
@@ -84,18 +84,18 @@ func (p *PipelineFunctionXMLUnrollConf) GetPretty() *bool {
 
 type PipelineFunctionXMLUnroll struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionXMLUnrollID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                         `json:"final,omitempty"`
+	Final *bool                         `json:"final,omitzero"`
 	Conf  PipelineFunctionXMLUnrollConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionXMLUnroll) MarshalJSON() ([]byte, error) {

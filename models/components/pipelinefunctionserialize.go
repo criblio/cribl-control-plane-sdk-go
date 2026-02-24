@@ -68,16 +68,16 @@ func (e *PipelineFunctionSerializeType) IsExact() bool {
 type PipelineFunctionSerializeConf struct {
 	// Data output format
 	Type       PipelineFunctionSerializeType `json:"type"`
-	DelimChar  any                           `json:"delimChar,omitempty"`
-	QuoteChar  any                           `json:"quoteChar,omitempty"`
-	EscapeChar any                           `json:"escapeChar,omitempty"`
-	NullValue  any                           `json:"nullValue,omitempty"`
+	DelimChar  any                           `json:"delimChar,omitzero"`
+	QuoteChar  any                           `json:"quoteChar,omitzero"`
+	EscapeChar any                           `json:"escapeChar,omitzero"`
+	NullValue  any                           `json:"nullValue,omitzero"`
 	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 	// Field containing object to serialize. Leave blank to serialize top-level event fields.
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Field to serialize data to
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (p PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
@@ -149,18 +149,18 @@ func (p *PipelineFunctionSerializeConf) GetDstField() *string {
 
 type PipelineFunctionSerialize struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionSerializeID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                         `json:"final,omitempty"`
+	Final *bool                         `json:"final,omitzero"`
 	Conf  PipelineFunctionSerializeConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionSerialize) MarshalJSON() ([]byte, error) {

@@ -42,7 +42,7 @@ type FunctionConfSchemaPublishMetricsField struct {
 	// The name of the field in the event that contains the metric value
 	InFieldName string `json:"inFieldName"`
 	// JavaScript expression to evaluate the metric field name. Defaults to Event Field Name.
-	OutFieldExpr *string                                    `json:"outFieldExpr,omitempty"`
+	OutFieldExpr *string                                    `json:"outFieldExpr,omitzero"`
 	MetricType   FunctionConfSchemaPublishMetricsMetricType `json:"metricType"`
 }
 
@@ -80,15 +80,15 @@ func (f *FunctionConfSchemaPublishMetricsField) GetMetricType() FunctionConfSche
 
 type FunctionConfSchemaPublishMetrics struct {
 	// List of metrics from event to extract and format. Formatted metrics can be used by a destination to pass metrics to a metrics aggregation platform.
-	Fields []FunctionConfSchemaPublishMetricsField `json:"fields,omitempty"`
+	Fields []FunctionConfSchemaPublishMetricsField `json:"fields,omitzero"`
 	// Overwrite previous metric specs. Leave disabled to append.
-	Overwrite *bool `json:"overwrite,omitempty"`
+	Overwrite *bool `json:"overwrite,omitzero"`
 	// Optional list of dimensions to include in events. Wildcards supported. If you don't specify metrics, values will be appended to every metric found in the event. When you add a new metric, dimensions will be present only in those new metrics.
-	Dimensions []string `json:"dimensions,omitempty"`
+	Dimensions []string `json:"dimensions,omitzero"`
 	// Optional list of metric field names to look for when removing metrics. When a metric's field name matches an element in this list, the metric will be removed from the event.
-	RemoveMetrics []string `json:"removeMetrics,omitempty"`
+	RemoveMetrics []string `json:"removeMetrics,omitzero"`
 	// Optional list of dimensions to remove from every metric found in the event. Wildcards supported.
-	RemoveDimensions []string `json:"removeDimensions,omitempty"`
+	RemoveDimensions []string `json:"removeDimensions,omitzero"`
 }
 
 func (f FunctionConfSchemaPublishMetrics) MarshalJSON() ([]byte, error) {

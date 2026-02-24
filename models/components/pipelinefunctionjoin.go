@@ -66,15 +66,15 @@ func (f *FieldCondition) GetRightFieldName() string {
 
 type JoinConfiguration struct {
 	// Join kind, e.g. inner
-	Kind *string `json:"kind,omitempty"`
+	Kind *string `json:"kind,omitzero"`
 	// Hints passed to the join function
-	Hints map[string]string `json:"hints,omitempty"`
+	Hints map[string]string `json:"hints,omitzero"`
 	// Fields to use when joining
 	FieldConditions []FieldCondition `json:"fieldConditions"`
 	// The id for this search job.
-	SearchJobID *string `json:"searchJobId,omitempty"`
+	SearchJobID *string `json:"searchJobId,omitzero"`
 	// The stage we are joining with.
-	StageID *string `json:"stageId,omitempty"`
+	StageID *string `json:"stageId,omitzero"`
 }
 
 func (j JoinConfiguration) MarshalJSON() ([]byte, error) {
@@ -125,18 +125,18 @@ func (j *JoinConfiguration) GetStageID() *string {
 
 type PipelineFunctionJoin struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionJoinID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool             `json:"final,omitempty"`
+	Final *bool             `json:"final,omitzero"`
 	Conf  JoinConfiguration `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionJoin) MarshalJSON() ([]byte, error) {

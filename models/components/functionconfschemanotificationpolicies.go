@@ -194,17 +194,17 @@ type Policy struct {
 	// Unique identifier for this policy
 	ID string `json:"id"`
 	// If true, this policy will be skipped during evaluation
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// Time to wait (in minutes) to group similar alerts before sending
-	WaitToGroup *float64 `json:"waitToGroup,omitempty"`
+	WaitToGroup *float64 `json:"waitToGroup,omitzero"`
 	// Event fields to use for grouping
-	GroupByLabels []string `json:"groupByLabels,omitempty"`
+	GroupByLabels []string `json:"groupByLabels,omitzero"`
 	// List of conditions. If ANY condition matches (OR), the policy applies. Each condition is a list of tags that must ALL match (AND).
-	Conditions [][]Condition `json:"conditions,omitempty"`
+	Conditions [][]Condition `json:"conditions,omitzero"`
 	// List of targets to route to and the templates to use
 	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs"`
 	// If true, stop evaluating further policies after this one matches
-	Final *bool `json:"final,omitempty"`
+	Final *bool `json:"final,omitzero"`
 	// Evaluation order of this policy (lower numbers evaluated first)
 	Order float64 `json:"order"`
 }
@@ -278,7 +278,7 @@ func (p *Policy) GetOrder() float64 {
 
 type FunctionConfSchemaNotificationPolicies struct {
 	// List of notification routing policies evaluated in order
-	Policies []Policy `json:"policies,omitempty"`
+	Policies []Policy `json:"policies,omitzero"`
 }
 
 func (f FunctionConfSchemaNotificationPolicies) MarshalJSON() ([]byte, error) {

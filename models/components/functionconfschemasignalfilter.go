@@ -8,7 +8,7 @@ import (
 
 type FunctionConfSchemaSignalFilter struct {
 	// List of signal event types to filter
-	Signals []string `json:"signals,omitempty"`
+	Signals []string `json:"signals,omitzero"`
 }
 
 func (f FunctionConfSchemaSignalFilter) MarshalJSON() ([]byte, error) {

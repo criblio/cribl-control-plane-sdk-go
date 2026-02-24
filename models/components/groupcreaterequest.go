@@ -2,30 +2,45 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type GroupCreateRequest struct {
-	Cloud                *ConfigGroupCloud `json:"cloud,omitempty"`
-	DeployingWorkerCount *float64          `json:"deployingWorkerCount,omitempty"`
-	Description          *string           `json:"description,omitempty"`
+	Cloud                *ConfigGroupCloud `json:"cloud,omitzero"`
+	DeployingWorkerCount *float64          `json:"deployingWorkerCount,omitzero"`
+	Description          *string           `json:"description,omitzero"`
 	// Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
-	EstimatedIngestRate     *EstimatedIngestRateOptionsConfigGroup `json:"estimatedIngestRate,omitempty"`
-	Git                     *GitTypeConfigGroup                    `json:"git,omitempty"`
+	EstimatedIngestRate     *EstimatedIngestRateOptionsConfigGroup `json:"estimatedIngestRate,omitzero"`
+	Git                     *GitTypeConfigGroup                    `json:"git,omitzero"`
 	ID                      string                                 `json:"id"`
-	IncompatibleWorkerCount *float64                               `json:"incompatibleWorkerCount,omitempty"`
-	Inherits                *string                                `json:"inherits,omitempty"`
-	IsFleet                 *bool                                  `json:"isFleet,omitempty"`
-	IsSearch                *bool                                  `json:"isSearch,omitempty"`
-	LookupDeployments       []ConfigGroupLookups                   `json:"lookupDeployments,omitempty"`
-	MaxWorkerAge            *string                                `json:"maxWorkerAge,omitempty"`
-	Name                    *string                                `json:"name,omitempty"`
-	OnPrem                  *bool                                  `json:"onPrem,omitempty"`
-	Provisioned             *bool                                  `json:"provisioned,omitempty"`
-	SourceGroupID           *string                                `json:"sourceGroupId,omitempty"`
-	Streamtags              []string                               `json:"streamtags,omitempty"`
-	Tags                    *string                                `json:"tags,omitempty"`
-	Type                    *TypeOptionsConfigGroup                `json:"type,omitempty"`
-	UpgradeVersion          *string                                `json:"upgradeVersion,omitempty"`
-	WorkerCount             *float64                               `json:"workerCount,omitempty"`
-	WorkerRemoteAccess      *bool                                  `json:"workerRemoteAccess,omitempty"`
+	IncompatibleWorkerCount *float64                               `json:"incompatibleWorkerCount,omitzero"`
+	Inherits                *string                                `json:"inherits,omitzero"`
+	IsFleet                 *bool                                  `json:"isFleet,omitzero"`
+	IsSearch                *bool                                  `json:"isSearch,omitzero"`
+	LookupDeployments       []ConfigGroupLookups                   `json:"lookupDeployments,omitzero"`
+	MaxWorkerAge            *string                                `json:"maxWorkerAge,omitzero"`
+	Name                    *string                                `json:"name,omitzero"`
+	OnPrem                  *bool                                  `json:"onPrem,omitzero"`
+	Provisioned             *bool                                  `json:"provisioned,omitzero"`
+	SourceGroupID           *string                                `json:"sourceGroupId,omitzero"`
+	Streamtags              []string                               `json:"streamtags,omitzero"`
+	Tags                    *string                                `json:"tags,omitzero"`
+	Type                    *TypeOptionsConfigGroup                `json:"type,omitzero"`
+	UpgradeVersion          *string                                `json:"upgradeVersion,omitzero"`
+	WorkerCount             *float64                               `json:"workerCount,omitzero"`
+	WorkerRemoteAccess      *bool                                  `json:"workerRemoteAccess,omitzero"`
+}
+
+func (g GroupCreateRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GroupCreateRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GroupCreateRequest) GetCloud() *ConfigGroupCloud {

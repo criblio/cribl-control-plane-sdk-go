@@ -7,10 +7,10 @@ import (
 )
 
 type FunctionConfSchemaSnmpTrapSerializeV3User struct {
-	Name         *string                              `json:"name,omitempty"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
-	AuthKey      any                                  `json:"authKey,omitempty"`
-	PrivProtocol *string                              `json:"privProtocol,omitempty"`
+	Name         *string                              `json:"name,omitzero"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
+	AuthKey      any                                  `json:"authKey,omitzero"`
+	PrivProtocol *string                              `json:"privProtocol,omitzero"`
 }
 
 func (f FunctionConfSchemaSnmpTrapSerializeV3User) MarshalJSON() ([]byte, error) {
@@ -54,10 +54,10 @@ func (f *FunctionConfSchemaSnmpTrapSerializeV3User) GetPrivProtocol() *string {
 
 type FunctionConfSchemaSnmpTrapSerialize struct {
 	// Prevent event serialization if any required fields are missing. When disabled, @{product} will attempt to serialize the event even if required fields are missing, which could cause unexpected behavior at the downstream receiver.
-	Strict *bool `json:"strict,omitempty"`
+	Strict *bool `json:"strict,omitzero"`
 	// When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
-	DropFailedEvents *bool                                      `json:"dropFailedEvents,omitempty"`
-	V3User           *FunctionConfSchemaSnmpTrapSerializeV3User `json:"v3User,omitempty"`
+	DropFailedEvents *bool                                      `json:"dropFailedEvents,omitzero"`
+	V3User           *FunctionConfSchemaSnmpTrapSerializeV3User `json:"v3User,omitzero"`
 }
 
 func (f FunctionConfSchemaSnmpTrapSerialize) MarshalJSON() ([]byte, error) {

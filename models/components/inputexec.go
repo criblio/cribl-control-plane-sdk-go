@@ -56,39 +56,39 @@ func (e *ScheduleType) IsExact() bool {
 
 type InputExec struct {
 	// Unique ID for this input
-	ID       *string       `json:"id,omitempty"`
+	ID       *string       `json:"id,omitzero"`
 	Type     InputExecType `json:"type"`
-	Disabled *bool         `json:"disabled,omitempty"`
+	Disabled *bool         `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Maximum number of retry attempts in the event that the command fails
-	Retries *float64 `json:"retries,omitempty"`
+	Retries *float64 `json:"retries,omitzero"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-	ScheduleType *ScheduleType `json:"scheduleType,omitempty"`
+	ScheduleType *ScheduleType `json:"scheduleType,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                         `json:"description,omitzero"`
 	// Interval between command executions in seconds.
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
-	CronSchedule *string `json:"cronSchedule,omitempty"`
+	CronSchedule *string `json:"cronSchedule,omitzero"`
 }
 
 func (i InputExec) MarshalJSON() ([]byte, error) {

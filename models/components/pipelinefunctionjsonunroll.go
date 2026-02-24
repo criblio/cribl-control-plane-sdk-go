@@ -36,7 +36,7 @@ type PipelineFunctionJSONUnrollConf struct {
 	// Path to array to unroll, such as foo.0.bar
 	Path string `json:"path"`
 	// Name of each exploded array element in each new event. Leave empty to expand the array element with its original name.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitzero"`
 }
 
 func (p PipelineFunctionJSONUnrollConf) MarshalJSON() ([]byte, error) {
@@ -66,18 +66,18 @@ func (p *PipelineFunctionJSONUnrollConf) GetName() *string {
 
 type PipelineFunctionJSONUnroll struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionJSONUnrollID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                          `json:"final,omitempty"`
+	Final *bool                          `json:"final,omitzero"`
 	Conf  PipelineFunctionJSONUnrollConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionJSONUnroll) MarshalJSON() ([]byte, error) {

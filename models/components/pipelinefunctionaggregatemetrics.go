@@ -93,7 +93,7 @@ func (a *Aggregation) GetAgg() string {
 }
 
 type PipelineFunctionAggregateMetricsAdd struct {
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`
 }
@@ -125,31 +125,31 @@ func (p *PipelineFunctionAggregateMetricsAdd) GetValue() string {
 
 type PipelineFunctionAggregateMetricsConf struct {
 	// Pass through the original events along with the aggregation events
-	Passthrough *bool `json:"passthrough,omitempty"`
+	Passthrough *bool `json:"passthrough,omitzero"`
 	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitzero"`
 	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitzero"`
 	// A prefix that is prepended to all of the fields output by this Aggregations Function
-	Prefix *string `json:"prefix,omitempty"`
+	Prefix *string `json:"prefix,omitzero"`
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
 	TimeWindow string `json:"timeWindow"`
 	// Combination of Aggregation function and output metric type
 	Aggregations []Aggregation `json:"aggregations"`
 	// Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-	Groupbys []string `json:"groupbys,omitempty"`
+	Groupbys []string `json:"groupbys,omitzero"`
 	// The maximum number of events to include in any given aggregation event
-	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
+	FlushEventLimit *float64 `json:"flushEventLimit,omitzero"`
 	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
+	FlushMemLimit *string `json:"flushMemLimit,omitzero"`
 	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `json:"cumulative,omitempty"`
+	Cumulative *bool `json:"cumulative,omitzero"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitzero"`
 	// Set of key-value pairs to evaluate and add/set
-	Add []PipelineFunctionAggregateMetricsAdd `json:"add,omitempty"`
+	Add []PipelineFunctionAggregateMetricsAdd `json:"add,omitzero"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitzero"`
 }
 
 func (p PipelineFunctionAggregateMetricsConf) MarshalJSON() ([]byte, error) {
@@ -256,18 +256,18 @@ func (p *PipelineFunctionAggregateMetricsConf) GetFlushOnInputClose() *bool {
 
 type PipelineFunctionAggregateMetrics struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionAggregateMetricsID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                                `json:"final,omitempty"`
+	Final *bool                                `json:"final,omitzero"`
 	Conf  PipelineFunctionAggregateMetricsConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionAggregateMetrics) MarshalJSON() ([]byte, error) {

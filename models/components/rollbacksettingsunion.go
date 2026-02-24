@@ -24,8 +24,8 @@ func (r *RollbackSettings2) UnmarshalJSON(data []byte) error {
 
 type RollbackSettings1 struct {
 	RollbackEnabled bool     `json:"rollbackEnabled"`
-	RollbackRetries *float64 `json:"rollbackRetries,omitempty"`
-	RollbackTimeout *float64 `json:"rollbackTimeout,omitempty"`
+	RollbackRetries *float64 `json:"rollbackRetries,omitzero"`
+	RollbackTimeout *float64 `json:"rollbackTimeout,omitzero"`
 }
 
 func (r RollbackSettings1) MarshalJSON() ([]byte, error) {
