@@ -1344,6 +1344,8 @@ type CreateInputInputExec struct {
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
+	// Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+	Script *string `json:"script,omitzero"`
 	// Maximum number of retry attempts in the event that the command fails
 	Retries *float64 `json:"retries,omitzero"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
@@ -1447,6 +1449,13 @@ func (c *CreateInputInputExec) GetCommand() string {
 		return ""
 	}
 	return c.Command
+}
+
+func (c *CreateInputInputExec) GetScript() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Script
 }
 
 func (c *CreateInputInputExec) GetRetries() *float64 {

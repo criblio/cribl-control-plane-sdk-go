@@ -1790,7 +1790,9 @@ type CreateOutputSystemByPackOutputChronicle struct {
 	GcpInstance string `json:"gcpInstance"`
 	// Custom labels to be added to every event
 	CustomLabels []CreateOutputSystemByPackCustomLabel `json:"customLabels,omitzero"`
-	Description  *string                               `json:"description,omitzero"`
+	// Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
+	Endpoint    *string `json:"endpoint,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
@@ -1818,6 +1820,8 @@ type CreateOutputSystemByPackOutputChronicle struct {
 	PqControls       *CreateOutputSystemByPackPqControlsChronicle `json:"pqControls,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputChronicle) MarshalJSON() ([]byte, error) {
@@ -2055,6 +2059,13 @@ func (c *CreateOutputSystemByPackOutputChronicle) GetCustomLabels() []CreateOutp
 	return c.CustomLabels
 }
 
+func (c *CreateOutputSystemByPackOutputChronicle) GetEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Endpoint
+}
+
 func (c *CreateOutputSystemByPackOutputChronicle) GetDescription() *string {
 	if c == nil {
 		return nil
@@ -2158,6 +2169,13 @@ func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 type CreateOutputSystemByPackTypeSentinelOneAiSiem string
