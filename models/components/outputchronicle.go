@@ -168,7 +168,9 @@ type OutputChronicle struct {
 	GcpInstance string `json:"gcpInstance"`
 	// Custom labels to be added to every event
 	CustomLabels []CustomLabel `json:"customLabels,omitzero"`
-	Description  *string       `json:"description,omitzero"`
+	// Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
+	Endpoint    *string `json:"endpoint,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
@@ -196,6 +198,8 @@ type OutputChronicle struct {
 	PqControls       *OutputChroniclePqControls `json:"pqControls,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
 func (o OutputChronicle) MarshalJSON() ([]byte, error) {
@@ -433,6 +437,13 @@ func (o *OutputChronicle) GetCustomLabels() []CustomLabel {
 	return o.CustomLabels
 }
 
+func (o *OutputChronicle) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
 func (o *OutputChronicle) GetDescription() *string {
 	if o == nil {
 		return nil
@@ -536,4 +547,11 @@ func (o *OutputChronicle) GetTemplateRegion() *string {
 		return nil
 	}
 	return o.TemplateRegion
+}
+
+func (o *OutputChronicle) GetTemplateEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateEndpoint
 }

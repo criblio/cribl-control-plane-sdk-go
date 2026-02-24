@@ -74,6 +74,8 @@ type InputExec struct {
 	Pq          *PqType                        `json:"pq,omitzero"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
+	// Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+	Script *string `json:"script,omitzero"`
 	// Maximum number of retry attempts in the event that the command fails
 	Retries *float64 `json:"retries,omitzero"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
@@ -177,6 +179,13 @@ func (i *InputExec) GetCommand() string {
 		return ""
 	}
 	return i.Command
+}
+
+func (i *InputExec) GetScript() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Script
 }
 
 func (i *InputExec) GetRetries() *float64 {

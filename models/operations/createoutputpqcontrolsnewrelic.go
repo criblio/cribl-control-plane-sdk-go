@@ -1790,7 +1790,9 @@ type CreateOutputOutputChronicle struct {
 	GcpInstance string `json:"gcpInstance"`
 	// Custom labels to be added to every event
 	CustomLabels []CreateOutputCustomLabel `json:"customLabels,omitzero"`
-	Description  *string                   `json:"description,omitzero"`
+	// Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
+	Endpoint    *string `json:"endpoint,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
@@ -1818,6 +1820,8 @@ type CreateOutputOutputChronicle struct {
 	PqControls       *CreateOutputPqControlsChronicle     `json:"pqControls,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
 func (c CreateOutputOutputChronicle) MarshalJSON() ([]byte, error) {
@@ -2055,6 +2059,13 @@ func (c *CreateOutputOutputChronicle) GetCustomLabels() []CreateOutputCustomLabe
 	return c.CustomLabels
 }
 
+func (c *CreateOutputOutputChronicle) GetEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Endpoint
+}
+
 func (c *CreateOutputOutputChronicle) GetDescription() *string {
 	if c == nil {
 		return nil
@@ -2158,6 +2169,13 @@ func (c *CreateOutputOutputChronicle) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateOutputOutputChronicle) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 type CreateOutputTypeSentinelOneAiSiem string
