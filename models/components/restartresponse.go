@@ -26,7 +26,7 @@ func (e *RestartResponseStatus) IsExact() bool {
 
 type RestartResponse struct {
 	ID      string                `json:"id"`
-	Message *string               `json:"message,omitempty"`
+	Message *string               `json:"message,omitzero"`
 	Status  RestartResponseStatus `json:"status"`
 }
 

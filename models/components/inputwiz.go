@@ -74,15 +74,15 @@ func (e *InputWizLogLevel) IsExact() bool {
 type InputWizContentConfig struct {
 	// The name of the Wiz query
 	ContentType        string  `json:"contentType"`
-	ContentDescription *string `json:"contentDescription,omitempty"`
-	Enabled            *bool   `json:"enabled,omitempty"`
+	ContentDescription *string `json:"contentDescription,omitzero"`
+	Enabled            *bool   `json:"enabled,omitzero"`
 	// Track collection progress between consecutive scheduled executions
-	StateTracking *bool `json:"stateTracking,omitempty"`
+	StateTracking *bool `json:"stateTracking,omitzero"`
 	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
-	StateUpdateExpression *string `json:"stateUpdateExpression,omitempty"`
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
-	StateMergeExpression *string      `json:"stateMergeExpression,omitempty"`
-	ManageState          *ManageState `json:"manageState,omitempty"`
+	StateMergeExpression *string      `json:"stateMergeExpression,omitzero"`
+	ManageState          *ManageState `json:"manageState,omitzero"`
 	// Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
 	ContentQuery string `json:"contentQuery"`
 	// A cron schedule on which to run this job
@@ -92,11 +92,11 @@ type InputWizContentConfig struct {
 	// Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
 	Latest string `json:"latest"`
 	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Units default to seconds if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitempty"`
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// Collector runtime log level
-	LogLevel *InputWizLogLevel `json:"logLevel,omitempty"`
+	LogLevel *InputWizLogLevel `json:"logLevel,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
-	MaxPages *float64 `json:"maxPages,omitempty"`
+	MaxPages *float64 `json:"maxPages,omitzero"`
 }
 
 func (i InputWizContentConfig) MarshalJSON() ([]byte, error) {
@@ -210,57 +210,57 @@ func (i *InputWizContentConfig) GetMaxPages() *float64 {
 
 type InputWiz struct {
 	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
+	ID       *string      `json:"id,omitzero"`
 	Type     InputWizType `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
+	Disabled *bool        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
 	Endpoint string `json:"endpoint"`
 	// The authentication URL to generate an OAuth token
 	AuthURL string `json:"authUrl"`
 	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
-	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitzero"`
 	// The client ID of the Wiz application
 	ClientID      string                  `json:"clientId"`
 	ContentConfig []InputWizContentConfig `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []ItemsTypeMetadata `json:"metadata,omitempty"`
-	RetryRules *RetryRulesType     `json:"retryRules,omitempty"`
+	Metadata   []ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType     `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitempty"`
-	Description *string                       `json:"description,omitempty"`
+	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// The client secret of the Wiz application
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
-	TemplateEndpoint *string `json:"__template_endpoint,omitempty"`
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
-	TemplateAuthURL *string `json:"__template_authUrl,omitempty"`
+	TemplateAuthURL *string `json:"__template_authUrl,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-	TemplateClientID *string `json:"__template_clientId,omitempty"`
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
 }
 
 func (i InputWiz) MarshalJSON() ([]byte, error) {

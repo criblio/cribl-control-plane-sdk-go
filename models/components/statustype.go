@@ -2,18 +2,33 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 // StatusType - Status information for the Source or Destination, aggregated across all Worker Processes.
 type StatusType struct {
 	// Error information, if applicable.
-	Error        *ErrorTypeStatus `json:"error,omitempty"`
+	Error        *ErrorTypeStatus `json:"error,omitzero"`
 	Health       HealthStringType `json:"health"`
 	HealthCounts HealthCountType  `json:"healthCounts"`
 	// Metrics data for the Source or Destination, including base metrics, aggregated across all Worker Processes. For load-balanced Destinations, includes item-level metrics.
-	Metrics map[string]any `json:"metrics,omitempty"`
+	Metrics map[string]any `json:"metrics,omitzero"`
 	// Persistent queue status information (if persistent queue is enabled).
-	Pq *PqTypeStatus `json:"pq,omitempty"`
+	Pq *PqTypeStatus `json:"pq,omitzero"`
 	// Timestamp (in Unix time) when the status was last updated.
 	Timestamp float64 `json:"timestamp"`
+}
+
+func (s StatusType) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StatusType) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *StatusType) GetError() *ErrorTypeStatus {

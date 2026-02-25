@@ -70,11 +70,11 @@ type SerializeTypeCsv struct {
 	// Data output format
 	Type SerializeTypeCsvType `json:"type"`
 	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 	// Field containing object to serialize. Leave blank to serialize top-level event fields.
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Field to serialize data to
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (s SerializeTypeCsv) MarshalJSON() ([]byte, error) {
@@ -153,19 +153,19 @@ type SerializeTypeDelim struct {
 	// Data output format
 	Type SerializeTypeDelimType `json:"type"`
 	// Delimiter character to use to split values. If left blank, will default to ','.
-	DelimChar *string `json:"delimChar,omitempty"`
+	DelimChar *string `json:"delimChar,omitzero"`
 	// Character used to quote literal values. If left blank, will default to '"'.
-	QuoteChar *string `json:"quoteChar,omitempty"`
+	QuoteChar *string `json:"quoteChar,omitzero"`
 	// Escape character used to escape delimiter or quote character. If left blank, will default to the Quote char.
-	EscapeChar *string `json:"escapeChar,omitempty"`
+	EscapeChar *string `json:"escapeChar,omitzero"`
 	// Field value representing the null value. Null fields will be omitted.
-	NullValue *string `json:"nullValue,omitempty"`
+	NullValue *string `json:"nullValue,omitzero"`
 	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 	// Field containing object to serialize. Leave blank to serialize top-level event fields.
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Field to serialize data to
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (s SerializeTypeDelim) MarshalJSON() ([]byte, error) {
@@ -272,17 +272,17 @@ type SerializeTypeKvp struct {
 	// Data output format
 	Type SerializeTypeKvpType `json:"type"`
 	// Clean field names by replacing non-[a-zA-Z0-9] characters with _
-	CleanFields *bool `json:"cleanFields,omitempty"`
+	CleanFields *bool `json:"cleanFields,omitzero"`
 	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 	// Delimiter used to separate key=value pairs. Defaults to a single space character. Should not have common characters with key-value delimiter.
-	PairDelimiter *string `json:"pairDelimiter,omitempty"`
+	PairDelimiter *string `json:"pairDelimiter,omitzero"`
 	// Delimiter used to separate key and value in pair. Defaults to a '='. Should not have common characters with pair delimiter.
-	KeyValueDelimiter *string `json:"keyValueDelimiter,omitempty"`
+	KeyValueDelimiter *string `json:"keyValueDelimiter,omitzero"`
 	// Field containing object to serialize. Leave blank to serialize top-level event fields.
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Field to serialize data to
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (s SerializeTypeKvp) MarshalJSON() ([]byte, error) {
@@ -489,18 +489,18 @@ func (u PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
 
 type PipelineFunctionSerialize struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionSerializeID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                         `json:"final,omitempty"`
+	Final *bool                         `json:"final,omitzero"`
 	Conf  PipelineFunctionSerializeConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionSerialize) MarshalJSON() ([]byte, error) {

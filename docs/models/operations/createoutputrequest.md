@@ -371,6 +371,12 @@ createOutputRequest := operations.CreateCreateOutputRequestDiskSpool(operations.
 createOutputRequest := operations.CreateCreateOutputRequestClickHouse(operations.CreateOutputOutputClickHouse{/* values here */})
 ```
 
+### CreateOutputOutputLocalSearchStorage
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestLocalSearchStorage(operations.CreateOutputOutputLocalSearchStorage{/* values here */})
+```
+
 ### CreateOutputOutputXsiam
 
 ```go
@@ -553,6 +559,8 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputDiskSpool is populated
 	case operations.CreateOutputRequestTypeClickHouse:
 		// createOutputRequest.CreateOutputOutputClickHouse is populated
+	case operations.CreateOutputRequestTypeLocalSearchStorage:
+		// createOutputRequest.CreateOutputOutputLocalSearchStorage is populated
 	case operations.CreateOutputRequestTypeXsiam:
 		// createOutputRequest.CreateOutputOutputXsiam is populated
 	case operations.CreateOutputRequestTypeNetflow:

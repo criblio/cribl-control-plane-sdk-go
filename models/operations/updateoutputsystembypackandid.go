@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -280,6 +281,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputClickHouse() *components
 	return u.GetOutput().OutputClickHouse
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputLocalSearchStorage() *components.OutputLocalSearchStorage {
+	return u.GetOutput().OutputLocalSearchStorage
+}
+
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputXsiam() *components.OutputXsiam {
 	return u.GetOutput().OutputXsiam
 }
@@ -320,6 +325,17 @@ type UpdateOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects
 	CountedOutput *components.CountedOutput
+}
+
+func (u UpdateOutputSystemByPackAndIDResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateOutputSystemByPackAndIDResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateOutputSystemByPackAndIDResponse) GetHTTPMeta() components.HTTPMetadata {

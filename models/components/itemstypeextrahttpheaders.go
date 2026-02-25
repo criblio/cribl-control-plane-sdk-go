@@ -7,7 +7,7 @@ import (
 )
 
 type ItemsTypeExtraHTTPHeaders struct {
-	Name  *string `json:"name,omitempty"`
+	Name  *string `json:"name,omitzero"`
 	Value string  `json:"value"`
 }
 

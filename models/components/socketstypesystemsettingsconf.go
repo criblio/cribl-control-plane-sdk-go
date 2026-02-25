@@ -3,7 +3,7 @@
 package components
 
 type SocketsTypeSystemSettingsConf struct {
-	Directory *string `json:"directory,omitempty"`
+	Directory *string `json:"directory,omitzero"`
 }
 
 func (s *SocketsTypeSystemSettingsConf) GetDirectory() *string {

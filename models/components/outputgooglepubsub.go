@@ -47,70 +47,70 @@ func (o *OutputGooglePubsubPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputGooglePubsub struct {
 	// Unique ID for this output
-	ID   *string                `json:"id,omitempty"`
+	ID   *string                `json:"id,omitzero"`
 	Type OutputGooglePubsubType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// ID of the topic to send events to.
 	TopicName string `json:"topicName"`
 	// If enabled, create topic if it does not exist.
-	CreateTopic *bool `json:"createTopic,omitempty"`
+	CreateTopic *bool `json:"createTopic,omitzero"`
 	// If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
-	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
+	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
+	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// The maximum number of items the Google API should batch before it sends them to the topic.
-	BatchSize *float64 `json:"batchSize,omitempty"`
+	BatchSize *float64 `json:"batchSize,omitzero"`
 	// The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
-	BatchTimeout *float64 `json:"batchTimeout,omitempty"`
+	BatchTimeout *float64 `json:"batchTimeout,omitzero"`
 	// Maximum number of queued batches before blocking.
-	MaxQueueSize *float64 `json:"maxQueueSize,omitempty"`
+	MaxQueueSize *float64 `json:"maxQueueSize,omitzero"`
 	// Maximum size (KB) of batches to send.
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// Maximum time to wait before sending a batch (when batch size limit is not reached)
-	FlushPeriod *float64 `json:"flushPeriod,omitempty"`
+	FlushPeriod *float64 `json:"flushPeriod,omitzero"`
 	// The maximum number of in-progress API requests before backpressure is applied.
-	MaxInProgress *float64 `json:"maxInProgress,omitempty"`
+	MaxInProgress *float64 `json:"maxInProgress,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                      `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                      `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions     `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputGooglePubsubPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions     `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputGooglePubsubPqControls `json:"pqControls,omitzero"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
-	TemplateTopicName *string `json:"__template_topicName,omitempty"`
+	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
+	TemplateRegion *string `json:"__template_region,omitzero"`
 }
 
 func (o OutputGooglePubsub) MarshalJSON() ([]byte, error) {

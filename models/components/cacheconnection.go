@@ -2,14 +2,29 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type CacheConnection struct {
-	AcceleratedFields       []string                       `json:"acceleratedFields,omitempty"`
-	BackfillStatus          *CacheConnectionBackfillStatus `json:"backfillStatus,omitempty"`
+	AcceleratedFields       []string                       `json:"acceleratedFields,omitzero"`
+	BackfillStatus          *CacheConnectionBackfillStatus `json:"backfillStatus,omitzero"`
 	CacheRef                string                         `json:"cacheRef"`
 	CreatedAt               float64                        `json:"createdAt"`
-	LakehouseConnectionType *LakehouseConnectionType       `json:"lakehouseConnectionType,omitempty"`
-	MigrationQueryID        *string                        `json:"migrationQueryId,omitempty"`
+	LakehouseConnectionType *LakehouseConnectionType       `json:"lakehouseConnectionType,omitzero"`
+	MigrationQueryID        *string                        `json:"migrationQueryId,omitzero"`
 	RetentionInDays         float64                        `json:"retentionInDays"`
+}
+
+func (c CacheConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CacheConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CacheConnection) GetAcceleratedFields() []string {

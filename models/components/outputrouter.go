@@ -37,9 +37,9 @@ type OutputRouterRule struct {
 	// Output to send matching events to
 	Output string `json:"output"`
 	// Description of this rule's purpose
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// Flag to control whether to stop the event from being checked against other rules
-	Final *bool `json:"final,omitempty"`
+	Final *bool `json:"final,omitzero"`
 }
 
 func (o OutputRouterRule) MarshalJSON() ([]byte, error) {
@@ -83,19 +83,19 @@ func (o *OutputRouterRule) GetFinal() *bool {
 
 type OutputRouter struct {
 	// Unique ID for this output
-	ID   *string          `json:"id,omitempty"`
+	ID   *string          `json:"id,omitzero"`
 	Type OutputRouterType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Event routing rules
 	Rules       []OutputRouterRule `json:"rules"`
-	Description *string            `json:"description,omitempty"`
+	Description *string            `json:"description,omitzero"`
 }
 
 func (o OutputRouter) MarshalJSON() ([]byte, error) {

@@ -63,13 +63,13 @@ type SerdeTypeGrok struct {
 	Type TypeOptions `json:"type"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
 	Pattern     string                              `json:"pattern"`
-	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitempty"`
+	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeGrokOperationMode `json:"mode"`
 	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (s SerdeTypeGrok) MarshalJSON() ([]byte, error) {
@@ -155,19 +155,19 @@ type SerdeTypeRegex struct {
 	Type TypeOptions `json:"type"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
 	Regex     string                             `json:"regex"`
-	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitempty"`
+	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
-	Iterations *float64 `json:"iterations,omitempty"`
+	Iterations *float64 `json:"iterations,omitzero"`
 	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
-	FieldNameExpression *string `json:"fieldNameExpression,omitempty"`
+	FieldNameExpression *string `json:"fieldNameExpression,omitzero"`
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
-	Overwrite *bool `json:"overwrite,omitempty"`
+	Overwrite *bool `json:"overwrite,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeRegexOperationMode `json:"mode"`
 	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (s SerdeTypeRegex) MarshalJSON() ([]byte, error) {
@@ -273,17 +273,17 @@ type SerdeTypeJSON struct {
 	// Parser or formatter type to use
 	Type TypeOptions `json:"type"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
-	Keep []string `json:"keep,omitempty"`
+	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
-	Remove []string `json:"remove,omitempty"`
+	Remove []string `json:"remove,omitzero"`
 	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
-	FieldFilterExpr *string `json:"fieldFilterExpr,omitempty"`
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeJSONOperationMode `json:"mode"`
 	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (s SerdeTypeJSON) MarshalJSON() ([]byte, error) {
@@ -375,19 +375,19 @@ type SerdeTypeCsv struct {
 	// Parser or formatter type to use
 	Type TypeOptions `json:"type"`
 	// The fields to be extracted, listed in order. Will auto-generate if empty.
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
-	Keep []string `json:"keep,omitempty"`
+	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
-	Remove []string `json:"remove,omitempty"`
+	Remove []string `json:"remove,omitzero"`
 	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
-	FieldFilterExpr *string `json:"fieldFilterExpr,omitempty"`
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeCsvOperationMode `json:"mode"`
 	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (s SerdeTypeCsv) MarshalJSON() ([]byte, error) {
@@ -486,27 +486,27 @@ type SerdeTypeDelim struct {
 	// Parser or formatter type to use
 	Type TypeOptions `json:"type"`
 	// The fields to be extracted, listed in order. Will auto-generate if empty.
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
-	Keep []string `json:"keep,omitempty"`
+	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
-	Remove []string `json:"remove,omitempty"`
+	Remove []string `json:"remove,omitzero"`
 	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
-	FieldFilterExpr *string `json:"fieldFilterExpr,omitempty"`
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitzero"`
 	// Delimiter character to use to split values
-	DelimChar *string `json:"delimChar,omitempty"`
+	DelimChar *string `json:"delimChar,omitzero"`
 	// Character used to quote literal values
-	QuoteChar *string `json:"quoteChar,omitempty"`
+	QuoteChar *string `json:"quoteChar,omitzero"`
 	// Escape character used to escape delimiter or quote character
-	EscapeChar *string `json:"escapeChar,omitempty"`
+	EscapeChar *string `json:"escapeChar,omitzero"`
 	// Field value representing the null value. Null fields will be omitted.
-	NullValue *string `json:"nullValue,omitempty"`
+	NullValue *string `json:"nullValue,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeDelimOperationMode `json:"mode"`
 	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (s SerdeTypeDelim) MarshalJSON() ([]byte, error) {
@@ -633,23 +633,23 @@ type SerdeTypeKvp struct {
 	// Parser or formatter type to use
 	Type TypeOptions `json:"type"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
-	Keep []string `json:"keep,omitempty"`
+	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
-	Remove []string `json:"remove,omitempty"`
+	Remove []string `json:"remove,omitzero"`
 	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
-	FieldFilterExpr *string `json:"fieldFilterExpr,omitempty"`
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitzero"`
 	// Clean field names by replacing non [a-zA-Z0-9] characters with _
-	CleanFields *bool `json:"cleanFields,omitempty"`
+	CleanFields *bool `json:"cleanFields,omitzero"`
 	// A list of characters that may be present in a key name, even though they are normally separator or control characters
-	AllowedKeyChars []string `json:"allowedKeyChars,omitempty"`
+	AllowedKeyChars []string `json:"allowedKeyChars,omitzero"`
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
-	AllowedValueChars []string `json:"allowedValueChars,omitempty"`
+	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeKvpOperationMode `json:"mode"`
 	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitempty"`
+	DstField *string `json:"dstField,omitzero"`
 }
 
 func (s SerdeTypeKvp) MarshalJSON() ([]byte, error) {
@@ -958,18 +958,18 @@ func (u PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
 
 type PipelineFunctionSerde struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionSerdeID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                     `json:"final,omitempty"`
+	Final *bool                     `json:"final,omitzero"`
 	Conf  PipelineFunctionSerdeConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionSerde) MarshalJSON() ([]byte, error) {

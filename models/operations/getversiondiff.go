@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -40,6 +41,17 @@ type GetVersionDiffResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitDiffResult objects
 	CountedGitDiffResult *components.CountedGitDiffResult
+}
+
+func (g GetVersionDiffResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetVersionDiffResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GetVersionDiffResponse) GetHTTPMeta() components.HTTPMetadata {

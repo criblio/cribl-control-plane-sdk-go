@@ -56,132 +56,132 @@ func (e *OutputSecurityLakeSignatureVersion) IsExact() bool {
 
 type OutputSecurityLake struct {
 	// Unique ID for this output
-	ID   *string                `json:"id,omitempty"`
+	ID   *string                `json:"id,omitzero"`
 	Type OutputSecurityLakeType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Region where the Amazon Security Lake is located.
 	Region       string  `json:"region"`
-	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing Amazon Security Lake requests
-	SignatureVersion *OutputSecurityLakeSignatureVersion `json:"signatureVersion,omitempty"`
+	SignatureVersion *OutputSecurityLakeSignatureVersion `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access S3
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn string `json:"assumeRoleArn"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions `json:"objectACL,omitempty"`
+	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass         *StorageClassOptions                           `json:"storageClass,omitempty"`
-	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitempty"`
+	StorageClass         *StorageClassOptions                           `json:"storageClass,omitzero"`
+	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `json:"baseFileName,omitempty"`
+	BaseFileName *string `json:"baseFileName,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
-	HeaderLine *string `json:"headerLine,omitempty"`
+	HeaderLine *string `json:"headerLine,omitzero"`
 	// Buffer size used to write to a file
-	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitempty"`
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitempty"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitempty"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitempty"`
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
 	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
 	AccountID string `json:"accountId"`
 	// Name of the custom source configured in Amazon Security Lake
 	CustomSource string `json:"customSource"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `json:"automaticSchema,omitempty"`
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *ParquetVersionOptions `json:"parquetVersion,omitempty"`
+	ParquetVersion *ParquetVersionOptions `json:"parquetVersion,omitzero"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *DataPageVersionOptions `json:"parquetDataPageVersion,omitempty"`
+	ParquetDataPageVersion *DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitempty"`
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `json:"parquetPageSize,omitempty"`
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
 	// Log up to 3 rows that @{product} skips due to data mismatch
-	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `json:"enableStatistics,omitempty"`
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitempty"`
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool   `json:"enablePageChecksum,omitempty"`
-	Description        *string `json:"description,omitempty"`
+	EnablePageChecksum *bool   `json:"enablePageChecksum,omitzero"`
+	Description        *string `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitempty"`
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
 func (o OutputSecurityLake) MarshalJSON() ([]byte, error) {

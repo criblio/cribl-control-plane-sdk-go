@@ -8,15 +8,15 @@ import (
 
 type RetrySettingsType struct {
 	// Apply exponential backoff with jitter when file uploads fail repeatedly.
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled *bool `json:"enabled,omitzero"`
 	// Initial delay before first retry attempt. Valid range: 1s-5min (1000-300000ms). Values outside this range will be clamped to the nearest valid value.
-	InitialBackoffMs *float64 `json:"initialBackoffMs,omitempty"`
+	InitialBackoffMs *float64 `json:"initialBackoffMs,omitzero"`
 	// Multiplier applied to backoff delay after each retry. Valid range: 1-10. Values outside this range will be clamped to the nearest valid value.
-	BackoffMultiplier *float64 `json:"backoffMultiplier,omitempty"`
+	BackoffMultiplier *float64 `json:"backoffMultiplier,omitzero"`
 	// Maximum delay between retry attempts. Valid range: 1s-10min (1000-600000ms). Values outside this range will be clamped to the nearest valid value.
-	MaxBackoffMs *float64 `json:"maxBackoffMs,omitempty"`
+	MaxBackoffMs *float64 `json:"maxBackoffMs,omitzero"`
 	// Random jitter percentage added to backoff delay to prevent thundering herd. Valid range: 0-100. Values outside this range will be clamped to the nearest valid value.
-	JitterPercent *float64 `json:"jitterPercent,omitempty"`
+	JitterPercent *float64 `json:"jitterPercent,omitzero"`
 }
 
 func (r RetrySettingsType) MarshalJSON() ([]byte, error) {

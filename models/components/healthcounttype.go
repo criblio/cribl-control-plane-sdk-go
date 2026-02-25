@@ -3,10 +3,10 @@
 package components
 
 type HealthCountType struct {
-	Green   *float64 `json:"Green,omitempty"`
-	Yellow  *float64 `json:"Yellow,omitempty"`
-	Red     *float64 `json:"Red,omitempty"`
-	Unknown *float64 `json:"Unknown,omitempty"`
+	Green   *float64 `json:"Green,omitzero"`
+	Yellow  *float64 `json:"Yellow,omitzero"`
+	Red     *float64 `json:"Red,omitzero"`
+	Unknown *float64 `json:"Unknown,omitzero"`
 }
 
 func (h *HealthCountType) GetGreen() *float64 {

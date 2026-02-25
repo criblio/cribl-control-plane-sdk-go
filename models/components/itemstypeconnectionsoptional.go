@@ -7,8 +7,8 @@ import (
 )
 
 type ItemsTypeConnectionsOptional struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   *string `json:"output,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
+	Output   *string `json:"output,omitzero"`
 }
 
 func (i ItemsTypeConnectionsOptional) MarshalJSON() ([]byte, error) {

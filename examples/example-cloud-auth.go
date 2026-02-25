@@ -44,7 +44,7 @@ func main() {
 
 	// Create authenticated SDK client with OAuth2
 	client := criblcontrolplanesdkgo.New(
-		baseURL,
+		criblcontrolplanesdkgo.WithServerURL(baseURL),
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
 			ClientOauth: &components.SchemeClientOauth{
 				ClientID:     CLIENT_ID,

@@ -2,15 +2,30 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type FilesTypeGitCommitSummary struct {
 	// Array of file paths that were created in the commit.
-	Created []string `json:"created,omitempty"`
+	Created []string `json:"created,omitzero"`
 	// Array of file paths that were deleted in the commit.
-	Deleted []string `json:"deleted,omitempty"`
+	Deleted []string `json:"deleted,omitzero"`
 	// Array of file paths that were modified in the commit.
-	Modified []string `json:"modified,omitempty"`
+	Modified []string `json:"modified,omitzero"`
 	// Array of file rename operations, each containing the original path and the new path.
-	Renamed []GitFileRename `json:"renamed,omitempty"`
+	Renamed []GitFileRename `json:"renamed,omitzero"`
+}
+
+func (f FilesTypeGitCommitSummary) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FilesTypeGitCommitSummary) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (f *FilesTypeGitCommitSummary) GetCreated() []string {

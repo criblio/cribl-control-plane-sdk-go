@@ -369,6 +369,12 @@ output := components.CreateOutputDiskSpool(components.OutputDiskSpool{/* values 
 output := components.CreateOutputClickHouse(components.OutputClickHouse{/* values here */})
 ```
 
+### OutputLocalSearchStorage
+
+```go
+output := components.CreateOutputLocalSearchStorage(components.OutputLocalSearchStorage{/* values here */})
+```
+
 ### OutputXsiam
 
 ```go
@@ -551,6 +557,8 @@ switch output.Type {
 		// output.OutputDiskSpool is populated
 	case components.OutputTypeClickHouse:
 		// output.OutputClickHouse is populated
+	case components.OutputTypeLocalSearchStorage:
+		// output.OutputLocalSearchStorage is populated
 	case components.OutputTypeXsiam:
 		// output.OutputXsiam is populated
 	case components.OutputTypeNetflow:

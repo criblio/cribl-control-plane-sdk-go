@@ -40,13 +40,13 @@ type PipelineFunctionSuppressConf struct {
 	// The number of seconds to suppress events after 'Number to allow' events are received
 	SuppressPeriodSec float64 `json:"suppressPeriodSec"`
 	// If disabled, suppressed events will be tagged with suppress=1 but not dropped
-	DropEventsMode *bool `json:"dropEventsMode,omitempty"`
+	DropEventsMode *bool `json:"dropEventsMode,omitzero"`
 	// The maximum number of keys that can be cached before idle entries are removed. Leave at default unless you understand the implications of changing.
-	MaxCacheSize *float64 `json:"maxCacheSize,omitempty"`
+	MaxCacheSize *float64 `json:"maxCacheSize,omitzero"`
 	// The number of suppression periods 'Suppression Period' of inactivity before a cache entry is considered idle. Leave at default unless you understand the implications of changing.
-	CacheIdleTimeoutPeriods *float64 `json:"cacheIdleTimeoutPeriods,omitempty"`
+	CacheIdleTimeoutPeriods *float64 `json:"cacheIdleTimeoutPeriods,omitzero"`
 	// Check cache for idle sessions every N events when cache size is > 'Maximum Cache Size'. Leave at default unless you understand the implications of changing.
-	NumEventsIdleTimeoutTrigger *float64 `json:"numEventsIdleTimeoutTrigger,omitempty"`
+	NumEventsIdleTimeoutTrigger *float64 `json:"numEventsIdleTimeoutTrigger,omitzero"`
 }
 
 func (p PipelineFunctionSuppressConf) MarshalJSON() ([]byte, error) {
@@ -111,18 +111,18 @@ func (p *PipelineFunctionSuppressConf) GetNumEventsIdleTimeoutTrigger() *float64
 
 type PipelineFunctionSuppress struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionSuppressID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                        `json:"final,omitempty"`
+	Final *bool                        `json:"final,omitzero"`
 	Conf  PipelineFunctionSuppressConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionSuppress) MarshalJSON() ([]byte, error) {

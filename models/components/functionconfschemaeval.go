@@ -7,11 +7,11 @@ import (
 )
 
 type FunctionConfSchemaEvalAdd struct {
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`
 	// Set to No to disable the evaluation of an individual expression
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 }
 
 func (f FunctionConfSchemaEvalAdd) MarshalJSON() ([]byte, error) {
@@ -48,11 +48,11 @@ func (f *FunctionConfSchemaEvalAdd) GetDisabled() *bool {
 
 type FunctionConfSchemaEval struct {
 	// Set of key-value pairs to evaluate and add/set
-	Add []FunctionConfSchemaEvalAdd `json:"add,omitempty"`
+	Add []FunctionConfSchemaEvalAdd `json:"add,omitzero"`
 	// List of fields to keep. Supports * wildcards. Takes precedence over 'Remove fields'.
-	Keep []string `json:"keep,omitempty"`
+	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports * wildcards. Fields that match 'Keep fields' will not be removed. Enclose field names containing special characters in single or double quotes.
-	Remove []string `json:"remove,omitempty"`
+	Remove []string `json:"remove,omitzero"`
 }
 
 func (f FunctionConfSchemaEval) MarshalJSON() ([]byte, error) {

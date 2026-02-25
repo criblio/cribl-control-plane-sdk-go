@@ -9,16 +9,16 @@ import (
 // ScheduleTypeRunnableJobCollection - Configuration for a scheduled job
 type ScheduleTypeRunnableJobCollection struct {
 	// Enable to configure scheduling for this Collector
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled *bool `json:"enabled,omitzero"`
 	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-	Skippable *bool `json:"skippable,omitempty"`
+	Skippable *bool `json:"skippable,omitzero"`
 	// If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
-	ResumeMissed *bool `json:"resumeMissed,omitempty"`
+	ResumeMissed *bool `json:"resumeMissed,omitzero"`
 	// A cron schedule on which to run this job
-	CronSchedule *string `json:"cronSchedule,omitempty"`
+	CronSchedule *string `json:"cronSchedule,omitzero"`
 	// The maximum number of instances of this scheduled job that may be running at any time
-	MaxConcurrentRuns *float64                                      `json:"maxConcurrentRuns,omitempty"`
-	Run               *RunSettingsTypeRunnableJobCollectionSchedule `json:"run,omitempty"`
+	MaxConcurrentRuns *float64                                      `json:"maxConcurrentRuns,omitzero"`
+	Run               *RunSettingsTypeRunnableJobCollectionSchedule `json:"run,omitzero"`
 }
 
 func (s ScheduleTypeRunnableJobCollection) MarshalJSON() ([]byte, error) {

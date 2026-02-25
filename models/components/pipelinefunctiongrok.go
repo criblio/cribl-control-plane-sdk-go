@@ -35,9 +35,9 @@ func (e *PipelineFunctionGrokID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionGrokConf struct {
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
 	Pattern     string                              `json:"pattern"`
-	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitempty"`
+	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitzero"`
 	// Field on which to perform Grok extractions
-	Source *string `json:"source,omitempty"`
+	Source *string `json:"source,omitzero"`
 }
 
 func (p PipelineFunctionGrokConf) MarshalJSON() ([]byte, error) {
@@ -74,18 +74,18 @@ func (p *PipelineFunctionGrokConf) GetSource() *string {
 
 type PipelineFunctionGrok struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionGrokID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
+	Final *bool                    `json:"final,omitzero"`
 	Conf  PipelineFunctionGrokConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionGrok) MarshalJSON() ([]byte, error) {

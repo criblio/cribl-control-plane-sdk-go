@@ -56,30 +56,30 @@ func (e *OutputRingDataFormat) IsExact() bool {
 
 type OutputRing struct {
 	// Unique ID for this output
-	ID   *string        `json:"id,omitempty"`
+	ID   *string        `json:"id,omitzero"`
 	Type OutputRingType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Format of the output data.
-	Format *OutputRingDataFormat `json:"format,omitempty"`
+	Format *OutputRingDataFormat `json:"format,omitzero"`
 	// JS expression to define how files are partitioned and organized. If left blank, Cribl Stream will fallback on event.__partition.
-	PartitionExpr *string `json:"partitionExpr,omitempty"`
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
-	Description    *string                       `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	Description    *string                       `json:"description,omitzero"`
 }
 
 func (o OutputRing) MarshalJSON() ([]byte, error) {

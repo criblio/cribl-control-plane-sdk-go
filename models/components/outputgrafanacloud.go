@@ -48,87 +48,87 @@ func (o *OutputGrafanaCloudPqControls2) UnmarshalJSON(data []byte) error {
 
 type OutputGrafanaCloudGrafanaCloud2 struct {
 	// Unique ID for this output
-	ID   *string                 `json:"id,omitempty"`
+	ID   *string                 `json:"id,omitzero"`
 	Type OutputGrafanaCloudType2 `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The endpoint to send logs to, such as https://logs-prod-us-central1.grafana.net
-	LokiURL *string `json:"lokiUrl,omitempty"`
+	LokiURL *string `json:"lokiUrl,omitzero"`
 	// The remote_write endpoint to send Prometheus metrics to, such as https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
 	PrometheusURL string `json:"prometheusUrl"`
 	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
-	Message *string `json:"message,omitempty"`
+	Message *string `json:"message,omitzero"`
 	// Format to use when sending logs to Loki (Protobuf or JSON)
-	MessageFormat *MessageFormatOptions `json:"messageFormat,omitempty"`
+	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []ItemsTypeLabels `json:"labels,omitempty"`
+	Labels []ItemsTypeLabels `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
-	MetricRenameExpr *string             `json:"metricRenameExpr,omitempty"`
-	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitempty"`
-	LokiAuth         *PrometheusAuthType `json:"lokiAuth,omitempty"`
+	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
+	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
+	LokiAuth         *PrometheusAuthType `json:"lokiAuth,omitzero"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki and Prometheus to complain about entries being delivered out of order.
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                      `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                      `json:"description,omitzero"`
 	// Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputGrafanaCloudPqControls2 `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputGrafanaCloudPqControls2 `json:"pqControls,omitzero"`
 	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
-	TemplateLokiURL *string `json:"__template_lokiUrl,omitempty"`
+	TemplateLokiURL *string `json:"__template_lokiUrl,omitzero"`
 	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
-	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitempty"`
+	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitzero"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
@@ -482,87 +482,87 @@ func (o *OutputGrafanaCloudPqControls1) UnmarshalJSON(data []byte) error {
 
 type OutputGrafanaCloudGrafanaCloud1 struct {
 	// Unique ID for this output
-	ID   *string                 `json:"id,omitempty"`
+	ID   *string                 `json:"id,omitzero"`
 	Type OutputGrafanaCloudType1 `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The endpoint to send logs to, such as https://logs-prod-us-central1.grafana.net
 	LokiURL string `json:"lokiUrl"`
 	// The remote_write endpoint to send Prometheus metrics to, such as https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
-	PrometheusURL *string `json:"prometheusUrl,omitempty"`
+	PrometheusURL *string `json:"prometheusUrl,omitzero"`
 	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
-	Message *string `json:"message,omitempty"`
+	Message *string `json:"message,omitzero"`
 	// Format to use when sending logs to Loki (Protobuf or JSON)
-	MessageFormat *MessageFormatOptions `json:"messageFormat,omitempty"`
+	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []ItemsTypeLabels `json:"labels,omitempty"`
+	Labels []ItemsTypeLabels `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
-	MetricRenameExpr *string             `json:"metricRenameExpr,omitempty"`
-	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitempty"`
-	LokiAuth         *PrometheusAuthType `json:"lokiAuth,omitempty"`
+	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
+	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
+	LokiAuth         *PrometheusAuthType `json:"lokiAuth,omitzero"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki and Prometheus to complain about entries being delivered out of order.
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                      `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                      `json:"description,omitzero"`
 	// Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
-	Compress *bool `json:"compress,omitempty"`
+	Compress *bool `json:"compress,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputGrafanaCloudPqControls1 `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputGrafanaCloudPqControls1 `json:"pqControls,omitzero"`
 	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
-	TemplateLokiURL *string `json:"__template_lokiUrl,omitempty"`
+	TemplateLokiURL *string `json:"__template_lokiUrl,omitzero"`
 	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
-	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitempty"`
+	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitzero"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {

@@ -52,7 +52,7 @@ func main() {
 
 	// Create authenticated client
 	client := criblcontrolplanesdkgo.New(
-		baseURL,
+		criblcontrolplanesdkgo.WithServerURL(baseURL),
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
 			ClientOauth: &components.SchemeClientOauth{
 				ClientID:     CLIENT_ID,

@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type LakeDatasetSearchConfig struct {
-	Datatypes []string         `json:"datatypes,omitempty"`
-	Metadata  *DatasetMetadata `json:"metadata,omitempty"`
+	Datatypes []string         `json:"datatypes,omitzero"`
+	Metadata  *DatasetMetadata `json:"metadata,omitzero"`
+}
+
+func (l LakeDatasetSearchConfig) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *LakeDatasetSearchConfig) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (l *LakeDatasetSearchConfig) GetDatatypes() []string {
