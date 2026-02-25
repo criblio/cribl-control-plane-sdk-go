@@ -2,9 +2,13 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type RoutesGroups struct {
 	// Brief description of the Route Group.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// Relative position of the Route Group among all Route Groups. Routes are evaluated in ascending order according to the index value of their Route Group.
 	Index float64 `json:"index"`
 	// Name of the Route Group.
@@ -34,13 +38,24 @@ func (r *RoutesGroups) GetName() string {
 
 type Routes struct {
 	// Array of user-provided comments that describe or annotate Routes.
-	Comments []RouteComment `json:"comments,omitempty"`
+	Comments []RouteComment `json:"comments,omitzero"`
 	// Information about the Route Groups that the Route is associated with.
-	Groups map[string]RoutesGroups `json:"groups,omitempty"`
+	Groups map[string]RoutesGroups `json:"groups,omitzero"`
 	// Unique identifier for the Routing table. The supported value is <code>default</code>.
 	ID string `json:"id"`
 	// Array of Route configurations that define how events are processed and routed.
 	Routes []RouteConf `json:"routes"`
+}
+
+func (r Routes) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *Routes) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *Routes) GetComments() []RouteComment {

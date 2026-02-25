@@ -40,15 +40,15 @@ func (f *FilesystemCollectorConfExtractor) GetExpression() string {
 
 type FilesystemCollectorConf struct {
 	// Select a predefined configuration (a Destination) to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitzero"`
 	// The directory from which to collect data. Templating is supported, such as /myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as /myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
 	Path string `json:"path"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []FilesystemCollectorConfExtractor `json:"extractors,omitempty"`
+	Extractors []FilesystemCollectorConfExtractor `json:"extractors,omitzero"`
 	// Recurse through subdirectories
-	Recurse *bool `json:"recurse,omitempty"`
+	Recurse *bool `json:"recurse,omitzero"`
 	// Maximum number of metadata files to batch before recording as results
-	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
 }
 
 func (f FilesystemCollectorConf) MarshalJSON() ([]byte, error) {

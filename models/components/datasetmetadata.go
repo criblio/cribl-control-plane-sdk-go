@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type ScanMode string
 
 const (
@@ -28,8 +32,19 @@ type DatasetMetadata struct {
 	Earliest           string                  `json:"earliest"`
 	EnableAcceleration bool                    `json:"enableAcceleration"`
 	FieldList          []string                `json:"fieldList"`
-	LatestRunInfo      *DatasetMetadataRunInfo `json:"latestRunInfo,omitempty"`
+	LatestRunInfo      *DatasetMetadataRunInfo `json:"latestRunInfo,omitzero"`
 	ScanMode           ScanMode                `json:"scanMode"`
+}
+
+func (d DatasetMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DatasetMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DatasetMetadata) GetEarliest() string {

@@ -61,13 +61,13 @@ type PipelineFunctionMvExpandConf struct {
 	// Array of property-/field-names to expand
 	SourceFields []string `json:"sourceFields"`
 	// stores the value as new target field name
-	TargetNames []string `json:"targetNames,omitempty"`
+	TargetNames []string `json:"targetNames,omitzero"`
 	// max. number of rows generated out of every source events
-	RowLimit *float64 `json:"rowLimit,omitempty"`
+	RowLimit *float64 `json:"rowLimit,omitzero"`
 	// name of an optional index property generated into the output
-	ItemIndexName *string `json:"itemIndexName,omitempty"`
+	ItemIndexName *string `json:"itemIndexName,omitzero"`
 	// decides if bag-values are expanded to bags or arrays
-	BagExpansionMode *BagExpansionMode `json:"bagExpansionMode,omitempty"`
+	BagExpansionMode *BagExpansionMode `json:"bagExpansionMode,omitzero"`
 }
 
 func (p PipelineFunctionMvExpandConf) MarshalJSON() ([]byte, error) {
@@ -118,18 +118,18 @@ func (p *PipelineFunctionMvExpandConf) GetBagExpansionMode() *BagExpansionMode {
 
 type PipelineFunctionMvExpand struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionMvExpandID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                        `json:"final,omitempty"`
+	Final *bool                        `json:"final,omitzero"`
 	Conf  PipelineFunctionMvExpandConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionMvExpand) MarshalJSON() ([]byte, error) {

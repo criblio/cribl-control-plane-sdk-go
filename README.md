@@ -26,6 +26,7 @@ Complementary API reference documentation is available at https://docs.cribl.io/
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Pagination](#pagination)
+  * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
 
 <!-- End Table of Contents [toc] -->
@@ -499,7 +500,6 @@ func main() {
 	ctx := context.Background()
 
 	s := criblcontrolplanesdkgo.New(
-		"https://api.example.com",
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
 			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
 		}),
@@ -756,7 +756,6 @@ func main() {
 	ctx := context.Background()
 
 	s := criblcontrolplanesdkgo.New(
-		"https://api.example.com",
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
 			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
 		}),
@@ -793,6 +792,121 @@ func main() {
 
 ```
 <!-- End Pagination [pagination] -->
+
+<!-- Start Server Selection [server] -->
+## Server Selection
+
+### Select Server by Name
+
+You can override the default server globally using the `WithServer(server string)` option when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
+
+| Name            | Server                                                                         | Variables                                                          | Description                                |
+| --------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------ |
+| `onprem-leader` | `https://{leaderUrl}/api/v1`                                                   | `leaderUrl`                                                        | On-prem Cribl Stream/Edge Leader API       |
+| `onprem-group`  | `https://{leaderUrl}/api/v1/m/{groupId}`                                       | `leaderUrl`<br/>`groupId`                                          | On-prem Worker Group or Edge Fleet API     |
+| `cloud-group`   | `https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/{groupId}`      | `workspaceName`<br/>`organizationId`<br/>`envDomain`<br/>`groupId` | Cribl.Cloud Worker Group or Edge Fleet API |
+| `search`        | `https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/default_search` | `workspaceName`<br/>`organizationId`<br/>`envDomain`               | Cribl.Cloud Search API                     |
+| `cloud-leader`  | `https://{workspaceName}-{organizationId}.{envDomain}/api/v1`                  | `workspaceName`<br/>`organizationId`<br/>`envDomain`               | Cribl.Cloud API                            |
+
+If the selected server has variables, you may override its default values using the associated option(s):
+
+| Variable         | Option                                      | Default            | Description                                        |
+| ---------------- | ------------------------------------------- | ------------------ | -------------------------------------------------- |
+| `leaderUrl`      | `WithLeaderURL(leaderURL string)`           | `"localhost:9000"` | Leader host and port (e.g. cribl.example.com:9000) |
+| `groupId`        | `WithGroupID(groupID string)`               | `"default"`        | Worker Group or Edge Fleet ID                      |
+| `workspaceName`  | `WithWorkspaceName(workspaceName string)`   | `"main"`           | Workspace name (e.g. main)                         |
+| `organizationId` | `WithOrganizationID(organizationID string)` | `"my-org"`         | Organization ID                                    |
+| `envDomain`      | `WithEnvDomain(envDomain string)`           | `"cribl.cloud"`    | Domain                                             |
+
+#### Example
+
+```go
+package main
+
+import (
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := criblcontrolplanesdkgo.New(
+		criblcontrolplanesdkgo.WithServer("cloud-group"),
+		criblcontrolplanesdkgo.WithWorkspaceName("main"),
+		criblcontrolplanesdkgo.WithOrganizationID("my-org"),
+		criblcontrolplanesdkgo.WithEnvDomain("cribl.cloud"),
+		criblcontrolplanesdkgo.WithGroupID("default"),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
+	)
+
+	res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
+		AuthType:          "connectionString",
+		ConnectionString:  criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
+		ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
+		DatabaseType:      components.DatabaseConnectionTypeMysql,
+		Description:       "Production MySQL database for customer data",
+		ID:                "mysql-prod-db",
+		Tags:              criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.CountedDatabaseConnectionConfig != nil {
+		// handle response
+	}
+}
+
+```
+
+### Override Server URL Per-Client
+
+The default server can also be overridden globally using the `WithServerURL(serverURL string)` option when initializing the SDK client instance. For example:
+```go
+package main
+
+import (
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := criblcontrolplanesdkgo.New(
+		criblcontrolplanesdkgo.WithServerURL("https://localhost:9000/api/v1"),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
+	)
+
+	res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
+		AuthType:          "connectionString",
+		ConnectionString:  criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
+		ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
+		DatabaseType:      components.DatabaseConnectionTypeMysql,
+		Description:       "Production MySQL database for customer data",
+		ID:                "mysql-prod-db",
+		Tags:              criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.CountedDatabaseConnectionConfig != nil {
+		// handle response
+	}
+}
+
+```
+<!-- End Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client

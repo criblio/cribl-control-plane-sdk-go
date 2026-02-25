@@ -47,114 +47,114 @@ func (o *OutputMskPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputMsk struct {
 	// Unique ID for this output
-	ID   *string       `json:"id,omitempty"`
+	ID   *string       `json:"id,omitzero"`
 	Type OutputMskType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
 	Brokers []string `json:"brokers"`
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *AcknowledgmentsOptions1 `json:"ack,omitempty"`
+	Ack *AcknowledgmentsOptions1 `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *RecordDataFormatOptions1 `json:"format,omitempty"`
+	Format *RecordDataFormatOptions1 `json:"format,omitzero"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *CompressionOptions3 `json:"compression,omitempty"`
+	Compression *CompressionOptions3 `json:"compression,omitzero"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
-	FlushEventCount *float64 `json:"flushEventCount,omitempty"`
+	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                `json:"flushPeriodSec,omitempty"`
-	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitempty"`
+	FlushPeriodSec      *float64                                `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                    `json:"awsSecretKey,omitempty"`
+	AwsSecretKey            *string                                    `json:"awsSecretKey,omitzero"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing MSK cluster requests
-	SignatureVersion *SignatureVersionOptions `json:"signatureVersion,omitempty"`
+	SignatureVersion *SignatureVersionOptions `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access MSK
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                      `json:"durationSeconds,omitempty"`
-	TLS             *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	DurationSeconds *float64                                      `json:"durationSeconds,omitzero"`
+	TLS             *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                      `json:"description,omitempty"`
-	AwsAPIKey      *string                      `json:"awsApiKey,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                      `json:"description,omitzero"`
+	AwsAPIKey      *string                      `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Select a set of Protobuf definitions for the events you want to send
-	ProtobufLibraryID *string `json:"protobufLibraryId,omitempty"`
+	ProtobufLibraryID *string `json:"protobufLibraryId,omitzero"`
 	// Select the type of object you want the Protobuf definitions to use for event encoding
-	ProtobufEncodingID *string `json:"protobufEncodingId,omitempty"`
+	ProtobufEncodingID *string `json:"protobufEncodingId,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputMskPqControls      `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputMskPqControls      `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-	TemplateTopic *string `json:"__template_topic,omitempty"`
+	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
 func (o OutputMsk) MarshalJSON() ([]byte, error) {

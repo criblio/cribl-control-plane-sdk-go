@@ -88,13 +88,13 @@ func (e *InputEdgePrometheusAuthenticationMethod) IsExact() bool {
 
 type Target struct {
 	// Protocol to use when collecting metrics
-	Protocol *ProtocolOptionsTargetsItems `json:"protocol,omitempty"`
+	Protocol *ProtocolOptionsTargetsItems `json:"protocol,omitzero"`
 	// Name of host from which to pull metrics.
 	Host string `json:"host"`
 	// The port number in the metrics URL for discovered targets.
-	Port *float64 `json:"port,omitempty"`
+	Port *float64 `json:"port,omitzero"`
 	// Path to use when collecting metrics from discovered targets
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 }
 
 func (t Target) MarshalJSON() ([]byte, error) {
@@ -140,7 +140,7 @@ type PodFilter struct {
 	// JavaScript expression applied to pods objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (p PodFilter) MarshalJSON() ([]byte, error) {
@@ -170,102 +170,102 @@ func (p *PodFilter) GetDescription() *string {
 
 type InputEdgePrometheus struct {
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
+	ID       *string                 `json:"id,omitzero"`
 	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `json:"disabled,omitempty"`
+	Disabled *bool                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Other dimensions to include in events
-	DimensionList []string `json:"dimensionList,omitempty"`
+	DimensionList []string `json:"dimensionList,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType InputEdgePrometheusDiscoveryType `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
 	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `json:"timeout,omitempty"`
-	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
+	Timeout     *float64          `json:"timeout,omitzero"`
+	Persistence *DiskSpoolingType `json:"persistence,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitempty"`
-	Description *string                                  `json:"description,omitempty"`
-	Targets     []Target                                 `json:"targets,omitempty"`
+	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitzero"`
+	Description *string                                  `json:"description,omitzero"`
+	Targets     []Target                                 `json:"targets,omitzero"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
+	RecordType *RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `json:"scrapePort,omitempty"`
+	ScrapePort *float64 `json:"scrapePort,omitzero"`
 	// List of DNS names to resolve
-	NameList []string `json:"nameList,omitempty"`
+	NameList []string `json:"nameList,omitzero"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *ProtocolOptionsTargetsItems `json:"scrapeProtocol,omitempty"`
+	ScrapeProtocol *ProtocolOptionsTargetsItems `json:"scrapeProtocol,omitzero"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `json:"scrapePath,omitempty"`
+	ScrapePath *string `json:"scrapePath,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `json:"usePublicIp,omitempty"`
+	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
-	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
-	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
+	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitzero"`
+	AwsSecretKey *string                 `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitempty"`
+	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitzero"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `json:"scrapePortExpr,omitempty"`
+	ScrapePortExpr *string `json:"scrapePortExpr,omitzero"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `json:"scrapePathExpr,omitempty"`
+	ScrapePathExpr *string `json:"scrapePathExpr,omitzero"`
 	//   Add rules to decide which pods to discover for metrics.
 	//   Pods are searched if no rules are given or of all the rules'
 	//   expressions evaluate to true.
 	//
-	PodFilter []PodFilter `json:"podFilter,omitempty"`
+	PodFilter []PodFilter `json:"podFilter,omitzero"`
 	// Username for Prometheus Basic authentication
-	Username *string `json:"username,omitempty"`
+	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (i InputEdgePrometheus) MarshalJSON() ([]byte, error) {

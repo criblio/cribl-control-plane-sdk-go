@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -31,6 +32,17 @@ type GetInputSystemPqByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of any objects
 	CountedObject *components.CountedObject
+}
+
+func (g GetInputSystemPqByPackAndIDResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetInputSystemPqByPackAndIDResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GetInputSystemPqByPackAndIDResponse) GetHTTPMeta() components.HTTPMetadata {

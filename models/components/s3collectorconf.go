@@ -68,47 +68,47 @@ func (s *S3AwsAuthenticationMethodSecretExtractor) GetExpression() string {
 
 type S3AwsAuthenticationMethodSecret struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// Select or create a stored secret that references AWS access key and secret key.
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitzero"`
 	// S3 Bucket from which to collect data
 	Bucket string `json:"bucket"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// Maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 	// Region from which to retrieve data
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Directory where data will be collected. Templating (such as 'myDir/${datacenter}/${host}/${app}/') and time-based tokens (such as 'myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/') are supported. Can be a constant (enclosed in quotes) or a JavaScript expression.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
-	PartitioningScheme *S3AwsAuthenticationMethodSecretPartitioningScheme `json:"partitioningScheme,omitempty"`
+	PartitioningScheme *S3AwsAuthenticationMethodSecretPartitioningScheme `json:"partitioningScheme,omitzero"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []S3AwsAuthenticationMethodSecretExtractor `json:"extractors,omitempty"`
+	Extractors []S3AwsAuthenticationMethodSecretExtractor `json:"extractors,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the Assumed Role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
 	// Reuse connections between requests to improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Disable if you can access files within the bucket but not the bucket itself. Resolves errors of the form "discover task initialization failed...error: Forbidden".
-	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodSecret) MarshalJSON() ([]byte, error) {
@@ -328,49 +328,49 @@ func (s *S3AwsAuthenticationMethodManualExtractor) GetExpression() string {
 
 type S3AwsAuthenticationMethodManual struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
-	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
-	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitzero"`
 	// S3 Bucket from which to collect data
 	Bucket string `json:"bucket"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// Maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 	// Region from which to retrieve data
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Directory where data will be collected. Templating (such as 'myDir/${datacenter}/${host}/${app}/') and time-based tokens (such as 'myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/') are supported. Can be a constant (enclosed in quotes) or a JavaScript expression.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
-	PartitioningScheme *S3AwsAuthenticationMethodManualPartitioningScheme `json:"partitioningScheme,omitempty"`
+	PartitioningScheme *S3AwsAuthenticationMethodManualPartitioningScheme `json:"partitioningScheme,omitzero"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []S3AwsAuthenticationMethodManualExtractor `json:"extractors,omitempty"`
+	Extractors []S3AwsAuthenticationMethodManualExtractor `json:"extractors,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the Assumed Role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
 	// Reuse connections between requests to improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Disable if you can access files within the bucket but not the bucket itself. Resolves errors of the form "discover task initialization failed...error: Forbidden".
-	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodManual) MarshalJSON() ([]byte, error) {
@@ -597,45 +597,45 @@ func (s *S3AwsAuthenticationMethodAutoExtractor) GetExpression() string {
 
 type S3AwsAuthenticationMethodAuto struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitzero"`
 	// S3 Bucket from which to collect data
 	Bucket string `json:"bucket"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// Maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 	// Region from which to retrieve data
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Directory where data will be collected. Templating (such as 'myDir/${datacenter}/${host}/${app}/') and time-based tokens (such as 'myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/') are supported. Can be a constant (enclosed in quotes) or a JavaScript expression.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
-	PartitioningScheme *S3AwsAuthenticationMethodAutoPartitioningScheme `json:"partitioningScheme,omitempty"`
+	PartitioningScheme *S3AwsAuthenticationMethodAutoPartitioningScheme `json:"partitioningScheme,omitzero"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []S3AwsAuthenticationMethodAutoExtractor `json:"extractors,omitempty"`
+	Extractors []S3AwsAuthenticationMethodAutoExtractor `json:"extractors,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the Assumed Role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
 	// Reuse connections between requests to improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Disable if you can access files within the bucket but not the bucket itself. Resolves errors of the form "discover task initialization failed...error: Forbidden".
-	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodAuto) MarshalJSON() ([]byte, error) {
@@ -848,47 +848,47 @@ func (s *S3PartitioningSchemeNoneExtractor) GetExpression() string {
 
 type S3PartitioningSchemeNone struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
-	PartitioningScheme *S3PartitioningSchemeNonePartitioningScheme `json:"partitioningScheme,omitempty"`
+	PartitioningScheme *S3PartitioningSchemeNonePartitioningScheme `json:"partitioningScheme,omitzero"`
 	// Traverse and include files from subdirectories. Leave this option enabled to ensure that all nested directories are searched and their contents collected.
-	Recurse *bool `json:"recurse,omitempty"`
+	Recurse *bool `json:"recurse,omitzero"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitzero"`
 	// S3 Bucket from which to collect data
 	Bucket string `json:"bucket"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// Maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 	// Region from which to retrieve data
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Directory where data will be collected. Templating (such as 'myDir/${datacenter}/${host}/${app}/') and time-based tokens (such as 'myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/') are supported. Can be a constant (enclosed in quotes) or a JavaScript expression.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []S3PartitioningSchemeNoneExtractor `json:"extractors,omitempty"`
+	Extractors []S3PartitioningSchemeNoneExtractor `json:"extractors,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the Assumed Role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
 	// Reuse connections between requests to improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Disable if you can access files within the bucket but not the bucket itself. Resolves errors of the form "discover task initialization failed...error: Forbidden".
-	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 }
 
 func (s S3PartitioningSchemeNone) MarshalJSON() ([]byte, error) {
@@ -1108,45 +1108,45 @@ func (s *S3PartitioningSchemeDdssExtractor) GetExpression() string {
 
 type S3PartitioningSchemeDdss struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
-	PartitioningScheme *S3PartitioningSchemeDdssPartitioningScheme `json:"partitioningScheme,omitempty"`
+	PartitioningScheme *S3PartitioningSchemeDdssPartitioningScheme `json:"partitioningScheme,omitzero"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitzero"`
 	// S3 Bucket from which to collect data
 	Bucket string `json:"bucket"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// Maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 	// Region from which to retrieve data
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region,omitzero"`
 	// Directory where data will be collected. Templating (such as 'myDir/${datacenter}/${host}/${app}/') and time-based tokens (such as 'myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/') are supported. Can be a constant (enclosed in quotes) or a JavaScript expression.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []S3PartitioningSchemeDdssExtractor `json:"extractors,omitempty"`
+	Extractors []S3PartitioningSchemeDdssExtractor `json:"extractors,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the Assumed Role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
 	// Reuse connections between requests to improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Disable if you can access files within the bucket but not the bucket itself. Resolves errors of the form "discover task initialization failed...error: Forbidden".
-	VerifyPermissions *bool `json:"verifyPermissions,omitempty"`
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 }
 
 func (s S3PartitioningSchemeDdss) MarshalJSON() ([]byte, error) {

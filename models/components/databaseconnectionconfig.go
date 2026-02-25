@@ -4,18 +4,18 @@ package components
 
 type DatabaseConnectionConfig struct {
 	AuthType          string                 `json:"authType"`
-	ConfigObj         *string                `json:"configObj,omitempty"`
-	ConnectionString  *string                `json:"connectionString,omitempty"`
-	ConnectionTimeout *float64               `json:"connectionTimeout,omitempty"`
-	CredsSecrets      *string                `json:"credsSecrets,omitempty"`
+	ConfigObj         *string                `json:"configObj,omitzero"`
+	ConnectionString  *string                `json:"connectionString,omitzero"`
+	ConnectionTimeout *float64               `json:"connectionTimeout,omitzero"`
+	CredsSecrets      *string                `json:"credsSecrets,omitzero"`
 	DatabaseType      DatabaseConnectionType `json:"databaseType"`
 	Description       string                 `json:"description"`
 	ID                string                 `json:"id"`
-	Password          *string                `json:"password,omitempty"`
-	RequestTimeout    *float64               `json:"requestTimeout,omitempty"`
-	Tags              *string                `json:"tags,omitempty"`
-	TextSecret        *string                `json:"textSecret,omitempty"`
-	User              *string                `json:"user,omitempty"`
+	Password          *string                `json:"password,omitzero"`
+	RequestTimeout    *float64               `json:"requestTimeout,omitzero"`
+	Tags              *string                `json:"tags,omitzero"`
+	TextSecret        *string                `json:"textSecret,omitzero"`
+	User              *string                `json:"user,omitzero"`
 }
 
 func (d *DatabaseConnectionConfig) GetAuthType() string {

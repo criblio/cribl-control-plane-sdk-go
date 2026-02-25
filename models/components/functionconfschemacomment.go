@@ -8,7 +8,7 @@ import (
 
 type FunctionConfSchemaComment struct {
 	// Optional, short description of this Function's purpose in the Pipeline
-	Comment *string `json:"comment,omitempty"`
+	Comment *string `json:"comment,omitzero"`
 }
 
 func (f FunctionConfSchemaComment) MarshalJSON() ([]byte, error) {

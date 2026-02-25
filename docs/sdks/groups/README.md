@@ -35,7 +35,6 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
@@ -93,7 +92,6 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
@@ -102,11 +100,10 @@ func main() {
     res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
         Description: criblcontrolplanesdkgo.Pointer("Worker Group cloned from goatOnPremIanWg with identical configuration"),
         ID: "goatOnPremDollyWg",
-        IsFleet: criblcontrolplanesdkgo.Pointer(false),
-        IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        Name: criblcontrolplanesdkgo.Pointer("goatOnPremDollyWg"),
+        Name: criblcontrolplanesdkgo.Pointer("goatonpremdollywg"),
         OnPrem: criblcontrolplanesdkgo.Pointer(true),
         SourceGroupID: criblcontrolplanesdkgo.Pointer("goatOnPremIanWg"),
+        Type: components.TypeOptionsConfigGroupStream.ToPointer(),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -135,7 +132,6 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
@@ -148,11 +144,10 @@ func main() {
         },
         EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate24MbPerSec.ToPointer(),
         ID: "goatCloudIanWg",
-        IsFleet: criblcontrolplanesdkgo.Pointer(false),
-        IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        Name: criblcontrolplanesdkgo.Pointer("goatCloudIanWg"),
+        Name: criblcontrolplanesdkgo.Pointer("goatcloudianwg"),
         OnPrem: criblcontrolplanesdkgo.Pointer(false),
         Provisioned: criblcontrolplanesdkgo.Pointer(true),
+        Type: components.TypeOptionsConfigGroupStream.ToPointer(),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -181,7 +176,6 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
@@ -190,10 +184,9 @@ func main() {
     res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
         Description: criblcontrolplanesdkgo.Pointer("Create a new Edge Fleet"),
         ID: "goatIanEdgeFleet",
-        IsFleet: criblcontrolplanesdkgo.Pointer(true),
-        IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        Name: criblcontrolplanesdkgo.Pointer("goatIanEdgeFleet"),
+        Name: criblcontrolplanesdkgo.Pointer("goatianedgefleet"),
         OnPrem: criblcontrolplanesdkgo.Pointer(true),
+        Type: components.TypeOptionsConfigGroupEdge.ToPointer(),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -222,7 +215,6 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
@@ -231,10 +223,9 @@ func main() {
     res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
         Description: criblcontrolplanesdkgo.Pointer("Worker group in customer-managed deployment"),
         ID: "goatOnPremIanWg",
-        IsFleet: criblcontrolplanesdkgo.Pointer(false),
-        IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        Name: criblcontrolplanesdkgo.Pointer("goatOnPremIanWg"),
+        Name: criblcontrolplanesdkgo.Pointer("goatonpremianwg"),
         OnPrem: criblcontrolplanesdkgo.Pointer(true),
+        Type: components.TypeOptionsConfigGroupStream.ToPointer(),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -288,7 +279,6 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
@@ -347,7 +337,6 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
@@ -361,11 +350,10 @@ func main() {
         Description: criblcontrolplanesdkgo.Pointer("Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity"),
         EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate48MbPerSec.ToPointer(),
         ID: "goatCloudIanWg",
-        IsFleet: criblcontrolplanesdkgo.Pointer(false),
-        IsSearch: criblcontrolplanesdkgo.Pointer(false),
-        Name: criblcontrolplanesdkgo.Pointer("goatCloudIanWg"),
+        Name: criblcontrolplanesdkgo.Pointer("goatcloudianwg"),
         OnPrem: criblcontrolplanesdkgo.Pointer(false),
         Provisioned: criblcontrolplanesdkgo.Pointer(true),
+        Type: components.TypeOptionsConfigGroupStream.ToPointer(),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -420,7 +408,6 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
@@ -478,7 +465,6 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),

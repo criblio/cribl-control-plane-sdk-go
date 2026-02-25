@@ -8,7 +8,7 @@ import (
 
 type FunctionConfSchemaTrimTimestamp struct {
 	// Name of field in which to save the timestamp. (If empty, timestamp will not be saved to a field.)
-	Field *string `json:"field,omitempty"`
+	Field *string `json:"field,omitzero"`
 }
 
 func (f FunctionConfSchemaTrimTimestamp) MarshalJSON() ([]byte, error) {

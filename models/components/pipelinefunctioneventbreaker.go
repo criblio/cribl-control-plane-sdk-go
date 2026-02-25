@@ -59,9 +59,9 @@ func (e *EventBreakerExistingOrNewExistingExistingOrNew) IsExact() bool {
 
 type EventBreakerExistingOrNewExisting struct {
 	ExistingOrNew EventBreakerExistingOrNewExistingExistingOrNew `json:"existingOrNew"`
-	ExistingRule  *string                                        `json:"existingRule,omitempty"`
+	ExistingRule  *string                                        `json:"existingRule,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewExisting) MarshalJSON() ([]byte, error) {
@@ -122,8 +122,8 @@ func (e *EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew) IsExact() bool {
 
 type EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat struct {
 	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitempty"`
-	Format *string                                                   `json:"format,omitempty"`
+	Length *float64                                                  `json:"length,omitzero"`
+	Format *string                                                   `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat) MarshalJSON() ([]byte, error) {
@@ -159,7 +159,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat) GetFormat() *st
 }
 
 type EventBreakerExistingOrNewNewRuleTypeCsv struct {
-	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitempty"`
+	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// Delimiter character to use to split values
 	Delimiter string `json:"delimiter"`
 	// Character used to quote literal values
@@ -167,21 +167,21 @@ type EventBreakerExistingOrNewNewRuleTypeCsv struct {
 	// Character used to escape the quote character in field values
 	EscapeChar string `json:"escapeChar"`
 	// Optional timestamp field name in extracted events
-	TimeField     *string                                              `json:"timeField,omitempty"`
+	TimeField     *string                                              `json:"timeField,omitzero"`
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                 `json:"timestampAnchorRegex,omitempty"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat `json:"timestamp,omitempty"`
+	TimestampAnchorRegex *string                                                 `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
-	TimestampEarliest *string `json:"timestampEarliest,omitempty"`
+	TimestampEarliest *string `json:"timestampEarliest,omitzero"`
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
-	TimestampLatest *string `json:"timestampLatest,omitempty"`
+	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeCsv) MarshalJSON() ([]byte, error) {
@@ -312,8 +312,8 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew) IsExact() bool
 
 type EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat struct {
 	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitempty"`
-	Format *string                                                   `json:"format,omitempty"`
+	Length *float64                                                  `json:"length,omitzero"`
+	Format *string                                                   `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat) MarshalJSON() ([]byte, error) {
@@ -349,7 +349,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat) GetFormat() 
 }
 
 type EventBreakerExistingOrNewNewRuleTypeHeader struct {
-	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitempty"`
+	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// Field delimiter regex
 	DelimiterRegex string `json:"delimiterRegex"`
 	// Regex with one capturing group that captures all fields (and delimiters) to be broken by field delimiter
@@ -357,23 +357,23 @@ type EventBreakerExistingOrNewNewRuleTypeHeader struct {
 	// Regex matching a file header line
 	HeaderLineRegex string `json:"headerLineRegex"`
 	// Representation of a null value. Null fields are not added to events.
-	NullFieldVal *string `json:"nullFieldVal,omitempty"`
+	NullFieldVal *string `json:"nullFieldVal,omitzero"`
 	// Clean field names by replacing non [a-zA-Z0-9] characters with _
-	CleanFields   *bool                                                   `json:"cleanFields,omitempty"`
+	CleanFields   *bool                                                   `json:"cleanFields,omitzero"`
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                    `json:"timestampAnchorRegex,omitempty"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat `json:"timestamp,omitempty"`
+	TimestampAnchorRegex *string                                                    `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
-	TimestampEarliest *string `json:"timestampEarliest,omitempty"`
+	TimestampEarliest *string `json:"timestampEarliest,omitzero"`
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
-	TimestampLatest *string `json:"timestampLatest,omitempty"`
+	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeHeader) MarshalJSON() ([]byte, error) {
@@ -511,8 +511,8 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistin
 
 type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat struct {
 	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitempty"`
-	Format *string                                                   `json:"format,omitempty"`
+	Length *float64                                                  `json:"length,omitzero"`
+	Format *string                                                   `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat) MarshalJSON() ([]byte, error) {
@@ -549,26 +549,26 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimesta
 
 type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse struct {
 	// Automatically extract fields from JSON events. When disabled, only _raw and _time are defined on extracted events.
-	JSONExtractAll *bool                                                `json:"jsonExtractAll,omitempty"`
-	RuleType       *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitempty"`
+	JSONExtractAll *bool                                                `json:"jsonExtractAll,omitzero"`
+	RuleType       *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
-	JSONArrayField *string `json:"jsonArrayField,omitempty"`
+	JSONArrayField *string `json:"jsonArrayField,omitzero"`
 	// Top-level fields to copy to the output events. Nested fields are not supported. 'Array field' is always excluded. If 'Array field' points to a nested array, the entire top-level object will be excluded. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
-	ParentFieldsToCopy []string                                                                      `json:"parentFieldsToCopy,omitempty"`
+	ParentFieldsToCopy []string                                                                      `json:"parentFieldsToCopy,omitzero"`
 	ExistingOrNew      EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                                          `json:"timestampAnchorRegex,omitempty"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat `json:"timestamp,omitempty"`
+	TimestampAnchorRegex *string                                                                          `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
-	TimestampEarliest *string `json:"timestampEarliest,omitempty"`
+	TimestampEarliest *string `json:"timestampEarliest,omitzero"`
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
-	TimestampLatest *string `json:"timestampLatest,omitempty"`
+	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) MarshalJSON() ([]byte, error) {
@@ -692,8 +692,8 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExisting
 
 type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat struct {
 	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitempty"`
-	Format *string                                                   `json:"format,omitempty"`
+	Length *float64                                                  `json:"length,omitzero"`
+	Format *string                                                   `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat) MarshalJSON() ([]byte, error) {
@@ -730,28 +730,28 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestam
 
 type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue struct {
 	// Automatically extract fields from JSON events. When disabled, only _raw and _time are defined on extracted events.
-	JSONExtractAll *bool `json:"jsonExtractAll,omitempty"`
+	JSONExtractAll *bool `json:"jsonExtractAll,omitzero"`
 	// Optional path to timestamp field in extracted events, such as eventTime or level1.level2.eventTime.
-	JSONTimeField *string                                              `json:"jsonTimeField,omitempty"`
-	RuleType      *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitempty"`
+	JSONTimeField *string                                              `json:"jsonTimeField,omitzero"`
+	RuleType      *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
-	JSONArrayField *string `json:"jsonArrayField,omitempty"`
+	JSONArrayField *string `json:"jsonArrayField,omitzero"`
 	// Top-level fields to copy to the output events. Nested fields are not supported. 'Array field' is always excluded. If 'Array field' points to a nested array, the entire top-level object will be excluded. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
-	ParentFieldsToCopy []string                                                                     `json:"parentFieldsToCopy,omitempty"`
+	ParentFieldsToCopy []string                                                                     `json:"parentFieldsToCopy,omitzero"`
 	ExistingOrNew      EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                                         `json:"timestampAnchorRegex,omitempty"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat `json:"timestamp,omitempty"`
+	TimestampAnchorRegex *string                                                                         `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
-	TimestampEarliest *string `json:"timestampEarliest,omitempty"`
+	TimestampEarliest *string `json:"timestampEarliest,omitzero"`
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
-	TimestampLatest *string `json:"timestampLatest,omitempty"`
+	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) MarshalJSON() ([]byte, error) {
@@ -971,8 +971,8 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew) IsExact() bool {
 
 type EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat struct {
 	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitempty"`
-	Format *string                                                   `json:"format,omitempty"`
+	Length *float64                                                  `json:"length,omitzero"`
+	Format *string                                                   `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat) MarshalJSON() ([]byte, error) {
@@ -1008,21 +1008,21 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat) GetFormat() *s
 }
 
 type EventBreakerExistingOrNewNewRuleTypeJSON struct {
-	RuleType      *EventBreakerTypeOptionsEventBreakerExistingOrNewNew  `json:"ruleType,omitempty"`
+	RuleType      *EventBreakerTypeOptionsEventBreakerExistingOrNewNew  `json:"ruleType,omitzero"`
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                  `json:"timestampAnchorRegex,omitempty"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat `json:"timestamp,omitempty"`
+	TimestampAnchorRegex *string                                                  `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
-	TimestampEarliest *string `json:"timestampEarliest,omitempty"`
+	TimestampEarliest *string `json:"timestampEarliest,omitzero"`
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
-	TimestampLatest *string `json:"timestampLatest,omitempty"`
+	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSON) MarshalJSON() ([]byte, error) {
@@ -1125,8 +1125,8 @@ func (e *EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew) IsExact() bool 
 
 type EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat struct {
 	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitempty"`
-	Format *string                                                   `json:"format,omitempty"`
+	Length *float64                                                  `json:"length,omitzero"`
+	Format *string                                                   `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat) MarshalJSON() ([]byte, error) {
@@ -1162,23 +1162,23 @@ func (e *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat) GetFormat() *
 }
 
 type EventBreakerExistingOrNewNewRuleTypeRegex struct {
-	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitempty"`
+	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The regex used to break the stream into events at the beginning of the match. Matched content will be consumed, unless you use a lookahead regex such as (?=pattern) to keep it. Do NOT use capturing groups in the pattern.
 	EventBreakerRegex string                                                 `json:"eventBreakerRegex"`
 	ExistingOrNew     EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                   `json:"timestampAnchorRegex,omitempty"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat `json:"timestamp,omitempty"`
+	TimestampAnchorRegex *string                                                   `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
-	TimestampEarliest *string `json:"timestampEarliest,omitempty"`
+	TimestampEarliest *string `json:"timestampEarliest,omitzero"`
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
-	TimestampLatest *string `json:"timestampLatest,omitempty"`
+	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeRegex) MarshalJSON() ([]byte, error) {
@@ -1569,18 +1569,18 @@ func (u PipelineFunctionEventBreakerConf) MarshalJSON() ([]byte, error) {
 
 type PipelineFunctionEventBreaker struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionEventBreakerID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                            `json:"final,omitempty"`
+	Final *bool                            `json:"final,omitzero"`
 	Conf  PipelineFunctionEventBreakerConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionEventBreaker) MarshalJSON() ([]byte, error) {

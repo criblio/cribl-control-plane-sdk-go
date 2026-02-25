@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 // ErrorTypeStatus - Error information, if applicable.
 type ErrorTypeStatus struct {
 	// Additional error details, which may include stack traces, request information, and other diagnostic data.
-	Details map[string]any `json:"details,omitempty"`
+	Details map[string]any `json:"details,omitzero"`
 	// Human-readable message that describes the error.
 	Message string `json:"message"`
+}
+
+func (e ErrorTypeStatus) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ErrorTypeStatus) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ErrorTypeStatus) GetDetails() map[string]any {
