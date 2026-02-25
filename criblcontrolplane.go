@@ -239,9 +239,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.6.0-rc.29",
+		SDKVersion: "0.6.0-rc.30",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.6.0-rc.29 2.839.0 4.17.0-alpha.1772012808178-2d6a6cbe github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent:  "speakeasy-sdk/go 0.6.0-rc.30 2.839.0 4.17.0-alpha.1772012808178-2d6a6cbe github.com/criblio/cribl-control-plane-sdk-go",
 			ServerList: ServerList,
 			ServerVariables: map[string]map[string]string{
 				"onprem-leader": {
