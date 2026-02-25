@@ -2,11 +2,10 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.17.0-alpha.1772012808178-2d6a6cbe and generator version 2.839.0
+// Generated from OpenAPI doc version 4.17.0-alpha.1772052880986-e432ae3c and generator version 2.839.0
 
 import (
 	"context"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/config"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/hooks"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
@@ -15,28 +14,6 @@ import (
 	"net/http"
 	"time"
 )
-
-const (
-	// On-prem Cribl Stream/Edge Leader API
-	ServerOnpremLeader string = "onprem-leader"
-	// On-prem Worker Group or Edge Fleet API
-	ServerOnpremGroup string = "onprem-group"
-	// Cribl.Cloud Worker Group or Edge Fleet API
-	ServerCloudGroup string = "cloud-group"
-	// Cribl.Cloud Search API
-	ServerSearch string = "search"
-	// Cribl.Cloud API
-	ServerCloudLeader string = "cloud-leader"
-)
-
-// ServerList contains the list of servers available to the SDK
-var ServerList = map[string]string{
-	ServerOnpremLeader: "https://{leaderUrl}/api/v1",
-	ServerOnpremGroup:  "https://{leaderUrl}/api/v1/m/{groupId}",
-	ServerCloudGroup:   "https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/{groupId}",
-	ServerSearch:       "https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/default_search",
-	ServerCloudLeader:  "https://{workspaceName}-{organizationId}.{envDomain}/api/v1",
-}
 
 // HTTPClient provides an interface for supplying the SDK with a custom HTTP client
 type HTTPClient interface {
@@ -105,101 +82,6 @@ type CriblControlPlane struct {
 
 type SDKOption func(*CriblControlPlane)
 
-// WithServerURL allows the overriding of the default server URL
-func WithServerURL(serverURL string) SDKOption {
-	return func(sdk *CriblControlPlane) {
-		sdk.sdkConfiguration.ServerURL = serverURL
-	}
-}
-
-// WithTemplatedServerURL allows the overriding of the default server URL with a templated URL populated with the provided parameters
-func WithTemplatedServerURL(serverURL string, params map[string]string) SDKOption {
-	return func(sdk *CriblControlPlane) {
-		if params != nil {
-			serverURL = utils.ReplaceParameters(serverURL, params)
-		}
-
-		sdk.sdkConfiguration.ServerURL = serverURL
-	}
-}
-
-// WithServer allows the overriding of the default server by name
-func WithServer(server string) SDKOption {
-	return func(sdk *CriblControlPlane) {
-		_, ok := ServerList[server]
-		if !ok {
-			panic(fmt.Errorf("server %s not found", server))
-		}
-
-		sdk.sdkConfiguration.Server = server
-	}
-}
-
-// WithLeaderURL allows setting the leaderUrl variable for url substitution
-func WithLeaderURL(leaderURL string) SDKOption {
-	return func(sdk *CriblControlPlane) {
-		for server := range sdk.sdkConfiguration.ServerVariables {
-			if _, ok := sdk.sdkConfiguration.ServerVariables[server]["leaderUrl"]; !ok {
-				continue
-			}
-
-			sdk.sdkConfiguration.ServerVariables[server]["leaderUrl"] = fmt.Sprintf("%v", leaderURL)
-		}
-	}
-}
-
-// WithGroupID allows setting the groupId variable for url substitution
-func WithGroupID(groupID string) SDKOption {
-	return func(sdk *CriblControlPlane) {
-		for server := range sdk.sdkConfiguration.ServerVariables {
-			if _, ok := sdk.sdkConfiguration.ServerVariables[server]["groupId"]; !ok {
-				continue
-			}
-
-			sdk.sdkConfiguration.ServerVariables[server]["groupId"] = fmt.Sprintf("%v", groupID)
-		}
-	}
-}
-
-// WithWorkspaceName allows setting the workspaceName variable for url substitution
-func WithWorkspaceName(workspaceName string) SDKOption {
-	return func(sdk *CriblControlPlane) {
-		for server := range sdk.sdkConfiguration.ServerVariables {
-			if _, ok := sdk.sdkConfiguration.ServerVariables[server]["workspaceName"]; !ok {
-				continue
-			}
-
-			sdk.sdkConfiguration.ServerVariables[server]["workspaceName"] = fmt.Sprintf("%v", workspaceName)
-		}
-	}
-}
-
-// WithOrganizationID allows setting the organizationId variable for url substitution
-func WithOrganizationID(organizationID string) SDKOption {
-	return func(sdk *CriblControlPlane) {
-		for server := range sdk.sdkConfiguration.ServerVariables {
-			if _, ok := sdk.sdkConfiguration.ServerVariables[server]["organizationId"]; !ok {
-				continue
-			}
-
-			sdk.sdkConfiguration.ServerVariables[server]["organizationId"] = fmt.Sprintf("%v", organizationID)
-		}
-	}
-}
-
-// WithEnvDomain allows setting the envDomain variable for url substitution
-func WithEnvDomain(envDomain string) SDKOption {
-	return func(sdk *CriblControlPlane) {
-		for server := range sdk.sdkConfiguration.ServerVariables {
-			if _, ok := sdk.sdkConfiguration.ServerVariables[server]["envDomain"]; !ok {
-				continue
-			}
-
-			sdk.sdkConfiguration.ServerVariables[server]["envDomain"] = fmt.Sprintf("%v", envDomain)
-		}
-	}
-}
-
 // WithClient allows the overriding of the default HTTP client used by the SDK
 func WithClient(client HTTPClient) SDKOption {
 	return func(sdk *CriblControlPlane) {
@@ -236,38 +118,12 @@ func WithTimeout(timeout time.Duration) SDKOption {
 	}
 }
 
-// New creates a new instance of the SDK with the provided options
-func New(opts ...SDKOption) *CriblControlPlane {
+// New creates a new instance of the SDK with the provided serverURL and options
+func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.6.0-rc.30",
+		SDKVersion: "0.6.0-rc.31",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.6.0-rc.30 2.839.0 4.17.0-alpha.1772012808178-2d6a6cbe github.com/criblio/cribl-control-plane-sdk-go",
-			ServerList: ServerList,
-			ServerVariables: map[string]map[string]string{
-				"onprem-leader": {
-					"leaderUrl": "localhost:9000",
-				},
-				"onprem-group": {
-					"leaderUrl": "localhost:9000",
-					"groupId":   "default",
-				},
-				"cloud-group": {
-					"workspaceName":  "main",
-					"organizationId": "my-org",
-					"envDomain":      "cribl.cloud",
-					"groupId":        "default",
-				},
-				"search": {
-					"workspaceName":  "main",
-					"organizationId": "my-org",
-					"envDomain":      "cribl.cloud",
-				},
-				"cloud-leader": {
-					"workspaceName":  "main",
-					"organizationId": "my-org",
-					"envDomain":      "cribl.cloud",
-				},
-			},
+			UserAgent: "speakeasy-sdk/go 0.6.0-rc.31 2.839.0 4.17.0-alpha.1772052880986-e432ae3c github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -286,6 +142,8 @@ func New(opts ...SDKOption) *CriblControlPlane {
 	if sdk.sdkConfiguration.Client == nil {
 		sdk.sdkConfiguration.Client = &http.Client{Timeout: 60 * time.Second}
 	}
+
+	sdk.sdkConfiguration.ServerURL = serverURL
 
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 

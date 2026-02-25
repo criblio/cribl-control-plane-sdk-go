@@ -26,7 +26,9 @@ import(
 func main() {
     ctx := context.Background()
 
-    s := criblcontrolplanesdkgo.New()
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+    )
 
     res, err := s.Auth.Tokens.Get(ctx, components.LoginInfo{
         Password: "6j50J9421x29IhO",
