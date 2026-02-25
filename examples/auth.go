@@ -124,7 +124,7 @@ func createOnpremClient(ctx context.Context) (*criblcontrolplanesdkgo.CriblContr
 	config := configuration.(OnpremConfiguration)
 
 	// First, create a client to get the token
-	tokenClient := criblcontrolplanesdkgo.New(criblcontrolplanesdkgo.WithServerURL(BaseURL))
+	tokenClient := criblcontrolplanesdkgo.New(BaseURL)
 
 	// Get authentication token
 	loginInfo := components.LoginInfo{
@@ -143,7 +143,7 @@ func createOnpremClient(ctx context.Context) (*criblcontrolplanesdkgo.CriblContr
 
 	// Create authenticated client
 	client := criblcontrolplanesdkgo.New(
-		criblcontrolplanesdkgo.WithServerURL(BaseURL),
+		BaseURL,
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
 			BearerAuth: &response.AuthToken.Token,
 		}),
@@ -160,7 +160,7 @@ func createCloudClient(ctx context.Context) (*criblcontrolplanesdkgo.CriblContro
 	audience := "https://api.cribl.cloud"
 
 	client := criblcontrolplanesdkgo.New(
-		criblcontrolplanesdkgo.WithServerURL(BaseURL),
+		BaseURL,
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
 			ClientOauth: &components.SchemeClientOauth{
 				ClientID:     config.ClientID,

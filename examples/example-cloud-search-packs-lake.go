@@ -51,12 +51,9 @@ func main() {
 
 	ctx := context.Background()
 
-	// Create the SDK client using ServerCloudLeader with workspace/org variables (per README Server Selection)
+	// Create the SDK client with OAuth2 authentication
 	s := criblcontrolplanesdkgo.New(
-		criblcontrolplanesdkgo.WithServer(criblcontrolplanesdkgo.ServerCloudLeader),
-		criblcontrolplanesdkgo.WithWorkspaceName(WORKSPACE),
-		criblcontrolplanesdkgo.WithOrganizationID(ORG_ID),
-		criblcontrolplanesdkgo.WithEnvDomain("cribl.cloud"),
+		fmt.Sprintf("https://%s.cribl.cloud", WORKSPACE),
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
 			ClientOauth: &components.SchemeClientOauth{
 				ClientID:     CLIENT_ID,
@@ -67,8 +64,7 @@ func main() {
 		}),
 	)
 
-	// Install Search Pack (uses ServerSearch: /api/v1/m/default_search)
-	searchServerURL := fmt.Sprintf("https://%s-%s.cribl.cloud/api/v1/m/default_search", WORKSPACE, ORG_ID)
+	// Install Search Pack
 	fmt.Printf("📦 Installing Search Pack: %s\n", PACK_ID)
 	installReq := components.CreatePackRequestBodyUnionPackRequestBody1(
 		components.PackRequestBody1{
@@ -76,7 +72,9 @@ func main() {
 			Source: criblcontrolplanesdkgo.String(PACK_URL),
 		},
 	)
-	s.Packs.Install(ctx, installReq, operations.WithServerURL(searchServerURL))
+
+	searchGroupURL := fmt.Sprintf("https://%s.cribl.cloud/api/v1/search", WORKSPACE)
+	s.Packs.Install(ctx, installReq, operations.WithServerURL(searchGroupURL))
 
 	// Create Lake Dataset
 	fmt.Printf("Creating Lake Dataset: %s\n", DATASET_ID)

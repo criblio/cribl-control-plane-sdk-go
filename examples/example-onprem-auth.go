@@ -89,7 +89,7 @@ func main() {
 	baseURL := fmt.Sprintf("%s/api/v1", ONPREM_SERVER_URL)
 
 	// Create client for retrieving Bearer token
-	tokenClient := criblcontrolplanesdkgo.New(criblcontrolplanesdkgo.WithServerURL(baseURL))
+	tokenClient := criblcontrolplanesdkgo.New(baseURL)
 
 	// Create callback function for automatic token refresh
 	securityCallback := func(ctx context.Context) (components.Security, error) {
@@ -133,7 +133,7 @@ func main() {
 
 	// Create authenticated SDK client
 	client := criblcontrolplanesdkgo.New(
-		criblcontrolplanesdkgo.WithServerURL(baseURL),
+		baseURL,
 		criblcontrolplanesdkgo.WithSecuritySource(securityCallback),
 	)
 	fmt.Println("✅ Authenticated SDK client created for on-prem server")

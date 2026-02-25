@@ -27,7 +27,9 @@ import(
 func main() {
     ctx := context.Background()
 
-    s := criblcontrolplanesdkgo.New()
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+    )
 
     res, err := s.Health.Get(ctx)
     if err != nil {

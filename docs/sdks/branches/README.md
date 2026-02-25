@@ -29,6 +29,7 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
@@ -84,6 +85,7 @@ func main() {
     ctx := context.Background()
 
     s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
             BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
