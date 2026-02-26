@@ -10,6 +10,726 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputInputTcpjson struct {
+	// Unique ID for this input
+	ID       string                 `json:"id"`
+	Type     CreateInputTypeTcpjson `json:"type"`
+	Disabled *bool                  `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64                               `json:"port"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Fields to add to events from this input
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
+	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                                `json:"description,omitzero"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `json:"authToken,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+}
+
+func (c CreateInputInputTcpjson) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputInputTcpjson) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputInputTcpjson) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputInputTcpjson) GetType() CreateInputTypeTcpjson {
+	if c == nil {
+		return CreateInputTypeTcpjson("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputInputTcpjson) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputInputTcpjson) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputInputTcpjson) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputInputTcpjson) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputInputTcpjson) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputInputTcpjson) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputInputTcpjson) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputInputTcpjson) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputInputTcpjson) GetHost() string {
+	if c == nil {
+		return ""
+	}
+	return c.Host
+}
+
+func (c *CreateInputInputTcpjson) GetPort() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.Port
+}
+
+func (c *CreateInputInputTcpjson) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
+		return nil
+	}
+	return c.TLS
+}
+
+func (c *CreateInputInputTcpjson) GetIPWhitelistRegex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.IPWhitelistRegex
+}
+
+func (c *CreateInputInputTcpjson) GetMaxActiveCxn() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxActiveCxn
+}
+
+func (c *CreateInputInputTcpjson) GetSocketIdleTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.SocketIdleTimeout
+}
+
+func (c *CreateInputInputTcpjson) GetSocketEndingMaxWait() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.SocketEndingMaxWait
+}
+
+func (c *CreateInputInputTcpjson) GetSocketMaxLifespan() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.SocketMaxLifespan
+}
+
+func (c *CreateInputInputTcpjson) GetEnableProxyHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableProxyHeader
+}
+
+func (c *CreateInputInputTcpjson) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputInputTcpjson) GetEnableLoadBalancing() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableLoadBalancing
+}
+
+func (c *CreateInputInputTcpjson) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CreateInputInputTcpjson) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputInputTcpjson) GetAuthToken() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthToken
+}
+
+func (c *CreateInputInputTcpjson) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CreateInputInputTcpjson) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputTcpjson) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+type CreateInputTypeCriblLakeHTTP string
+
+const (
+	CreateInputTypeCriblLakeHTTPCriblLakeHTTP CreateInputTypeCriblLakeHTTP = "cribl_lake_http"
+)
+
+func (e CreateInputTypeCriblLakeHTTP) ToPointer() *CreateInputTypeCriblLakeHTTP {
+	return &e
+}
+func (e *CreateInputTypeCriblLakeHTTP) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cribl_lake_http":
+		*e = CreateInputTypeCriblLakeHTTP(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateInputTypeCriblLakeHTTP: %v", v)
+	}
+}
+
+type CreateInputSplunkHecMetadata struct {
+	Enabled               *bool    `json:"enabled,omitzero"`
+	DefaultDataset        *string  `json:"defaultDataset,omitzero"`
+	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
+}
+
+func (c CreateInputSplunkHecMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSplunkHecMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSplunkHecMetadata) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+func (c *CreateInputSplunkHecMetadata) GetDefaultDataset() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DefaultDataset
+}
+
+func (c *CreateInputSplunkHecMetadata) GetAllowedIndexesAtToken() []string {
+	if c == nil {
+		return nil
+	}
+	return c.AllowedIndexesAtToken
+}
+
+type CreateInputElasticsearchMetadata struct {
+	Enabled        *bool   `json:"enabled,omitzero"`
+	DefaultDataset *string `json:"defaultDataset,omitzero"`
+}
+
+func (c CreateInputElasticsearchMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputElasticsearchMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputElasticsearchMetadata) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+func (c *CreateInputElasticsearchMetadata) GetDefaultDataset() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DefaultDataset
+}
+
+type CreateInputAuthTokensExt struct {
+	Token       string  `json:"token"`
+	Description *string `json:"description,omitzero"`
+	// Fields to add to events referencing this token
+	Metadata              []components.ItemsTypeMetadata    `json:"metadata,omitzero"`
+	SplunkHecMetadata     *CreateInputSplunkHecMetadata     `json:"splunkHecMetadata,omitzero"`
+	ElasticsearchMetadata *CreateInputElasticsearchMetadata `json:"elasticsearchMetadata,omitzero"`
+}
+
+func (c CreateInputAuthTokensExt) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputAuthTokensExt) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputAuthTokensExt) GetToken() string {
+	if c == nil {
+		return ""
+	}
+	return c.Token
+}
+
+func (c *CreateInputAuthTokensExt) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputAuthTokensExt) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputAuthTokensExt) GetSplunkHecMetadata() *CreateInputSplunkHecMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.SplunkHecMetadata
+}
+
+func (c *CreateInputAuthTokensExt) GetElasticsearchMetadata() *CreateInputElasticsearchMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.ElasticsearchMetadata
+}
+
+type CreateInputInputCriblLakeHTTP struct {
+	// Unique ID for this input
+	ID       string                       `json:"id"`
+	Type     CreateInputTypeCriblLakeHTTP `json:"type"`
+	Disabled *bool                        `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                              `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
+	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+	CriblAPI *string `json:"criblAPI,omitzero"`
+	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+	ElasticAPI *string `json:"elasticAPI,omitzero"`
+	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
+	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
+	// Fields to add to events from this input
+	Metadata      []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	AuthTokensExt []CreateInputAuthTokensExt     `json:"authTokensExt,omitzero"`
+	Description   *string                        `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
+}
+
+func (c CreateInputInputCriblLakeHTTP) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputInputCriblLakeHTTP) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetType() CreateInputTypeCriblLakeHTTP {
+	if c == nil {
+		return CreateInputTypeCriblLakeHTTP("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetHost() string {
+	if c == nil {
+		return ""
+	}
+	return c.Host
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetPort() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.Port
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetAuthTokens() []string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthTokens
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
+		return nil
+	}
+	return c.TLS
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetMaxActiveReq() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxActiveReq
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxRequestsPerSocket
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetEnableProxyHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableProxyHeader
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetCaptureHeaders() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.CaptureHeaders
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetActivityLogSampleRate() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ActivityLogSampleRate
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetRequestTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.RequestTimeout
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetSocketTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.SocketTimeout
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetKeepAliveTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.KeepAliveTimeout
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetEnableHealthCheck() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableHealthCheck
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetIPAllowlistRegex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.IPAllowlistRegex
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetIPDenylistRegex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.IPDenylistRegex
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetCriblAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CriblAPI
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetElasticAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ElasticAPI
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetSplunkHecAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SplunkHecAPI
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetSplunkHecAcks() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SplunkHecAcks
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetAuthTokensExt() []CreateInputAuthTokensExt {
+	if c == nil {
+		return nil
+	}
+	return c.AuthTokensExt
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetTemplateSplunkHecAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSplunkHecAPI
+}
+
 type CreateInputTypeCriblHTTP string
 
 const (
@@ -10084,6 +10804,7 @@ const (
 	CreateInputRequestTypeRawUDP               CreateInputRequestType = "raw_udp"
 	CreateInputRequestTypeJournalFiles         CreateInputRequestType = "journal_files"
 	CreateInputRequestTypeWiz                  CreateInputRequestType = "wiz"
+	CreateInputRequestTypeOpenai               CreateInputRequestType = "openai"
 	CreateInputRequestTypeWizWebhook           CreateInputRequestType = "wiz_webhook"
 	CreateInputRequestTypeNetflow              CreateInputRequestType = "netflow"
 	CreateInputRequestTypeSecurityLake         CreateInputRequestType = "security_lake"
@@ -10148,6 +10869,7 @@ type CreateInputRequest struct {
 	CreateInputInputRawUDP               *CreateInputInputRawUDP               `queryParam:"inline" union:"member"`
 	CreateInputInputJournalFiles         *CreateInputInputJournalFiles         `queryParam:"inline" union:"member"`
 	CreateInputInputWiz                  *CreateInputInputWiz                  `queryParam:"inline" union:"member"`
+	CreateInputInputOpenai               *CreateInputInputOpenai               `queryParam:"inline" union:"member"`
 	CreateInputInputWizWebhook           *CreateInputInputWizWebhook           `queryParam:"inline" union:"member"`
 	CreateInputInputNetflow              *CreateInputInputNetflow              `queryParam:"inline" union:"member"`
 	CreateInputInputSecurityLake         *CreateInputInputSecurityLake         `queryParam:"inline" union:"member"`
@@ -10811,6 +11533,18 @@ func CreateCreateInputRequestWiz(wiz CreateInputInputWiz) CreateInputRequest {
 	}
 }
 
+func CreateCreateInputRequestOpenai(openai CreateInputInputOpenai) CreateInputRequest {
+	typ := CreateInputRequestTypeOpenai
+
+	typStr := CreateInputTypeOpenai(typ)
+	openai.Type = typStr
+
+	return CreateInputRequest{
+		CreateInputInputOpenai: &openai,
+		Type:                   typ,
+	}
+}
+
 func CreateCreateInputRequestWizWebhook(wizWebhook CreateInputInputWizWebhook) CreateInputRequest {
 	typ := CreateInputRequestTypeWizWebhook
 
@@ -11378,6 +12112,15 @@ func (u *CreateInputRequest) UnmarshalJSON(data []byte) error {
 		u.CreateInputInputWiz = createInputInputWiz
 		u.Type = CreateInputRequestTypeWiz
 		return nil
+	case "openai":
+		createInputInputOpenai := new(CreateInputInputOpenai)
+		if err := utils.UnmarshalJSON(data, &createInputInputOpenai, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openai) type CreateInputInputOpenai within CreateInputRequest: %w", string(data), err)
+		}
+
+		u.CreateInputInputOpenai = createInputInputOpenai
+		u.Type = CreateInputRequestTypeOpenai
+		return nil
 	case "wiz_webhook":
 		createInputInputWizWebhook := new(CreateInputInputWizWebhook)
 		if err := utils.UnmarshalJSON(data, &createInputInputWizWebhook, "", true, nil); err != nil {
@@ -11647,6 +12390,10 @@ func (u CreateInputRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CreateInputInputWiz != nil {
 		return utils.MarshalJSON(u.CreateInputInputWiz, "", true)
+	}
+
+	if u.CreateInputInputOpenai != nil {
+		return utils.MarshalJSON(u.CreateInputInputOpenai, "", true)
 	}
 
 	if u.CreateInputInputWizWebhook != nil {

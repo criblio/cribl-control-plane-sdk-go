@@ -11,7 +11,7 @@ type UpdateInputByIDRequest struct {
 	// The <code>id</code> of the Source to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Input object
-	Input components.Input `request:"mediaType=application/json"`
+	Input components.Input2 `request:"mediaType=application/json"`
 }
 
 func (u *UpdateInputByIDRequest) GetID() string {
@@ -21,9 +21,9 @@ func (u *UpdateInputByIDRequest) GetID() string {
 	return u.ID
 }
 
-func (u *UpdateInputByIDRequest) GetInput() components.Input {
+func (u *UpdateInputByIDRequest) GetInput() components.Input2 {
 	if u == nil {
-		return components.Input{}
+		return components.Input2{}
 	}
 	return u.Input
 }
@@ -246,6 +246,10 @@ func (u *UpdateInputByIDRequest) GetInputJournalFiles() *components.InputJournal
 
 func (u *UpdateInputByIDRequest) GetInputWiz() *components.InputWiz {
 	return u.GetInput().InputWiz
+}
+
+func (u *UpdateInputByIDRequest) GetInputOpenai() *components.InputOpenaiInput {
+	return u.GetInput().InputOpenaiInput
 }
 
 func (u *UpdateInputByIDRequest) GetInputWizWebhook() *components.InputWizWebhook {
