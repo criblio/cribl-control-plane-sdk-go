@@ -117,7 +117,7 @@ func main() {
 
 	// Commit configuration changes
 	effective := true
-	commitParams := components.GitCommitParams{
+	commitParams := components.GitCommitBody{
 		Message:   "Optimize Worker Process settings",
 		Effective: &effective,
 		Files:     []string{"."},
