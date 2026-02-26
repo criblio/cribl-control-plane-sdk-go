@@ -18,9 +18,8 @@ import (
 
 // Groups - Actions related to Groups
 type Groups struct {
-	Configs  *GroupsConfigs
-	ACL      *ACL
-	Mappings *Mappings
+	Configs *GroupsConfigs
+	ACL     *ACL
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -34,7 +33,6 @@ func newGroups(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 		hooks:            hooks,
 		Configs:          newGroupsConfigs(rootSDK, sdkConfig, hooks),
 		ACL:              newACL(rootSDK, sdkConfig, hooks),
-		Mappings:         newMappings(rootSDK, sdkConfig, hooks),
 	}
 }
 
