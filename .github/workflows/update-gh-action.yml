@@ -95,7 +95,7 @@ jobs:
       - name: Get current SHA reference
         id: current-sha
         run: |
-          CURRENT_SHA=$(grep -oP 'speakeasy-api/sdk-generation-action/[^@]+@\K[a-f0-9]{40}' .github/workflows/*.yaml | head -1)
+          CURRENT_SHA=$(grep -ohP 'speakeasy-api/sdk-generation-action/[^@]+@\K[a-f0-9]{40}' .github/workflows/*.yaml | head -1)
           
           if [ -z "$CURRENT_SHA" ]; then
             echo "❌ Error: Could not find current speakeasy-api/sdk-generation-action SHA reference"
