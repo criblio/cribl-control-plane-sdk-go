@@ -36,7 +36,7 @@ func newCommits(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, h
 
 // Create a new commit for pending changes to the Cribl configuration
 // Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
-func (s *Commits) Create(ctx context.Context, request components.GitCommitParams, opts ...operations.Option) (*operations.CreateVersionCommitResponse, error) {
+func (s *Commits) Create(ctx context.Context, request components.GitCommitBody, opts ...operations.Option) (*operations.CreateVersionCommitResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,

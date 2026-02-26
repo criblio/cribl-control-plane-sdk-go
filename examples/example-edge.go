@@ -208,7 +208,7 @@ func main() {
 
 	// Commit configuration changes
 	effective := true
-	commitParams := components.GitCommitParams{
+	commitParams := components.GitCommitBody{
 		Message:   "Commit for Edge example",
 		Effective: &effective,
 		Files:     []string{"."},

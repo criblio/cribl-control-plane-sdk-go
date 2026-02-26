@@ -189,7 +189,7 @@ func main() {
 
 	// Commit configuration changes
 	effective := true
-	commitParams := components.GitCommitParams{
+	commitParams := components.GitCommitBody{
 		Message:   "Commit for Stream example",
 		Effective: &effective,
 		Files:     []string{"."},
