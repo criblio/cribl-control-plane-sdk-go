@@ -164,7 +164,7 @@ func main() {
 
 	// Commit configuration changes
 	effective := true
-	commitResponse, err := s.Versions.Commits.Create(ctx, components.GitCommitParams{
+	commitResponse, err := s.Versions.Commits.Create(ctx, components.GitCommitBody{
 		Message:   "Initial configuration",
 		Effective: &effective,
 		Files:     []string{"."},
