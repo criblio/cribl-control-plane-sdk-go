@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 4703fb9765cb07a3bc07dcf0ce791b7b
-  docVersion: 4.17.0-alpha.1772100635288-75a3f232
+  docChecksum: 0bab25546eb2de98c7937658ff145e76
+  docVersion: 4.17.0-alpha.1772104341358-d56b8bbf
   speakeasyVersion: 1.730.1
   generationVersion: 2.844.3
-  releaseVersion: 0.6.0-rc.33
-  configChecksum: 2f67c129b519068b2368b9237cefc685
+  releaseVersion: 0.6.0-rc.34
+  configChecksum: 10f5e16ce15ffca7bf7252710984cafb
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: eebe619e-3dfd-4e9a-b97d-479be5961197
-  pristine_commit_hash: 53d9a7492959766f14bae77a11b0c8f6e9c85b27
-  pristine_tree_hash: c77b69c7991d3530f6fec32ab99a0cc2477e476c
+  generation_id: 38206322-bad4-41db-a981-8bddebc499f6
+  pristine_commit_hash: 2d4221ede87b71c5d189675d6e491c62d20acdee
+  pristine_tree_hash: 1b2e2131401d61894a289fc8722669a0b415c912
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:69f50defd02e90041ab356dbb4b0b6c1a1f23464
-    pristine_git_object: 39f31a09b4a128bd314c319da7dfdbab95b8743e
+    last_write_checksum: sha1:f36addfa448fd8c89a1fda84183ebbf11d17ab9a
+    pristine_git_object: b4b376e4062b5e35d1a9729ef70039bab3ae2e0c
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -571,6 +571,10 @@ trackedFiles:
     id: cc913f06df0d
     last_write_checksum: sha1:d78e292d26cee73c0edeebcf95a1125f1bde7c9a
     pristine_git_object: 1a8598cdc1527cad958d64c2663b29a81da1e78b
+  docs/models/components/confeval.md:
+    id: 754ec1913c5a
+    last_write_checksum: sha1:26f9d44a586c898304f8477c3a64c7b3813b0dcb
+    pristine_git_object: cf6998cd5809353e01646c48e7df9bbdade20feb
   docs/models/components/config.md:
     id: 7d7a400dba8b
     last_write_checksum: sha1:1836b13f4a9f315ab5a7dc2703071c4037d4a1c2
@@ -1153,8 +1157,8 @@ trackedFiles:
     pristine_git_object: f444e77329de071b4fcfe8d3dfced2a2ccfa1ad0
   docs/models/components/function.md:
     id: bc00c536b68e
-    last_write_checksum: sha1:40e435b99c2d5ae2786b04d8d60ff0c88d04deab
-    pristine_git_object: 33dd3d43cbe925c8e5046e378c22d4a0b084e1aa
+    last_write_checksum: sha1:45dee3bf47ec3b2c7493b8680051c61d93d2af3a
+    pristine_git_object: 2bb7e0bdb6d67b0d99d0d2bcd9ddd2e123a94118
   docs/models/components/functionaggregatemetrics.md:
     id: 17172aa98f73
     last_write_checksum: sha1:b7d5f442b1d910fdf76e0b9a5b45d8ca84536db0
@@ -1219,10 +1223,6 @@ trackedFiles:
     id: acdf42ee6138
     last_write_checksum: sha1:c9997561dfc9f6c9e07faf1a6e7ceea602f6827f
     pristine_git_object: 865ac3ffa26d9bcf488c48a57925ae2cb0bc3909
-  docs/models/components/functionconf.md:
-    id: c59074cc08e9
-    last_write_checksum: sha1:c63700ba53d809f3c90016b65aff75db7ca19a7f
-    pristine_git_object: 5db92c1d588b3fa5ee8a72e43c5d163fc6870011
   docs/models/components/functionconfschemaautotimestamp.md:
     id: f6929ca7faac
     last_write_checksum: sha1:28ffe631ad9197af6a23dba842e5cdb0cf373fde
@@ -4029,16 +4029,12 @@ trackedFiles:
     pristine_git_object: 441d6f8b60a8623a09fcf23940b4f3702e792e75
   docs/models/components/mappingrulesetadd.md:
     id: ad85b0dde69b
-    last_write_checksum: sha1:86bc66c4d100e33c9046e6795fd1673cc7378641
-    pristine_git_object: 6151b9ca5343bb9bdb81c41380b0945cf52d4857
+    last_write_checksum: sha1:b0a25ec39e00b249c98540ef8a317fbcfdedb0fe
+    pristine_git_object: eebd745f147c35d8f81a522a942107ee895352e1
   docs/models/components/mappingrulesetconf.md:
     id: 3847c821cacc
     last_write_checksum: sha1:737cef847f89e9cfd1700204871dc87c80398b7e
     pristine_git_object: 86660d8d526bc05f894d0e879357face3808d55b
-  docs/models/components/mappingrulesetid.md:
-    id: 284195bca0ff
-    last_write_checksum: sha1:4499d71f996b1baa8697d885882a7dd0ff3f2533
-    pristine_git_object: b78f21043ffaf3c824f3539a3f30156649a2f0a6
   docs/models/components/masterworkerentry.md:
     id: 98ebc7d3a001
     last_write_checksum: sha1:26bd0be1a38dc8b9b64c87ed855067a310ca37cf
@@ -4127,10 +4123,6 @@ trackedFiles:
     id: a546f82c8ef5
     last_write_checksum: sha1:6ddabeb14395bc0bace794e741075d01809977f7
     pristine_git_object: b48d6ff239f99bb92a7aaa76c0a63928ce7425c4
-  docs/models/components/name.md:
-    id: 817692a433a1
-    last_write_checksum: sha1:778ec02062186d1152af4ae63f4c222781db97f2
-    pristine_git_object: 3b80acc83abb6117a269ed714ab1c490f1b5ef82
   docs/models/components/nestedfieldserializationoptions.md:
     id: efc9b10beab0
     last_write_checksum: sha1:6bfe290cacf551b079c8a644a7f668eff36cae31
@@ -16025,8 +16017,8 @@ trackedFiles:
     pristine_git_object: 7ca9858cd37f9e80cb5e31f29d95df7313d6be99
   docs/sdks/mappings/README.md:
     id: 507f948d6838
-    last_write_checksum: sha1:d0b4f129dd71cd9198f9ee455cb7f5074c317e95
-    pristine_git_object: cc54a504c96462293a6717e0fa5301db38ea724d
+    last_write_checksum: sha1:ac19a995fcfeea78004895501d38485a4cd6e808
+    pristine_git_object: 2f07aa204f818d6331a6fa6ad7b5331847c4e2b3
   docs/sdks/nodes/README.md:
     id: caae80e86772
     last_write_checksum: sha1:c9a0fe3d75be2b8cc80a6b5ea6a33cf3e1d2ce34
@@ -17705,8 +17697,8 @@ trackedFiles:
     pristine_git_object: e1e81fe6cc80e54886eeacad488311fe34c9fa47
   models/components/mappingruleset.go:
     id: 76f883b1269b
-    last_write_checksum: sha1:84e779873cd79342d9cfce49c858ff5306fddab8
-    pristine_git_object: d0197354537ebeaea0536d4b65a1e7ab7e54a210
+    last_write_checksum: sha1:c5c210f0ec7b5945d05506045fc4e3ab6bb3211f
+    pristine_git_object: b4acd6a311f6a661b883acd31bea820c87d53d10
   models/components/masterworkerentry.go:
     id: 94119ee3e4bd
     last_write_checksum: sha1:eb55bac6317e5020356f8a724016a0e2f3d975e8
@@ -29996,14 +29988,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## Go SDK Changes:
-  * `CriblControlPlane.Groups.Mappings.Activate()`: **Added**
-  * `CriblControlPlane.Groups.Mappings.Create()`: **Added**
-  * `CriblControlPlane.Groups.Mappings.List()`: **Added**
-  * `CriblControlPlane.Groups.Mappings.Delete()`: **Added**
-  * `CriblControlPlane.Groups.Mappings.Get()`: **Added**
-  * `CriblControlPlane.Groups.Mappings.Update()`: **Added**
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Groups.Mappings.Create()`: \n  *  `request.MappingRuleset.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Mappings.List()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Mappings.Delete()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Mappings.Get()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Mappings.Update()`: \n  *  `request.MappingRuleset.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

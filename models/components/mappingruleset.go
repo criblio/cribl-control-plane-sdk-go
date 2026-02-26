@@ -6,58 +6,24 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type MappingRulesetID string
-
-const (
-	MappingRulesetIDEval MappingRulesetID = "eval"
-)
-
-func (e MappingRulesetID) ToPointer() *MappingRulesetID {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MappingRulesetID) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "eval":
-			return true
-		}
-	}
-	return false
-}
-
-type Name string
-
-const (
-	NameGroupID Name = "groupId"
-)
-
-func (e Name) ToPointer() *Name {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Name) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "groupId":
-			return true
-		}
-	}
-	return false
-}
-
 type MappingRulesetAdd struct {
-	Name  Name   `json:"name"`
+	name  string `const:"groupId" json:"name"`
 	Value string `json:"value"`
 }
 
-func (m *MappingRulesetAdd) GetName() Name {
-	if m == nil {
-		return Name("")
+func (m MappingRulesetAdd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MappingRulesetAdd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+		return err
 	}
-	return m.Name
+	return nil
+}
+
+func (m *MappingRulesetAdd) GetName() string {
+	return "groupId"
 }
 
 func (m *MappingRulesetAdd) GetValue() string {
@@ -67,21 +33,21 @@ func (m *MappingRulesetAdd) GetValue() string {
 	return m.Value
 }
 
-type FunctionConf struct {
+type ConfEval struct {
 	Add []MappingRulesetAdd `json:"add"`
 }
 
-func (f *FunctionConf) GetAdd() []MappingRulesetAdd {
-	if f == nil {
+func (c *ConfEval) GetAdd() []MappingRulesetAdd {
+	if c == nil {
 		return []MappingRulesetAdd{}
 	}
-	return f.Add
+	return c.Add
 }
 
 type Function struct {
-	ID                   MappingRulesetID `json:"id"`
-	Conf                 FunctionConf     `json:"conf"`
-	AdditionalProperties map[string]any   `additionalProperties:"true" json:"-"`
+	id                   string         `const:"eval" json:"id"`
+	Conf                 ConfEval       `json:"conf"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 
 func (f Function) MarshalJSON() ([]byte, error) {
@@ -95,16 +61,13 @@ func (f *Function) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *Function) GetID() MappingRulesetID {
-	if f == nil {
-		return MappingRulesetID("")
-	}
-	return f.ID
+func (f *Function) GetID() string {
+	return "eval"
 }
 
-func (f *Function) GetConf() FunctionConf {
+func (f *Function) GetConf() ConfEval {
 	if f == nil {
-		return FunctionConf{}
+		return ConfEval{}
 	}
 	return f.Conf
 }

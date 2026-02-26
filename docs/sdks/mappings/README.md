@@ -104,11 +104,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'aws_prod_fleet'",
                             },
                         },
@@ -121,11 +119,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'devops_fleet'",
                             },
                         },
@@ -138,11 +134,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'default_fleet'",
                             },
                         },
@@ -194,11 +188,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'high_perf_fleet'",
                             },
                         },
@@ -211,11 +203,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'database_fleet'",
                             },
                         },
@@ -228,11 +218,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'default_fleet'",
                             },
                         },
@@ -284,11 +272,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'container_high_cpu_fleet'",
                             },
                         },
@@ -301,11 +287,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'container_fleet'",
                             },
                         },
@@ -318,11 +302,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'default_fleet'",
                             },
                         },
@@ -374,11 +356,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'default_fleet'",
                             },
                         },
@@ -430,11 +410,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'linux_fleet'",
                             },
                         },
@@ -447,11 +425,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'windows_fleet'",
                             },
                         },
@@ -464,11 +440,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'macos_fleet'",
                             },
                         },
@@ -481,11 +455,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'default_fleet'",
                             },
                         },
@@ -537,11 +509,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'outpost_a_fleet'",
                             },
                         },
@@ -554,11 +524,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'outpost_b_fleet'",
                             },
                         },
@@ -571,11 +539,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'default_fleet'",
                             },
                         },
@@ -627,11 +593,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'laptop_fleet'",
                             },
                         },
@@ -644,11 +608,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'production_fleet'",
                             },
                         },
@@ -661,11 +623,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'default_fleet'",
                             },
                         },
@@ -915,11 +875,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'default_fleet'",
                             },
                         },
@@ -972,11 +930,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'high_perf_fleet'",
                             },
                         },
@@ -989,11 +945,9 @@ func main() {
                     },
                 },
                 components.Function{
-                    ID: components.MappingRulesetIDEval,
-                    Conf: components.FunctionConf{
+                    Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
-                                Name: components.NameGroupID,
                                 Value: "'default_fleet'",
                             },
                         },
