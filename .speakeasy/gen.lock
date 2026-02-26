@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 5a799f78f41b0d882073f740531eea27
-  docVersion: 4.17.0-alpha.1771954403808-f0bcc9c7
+  docChecksum: 744585fde4fd27ceb59abfcfbf15f76c
+  docVersion: 4.17.0-alpha.1772060715055-b28e0254
   speakeasyVersion: 1.728.0
   generationVersion: 2.839.0
-  releaseVersion: 0.6.0-beta.46
-  configChecksum: c0f21294a5b9798ace1b22b8e43803bf
+  releaseVersion: 0.6.0-beta.47
+  configChecksum: ec7332f86192dac3e05a9492970d4537
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 6b78320a-26a7-4910-96e2-15bbc11d4a0c
-  pristine_commit_hash: a9cf263039983efa3500247cb5f631568936bef2
-  pristine_tree_hash: 85e77ac0c03f1e91d2850b2ec5336972cbb66992
+  generation_id: 0eb2f834-bd60-421f-a5f4-83ecc8050537
+  pristine_commit_hash: 5caca2fc54f7e02e2070c35d83a1599c8f0dd019
+  pristine_tree_hash: a2f580470202d4b7624ff9f0618bd06fe39a9c93
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:6c80631bc5ed0f370316e01d818e4e9a15b6f359
-    pristine_git_object: de3ca73876d361110916b5bb253cfb41ae011f63
+    last_write_checksum: sha1:81b7be8bc8ad18027589047812730932d1380fef
+    pristine_git_object: af2c91b944fe3aa5a7b9f1ae7bd59e2d81a807d7
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -3905,8 +3905,8 @@ trackedFiles:
     pristine_git_object: 8a20c2c57b56e57adf26914eb89054aa7d206df1
   docs/models/components/lakedatasetsearchconfig.md:
     id: d2cfd7d3aef0
-    last_write_checksum: sha1:0136e070d33b6f97678aee2eb7a612372903c603
-    pristine_git_object: 4086dd6d08c6c1ddba46c1dff626c148f2f7acad
+    last_write_checksum: sha1:d5ccc91a6ac137f52da33c4becff1a23afc56ed2
+    pristine_git_object: 782c7c2aa0fe312b1040d0de738730e83be0c170
   docs/models/components/lakeexportconfiguration.md:
     id: c76fb084bb31
     last_write_checksum: sha1:f55de4bfbe2dd0a58c800b3d7ef12889b1b9dee1
@@ -17581,8 +17581,8 @@ trackedFiles:
     pristine_git_object: 891211fbe4d0a56a76b29b3ee5466710b398059a
   models/components/lakedatasetsearchconfig.go:
     id: 1e08a07f5d5a
-    last_write_checksum: sha1:1c2335b0c44fab1a760667a656ef60b3b7be97a3
-    pristine_git_object: e23685a96fa8be43da4705e4926b6cd5e3380f06
+    last_write_checksum: sha1:731e713324049d0a9ecf66053ad0447734dbde82
+    pristine_git_object: 68e31f642c39cfde2bce166c2b214f6bfa52164a
   models/components/lakehouseconnectiontype.go:
     id: 6dc45577dd67
     last_write_checksum: sha1:6339f8e233d7311667ecf23d05c6feb49ceb7f0a
@@ -29618,6 +29618,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.LakeDatasets.Create()`: \n  *  `request.CriblLakeDataset.SearchConfig` **Changed**\n  *  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.List()`:  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.Delete()`:  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.Get()`:  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.Update()`: \n  *  `request.CriblLakeDatasetUpdate.SearchConfig` **Changed**\n  *  `response.Items[].SearchConfig` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
