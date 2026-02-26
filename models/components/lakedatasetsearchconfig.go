@@ -7,8 +7,10 @@ import (
 )
 
 type LakeDatasetSearchConfig struct {
-	Datatypes []string         `json:"datatypes,omitzero"`
-	Metadata  *DatasetMetadata `json:"metadata,omitzero"`
+	Datatypes   []string         `json:"datatypes,omitzero"`
+	Description *string          `json:"description,omitzero"`
+	Metadata    *DatasetMetadata `json:"metadata,omitzero"`
+	Tags        *string          `json:"tags,omitzero"`
 }
 
 func (l LakeDatasetSearchConfig) MarshalJSON() ([]byte, error) {
@@ -29,9 +31,23 @@ func (l *LakeDatasetSearchConfig) GetDatatypes() []string {
 	return l.Datatypes
 }
 
+func (l *LakeDatasetSearchConfig) GetDescription() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Description
+}
+
 func (l *LakeDatasetSearchConfig) GetMetadata() *DatasetMetadata {
 	if l == nil {
 		return nil
 	}
 	return l.Metadata
+}
+
+func (l *LakeDatasetSearchConfig) GetTags() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Tags
 }
