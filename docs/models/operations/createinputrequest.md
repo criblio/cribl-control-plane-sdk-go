@@ -335,6 +335,12 @@ createInputRequest := operations.CreateCreateInputRequestJournalFiles(operations
 createInputRequest := operations.CreateCreateInputRequestWiz(operations.CreateInputInputWiz{/* values here */})
 ```
 
+### CreateInputInputOpenai
+
+```go
+createInputRequest := operations.CreateCreateInputRequestOpenai(operations.CreateInputInputOpenai{/* values here */})
+```
+
 ### CreateInputInputWizWebhook
 
 ```go
@@ -481,6 +487,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputJournalFiles is populated
 	case operations.CreateInputRequestTypeWiz:
 		// createInputRequest.CreateInputInputWiz is populated
+	case operations.CreateInputRequestTypeOpenai:
+		// createInputRequest.CreateInputInputOpenai is populated
 	case operations.CreateInputRequestTypeWizWebhook:
 		// createInputRequest.CreateInputInputWizWebhook is populated
 	case operations.CreateInputRequestTypeNetflow:
