@@ -13,7 +13,7 @@ type UpdateInputSystemByPackAndIDRequest struct {
 	// The <code>id</code> of the Pack to update.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 	// Input object
-	Input components.Input `request:"mediaType=application/json"`
+	Input components.Input2 `request:"mediaType=application/json"`
 }
 
 func (u *UpdateInputSystemByPackAndIDRequest) GetID() string {
@@ -30,9 +30,9 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetPack() string {
 	return u.Pack
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInput() components.Input {
+func (u *UpdateInputSystemByPackAndIDRequest) GetInput() components.Input2 {
 	if u == nil {
-		return components.Input{}
+		return components.Input2{}
 	}
 	return u.Input
 }
@@ -255,6 +255,10 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputJournalFiles() *components
 
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputWiz() *components.InputWiz {
 	return u.GetInput().InputWiz
+}
+
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputOpenai() *components.InputOpenaiInput {
+	return u.GetInput().InputOpenaiInput
 }
 
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputWizWebhook() *components.InputWizWebhook {

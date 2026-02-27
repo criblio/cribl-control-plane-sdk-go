@@ -191,8 +191,7 @@ type OutputClickHouse struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Log the most recent event that fails to match the table schema
-	DumpFormatErrorsToDisk *bool                 `json:"dumpFormatErrorsToDisk,omitzero"`
-	StatsDestination       *StatsDestinationType `json:"statsDestination,omitzero"`
+	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                      `json:"description,omitzero"`
@@ -450,13 +449,6 @@ func (o *OutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
 		return nil
 	}
 	return o.DumpFormatErrorsToDisk
-}
-
-func (o *OutputClickHouse) GetStatsDestination() *StatsDestinationType {
-	if o == nil {
-		return nil
-	}
-	return o.StatsDestination
 }
 
 func (o *OutputClickHouse) GetOnBackpressure() *BackpressureBehaviorOptions {

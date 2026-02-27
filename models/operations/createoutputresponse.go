@@ -10,6 +10,413 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateOutputOutputNewrelicEvents struct {
+	// Unique ID for this output
+	ID   string                         `json:"id"`
+	Type CreateOutputTypeNewrelicEvents `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Which New Relic region endpoint to use.
+	Region *components.RegionOptions `json:"region,omitzero"`
+	// New Relic account ID
+	AccountID string `json:"accountId"`
+	// Default eventType to use when not present in an event. For more information, see [here](https://docs.newrelic.com/docs/telemetry-data-platform/custom-data/custom-events/data-requirements-limits-custom-event-data/#reserved-words).
+	EventType string `json:"eventType"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `json:"concurrency,omitzero"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
+	// Compress the payload body before sending
+	Compress *bool `json:"compress,omitzero"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	// Enter API key directly, or select a stored secret
+	AuthType    *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	Description *string                                  `json:"description,omitzero"`
+	CustomURL   *string                                  `json:"customUrl,omitzero"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `json:"pqPath,omitzero"`
+	// Codec to use to compress the persisted data
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *components.QueueFullBehaviorOptions  `json:"pqOnBackpressure,omitzero"`
+	PqControls       *CreateOutputPqControlsNewrelicEvents `json:"pqControls,omitzero"`
+	// New Relic API key. Can be overridden using __newRelic_apiKey field.
+	APIKey *string `json:"apiKey,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
+	TemplateAccountID *string `json:"__template_accountId,omitzero"`
+	// Binds 'eventType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'eventType' at runtime.
+	TemplateEventType *string `json:"__template_eventType,omitzero"`
+	// Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
+	TemplateCustomURL *string `json:"__template_customUrl,omitzero"`
+}
+
+func (c CreateOutputOutputNewrelicEvents) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputOutputNewrelicEvents) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetType() CreateOutputTypeNewrelicEvents {
+	if c == nil {
+		return CreateOutputTypeNewrelicEvents("")
+	}
+	return c.Type
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetSystemFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SystemFields
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetRegion() *components.RegionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.Region
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetAccountID() string {
+	if c == nil {
+		return ""
+	}
+	return c.AccountID
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetEventType() string {
+	if c == nil {
+		return ""
+	}
+	return c.EventType
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetConcurrency() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Concurrency
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetMaxPayloadSizeKB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxPayloadSizeKB
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetMaxPayloadEvents() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxPayloadEvents
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetCompress() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetTimeoutSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.TimeoutSec
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetFlushPeriodSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.FlushPeriodSec
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.ExtraHTTPHeaders
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetUseRoundRobinDNS() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseRoundRobinDNS
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.FailedRequestLoggingMode
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetSafeHeaders() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SafeHeaders
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+	if c == nil {
+		return nil
+	}
+	return c.ResponseRetrySettings
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+	if c == nil {
+		return nil
+	}
+	return c.TimeoutRetrySettings
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetResponseHonorRetryAfterHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ResponseHonorRetryAfterHeader
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OnBackpressure
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetAuthType() *components.AuthenticationMethodOptions2 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetCustomURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CustomURL
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqStrictOrdering() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqStrictOrdering
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqRatePerSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqRatePerSec
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqMode() *components.ModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqMode
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqMaxBufferSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSize
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqMaxBackpressureSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBackpressureSec
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqMaxFileSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxFileSize
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqMaxSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxSize
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqPath
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqCompress() *components.CompressionOptionsPq {
+	if c == nil {
+		return nil
+	}
+	return c.PqCompress
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetPqControls() *CreateOutputPqControlsNewrelicEvents {
+	if c == nil {
+		return nil
+	}
+	return c.PqControls
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.APIKey
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetTemplateAccountID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAccountID
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetTemplateEventType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEventType
+}
+
+func (c *CreateOutputOutputNewrelicEvents) GetTemplateCustomURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCustomURL
+}
+
 type CreateOutputTypeNewrelic string
 
 const (

@@ -104,6 +104,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("aws?.tags?.Environment === \"Production\""),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map Production EC2 instances"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -111,14 +114,11 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "aws?.tags?.Environment === \"Production\"",
-                        "description": "Map Production EC2 instances",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("aws?.tags?.Team === \"DevOps\""),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map DevOps team EC2 instances"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -126,26 +126,17 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "aws?.tags?.Team === \"DevOps\"",
-                        "description": "Map DevOps team EC2 instances",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Default mapping"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
                                 Value: "'default_fleet'",
                             },
                         },
-                    },
-                    AdditionalProperties: map[string]any{
-                        "filter": "!cribl.group",
-                        "description": "Default mapping",
-                        "disabled": false,
-                        "final": true,
                     },
                 },
             },
@@ -188,6 +179,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map high-performance nodes in specific network or DMZ"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -195,14 +189,11 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
-                        "description": "Map high-performance nodes in specific network or DMZ",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("platform === \"linux\" && memory > 16000 && cribl.tags.includes(\"Database\")"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map Linux nodes with high memory for database workloads"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -210,26 +201,17 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "platform === \"linux\" && memory > 16000 && cribl.tags.includes(\"Database\")",
-                        "description": "Map Linux nodes with high memory for database workloads",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Default mapping"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
                                 Value: "'default_fleet'",
                             },
                         },
-                    },
-                    AdditionalProperties: map[string]any{
-                        "filter": "!cribl.group",
-                        "description": "Default mapping",
-                        "disabled": false,
-                        "final": true,
                     },
                 },
             },
@@ -272,6 +254,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("hostOs?.platform === \"linux\" && hostOs?.cpu_count > 4"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map containerized nodes on high-CPU Linux hosts"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -279,14 +264,11 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "hostOs?.platform === \"linux\" && hostOs?.cpu_count > 4",
-                        "description": "Map containerized nodes on high-CPU Linux hosts",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("hostOs?.id"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map all containerized Edge Nodes"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -294,26 +276,17 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "hostOs?.id",
-                        "description": "Map all containerized Edge Nodes",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Default mapping for non-containerized nodes"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
                                 Value: "'default_fleet'",
                             },
                         },
-                    },
-                    AdditionalProperties: map[string]any{
-                        "filter": "!cribl.group",
-                        "description": "Default mapping for non-containerized nodes",
-                        "disabled": false,
-                        "final": true,
                     },
                 },
             },
@@ -356,18 +329,15 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Simple default Mapping Ruleset"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
                                 Value: "'default_fleet'",
                             },
                         },
-                    },
-                    AdditionalProperties: map[string]any{
-                        "filter": "!cribl.group",
-                        "description": "Simple default Mapping Ruleset",
-                        "disabled": false,
-                        "final": true,
                     },
                 },
             },
@@ -410,6 +380,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("platform === \"linux\""),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map Linux Edge Nodes"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -417,14 +390,11 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "platform === \"linux\"",
-                        "description": "Map Linux Edge Nodes",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("platform === \"win32\""),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map Windows Edge Nodes"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -432,14 +402,11 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "platform === \"win32\"",
-                        "description": "Map Windows Edge Nodes",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("platform === \"darwin\""),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map macOS Edge Nodes"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -447,26 +414,17 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "platform === \"darwin\"",
-                        "description": "Map macOS Edge Nodes",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Default mapping for unmapped nodes"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
                                 Value: "'default_fleet'",
                             },
                         },
-                    },
-                    AdditionalProperties: map[string]any{
-                        "filter": "!cribl.group",
-                        "description": "Default mapping for unmapped nodes",
-                        "disabled": false,
-                        "final": true,
                     },
                 },
             },
@@ -509,6 +467,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("outpost.host === \"5ab6c676be6a\""),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map Edge Nodes from Outpost A"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -516,14 +477,11 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "outpost.host === \"5ab6c676be6a\"",
-                        "description": "Map Edge Nodes from Outpost A",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("outpost.guid === \"550e8400-e29b-41d4-a716-446655440000\""),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map Edge Nodes from Outpost B by GUID"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -531,26 +489,17 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "outpost.guid === \"550e8400-e29b-41d4-a716-446655440000\"",
-                        "description": "Map Edge Nodes from Outpost B by GUID",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Default mapping"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
                                 Value: "'default_fleet'",
                             },
                         },
-                    },
-                    AdditionalProperties: map[string]any{
-                        "filter": "!cribl.group",
-                        "description": "Default mapping",
-                        "disabled": false,
-                        "final": true,
                     },
                 },
             },
@@ -593,6 +542,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("cribl.tags.includes(\"WinLaptop\")"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map Windows Laptop Edge Nodes"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -600,14 +552,11 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "cribl.tags.includes(\"WinLaptop\")",
-                        "description": "Map Windows Laptop Edge Nodes",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("cribl.tags.includes(\"Production\")"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map Production Edge Nodes"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -615,26 +564,17 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "cribl.tags.includes(\"Production\")",
-                        "description": "Map Production Edge Nodes",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Default mapping"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
                                 Value: "'default_fleet'",
                             },
                         },
-                    },
-                    AdditionalProperties: map[string]any{
-                        "filter": "!cribl.group",
-                        "description": "Default mapping",
-                        "disabled": false,
-                        "final": true,
                     },
                 },
             },
@@ -875,18 +815,15 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Default Mappings"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
                                 Value: "'default_fleet'",
                             },
                         },
-                    },
-                    AdditionalProperties: map[string]any{
-                        "filter": "!cribl.group",
-                        "description": "Default Mappings",
-                        "disabled": false,
-                        "final": true,
                     },
                 },
             },
@@ -930,6 +867,9 @@ func main() {
         Conf: &components.MappingRulesetConf{
             Functions: []components.Function{
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Map high-performance nodes in specific network or DMZ"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
@@ -937,26 +877,17 @@ func main() {
                             },
                         },
                     },
-                    AdditionalProperties: map[string]any{
-                        "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
-                        "description": "Map high-performance nodes in specific network or DMZ",
-                        "disabled": false,
-                        "final": true,
-                    },
                 },
                 components.Function{
+                    Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
+                    Disabled: false,
+                    Description: criblcontrolplanesdkgo.Pointer("Default mapping"),
                     Conf: components.ConfEval{
                         Add: []components.MappingRulesetAdd{
                             components.MappingRulesetAdd{
                                 Value: "'default_fleet'",
                             },
                         },
-                    },
-                    AdditionalProperties: map[string]any{
-                        "filter": "!cribl.group",
-                        "description": "Default mapping",
-                        "disabled": false,
-                        "final": true,
                     },
                 },
             },
