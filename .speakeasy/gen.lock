@@ -3,22 +3,22 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: d1189f3dd8396bf4693ce24ed17d0579
   docVersion: 4.17.0-alpha.1772136542642-51545bcb
-  speakeasyVersion: 1.731.2
-  generationVersion: 2.845.1
-  releaseVersion: 0.6.0-beta.49
-  configChecksum: 1fb1c37057dec088ee656cfd16b3d458
+  speakeasyVersion: 1.733.3
+  generationVersion: 2.845.11
+  releaseVersion: 0.6.0-beta.50
+  configChecksum: 48815a75e6e5af6dd7f44d14d79d00ac
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: c5103b32-25a2-4b28-9335-d3d5ce2bf2e1
-  pristine_commit_hash: d2c28c27f3b417e9ade577b7ca09c84c4a2a4b20
-  pristine_tree_hash: 905b88bef9dd8d9ea426b58e2ffeb5c9c48cf3fe
+  generation_id: d3704869-6cfa-4bfd-8847-bd6bf436a44d
+  pristine_commit_hash: eb7da88eef6677bda2808a674012e4b009856b14
+  pristine_tree_hash: f5c25766018579d03a56d8e5cf503dcd4dbb4fc5
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.14
-    core: 3.13.17
+    core: 3.13.19
     defaultEnabledRetries: 0.2.0
     deprecations: 2.81.3
     devContainers: 2.90.0
@@ -27,14 +27,14 @@ features:
     flattening: 2.81.1
     globalSecurity: 2.82.13
     globalSecurityCallbacks: 0.1.0
-    globalServerURLs: 2.83.0
+    globalServerURLs: 2.83.1
     groups: 2.81.3
     inputOutputModels: 2.83.0
     intellisenseMarkdownSupport: 0.1.0
     jsonlResponses: 0.2.0
     nameOverrides: 2.81.4
     nullables: 0.2.1
-    oauth2ClientCredentials: 1.1.2
+    oauth2ClientCredentials: 1.1.4
     openEnums: 0.1.0
     pagination: 2.82.6
     responseFormat: 0.1.2
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:c3151154e427b6d16c2115340b6951e55b0fbd78
-    pristine_git_object: e6ae3a52ef1bae7c4a20507e1739ca3d8684997a
+    last_write_checksum: sha1:f7f1101ef892c0b44439e712ef8d68f3bd4eeab0
+    pristine_git_object: f1fd95754509068c21bb87cc64a699c977631ad7
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -16145,8 +16145,8 @@ trackedFiles:
     pristine_git_object: 400a470ec1df2a48ad3317a35c7e6e0be38c8700
   health.go:
     id: ca291aa88e47
-    last_write_checksum: sha1:aff15e317ae01442fcf6e3c5f6ab108de7c2fd40
-    pristine_git_object: d1a7026de55be932bd8e6f449052231ed831c49a
+    last_write_checksum: sha1:68709bd9753029a96385bbea2729306bb0538e98
+    pristine_git_object: 39d49621c1396d6228b1f571062a77acffccb931
   hectokens.go:
     id: 1ba8ebdf34be
     last_write_checksum: sha1:77ab5475060634b43ff46249b91303ecb031f6aa
@@ -19417,8 +19417,8 @@ trackedFiles:
     pristine_git_object: 87d3b7347f9e01c6a4266aa1841a5a761d75fb33
   tokens.go:
     id: f3cf3a3b3a1d
-    last_write_checksum: sha1:9e8acf235ef4b860466a68f746b1f0e2c08d2ef0
-    pristine_git_object: 65be05d388678f98b2fa70c601aedb7cbc61f4f7
+    last_write_checksum: sha1:0cc495f99baeca00dda5d18df89f1e874872fe74
+    pristine_git_object: fab9ff5733f6993f0ff58aa780bf7ccb1602be24
   types/bigint.go:
     id: 6f911e1a03c3
     last_write_checksum: sha1:49b004005d0461fb04b846eca062b070b0360b31
