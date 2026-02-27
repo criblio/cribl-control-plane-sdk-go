@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.17.0-alpha.1772136542642-51545bcb and generator version 2.845.1
+// Generated from OpenAPI doc version 4.17.0-alpha.1772136542642-51545bcb and generator version 2.845.11
 
 import (
 	"context"
@@ -82,6 +82,24 @@ type CriblControlPlane struct {
 
 type SDKOption func(*CriblControlPlane)
 
+// WithServerURL allows providing an alternative server URL
+func WithServerURL(serverURL string) SDKOption {
+	return func(sdk *CriblControlPlane) {
+		sdk.sdkConfiguration.ServerURL = serverURL
+	}
+}
+
+// WithTemplatedServerURL allows the overriding of the default server URL with a templated URL populated with the provided parameters
+func WithTemplatedServerURL(serverURL string, params map[string]string) SDKOption {
+	return func(sdk *CriblControlPlane) {
+		if params != nil {
+			serverURL = utils.ReplaceParameters(serverURL, params)
+		}
+
+		sdk.sdkConfiguration.ServerURL = serverURL
+	}
+}
+
 // WithClient allows the overriding of the default HTTP client used by the SDK
 func WithClient(client HTTPClient) SDKOption {
 	return func(sdk *CriblControlPlane) {
@@ -121,9 +139,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.6.0-beta.49",
+		SDKVersion: "0.6.0-beta.50",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.6.0-beta.49 2.845.1 4.17.0-alpha.1772136542642-51545bcb github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.6.0-beta.50 2.845.11 4.17.0-alpha.1772136542642-51545bcb github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
