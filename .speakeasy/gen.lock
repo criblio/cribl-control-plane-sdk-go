@@ -5,14 +5,14 @@ management:
   docVersion: 4.17.0-alpha.1772136542642-51545bcb
   speakeasyVersion: 1.731.2
   generationVersion: 2.845.1
-  releaseVersion: 0.6.0-beta.48
-  configChecksum: 38ad8b9f2494ea59e12f165707c3fbd9
+  releaseVersion: 0.6.0-beta.49
+  configChecksum: 1fb1c37057dec088ee656cfd16b3d458
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: e29a700b-31d7-4f3d-836e-903f37803429
-  pristine_commit_hash: 2076aff7675803d6858772befa386b11947ae5a4
-  pristine_tree_hash: 178fb2296cd526431d0a003c5cf4c63a64458a82
+  generation_id: c5103b32-25a2-4b28-9335-d3d5ce2bf2e1
+  pristine_commit_hash: d2c28c27f3b417e9ade577b7ca09c84c4a2a4b20
+  pristine_tree_hash: 905b88bef9dd8d9ea426b58e2ffeb5c9c48cf3fe
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:0e176acd9cb0cb460933a417d6ebc47c7b87f51f
-    pristine_git_object: f48f278ebb4c197c1a4c54d8065c125deb58632d
+    last_write_checksum: sha1:c3151154e427b6d16c2115340b6951e55b0fbd78
+    pristine_git_object: e6ae3a52ef1bae7c4a20507e1739ca3d8684997a
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -29788,7 +29788,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Versions.Commits.Create()`: \n  *  `request.Request.Group` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n  *  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n  *  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.List()`:  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output.union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n  *  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody.union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n  *  `response.Items[].union(click_house).StatsDestination` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.List()`:  `response.Items[].Collectors` **Added**\n* `CriblControlPlane.Packs.Get()`:  `response.Items[].Collectors` **Added**\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(openai)` **Added**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(openai)` **Added**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(openai)` **Added**\n  *  `response.Items[].union(openai)` **Added**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(openai)` **Added**\n* `CriblControlPlane.Packs.Update()`:  `response.Items[].Collectors` **Added**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(openai)` **Added**\n  *  `response.Items[].union(openai)` **Added**\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(openai)` **Added**\n* `CriblControlPlane.Packs.Install()`:  `response.Items[].Collectors` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(openai)` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(openai)` **Added**\n  *  `response.Items[].union(openai)` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(openai)` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(openai)` **Added**\n  *  `response.Items[].union(openai)` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
