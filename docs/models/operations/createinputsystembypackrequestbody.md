@@ -335,6 +335,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyWiz(operations.CreateInputSystemByPackInputWiz{/* values here */})
 ```
 
+### CreateInputSystemByPackInputOpenai
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyOpenai(operations.CreateInputSystemByPackInputOpenai{/* values here */})
+```
+
 ### CreateInputSystemByPackInputWizWebhook
 
 ```go
@@ -481,6 +487,8 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputJournalFiles is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeWiz:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputWiz is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeOpenai:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOpenai is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeWizWebhook:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputWizWebhook is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeNetflow:

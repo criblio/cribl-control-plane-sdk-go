@@ -46,6 +46,10 @@ func (c *ConfEval) GetAdd() []MappingRulesetAdd {
 
 type Function struct {
 	id                   string         `const:"eval" json:"id"`
+	Filter               *string        `json:"filter,omitzero"`
+	Disabled             bool           `json:"disabled"`
+	final                bool           `const:"true" json:"final"`
+	Description          *string        `json:"description,omitzero"`
 	Conf                 ConfEval       `json:"conf"`
 	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
@@ -63,6 +67,31 @@ func (f *Function) UnmarshalJSON(data []byte) error {
 
 func (f *Function) GetID() string {
 	return "eval"
+}
+
+func (f *Function) GetFilter() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Filter
+}
+
+func (f *Function) GetDisabled() bool {
+	if f == nil {
+		return false
+	}
+	return f.Disabled
+}
+
+func (f *Function) GetFinal() bool {
+	return true
+}
+
+func (f *Function) GetDescription() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Description
 }
 
 func (f *Function) GetConf() ConfEval {

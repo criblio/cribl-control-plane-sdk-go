@@ -31,15 +31,15 @@ func (e *InputWizType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type ManageState struct {
+type InputWizManageState struct {
 }
 
-func (m ManageState) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(m, "", false)
+func (i InputWizManageState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (m *ManageState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+func (i *InputWizManageState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -81,8 +81,8 @@ type InputWizContentConfig struct {
 	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
 	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
-	StateMergeExpression *string      `json:"stateMergeExpression,omitzero"`
-	ManageState          *ManageState `json:"manageState,omitzero"`
+	StateMergeExpression *string              `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputWizManageState `json:"manageState,omitzero"`
 	// Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
 	ContentQuery string `json:"contentQuery"`
 	// A cron schedule on which to run this job
@@ -152,7 +152,7 @@ func (i *InputWizContentConfig) GetStateMergeExpression() *string {
 	return i.StateMergeExpression
 }
 
-func (i *InputWizContentConfig) GetManageState() *ManageState {
+func (i *InputWizContentConfig) GetManageState() *InputWizManageState {
 	if i == nil {
 		return nil
 	}

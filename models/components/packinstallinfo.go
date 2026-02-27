@@ -8,6 +8,7 @@ import (
 
 type PackInstallInfo struct {
 	Author              *string                  `json:"author,omitzero"`
+	Collectors          *float64                 `json:"collectors,omitzero"`
 	Dependencies        map[string]string        `json:"dependencies,omitzero"`
 	Description         *string                  `json:"description,omitzero"`
 	DisplayName         *string                  `json:"displayName,omitzero"`
@@ -41,6 +42,13 @@ func (p *PackInstallInfo) GetAuthor() *string {
 		return nil
 	}
 	return p.Author
+}
+
+func (p *PackInstallInfo) GetCollectors() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.Collectors
 }
 
 func (p *PackInstallInfo) GetDependencies() map[string]string {

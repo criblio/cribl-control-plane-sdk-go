@@ -81,6 +81,76 @@ func (e *OutputLocalSearchStorageMappingType) IsExact() bool {
 	return false
 }
 
+type StatsDestination struct {
+	URL         *string `json:"url,omitzero"`
+	Database    *string `json:"database,omitzero"`
+	TableName   *string `json:"tableName,omitzero"`
+	AuthType    *string `json:"authType,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	SQLUsername *string `json:"sqlUsername,omitzero"`
+	Password    *string `json:"password,omitzero"`
+}
+
+func (s StatsDestination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StatsDestination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StatsDestination) GetURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.URL
+}
+
+func (s *StatsDestination) GetDatabase() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Database
+}
+
+func (s *StatsDestination) GetTableName() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TableName
+}
+
+func (s *StatsDestination) GetAuthType() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AuthType
+}
+
+func (s *StatsDestination) GetUsername() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Username
+}
+
+func (s *StatsDestination) GetSQLUsername() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SQLUsername
+}
+
+func (s *StatsDestination) GetPassword() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Password
+}
+
 type OutputLocalSearchStorageColumnMapping struct {
 	// Name of the column that will store field value
 	ColumnName string `json:"columnName"`
@@ -191,13 +261,13 @@ type OutputLocalSearchStorage struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Log the most recent event that fails to match the table schema
-	DumpFormatErrorsToDisk *bool                 `json:"dumpFormatErrorsToDisk,omitzero"`
-	StatsDestination       *StatsDestinationType `json:"statsDestination,omitzero"`
+	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
-	Username       *string                      `json:"username,omitzero"`
-	Password       *string                      `json:"password,omitzero"`
+	OnBackpressure   *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	StatsDestination *StatsDestination            `json:"statsDestination,omitzero"`
+	Description      *string                      `json:"description,omitzero"`
+	Username         *string                      `json:"username,omitzero"`
+	Password         *string                      `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
@@ -452,18 +522,18 @@ func (o *OutputLocalSearchStorage) GetDumpFormatErrorsToDisk() *bool {
 	return o.DumpFormatErrorsToDisk
 }
 
-func (o *OutputLocalSearchStorage) GetStatsDestination() *StatsDestinationType {
-	if o == nil {
-		return nil
-	}
-	return o.StatsDestination
-}
-
 func (o *OutputLocalSearchStorage) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
+}
+
+func (o *OutputLocalSearchStorage) GetStatsDestination() *StatsDestination {
+	if o == nil {
+		return nil
+	}
+	return o.StatsDestination
 }
 
 func (o *OutputLocalSearchStorage) GetDescription() *string {

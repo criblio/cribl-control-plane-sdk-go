@@ -6,30 +6,30 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type ItemsTypeLabels struct {
+type ItemsTypeContentConfigItemsRequestParams struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
 
-func (i ItemsTypeLabels) MarshalJSON() ([]byte, error) {
+func (i ItemsTypeContentConfigItemsRequestParams) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *ItemsTypeLabels) UnmarshalJSON(data []byte) error {
+func (i *ItemsTypeContentConfigItemsRequestParams) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *ItemsTypeLabels) GetName() string {
+func (i *ItemsTypeContentConfigItemsRequestParams) GetName() string {
 	if i == nil {
 		return ""
 	}
 	return i.Name
 }
 
-func (i *ItemsTypeLabels) GetValue() string {
+func (i *ItemsTypeContentConfigItemsRequestParams) GetValue() string {
 	if i == nil {
 		return ""
 	}

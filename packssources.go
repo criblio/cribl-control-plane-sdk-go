@@ -777,7 +777,7 @@ func (s *PacksSources) Get(ctx context.Context, id string, pack string, opts ...
 
 // Update a Source within a Pack
 // Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
-func (s *PacksSources) Update(ctx context.Context, id string, pack string, input components.Input, opts ...operations.Option) (*operations.UpdateInputSystemByPackAndIDResponse, error) {
+func (s *PacksSources) Update(ctx context.Context, id string, pack string, input components.Input2, opts ...operations.Option) (*operations.UpdateInputSystemByPackAndIDResponse, error) {
 	request := operations.UpdateInputSystemByPackAndIDRequest{
 		ID:    id,
 		Pack:  pack,
