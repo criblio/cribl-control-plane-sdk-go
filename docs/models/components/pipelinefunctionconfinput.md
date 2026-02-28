@@ -177,6 +177,12 @@ pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputLocalSear
 pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputLocalSearchRulesetRunner(components.PipelineFunctionLocalSearchRulesetRunner{/* values here */})
 ```
 
+### PipelineFunctionLocalSearchTransformer
+
+```go
+pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputLocalSearchTransformer(components.PipelineFunctionLocalSearchTransformer{/* values here */})
+```
+
 ### PipelineFunctionLookup
 
 ```go
@@ -457,6 +463,8 @@ switch pipelineFunctionConfInput.Type {
 		// pipelineFunctionConfInput.PipelineFunctionLocalSearchDatatypeParser is populated
 	case components.PipelineFunctionConfInputTypeLocalSearchRulesetRunner:
 		// pipelineFunctionConfInput.PipelineFunctionLocalSearchRulesetRunner is populated
+	case components.PipelineFunctionConfInputTypeLocalSearchTransformer:
+		// pipelineFunctionConfInput.PipelineFunctionLocalSearchTransformer is populated
 	case components.PipelineFunctionConfInputTypeLookup:
 		// pipelineFunctionConfInput.PipelineFunctionLookup is populated
 	case components.PipelineFunctionConfInputTypeMask:
