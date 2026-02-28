@@ -8,9 +8,9 @@ import (
 
 type SavedJobExecutor struct {
 	// Unique ID for this Job
-	ID          *string                          `json:"id,omitzero"`
-	Description *string                          `json:"description,omitzero"`
-	Type        JobTypeOptionsSavedJobCollection `json:"type"`
+	ID          *string                             `json:"id,omitzero"`
+	Description *string                             `json:"description,omitzero"`
+	Type        JobTypeOptionsRunnableJobCollection `json:"type"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -24,8 +24,8 @@ type SavedJobExecutor struct {
 	// Configuration for a scheduled job
 	Schedule *ScheduleTypeSavedJobCollection `json:"schedule,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string                     `json:"streamtags,omitzero"`
-	Executor   ExecutorTypeSavedJobExecutor `json:"executor"`
+	Streamtags []string                        `json:"streamtags,omitzero"`
+	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
 }
 
 func (s SavedJobExecutor) MarshalJSON() ([]byte, error) {
@@ -53,9 +53,9 @@ func (s *SavedJobExecutor) GetDescription() *string {
 	return s.Description
 }
 
-func (s *SavedJobExecutor) GetType() JobTypeOptionsSavedJobCollection {
+func (s *SavedJobExecutor) GetType() JobTypeOptionsRunnableJobCollection {
 	if s == nil {
-		return JobTypeOptionsSavedJobCollection("")
+		return JobTypeOptionsRunnableJobCollection("")
 	}
 	return s.Type
 }
@@ -109,9 +109,9 @@ func (s *SavedJobExecutor) GetStreamtags() []string {
 	return s.Streamtags
 }
 
-func (s *SavedJobExecutor) GetExecutor() ExecutorTypeSavedJobExecutor {
+func (s *SavedJobExecutor) GetExecutor() ExecutorTypeRunnableJobExecutor {
 	if s == nil {
-		return ExecutorTypeSavedJobExecutor{}
+		return ExecutorTypeRunnableJobExecutor{}
 	}
 	return s.Executor
 }

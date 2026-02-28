@@ -7,19 +7,33 @@ import (
 )
 
 type RouteConf struct {
-	Clones                 []map[string]string `json:"clones,omitzero"`
-	Context                *string             `json:"context,omitzero"`
-	Description            *string             `json:"description,omitzero"`
-	Disabled               *bool               `json:"disabled,omitzero"`
-	EnableOutputExpression *bool               `json:"enableOutputExpression,omitzero"`
-	Filter                 *string             `json:"filter,omitzero"`
-	Final                  bool                `json:"final"`
-	GroupID                *string             `json:"groupId,omitzero"`
-	ID                     string              `json:"id"`
-	Name                   string              `json:"name"`
-	Output                 *string             `json:"output,omitzero"`
-	OutputExpression       *string             `json:"outputExpression,omitzero"`
-	Pipeline               string              `json:"pipeline"`
+	// Array of clone configurations, each with a key-value pair to set or overwrite in cloned events. Original events continue to the next Route.
+	Clones []map[string]string `json:"clones,omitzero"`
+	// Context for the Route: <code>group</code> (Worker Group or Edge Fleet) or <code>pack</code>.
+	Context *string `json:"context,omitzero"`
+	// Brief description of the Route.
+	Description *string `json:"description,omitzero"`
+	// If <code>true</code>, disable the Route. Otherwise, <code>false</code>.
+	Disabled *bool `json:"disabled,omitzero"`
+	// If <code>true</code>, use the <code>outputExpression</code> for dynamic Destination selection. Otherwise, <code>false</code>.
+	EnableOutputExpression *bool `json:"enableOutputExpression,omitzero"`
+	// JavaScript expression to select events for routing.
+	Filter *string `json:"filter,omitzero"`
+	// If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events.
+	Final bool `json:"final"`
+	// Unique identifier for the Route Group that the Route is associated with.
+	GroupID *string `json:"groupId,omitzero"`
+	// Unique identifier for the Route.
+	ID string `json:"id"`
+	// Name of the Route.
+	Name string `json:"name"`
+	// Destination that the Route sends matching events to after the Pipeline processes the events.
+	Output *string `json:"output,omitzero"`
+	// JavaScript expression to evaluate for dynamic Destination selection. Evaluation occurs when the Route is constructed, not for each event.
+	OutputExpression *string `json:"outputExpression,omitzero"`
+	// Pipeline that the Route sends matching events to.
+	Pipeline      string         `json:"pipeline"`
+	TargetContext *TargetContext `json:"targetContext,omitzero"`
 }
 
 func (r RouteConf) MarshalJSON() ([]byte, error) {
@@ -122,4 +136,11 @@ func (r *RouteConf) GetPipeline() string {
 		return ""
 	}
 	return r.Pipeline
+}
+
+func (r *RouteConf) GetTargetContext() *TargetContext {
+	if r == nil {
+		return nil
+	}
+	return r.TargetContext
 }

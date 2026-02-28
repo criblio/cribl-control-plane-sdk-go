@@ -86,7 +86,7 @@ type InputSyslogSyslog2 struct {
 	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitzero"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
@@ -94,6 +94,12 @@ type InputSyslogSyslog2 struct {
 	Description         *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+	TemplateUDPPort *string `json:"__template_udpPort,omitzero"`
+	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+	TemplateTCPPort *string `json:"__template_tcpPort,omitzero"`
 }
 
 func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
@@ -303,7 +309,7 @@ func (i *InputSyslogSyslog2) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputSyslogSyslog2) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSyslogSyslog2) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -336,6 +342,27 @@ func (i *InputSyslogSyslog2) GetEnableEnhancedProxyHeaderParsing() *bool {
 		return nil
 	}
 	return i.EnableEnhancedProxyHeaderParsing
+}
+
+func (i *InputSyslogSyslog2) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputSyslogSyslog2) GetTemplateUDPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateUDPPort
+}
+
+func (i *InputSyslogSyslog2) GetTemplateTCPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTCPPort
 }
 
 type InputSyslogType1 string
@@ -415,7 +442,7 @@ type InputSyslogSyslog1 struct {
 	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitzero"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
@@ -423,6 +450,12 @@ type InputSyslogSyslog1 struct {
 	Description         *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+	TemplateUDPPort *string `json:"__template_udpPort,omitzero"`
+	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+	TemplateTCPPort *string `json:"__template_tcpPort,omitzero"`
 }
 
 func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
@@ -632,7 +665,7 @@ func (i *InputSyslogSyslog1) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputSyslogSyslog1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSyslogSyslog1) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -665,6 +698,27 @@ func (i *InputSyslogSyslog1) GetEnableEnhancedProxyHeaderParsing() *bool {
 		return nil
 	}
 	return i.EnableEnhancedProxyHeaderParsing
+}
+
+func (i *InputSyslogSyslog1) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputSyslogSyslog1) GetTemplateUDPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateUDPPort
+}
+
+func (i *InputSyslogSyslog1) GetTemplateTCPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTCPPort
 }
 
 type InputSyslogType string

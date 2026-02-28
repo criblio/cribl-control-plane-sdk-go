@@ -44,7 +44,7 @@ type InputSplunkHecAuthToken struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 }
 
 func (i InputSplunkHecAuthToken) MarshalJSON() ([]byte, error) {
@@ -100,7 +100,7 @@ func (i *InputSplunkHecAuthToken) GetAllowedIndexesAtToken() []string {
 	return i.AllowedIndexesAtToken
 }
 
-func (i *InputSplunkHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkHecAuthToken) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -147,8 +147,7 @@ type InputSplunkHec struct {
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitzero"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitzero"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
@@ -156,7 +155,7 @@ type InputSplunkHec struct {
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// Enable Splunk HEC acknowledgements
@@ -178,6 +177,12 @@ type InputSplunkHec struct {
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
 	Description      *string `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
 }
 
 func (i InputSplunkHec) MarshalJSON() ([]byte, error) {
@@ -345,13 +350,6 @@ func (i *InputSplunkHec) GetKeepAliveTimeout() *float64 {
 	return i.KeepAliveTimeout
 }
 
-func (i *InputSplunkHec) GetEnableHealthCheck() any {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHealthCheck
-}
-
 func (i *InputSplunkHec) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
@@ -373,7 +371,7 @@ func (i *InputSplunkHec) GetSplunkHecAPI() string {
 	return i.SplunkHecAPI
 }
 
-func (i *InputSplunkHec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkHec) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -455,4 +453,25 @@ func (i *InputSplunkHec) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputSplunkHec) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputSplunkHec) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+func (i *InputSplunkHec) GetTemplateSplunkHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSplunkHecAPI
 }

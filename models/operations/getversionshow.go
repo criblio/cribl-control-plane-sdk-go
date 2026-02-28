@@ -10,12 +10,10 @@ import (
 type GetVersionShowRequest struct {
 	// The Git commit hash to retrieve the diff and log message for.
 	Commit *string `queryParam:"style=form,explode=true,name=commit"`
-	// The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// The relative path of the file to get the diff and log message for.
 	Filename *string `queryParam:"style=form,explode=true,name=filename"`
 	// Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines.
-	DiffLineLimit *float64 `queryParam:"style=form,explode=true,name=diffLineLimit"`
+	DiffLineLimit *int64 `queryParam:"style=form,explode=true,name=diffLineLimit"`
 }
 
 func (g *GetVersionShowRequest) GetCommit() *string {
@@ -25,13 +23,6 @@ func (g *GetVersionShowRequest) GetCommit() *string {
 	return g.Commit
 }
 
-func (g *GetVersionShowRequest) GetGroupID() *string {
-	if g == nil {
-		return nil
-	}
-	return g.GroupID
-}
-
 func (g *GetVersionShowRequest) GetFilename() *string {
 	if g == nil {
 		return nil
@@ -39,7 +30,7 @@ func (g *GetVersionShowRequest) GetFilename() *string {
 	return g.Filename
 }
 
-func (g *GetVersionShowRequest) GetDiffLineLimit() *float64 {
+func (g *GetVersionShowRequest) GetDiffLineLimit() *int64 {
 	if g == nil {
 		return nil
 	}

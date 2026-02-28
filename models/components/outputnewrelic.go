@@ -182,6 +182,12 @@ type OutputNewrelic struct {
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
+	TemplateLogType *string `json:"__template_logType,omitzero"`
+	// Binds 'messageField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageField' at runtime.
+	TemplateMessageField *string `json:"__template_messageField,omitzero"`
 }
 
 func (o OutputNewrelic) MarshalJSON() ([]byte, error) {
@@ -487,4 +493,25 @@ func (o *OutputNewrelic) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
+}
+
+func (o *OutputNewrelic) GetTemplateRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRegion
+}
+
+func (o *OutputNewrelic) GetTemplateLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogType
+}
+
+func (o *OutputNewrelic) GetTemplateMessageField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateMessageField
 }

@@ -55,7 +55,6 @@ func (e *OutputXsiamAuthenticationMethod) IsExact() bool {
 }
 
 type OutputXsiamURL struct {
-	URL any `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitzero"`
 }
@@ -69,13 +68,6 @@ func (o *OutputXsiamURL) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (o *OutputXsiamURL) GetURL() any {
-	if o == nil {
-		return nil
-	}
-	return o.URL
 }
 
 func (o *OutputXsiamURL) GetWeight() *float64 {
@@ -183,6 +175,8 @@ type OutputXsiam struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	PqControls       *OutputXsiamPqControls    `json:"pqControls,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
 func (o OutputXsiam) MarshalJSON() ([]byte, error) {
@@ -495,4 +489,11 @@ func (o *OutputXsiam) GetPqControls() *OutputXsiamPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputXsiam) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
 }

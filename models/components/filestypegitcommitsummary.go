@@ -7,10 +7,14 @@ import (
 )
 
 type FilesTypeGitCommitSummary struct {
-	Created  []string `json:"created,omitzero"`
-	Deleted  []string `json:"deleted,omitzero"`
+	// Array of file paths that were created in the commit.
+	Created []string `json:"created,omitzero"`
+	// Array of file paths that were deleted in the commit.
+	Deleted []string `json:"deleted,omitzero"`
+	// Array of file paths that were modified in the commit.
 	Modified []string `json:"modified,omitzero"`
-	Renamed  []string `json:"renamed,omitzero"`
+	// Array of file rename operations, each containing the original path and the new path.
+	Renamed []GitFileRename `json:"renamed,omitzero"`
 }
 
 func (f FilesTypeGitCommitSummary) MarshalJSON() ([]byte, error) {
@@ -45,7 +49,7 @@ func (f *FilesTypeGitCommitSummary) GetModified() []string {
 	return f.Modified
 }
 
-func (f *FilesTypeGitCommitSummary) GetRenamed() []string {
+func (f *FilesTypeGitCommitSummary) GetRenamed() []GitFileRename {
 	if f == nil {
 		return nil
 	}

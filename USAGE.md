@@ -20,13 +20,19 @@ func main() {
 		}),
 	)
 
-	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
-		ID: "<id>",
+	res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
+		AuthType:          "connectionString",
+		ConnectionString:  criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
+		ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
+		DatabaseType:      components.DatabaseConnectionTypeMysql,
+		Description:       "Production MySQL database for customer data",
+		ID:                "mysql-prod-db",
+		Tags:              criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedCriblLakeDataset != nil {
+	if res.CountedDatabaseConnectionConfig != nil {
 		// handle response
 	}
 }

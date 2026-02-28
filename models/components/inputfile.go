@@ -97,7 +97,7 @@ type InputFile struct {
 	// Length of file header bytes to use in hash for unique file identification
 	HashLen *float64 `json:"hashLen,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -274,7 +274,7 @@ func (i *InputFile) GetHashLen() *float64 {
 	return i.HashLen
 }
 
-func (i *InputFile) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputFile) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

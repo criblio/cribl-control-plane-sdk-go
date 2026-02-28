@@ -12,4 +12,3 @@ Remote Write authentication type
 | `AuthenticationTypeOptionsPrometheusAuthCredentialsSecret` | credentialsSecret                                          |
 | `AuthenticationTypeOptionsPrometheusAuthToken`             | token                                                      |
 | `AuthenticationTypeOptionsPrometheusAuthTextSecret`        | textSecret                                                 |
-| `AuthenticationTypeOptionsPrometheusAuthOauth`             | oauth                                                      |

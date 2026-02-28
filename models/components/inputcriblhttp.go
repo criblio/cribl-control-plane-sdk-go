@@ -79,8 +79,12 @@ type InputCriblHTTP struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputCriblHTTP) MarshalJSON() ([]byte, error) {
@@ -269,7 +273,7 @@ func (i *InputCriblHTTP) GetIPDenylistRegex() *string {
 	return i.IPDenylistRegex
 }
 
-func (i *InputCriblHTTP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblHTTP) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -281,4 +285,18 @@ func (i *InputCriblHTTP) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputCriblHTTP) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputCriblHTTP) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }

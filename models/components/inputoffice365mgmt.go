@@ -125,7 +125,7 @@ type InputOffice365Mgmt struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
 	PublisherIdentifier *string `json:"publisherIdentifier,omitzero"`
 	// Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
@@ -140,6 +140,14 @@ type InputOffice365Mgmt struct {
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
+	TemplateAppID *string `json:"__template_appId,omitzero"`
+	// Binds 'publisherIdentifier' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'publisherIdentifier' at runtime.
+	TemplatePublisherIdentifier *string `json:"__template_publisherIdentifier,omitzero"`
+	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+	TemplateClientSecret *string `json:"__template_clientSecret,omitzero"`
 }
 
 func (i InputOffice365Mgmt) MarshalJSON() ([]byte, error) {
@@ -286,7 +294,7 @@ func (i *InputOffice365Mgmt) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365Mgmt) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365Mgmt) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -347,4 +355,32 @@ func (i *InputOffice365Mgmt) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
+}
+
+func (i *InputOffice365Mgmt) GetTemplateTenantID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTenantID
+}
+
+func (i *InputOffice365Mgmt) GetTemplateAppID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAppID
+}
+
+func (i *InputOffice365Mgmt) GetTemplatePublisherIdentifier() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePublisherIdentifier
+}
+
+func (i *InputOffice365Mgmt) GetTemplateClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateClientSecret
 }

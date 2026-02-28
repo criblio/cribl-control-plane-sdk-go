@@ -193,6 +193,8 @@ type OutputDataset struct {
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
+	TemplateCustomURL *string `json:"__template_customUrl,omitzero"`
 }
 
 func (o OutputDataset) MarshalJSON() ([]byte, error) {
@@ -512,4 +514,11 @@ func (o *OutputDataset) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
+}
+
+func (o *OutputDataset) GetTemplateCustomURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCustomURL
 }

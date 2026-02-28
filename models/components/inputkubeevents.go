@@ -52,8 +52,8 @@ type InputKubeEvents struct {
 	// Filtering on event fields
 	Rules []ItemsTypeRules `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
 }
 
 func (i InputKubeEvents) MarshalJSON() ([]byte, error) {
@@ -144,7 +144,7 @@ func (i *InputKubeEvents) GetRules() []ItemsTypeRules {
 	return i.Rules
 }
 
-func (i *InputKubeEvents) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeEvents) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

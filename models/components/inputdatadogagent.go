@@ -111,9 +111,13 @@ type InputDatadogAgent struct {
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	ProxyMode   *InputDatadogAgentProxyMode     `json:"proxyMode,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata         `json:"metadata,omitzero"`
+	ProxyMode   *InputDatadogAgentProxyMode `json:"proxyMode,omitzero"`
+	Description *string                     `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputDatadogAgent) MarshalJSON() ([]byte, error) {
@@ -302,7 +306,7 @@ func (i *InputDatadogAgent) GetExtractMetrics() *bool {
 	return i.ExtractMetrics
 }
 
-func (i *InputDatadogAgent) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputDatadogAgent) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -321,4 +325,18 @@ func (i *InputDatadogAgent) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputDatadogAgent) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputDatadogAgent) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }

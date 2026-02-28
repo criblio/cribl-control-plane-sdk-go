@@ -6,66 +6,10 @@ Actions related to Routes
 
 ### Available Operations
 
-* [List](#list) - List all Routes
 * [Get](#get) - Get a Routing table
 * [Update](#update) - Update a Route
+* [List](#list) - List all Routes
 * [Append](#append) - Add a Route to the end of the Routing table
-
-## List
-
-Get a list of all Routes.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="listRoutes" method="get" path="/routes" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Routes.List(ctx)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.CountedRoutes != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
-
-### Response
-
-**[*operations.ListRoutesResponse](../../models/operations/listroutesresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Get
 
@@ -153,15 +97,15 @@ func main() {
     )
 
     res, err := s.Routes.Update(ctx, "<id>", components.Routes{
-        ID: criblcontrolplanesdkgo.Pointer("default"),
-        Routes: []components.RoutesRoute{
-            components.RoutesRoute{
-                ID: criblcontrolplanesdkgo.Pointer("default"),
-                Name: "my-route",
-                Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
-                Pipeline: "main",
+        ID: "default",
+        Routes: []components.RouteConf{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
-                Final: criblcontrolplanesdkgo.Pointer(true),
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
+                Final: true,
+                ID: "default",
+                Name: "my-route",
+                Pipeline: "main",
             },
         },
     })
@@ -198,43 +142,43 @@ func main() {
     )
 
     res, err := s.Routes.Update(ctx, "<id>", components.Routes{
-        ID: criblcontrolplanesdkgo.Pointer("default"),
-        Routes: []components.RoutesRoute{
-            components.RoutesRoute{
-                ID: criblcontrolplanesdkgo.Pointer("route-speedtest"),
-                Name: "speedtest",
-                Filter: criblcontrolplanesdkgo.Pointer("source == \"speedtest.log\""),
-                Pipeline: "main",
-                Output: "default",
+        ID: "default",
+        Routes: []components.RouteConf{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Route speedtest logs"),
-                Final: criblcontrolplanesdkgo.Pointer(false),
-            },
-            components.RoutesRoute{
-                ID: criblcontrolplanesdkgo.Pointer("route-mtr"),
-                Name: "mtr",
-                Filter: criblcontrolplanesdkgo.Pointer("source == \"mtr.log\""),
-                Pipeline: "passthru",
-                Output: "default",
-                Description: criblcontrolplanesdkgo.Pointer("Route mtr logs"),
-                Final: criblcontrolplanesdkgo.Pointer(false),
-            },
-            components.RoutesRoute{
-                ID: criblcontrolplanesdkgo.Pointer("route-statsd"),
-                Name: "statsd",
-                Filter: criblcontrolplanesdkgo.Pointer("source == \"statsd.log\""),
-                Pipeline: "prometheus_metrics",
-                Output: "devnull",
-                Description: criblcontrolplanesdkgo.Pointer("Route statsd metrics"),
-                Final: criblcontrolplanesdkgo.Pointer(false),
-            },
-            components.RoutesRoute{
-                ID: criblcontrolplanesdkgo.Pointer("route-default"),
-                Name: "default",
-                Filter: criblcontrolplanesdkgo.Pointer("true"),
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"speedtest.log\""),
+                Final: false,
+                ID: "route-speedtest",
+                Name: "speedtest",
+                Output: criblcontrolplanesdkgo.Pointer("default"),
                 Pipeline: "main",
-                Output: "default",
+            },
+            components.RouteConf{
+                Description: criblcontrolplanesdkgo.Pointer("Route mtr logs"),
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"mtr.log\""),
+                Final: false,
+                ID: "route-mtr",
+                Name: "mtr",
+                Output: criblcontrolplanesdkgo.Pointer("default"),
+                Pipeline: "passthru",
+            },
+            components.RouteConf{
+                Description: criblcontrolplanesdkgo.Pointer("Route statsd metrics"),
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"statsd.log\""),
+                Final: false,
+                ID: "route-statsd",
+                Name: "statsd",
+                Output: criblcontrolplanesdkgo.Pointer("devnull"),
+                Pipeline: "prometheus_metrics",
+            },
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Catch-all Route for all other events"),
-                Final: criblcontrolplanesdkgo.Pointer(true),
+                Filter: criblcontrolplanesdkgo.Pointer("true"),
+                Final: true,
+                ID: "route-default",
+                Name: "default",
+                Output: criblcontrolplanesdkgo.Pointer("default"),
+                Pipeline: "main",
             },
         },
     })
@@ -271,17 +215,17 @@ func main() {
     )
 
     res, err := s.Routes.Update(ctx, "<id>", components.Routes{
-        ID: criblcontrolplanesdkgo.Pointer("default"),
-        Routes: []components.RoutesRoute{
-            components.RoutesRoute{
-                ID: criblcontrolplanesdkgo.Pointer("route-dynamic"),
-                Name: "dynamic-output",
-                Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
-                Pipeline: "main",
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
-                OutputExpression: "`myDest_${C.logStreamEnv}`",
+        ID: "default",
+        Routes: []components.RouteConf{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Route with dynamic Destination based on environment"),
-                Final: criblcontrolplanesdkgo.Pointer(true),
+                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
+                Final: true,
+                ID: "route-dynamic",
+                Name: "dynamic-output",
+                OutputExpression: criblcontrolplanesdkgo.Pointer("`myDest_${C.logStreamEnv}`"),
+                Pipeline: "main",
             },
         },
     })
@@ -306,6 +250,62 @@ func main() {
 ### Response
 
 **[*operations.UpdateRoutesByIDResponse](../../models/operations/updateroutesbyidresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## List
+
+Get a list of all Routes.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getRoutes" method="get" path="/routes" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.List(ctx)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*operations.GetRoutesResponse](../../models/operations/getroutesresponse.md), error**
 
 ### Errors
 

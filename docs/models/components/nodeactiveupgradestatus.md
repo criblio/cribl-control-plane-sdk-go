@@ -3,8 +3,8 @@
 
 ## Values
 
-| Name                          | Value                         |
-| ----------------------------- | ----------------------------- |
-| `NodeActiveUpgradeStatusZero` | 0                             |
-| `NodeActiveUpgradeStatusOne`  | 1                             |
-| `NodeActiveUpgradeStatusTwo`  | 2                             |
+| Name                               | Value                              |
+| ---------------------------------- | ---------------------------------- |
+| `NodeActiveUpgradeStatusPending`   | 0                                  |
+| `NodeActiveUpgradeStatusQueued`    | 1                                  |
+| `NodeActiveUpgradeStatusUpgrading` | 2                                  |

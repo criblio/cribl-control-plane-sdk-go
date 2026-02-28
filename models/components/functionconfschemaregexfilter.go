@@ -6,33 +6,33 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FunctionConfSchemaRegexFilterRegexList struct {
+type RegexList struct {
 	// Regex to test against
 	Regex string `json:"regex"`
 }
 
-func (f FunctionConfSchemaRegexFilterRegexList) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
+func (r RegexList) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
 }
 
-func (f *FunctionConfSchemaRegexFilterRegexList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+func (r *RegexList) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionConfSchemaRegexFilterRegexList) GetRegex() string {
-	if f == nil {
+func (r *RegexList) GetRegex() string {
+	if r == nil {
 		return ""
 	}
-	return f.Regex
+	return r.Regex
 }
 
 type FunctionConfSchemaRegexFilter struct {
 	// Regex to test against
-	Regex     *string                                  `json:"regex,omitzero"`
-	RegexList []FunctionConfSchemaRegexFilterRegexList `json:"regexList,omitzero"`
+	Regex     *string     `json:"regex,omitzero"`
+	RegexList []RegexList `json:"regexList,omitzero"`
 	// Name of the field to apply the regex on (defaults to _raw)
 	Field *string `json:"field,omitzero"`
 }
@@ -55,7 +55,7 @@ func (f *FunctionConfSchemaRegexFilter) GetRegex() *string {
 	return f.Regex
 }
 
-func (f *FunctionConfSchemaRegexFilter) GetRegexList() []FunctionConfSchemaRegexFilterRegexList {
+func (f *FunctionConfSchemaRegexFilter) GetRegexList() []RegexList {
 	if f == nil {
 		return nil
 	}

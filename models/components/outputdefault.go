@@ -44,7 +44,7 @@ type OutputDefault struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
-	DefaultID string `json:"defaultId"`
+	DefaultID *string `json:"defaultId"`
 }
 
 func (o OutputDefault) MarshalJSON() ([]byte, error) {
@@ -100,9 +100,9 @@ func (o *OutputDefault) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputDefault) GetDefaultID() string {
+func (o *OutputDefault) GetDefaultID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.DefaultID
 }

@@ -31,15 +31,15 @@ func (e *InputWizType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type ManageState struct {
+type InputWizManageState struct {
 }
 
-func (m ManageState) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(m, "", false)
+func (i InputWizManageState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (m *ManageState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+func (i *InputWizManageState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -81,8 +81,8 @@ type InputWizContentConfig struct {
 	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
 	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
-	StateMergeExpression *string      `json:"stateMergeExpression,omitzero"`
-	ManageState          *ManageState `json:"manageState,omitzero"`
+	StateMergeExpression *string              `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputWizManageState `json:"manageState,omitzero"`
 	// Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
 	ContentQuery string `json:"contentQuery"`
 	// A cron schedule on which to run this job
@@ -152,7 +152,7 @@ func (i *InputWizContentConfig) GetStateMergeExpression() *string {
 	return i.StateMergeExpression
 }
 
-func (i *InputWizContentConfig) GetManageState() *ManageState {
+func (i *InputWizContentConfig) GetManageState() *InputWizManageState {
 	if i == nil {
 		return nil
 	}
@@ -246,8 +246,8 @@ type InputWiz struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	RetryRules *RetryRulesType                 `json:"retryRules,omitzero"`
+	Metadata   []ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType     `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
 	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitzero"`
 	Description *string                       `json:"description,omitzero"`
@@ -255,6 +255,12 @@ type InputWiz struct {
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
+	TemplateAuthURL *string `json:"__template_authUrl,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
 }
 
 func (i InputWiz) MarshalJSON() ([]byte, error) {
@@ -408,7 +414,7 @@ func (i *InputWiz) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputWiz) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWiz) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -448,4 +454,25 @@ func (i *InputWiz) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
+}
+
+func (i *InputWiz) GetTemplateEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEndpoint
+}
+
+func (i *InputWiz) GetTemplateAuthURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAuthURL
+}
+
+func (i *InputWiz) GetTemplateClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateClientID
 }

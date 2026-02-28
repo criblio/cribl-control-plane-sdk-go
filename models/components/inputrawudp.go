@@ -64,8 +64,12 @@ type InputRawUDP struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputRawUDP) MarshalJSON() ([]byte, error) {
@@ -198,7 +202,7 @@ func (i *InputRawUDP) GetUDPSocketRxBufSize() *float64 {
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputRawUDP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputRawUDP) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -210,4 +214,18 @@ func (i *InputRawUDP) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputRawUDP) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputRawUDP) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }

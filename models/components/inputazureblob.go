@@ -64,7 +64,7 @@ type InputAzureBlob struct {
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
 	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -92,6 +92,14 @@ type InputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
 	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+	TemplateQueueName *string `json:"__template_queueName,omitzero"`
+	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
 }
 
 func (i InputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -224,7 +232,7 @@ func (i *InputAzureBlob) GetSkipOnError() *bool {
 	return i.SkipOnError
 }
 
-func (i *InputAzureBlob) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAzureBlob) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -334,4 +342,32 @@ func (i *InputAzureBlob) GetCertificate() *CertificateTypeAzureBlobAuthTypeClien
 		return nil
 	}
 	return i.Certificate
+}
+
+func (i *InputAzureBlob) GetTemplateQueueName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateQueueName
+}
+
+func (i *InputAzureBlob) GetTemplateConnectionString() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateConnectionString
+}
+
+func (i *InputAzureBlob) GetTemplateTenantID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTenantID
+}
+
+func (i *InputAzureBlob) GetTemplateClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateClientID
 }

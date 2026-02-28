@@ -10,26 +10,32 @@ type GroupCreateRequest struct {
 	Cloud                *ConfigGroupCloud `json:"cloud,omitzero"`
 	DeployingWorkerCount *float64          `json:"deployingWorkerCount,omitzero"`
 	Description          *string           `json:"description,omitzero"`
-	// Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+	// Estimated ingest rate for Cloud Groups, in GB/sec.
 	EstimatedIngestRate     *EstimatedIngestRateOptionsConfigGroup `json:"estimatedIngestRate,omitzero"`
 	Git                     *GitTypeConfigGroup                    `json:"git,omitzero"`
 	ID                      string                                 `json:"id"`
 	IncompatibleWorkerCount *float64                               `json:"incompatibleWorkerCount,omitzero"`
 	Inherits                *string                                `json:"inherits,omitzero"`
-	IsFleet                 *bool                                  `json:"isFleet,omitzero"`
-	IsSearch                *bool                                  `json:"isSearch,omitzero"`
-	LookupDeployments       []ConfigGroupLookups                   `json:"lookupDeployments,omitzero"`
-	MaxWorkerAge            *string                                `json:"maxWorkerAge,omitzero"`
-	Name                    *string                                `json:"name,omitzero"`
-	OnPrem                  *bool                                  `json:"onPrem,omitzero"`
-	Provisioned             *bool                                  `json:"provisioned,omitzero"`
-	SourceGroupID           *string                                `json:"sourceGroupId,omitzero"`
-	Streamtags              []string                               `json:"streamtags,omitzero"`
-	Tags                    *string                                `json:"tags,omitzero"`
-	Type                    *TypeOptionsConfigGroup                `json:"type,omitzero"`
-	UpgradeVersion          *string                                `json:"upgradeVersion,omitzero"`
-	WorkerCount             *float64                               `json:"workerCount,omitzero"`
-	WorkerRemoteAccess      *bool                                  `json:"workerRemoteAccess,omitzero"`
+	// Indicates whether this is an Edge Fleet. This flag is deprecated — use to identify Edge Fleets.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	IsFleet *bool `json:"isFleet,omitzero"`
+	// Indicates whether this is an internal Search Group. This flag is deprecated — use to identify Search Groups.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	IsSearch           *bool                   `json:"isSearch,omitzero"`
+	LookupDeployments  []ConfigGroupLookups    `json:"lookupDeployments,omitzero"`
+	MaxWorkerAge       *string                 `json:"maxWorkerAge,omitzero"`
+	Name               *string                 `json:"name,omitzero"`
+	OnPrem             *bool                   `json:"onPrem,omitzero"`
+	Provisioned        *bool                   `json:"provisioned,omitzero"`
+	SourceGroupID      *string                 `json:"sourceGroupId,omitzero"`
+	Streamtags         []string                `json:"streamtags,omitzero"`
+	Tags               *string                 `json:"tags,omitzero"`
+	Type               *TypeOptionsConfigGroup `json:"type,omitzero"`
+	UpgradeVersion     *string                 `json:"upgradeVersion,omitzero"`
+	WorkerCount        *float64                `json:"workerCount,omitzero"`
+	WorkerRemoteAccess *bool                   `json:"workerRemoteAccess,omitzero"`
 }
 
 func (g GroupCreateRequest) MarshalJSON() ([]byte, error) {

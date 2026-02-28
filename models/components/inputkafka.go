@@ -102,8 +102,8 @@ type InputKafka struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
 }
 
 func (i InputKafka) MarshalJSON() ([]byte, error) {
@@ -348,7 +348,7 @@ func (i *InputKafka) GetMaxSocketErrors() *float64 {
 	return i.MaxSocketErrors
 }
 
-func (i *InputKafka) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKafka) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

@@ -114,6 +114,10 @@ type OutputCriblTCP struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	PqControls       *OutputCriblTCPPqControls `json:"pqControls,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (o OutputCriblTCP) MarshalJSON() ([]byte, error) {
@@ -377,4 +381,18 @@ func (o *OutputCriblTCP) GetPqControls() *OutputCriblTCPPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputCriblTCP) GetTemplateHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateHost
+}
+
+func (o *OutputCriblTCP) GetTemplatePort() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePort
 }

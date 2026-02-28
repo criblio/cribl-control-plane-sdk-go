@@ -6,169 +6,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type ScheduleTypeRunnableJobCollectionType string
-
-const (
-	ScheduleTypeRunnableJobCollectionTypeCollection ScheduleTypeRunnableJobCollectionType = "collection"
-)
-
-func (e ScheduleTypeRunnableJobCollectionType) ToPointer() *ScheduleTypeRunnableJobCollectionType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ScheduleTypeRunnableJobCollectionType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "collection":
-			return true
-		}
-	}
-	return false
-}
-
-type ScheduleTypeRunnableJobCollectionRunSettings struct {
-	Type *ScheduleTypeRunnableJobCollectionType `json:"type,omitzero"`
-	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
-	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
-	// Level at which to set task logging
-	LogLevel *LogLevelOptionsSavedJobCollectionScheduleRun `json:"logLevel,omitzero"`
-	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitzero"`
-	// Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-	Mode          string  `json:"mode"`
-	TimeRangeType *string `json:"timeRangeType,omitzero"`
-	// Earliest time to collect data for the selected timezone
-	Earliest *float64 `json:"earliest,omitzero"`
-	// Latest time to collect data for the selected timezone
-	Latest            *float64      `json:"latest,omitzero"`
-	TimestampTimezone any           `json:"timestampTimezone,omitzero"`
-	TimeWarning       *MetricsStore `json:"timeWarning,omitzero"`
-	// A filter for tokens in the provided collect path and/or the events being collected
-	Expression *string `json:"expression,omitzero"`
-	// Limits the bundle size for small tasks. For example,
-	//
-	//
-	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-	MinTaskSize *string `json:"minTaskSize,omitzero"`
-	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
-	//
-	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-	MaxTaskSize *string `json:"maxTaskSize,omitzero"`
-}
-
-func (s ScheduleTypeRunnableJobCollectionRunSettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetType() *ScheduleTypeRunnableJobCollectionType {
-	if s == nil {
-		return nil
-	}
-	return s.Type
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetRescheduleDroppedTasks() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.RescheduleDroppedTasks
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetMaxTaskReschedule() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.MaxTaskReschedule
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetLogLevel() *LogLevelOptionsSavedJobCollectionScheduleRun {
-	if s == nil {
-		return nil
-	}
-	return s.LogLevel
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetJobTimeout() *string {
-	if s == nil {
-		return nil
-	}
-	return s.JobTimeout
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetMode() string {
-	if s == nil {
-		return ""
-	}
-	return s.Mode
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetTimeRangeType() *string {
-	if s == nil {
-		return nil
-	}
-	return s.TimeRangeType
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetEarliest() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.Earliest
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetLatest() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.Latest
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetTimestampTimezone() any {
-	if s == nil {
-		return nil
-	}
-	return s.TimestampTimezone
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetTimeWarning() *MetricsStore {
-	if s == nil {
-		return nil
-	}
-	return s.TimeWarning
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetExpression() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Expression
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetMinTaskSize() *string {
-	if s == nil {
-		return nil
-	}
-	return s.MinTaskSize
-}
-
-func (s *ScheduleTypeRunnableJobCollectionRunSettings) GetMaxTaskSize() *string {
-	if s == nil {
-		return nil
-	}
-	return s.MaxTaskSize
-}
-
 // ScheduleTypeRunnableJobCollection - Configuration for a scheduled job
 type ScheduleTypeRunnableJobCollection struct {
 	// Enable to configure scheduling for this Collector
@@ -181,7 +18,7 @@ type ScheduleTypeRunnableJobCollection struct {
 	CronSchedule *string `json:"cronSchedule,omitzero"`
 	// The maximum number of instances of this scheduled job that may be running at any time
 	MaxConcurrentRuns *float64                                      `json:"maxConcurrentRuns,omitzero"`
-	Run               *ScheduleTypeRunnableJobCollectionRunSettings `json:"run,omitzero"`
+	Run               *RunSettingsTypeRunnableJobCollectionSchedule `json:"run,omitzero"`
 }
 
 func (s ScheduleTypeRunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -230,7 +67,7 @@ func (s *ScheduleTypeRunnableJobCollection) GetMaxConcurrentRuns() *float64 {
 	return s.MaxConcurrentRuns
 }
 
-func (s *ScheduleTypeRunnableJobCollection) GetRun() *ScheduleTypeRunnableJobCollectionRunSettings {
+func (s *ScheduleTypeRunnableJobCollection) GetRun() *RunSettingsTypeRunnableJobCollectionSchedule {
 	if s == nil {
 		return nil
 	}

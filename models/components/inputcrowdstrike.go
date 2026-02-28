@@ -93,11 +93,11 @@ type InputCrowdstrike struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                  `json:"enableSQSAssumeRole,omitzero"`
-	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitzero"`
+	EnableSQSAssumeRole *bool           `json:"enableSQSAssumeRole,omitzero"`
+	Preprocess          *PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata      []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Checkpointing *CheckpointingType              `json:"checkpointing,omitzero"`
+	Metadata      []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Checkpointing *CheckpointingType  `json:"checkpointing,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
@@ -111,6 +111,20 @@ type InputCrowdstrike struct {
 	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
+	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+	TemplateQueueName *string `json:"__template_queueName,omitzero"`
+	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
+	TemplateAwsAccountID *string `json:"__template_awsAccountId,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
 func (i InputCrowdstrike) MarshalJSON() ([]byte, error) {
@@ -355,14 +369,14 @@ func (i *InputCrowdstrike) GetEnableSQSAssumeRole() *bool {
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputCrowdstrike) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputCrowdstrike) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputCrowdstrike) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCrowdstrike) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -430,4 +444,53 @@ func (i *InputCrowdstrike) GetProcessedTagValue() *string {
 		return nil
 	}
 	return i.ProcessedTagValue
+}
+
+func (i *InputCrowdstrike) GetTemplateQueueName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateQueueName
+}
+
+func (i *InputCrowdstrike) GetTemplateAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAwsAccountID
+}
+
+func (i *InputCrowdstrike) GetTemplateAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAwsSecretKey
+}
+
+func (i *InputCrowdstrike) GetTemplateRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateRegion
+}
+
+func (i *InputCrowdstrike) GetTemplateAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAssumeRoleArn
+}
+
+func (i *InputCrowdstrike) GetTemplateAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAssumeRoleExternalID
+}
+
+func (i *InputCrowdstrike) GetTemplateAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAwsAPIKey
 }

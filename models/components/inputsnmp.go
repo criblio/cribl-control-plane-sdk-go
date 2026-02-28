@@ -31,42 +31,12 @@ func (e *InputSnmpType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PrivacyProtocol string
-
-const (
-	// PrivacyProtocolNone None
-	PrivacyProtocolNone PrivacyProtocol = "none"
-	// PrivacyProtocolDes DES
-	PrivacyProtocolDes PrivacyProtocol = "des"
-	// PrivacyProtocolAes AES128
-	PrivacyProtocolAes PrivacyProtocol = "aes"
-	// PrivacyProtocolAes256b AES256b (Blumenthal)
-	PrivacyProtocolAes256b PrivacyProtocol = "aes256b"
-	// PrivacyProtocolAes256r AES256r (Reeder)
-	PrivacyProtocolAes256r PrivacyProtocol = "aes256r"
-)
-
-func (e PrivacyProtocol) ToPointer() *PrivacyProtocol {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PrivacyProtocol) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "des", "aes", "aes256b", "aes256r":
-			return true
-		}
-	}
-	return false
-}
-
 type InputSnmpV3User struct {
-	Name         string                               `json:"name"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	AuthKey      *string                              `json:"authKey,omitzero"`
-	PrivProtocol *PrivacyProtocol                     `json:"privProtocol,omitzero"`
-	PrivKey      *string                              `json:"privKey,omitzero"`
+	Name         string                                                            `json:"name"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User                              `json:"authProtocol,omitzero"`
+	AuthKey      *string                                                           `json:"authKey,omitzero"`
+	PrivProtocol *PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone `json:"privProtocol,omitzero"`
+	PrivKey      *string                                                           `json:"privKey,omitzero"`
 }
 
 func (i InputSnmpV3User) MarshalJSON() ([]byte, error) {
@@ -101,7 +71,7 @@ func (i *InputSnmpV3User) GetAuthKey() *string {
 	return i.AuthKey
 }
 
-func (i *InputSnmpV3User) GetPrivProtocol() *PrivacyProtocol {
+func (i *InputSnmpV3User) GetPrivProtocol() *PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone {
 	if i == nil {
 		return nil
 	}
@@ -185,7 +155,7 @@ type InputSnmp struct {
 	// Regex matching IP addresses that are allowed to send data
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
@@ -193,6 +163,10 @@ type InputSnmp struct {
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
 	BestEffortParsing *bool   `json:"bestEffortParsing,omitzero"`
 	Description       *string `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputSnmp) MarshalJSON() ([]byte, error) {
@@ -311,7 +285,7 @@ func (i *InputSnmp) GetIPWhitelistRegex() *string {
 	return i.IPWhitelistRegex
 }
 
-func (i *InputSnmp) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSnmp) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -344,4 +318,18 @@ func (i *InputSnmp) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputSnmp) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputSnmp) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }

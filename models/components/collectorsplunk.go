@@ -88,14 +88,6 @@ func (c *CollectorSplunk) GetConfTokenSecret() *SplunkAuthenticationTokenSecret 
 	return c.GetConf().SplunkAuthenticationTokenSecret
 }
 
-func (c *CollectorSplunk) GetConfLogin() *SplunkAuthenticationLogin {
-	return c.GetConf().SplunkAuthenticationLogin
-}
-
-func (c *CollectorSplunk) GetConfLoginSecret() *SplunkAuthenticationLoginSecret {
-	return c.GetConf().SplunkAuthenticationLoginSecret
-}
-
 func (c *CollectorSplunk) GetDestructive() *bool {
 	if c == nil {
 		return nil

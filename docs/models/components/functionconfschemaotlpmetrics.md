@@ -1,11 +1,29 @@
 # FunctionConfSchemaOtlpMetrics
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                  | Type                                                                                                                                                                                                   | Required                                                                                                                                                                                               | Description                                                                                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ResourceAttributePrefixes`                                                                                                                                                                            | []*string*                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                     | The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching. |
-| `DropNonMetricEvents`                                                                                                                                                                                  | **bool*                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                     | N/A                                                                                                                                                                                                    |
-| `OtlpVersion`                                                                                                                                                                                          | [*components.OtlpVersionOptions](../../models/components/otlpversionoptions.md)                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                     | N/A                                                                                                                                                                                                    |
-| `BatchOTLPMetrics`                                                                                                                                                                                     | **bool*                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                     | Batch OTLP metrics by shared top-level `resource` attributes                                                                                                                                           |
+### OTLPMetricsBatchOTLPMetricsFalse
+
+```go
+functionConfSchemaOtlpMetrics := components.CreateFunctionConfSchemaOtlpMetricsOTLPMetricsBatchOTLPMetricsFalse(components.OTLPMetricsBatchOTLPMetricsFalse{/* values here */})
+```
+
+### OTLPMetricsBatchOTLPMetricsTrue
+
+```go
+functionConfSchemaOtlpMetrics := components.CreateFunctionConfSchemaOtlpMetricsOTLPMetricsBatchOTLPMetricsTrue(components.OTLPMetricsBatchOTLPMetricsTrue{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch functionConfSchemaOtlpMetrics.Type {
+	case components.FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsFalse:
+		// functionConfSchemaOtlpMetrics.OTLPMetricsBatchOTLPMetricsFalse is populated
+	case components.FunctionConfSchemaOtlpMetricsTypeOTLPMetricsBatchOTLPMetricsTrue:
+		// functionConfSchemaOtlpMetrics.OTLPMetricsBatchOTLPMetricsTrue is populated
+}
+```

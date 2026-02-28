@@ -107,11 +107,77 @@ func (o *OutputWebhookPqControls) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+type OauthParam struct {
+	// OAuth parameter name
+	Name string `json:"name"`
+	// OAuth parameter value
+	Value string `json:"value"`
+}
+
+func (o OauthParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OauthParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OauthParam) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *OauthParam) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+type OauthHeader struct {
+	// OAuth header name
+	Name string `json:"name"`
+	// OAuth header value
+	Value string `json:"value"`
+}
+
+func (o OauthHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OauthHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OauthHeader) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *OauthHeader) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
 type OutputWebhookURL struct {
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
 func (o OutputWebhookURL) MarshalJSON() ([]byte, error) {
@@ -137,6 +203,13 @@ func (o *OutputWebhookURL) GetWeight() *float64 {
 		return nil
 	}
 	return o.Weight
+}
+
+func (o *OutputWebhookURL) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
 }
 
 type OutputWebhook struct {
@@ -254,9 +327,9 @@ type OutputWebhook struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []OauthParam `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	OauthHeaders []OauthHeader `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -266,6 +339,12 @@ type OutputWebhook struct {
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+	TemplateSecret *string `json:"__template_secret,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
 func (o OutputWebhook) MarshalJSON() ([]byte, error) {
@@ -692,14 +771,14 @@ func (o *OutputWebhook) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputWebhook) GetOauthParams() []ItemsTypeOauthParams {
+func (o *OutputWebhook) GetOauthParams() []OauthParam {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputWebhook) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (o *OutputWebhook) GetOauthHeaders() []OauthHeader {
 	if o == nil {
 		return nil
 	}
@@ -739,4 +818,25 @@ func (o *OutputWebhook) GetLoadBalanceStatsPeriodSec() *float64 {
 		return nil
 	}
 	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputWebhook) GetTemplateLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLoginURL
+}
+
+func (o *OutputWebhook) GetTemplateSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateSecret
+}
+
+func (o *OutputWebhook) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
 }

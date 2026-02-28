@@ -272,6 +272,10 @@ func (u *UpdateOutputByIDRequest) GetOutputClickHouse() *components.OutputClickH
 	return u.GetOutput().OutputClickHouse
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputLocalSearchStorage() *components.OutputLocalSearchStorage {
+	return u.GetOutput().OutputLocalSearchStorage
+}
+
 func (u *UpdateOutputByIDRequest) GetOutputXsiam() *components.OutputXsiam {
 	return u.GetOutput().OutputXsiam
 }
@@ -310,7 +314,7 @@ func (u *UpdateOutputByIDRequest) GetOutputCloudflareR2() *components.OutputClou
 
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
+	// the updated Destination object
 	CountedOutput *components.CountedOutput
 }
 

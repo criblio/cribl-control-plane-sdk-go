@@ -7,19 +7,19 @@ import (
 )
 
 type CriblLakeDataset struct {
-	AcceleratedFields     []string                       `json:"acceleratedFields,omitzero"`
-	BucketName            *string                        `json:"bucketName,omitzero"`
-	CacheConnection       *CacheConnection               `json:"cacheConnection,omitzero"`
-	DeletionStartedAt     *float64                       `json:"deletionStartedAt,omitzero"`
-	Description           *string                        `json:"description,omitzero"`
-	Format                *FormatOptionsCriblLakeDataset `json:"format,omitzero"`
-	HTTPDAUsed            *bool                          `json:"httpDAUsed,omitzero"`
-	ID                    string                         `json:"id"`
-	Metrics               *LakeDatasetMetrics            `json:"metrics,omitzero"`
-	RetentionPeriodInDays *float64                       `json:"retentionPeriodInDays,omitzero"`
-	SearchConfig          *LakeDatasetSearchConfig       `json:"searchConfig,omitzero"`
-	StorageLocationID     *string                        `json:"storageLocationId,omitzero"`
-	ViewName              *string                        `json:"viewName,omitzero"`
+	AcceleratedFields     []string                 `json:"acceleratedFields,omitzero"`
+	BucketName            *string                  `json:"bucketName,omitzero"`
+	CacheConnection       *CacheConnection         `json:"cacheConnection,omitzero"`
+	DeletionStartedAt     *float64                 `json:"deletionStartedAt,omitzero"`
+	Description           *string                  `json:"description,omitzero"`
+	Format                *FormatOptions           `json:"format,omitzero"`
+	HTTPDAUsed            *bool                    `json:"httpDAUsed,omitzero"`
+	ID                    string                   `json:"id"`
+	Metrics               *LakeDatasetMetrics      `json:"metrics,omitzero"`
+	RetentionPeriodInDays *float64                 `json:"retentionPeriodInDays,omitzero"`
+	SearchConfig          *LakeDatasetSearchConfig `json:"searchConfig,omitzero"`
+	StorageLocationID     *string                  `json:"storageLocationId,omitzero"`
+	ViewName              *string                  `json:"viewName,omitzero"`
 }
 
 func (c CriblLakeDataset) MarshalJSON() ([]byte, error) {
@@ -68,7 +68,7 @@ func (c *CriblLakeDataset) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CriblLakeDataset) GetFormat() *FormatOptionsCriblLakeDataset {
+func (c *CriblLakeDataset) GetFormat() *FormatOptions {
 	if c == nil {
 		return nil
 	}

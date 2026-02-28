@@ -7,27 +7,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type CreateVersionCommitRequest struct {
-	// The <code>id</code> of the Worker Group or Edge Fleet to create a new commit for.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
-	// GitCommitParams object
-	GitCommitParams components.GitCommitParams `request:"mediaType=application/json"`
-}
-
-func (c *CreateVersionCommitRequest) GetGroupID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.GroupID
-}
-
-func (c *CreateVersionCommitRequest) GetGitCommitParams() components.GitCommitParams {
-	if c == nil {
-		return components.GitCommitParams{}
-	}
-	return c.GitCommitParams
-}
-
 type CreateVersionCommitResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitCommitSummary objects

@@ -125,7 +125,7 @@ type InputOffice365Service struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitzero"`
 	RetryRules    *RetryRulesType1                     `json:"retryRules,omitzero"`
@@ -136,6 +136,12 @@ type InputOffice365Service struct {
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
+	TemplateAppID *string `json:"__template_appId,omitzero"`
+	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+	TemplateClientSecret *string `json:"__template_clientSecret,omitzero"`
 }
 
 func (i InputOffice365Service) MarshalJSON() ([]byte, error) {
@@ -282,7 +288,7 @@ func (i *InputOffice365Service) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365Service) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365Service) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -329,4 +335,25 @@ func (i *InputOffice365Service) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
+}
+
+func (i *InputOffice365Service) GetTemplateTenantID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTenantID
+}
+
+func (i *InputOffice365Service) GetTemplateAppID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAppID
+}
+
+func (i *InputOffice365Service) GetTemplateClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateClientSecret
 }

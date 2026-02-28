@@ -43,22 +43,6 @@ type PrometheusAuth2 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
 func (p PrometheusAuth2) MarshalJSON() ([]byte, error) {
@@ -114,62 +98,6 @@ func (p *PrometheusAuth2) GetTextSecret() *string {
 	return p.TextSecret
 }
 
-func (p *PrometheusAuth2) GetLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.LoginURL
-}
-
-func (p *PrometheusAuth2) GetSecretParamName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.SecretParamName
-}
-
-func (p *PrometheusAuth2) GetSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Secret
-}
-
-func (p *PrometheusAuth2) GetTokenAttributeName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TokenAttributeName
-}
-
-func (p *PrometheusAuth2) GetAuthHeaderExpr() *string {
-	if p == nil {
-		return nil
-	}
-	return p.AuthHeaderExpr
-}
-
-func (p *PrometheusAuth2) GetTokenTimeoutSecs() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.TokenTimeoutSecs
-}
-
-func (p *PrometheusAuth2) GetOauthParams() []ItemsTypeOauthParams {
-	if p == nil {
-		return nil
-	}
-	return p.OauthParams
-}
-
-func (p *PrometheusAuth2) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if p == nil {
-		return nil
-	}
-	return p.OauthHeaders
-}
-
 type LokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
@@ -181,22 +109,6 @@ type LokiAuth2 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
 func (l LokiAuth2) MarshalJSON() ([]byte, error) {
@@ -252,62 +164,6 @@ func (l *LokiAuth2) GetTextSecret() *string {
 	return l.TextSecret
 }
 
-func (l *LokiAuth2) GetLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.LoginURL
-}
-
-func (l *LokiAuth2) GetSecretParamName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.SecretParamName
-}
-
-func (l *LokiAuth2) GetSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Secret
-}
-
-func (l *LokiAuth2) GetTokenAttributeName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TokenAttributeName
-}
-
-func (l *LokiAuth2) GetAuthHeaderExpr() *string {
-	if l == nil {
-		return nil
-	}
-	return l.AuthHeaderExpr
-}
-
-func (l *LokiAuth2) GetTokenTimeoutSecs() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.TokenTimeoutSecs
-}
-
-func (l *LokiAuth2) GetOauthParams() []ItemsTypeOauthParams {
-	if l == nil {
-		return nil
-	}
-	return l.OauthParams
-}
-
-func (l *LokiAuth2) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if l == nil {
-		return nil
-	}
-	return l.OauthHeaders
-}
-
 type InputGrafanaGrafana2 struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitzero"`
@@ -360,8 +216,12 @@ type InputGrafanaGrafana2 struct {
 	PrometheusAuth *PrometheusAuth2 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *LokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
@@ -571,7 +431,7 @@ func (i *InputGrafanaGrafana2) GetLokiAuth() *LokiAuth2 {
 	return i.LokiAuth
 }
 
-func (i *InputGrafanaGrafana2) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGrafanaGrafana2) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -583,6 +443,20 @@ func (i *InputGrafanaGrafana2) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputGrafanaGrafana2) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputGrafanaGrafana2) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }
 
 type InputGrafanaType1 string
@@ -619,22 +493,6 @@ type PrometheusAuth1 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
 func (p PrometheusAuth1) MarshalJSON() ([]byte, error) {
@@ -690,62 +548,6 @@ func (p *PrometheusAuth1) GetTextSecret() *string {
 	return p.TextSecret
 }
 
-func (p *PrometheusAuth1) GetLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.LoginURL
-}
-
-func (p *PrometheusAuth1) GetSecretParamName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.SecretParamName
-}
-
-func (p *PrometheusAuth1) GetSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Secret
-}
-
-func (p *PrometheusAuth1) GetTokenAttributeName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TokenAttributeName
-}
-
-func (p *PrometheusAuth1) GetAuthHeaderExpr() *string {
-	if p == nil {
-		return nil
-	}
-	return p.AuthHeaderExpr
-}
-
-func (p *PrometheusAuth1) GetTokenTimeoutSecs() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.TokenTimeoutSecs
-}
-
-func (p *PrometheusAuth1) GetOauthParams() []ItemsTypeOauthParams {
-	if p == nil {
-		return nil
-	}
-	return p.OauthParams
-}
-
-func (p *PrometheusAuth1) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if p == nil {
-		return nil
-	}
-	return p.OauthHeaders
-}
-
 type LokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
@@ -757,22 +559,6 @@ type LokiAuth1 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
 func (l LokiAuth1) MarshalJSON() ([]byte, error) {
@@ -828,62 +614,6 @@ func (l *LokiAuth1) GetTextSecret() *string {
 	return l.TextSecret
 }
 
-func (l *LokiAuth1) GetLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.LoginURL
-}
-
-func (l *LokiAuth1) GetSecretParamName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.SecretParamName
-}
-
-func (l *LokiAuth1) GetSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Secret
-}
-
-func (l *LokiAuth1) GetTokenAttributeName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TokenAttributeName
-}
-
-func (l *LokiAuth1) GetAuthHeaderExpr() *string {
-	if l == nil {
-		return nil
-	}
-	return l.AuthHeaderExpr
-}
-
-func (l *LokiAuth1) GetTokenTimeoutSecs() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.TokenTimeoutSecs
-}
-
-func (l *LokiAuth1) GetOauthParams() []ItemsTypeOauthParams {
-	if l == nil {
-		return nil
-	}
-	return l.OauthParams
-}
-
-func (l *LokiAuth1) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if l == nil {
-		return nil
-	}
-	return l.OauthHeaders
-}
-
 type InputGrafanaGrafana1 struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitzero"`
@@ -936,8 +666,12 @@ type InputGrafanaGrafana1 struct {
 	PrometheusAuth *PrometheusAuth1 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *LokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
@@ -1147,7 +881,7 @@ func (i *InputGrafanaGrafana1) GetLokiAuth() *LokiAuth1 {
 	return i.LokiAuth
 }
 
-func (i *InputGrafanaGrafana1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGrafanaGrafana1) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -1159,6 +893,20 @@ func (i *InputGrafanaGrafana1) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputGrafanaGrafana1) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputGrafanaGrafana1) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }
 
 type InputGrafanaType string

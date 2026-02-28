@@ -279,12 +279,12 @@ func (e *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                       `json:"discoverBody,omitzero"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -309,7 +309,7 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -328,13 +328,6 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -409,13 +402,13 @@ func (e *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 
 type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                               `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -440,7 +433,7 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -459,13 +452,6 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -540,13 +526,13 @@ func (e *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 
 type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                              `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -571,7 +557,7 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -590,13 +576,6 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -982,12 +961,17 @@ func (h *HealthCheckAuthenticationNoneCollectRequestHeader) GetValue() string {
 
 type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -1008,35 +992,35 @@ func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetType(
 	return h.Type
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetInterval() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetInterval() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Interval
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetLimit() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetLimit() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Limit
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetMultiplier() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetMultiplier() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Multiplier
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetCodes() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetCodes() []float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Codes
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetEnableHeader() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetEnableHeader() *bool {
 	if h == nil {
 		return nil
 	}
@@ -1045,12 +1029,15 @@ func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff) GetEnabl
 
 type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -1071,49 +1058,37 @@ func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetType()
 	return h.Type
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetInterval() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetInterval() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Interval
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetLimit() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetLimit() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Limit
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetCodes() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetCodes() []float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Codes
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetEnableHeader() any {
+func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetEnableHeader() *bool {
 	if h == nil {
 		return nil
 	}
 	return h.EnableHeader
 }
 
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic) GetMultiplier() any {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (h HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -1132,41 +1107,6 @@ func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone) GetType() R
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone) GetInterval() any {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone) GetLimit() any {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone) GetMultiplier() any {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone) GetCodes() any {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone) GetEnableHeader() any {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckAuthenticationNoneRetryRulesType string
@@ -1318,9 +1258,7 @@ type HealthCheckAuthenticationNone struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        HealthCheckAuthenticationNoneHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                            `json:"collectRequestParams,omitzero"`
-	CollectBody          any                                            `json:"collectBody,omitzero"`
+	CollectMethod HealthCheckAuthenticationNoneHealthCheckMethod `json:"collectMethod"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationNoneCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// Enable to make auth health check call.
@@ -1400,20 +1338,6 @@ func (h *HealthCheckAuthenticationNone) GetCollectMethod() HealthCheckAuthentica
 		return HealthCheckAuthenticationNoneHealthCheckMethod("")
 	}
 	return h.CollectMethod
-}
-
-func (h *HealthCheckAuthenticationNone) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
-}
-
-func (h *HealthCheckAuthenticationNone) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckAuthenticationNone) GetCollectRequestHeaders() []HealthCheckAuthenticationNoneCollectRequestHeader {
@@ -1755,12 +1679,12 @@ func (e *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                              `json:"discoverBody,omitzero"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -1785,7 +1709,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -1804,13 +1728,6 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -1885,13 +1802,13 @@ func (e *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                      `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -1916,7 +1833,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -1935,13 +1852,6 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -2016,13 +1926,13 @@ func (e *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 
 type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                                     `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -2047,7 +1957,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -2066,13 +1976,6 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -2459,12 +2362,17 @@ func (e *HealthCheckCollectMethodPostWithBodyAuthentication) IsExact() bool {
 
 type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -2485,35 +2393,35 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) G
 	return h.Type
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetInterval() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetInterval() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Interval
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetLimit() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetLimit() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Limit
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetMultiplier() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetMultiplier() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Multiplier
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetCodes() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetCodes() []float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Codes
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetEnableHeader() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) GetEnableHeader() *bool {
 	if h == nil {
 		return nil
 	}
@@ -2522,12 +2430,15 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff) G
 
 type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -2548,49 +2459,37 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) Ge
 	return h.Type
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) GetInterval() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) GetInterval() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Interval
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) GetLimit() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) GetLimit() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Limit
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) GetCodes() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) GetCodes() []float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Codes
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) GetEnableHeader() any {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) GetEnableHeader() *bool {
 	if h == nil {
 		return nil
 	}
 	return h.EnableHeader
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic) GetMultiplier() any {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (h HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -2609,41 +2508,6 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone) GetT
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone) GetInterval() any {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone) GetLimit() any {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone) GetMultiplier() any {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone) GetCodes() any {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone) GetEnableHeader() any {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckCollectMethodPostWithBodyRetryRulesType string
@@ -2791,11 +2655,11 @@ func (u HealthCheckCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, e
 type HealthCheckCollectMethodPostWithBody struct {
 	// Health check HTTP method.
 	CollectMethod HealthCheckCollectMethodPostWithBodyHealthCheckMethod `json:"collectMethod"`
-	CollectBody   any                                                   `json:"collectBody,omitzero"`
-	Discovery     *HealthCheckCollectMethodPostWithBodyDiscovery        `json:"discovery,omitzero"`
+	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
+	CollectBody *string                                        `json:"collectBody,omitzero"`
+	Discovery   *HealthCheckCollectMethodPostWithBodyDiscovery `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
-	CollectURL           string `json:"collectUrl"`
-	CollectRequestParams any    `json:"collectRequestParams,omitzero"`
+	CollectURL string `json:"collectUrl"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckCollectMethodPostWithBodyCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// Enable to make auth health check call.
@@ -2830,7 +2694,7 @@ func (h *HealthCheckCollectMethodPostWithBody) GetCollectMethod() HealthCheckCol
 	return h.CollectMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBody) GetCollectBody() any {
+func (h *HealthCheckCollectMethodPostWithBody) GetCollectBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -2877,13 +2741,6 @@ func (h *HealthCheckCollectMethodPostWithBody) GetCollectURL() string {
 		return ""
 	}
 	return h.CollectURL
-}
-
-func (h *HealthCheckCollectMethodPostWithBody) GetCollectRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectRequestParams
 }
 
 func (h *HealthCheckCollectMethodPostWithBody) GetCollectRequestHeaders() []HealthCheckCollectMethodPostWithBodyCollectRequestHeader {
@@ -3232,12 +3089,12 @@ func (e *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                      `json:"discoverBody,omitzero"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -3262,7 +3119,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -3281,13 +3138,6 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -3362,13 +3212,13 @@ func (e *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 
 type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                              `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -3393,7 +3243,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -3412,13 +3262,6 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -3493,13 +3336,13 @@ func (e *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 
 type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                             `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -3524,7 +3367,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -3543,13 +3386,6 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -3936,12 +3772,17 @@ func (e *HealthCheckCollectMethodPostAuthentication) IsExact() bool {
 
 type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -3962,35 +3803,35 @@ func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetType()
 	return h.Type
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetInterval() any {
+func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetInterval() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Interval
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetLimit() any {
+func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetLimit() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Limit
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetMultiplier() any {
+func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetMultiplier() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Multiplier
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetCodes() any {
+func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetCodes() []float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Codes
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetEnableHeader() any {
+func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetEnableHeader() *bool {
 	if h == nil {
 		return nil
 	}
@@ -3999,12 +3840,15 @@ func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff) GetEnable
 
 type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -4025,49 +3869,37 @@ func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetType() 
 	return h.Type
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetInterval() any {
+func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetInterval() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Interval
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetLimit() any {
+func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetLimit() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Limit
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetCodes() any {
+func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetCodes() []float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Codes
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetEnableHeader() any {
+func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetEnableHeader() *bool {
 	if h == nil {
 		return nil
 	}
 	return h.EnableHeader
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic) GetMultiplier() any {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (h HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -4086,41 +3918,6 @@ func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone) GetType() Re
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone) GetInterval() any {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone) GetLimit() any {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone) GetMultiplier() any {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone) GetCodes() any {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone) GetEnableHeader() any {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckCollectMethodPostRetryRulesType string
@@ -4267,12 +4064,12 @@ func (u HealthCheckCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
 
 type HealthCheckCollectMethodPost struct {
 	// Health check HTTP method.
-	CollectMethod        HealthCheckCollectMethodPostHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                           `json:"collectRequestParams,omitzero"`
-	Discovery            *HealthCheckCollectMethodPostDiscovery        `json:"discovery,omitzero"`
+	CollectMethod HealthCheckCollectMethodPostHealthCheckMethod `json:"collectMethod"`
+	// Optional health check request parameters.
+	CollectRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"collectRequestParams,omitzero"`
+	Discovery            *HealthCheckCollectMethodPostDiscovery                      `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
-	CollectURL  string `json:"collectUrl"`
-	CollectBody any    `json:"collectBody,omitzero"`
+	CollectURL string `json:"collectUrl"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckCollectMethodPostCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// Enable to make auth health check call.
@@ -4307,7 +4104,7 @@ func (h *HealthCheckCollectMethodPost) GetCollectMethod() HealthCheckCollectMeth
 	return h.CollectMethod
 }
 
-func (h *HealthCheckCollectMethodPost) GetCollectRequestParams() any {
+func (h *HealthCheckCollectMethodPost) GetCollectRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -4354,13 +4151,6 @@ func (h *HealthCheckCollectMethodPost) GetCollectURL() string {
 		return ""
 	}
 	return h.CollectURL
-}
-
-func (h *HealthCheckCollectMethodPost) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckCollectMethodPost) GetCollectRequestHeaders() []HealthCheckCollectMethodPostCollectRequestHeader {
@@ -4465,6 +4255,38 @@ func (e *HealthCheckCollectMethodGetHealthCheckMethod) IsExact() bool {
 		}
 	}
 	return false
+}
+
+type HealthCheckCollectMethodGetCollectRequestParam struct {
+	// Parameter name
+	Name string `json:"name"`
+	// JavaScript expression to compute the parameter value (can be a constant).
+	Value string `json:"value"`
+}
+
+func (h HealthCheckCollectMethodGetCollectRequestParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HealthCheckCollectMethodGetCollectRequestParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *HealthCheckCollectMethodGetCollectRequestParam) GetName() string {
+	if h == nil {
+		return ""
+	}
+	return h.Name
+}
+
+func (h *HealthCheckCollectMethodGetCollectRequestParam) GetValue() string {
+	if h == nil {
+		return ""
+	}
+	return h.Value
 }
 
 // HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNoneDiscoverType - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -4709,12 +4531,12 @@ func (e *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
 	// Discover HTTP method.
 	DiscoverMethod HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
-	DiscoverBody   any                                                                                                     `json:"discoverBody,omitzero"`
+	// Template for POST body to send with the discover request.
+	DiscoverBody *string `json:"discoverBody,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL           string `json:"discoverUrl"`
-	DiscoverRequestParams any    `json:"discoverRequestParams,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -4739,7 +4561,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() any {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() *string {
 	if h == nil {
 		return nil
 	}
@@ -4758,13 +4580,6 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestParams() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverRequestParams
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -4839,13 +4654,13 @@ func (e *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 
 type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                             `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -4870,7 +4685,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -4889,13 +4704,6 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -4970,13 +4778,13 @@ func (e *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 
 type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	// Discover HTTP method.
-	DiscoverMethod        HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
-	DiscoverRequestParams any                                                                                            `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	// Optional discover request parameters.
+	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
-	DiscoverURL  string `json:"discoverUrl"`
-	DiscoverBody any    `json:"discoverBody,omitzero"`
+	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
@@ -5001,7 +4809,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() any {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
 	if h == nil {
 		return nil
 	}
@@ -5020,13 +4828,6 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 		return ""
 	}
 	return h.DiscoverURL
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.DiscoverBody
 }
 
 func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
@@ -5413,12 +5214,17 @@ func (e *HealthCheckCollectMethodGetAuthentication) IsExact() bool {
 
 type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -5439,35 +5245,35 @@ func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetType() 
 	return h.Type
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetInterval() any {
+func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetInterval() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Interval
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetLimit() any {
+func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetLimit() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Limit
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetMultiplier() any {
+func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetMultiplier() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Multiplier
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetCodes() any {
+func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetCodes() []float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Codes
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetEnableHeader() any {
+func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetEnableHeader() *bool {
 	if h == nil {
 		return nil
 	}
@@ -5476,12 +5282,15 @@ func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff) GetEnableH
 
 type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -5502,49 +5311,37 @@ func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetType() R
 	return h.Type
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetInterval() any {
+func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetInterval() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Interval
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetLimit() any {
+func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetLimit() *float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Limit
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetCodes() any {
+func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetCodes() []float64 {
 	if h == nil {
 		return nil
 	}
 	return h.Codes
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetEnableHeader() any {
+func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetEnableHeader() *bool {
 	if h == nil {
 		return nil
 	}
 	return h.EnableHeader
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic) GetMultiplier() any {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
-	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval     any                                                `json:"interval,omitzero"`
-	Limit        any                                                `json:"limit,omitzero"`
-	Multiplier   any                                                `json:"multiplier,omitzero"`
-	Codes        any                                                `json:"codes,omitzero"`
-	EnableHeader any                                                `json:"enableHeader,omitzero"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 }
 
 func (h HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -5563,41 +5360,6 @@ func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone) GetType() Ret
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone) GetInterval() any {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone) GetLimit() any {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone) GetMultiplier() any {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone) GetCodes() any {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone) GetEnableHeader() any {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckCollectMethodGetRetryRulesType string
@@ -5744,12 +5506,12 @@ func (u HealthCheckCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
 
 type HealthCheckCollectMethodGet struct {
 	// Health check HTTP method.
-	CollectMethod        HealthCheckCollectMethodGetHealthCheckMethod `json:"collectMethod"`
-	CollectRequestParams any                                          `json:"collectRequestParams,omitzero"`
-	Discovery            *HealthCheckCollectMethodGetDiscovery        `json:"discovery,omitzero"`
+	CollectMethod HealthCheckCollectMethodGetHealthCheckMethod `json:"collectMethod"`
+	// Optional health check request parameters.
+	CollectRequestParams []HealthCheckCollectMethodGetCollectRequestParam `json:"collectRequestParams,omitzero"`
+	Discovery            *HealthCheckCollectMethodGetDiscovery            `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
-	CollectURL  string `json:"collectUrl"`
-	CollectBody any    `json:"collectBody,omitzero"`
+	CollectURL string `json:"collectUrl"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckCollectMethodGetCollectRequestHeader `json:"collectRequestHeaders,omitzero"`
 	// Enable to make auth health check call.
@@ -5784,7 +5546,7 @@ func (h *HealthCheckCollectMethodGet) GetCollectMethod() HealthCheckCollectMetho
 	return h.CollectMethod
 }
 
-func (h *HealthCheckCollectMethodGet) GetCollectRequestParams() any {
+func (h *HealthCheckCollectMethodGet) GetCollectRequestParams() []HealthCheckCollectMethodGetCollectRequestParam {
 	if h == nil {
 		return nil
 	}
@@ -5831,13 +5593,6 @@ func (h *HealthCheckCollectMethodGet) GetCollectURL() string {
 		return ""
 	}
 	return h.CollectURL
-}
-
-func (h *HealthCheckCollectMethodGet) GetCollectBody() any {
-	if h == nil {
-		return nil
-	}
-	return h.CollectBody
 }
 
 func (h *HealthCheckCollectMethodGet) GetCollectRequestHeaders() []HealthCheckCollectMethodGetCollectRequestHeader {

@@ -127,6 +127,8 @@ type InputElasticProxyMode struct {
 	RemoveHeaders []string `json:"removeHeaders,omitzero"`
 	// Amount of time, in seconds, to wait for a proxy request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
 func (i InputElasticProxyMode) MarshalJSON() ([]byte, error) {
@@ -203,6 +205,13 @@ func (i *InputElasticProxyMode) GetTimeoutSec() *float64 {
 	return i.TimeoutSec
 }
 
+func (i *InputElasticProxyMode) GetTemplateURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateURL
+}
+
 type InputElastic struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitzero"`
@@ -256,17 +265,21 @@ type InputElastic struct {
 	// Headers to add to all events
 	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	ProxyMode   *InputElasticProxyMode          `json:"proxyMode,omitzero"`
-	Description *string                         `json:"description,omitzero"`
-	Username    *string                         `json:"username,omitzero"`
-	Password    *string                         `json:"password,omitzero"`
+	Metadata    []ItemsTypeMetadata    `json:"metadata,omitzero"`
+	ProxyMode   *InputElasticProxyMode `json:"proxyMode,omitzero"`
+	Description *string                `json:"description,omitzero"`
+	Username    *string                `json:"username,omitzero"`
+	Password    *string                `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header
 	AuthTokens []string `json:"authTokens,omitzero"`
 	// Custom version information to respond to requests
 	CustomAPIVersion *string `json:"customAPIVersion,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputElastic) MarshalJSON() ([]byte, error) {
@@ -476,7 +489,7 @@ func (i *InputElastic) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElastic) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputElastic) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -530,4 +543,18 @@ func (i *InputElastic) GetCustomAPIVersion() *string {
 		return nil
 	}
 	return i.CustomAPIVersion
+}
+
+func (i *InputElastic) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputElastic) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }

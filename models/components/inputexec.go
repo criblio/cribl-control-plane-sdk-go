@@ -74,6 +74,8 @@ type InputExec struct {
 	Pq          *PqType                        `json:"pq,omitzero"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
+	// Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+	Script *string `json:"script,omitzero"`
 	// Maximum number of retry attempts in the event that the command fails
 	Retries *float64 `json:"retries,omitzero"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
@@ -83,8 +85,8 @@ type InputExec struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
 	// Interval between command executions in seconds.
 	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
@@ -179,6 +181,13 @@ func (i *InputExec) GetCommand() string {
 	return i.Command
 }
 
+func (i *InputExec) GetScript() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Script
+}
+
 func (i *InputExec) GetRetries() *float64 {
 	if i == nil {
 		return nil
@@ -207,7 +216,7 @@ func (i *InputExec) GetStaleChannelFlushMs() *float64 {
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputExec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputExec) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

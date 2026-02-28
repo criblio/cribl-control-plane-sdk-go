@@ -33,18 +33,6 @@ splunkCollectorConf := components.CreateSplunkCollectorConfToken(components.Splu
 splunkCollectorConf := components.CreateSplunkCollectorConfTokenSecret(components.SplunkAuthenticationTokenSecret{/* values here */})
 ```
 
-### SplunkAuthenticationLogin
-
-```go
-splunkCollectorConf := components.CreateSplunkCollectorConfLogin(components.SplunkAuthenticationLogin{/* values here */})
-```
-
-### SplunkAuthenticationLoginSecret
-
-```go
-splunkCollectorConf := components.CreateSplunkCollectorConfLoginSecret(components.SplunkAuthenticationLoginSecret{/* values here */})
-```
-
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -61,10 +49,6 @@ switch splunkCollectorConf.Type {
 		// splunkCollectorConf.SplunkAuthenticationToken is populated
 	case components.SplunkCollectorConfTypeTokenSecret:
 		// splunkCollectorConf.SplunkAuthenticationTokenSecret is populated
-	case components.SplunkCollectorConfTypeLogin:
-		// splunkCollectorConf.SplunkAuthenticationLogin is populated
-	case components.SplunkCollectorConfTypeLoginSecret:
-		// splunkCollectorConf.SplunkAuthenticationLoginSecret is populated
 	default:
 		// Unknown type - use splunkCollectorConf.GetUnknownRaw() for raw JSON
 }

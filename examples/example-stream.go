@@ -84,7 +84,7 @@ func main() {
 	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := AUTH_TOKEN
 	sendToRoutes := true
-	tcpJSONSource := operations.InputTcpjson{
+	tcpJSONSource := operations.CreateInputInputTcpjson{
 		ID:           "my-tcp-json",
 		Type:         operations.CreateInputTypeTcpjsonTcpjson,
 		Host:         "0.0.0.0",
@@ -103,9 +103,9 @@ func main() {
 
 	// Create Filesystem Destination
 	fileNameSuffix := "\".log\"" // JavaScript expression that returns ".log"
-	fileSystemDestination := operations.OutputFilesystem{
+	fileSystemDestination := operations.CreateOutputOutputFilesystem{
 		ID:             "my-fs-destination",
-		Type:           operations.TypeFilesystemFilesystem,
+		Type:           operations.CreateOutputTypeFilesystemFilesystem,
 		DestPath:       "/tmp/my-output",
 		FileNameSuffix: &fileNameSuffix,
 	}
@@ -158,23 +158,23 @@ func main() {
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route
-		newRoute := components.RoutesRoute{
-			Final:                  criblcontrolplanesdkgo.Bool(false),
-			ID:                     criblcontrolplanesdkgo.String("my-route"),
+		newRoute := components.RouteConf{
+			Final:                  false,
+			ID:                     "my-route",
 			Name:                   "my-route",
 			Pipeline:               "my-pipeline",
-			Output:                 "my-fs-destination",
+			Output:                 criblcontrolplanesdkgo.String("my-fs-destination"),
 			EnableOutputExpression: criblcontrolplanesdkgo.Bool(true), // Allow custom output destinations
 			Filter:                 criblcontrolplanesdkgo.String("__inputId=='tcpjson:my-tcp-json'"),
 			Description:            criblcontrolplanesdkgo.String("This is my new Route"),
 		}
 
 		// Add new route to existing Routes
-		updatedRoutes := append([]components.RoutesRoute{newRoute}, existingRoutes.Routes...)
+		updatedRoutes := append([]components.RouteConf{newRoute}, existingRoutes.Routes...)
 
 		// Update Routes configuration
-		if existingRoutes.ID != nil {
-			_, err = client.Routes.Update(ctx, *existingRoutes.ID, components.Routes{
+		if existingRoutes.ID != "" {
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
 				ID:     existingRoutes.ID,
 				Routes: updatedRoutes,
 			}, operations.WithServerURL(groupURL))
@@ -189,14 +189,13 @@ func main() {
 
 	// Commit configuration changes
 	effective := true
-	commitParams := components.GitCommitParams{
+	commitParams := components.GitCommitBody{
 		Message:   "Commit for Stream example",
 		Effective: &effective,
 		Files:     []string{"."},
 	}
 
-	workerGroupID := WORKER_GROUP_ID
-	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, &workerGroupID)
+	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
 	} else if commitResponse.CountedGitCommitSummary != nil && commitResponse.CountedGitCommitSummary.Items != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {

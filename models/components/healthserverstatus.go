@@ -24,20 +24,20 @@ func (e *Role) IsExact() bool {
 	return false
 }
 
-type Status string
+type HealthServerStatusStatus string
 
 const (
-	StatusShuttingDown Status = "shutting down"
-	StatusHealthy      Status = "healthy"
-	StatusStandby      Status = "standby"
+	HealthServerStatusStatusShuttingDown HealthServerStatusStatus = "shutting down"
+	HealthServerStatusStatusHealthy      HealthServerStatusStatus = "healthy"
+	HealthServerStatusStatusStandby      HealthServerStatusStatus = "standby"
 )
 
-func (e Status) ToPointer() *Status {
+func (e HealthServerStatusStatus) ToPointer() *HealthServerStatusStatus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Status) IsExact() bool {
+func (e *HealthServerStatusStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "shutting down", "healthy", "standby":
@@ -48,9 +48,9 @@ func (e *Status) IsExact() bool {
 }
 
 type HealthServerStatus struct {
-	Role      *Role   `json:"role,omitzero"`
-	StartTime float64 `json:"startTime"`
-	Status    Status  `json:"status"`
+	Role      *Role                    `json:"role,omitzero"`
+	StartTime float64                  `json:"startTime"`
+	Status    HealthServerStatusStatus `json:"status"`
 }
 
 func (h *HealthServerStatus) GetRole() *Role {
@@ -67,9 +67,9 @@ func (h *HealthServerStatus) GetStartTime() float64 {
 	return h.StartTime
 }
 
-func (h *HealthServerStatus) GetStatus() Status {
+func (h *HealthServerStatus) GetStatus() HealthServerStatusStatus {
 	if h == nil {
-		return Status("")
+		return HealthServerStatusStatus("")
 	}
 	return h.Status
 }

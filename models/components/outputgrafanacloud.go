@@ -67,7 +67,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []ItemsTypeLabels `json:"labels,omitzero"`
+	Labels []ItemsTypeContentConfigItemsRequestParams `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -125,6 +125,10 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
 	PqControls       *OutputGrafanaCloudPqControls2 `json:"pqControls,omitzero"`
+	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
+	TemplateLokiURL *string `json:"__template_lokiUrl,omitzero"`
+	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
+	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitzero"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
@@ -208,7 +212,7 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetMessageFormat() *MessageFormatOptio
 	return o.MessageFormat
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud2) GetLabels() []ItemsTypeLabels {
+func (o *OutputGrafanaCloudGrafanaCloud2) GetLabels() []ItemsTypeContentConfigItemsRequestParams {
 	if o == nil {
 		return nil
 	}
@@ -425,6 +429,20 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetPqControls() *OutputGrafanaCloudPqC
 	return o.PqControls
 }
 
+func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplateLokiURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLokiURL
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplatePrometheusURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePrometheusURL
+}
+
 type OutputGrafanaCloudType1 string
 
 const (
@@ -483,7 +501,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []ItemsTypeLabels `json:"labels,omitzero"`
+	Labels []ItemsTypeContentConfigItemsRequestParams `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -541,6 +559,10 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
 	PqControls       *OutputGrafanaCloudPqControls1 `json:"pqControls,omitzero"`
+	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
+	TemplateLokiURL *string `json:"__template_lokiUrl,omitzero"`
+	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
+	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitzero"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {
@@ -624,7 +646,7 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetMessageFormat() *MessageFormatOptio
 	return o.MessageFormat
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud1) GetLabels() []ItemsTypeLabels {
+func (o *OutputGrafanaCloudGrafanaCloud1) GetLabels() []ItemsTypeContentConfigItemsRequestParams {
 	if o == nil {
 		return nil
 	}
@@ -839,6 +861,20 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetPqControls() *OutputGrafanaCloudPqC
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplateLokiURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLokiURL
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplatePrometheusURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePrometheusURL
 }
 
 type OutputGrafanaCloudType string

@@ -79,8 +79,6 @@ type MTLSSettings struct {
 	MaxVersion      *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
 	// Enable OCSP check of certificate
 	OcspCheck *bool `json:"ocspCheck,omitzero"`
-	Keytab    any   `json:"keytab,omitzero"`
-	Principal any   `json:"principal,omitzero"`
 	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
 	OcspCheckFailClose *bool `json:"ocspCheckFailClose,omitzero"`
 }
@@ -178,20 +176,6 @@ func (m *MTLSSettings) GetOcspCheck() *bool {
 		return nil
 	}
 	return m.OcspCheck
-}
-
-func (m *MTLSSettings) GetKeytab() any {
-	if m == nil {
-		return nil
-	}
-	return m.Keytab
-}
-
-func (m *MTLSSettings) GetPrincipal() any {
-	if m == nil {
-		return nil
-	}
-	return m.Principal
 }
 
 func (m *MTLSSettings) GetOcspCheckFailClose() *bool {
@@ -300,8 +284,8 @@ type Subscription struct {
 	Locale        *string           `json:"locale,omitzero"`
 	QuerySelector *QueryBuilderMode `json:"querySelector,omitzero"`
 	// Fields to add to events ingested under this subscription
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Queries  []Query                         `json:"queries,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Queries  []Query             `json:"queries,omitzero"`
 	// The XPath query to use for selecting events
 	XMLQuery *string `json:"xmlQuery,omitzero"`
 }
@@ -394,7 +378,7 @@ func (s *Subscription) GetQuerySelector() *QueryBuilderMode {
 	return s.QuerySelector
 }
 
-func (s *Subscription) GetMetadata() []ItemsTypeNotificationMetadata {
+func (s *Subscription) GetMetadata() []ItemsTypeMetadata {
 	if s == nil {
 		return nil
 	}
@@ -469,10 +453,14 @@ type InputWef struct {
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []Subscription `json:"subscriptions"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputWef) MarshalJSON() ([]byte, error) {
@@ -682,7 +670,7 @@ func (i *InputWef) GetSubscriptions() []Subscription {
 	return i.Subscriptions
 }
 
-func (i *InputWef) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWef) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -701,4 +689,18 @@ func (i *InputWef) GetLogFingerprintMismatch() *bool {
 		return nil
 	}
 	return i.LogFingerprintMismatch
+}
+
+func (i *InputWef) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputWef) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }

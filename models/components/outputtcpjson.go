@@ -118,6 +118,10 @@ type OutputTcpjson struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (o OutputTcpjson) MarshalJSON() ([]byte, error) {
@@ -395,4 +399,18 @@ func (o *OutputTcpjson) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
+}
+
+func (o *OutputTcpjson) GetTemplateHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateHost
+}
+
+func (o *OutputTcpjson) GetTemplatePort() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePort
 }

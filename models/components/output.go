@@ -73,6 +73,7 @@ const (
 	OutputTypeCriblLake              OutputType = "cribl_lake"
 	OutputTypeDiskSpool              OutputType = "disk_spool"
 	OutputTypeClickHouse             OutputType = "click_house"
+	OutputTypeLocalSearchStorage     OutputType = "local_search_storage"
 	OutputTypeXsiam                  OutputType = "xsiam"
 	OutputTypeNetflow                OutputType = "netflow"
 	OutputTypeDynatraceHTTP          OutputType = "dynatrace_http"
@@ -147,6 +148,7 @@ type Output struct {
 	OutputCriblLake              *OutputCriblLake              `queryParam:"inline" union:"member"`
 	OutputDiskSpool              *OutputDiskSpool              `queryParam:"inline" union:"member"`
 	OutputClickHouse             *OutputClickHouse             `queryParam:"inline" union:"member"`
+	OutputLocalSearchStorage     *OutputLocalSearchStorage     `queryParam:"inline" union:"member"`
 	OutputXsiam                  *OutputXsiam                  `queryParam:"inline" union:"member"`
 	OutputNetflow                *OutputNetflow                `queryParam:"inline" union:"member"`
 	OutputDynatraceHTTP          *OutputDynatraceHTTP          `queryParam:"inline" union:"member"`
@@ -890,6 +892,18 @@ func CreateOutputClickHouse(clickHouse OutputClickHouse) Output {
 	}
 }
 
+func CreateOutputLocalSearchStorage(localSearchStorage OutputLocalSearchStorage) Output {
+	typ := OutputTypeLocalSearchStorage
+
+	typStr := OutputLocalSearchStorageType(typ)
+	localSearchStorage.Type = typStr
+
+	return Output{
+		OutputLocalSearchStorage: &localSearchStorage,
+		Type:                     typ,
+	}
+}
+
 func CreateOutputXsiam(xsiam OutputXsiam) Output {
 	typ := OutputTypeXsiam
 
@@ -1581,6 +1595,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputClickHouse = outputClickHouse
 		u.Type = OutputTypeClickHouse
 		return nil
+	case "local_search_storage":
+		outputLocalSearchStorage := new(OutputLocalSearchStorage)
+		if err := utils.UnmarshalJSON(data, &outputLocalSearchStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == local_search_storage) type OutputLocalSearchStorage within Output: %w", string(data), err)
+		}
+
+		u.OutputLocalSearchStorage = outputLocalSearchStorage
+		u.Type = OutputTypeLocalSearchStorage
+		return nil
 	case "xsiam":
 		outputXsiam := new(OutputXsiam)
 		if err := utils.UnmarshalJSON(data, &outputXsiam, "", true, nil); err != nil {
@@ -1913,6 +1936,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputClickHouse != nil {
 		return utils.MarshalJSON(u.OutputClickHouse, "", true)
+	}
+
+	if u.OutputLocalSearchStorage != nil {
+		return utils.MarshalJSON(u.OutputLocalSearchStorage, "", true)
 	}
 
 	if u.OutputXsiam != nil {
