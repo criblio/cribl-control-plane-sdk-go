@@ -36,7 +36,6 @@ type InputCloudflareHecAuthenticationMethod string
 
 const (
 	InputCloudflareHecAuthenticationMethodSecret InputCloudflareHecAuthenticationMethod = "secret"
-	InputCloudflareHecAuthenticationMethodManual InputCloudflareHecAuthenticationMethod = "manual"
 )
 
 func (e InputCloudflareHecAuthenticationMethod) ToPointer() *InputCloudflareHecAuthenticationMethod {
@@ -47,7 +46,7 @@ func (e InputCloudflareHecAuthenticationMethod) ToPointer() *InputCloudflareHecA
 func (e *InputCloudflareHecAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "secret", "manual":
+		case "secret":
 			return true
 		}
 	}
@@ -59,14 +58,12 @@ type InputCloudflareHecAuthToken struct {
 	AuthType *InputCloudflareHecAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
-	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       *string `json:"token,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 }
 
 func (i InputCloudflareHecAuthToken) MarshalJSON() ([]byte, error) {
@@ -94,13 +91,6 @@ func (i *InputCloudflareHecAuthToken) GetTokenSecret() *string {
 	return i.TokenSecret
 }
 
-func (i *InputCloudflareHecAuthToken) GetToken() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Token
-}
-
 func (i *InputCloudflareHecAuthToken) GetEnabled() *bool {
 	if i == nil {
 		return nil
@@ -122,11 +112,122 @@ func (i *InputCloudflareHecAuthToken) GetAllowedIndexesAtToken() []string {
 	return i.AllowedIndexesAtToken
 }
 
-func (i *InputCloudflareHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCloudflareHecAuthToken) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
+}
+
+type TLSSettingsServerSide struct {
+	// Enable or disable TLS. Defaults to enabled for Cloudflare sources.
+	Disabled *bool `json:"disabled,omitzero"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `json:"requestCert,omitzero"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `json:"commonNameRegex,omitzero"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitzero"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl private key when TLS is enabled.
+	PrivKeyPath *string `json:"privKeyPath,omitzero"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitzero"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
+	CertPath *string `json:"certPath,omitzero"`
+	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+	CaPath     *string                                         `json:"caPath,omitzero"`
+	MinVersion *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitzero"`
+	MaxVersion *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
+}
+
+func (t TLSSettingsServerSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *TLSSettingsServerSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t *TLSSettingsServerSide) GetDisabled() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.Disabled
+}
+
+func (t *TLSSettingsServerSide) GetRequestCert() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.RequestCert
+}
+
+func (t *TLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.RejectUnauthorized
+}
+
+func (t *TLSSettingsServerSide) GetCommonNameRegex() *string {
+	if t == nil {
+		return nil
+	}
+	return t.CommonNameRegex
+}
+
+func (t *TLSSettingsServerSide) GetCertificateName() *string {
+	if t == nil {
+		return nil
+	}
+	return t.CertificateName
+}
+
+func (t *TLSSettingsServerSide) GetPrivKeyPath() *string {
+	if t == nil {
+		return nil
+	}
+	return t.PrivKeyPath
+}
+
+func (t *TLSSettingsServerSide) GetPassphrase() *string {
+	if t == nil {
+		return nil
+	}
+	return t.Passphrase
+}
+
+func (t *TLSSettingsServerSide) GetCertPath() *string {
+	if t == nil {
+		return nil
+	}
+	return t.CertPath
+}
+
+func (t *TLSSettingsServerSide) GetCaPath() *string {
+	if t == nil {
+		return nil
+	}
+	return t.CaPath
+}
+
+func (t *TLSSettingsServerSide) GetMinVersion() *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
+	if t == nil {
+		return nil
+	}
+	return t.MinVersion
+}
+
+func (t *TLSSettingsServerSide) GetMaxVersion() *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
+	if t == nil {
+		return nil
+	}
+	return t.MaxVersion
 }
 
 type InputCloudflareHec struct {
@@ -153,7 +254,7 @@ type InputCloudflareHec struct {
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokens []InputCloudflareHecAuthToken `json:"authTokens,omitzero"`
-	TLS        *TLSSettingsServerSideType    `json:"tls,omitzero"`
+	TLS        *TLSSettingsServerSide        `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -169,8 +270,7 @@ type InputCloudflareHec struct {
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitzero"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitzero"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
@@ -178,7 +278,7 @@ type InputCloudflareHec struct {
 	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -192,6 +292,10 @@ type InputCloudflareHec struct {
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
 	Description      *string `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputCloudflareHec) MarshalJSON() ([]byte, error) {
@@ -296,7 +400,7 @@ func (i *InputCloudflareHec) GetAuthTokens() []InputCloudflareHecAuthToken {
 	return i.AuthTokens
 }
 
-func (i *InputCloudflareHec) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCloudflareHec) GetTLS() *TLSSettingsServerSide {
 	if i == nil {
 		return nil
 	}
@@ -359,13 +463,6 @@ func (i *InputCloudflareHec) GetKeepAliveTimeout() *float64 {
 	return i.KeepAliveTimeout
 }
 
-func (i *InputCloudflareHec) GetEnableHealthCheck() any {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHealthCheck
-}
-
 func (i *InputCloudflareHec) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
@@ -387,7 +484,7 @@ func (i *InputCloudflareHec) GetHecAPI() string {
 	return i.HecAPI
 }
 
-func (i *InputCloudflareHec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCloudflareHec) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -441,4 +538,18 @@ func (i *InputCloudflareHec) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputCloudflareHec) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputCloudflareHec) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }

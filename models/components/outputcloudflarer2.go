@@ -35,9 +35,10 @@ func (e *OutputCloudflareR2Type) UnmarshalJSON(data []byte) error {
 type OutputCloudflareR2AuthenticationMethod string
 
 const (
-	OutputCloudflareR2AuthenticationMethodAuto   OutputCloudflareR2AuthenticationMethod = "auto"
+	// OutputCloudflareR2AuthenticationMethodAuto Auto
+	OutputCloudflareR2AuthenticationMethodAuto OutputCloudflareR2AuthenticationMethod = "auto"
+	// OutputCloudflareR2AuthenticationMethodSecret Secret Key pair
 	OutputCloudflareR2AuthenticationMethodSecret OutputCloudflareR2AuthenticationMethod = "secret"
-	OutputCloudflareR2AuthenticationMethodManual OutputCloudflareR2AuthenticationMethod = "manual"
 )
 
 func (e OutputCloudflareR2AuthenticationMethod) ToPointer() *OutputCloudflareR2AuthenticationMethod {
@@ -48,7 +49,7 @@ func (e OutputCloudflareR2AuthenticationMethod) ToPointer() *OutputCloudflareR2A
 func (e *OutputCloudflareR2AuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "secret", "manual":
+		case "auto", "secret":
 			return true
 		}
 	}
@@ -75,7 +76,6 @@ type OutputCloudflareR2 struct {
 	AwsAuthenticationMethod *OutputCloudflareR2AuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
 	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	Region       any     `json:"region,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
@@ -84,7 +84,6 @@ type OutputCloudflareR2 struct {
 	DestPath *string `json:"destPath,omitzero"`
 	// Signature version to use for signing MinIO requests
 	SignatureVersion *SignatureVersionOptions5 `json:"signatureVersion,omitzero"`
-	ObjectACL        any                       `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
 	StorageClass *StorageClassOptions2 `json:"storageClass,omitzero"`
 	// Server-side encryption for uploaded objects
@@ -129,8 +128,6 @@ type OutputCloudflareR2 struct {
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	Description            *string  `json:"description,omitzero"`
-	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -167,6 +164,10 @@ type OutputCloudflareR2 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
 }
 
 func (o OutputCloudflareR2) MarshalJSON() ([]byte, error) {
@@ -250,13 +251,6 @@ func (o *OutputCloudflareR2) GetAwsSecretKey() *string {
 	return o.AwsSecretKey
 }
 
-func (o *OutputCloudflareR2) GetRegion() any {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
 func (o *OutputCloudflareR2) GetStagePath() string {
 	if o == nil {
 		return ""
@@ -283,13 +277,6 @@ func (o *OutputCloudflareR2) GetSignatureVersion() *SignatureVersionOptions5 {
 		return nil
 	}
 	return o.SignatureVersion
-}
-
-func (o *OutputCloudflareR2) GetObjectACL() any {
-	if o == nil {
-		return nil
-	}
-	return o.ObjectACL
 }
 
 func (o *OutputCloudflareR2) GetStorageClass() *StorageClassOptions2 {
@@ -453,13 +440,6 @@ func (o *OutputCloudflareR2) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputCloudflareR2) GetAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAPIKey
-}
-
 func (o *OutputCloudflareR2) GetAwsSecret() *string {
 	if o == nil {
 		return nil
@@ -584,4 +564,18 @@ func (o *OutputCloudflareR2) GetMaxRetryNum() *float64 {
 		return nil
 	}
 	return o.MaxRetryNum
+}
+
+func (o *OutputCloudflareR2) GetTemplateBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBucket
+}
+
+func (o *OutputCloudflareR2) GetTemplateFormat() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFormat
 }

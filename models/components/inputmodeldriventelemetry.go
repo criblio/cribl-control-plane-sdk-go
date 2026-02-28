@@ -55,12 +55,16 @@ type InputModelDrivenTelemetry struct {
 	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
 	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitzero"`
 	Description       *string  `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
 func (i InputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
@@ -165,7 +169,7 @@ func (i *InputModelDrivenTelemetry) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputModelDrivenTelemetry) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputModelDrivenTelemetry) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -191,4 +195,18 @@ func (i *InputModelDrivenTelemetry) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputModelDrivenTelemetry) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputModelDrivenTelemetry) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }

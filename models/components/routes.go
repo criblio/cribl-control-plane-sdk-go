@@ -6,45 +6,45 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type Comment struct {
-	// Optional, short description of this Route's purpose
-	Comment              *string        `json:"comment,omitzero"`
-	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
+type RoutesGroups struct {
+	// Brief description of the Route Group.
+	Description *string `json:"description,omitzero"`
+	// Relative position of the Route Group among all Route Groups. Routes are evaluated in ascending order according to the index value of their Route Group.
+	Index float64 `json:"index"`
+	// Name of the Route Group.
+	Name string `json:"name"`
 }
 
-func (c Comment) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *Comment) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *Comment) GetComment() *string {
-	if c == nil {
+func (r *RoutesGroups) GetDescription() *string {
+	if r == nil {
 		return nil
 	}
-	return c.Comment
+	return r.Description
 }
 
-func (c *Comment) GetAdditionalProperties() map[string]any {
-	if c == nil {
-		return nil
+func (r *RoutesGroups) GetIndex() float64 {
+	if r == nil {
+		return 0.0
 	}
-	return c.AdditionalProperties
+	return r.Index
+}
+
+func (r *RoutesGroups) GetName() string {
+	if r == nil {
+		return ""
+	}
+	return r.Name
 }
 
 type Routes struct {
-	// Routes ID
-	ID *string `json:"id,omitzero"`
-	// Pipeline routing rules
-	Routes []RoutesRoute                                         `json:"routes"`
-	Groups map[string]AdditionalPropertiesTypePipelineConfGroups `json:"groups,omitzero"`
-	// Comments
-	Comments []Comment `json:"comments,omitzero"`
+	// Array of user-provided comments that describe or annotate Routes.
+	Comments []RouteComment `json:"comments,omitzero"`
+	// Information about the Route Groups that the Route is associated with.
+	Groups map[string]RoutesGroups `json:"groups,omitzero"`
+	// Unique identifier for the Routing table. The supported value is <code>default</code>.
+	ID string `json:"id"`
+	// Array of Route configurations that define how events are processed and routed.
+	Routes []RouteConf `json:"routes"`
 }
 
 func (r Routes) MarshalJSON() ([]byte, error) {
@@ -58,30 +58,30 @@ func (r *Routes) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *Routes) GetID() *string {
+func (r *Routes) GetComments() []RouteComment {
 	if r == nil {
 		return nil
 	}
-	return r.ID
+	return r.Comments
 }
 
-func (r *Routes) GetRoutes() []RoutesRoute {
-	if r == nil {
-		return []RoutesRoute{}
-	}
-	return r.Routes
-}
-
-func (r *Routes) GetGroups() map[string]AdditionalPropertiesTypePipelineConfGroups {
+func (r *Routes) GetGroups() map[string]RoutesGroups {
 	if r == nil {
 		return nil
 	}
 	return r.Groups
 }
 
-func (r *Routes) GetComments() []Comment {
+func (r *Routes) GetID() string {
 	if r == nil {
-		return nil
+		return ""
 	}
-	return r.Comments
+	return r.ID
+}
+
+func (r *Routes) GetRoutes() []RouteConf {
+	if r == nil {
+		return []RouteConf{}
+	}
+	return r.Routes
 }

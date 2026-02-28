@@ -8,8 +8,8 @@ import (
 
 type CountedInput struct {
 	// number of items present in the items array
-	Count *int64  `json:"count,omitzero"`
-	Items []Input `json:"items,omitzero"`
+	Count *int64   `json:"count,omitzero"`
+	Items []Input1 `json:"items,omitzero"`
 }
 
 func (c CountedInput) MarshalJSON() ([]byte, error) {
@@ -30,7 +30,7 @@ func (c *CountedInput) GetCount() *int64 {
 	return c.Count
 }
 
-func (c *CountedInput) GetItems() []Input {
+func (c *CountedInput) GetItems() []Input1 {
 	if c == nil {
 		return nil
 	}

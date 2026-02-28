@@ -41,6 +41,7 @@ const (
 	FunctionResponseTypeLimit                     FunctionResponseType = "limit"
 	FunctionResponseTypeLocalSearchDatatypeParser FunctionResponseType = "local_search_datatype_parser"
 	FunctionResponseTypeLocalSearchRulesetRunner  FunctionResponseType = "local_search_ruleset_runner"
+	FunctionResponseTypeLocalSearchTransformer    FunctionResponseType = "local_search_transformer"
 	FunctionResponseTypeLookup                    FunctionResponseType = "lookup"
 	FunctionResponseTypeMask                      FunctionResponseType = "mask"
 	FunctionResponseTypeMvExpand                  FunctionResponseType = "mv_expand"
@@ -110,6 +111,7 @@ type FunctionResponse struct {
 	FunctionLimit                     *FunctionLimit                     `queryParam:"inline" union:"member"`
 	FunctionLocalSearchDatatypeParser *FunctionLocalSearchDatatypeParser `queryParam:"inline" union:"member"`
 	FunctionLocalSearchRulesetRunner  *FunctionLocalSearchRulesetRunner  `queryParam:"inline" union:"member"`
+	FunctionLocalSearchTransformer    *FunctionLocalSearchTransformer    `queryParam:"inline" union:"member"`
 	FunctionLookup                    *FunctionLookup                    `queryParam:"inline" union:"member"`
 	FunctionMask                      *FunctionMask                      `queryParam:"inline" union:"member"`
 	FunctionMvExpand                  *FunctionMvExpand                  `queryParam:"inline" union:"member"`
@@ -496,6 +498,18 @@ func CreateFunctionResponseLocalSearchRulesetRunner(localSearchRulesetRunner Fun
 	return FunctionResponse{
 		FunctionLocalSearchRulesetRunner: &localSearchRulesetRunner,
 		Type:                             typ,
+	}
+}
+
+func CreateFunctionResponseLocalSearchTransformer(localSearchTransformer FunctionLocalSearchTransformer) FunctionResponse {
+	typ := FunctionResponseTypeLocalSearchTransformer
+
+	typStr := FunctionLocalSearchTransformerID(typ)
+	localSearchTransformer.ID = typStr
+
+	return FunctionResponse{
+		FunctionLocalSearchTransformer: &localSearchTransformer,
+		Type:                           typ,
 	}
 }
 
@@ -1226,6 +1240,15 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 		u.FunctionLocalSearchRulesetRunner = functionLocalSearchRulesetRunner
 		u.Type = FunctionResponseTypeLocalSearchRulesetRunner
 		return nil
+	case "local_search_transformer":
+		functionLocalSearchTransformer := new(FunctionLocalSearchTransformer)
+		if err := utils.UnmarshalJSON(data, &functionLocalSearchTransformer, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_transformer) type FunctionLocalSearchTransformer within FunctionResponse: %w", string(data), err)
+		}
+
+		u.FunctionLocalSearchTransformer = functionLocalSearchTransformer
+		u.Type = FunctionResponseTypeLocalSearchTransformer
+		return nil
 	case "lookup":
 		functionLookup := new(FunctionLookup)
 		if err := utils.UnmarshalJSON(data, &functionLookup, "", true, nil); err != nil {
@@ -1673,6 +1696,10 @@ func (u FunctionResponse) MarshalJSON() ([]byte, error) {
 
 	if u.FunctionLocalSearchRulesetRunner != nil {
 		return utils.MarshalJSON(u.FunctionLocalSearchRulesetRunner, "", true)
+	}
+
+	if u.FunctionLocalSearchTransformer != nil {
+		return utils.MarshalJSON(u.FunctionLocalSearchTransformer, "", true)
 	}
 
 	if u.FunctionLookup != nil {

@@ -86,10 +86,16 @@ type InputHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                  `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
 }
 
 func (i InputHTTP) MarshalJSON() ([]byte, error) {
@@ -306,7 +312,7 @@ func (i *InputHTTP) GetSplunkHecAcks() *bool {
 	return i.SplunkHecAcks
 }
 
-func (i *InputHTTP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputHTTP) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -325,4 +331,25 @@ func (i *InputHTTP) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputHTTP) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputHTTP) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+func (i *InputHTTP) GetTemplateSplunkHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSplunkHecAPI
 }

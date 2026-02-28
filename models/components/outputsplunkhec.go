@@ -36,6 +36,8 @@ type OutputSplunkHecURL struct {
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
 func (o OutputSplunkHecURL) MarshalJSON() ([]byte, error) {
@@ -61,6 +63,13 @@ func (o *OutputSplunkHecURL) GetWeight() *float64 {
 		return nil
 	}
 	return o.Weight
+}
+
+func (o *OutputSplunkHecURL) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
 }
 
 type OutputSplunkHecPqControls struct {
@@ -166,6 +175,8 @@ type OutputSplunkHec struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions  `json:"pqOnBackpressure,omitzero"`
 	PqControls       *OutputSplunkHecPqControls `json:"pqControls,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
 func (o OutputSplunkHec) MarshalJSON() ([]byte, error) {
@@ -499,4 +510,11 @@ func (o *OutputSplunkHec) GetPqControls() *OutputSplunkHecPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputSplunkHec) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
 }

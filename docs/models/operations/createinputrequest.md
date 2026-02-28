@@ -5,364 +5,370 @@ Input object
 
 ## Supported Types
 
-### InputCollection
+### CreateInputInputCollection
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestCollection(operations.InputCollection{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestCollection(operations.CreateInputInputCollection{/* values here */})
 ```
 
-### InputKafka
+### CreateInputInputKafka
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestKafka(operations.InputKafka{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestKafka(operations.CreateInputInputKafka{/* values here */})
 ```
 
-### InputMsk
+### CreateInputInputMsk
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestMsk(operations.InputMsk{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestMsk(operations.CreateInputInputMsk{/* values here */})
 ```
 
-### InputHTTP
+### CreateInputInputHTTP
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestHTTP(operations.InputHTTP{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestHTTP(operations.CreateInputInputHTTP{/* values here */})
 ```
 
-### InputSplunk
+### CreateInputInputSplunk
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestSplunk(operations.InputSplunk{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestSplunk(operations.CreateInputInputSplunk{/* values here */})
 ```
 
-### InputSplunkSearch
+### CreateInputInputSplunkSearch
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestSplunkSearch(operations.InputSplunkSearch{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestSplunkSearch(operations.CreateInputInputSplunkSearch{/* values here */})
 ```
 
-### InputSplunkHec
+### CreateInputInputSplunkHec
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestSplunkHec(operations.InputSplunkHec{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestSplunkHec(operations.CreateInputInputSplunkHec{/* values here */})
 ```
 
-### InputAzureBlob
+### CreateInputInputAzureBlob
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestAzureBlob(operations.InputAzureBlob{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestAzureBlob(operations.CreateInputInputAzureBlob{/* values here */})
 ```
 
-### InputElastic
+### CreateInputInputElastic
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestElastic(operations.InputElastic{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestElastic(operations.CreateInputInputElastic{/* values here */})
 ```
 
-### InputConfluentCloud
+### CreateInputInputConfluentCloud
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestConfluentCloud(operations.InputConfluentCloud{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestConfluentCloud(operations.CreateInputInputConfluentCloud{/* values here */})
 ```
 
-### InputGrafana
+### CreateInputInputGrafanaUnion
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestGrafana(operations.InputGrafana{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestGrafana(operations.CreateInputInputGrafanaUnion{/* values here */})
 ```
 
-### InputLoki
+### CreateInputInputLoki
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestLoki(operations.InputLoki{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestLoki(operations.CreateInputInputLoki{/* values here */})
 ```
 
-### InputPrometheusRw
+### CreateInputInputPrometheusRw
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestPrometheusRw(operations.InputPrometheusRw{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestPrometheusRw(operations.CreateInputInputPrometheusRw{/* values here */})
 ```
 
-### InputPrometheus
+### CreateInputInputPrometheus
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestPrometheus(operations.InputPrometheus{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestPrometheus(operations.CreateInputInputPrometheus{/* values here */})
 ```
 
-### InputEdgePrometheus
+### CreateInputInputEdgePrometheus
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestEdgePrometheus(operations.InputEdgePrometheus{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestEdgePrometheus(operations.CreateInputInputEdgePrometheus{/* values here */})
 ```
 
-### InputOffice365Mgmt
+### CreateInputInputOffice365Mgmt
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestOffice365Mgmt(operations.InputOffice365Mgmt{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestOffice365Mgmt(operations.CreateInputInputOffice365Mgmt{/* values here */})
 ```
 
-### InputOffice365Service
+### CreateInputInputOffice365Service
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestOffice365Service(operations.InputOffice365Service{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestOffice365Service(operations.CreateInputInputOffice365Service{/* values here */})
 ```
 
-### InputOffice365MsgTrace
+### CreateInputInputOffice365MsgTrace
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestOffice365MsgTrace(operations.InputOffice365MsgTrace{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestOffice365MsgTrace(operations.CreateInputInputOffice365MsgTrace{/* values here */})
 ```
 
-### InputEventhub
+### CreateInputInputEventhub
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestEventhub(operations.InputEventhub{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestEventhub(operations.CreateInputInputEventhub{/* values here */})
 ```
 
-### InputExec
+### CreateInputInputExec
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestExec(operations.InputExec{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestExec(operations.CreateInputInputExec{/* values here */})
 ```
 
-### InputFirehose
+### CreateInputInputFirehose
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestFirehose(operations.InputFirehose{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestFirehose(operations.CreateInputInputFirehose{/* values here */})
 ```
 
-### InputGooglePubsub
+### CreateInputInputGooglePubsub
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestGooglePubsub(operations.InputGooglePubsub{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestGooglePubsub(operations.CreateInputInputGooglePubsub{/* values here */})
 ```
 
-### InputCribl
+### CreateInputInputCribl
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestCribl(operations.InputCribl{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestCribl(operations.CreateInputInputCribl{/* values here */})
 ```
 
-### InputCriblTCP
+### CreateInputInputCriblTCP
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestCriblTCP(operations.InputCriblTCP{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestCriblTCP(operations.CreateInputInputCriblTCP{/* values here */})
 ```
 
-### InputCriblHTTP
+### CreateInputInputCriblHTTP
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestCriblHTTP(operations.InputCriblHTTP{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestCriblHTTP(operations.CreateInputInputCriblHTTP{/* values here */})
 ```
 
-### InputCriblLakeHTTP
+### CreateInputInputCriblLakeHTTP
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestCriblLakeHTTP(operations.InputCriblLakeHTTP{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestCriblLakeHTTP(operations.CreateInputInputCriblLakeHTTP{/* values here */})
 ```
 
-### InputTcpjson
+### CreateInputInputTcpjson
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestTcpjson(operations.InputTcpjson{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestTcpjson(operations.CreateInputInputTcpjson{/* values here */})
 ```
 
-### InputSystemMetrics
+### CreateInputInputSystemMetrics
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestSystemMetrics(operations.InputSystemMetrics{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestSystemMetrics(operations.CreateInputInputSystemMetrics{/* values here */})
 ```
 
-### InputSystemState
+### CreateInputInputSystemState
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestSystemState(operations.InputSystemState{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestSystemState(operations.CreateInputInputSystemState{/* values here */})
 ```
 
-### InputKubeMetrics
+### CreateInputInputKubeMetrics
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestKubeMetrics(operations.InputKubeMetrics{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestKubeMetrics(operations.CreateInputInputKubeMetrics{/* values here */})
 ```
 
-### InputKubeLogs
+### CreateInputInputKubeLogs
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestKubeLogs(operations.InputKubeLogs{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestKubeLogs(operations.CreateInputInputKubeLogs{/* values here */})
 ```
 
-### InputKubeEvents
+### CreateInputInputKubeEvents
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestKubeEvents(operations.InputKubeEvents{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestKubeEvents(operations.CreateInputInputKubeEvents{/* values here */})
 ```
 
-### InputWindowsMetrics
+### CreateInputInputWindowsMetrics
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestWindowsMetrics(operations.InputWindowsMetrics{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestWindowsMetrics(operations.CreateInputInputWindowsMetrics{/* values here */})
 ```
 
-### InputCrowdstrike
+### CreateInputInputCrowdstrike
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestCrowdstrike(operations.InputCrowdstrike{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestCrowdstrike(operations.CreateInputInputCrowdstrike{/* values here */})
 ```
 
-### InputDatadogAgent
+### CreateInputInputDatadogAgent
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestDatadogAgent(operations.InputDatadogAgent{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestDatadogAgent(operations.CreateInputInputDatadogAgent{/* values here */})
 ```
 
-### InputDatagen
+### CreateInputInputDatagen
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestDatagen(operations.InputDatagen{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestDatagen(operations.CreateInputInputDatagen{/* values here */})
 ```
 
-### InputHTTPRaw
+### CreateInputInputHTTPRaw
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestHTTPRaw(operations.InputHTTPRaw{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestHTTPRaw(operations.CreateInputInputHTTPRaw{/* values here */})
 ```
 
-### InputKinesis
+### CreateInputInputKinesis
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestKinesis(operations.InputKinesis{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestKinesis(operations.CreateInputInputKinesis{/* values here */})
 ```
 
-### InputCriblmetrics
+### CreateInputInputCriblmetrics
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestCriblmetrics(operations.InputCriblmetrics{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestCriblmetrics(operations.CreateInputInputCriblmetrics{/* values here */})
 ```
 
-### InputMetrics
+### CreateInputInputMetrics
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestMetrics(operations.InputMetrics{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestMetrics(operations.CreateInputInputMetrics{/* values here */})
 ```
 
-### InputS3
+### CreateInputInputS3
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestS3(operations.InputS3{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestS3(operations.CreateInputInputS3{/* values here */})
 ```
 
-### InputS3Inventory
+### CreateInputInputS3Inventory
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestS3Inventory(operations.InputS3Inventory{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestS3Inventory(operations.CreateInputInputS3Inventory{/* values here */})
 ```
 
-### InputSnmp
+### CreateInputInputSnmp
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestSnmp(operations.InputSnmp{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestSnmp(operations.CreateInputInputSnmp{/* values here */})
 ```
 
-### InputOpenTelemetry
+### CreateInputInputOpenTelemetry
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestOpenTelemetry(operations.InputOpenTelemetry{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestOpenTelemetry(operations.CreateInputInputOpenTelemetry{/* values here */})
 ```
 
-### InputModelDrivenTelemetry
+### CreateInputInputModelDrivenTelemetry
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestModelDrivenTelemetry(operations.InputModelDrivenTelemetry{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestModelDrivenTelemetry(operations.CreateInputInputModelDrivenTelemetry{/* values here */})
 ```
 
-### InputSqs
+### CreateInputInputSqs
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestSqs(operations.InputSqs{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestSqs(operations.CreateInputInputSqs{/* values here */})
 ```
 
-### InputSyslog
+### CreateInputInputSyslogUnion
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestSyslog(operations.InputSyslog{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestSyslog(operations.CreateInputInputSyslogUnion{/* values here */})
 ```
 
-### InputFile
+### CreateInputInputFile
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestFile(operations.InputFile{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestFile(operations.CreateInputInputFile{/* values here */})
 ```
 
-### InputTCP
+### CreateInputInputTCP
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestTCP(operations.InputTCP{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestTCP(operations.CreateInputInputTCP{/* values here */})
 ```
 
-### InputAppscope
+### CreateInputInputAppscope
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestAppscope(operations.InputAppscope{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestAppscope(operations.CreateInputInputAppscope{/* values here */})
 ```
 
-### InputWef
+### CreateInputInputWef
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestWef(operations.InputWef{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestWef(operations.CreateInputInputWef{/* values here */})
 ```
 
-### InputWinEventLogs
+### CreateInputInputWinEventLogs
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestWinEventLogs(operations.InputWinEventLogs{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestWinEventLogs(operations.CreateInputInputWinEventLogs{/* values here */})
 ```
 
-### InputRawUDP
+### CreateInputInputRawUDP
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestRawUDP(operations.InputRawUDP{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestRawUDP(operations.CreateInputInputRawUDP{/* values here */})
 ```
 
-### InputJournalFiles
+### CreateInputInputJournalFiles
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestJournalFiles(operations.InputJournalFiles{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestJournalFiles(operations.CreateInputInputJournalFiles{/* values here */})
 ```
 
-### InputWiz
+### CreateInputInputWiz
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestWiz(operations.InputWiz{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestWiz(operations.CreateInputInputWiz{/* values here */})
 ```
 
-### InputWizWebhook
+### CreateInputInputOpenai
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestWizWebhook(operations.InputWizWebhook{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestOpenai(operations.CreateInputInputOpenai{/* values here */})
 ```
 
-### InputNetflow
+### CreateInputInputWizWebhook
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestNetflow(operations.InputNetflow{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestWizWebhook(operations.CreateInputInputWizWebhook{/* values here */})
 ```
 
-### InputSecurityLake
+### CreateInputInputNetflow
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestSecurityLake(operations.InputSecurityLake{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestNetflow(operations.CreateInputInputNetflow{/* values here */})
 ```
 
-### InputZscalerHec
+### CreateInputInputSecurityLake
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestZscalerHec(operations.InputZscalerHec{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestSecurityLake(operations.CreateInputInputSecurityLake{/* values here */})
 ```
 
-### InputCloudflareHec
+### CreateInputInputZscalerHec
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operations.InputCloudflareHec{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestZscalerHec(operations.CreateInputInputZscalerHec{/* values here */})
+```
+
+### CreateInputInputCloudflareHec
+
+```go
+createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operations.CreateInputInputCloudflareHec{/* values here */})
 ```
 
 ## Union Discrimination
@@ -372,124 +378,126 @@ Use the `Type` field to determine which variant is active, then access the corre
 ```go
 switch createInputRequest.Type {
 	case operations.CreateInputRequestTypeCollection:
-		// createInputRequest.InputCollection is populated
+		// createInputRequest.CreateInputInputCollection is populated
 	case operations.CreateInputRequestTypeKafka:
-		// createInputRequest.InputKafka is populated
+		// createInputRequest.CreateInputInputKafka is populated
 	case operations.CreateInputRequestTypeMsk:
-		// createInputRequest.InputMsk is populated
+		// createInputRequest.CreateInputInputMsk is populated
 	case operations.CreateInputRequestTypeHTTP:
-		// createInputRequest.InputHTTP is populated
+		// createInputRequest.CreateInputInputHTTP is populated
 	case operations.CreateInputRequestTypeSplunk:
-		// createInputRequest.InputSplunk is populated
+		// createInputRequest.CreateInputInputSplunk is populated
 	case operations.CreateInputRequestTypeSplunkSearch:
-		// createInputRequest.InputSplunkSearch is populated
+		// createInputRequest.CreateInputInputSplunkSearch is populated
 	case operations.CreateInputRequestTypeSplunkHec:
-		// createInputRequest.InputSplunkHec is populated
+		// createInputRequest.CreateInputInputSplunkHec is populated
 	case operations.CreateInputRequestTypeAzureBlob:
-		// createInputRequest.InputAzureBlob is populated
+		// createInputRequest.CreateInputInputAzureBlob is populated
 	case operations.CreateInputRequestTypeElastic:
-		// createInputRequest.InputElastic is populated
+		// createInputRequest.CreateInputInputElastic is populated
 	case operations.CreateInputRequestTypeConfluentCloud:
-		// createInputRequest.InputConfluentCloud is populated
+		// createInputRequest.CreateInputInputConfluentCloud is populated
 	case operations.CreateInputRequestTypeGrafana:
-		// createInputRequest.InputGrafana is populated
+		// createInputRequest.CreateInputInputGrafanaUnion is populated
 	case operations.CreateInputRequestTypeLoki:
-		// createInputRequest.InputLoki is populated
+		// createInputRequest.CreateInputInputLoki is populated
 	case operations.CreateInputRequestTypePrometheusRw:
-		// createInputRequest.InputPrometheusRw is populated
+		// createInputRequest.CreateInputInputPrometheusRw is populated
 	case operations.CreateInputRequestTypePrometheus:
-		// createInputRequest.InputPrometheus is populated
+		// createInputRequest.CreateInputInputPrometheus is populated
 	case operations.CreateInputRequestTypeEdgePrometheus:
-		// createInputRequest.InputEdgePrometheus is populated
+		// createInputRequest.CreateInputInputEdgePrometheus is populated
 	case operations.CreateInputRequestTypeOffice365Mgmt:
-		// createInputRequest.InputOffice365Mgmt is populated
+		// createInputRequest.CreateInputInputOffice365Mgmt is populated
 	case operations.CreateInputRequestTypeOffice365Service:
-		// createInputRequest.InputOffice365Service is populated
+		// createInputRequest.CreateInputInputOffice365Service is populated
 	case operations.CreateInputRequestTypeOffice365MsgTrace:
-		// createInputRequest.InputOffice365MsgTrace is populated
+		// createInputRequest.CreateInputInputOffice365MsgTrace is populated
 	case operations.CreateInputRequestTypeEventhub:
-		// createInputRequest.InputEventhub is populated
+		// createInputRequest.CreateInputInputEventhub is populated
 	case operations.CreateInputRequestTypeExec:
-		// createInputRequest.InputExec is populated
+		// createInputRequest.CreateInputInputExec is populated
 	case operations.CreateInputRequestTypeFirehose:
-		// createInputRequest.InputFirehose is populated
+		// createInputRequest.CreateInputInputFirehose is populated
 	case operations.CreateInputRequestTypeGooglePubsub:
-		// createInputRequest.InputGooglePubsub is populated
+		// createInputRequest.CreateInputInputGooglePubsub is populated
 	case operations.CreateInputRequestTypeCribl:
-		// createInputRequest.InputCribl is populated
+		// createInputRequest.CreateInputInputCribl is populated
 	case operations.CreateInputRequestTypeCriblTCP:
-		// createInputRequest.InputCriblTCP is populated
+		// createInputRequest.CreateInputInputCriblTCP is populated
 	case operations.CreateInputRequestTypeCriblHTTP:
-		// createInputRequest.InputCriblHTTP is populated
+		// createInputRequest.CreateInputInputCriblHTTP is populated
 	case operations.CreateInputRequestTypeCriblLakeHTTP:
-		// createInputRequest.InputCriblLakeHTTP is populated
+		// createInputRequest.CreateInputInputCriblLakeHTTP is populated
 	case operations.CreateInputRequestTypeTcpjson:
-		// createInputRequest.InputTcpjson is populated
+		// createInputRequest.CreateInputInputTcpjson is populated
 	case operations.CreateInputRequestTypeSystemMetrics:
-		// createInputRequest.InputSystemMetrics is populated
+		// createInputRequest.CreateInputInputSystemMetrics is populated
 	case operations.CreateInputRequestTypeSystemState:
-		// createInputRequest.InputSystemState is populated
+		// createInputRequest.CreateInputInputSystemState is populated
 	case operations.CreateInputRequestTypeKubeMetrics:
-		// createInputRequest.InputKubeMetrics is populated
+		// createInputRequest.CreateInputInputKubeMetrics is populated
 	case operations.CreateInputRequestTypeKubeLogs:
-		// createInputRequest.InputKubeLogs is populated
+		// createInputRequest.CreateInputInputKubeLogs is populated
 	case operations.CreateInputRequestTypeKubeEvents:
-		// createInputRequest.InputKubeEvents is populated
+		// createInputRequest.CreateInputInputKubeEvents is populated
 	case operations.CreateInputRequestTypeWindowsMetrics:
-		// createInputRequest.InputWindowsMetrics is populated
+		// createInputRequest.CreateInputInputWindowsMetrics is populated
 	case operations.CreateInputRequestTypeCrowdstrike:
-		// createInputRequest.InputCrowdstrike is populated
+		// createInputRequest.CreateInputInputCrowdstrike is populated
 	case operations.CreateInputRequestTypeDatadogAgent:
-		// createInputRequest.InputDatadogAgent is populated
+		// createInputRequest.CreateInputInputDatadogAgent is populated
 	case operations.CreateInputRequestTypeDatagen:
-		// createInputRequest.InputDatagen is populated
+		// createInputRequest.CreateInputInputDatagen is populated
 	case operations.CreateInputRequestTypeHTTPRaw:
-		// createInputRequest.InputHTTPRaw is populated
+		// createInputRequest.CreateInputInputHTTPRaw is populated
 	case operations.CreateInputRequestTypeKinesis:
-		// createInputRequest.InputKinesis is populated
+		// createInputRequest.CreateInputInputKinesis is populated
 	case operations.CreateInputRequestTypeCriblmetrics:
-		// createInputRequest.InputCriblmetrics is populated
+		// createInputRequest.CreateInputInputCriblmetrics is populated
 	case operations.CreateInputRequestTypeMetrics:
-		// createInputRequest.InputMetrics is populated
+		// createInputRequest.CreateInputInputMetrics is populated
 	case operations.CreateInputRequestTypeS3:
-		// createInputRequest.InputS3 is populated
+		// createInputRequest.CreateInputInputS3 is populated
 	case operations.CreateInputRequestTypeS3Inventory:
-		// createInputRequest.InputS3Inventory is populated
+		// createInputRequest.CreateInputInputS3Inventory is populated
 	case operations.CreateInputRequestTypeSnmp:
-		// createInputRequest.InputSnmp is populated
+		// createInputRequest.CreateInputInputSnmp is populated
 	case operations.CreateInputRequestTypeOpenTelemetry:
-		// createInputRequest.InputOpenTelemetry is populated
+		// createInputRequest.CreateInputInputOpenTelemetry is populated
 	case operations.CreateInputRequestTypeModelDrivenTelemetry:
-		// createInputRequest.InputModelDrivenTelemetry is populated
+		// createInputRequest.CreateInputInputModelDrivenTelemetry is populated
 	case operations.CreateInputRequestTypeSqs:
-		// createInputRequest.InputSqs is populated
+		// createInputRequest.CreateInputInputSqs is populated
 	case operations.CreateInputRequestTypeSyslog:
-		// createInputRequest.InputSyslog is populated
+		// createInputRequest.CreateInputInputSyslogUnion is populated
 	case operations.CreateInputRequestTypeFile:
-		// createInputRequest.InputFile is populated
+		// createInputRequest.CreateInputInputFile is populated
 	case operations.CreateInputRequestTypeTCP:
-		// createInputRequest.InputTCP is populated
+		// createInputRequest.CreateInputInputTCP is populated
 	case operations.CreateInputRequestTypeAppscope:
-		// createInputRequest.InputAppscope is populated
+		// createInputRequest.CreateInputInputAppscope is populated
 	case operations.CreateInputRequestTypeWef:
-		// createInputRequest.InputWef is populated
+		// createInputRequest.CreateInputInputWef is populated
 	case operations.CreateInputRequestTypeWinEventLogs:
-		// createInputRequest.InputWinEventLogs is populated
+		// createInputRequest.CreateInputInputWinEventLogs is populated
 	case operations.CreateInputRequestTypeRawUDP:
-		// createInputRequest.InputRawUDP is populated
+		// createInputRequest.CreateInputInputRawUDP is populated
 	case operations.CreateInputRequestTypeJournalFiles:
-		// createInputRequest.InputJournalFiles is populated
+		// createInputRequest.CreateInputInputJournalFiles is populated
 	case operations.CreateInputRequestTypeWiz:
-		// createInputRequest.InputWiz is populated
+		// createInputRequest.CreateInputInputWiz is populated
+	case operations.CreateInputRequestTypeOpenai:
+		// createInputRequest.CreateInputInputOpenai is populated
 	case operations.CreateInputRequestTypeWizWebhook:
-		// createInputRequest.InputWizWebhook is populated
+		// createInputRequest.CreateInputInputWizWebhook is populated
 	case operations.CreateInputRequestTypeNetflow:
-		// createInputRequest.InputNetflow is populated
+		// createInputRequest.CreateInputInputNetflow is populated
 	case operations.CreateInputRequestTypeSecurityLake:
-		// createInputRequest.InputSecurityLake is populated
+		// createInputRequest.CreateInputInputSecurityLake is populated
 	case operations.CreateInputRequestTypeZscalerHec:
-		// createInputRequest.InputZscalerHec is populated
+		// createInputRequest.CreateInputInputZscalerHec is populated
 	case operations.CreateInputRequestTypeCloudflareHec:
-		// createInputRequest.InputCloudflareHec is populated
+		// createInputRequest.CreateInputInputCloudflareHec is populated
 }
 ```

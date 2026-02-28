@@ -7,27 +7,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type CreateVersionRevertRequest struct {
-	// The <code>id</code> of the Worker Group or Edge Fleet to revert the commit for. Required in Distributed deployments. Omit in Single-instance deployments.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
-	// GitRevertParams object
-	GitRevertParams components.GitRevertParams `request:"mediaType=application/json"`
-}
-
-func (c *CreateVersionRevertRequest) GetGroupID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.GroupID
-}
-
-func (c *CreateVersionRevertRequest) GetGitRevertParams() components.GitRevertParams {
-	if c == nil {
-		return components.GitRevertParams{}
-	}
-	return c.GitRevertParams
-}
-
 type CreateVersionRevertResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitRevertResult objects

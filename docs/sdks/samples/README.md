@@ -68,9 +68,9 @@ func main() {
 
 Send sample event data to the specified Destination to validate the configuration or test connectivity.
 
-### Example Usage
+### Example Usage: OutputTestExamplesMultipleEvents
 
-<!-- UsageSnippet language="go" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" -->
+<!-- UsageSnippet language="go" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" example="OutputTestExamplesMultipleEvents" -->
 ```go
 package main
 
@@ -95,7 +95,55 @@ func main() {
     res, err := s.Destinations.Samples.Create(ctx, "<id>", components.OutputTestRequest{
         Events: []map[string]any{
             map[string]any{
-                "_raw": "<value>",
+                "_raw": "Test event 1",
+                "source": "test",
+                "sourcetype": "manual",
+            },
+            map[string]any{
+                "_raw": "Test event 2",
+                "source": "test",
+                "sourcetype": "manual",
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputTestExamplesSingleEvent
+
+<!-- UsageSnippet language="go" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" example="OutputTestExamplesSingleEvent" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Samples.Create(ctx, "<id>", components.OutputTestRequest{
+        Events: []map[string]any{
+            map[string]any{
+                "_raw": "This is a test event",
+                "source": "test",
+                "sourcetype": "manual",
             },
         },
     })

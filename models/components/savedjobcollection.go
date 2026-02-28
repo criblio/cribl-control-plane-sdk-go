@@ -8,9 +8,9 @@ import (
 
 type SavedJobCollection struct {
 	// Unique ID for this Job
-	ID          *string                          `json:"id,omitzero"`
-	Description *string                          `json:"description,omitzero"`
-	Type        JobTypeOptionsSavedJobCollection `json:"type"`
+	ID          *string                             `json:"id,omitzero"`
+	Description *string                             `json:"description,omitzero"`
+	Type        JobTypeOptionsRunnableJobCollection `json:"type"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -57,9 +57,9 @@ func (s *SavedJobCollection) GetDescription() *string {
 	return s.Description
 }
 
-func (s *SavedJobCollection) GetType() JobTypeOptionsSavedJobCollection {
+func (s *SavedJobCollection) GetType() JobTypeOptionsRunnableJobCollection {
 	if s == nil {
-		return JobTypeOptionsSavedJobCollection("")
+		return JobTypeOptionsRunnableJobCollection("")
 	}
 	return s.Type
 }

@@ -146,6 +146,10 @@ type OutputAzureLogs struct {
 	WorkspaceKey *string `json:"workspaceKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	KeypairSecret *string `json:"keypairSecret,omitzero"`
+	// Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
+	TemplateWorkspaceID *string `json:"__template_workspaceId,omitzero"`
+	// Binds 'workspaceKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceKey' at runtime.
+	TemplateWorkspaceKey *string `json:"__template_workspaceKey,omitzero"`
 }
 
 func (o OutputAzureLogs) MarshalJSON() ([]byte, error) {
@@ -437,4 +441,18 @@ func (o *OutputAzureLogs) GetKeypairSecret() *string {
 		return nil
 	}
 	return o.KeypairSecret
+}
+
+func (o *OutputAzureLogs) GetTemplateWorkspaceID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateWorkspaceID
+}
+
+func (o *OutputAzureLogs) GetTemplateWorkspaceKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateWorkspaceKey
 }

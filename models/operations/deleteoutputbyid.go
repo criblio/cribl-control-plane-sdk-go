@@ -21,7 +21,7 @@ func (d *DeleteOutputByIDRequest) GetID() string {
 
 type DeleteOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
+	// the deleted Destination object
 	CountedOutput *components.CountedOutput
 }
 

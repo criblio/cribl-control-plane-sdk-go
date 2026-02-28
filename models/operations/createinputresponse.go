@@ -10,6 +10,726 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputInputTcpjson struct {
+	// Unique ID for this input
+	ID       string                 `json:"id"`
+	Type     CreateInputTypeTcpjson `json:"type"`
+	Disabled *bool                  `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64                               `json:"port"`
+	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Fields to add to events from this input
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
+	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                                `json:"description,omitzero"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `json:"authToken,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+}
+
+func (c CreateInputInputTcpjson) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputInputTcpjson) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputInputTcpjson) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputInputTcpjson) GetType() CreateInputTypeTcpjson {
+	if c == nil {
+		return CreateInputTypeTcpjson("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputInputTcpjson) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputInputTcpjson) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputInputTcpjson) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputInputTcpjson) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputInputTcpjson) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputInputTcpjson) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputInputTcpjson) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputInputTcpjson) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputInputTcpjson) GetHost() string {
+	if c == nil {
+		return ""
+	}
+	return c.Host
+}
+
+func (c *CreateInputInputTcpjson) GetPort() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.Port
+}
+
+func (c *CreateInputInputTcpjson) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
+		return nil
+	}
+	return c.TLS
+}
+
+func (c *CreateInputInputTcpjson) GetIPWhitelistRegex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.IPWhitelistRegex
+}
+
+func (c *CreateInputInputTcpjson) GetMaxActiveCxn() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxActiveCxn
+}
+
+func (c *CreateInputInputTcpjson) GetSocketIdleTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.SocketIdleTimeout
+}
+
+func (c *CreateInputInputTcpjson) GetSocketEndingMaxWait() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.SocketEndingMaxWait
+}
+
+func (c *CreateInputInputTcpjson) GetSocketMaxLifespan() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.SocketMaxLifespan
+}
+
+func (c *CreateInputInputTcpjson) GetEnableProxyHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableProxyHeader
+}
+
+func (c *CreateInputInputTcpjson) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputInputTcpjson) GetEnableLoadBalancing() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableLoadBalancing
+}
+
+func (c *CreateInputInputTcpjson) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CreateInputInputTcpjson) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputInputTcpjson) GetAuthToken() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthToken
+}
+
+func (c *CreateInputInputTcpjson) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CreateInputInputTcpjson) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputTcpjson) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+type CreateInputTypeCriblLakeHTTP string
+
+const (
+	CreateInputTypeCriblLakeHTTPCriblLakeHTTP CreateInputTypeCriblLakeHTTP = "cribl_lake_http"
+)
+
+func (e CreateInputTypeCriblLakeHTTP) ToPointer() *CreateInputTypeCriblLakeHTTP {
+	return &e
+}
+func (e *CreateInputTypeCriblLakeHTTP) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cribl_lake_http":
+		*e = CreateInputTypeCriblLakeHTTP(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateInputTypeCriblLakeHTTP: %v", v)
+	}
+}
+
+type CreateInputSplunkHecMetadata struct {
+	Enabled               *bool    `json:"enabled,omitzero"`
+	DefaultDataset        *string  `json:"defaultDataset,omitzero"`
+	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
+}
+
+func (c CreateInputSplunkHecMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSplunkHecMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSplunkHecMetadata) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+func (c *CreateInputSplunkHecMetadata) GetDefaultDataset() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DefaultDataset
+}
+
+func (c *CreateInputSplunkHecMetadata) GetAllowedIndexesAtToken() []string {
+	if c == nil {
+		return nil
+	}
+	return c.AllowedIndexesAtToken
+}
+
+type CreateInputElasticsearchMetadata struct {
+	Enabled        *bool   `json:"enabled,omitzero"`
+	DefaultDataset *string `json:"defaultDataset,omitzero"`
+}
+
+func (c CreateInputElasticsearchMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputElasticsearchMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputElasticsearchMetadata) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+func (c *CreateInputElasticsearchMetadata) GetDefaultDataset() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DefaultDataset
+}
+
+type CreateInputAuthTokensExt struct {
+	Token       string  `json:"token"`
+	Description *string `json:"description,omitzero"`
+	// Fields to add to events referencing this token
+	Metadata              []components.ItemsTypeMetadata    `json:"metadata,omitzero"`
+	SplunkHecMetadata     *CreateInputSplunkHecMetadata     `json:"splunkHecMetadata,omitzero"`
+	ElasticsearchMetadata *CreateInputElasticsearchMetadata `json:"elasticsearchMetadata,omitzero"`
+}
+
+func (c CreateInputAuthTokensExt) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputAuthTokensExt) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputAuthTokensExt) GetToken() string {
+	if c == nil {
+		return ""
+	}
+	return c.Token
+}
+
+func (c *CreateInputAuthTokensExt) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputAuthTokensExt) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputAuthTokensExt) GetSplunkHecMetadata() *CreateInputSplunkHecMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.SplunkHecMetadata
+}
+
+func (c *CreateInputAuthTokensExt) GetElasticsearchMetadata() *CreateInputElasticsearchMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.ElasticsearchMetadata
+}
+
+type CreateInputInputCriblLakeHTTP struct {
+	// Unique ID for this input
+	ID       string                       `json:"id"`
+	Type     CreateInputTypeCriblLakeHTTP `json:"type"`
+	Disabled *bool                        `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                              `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
+	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+	CriblAPI *string `json:"criblAPI,omitzero"`
+	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+	ElasticAPI *string `json:"elasticAPI,omitzero"`
+	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
+	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
+	// Fields to add to events from this input
+	Metadata      []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	AuthTokensExt []CreateInputAuthTokensExt     `json:"authTokensExt,omitzero"`
+	Description   *string                        `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
+}
+
+func (c CreateInputInputCriblLakeHTTP) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputInputCriblLakeHTTP) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetType() CreateInputTypeCriblLakeHTTP {
+	if c == nil {
+		return CreateInputTypeCriblLakeHTTP("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetHost() string {
+	if c == nil {
+		return ""
+	}
+	return c.Host
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetPort() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.Port
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetAuthTokens() []string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthTokens
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
+		return nil
+	}
+	return c.TLS
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetMaxActiveReq() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxActiveReq
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxRequestsPerSocket
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetEnableProxyHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableProxyHeader
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetCaptureHeaders() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.CaptureHeaders
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetActivityLogSampleRate() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ActivityLogSampleRate
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetRequestTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.RequestTimeout
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetSocketTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.SocketTimeout
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetKeepAliveTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.KeepAliveTimeout
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetEnableHealthCheck() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableHealthCheck
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetIPAllowlistRegex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.IPAllowlistRegex
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetIPDenylistRegex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.IPDenylistRegex
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetCriblAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CriblAPI
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetElasticAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ElasticAPI
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetSplunkHecAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SplunkHecAPI
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetSplunkHecAcks() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SplunkHecAcks
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetAuthTokensExt() []CreateInputAuthTokensExt {
+	if c == nil {
+		return nil
+	}
+	return c.AuthTokensExt
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+func (c *CreateInputInputCriblLakeHTTP) GetTemplateSplunkHecAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSplunkHecAPI
+}
+
 type CreateInputTypeCriblHTTP string
 
 const (
@@ -33,7 +753,7 @@ func (e *CreateInputTypeCriblHTTP) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCriblHTTP struct {
+type CreateInputInputCriblHTTP struct {
 	// Unique ID for this input
 	ID       string                   `json:"id"`
 	Type     CreateInputTypeCriblHTTP `json:"type"`
@@ -81,208 +801,226 @@ type InputCriblHTTP struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (i InputCriblHTTP) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputCriblHTTP) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputCriblHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputCriblHTTP) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblHTTP) GetID() string {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputCriblHTTP) GetType() CreateInputTypeCriblHTTP {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetType() CreateInputTypeCriblHTTP {
+	if c == nil {
 		return CreateInputTypeCriblHTTP("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputCriblHTTP) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputCriblHTTP) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputCriblHTTP) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputCriblHTTP) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputCriblHTTP) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputCriblHTTP) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputCriblHTTP) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputCriblHTTP) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputCriblHTTP) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputCriblHTTP) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputCriblHTTP) GetAuthTokens() []components.ItemsTypeAuthTokens {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetAuthTokens() []components.ItemsTypeAuthTokens {
+	if c == nil {
 		return nil
 	}
-	return i.AuthTokens
+	return c.AuthTokens
 }
 
-func (i *InputCriblHTTP) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputCriblHTTP) GetMaxActiveReq() *float64 {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetMaxActiveReq() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveReq
+	return c.MaxActiveReq
 }
 
-func (i *InputCriblHTTP) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRequestsPerSocket
+	return c.MaxRequestsPerSocket
 }
 
-func (i *InputCriblHTTP) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputCriblHTTP) GetCaptureHeaders() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetCaptureHeaders() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CaptureHeaders
+	return c.CaptureHeaders
 }
 
-func (i *InputCriblHTTP) GetActivityLogSampleRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetActivityLogSampleRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ActivityLogSampleRate
+	return c.ActivityLogSampleRate
 }
 
-func (i *InputCriblHTTP) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputCriblHTTP) GetSocketTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetSocketTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketTimeout
+	return c.SocketTimeout
 }
 
-func (i *InputCriblHTTP) GetKeepAliveTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetKeepAliveTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTimeout
+	return c.KeepAliveTimeout
 }
 
-func (i *InputCriblHTTP) GetEnableHealthCheck() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetEnableHealthCheck() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableHealthCheck
+	return c.EnableHealthCheck
 }
 
-func (i *InputCriblHTTP) GetIPAllowlistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetIPAllowlistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPAllowlistRegex
+	return c.IPAllowlistRegex
 }
 
-func (i *InputCriblHTTP) GetIPDenylistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetIPDenylistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPDenylistRegex
+	return c.IPDenylistRegex
 }
 
-func (i *InputCriblHTTP) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputCriblHTTP) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputCriblHTTP) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
+}
+
+func (c *CreateInputInputCriblHTTP) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputCriblHTTP) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
 }
 
 type CreateInputTypeCriblTCP string
@@ -308,7 +1046,7 @@ func (e *CreateInputTypeCriblTCP) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCriblTCP struct {
+type CreateInputInputCriblTCP struct {
 	// Unique ID for this input
 	ID       string                  `json:"id"`
 	Type     CreateInputTypeCriblTCP `json:"type"`
@@ -342,207 +1080,225 @@ type InputCriblTCP struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
 	AuthTokens  []components.ItemsTypeAuthTokens `json:"authTokens,omitzero"`
 	Description *string                          `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (i InputCriblTCP) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputCriblTCP) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputCriblTCP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputCriblTCP) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblTCP) GetID() string {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputCriblTCP) GetType() CreateInputTypeCriblTCP {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetType() CreateInputTypeCriblTCP {
+	if c == nil {
 		return CreateInputTypeCriblTCP("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputCriblTCP) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputCriblTCP) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputCriblTCP) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputCriblTCP) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputCriblTCP) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputCriblTCP) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputCriblTCP) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputCriblTCP) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputCriblTCP) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputCriblTCP) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputCriblTCP) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputCriblTCP) GetMaxActiveCxn() *float64 {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetMaxActiveCxn() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveCxn
+	return c.MaxActiveCxn
 }
 
-func (i *InputCriblTCP) GetSocketIdleTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetSocketIdleTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketIdleTimeout
+	return c.SocketIdleTimeout
 }
 
-func (i *InputCriblTCP) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetSocketEndingMaxWait() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketEndingMaxWait
+	return c.SocketEndingMaxWait
 }
 
-func (i *InputCriblTCP) GetSocketMaxLifespan() *float64 {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetSocketMaxLifespan() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketMaxLifespan
+	return c.SocketMaxLifespan
 }
 
-func (i *InputCriblTCP) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputCriblTCP) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputCriblTCP) GetEnableLoadBalancing() *bool {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetEnableLoadBalancing() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableLoadBalancing
+	return c.EnableLoadBalancing
 }
 
-func (i *InputCriblTCP) GetAuthTokens() []components.ItemsTypeAuthTokens {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetAuthTokens() []components.ItemsTypeAuthTokens {
+	if c == nil {
 		return nil
 	}
-	return i.AuthTokens
+	return c.AuthTokens
 }
 
-func (i *InputCriblTCP) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputCriblTCP) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-type TypeCribl string
+func (c *CreateInputInputCriblTCP) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputCriblTCP) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+type CreateInputTypeCribl string
 
 const (
-	TypeCriblCribl TypeCribl = "cribl"
+	CreateInputTypeCriblCribl CreateInputTypeCribl = "cribl"
 )
 
-func (e TypeCribl) ToPointer() *TypeCribl {
+func (e CreateInputTypeCribl) ToPointer() *CreateInputTypeCribl {
 	return &e
 }
-func (e *TypeCribl) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeCribl) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cribl":
-		*e = TypeCribl(v)
+		*e = CreateInputTypeCribl(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeCribl: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeCribl: %v", v)
 	}
 }
 
-type InputCribl struct {
+type CreateInputInputCribl struct {
 	// Unique ID for this input
-	ID       string    `json:"id"`
-	Type     TypeCribl `json:"type"`
-	Disabled *bool     `json:"disabled,omitzero"`
+	ID       string               `json:"id"`
+	Type     CreateInputTypeCribl `json:"type"`
+	Disabled *bool                `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -558,110 +1314,110 @@ type InputCribl struct {
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	Filter      *string                                   `json:"filter,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 }
 
-func (i InputCribl) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputCribl) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputCribl) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputCribl) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCribl) GetID() string {
-	if i == nil {
+func (c *CreateInputInputCribl) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputCribl) GetType() TypeCribl {
-	if i == nil {
-		return TypeCribl("")
+func (c *CreateInputInputCribl) GetType() CreateInputTypeCribl {
+	if c == nil {
+		return CreateInputTypeCribl("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputCribl) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputCribl) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputCribl) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputCribl) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputCribl) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputCribl) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputCribl) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputCribl) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputCribl) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputCribl) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputCribl) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputCribl) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputCribl) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputCribl) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputCribl) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputCribl) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputCribl) GetFilter() *string {
-	if i == nil {
+func (c *CreateInputInputCribl) GetFilter() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Filter
+	return c.Filter
 }
 
-func (i *InputCribl) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputCribl) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputCribl) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputCribl) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
 type CreateInputTypeGooglePubsub string
@@ -687,7 +1443,7 @@ func (e *CreateInputTypeGooglePubsub) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputGooglePubsub struct {
+type CreateInputInputGooglePubsub struct {
 	// Unique ID for this input
 	ID       string                      `json:"id"`
 	Type     CreateInputTypeGooglePubsub `json:"type"`
@@ -730,226 +1486,253 @@ type InputGooglePubsub struct {
 	// Pull request timeout, in milliseconds
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
+	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
+	TemplateTopicName *string `json:"__template_topicName,omitzero"`
+	// Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
+	TemplateSubscriptionName *string `json:"__template_subscriptionName,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
 }
 
-func (i InputGooglePubsub) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputGooglePubsub) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputGooglePubsub) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputGooglePubsub) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGooglePubsub) GetID() string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputGooglePubsub) GetType() CreateInputTypeGooglePubsub {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetType() CreateInputTypeGooglePubsub {
+	if c == nil {
 		return CreateInputTypeGooglePubsub("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputGooglePubsub) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputGooglePubsub) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputGooglePubsub) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputGooglePubsub) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputGooglePubsub) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputGooglePubsub) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputGooglePubsub) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputGooglePubsub) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputGooglePubsub) GetTopicName() string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetTopicName() string {
+	if c == nil {
 		return ""
 	}
-	return i.TopicName
+	return c.TopicName
 }
 
-func (i *InputGooglePubsub) GetSubscriptionName() string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetSubscriptionName() string {
+	if c == nil {
 		return ""
 	}
-	return i.SubscriptionName
+	return c.SubscriptionName
 }
 
-func (i *InputGooglePubsub) GetMonitorSubscription() *bool {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetMonitorSubscription() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.MonitorSubscription
+	return c.MonitorSubscription
 }
 
-func (i *InputGooglePubsub) GetCreateTopic() *bool {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetCreateTopic() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CreateTopic
+	return c.CreateTopic
 }
 
-func (i *InputGooglePubsub) GetCreateSubscription() *bool {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetCreateSubscription() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CreateSubscription
+	return c.CreateSubscription
 }
 
-func (i *InputGooglePubsub) GetRegion() *string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetRegion() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Region
+	return c.Region
 }
 
-func (i *InputGooglePubsub) GetGoogleAuthMethod() *components.GoogleAuthenticationMethodOptions {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetGoogleAuthMethod() *components.GoogleAuthenticationMethodOptions {
+	if c == nil {
 		return nil
 	}
-	return i.GoogleAuthMethod
+	return c.GoogleAuthMethod
 }
 
-func (i *InputGooglePubsub) GetServiceAccountCredentials() *string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetServiceAccountCredentials() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ServiceAccountCredentials
+	return c.ServiceAccountCredentials
 }
 
-func (i *InputGooglePubsub) GetSecret() *string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Secret
+	return c.Secret
 }
 
-func (i *InputGooglePubsub) GetMaxBacklog() *float64 {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetMaxBacklog() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBacklog
+	return c.MaxBacklog
 }
 
-func (i *InputGooglePubsub) GetConcurrency() *float64 {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetConcurrency() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.Concurrency
+	return c.Concurrency
 }
 
-func (i *InputGooglePubsub) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputGooglePubsub) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputGooglePubsub) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputGooglePubsub) GetOrderedDelivery() *bool {
-	if i == nil {
+func (c *CreateInputInputGooglePubsub) GetOrderedDelivery() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.OrderedDelivery
+	return c.OrderedDelivery
 }
 
-type TypeFirehose string
+func (c *CreateInputInputGooglePubsub) GetTemplateTopicName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTopicName
+}
+
+func (c *CreateInputInputGooglePubsub) GetTemplateSubscriptionName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSubscriptionName
+}
+
+func (c *CreateInputInputGooglePubsub) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
+type CreateInputTypeFirehose string
 
 const (
-	TypeFirehoseFirehose TypeFirehose = "firehose"
+	CreateInputTypeFirehoseFirehose CreateInputTypeFirehose = "firehose"
 )
 
-func (e TypeFirehose) ToPointer() *TypeFirehose {
+func (e CreateInputTypeFirehose) ToPointer() *CreateInputTypeFirehose {
 	return &e
 }
-func (e *TypeFirehose) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeFirehose) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "firehose":
-		*e = TypeFirehose(v)
+		*e = CreateInputTypeFirehose(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeFirehose: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeFirehose: %v", v)
 	}
 }
 
-type InputFirehose struct {
+type CreateInputInputFirehose struct {
 	// Unique ID for this input
-	ID       string       `json:"id"`
-	Type     TypeFirehose `json:"type"`
-	Disabled *bool        `json:"disabled,omitzero"`
+	ID       string                  `json:"id"`
+	Type     CreateInputTypeFirehose `json:"type"`
+	Disabled *bool                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -993,247 +1776,265 @@ type InputFirehose struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (i InputFirehose) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputFirehose) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputFirehose) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputFirehose) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFirehose) GetID() string {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputFirehose) GetType() TypeFirehose {
-	if i == nil {
-		return TypeFirehose("")
+func (c *CreateInputInputFirehose) GetType() CreateInputTypeFirehose {
+	if c == nil {
+		return CreateInputTypeFirehose("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputFirehose) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputFirehose) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputFirehose) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputFirehose) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputFirehose) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputFirehose) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputFirehose) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputFirehose) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputFirehose) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputFirehose) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputFirehose) GetAuthTokens() []string {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetAuthTokens() []string {
+	if c == nil {
 		return nil
 	}
-	return i.AuthTokens
+	return c.AuthTokens
 }
 
-func (i *InputFirehose) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputFirehose) GetMaxActiveReq() *float64 {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetMaxActiveReq() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveReq
+	return c.MaxActiveReq
 }
 
-func (i *InputFirehose) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRequestsPerSocket
+	return c.MaxRequestsPerSocket
 }
 
-func (i *InputFirehose) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputFirehose) GetCaptureHeaders() *bool {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetCaptureHeaders() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CaptureHeaders
+	return c.CaptureHeaders
 }
 
-func (i *InputFirehose) GetActivityLogSampleRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetActivityLogSampleRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ActivityLogSampleRate
+	return c.ActivityLogSampleRate
 }
 
-func (i *InputFirehose) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputFirehose) GetSocketTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetSocketTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketTimeout
+	return c.SocketTimeout
 }
 
-func (i *InputFirehose) GetKeepAliveTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetKeepAliveTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTimeout
+	return c.KeepAliveTimeout
 }
 
-func (i *InputFirehose) GetEnableHealthCheck() *bool {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetEnableHealthCheck() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableHealthCheck
+	return c.EnableHealthCheck
 }
 
-func (i *InputFirehose) GetIPAllowlistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetIPAllowlistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPAllowlistRegex
+	return c.IPAllowlistRegex
 }
 
-func (i *InputFirehose) GetIPDenylistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetIPDenylistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPDenylistRegex
+	return c.IPDenylistRegex
 }
 
-func (i *InputFirehose) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputFirehose) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputFirehose) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-type InputExecType string
+func (c *CreateInputInputFirehose) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputFirehose) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+type CreateInputInputExecType string
 
 const (
-	InputExecTypeExec InputExecType = "exec"
+	CreateInputInputExecTypeExec CreateInputInputExecType = "exec"
 )
 
-func (e InputExecType) ToPointer() *InputExecType {
+func (e CreateInputInputExecType) ToPointer() *CreateInputInputExecType {
 	return &e
 }
-func (e *InputExecType) UnmarshalJSON(data []byte) error {
+func (e *CreateInputInputExecType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "exec":
-		*e = InputExecType(v)
+		*e = CreateInputInputExecType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputExecType: %v", v)
+		return fmt.Errorf("invalid value for CreateInputInputExecType: %v", v)
 	}
 }
 
-// ScheduleType - Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-type ScheduleType string
+// CreateInputScheduleType - Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+type CreateInputScheduleType string
 
 const (
-	ScheduleTypeInterval     ScheduleType = "interval"
-	ScheduleTypeCronSchedule ScheduleType = "cronSchedule"
+	CreateInputScheduleTypeInterval     CreateInputScheduleType = "interval"
+	CreateInputScheduleTypeCronSchedule CreateInputScheduleType = "cronSchedule"
 )
 
-func (e ScheduleType) ToPointer() *ScheduleType {
+func (e CreateInputScheduleType) ToPointer() *CreateInputScheduleType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ScheduleType) IsExact() bool {
+func (e *CreateInputScheduleType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "interval", "cronSchedule":
@@ -1243,11 +2044,11 @@ func (e *ScheduleType) IsExact() bool {
 	return false
 }
 
-type InputExec struct {
+type CreateInputInputExec struct {
 	// Unique ID for this input
-	ID       string        `json:"id"`
-	Type     InputExecType `json:"type"`
-	Disabled *bool         `json:"disabled,omitzero"`
+	ID       string                   `json:"id"`
+	Type     CreateInputInputExecType `json:"type"`
+	Disabled *bool                    `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1263,195 +2064,204 @@ type InputExec struct {
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
+	// Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+	Script *string `json:"script,omitzero"`
 	// Maximum number of retry attempts in the event that the command fails
 	Retries *float64 `json:"retries,omitzero"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-	ScheduleType *ScheduleType `json:"scheduleType,omitzero"`
+	ScheduleType *CreateInputScheduleType `json:"scheduleType,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Interval between command executions in seconds.
 	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
 	CronSchedule *string `json:"cronSchedule,omitzero"`
 }
 
-func (i InputExec) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputExec) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputExec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputExec) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputExec) GetID() string {
-	if i == nil {
+func (c *CreateInputInputExec) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputExec) GetType() InputExecType {
-	if i == nil {
-		return InputExecType("")
+func (c *CreateInputInputExec) GetType() CreateInputInputExecType {
+	if c == nil {
+		return CreateInputInputExecType("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputExec) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputExec) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputExec) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputExec) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputExec) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputExec) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputExec) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputExec) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputExec) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputExec) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputExec) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputExec) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputExec) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputExec) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputExec) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputExec) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputExec) GetCommand() string {
-	if i == nil {
+func (c *CreateInputInputExec) GetCommand() string {
+	if c == nil {
 		return ""
 	}
-	return i.Command
+	return c.Command
 }
 
-func (i *InputExec) GetRetries() *float64 {
-	if i == nil {
+func (c *CreateInputInputExec) GetScript() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Retries
+	return c.Script
 }
 
-func (i *InputExec) GetScheduleType() *ScheduleType {
-	if i == nil {
+func (c *CreateInputInputExec) GetRetries() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ScheduleType
+	return c.Retries
 }
 
-func (i *InputExec) GetBreakerRulesets() []string {
-	if i == nil {
+func (c *CreateInputInputExec) GetScheduleType() *CreateInputScheduleType {
+	if c == nil {
 		return nil
 	}
-	return i.BreakerRulesets
+	return c.ScheduleType
 }
 
-func (i *InputExec) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
+func (c *CreateInputInputExec) GetBreakerRulesets() []string {
+	if c == nil {
 		return nil
 	}
-	return i.StaleChannelFlushMs
+	return c.BreakerRulesets
 }
 
-func (i *InputExec) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputExec) GetStaleChannelFlushMs() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.StaleChannelFlushMs
 }
 
-func (i *InputExec) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputExec) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Metadata
 }
 
-func (i *InputExec) GetInterval() *float64 {
-	if i == nil {
+func (c *CreateInputInputExec) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Interval
+	return c.Description
 }
 
-func (i *InputExec) GetCronSchedule() *string {
-	if i == nil {
+func (c *CreateInputInputExec) GetInterval() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.CronSchedule
+	return c.Interval
 }
 
-type TypeEventhub string
+func (c *CreateInputInputExec) GetCronSchedule() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CronSchedule
+}
+
+type CreateInputTypeEventhub string
 
 const (
-	TypeEventhubEventhub TypeEventhub = "eventhub"
+	CreateInputTypeEventhubEventhub CreateInputTypeEventhub = "eventhub"
 )
 
-func (e TypeEventhub) ToPointer() *TypeEventhub {
+func (e CreateInputTypeEventhub) ToPointer() *CreateInputTypeEventhub {
 	return &e
 }
-func (e *TypeEventhub) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeEventhub) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "eventhub":
-		*e = TypeEventhub(v)
+		*e = CreateInputTypeEventhub(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeEventhub: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeEventhub: %v", v)
 	}
 }
 
-type InputEventhub struct {
+type CreateInputInputEventhub struct {
 	// Unique ID for this input
-	ID       string       `json:"id"`
-	Type     TypeEventhub `json:"type"`
-	Disabled *bool        `json:"disabled,omitzero"`
+	ID       string                  `json:"id"`
+	Type     CreateInputTypeEventhub `json:"type"`
+	Disabled *bool                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1518,306 +2328,306 @@ type InputEventhub struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 }
 
-func (i InputEventhub) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputEventhub) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputEventhub) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputEventhub) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEventhub) GetID() string {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputEventhub) GetType() TypeEventhub {
-	if i == nil {
-		return TypeEventhub("")
+func (c *CreateInputInputEventhub) GetType() CreateInputTypeEventhub {
+	if c == nil {
+		return CreateInputTypeEventhub("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputEventhub) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputEventhub) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputEventhub) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputEventhub) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputEventhub) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputEventhub) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputEventhub) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputEventhub) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputEventhub) GetBrokers() []string {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetBrokers() []string {
+	if c == nil {
 		return []string{}
 	}
-	return i.Brokers
+	return c.Brokers
 }
 
-func (i *InputEventhub) GetTopics() []string {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetTopics() []string {
+	if c == nil {
 		return []string{}
 	}
-	return i.Topics
+	return c.Topics
 }
 
-func (i *InputEventhub) GetGroupID() *string {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetGroupID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.GroupID
+	return c.GroupID
 }
 
-func (i *InputEventhub) GetFromBeginning() *bool {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetFromBeginning() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.FromBeginning
+	return c.FromBeginning
 }
 
-func (i *InputEventhub) GetConnectionTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetConnectionTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ConnectionTimeout
+	return c.ConnectionTimeout
 }
 
-func (i *InputEventhub) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputEventhub) GetMaxRetries() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetMaxRetries() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRetries
+	return c.MaxRetries
 }
 
-func (i *InputEventhub) GetMaxBackOff() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetMaxBackOff() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBackOff
+	return c.MaxBackOff
 }
 
-func (i *InputEventhub) GetInitialBackoff() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetInitialBackoff() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.InitialBackoff
+	return c.InitialBackoff
 }
 
-func (i *InputEventhub) GetBackoffRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetBackoffRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.BackoffRate
+	return c.BackoffRate
 }
 
-func (i *InputEventhub) GetAuthenticationTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetAuthenticationTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AuthenticationTimeout
+	return c.AuthenticationTimeout
 }
 
-func (i *InputEventhub) GetReauthenticationThreshold() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetReauthenticationThreshold() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ReauthenticationThreshold
+	return c.ReauthenticationThreshold
 }
 
-func (i *InputEventhub) GetSasl() *components.AuthenticationType1 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetSasl() *components.AuthenticationType1 {
+	if c == nil {
 		return nil
 	}
-	return i.Sasl
+	return c.Sasl
 }
 
-func (i *InputEventhub) GetTLS() *components.TLSSettingsClientSideType {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetTLS() *components.TLSSettingsClientSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputEventhub) GetSessionTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetSessionTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SessionTimeout
+	return c.SessionTimeout
 }
 
-func (i *InputEventhub) GetRebalanceTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetRebalanceTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RebalanceTimeout
+	return c.RebalanceTimeout
 }
 
-func (i *InputEventhub) GetHeartbeatInterval() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetHeartbeatInterval() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.HeartbeatInterval
+	return c.HeartbeatInterval
 }
 
-func (i *InputEventhub) GetAutoCommitInterval() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetAutoCommitInterval() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AutoCommitInterval
+	return c.AutoCommitInterval
 }
 
-func (i *InputEventhub) GetAutoCommitThreshold() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetAutoCommitThreshold() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AutoCommitThreshold
+	return c.AutoCommitThreshold
 }
 
-func (i *InputEventhub) GetMaxBytesPerPartition() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetMaxBytesPerPartition() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBytesPerPartition
+	return c.MaxBytesPerPartition
 }
 
-func (i *InputEventhub) GetMaxBytes() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetMaxBytes() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBytes
+	return c.MaxBytes
 }
 
-func (i *InputEventhub) GetMaxSocketErrors() *float64 {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetMaxSocketErrors() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxSocketErrors
+	return c.MaxSocketErrors
 }
 
-func (i *InputEventhub) GetMinimizeDuplicates() *bool {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetMinimizeDuplicates() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.MinimizeDuplicates
+	return c.MinimizeDuplicates
 }
 
-func (i *InputEventhub) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputEventhub) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputEventhub) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-type TypeOffice365MsgTrace string
+type CreateInputTypeOffice365MsgTrace string
 
 const (
-	TypeOffice365MsgTraceOffice365MsgTrace TypeOffice365MsgTrace = "office365_msg_trace"
+	CreateInputTypeOffice365MsgTraceOffice365MsgTrace CreateInputTypeOffice365MsgTrace = "office365_msg_trace"
 )
 
-func (e TypeOffice365MsgTrace) ToPointer() *TypeOffice365MsgTrace {
+func (e CreateInputTypeOffice365MsgTrace) ToPointer() *CreateInputTypeOffice365MsgTrace {
 	return &e
 }
-func (e *TypeOffice365MsgTrace) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeOffice365MsgTrace) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "office365_msg_trace":
-		*e = TypeOffice365MsgTrace(v)
+		*e = CreateInputTypeOffice365MsgTrace(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeOffice365MsgTrace: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeOffice365MsgTrace: %v", v)
 	}
 }
 
-// AuthenticationMethodOffice365MsgTrace - Select authentication method.
-type AuthenticationMethodOffice365MsgTrace string
+// CreateInputAuthenticationMethodOffice365MsgTrace - Select authentication method.
+type CreateInputAuthenticationMethodOffice365MsgTrace string
 
 const (
-	AuthenticationMethodOffice365MsgTraceManual      AuthenticationMethodOffice365MsgTrace = "manual"
-	AuthenticationMethodOffice365MsgTraceSecret      AuthenticationMethodOffice365MsgTrace = "secret"
-	AuthenticationMethodOffice365MsgTraceOauth       AuthenticationMethodOffice365MsgTrace = "oauth"
-	AuthenticationMethodOffice365MsgTraceOauthSecret AuthenticationMethodOffice365MsgTrace = "oauthSecret"
-	AuthenticationMethodOffice365MsgTraceOauthCert   AuthenticationMethodOffice365MsgTrace = "oauthCert"
+	CreateInputAuthenticationMethodOffice365MsgTraceManual      CreateInputAuthenticationMethodOffice365MsgTrace = "manual"
+	CreateInputAuthenticationMethodOffice365MsgTraceSecret      CreateInputAuthenticationMethodOffice365MsgTrace = "secret"
+	CreateInputAuthenticationMethodOffice365MsgTraceOauth       CreateInputAuthenticationMethodOffice365MsgTrace = "oauth"
+	CreateInputAuthenticationMethodOffice365MsgTraceOauthSecret CreateInputAuthenticationMethodOffice365MsgTrace = "oauthSecret"
+	CreateInputAuthenticationMethodOffice365MsgTraceOauthCert   CreateInputAuthenticationMethodOffice365MsgTrace = "oauthCert"
 )
 
-func (e AuthenticationMethodOffice365MsgTrace) ToPointer() *AuthenticationMethodOffice365MsgTrace {
+func (e CreateInputAuthenticationMethodOffice365MsgTrace) ToPointer() *CreateInputAuthenticationMethodOffice365MsgTrace {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthenticationMethodOffice365MsgTrace) IsExact() bool {
+func (e *CreateInputAuthenticationMethodOffice365MsgTrace) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "manual", "secret", "oauth", "oauthSecret", "oauthCert":
@@ -1827,23 +2637,23 @@ func (e *AuthenticationMethodOffice365MsgTrace) IsExact() bool {
 	return false
 }
 
-// LogLevelOffice365MsgTrace - Log Level (verbosity) for collection runtime behavior.
-type LogLevelOffice365MsgTrace string
+// CreateInputLogLevelOffice365MsgTrace - Log Level (verbosity) for collection runtime behavior.
+type CreateInputLogLevelOffice365MsgTrace string
 
 const (
-	LogLevelOffice365MsgTraceError LogLevelOffice365MsgTrace = "error"
-	LogLevelOffice365MsgTraceWarn  LogLevelOffice365MsgTrace = "warn"
-	LogLevelOffice365MsgTraceInfo  LogLevelOffice365MsgTrace = "info"
-	LogLevelOffice365MsgTraceDebug LogLevelOffice365MsgTrace = "debug"
-	LogLevelOffice365MsgTraceSilly LogLevelOffice365MsgTrace = "silly"
+	CreateInputLogLevelOffice365MsgTraceError CreateInputLogLevelOffice365MsgTrace = "error"
+	CreateInputLogLevelOffice365MsgTraceWarn  CreateInputLogLevelOffice365MsgTrace = "warn"
+	CreateInputLogLevelOffice365MsgTraceInfo  CreateInputLogLevelOffice365MsgTrace = "info"
+	CreateInputLogLevelOffice365MsgTraceDebug CreateInputLogLevelOffice365MsgTrace = "debug"
+	CreateInputLogLevelOffice365MsgTraceSilly CreateInputLogLevelOffice365MsgTrace = "silly"
 )
 
-func (e LogLevelOffice365MsgTrace) ToPointer() *LogLevelOffice365MsgTrace {
+func (e CreateInputLogLevelOffice365MsgTrace) ToPointer() *CreateInputLogLevelOffice365MsgTrace {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LogLevelOffice365MsgTrace) IsExact() bool {
+func (e *CreateInputLogLevelOffice365MsgTrace) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "error", "warn", "info", "debug", "silly":
@@ -1853,7 +2663,7 @@ func (e *LogLevelOffice365MsgTrace) IsExact() bool {
 	return false
 }
 
-type CertOptions struct {
+type CreateInputCertOptions struct {
 	// The name of the predefined certificate.
 	CertificateName *string `json:"certificateName,omitzero"`
 	// Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
@@ -1864,50 +2674,50 @@ type CertOptions struct {
 	CertPath string `json:"certPath"`
 }
 
-func (c CertOptions) MarshalJSON() ([]byte, error) {
+func (c CreateInputCertOptions) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CertOptions) UnmarshalJSON(data []byte) error {
+func (c *CreateInputCertOptions) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CertOptions) GetCertificateName() *string {
+func (c *CreateInputCertOptions) GetCertificateName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CertificateName
 }
 
-func (c *CertOptions) GetPrivKeyPath() string {
+func (c *CreateInputCertOptions) GetPrivKeyPath() string {
 	if c == nil {
 		return ""
 	}
 	return c.PrivKeyPath
 }
 
-func (c *CertOptions) GetPassphrase() *string {
+func (c *CreateInputCertOptions) GetPassphrase() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Passphrase
 }
 
-func (c *CertOptions) GetCertPath() string {
+func (c *CreateInputCertOptions) GetCertPath() string {
 	if c == nil {
 		return ""
 	}
 	return c.CertPath
 }
 
-type InputOffice365MsgTrace struct {
+type CreateInputInputOffice365MsgTrace struct {
 	// Unique ID for this input
-	ID       string                `json:"id"`
-	Type     TypeOffice365MsgTrace `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID       string                           `json:"id"`
+	Type     CreateInputTypeOffice365MsgTrace `json:"type"`
+	Disabled *bool                            `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1934,13 +2744,13 @@ type InputOffice365MsgTrace struct {
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *AuthenticationMethodOffice365MsgTrace `json:"authType,omitzero"`
+	AuthType *CreateInputAuthenticationMethodOffice365MsgTrace `json:"authType,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel *LogLevelOffice365MsgTrace `json:"logLevel,omitzero"`
+	LogLevel *CreateInputLogLevelOffice365MsgTrace `json:"logLevel,omitzero"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
 	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
@@ -1952,9 +2762,9 @@ type InputOffice365MsgTrace struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	RetryRules  *components.RetryRulesType1                `json:"retryRules,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules  *components.RetryRulesType1    `json:"retryRules,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 	// Username to run Message Trace API call.
 	Username *string `json:"username,omitzero"`
 	// Password to run Message Trace API call.
@@ -1972,311 +2782,347 @@ type InputOffice365MsgTrace struct {
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
 	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
-	TextSecret  *string      `json:"textSecret,omitzero"`
-	CertOptions *CertOptions `json:"certOptions,omitzero"`
+	TextSecret  *string                 `json:"textSecret,omitzero"`
+	CertOptions *CreateInputCertOptions `json:"certOptions,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+	TemplateResource *string `json:"__template_resource,omitzero"`
 }
 
-func (i InputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365MsgTrace) GetID() string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputOffice365MsgTrace) GetType() TypeOffice365MsgTrace {
-	if i == nil {
-		return TypeOffice365MsgTrace("")
+func (c *CreateInputInputOffice365MsgTrace) GetType() CreateInputTypeOffice365MsgTrace {
+	if c == nil {
+		return CreateInputTypeOffice365MsgTrace("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputOffice365MsgTrace) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputOffice365MsgTrace) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputOffice365MsgTrace) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputOffice365MsgTrace) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputOffice365MsgTrace) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputOffice365MsgTrace) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputOffice365MsgTrace) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputOffice365MsgTrace) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputOffice365MsgTrace) GetURL() string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetURL() string {
+	if c == nil {
 		return ""
 	}
-	return i.URL
+	return c.URL
 }
 
-func (i *InputOffice365MsgTrace) GetInterval() float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetInterval() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Interval
+	return c.Interval
 }
 
-func (i *InputOffice365MsgTrace) GetStartDate() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetStartDate() *string {
+	if c == nil {
 		return nil
 	}
-	return i.StartDate
+	return c.StartDate
 }
 
-func (i *InputOffice365MsgTrace) GetEndDate() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetEndDate() *string {
+	if c == nil {
 		return nil
 	}
-	return i.EndDate
+	return c.EndDate
 }
 
-func (i *InputOffice365MsgTrace) GetTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.Timeout
+	return c.Timeout
 }
 
-func (i *InputOffice365MsgTrace) GetDisableTimeFilter() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetDisableTimeFilter() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.DisableTimeFilter
+	return c.DisableTimeFilter
 }
 
-func (i *InputOffice365MsgTrace) GetAuthType() *AuthenticationMethodOffice365MsgTrace {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetAuthType() *CreateInputAuthenticationMethodOffice365MsgTrace {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputOffice365MsgTrace) GetRescheduleDroppedTasks() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetRescheduleDroppedTasks() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.RescheduleDroppedTasks
+	return c.RescheduleDroppedTasks
 }
 
-func (i *InputOffice365MsgTrace) GetMaxTaskReschedule() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetMaxTaskReschedule() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxTaskReschedule
+	return c.MaxTaskReschedule
 }
 
-func (i *InputOffice365MsgTrace) GetLogLevel() *LogLevelOffice365MsgTrace {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetLogLevel() *CreateInputLogLevelOffice365MsgTrace {
+	if c == nil {
 		return nil
 	}
-	return i.LogLevel
+	return c.LogLevel
 }
 
-func (i *InputOffice365MsgTrace) GetJobTimeout() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetJobTimeout() *string {
+	if c == nil {
 		return nil
 	}
-	return i.JobTimeout
+	return c.JobTimeout
 }
 
-func (i *InputOffice365MsgTrace) GetKeepAliveTime() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetKeepAliveTime() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTime
+	return c.KeepAliveTime
 }
 
-func (i *InputOffice365MsgTrace) GetMaxMissedKeepAlives() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetMaxMissedKeepAlives() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxMissedKeepAlives
+	return c.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365MsgTrace) GetTTL() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetTTL() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TTL
+	return c.TTL
 }
 
-func (i *InputOffice365MsgTrace) GetIgnoreGroupJobsLimit() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetIgnoreGroupJobsLimit() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.IgnoreGroupJobsLimit
+	return c.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365MsgTrace) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputOffice365MsgTrace) GetRetryRules() *components.RetryRulesType1 {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetRetryRules() *components.RetryRulesType1 {
+	if c == nil {
 		return nil
 	}
-	return i.RetryRules
+	return c.RetryRules
 }
 
-func (i *InputOffice365MsgTrace) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputOffice365MsgTrace) GetUsername() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Username
+	return c.Username
 }
 
-func (i *InputOffice365MsgTrace) GetPassword() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Password
+	return c.Password
 }
 
-func (i *InputOffice365MsgTrace) GetCredentialsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (i *InputOffice365MsgTrace) GetClientSecret() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetClientSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ClientSecret
+	return c.ClientSecret
 }
 
-func (i *InputOffice365MsgTrace) GetTenantID() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetTenantID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TenantID
+	return c.TenantID
 }
 
-func (i *InputOffice365MsgTrace) GetClientID() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetClientID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ClientID
+	return c.ClientID
 }
 
-func (i *InputOffice365MsgTrace) GetResource() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetResource() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Resource
+	return c.Resource
 }
 
-func (i *InputOffice365MsgTrace) GetPlanType() *components.SubscriptionPlanOptions {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetPlanType() *components.SubscriptionPlanOptions {
+	if c == nil {
 		return nil
 	}
-	return i.PlanType
+	return c.PlanType
 }
 
-func (i *InputOffice365MsgTrace) GetTextSecret() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TextSecret
+	return c.TextSecret
 }
 
-func (i *InputOffice365MsgTrace) GetCertOptions() *CertOptions {
-	if i == nil {
+func (c *CreateInputInputOffice365MsgTrace) GetCertOptions() *CreateInputCertOptions {
+	if c == nil {
 		return nil
 	}
-	return i.CertOptions
+	return c.CertOptions
 }
 
-type TypeOffice365Service string
+func (c *CreateInputInputOffice365MsgTrace) GetTemplateURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateURL
+}
+
+func (c *CreateInputInputOffice365MsgTrace) GetTemplateTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTenantID
+}
+
+func (c *CreateInputInputOffice365MsgTrace) GetTemplateClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateClientID
+}
+
+func (c *CreateInputInputOffice365MsgTrace) GetTemplateResource() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateResource
+}
+
+type CreateInputTypeOffice365Service string
 
 const (
-	TypeOffice365ServiceOffice365Service TypeOffice365Service = "office365_service"
+	CreateInputTypeOffice365ServiceOffice365Service CreateInputTypeOffice365Service = "office365_service"
 )
 
-func (e TypeOffice365Service) ToPointer() *TypeOffice365Service {
+func (e CreateInputTypeOffice365Service) ToPointer() *CreateInputTypeOffice365Service {
 	return &e
 }
-func (e *TypeOffice365Service) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeOffice365Service) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "office365_service":
-		*e = TypeOffice365Service(v)
+		*e = CreateInputTypeOffice365Service(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeOffice365Service: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeOffice365Service: %v", v)
 	}
 }
 
-type ContentConfigOffice365Service struct {
+type CreateInputContentConfigOffice365Service struct {
 	// Office 365 Services API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
@@ -2287,57 +3133,57 @@ type ContentConfigOffice365Service struct {
 	Enabled  *bool                                         `json:"enabled,omitzero"`
 }
 
-func (c ContentConfigOffice365Service) MarshalJSON() ([]byte, error) {
+func (c CreateInputContentConfigOffice365Service) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *ContentConfigOffice365Service) UnmarshalJSON(data []byte) error {
+func (c *CreateInputContentConfigOffice365Service) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *ContentConfigOffice365Service) GetContentType() *string {
+func (c *CreateInputContentConfigOffice365Service) GetContentType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ContentType
 }
 
-func (c *ContentConfigOffice365Service) GetDescription() *string {
+func (c *CreateInputContentConfigOffice365Service) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *ContentConfigOffice365Service) GetInterval() *float64 {
+func (c *CreateInputContentConfigOffice365Service) GetInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Interval
 }
 
-func (c *ContentConfigOffice365Service) GetLogLevel() *components.LogLevelOptionsContentConfigItems {
+func (c *CreateInputContentConfigOffice365Service) GetLogLevel() *components.LogLevelOptionsContentConfigItems {
 	if c == nil {
 		return nil
 	}
 	return c.LogLevel
 }
 
-func (c *ContentConfigOffice365Service) GetEnabled() *bool {
+func (c *CreateInputContentConfigOffice365Service) GetEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enabled
 }
 
-type InputOffice365Service struct {
+type CreateInputInputOffice365Service struct {
 	// Unique ID for this input
-	ID       string               `json:"id"`
-	Type     TypeOffice365Service `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID       string                          `json:"id"`
+	Type     CreateInputTypeOffice365Service `json:"type"`
+	Disabled *bool                           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2370,10 +3216,10 @@ type InputOffice365Service struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
-	ContentConfig []ContentConfigOffice365Service `json:"contentConfig,omitzero"`
-	RetryRules    *components.RetryRulesType1     `json:"retryRules,omitzero"`
+	ContentConfig []CreateInputContentConfigOffice365Service `json:"contentConfig,omitzero"`
+	RetryRules    *components.RetryRulesType1                `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
 	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
@@ -2381,225 +3227,252 @@ type InputOffice365Service struct {
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
+	TemplateAppID *string `json:"__template_appId,omitzero"`
+	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+	TemplateClientSecret *string `json:"__template_clientSecret,omitzero"`
 }
 
-func (i InputOffice365Service) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputOffice365Service) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputOffice365Service) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputOffice365Service) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365Service) GetID() string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputOffice365Service) GetType() TypeOffice365Service {
-	if i == nil {
-		return TypeOffice365Service("")
+func (c *CreateInputInputOffice365Service) GetType() CreateInputTypeOffice365Service {
+	if c == nil {
+		return CreateInputTypeOffice365Service("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputOffice365Service) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputOffice365Service) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputOffice365Service) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputOffice365Service) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputOffice365Service) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputOffice365Service) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputOffice365Service) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputOffice365Service) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputOffice365Service) GetPlanType() *components.SubscriptionPlanOptions {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetPlanType() *components.SubscriptionPlanOptions {
+	if c == nil {
 		return nil
 	}
-	return i.PlanType
+	return c.PlanType
 }
 
-func (i *InputOffice365Service) GetTenantID() string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetTenantID() string {
+	if c == nil {
 		return ""
 	}
-	return i.TenantID
+	return c.TenantID
 }
 
-func (i *InputOffice365Service) GetAppID() string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetAppID() string {
+	if c == nil {
 		return ""
 	}
-	return i.AppID
+	return c.AppID
 }
 
-func (i *InputOffice365Service) GetTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.Timeout
+	return c.Timeout
 }
 
-func (i *InputOffice365Service) GetKeepAliveTime() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetKeepAliveTime() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTime
+	return c.KeepAliveTime
 }
 
-func (i *InputOffice365Service) GetJobTimeout() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetJobTimeout() *string {
+	if c == nil {
 		return nil
 	}
-	return i.JobTimeout
+	return c.JobTimeout
 }
 
-func (i *InputOffice365Service) GetMaxMissedKeepAlives() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetMaxMissedKeepAlives() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxMissedKeepAlives
+	return c.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365Service) GetTTL() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetTTL() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TTL
+	return c.TTL
 }
 
-func (i *InputOffice365Service) GetIgnoreGroupJobsLimit() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetIgnoreGroupJobsLimit() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.IgnoreGroupJobsLimit
+	return c.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365Service) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputOffice365Service) GetContentConfig() []ContentConfigOffice365Service {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetContentConfig() []CreateInputContentConfigOffice365Service {
+	if c == nil {
 		return nil
 	}
-	return i.ContentConfig
+	return c.ContentConfig
 }
 
-func (i *InputOffice365Service) GetRetryRules() *components.RetryRulesType1 {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetRetryRules() *components.RetryRulesType1 {
+	if c == nil {
 		return nil
 	}
-	return i.RetryRules
+	return c.RetryRules
 }
 
-func (i *InputOffice365Service) GetAuthType() *components.AuthenticationMethodOptions1 {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetAuthType() *components.AuthenticationMethodOptions1 {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputOffice365Service) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputOffice365Service) GetClientSecret() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetClientSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ClientSecret
+	return c.ClientSecret
 }
 
-func (i *InputOffice365Service) GetTextSecret() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Service) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TextSecret
+	return c.TextSecret
 }
 
-type TypeOffice365Mgmt string
+func (c *CreateInputInputOffice365Service) GetTemplateTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTenantID
+}
+
+func (c *CreateInputInputOffice365Service) GetTemplateAppID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAppID
+}
+
+func (c *CreateInputInputOffice365Service) GetTemplateClientSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateClientSecret
+}
+
+type CreateInputTypeOffice365Mgmt string
 
 const (
-	TypeOffice365MgmtOffice365Mgmt TypeOffice365Mgmt = "office365_mgmt"
+	CreateInputTypeOffice365MgmtOffice365Mgmt CreateInputTypeOffice365Mgmt = "office365_mgmt"
 )
 
-func (e TypeOffice365Mgmt) ToPointer() *TypeOffice365Mgmt {
+func (e CreateInputTypeOffice365Mgmt) ToPointer() *CreateInputTypeOffice365Mgmt {
 	return &e
 }
-func (e *TypeOffice365Mgmt) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeOffice365Mgmt) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "office365_mgmt":
-		*e = TypeOffice365Mgmt(v)
+		*e = CreateInputTypeOffice365Mgmt(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeOffice365Mgmt: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeOffice365Mgmt: %v", v)
 	}
 }
 
-type ContentConfigOffice365Mgmt struct {
+type CreateInputContentConfigOffice365Mgmt struct {
 	// Office 365 Management Activity API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
@@ -2610,57 +3483,57 @@ type ContentConfigOffice365Mgmt struct {
 	Enabled  *bool                                         `json:"enabled,omitzero"`
 }
 
-func (c ContentConfigOffice365Mgmt) MarshalJSON() ([]byte, error) {
+func (c CreateInputContentConfigOffice365Mgmt) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *ContentConfigOffice365Mgmt) UnmarshalJSON(data []byte) error {
+func (c *CreateInputContentConfigOffice365Mgmt) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *ContentConfigOffice365Mgmt) GetContentType() *string {
+func (c *CreateInputContentConfigOffice365Mgmt) GetContentType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ContentType
 }
 
-func (c *ContentConfigOffice365Mgmt) GetDescription() *string {
+func (c *CreateInputContentConfigOffice365Mgmt) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *ContentConfigOffice365Mgmt) GetInterval() *float64 {
+func (c *CreateInputContentConfigOffice365Mgmt) GetInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Interval
 }
 
-func (c *ContentConfigOffice365Mgmt) GetLogLevel() *components.LogLevelOptionsContentConfigItems {
+func (c *CreateInputContentConfigOffice365Mgmt) GetLogLevel() *components.LogLevelOptionsContentConfigItems {
 	if c == nil {
 		return nil
 	}
 	return c.LogLevel
 }
 
-func (c *ContentConfigOffice365Mgmt) GetEnabled() *bool {
+func (c *CreateInputContentConfigOffice365Mgmt) GetEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enabled
 }
 
-type InputOffice365Mgmt struct {
+type CreateInputInputOffice365Mgmt struct {
 	// Unique ID for this input
-	ID       string            `json:"id"`
-	Type     TypeOffice365Mgmt `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID       string                       `json:"id"`
+	Type     CreateInputTypeOffice365Mgmt `json:"type"`
+	Disabled *bool                        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2693,11 +3566,11 @@ type InputOffice365Mgmt struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
 	PublisherIdentifier *string `json:"publisherIdentifier,omitzero"`
 	// Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
-	ContentConfig []ContentConfigOffice365Mgmt `json:"contentConfig,omitzero"`
+	ContentConfig []CreateInputContentConfigOffice365Mgmt `json:"contentConfig,omitzero"`
 	// Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
 	IngestionLag *float64                    `json:"ingestionLag,omitzero"`
 	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitzero"`
@@ -2708,260 +3581,296 @@ type InputOffice365Mgmt struct {
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
+	TemplateAppID *string `json:"__template_appId,omitzero"`
+	// Binds 'publisherIdentifier' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'publisherIdentifier' at runtime.
+	TemplatePublisherIdentifier *string `json:"__template_publisherIdentifier,omitzero"`
+	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+	TemplateClientSecret *string `json:"__template_clientSecret,omitzero"`
 }
 
-func (i InputOffice365Mgmt) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputOffice365Mgmt) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputOffice365Mgmt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputOffice365Mgmt) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365Mgmt) GetID() string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputOffice365Mgmt) GetType() TypeOffice365Mgmt {
-	if i == nil {
-		return TypeOffice365Mgmt("")
+func (c *CreateInputInputOffice365Mgmt) GetType() CreateInputTypeOffice365Mgmt {
+	if c == nil {
+		return CreateInputTypeOffice365Mgmt("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputOffice365Mgmt) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputOffice365Mgmt) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputOffice365Mgmt) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputOffice365Mgmt) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputOffice365Mgmt) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputOffice365Mgmt) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputOffice365Mgmt) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputOffice365Mgmt) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputOffice365Mgmt) GetPlanType() components.SubscriptionPlanOptions {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetPlanType() components.SubscriptionPlanOptions {
+	if c == nil {
 		return components.SubscriptionPlanOptions("")
 	}
-	return i.PlanType
+	return c.PlanType
 }
 
-func (i *InputOffice365Mgmt) GetTenantID() string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetTenantID() string {
+	if c == nil {
 		return ""
 	}
-	return i.TenantID
+	return c.TenantID
 }
 
-func (i *InputOffice365Mgmt) GetAppID() string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetAppID() string {
+	if c == nil {
 		return ""
 	}
-	return i.AppID
+	return c.AppID
 }
 
-func (i *InputOffice365Mgmt) GetTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.Timeout
+	return c.Timeout
 }
 
-func (i *InputOffice365Mgmt) GetKeepAliveTime() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetKeepAliveTime() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTime
+	return c.KeepAliveTime
 }
 
-func (i *InputOffice365Mgmt) GetJobTimeout() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetJobTimeout() *string {
+	if c == nil {
 		return nil
 	}
-	return i.JobTimeout
+	return c.JobTimeout
 }
 
-func (i *InputOffice365Mgmt) GetMaxMissedKeepAlives() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetMaxMissedKeepAlives() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxMissedKeepAlives
+	return c.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365Mgmt) GetTTL() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetTTL() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TTL
+	return c.TTL
 }
 
-func (i *InputOffice365Mgmt) GetIgnoreGroupJobsLimit() *bool {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetIgnoreGroupJobsLimit() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.IgnoreGroupJobsLimit
+	return c.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365Mgmt) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputOffice365Mgmt) GetPublisherIdentifier() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetPublisherIdentifier() *string {
+	if c == nil {
 		return nil
 	}
-	return i.PublisherIdentifier
+	return c.PublisherIdentifier
 }
 
-func (i *InputOffice365Mgmt) GetContentConfig() []ContentConfigOffice365Mgmt {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetContentConfig() []CreateInputContentConfigOffice365Mgmt {
+	if c == nil {
 		return nil
 	}
-	return i.ContentConfig
+	return c.ContentConfig
 }
 
-func (i *InputOffice365Mgmt) GetIngestionLag() *float64 {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetIngestionLag() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.IngestionLag
+	return c.IngestionLag
 }
 
-func (i *InputOffice365Mgmt) GetRetryRules() *components.RetryRulesType1 {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetRetryRules() *components.RetryRulesType1 {
+	if c == nil {
 		return nil
 	}
-	return i.RetryRules
+	return c.RetryRules
 }
 
-func (i *InputOffice365Mgmt) GetAuthType() *components.AuthenticationMethodOptions1 {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetAuthType() *components.AuthenticationMethodOptions1 {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputOffice365Mgmt) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputOffice365Mgmt) GetClientSecret() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetClientSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ClientSecret
+	return c.ClientSecret
 }
 
-func (i *InputOffice365Mgmt) GetTextSecret() *string {
-	if i == nil {
+func (c *CreateInputInputOffice365Mgmt) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TextSecret
+	return c.TextSecret
 }
 
-type TypeEdgePrometheus string
+func (c *CreateInputInputOffice365Mgmt) GetTemplateTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTenantID
+}
+
+func (c *CreateInputInputOffice365Mgmt) GetTemplateAppID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAppID
+}
+
+func (c *CreateInputInputOffice365Mgmt) GetTemplatePublisherIdentifier() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePublisherIdentifier
+}
+
+func (c *CreateInputInputOffice365Mgmt) GetTemplateClientSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateClientSecret
+}
+
+type CreateInputTypeEdgePrometheus string
 
 const (
-	TypeEdgePrometheusEdgePrometheus TypeEdgePrometheus = "edge_prometheus"
+	CreateInputTypeEdgePrometheusEdgePrometheus CreateInputTypeEdgePrometheus = "edge_prometheus"
 )
 
-func (e TypeEdgePrometheus) ToPointer() *TypeEdgePrometheus {
+func (e CreateInputTypeEdgePrometheus) ToPointer() *CreateInputTypeEdgePrometheus {
 	return &e
 }
-func (e *TypeEdgePrometheus) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeEdgePrometheus) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "edge_prometheus":
-		*e = TypeEdgePrometheus(v)
+		*e = CreateInputTypeEdgePrometheus(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeEdgePrometheus: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeEdgePrometheus: %v", v)
 	}
 }
 
-// DiscoveryTypeEdgePrometheus - Target discovery mechanism. Use static to manually enter a list of targets.
-type DiscoveryTypeEdgePrometheus string
+// CreateInputDiscoveryTypeEdgePrometheus - Target discovery mechanism. Use static to manually enter a list of targets.
+type CreateInputDiscoveryTypeEdgePrometheus string
 
 const (
-	// DiscoveryTypeEdgePrometheusStatic Static
-	DiscoveryTypeEdgePrometheusStatic DiscoveryTypeEdgePrometheus = "static"
-	// DiscoveryTypeEdgePrometheusDNS DNS
-	DiscoveryTypeEdgePrometheusDNS DiscoveryTypeEdgePrometheus = "dns"
-	// DiscoveryTypeEdgePrometheusEc2 AWS EC2
-	DiscoveryTypeEdgePrometheusEc2 DiscoveryTypeEdgePrometheus = "ec2"
-	// DiscoveryTypeEdgePrometheusK8sNode Kubernetes Node
-	DiscoveryTypeEdgePrometheusK8sNode DiscoveryTypeEdgePrometheus = "k8s-node"
-	// DiscoveryTypeEdgePrometheusK8sPods Kubernetes Pods
-	DiscoveryTypeEdgePrometheusK8sPods DiscoveryTypeEdgePrometheus = "k8s-pods"
+	// CreateInputDiscoveryTypeEdgePrometheusStatic Static
+	CreateInputDiscoveryTypeEdgePrometheusStatic CreateInputDiscoveryTypeEdgePrometheus = "static"
+	// CreateInputDiscoveryTypeEdgePrometheusDNS DNS
+	CreateInputDiscoveryTypeEdgePrometheusDNS CreateInputDiscoveryTypeEdgePrometheus = "dns"
+	// CreateInputDiscoveryTypeEdgePrometheusEc2 AWS EC2
+	CreateInputDiscoveryTypeEdgePrometheusEc2 CreateInputDiscoveryTypeEdgePrometheus = "ec2"
+	// CreateInputDiscoveryTypeEdgePrometheusK8sNode Kubernetes Node
+	CreateInputDiscoveryTypeEdgePrometheusK8sNode CreateInputDiscoveryTypeEdgePrometheus = "k8s-node"
+	// CreateInputDiscoveryTypeEdgePrometheusK8sPods Kubernetes Pods
+	CreateInputDiscoveryTypeEdgePrometheusK8sPods CreateInputDiscoveryTypeEdgePrometheus = "k8s-pods"
 )
 
-func (e DiscoveryTypeEdgePrometheus) ToPointer() *DiscoveryTypeEdgePrometheus {
+func (e CreateInputDiscoveryTypeEdgePrometheus) ToPointer() *CreateInputDiscoveryTypeEdgePrometheus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DiscoveryTypeEdgePrometheus) IsExact() bool {
+func (e *CreateInputDiscoveryTypeEdgePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "static", "dns", "ec2", "k8s-node", "k8s-pods":
@@ -2971,21 +3880,21 @@ func (e *DiscoveryTypeEdgePrometheus) IsExact() bool {
 	return false
 }
 
-// AuthenticationMethodEdgePrometheus - Enter credentials directly, or select a stored secret
-type AuthenticationMethodEdgePrometheus string
+// CreateInputAuthenticationMethodEdgePrometheus - Enter credentials directly, or select a stored secret
+type CreateInputAuthenticationMethodEdgePrometheus string
 
 const (
-	AuthenticationMethodEdgePrometheusManual     AuthenticationMethodEdgePrometheus = "manual"
-	AuthenticationMethodEdgePrometheusSecret     AuthenticationMethodEdgePrometheus = "secret"
-	AuthenticationMethodEdgePrometheusKubernetes AuthenticationMethodEdgePrometheus = "kubernetes"
+	CreateInputAuthenticationMethodEdgePrometheusManual     CreateInputAuthenticationMethodEdgePrometheus = "manual"
+	CreateInputAuthenticationMethodEdgePrometheusSecret     CreateInputAuthenticationMethodEdgePrometheus = "secret"
+	CreateInputAuthenticationMethodEdgePrometheusKubernetes CreateInputAuthenticationMethodEdgePrometheus = "kubernetes"
 )
 
-func (e AuthenticationMethodEdgePrometheus) ToPointer() *AuthenticationMethodEdgePrometheus {
+func (e CreateInputAuthenticationMethodEdgePrometheus) ToPointer() *CreateInputAuthenticationMethodEdgePrometheus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthenticationMethodEdgePrometheus) IsExact() bool {
+func (e *CreateInputAuthenticationMethodEdgePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "manual", "secret", "kubernetes":
@@ -2995,7 +3904,7 @@ func (e *AuthenticationMethodEdgePrometheus) IsExact() bool {
 	return false
 }
 
-type Target struct {
+type CreateInputTarget struct {
 	// Protocol to use when collecting metrics
 	Protocol *components.ProtocolOptionsTargetsItems `json:"protocol,omitzero"`
 	// Name of host from which to pull metrics.
@@ -3006,82 +3915,82 @@ type Target struct {
 	Path *string `json:"path,omitzero"`
 }
 
-func (t Target) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
+func (c CreateInputTarget) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (t *Target) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+func (c *CreateInputTarget) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (t *Target) GetProtocol() *components.ProtocolOptionsTargetsItems {
-	if t == nil {
+func (c *CreateInputTarget) GetProtocol() *components.ProtocolOptionsTargetsItems {
+	if c == nil {
 		return nil
 	}
-	return t.Protocol
+	return c.Protocol
 }
 
-func (t *Target) GetHost() string {
-	if t == nil {
+func (c *CreateInputTarget) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return t.Host
+	return c.Host
 }
 
-func (t *Target) GetPort() *float64 {
-	if t == nil {
+func (c *CreateInputTarget) GetPort() *float64 {
+	if c == nil {
 		return nil
 	}
-	return t.Port
+	return c.Port
 }
 
-func (t *Target) GetPath() *string {
-	if t == nil {
+func (c *CreateInputTarget) GetPath() *string {
+	if c == nil {
 		return nil
 	}
-	return t.Path
+	return c.Path
 }
 
-type PodFilter struct {
+type CreateInputPodFilter struct {
 	// JavaScript expression applied to pods objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
 	Description *string `json:"description,omitzero"`
 }
 
-func (p PodFilter) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (c CreateInputPodFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (p *PodFilter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (c *CreateInputPodFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PodFilter) GetFilter() string {
-	if p == nil {
+func (c *CreateInputPodFilter) GetFilter() string {
+	if c == nil {
 		return ""
 	}
-	return p.Filter
+	return c.Filter
 }
 
-func (p *PodFilter) GetDescription() *string {
-	if p == nil {
+func (c *CreateInputPodFilter) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Description
+	return c.Description
 }
 
-type InputEdgePrometheus struct {
+type CreateInputInputEdgePrometheus struct {
 	// Unique ID for this input
-	ID       string             `json:"id"`
-	Type     TypeEdgePrometheus `json:"type"`
-	Disabled *bool              `json:"disabled,omitzero"`
+	ID       string                        `json:"id"`
+	Type     CreateInputTypeEdgePrometheus `json:"type"`
+	Disabled *bool                         `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -3098,18 +4007,18 @@ type InputEdgePrometheus struct {
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType DiscoveryTypeEdgePrometheus `json:"discoveryType"`
+	DiscoveryType CreateInputDiscoveryTypeEdgePrometheus `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
 	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
 	Timeout     *float64                     `json:"timeout,omitzero"`
 	Persistence *components.DiskSpoolingType `json:"persistence,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *AuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
-	Description *string                             `json:"description,omitzero"`
-	Targets     []Target                            `json:"targets,omitzero"`
+	AuthType    *CreateInputAuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
+	Description *string                                        `json:"description,omitzero"`
+	Targets     []CreateInputTarget                            `json:"targets,omitzero"`
 	// DNS record type to resolve
 	RecordType *components.RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets.
@@ -3158,346 +4067,391 @@ type InputEdgePrometheus struct {
 	//   Pods are searched if no rules are given or of all the rules'
 	//   expressions evaluate to true.
 	//
-	PodFilter []PodFilter `json:"podFilter,omitzero"`
+	PodFilter []CreateInputPodFilter `json:"podFilter,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
 	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
-func (i InputEdgePrometheus) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputEdgePrometheus) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputEdgePrometheus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputEdgePrometheus) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheus) GetID() string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputEdgePrometheus) GetType() TypeEdgePrometheus {
-	if i == nil {
-		return TypeEdgePrometheus("")
+func (c *CreateInputInputEdgePrometheus) GetType() CreateInputTypeEdgePrometheus {
+	if c == nil {
+		return CreateInputTypeEdgePrometheus("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputEdgePrometheus) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputEdgePrometheus) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputEdgePrometheus) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputEdgePrometheus) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputEdgePrometheus) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputEdgePrometheus) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputEdgePrometheus) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputEdgePrometheus) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputEdgePrometheus) GetDimensionList() []string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetDimensionList() []string {
+	if c == nil {
 		return nil
 	}
-	return i.DimensionList
+	return c.DimensionList
 }
 
-func (i *InputEdgePrometheus) GetDiscoveryType() DiscoveryTypeEdgePrometheus {
-	if i == nil {
-		return DiscoveryTypeEdgePrometheus("")
+func (c *CreateInputInputEdgePrometheus) GetDiscoveryType() CreateInputDiscoveryTypeEdgePrometheus {
+	if c == nil {
+		return CreateInputDiscoveryTypeEdgePrometheus("")
 	}
-	return i.DiscoveryType
+	return c.DiscoveryType
 }
 
-func (i *InputEdgePrometheus) GetInterval() float64 {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetInterval() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Interval
+	return c.Interval
 }
 
-func (i *InputEdgePrometheus) GetTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.Timeout
+	return c.Timeout
 }
 
-func (i *InputEdgePrometheus) GetPersistence() *components.DiskSpoolingType {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetPersistence() *components.DiskSpoolingType {
+	if c == nil {
 		return nil
 	}
-	return i.Persistence
+	return c.Persistence
 }
 
-func (i *InputEdgePrometheus) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputEdgePrometheus) GetAuthType() *AuthenticationMethodEdgePrometheus {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetAuthType() *CreateInputAuthenticationMethodEdgePrometheus {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputEdgePrometheus) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputEdgePrometheus) GetTargets() []Target {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetTargets() []CreateInputTarget {
+	if c == nil {
 		return nil
 	}
-	return i.Targets
+	return c.Targets
 }
 
-func (i *InputEdgePrometheus) GetRecordType() *components.RecordTypeOptions {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetRecordType() *components.RecordTypeOptions {
+	if c == nil {
 		return nil
 	}
-	return i.RecordType
+	return c.RecordType
 }
 
-func (i *InputEdgePrometheus) GetScrapePort() *float64 {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetScrapePort() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ScrapePort
+	return c.ScrapePort
 }
 
-func (i *InputEdgePrometheus) GetNameList() []string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetNameList() []string {
+	if c == nil {
 		return nil
 	}
-	return i.NameList
+	return c.NameList
 }
 
-func (i *InputEdgePrometheus) GetScrapeProtocol() *components.ProtocolOptionsTargetsItems {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetScrapeProtocol() *components.ProtocolOptionsTargetsItems {
+	if c == nil {
 		return nil
 	}
-	return i.ScrapeProtocol
+	return c.ScrapeProtocol
 }
 
-func (i *InputEdgePrometheus) GetScrapePath() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetScrapePath() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ScrapePath
+	return c.ScrapePath
 }
 
-func (i *InputEdgePrometheus) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+	if c == nil {
 		return nil
 	}
-	return i.AwsAuthenticationMethod
+	return c.AwsAuthenticationMethod
 }
 
-func (i *InputEdgePrometheus) GetAwsAPIKey() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetAwsAPIKey() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AwsAPIKey
+	return c.AwsAPIKey
 }
 
-func (i *InputEdgePrometheus) GetAwsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetAwsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AwsSecret
+	return c.AwsSecret
 }
 
-func (i *InputEdgePrometheus) GetUsePublicIP() *bool {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetUsePublicIP() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.UsePublicIP
+	return c.UsePublicIP
 }
 
-func (i *InputEdgePrometheus) GetSearchFilter() []components.ItemsTypeSearchFilter {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetSearchFilter() []components.ItemsTypeSearchFilter {
+	if c == nil {
 		return nil
 	}
-	return i.SearchFilter
+	return c.SearchFilter
 }
 
-func (i *InputEdgePrometheus) GetAwsSecretKey() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetAwsSecretKey() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AwsSecretKey
+	return c.AwsSecretKey
 }
 
-func (i *InputEdgePrometheus) GetRegion() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetRegion() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Region
+	return c.Region
 }
 
-func (i *InputEdgePrometheus) GetEndpoint() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetEndpoint() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Endpoint
+	return c.Endpoint
 }
 
-func (i *InputEdgePrometheus) GetSignatureVersion() *components.SignatureVersionOptions1 {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetSignatureVersion() *components.SignatureVersionOptions1 {
+	if c == nil {
 		return nil
 	}
-	return i.SignatureVersion
+	return c.SignatureVersion
 }
 
-func (i *InputEdgePrometheus) GetReuseConnections() *bool {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetReuseConnections() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.ReuseConnections
+	return c.ReuseConnections
 }
 
-func (i *InputEdgePrometheus) GetRejectUnauthorized() *bool {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetRejectUnauthorized() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.RejectUnauthorized
+	return c.RejectUnauthorized
 }
 
-func (i *InputEdgePrometheus) GetEnableAssumeRole() *bool {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetEnableAssumeRole() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableAssumeRole
+	return c.EnableAssumeRole
 }
 
-func (i *InputEdgePrometheus) GetAssumeRoleArn() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetAssumeRoleArn() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AssumeRoleArn
+	return c.AssumeRoleArn
 }
 
-func (i *InputEdgePrometheus) GetAssumeRoleExternalID() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetAssumeRoleExternalID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AssumeRoleExternalID
+	return c.AssumeRoleExternalID
 }
 
-func (i *InputEdgePrometheus) GetDurationSeconds() *float64 {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetDurationSeconds() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.DurationSeconds
+	return c.DurationSeconds
 }
 
-func (i *InputEdgePrometheus) GetScrapeProtocolExpr() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetScrapeProtocolExpr() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ScrapeProtocolExpr
+	return c.ScrapeProtocolExpr
 }
 
-func (i *InputEdgePrometheus) GetScrapePortExpr() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetScrapePortExpr() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ScrapePortExpr
+	return c.ScrapePortExpr
 }
 
-func (i *InputEdgePrometheus) GetScrapePathExpr() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetScrapePathExpr() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ScrapePathExpr
+	return c.ScrapePathExpr
 }
 
-func (i *InputEdgePrometheus) GetPodFilter() []PodFilter {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetPodFilter() []CreateInputPodFilter {
+	if c == nil {
 		return nil
 	}
-	return i.PodFilter
+	return c.PodFilter
 }
 
-func (i *InputEdgePrometheus) GetUsername() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Username
+	return c.Username
 }
 
-func (i *InputEdgePrometheus) GetPassword() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Password
+	return c.Password
 }
 
-func (i *InputEdgePrometheus) GetCredentialsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputEdgePrometheus) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.CredentialsSecret
+	return c.CredentialsSecret
+}
+
+func (c *CreateInputInputEdgePrometheus) GetTemplateAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsAPIKey
+}
+
+func (c *CreateInputInputEdgePrometheus) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateInputInputEdgePrometheus) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
+func (c *CreateInputInputEdgePrometheus) GetTemplateAssumeRoleArn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAssumeRoleArn
+}
+
+func (c *CreateInputInputEdgePrometheus) GetTemplateAssumeRoleExternalID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAssumeRoleExternalID
 }
 
 type CreateInputTypePrometheus string
@@ -3523,24 +4477,24 @@ func (e *CreateInputTypePrometheus) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// DiscoveryTypePrometheus - Target discovery mechanism. Use static to manually enter a list of targets.
-type DiscoveryTypePrometheus string
+// CreateInputDiscoveryTypePrometheus - Target discovery mechanism. Use static to manually enter a list of targets.
+type CreateInputDiscoveryTypePrometheus string
 
 const (
-	// DiscoveryTypePrometheusStatic Static
-	DiscoveryTypePrometheusStatic DiscoveryTypePrometheus = "static"
-	// DiscoveryTypePrometheusDNS DNS
-	DiscoveryTypePrometheusDNS DiscoveryTypePrometheus = "dns"
-	// DiscoveryTypePrometheusEc2 AWS EC2
-	DiscoveryTypePrometheusEc2 DiscoveryTypePrometheus = "ec2"
+	// CreateInputDiscoveryTypePrometheusStatic Static
+	CreateInputDiscoveryTypePrometheusStatic CreateInputDiscoveryTypePrometheus = "static"
+	// CreateInputDiscoveryTypePrometheusDNS DNS
+	CreateInputDiscoveryTypePrometheusDNS CreateInputDiscoveryTypePrometheus = "dns"
+	// CreateInputDiscoveryTypePrometheusEc2 AWS EC2
+	CreateInputDiscoveryTypePrometheusEc2 CreateInputDiscoveryTypePrometheus = "ec2"
 )
 
-func (e DiscoveryTypePrometheus) ToPointer() *DiscoveryTypePrometheus {
+func (e CreateInputDiscoveryTypePrometheus) ToPointer() *CreateInputDiscoveryTypePrometheus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DiscoveryTypePrometheus) IsExact() bool {
+func (e *CreateInputDiscoveryTypePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "static", "dns", "ec2":
@@ -3550,22 +4504,22 @@ func (e *DiscoveryTypePrometheus) IsExact() bool {
 	return false
 }
 
-// LogLevelPrometheus - Collector runtime log level
-type LogLevelPrometheus string
+// CreateInputLogLevelPrometheus - Collector runtime log level
+type CreateInputLogLevelPrometheus string
 
 const (
-	LogLevelPrometheusError LogLevelPrometheus = "error"
-	LogLevelPrometheusWarn  LogLevelPrometheus = "warn"
-	LogLevelPrometheusInfo  LogLevelPrometheus = "info"
-	LogLevelPrometheusDebug LogLevelPrometheus = "debug"
+	CreateInputLogLevelPrometheusError CreateInputLogLevelPrometheus = "error"
+	CreateInputLogLevelPrometheusWarn  CreateInputLogLevelPrometheus = "warn"
+	CreateInputLogLevelPrometheusInfo  CreateInputLogLevelPrometheus = "info"
+	CreateInputLogLevelPrometheusDebug CreateInputLogLevelPrometheus = "debug"
 )
 
-func (e LogLevelPrometheus) ToPointer() *LogLevelPrometheus {
+func (e CreateInputLogLevelPrometheus) ToPointer() *CreateInputLogLevelPrometheus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LogLevelPrometheus) IsExact() bool {
+func (e *CreateInputLogLevelPrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "error", "warn", "info", "debug":
@@ -3575,20 +4529,20 @@ func (e *LogLevelPrometheus) IsExact() bool {
 	return false
 }
 
-// MetricsProtocol - Protocol to use when collecting metrics
-type MetricsProtocol string
+// CreateInputMetricsProtocol - Protocol to use when collecting metrics
+type CreateInputMetricsProtocol string
 
 const (
-	MetricsProtocolHTTP  MetricsProtocol = "http"
-	MetricsProtocolHTTPS MetricsProtocol = "https"
+	CreateInputMetricsProtocolHTTP  CreateInputMetricsProtocol = "http"
+	CreateInputMetricsProtocolHTTPS CreateInputMetricsProtocol = "https"
 )
 
-func (e MetricsProtocol) ToPointer() *MetricsProtocol {
+func (e CreateInputMetricsProtocol) ToPointer() *CreateInputMetricsProtocol {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MetricsProtocol) IsExact() bool {
+func (e *CreateInputMetricsProtocol) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "http", "https":
@@ -3598,7 +4552,7 @@ func (e *MetricsProtocol) IsExact() bool {
 	return false
 }
 
-type InputPrometheus struct {
+type CreateInputInputPrometheus struct {
 	// Unique ID for this input
 	ID       string                    `json:"id"`
 	Type     CreateInputTypePrometheus `json:"type"`
@@ -3619,11 +4573,11 @@ type InputPrometheus struct {
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *DiscoveryTypePrometheus `json:"discoveryType,omitzero"`
+	DiscoveryType *CreateInputDiscoveryTypePrometheus `json:"discoveryType,omitzero"`
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
 	Interval float64 `json:"interval"`
 	// Collector runtime log level
-	LogLevel LogLevelPrometheus `json:"logLevel"`
+	LogLevel CreateInputLogLevelPrometheus `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
@@ -3639,7 +4593,7 @@ type InputPrometheus struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *components.AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
 	Description *string                                     `json:"description,omitzero"`
@@ -3652,7 +4606,7 @@ type InputPrometheus struct {
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitzero"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *MetricsProtocol `json:"scrapeProtocol,omitzero"`
+	ScrapeProtocol *CreateInputMetricsProtocol `json:"scrapeProtocol,omitzero"`
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `json:"scrapePath,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
@@ -3687,376 +4641,430 @@ type InputPrometheus struct {
 	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
+	TemplateLogLevel *string `json:"__template_logLevel,omitzero"`
+	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
-func (i InputPrometheus) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputPrometheus) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputPrometheus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputPrometheus) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputPrometheus) GetID() string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputPrometheus) GetType() CreateInputTypePrometheus {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetType() CreateInputTypePrometheus {
+	if c == nil {
 		return CreateInputTypePrometheus("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputPrometheus) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputPrometheus) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputPrometheus) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputPrometheus) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputPrometheus) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputPrometheus) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputPrometheus) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputPrometheus) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputPrometheus) GetDimensionList() []string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetDimensionList() []string {
+	if c == nil {
 		return nil
 	}
-	return i.DimensionList
+	return c.DimensionList
 }
 
-func (i *InputPrometheus) GetDiscoveryType() *DiscoveryTypePrometheus {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetDiscoveryType() *CreateInputDiscoveryTypePrometheus {
+	if c == nil {
 		return nil
 	}
-	return i.DiscoveryType
+	return c.DiscoveryType
 }
 
-func (i *InputPrometheus) GetInterval() float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetInterval() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Interval
+	return c.Interval
 }
 
-func (i *InputPrometheus) GetLogLevel() LogLevelPrometheus {
-	if i == nil {
-		return LogLevelPrometheus("")
+func (c *CreateInputInputPrometheus) GetLogLevel() CreateInputLogLevelPrometheus {
+	if c == nil {
+		return CreateInputLogLevelPrometheus("")
 	}
-	return i.LogLevel
+	return c.LogLevel
 }
 
-func (i *InputPrometheus) GetRejectUnauthorized() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetRejectUnauthorized() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.RejectUnauthorized
+	return c.RejectUnauthorized
 }
 
-func (i *InputPrometheus) GetTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.Timeout
+	return c.Timeout
 }
 
-func (i *InputPrometheus) GetKeepAliveTime() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetKeepAliveTime() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTime
+	return c.KeepAliveTime
 }
 
-func (i *InputPrometheus) GetJobTimeout() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetJobTimeout() *string {
+	if c == nil {
 		return nil
 	}
-	return i.JobTimeout
+	return c.JobTimeout
 }
 
-func (i *InputPrometheus) GetMaxMissedKeepAlives() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetMaxMissedKeepAlives() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxMissedKeepAlives
+	return c.MaxMissedKeepAlives
 }
 
-func (i *InputPrometheus) GetTTL() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetTTL() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TTL
+	return c.TTL
 }
 
-func (i *InputPrometheus) GetIgnoreGroupJobsLimit() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetIgnoreGroupJobsLimit() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.IgnoreGroupJobsLimit
+	return c.IgnoreGroupJobsLimit
 }
 
-func (i *InputPrometheus) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputPrometheus) GetAuthType() *components.AuthenticationMethodOptionsSasl {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetAuthType() *components.AuthenticationMethodOptionsSasl {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputPrometheus) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputPrometheus) GetTargetList() []string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetTargetList() []string {
+	if c == nil {
 		return nil
 	}
-	return i.TargetList
+	return c.TargetList
 }
 
-func (i *InputPrometheus) GetRecordType() *components.RecordTypeOptions {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetRecordType() *components.RecordTypeOptions {
+	if c == nil {
 		return nil
 	}
-	return i.RecordType
+	return c.RecordType
 }
 
-func (i *InputPrometheus) GetScrapePort() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetScrapePort() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ScrapePort
+	return c.ScrapePort
 }
 
-func (i *InputPrometheus) GetNameList() []string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetNameList() []string {
+	if c == nil {
 		return nil
 	}
-	return i.NameList
+	return c.NameList
 }
 
-func (i *InputPrometheus) GetScrapeProtocol() *MetricsProtocol {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetScrapeProtocol() *CreateInputMetricsProtocol {
+	if c == nil {
 		return nil
 	}
-	return i.ScrapeProtocol
+	return c.ScrapeProtocol
 }
 
-func (i *InputPrometheus) GetScrapePath() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetScrapePath() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ScrapePath
+	return c.ScrapePath
 }
 
-func (i *InputPrometheus) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+	if c == nil {
 		return nil
 	}
-	return i.AwsAuthenticationMethod
+	return c.AwsAuthenticationMethod
 }
 
-func (i *InputPrometheus) GetAwsAPIKey() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetAwsAPIKey() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AwsAPIKey
+	return c.AwsAPIKey
 }
 
-func (i *InputPrometheus) GetAwsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetAwsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AwsSecret
+	return c.AwsSecret
 }
 
-func (i *InputPrometheus) GetUsePublicIP() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetUsePublicIP() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.UsePublicIP
+	return c.UsePublicIP
 }
 
-func (i *InputPrometheus) GetSearchFilter() []components.ItemsTypeSearchFilter {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetSearchFilter() []components.ItemsTypeSearchFilter {
+	if c == nil {
 		return nil
 	}
-	return i.SearchFilter
+	return c.SearchFilter
 }
 
-func (i *InputPrometheus) GetAwsSecretKey() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetAwsSecretKey() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AwsSecretKey
+	return c.AwsSecretKey
 }
 
-func (i *InputPrometheus) GetRegion() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetRegion() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Region
+	return c.Region
 }
 
-func (i *InputPrometheus) GetEndpoint() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetEndpoint() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Endpoint
+	return c.Endpoint
 }
 
-func (i *InputPrometheus) GetSignatureVersion() *components.SignatureVersionOptions1 {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetSignatureVersion() *components.SignatureVersionOptions1 {
+	if c == nil {
 		return nil
 	}
-	return i.SignatureVersion
+	return c.SignatureVersion
 }
 
-func (i *InputPrometheus) GetReuseConnections() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetReuseConnections() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.ReuseConnections
+	return c.ReuseConnections
 }
 
-func (i *InputPrometheus) GetEnableAssumeRole() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetEnableAssumeRole() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableAssumeRole
+	return c.EnableAssumeRole
 }
 
-func (i *InputPrometheus) GetAssumeRoleArn() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetAssumeRoleArn() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AssumeRoleArn
+	return c.AssumeRoleArn
 }
 
-func (i *InputPrometheus) GetAssumeRoleExternalID() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetAssumeRoleExternalID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AssumeRoleExternalID
+	return c.AssumeRoleExternalID
 }
 
-func (i *InputPrometheus) GetDurationSeconds() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetDurationSeconds() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.DurationSeconds
+	return c.DurationSeconds
 }
 
-func (i *InputPrometheus) GetUsername() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Username
+	return c.Username
 }
 
-func (i *InputPrometheus) GetPassword() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Password
+	return c.Password
 }
 
-func (i *InputPrometheus) GetCredentialsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheus) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-type TypePrometheusRw string
+func (c *CreateInputInputPrometheus) GetTemplateLogLevel() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLogLevel
+}
+
+func (c *CreateInputInputPrometheus) GetTemplateAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsAPIKey
+}
+
+func (c *CreateInputInputPrometheus) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateInputInputPrometheus) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
+func (c *CreateInputInputPrometheus) GetTemplateAssumeRoleArn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAssumeRoleArn
+}
+
+func (c *CreateInputInputPrometheus) GetTemplateAssumeRoleExternalID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAssumeRoleExternalID
+}
+
+type CreateInputTypePrometheusRw string
 
 const (
-	TypePrometheusRwPrometheusRw TypePrometheusRw = "prometheus_rw"
+	CreateInputTypePrometheusRwPrometheusRw CreateInputTypePrometheusRw = "prometheus_rw"
 )
 
-func (e TypePrometheusRw) ToPointer() *TypePrometheusRw {
+func (e CreateInputTypePrometheusRw) ToPointer() *CreateInputTypePrometheusRw {
 	return &e
 }
-func (e *TypePrometheusRw) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypePrometheusRw) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "prometheus_rw":
-		*e = TypePrometheusRw(v)
+		*e = CreateInputTypePrometheusRw(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypePrometheusRw: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypePrometheusRw: %v", v)
 	}
 }
 
-type InputPrometheusRw struct {
+type CreateInputInputPrometheusRw struct {
 	// Unique ID for this input
-	ID       string           `json:"id"`
-	Type     TypePrometheusRw `json:"type"`
-	Disabled *bool            `json:"disabled,omitzero"`
+	ID       string                      `json:"id"`
+	Type     CreateInputTypePrometheusRw `json:"type"`
+	Disabled *bool                       `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4102,330 +5110,285 @@ type InputPrometheusRw struct {
 	// Remote Write authentication type
 	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
-	Username    *string                                    `json:"username,omitzero"`
-	Password    *string                                    `json:"password,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	Username    *string                        `json:"username,omitzero"`
+	Password    *string                        `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitzero"`
 }
 
-func (i InputPrometheusRw) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputPrometheusRw) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputPrometheusRw) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputPrometheusRw) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputPrometheusRw) GetID() string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputPrometheusRw) GetType() TypePrometheusRw {
-	if i == nil {
-		return TypePrometheusRw("")
+func (c *CreateInputInputPrometheusRw) GetType() CreateInputTypePrometheusRw {
+	if c == nil {
+		return CreateInputTypePrometheusRw("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputPrometheusRw) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputPrometheusRw) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputPrometheusRw) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputPrometheusRw) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputPrometheusRw) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputPrometheusRw) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputPrometheusRw) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputPrometheusRw) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputPrometheusRw) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputPrometheusRw) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputPrometheusRw) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputPrometheusRw) GetMaxActiveReq() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetMaxActiveReq() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveReq
+	return c.MaxActiveReq
 }
 
-func (i *InputPrometheusRw) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRequestsPerSocket
+	return c.MaxRequestsPerSocket
 }
 
-func (i *InputPrometheusRw) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputPrometheusRw) GetCaptureHeaders() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetCaptureHeaders() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CaptureHeaders
+	return c.CaptureHeaders
 }
 
-func (i *InputPrometheusRw) GetActivityLogSampleRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetActivityLogSampleRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ActivityLogSampleRate
+	return c.ActivityLogSampleRate
 }
 
-func (i *InputPrometheusRw) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputPrometheusRw) GetSocketTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetSocketTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketTimeout
+	return c.SocketTimeout
 }
 
-func (i *InputPrometheusRw) GetKeepAliveTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetKeepAliveTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTimeout
+	return c.KeepAliveTimeout
 }
 
-func (i *InputPrometheusRw) GetEnableHealthCheck() *bool {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetEnableHealthCheck() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableHealthCheck
+	return c.EnableHealthCheck
 }
 
-func (i *InputPrometheusRw) GetIPAllowlistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetIPAllowlistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPAllowlistRegex
+	return c.IPAllowlistRegex
 }
 
-func (i *InputPrometheusRw) GetIPDenylistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetIPDenylistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPDenylistRegex
+	return c.IPDenylistRegex
 }
 
-func (i *InputPrometheusRw) GetPrometheusAPI() string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetPrometheusAPI() string {
+	if c == nil {
 		return ""
 	}
-	return i.PrometheusAPI
+	return c.PrometheusAPI
 }
 
-func (i *InputPrometheusRw) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuth {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuth {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputPrometheusRw) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputPrometheusRw) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputPrometheusRw) GetUsername() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Username
+	return c.Username
 }
 
-func (i *InputPrometheusRw) GetPassword() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Password
+	return c.Password
 }
 
-func (i *InputPrometheusRw) GetToken() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetToken() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Token
+	return c.Token
 }
 
-func (i *InputPrometheusRw) GetCredentialsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (i *InputPrometheusRw) GetTextSecret() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TextSecret
+	return c.TextSecret
 }
 
-func (i *InputPrometheusRw) GetLoginURL() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetTemplateHost() *string {
+	if c == nil {
 		return nil
 	}
-	return i.LoginURL
+	return c.TemplateHost
 }
 
-func (i *InputPrometheusRw) GetSecretParamName() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetTemplatePort() *string {
+	if c == nil {
 		return nil
 	}
-	return i.SecretParamName
+	return c.TemplatePort
 }
 
-func (i *InputPrometheusRw) GetSecret() *string {
-	if i == nil {
+func (c *CreateInputInputPrometheusRw) GetTemplatePrometheusAPI() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Secret
-}
-
-func (i *InputPrometheusRw) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputPrometheusRw) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputPrometheusRw) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputPrometheusRw) GetOauthParams() []components.ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputPrometheusRw) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
+	return c.TemplatePrometheusAPI
 }
 
 type CreateInputTypeLoki string
@@ -4451,7 +5414,7 @@ func (e *CreateInputTypeLoki) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputLoki struct {
+type CreateInputInputLoki struct {
 	// Unique ID for this input
 	ID       string              `json:"id"`
 	Type     CreateInputTypeLoki `json:"type"`
@@ -4501,356 +5464,302 @@ type InputLoki struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
-	Username    *string                                    `json:"username,omitzero"`
-	Password    *string                                    `json:"password,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	Username    *string                        `json:"username,omitzero"`
+	Password    *string                        `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (i InputLoki) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputLoki) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputLoki) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputLoki) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputLoki) GetID() string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputLoki) GetType() CreateInputTypeLoki {
-	if i == nil {
+func (c *CreateInputInputLoki) GetType() CreateInputTypeLoki {
+	if c == nil {
 		return CreateInputTypeLoki("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputLoki) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputLoki) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputLoki) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputLoki) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputLoki) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputLoki) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputLoki) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputLoki) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputLoki) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputLoki) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputLoki) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputLoki) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputLoki) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputLoki) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputLoki) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputLoki) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputLoki) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputLoki) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputLoki) GetMaxActiveReq() *float64 {
-	if i == nil {
+func (c *CreateInputInputLoki) GetMaxActiveReq() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveReq
+	return c.MaxActiveReq
 }
 
-func (i *InputLoki) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
+func (c *CreateInputInputLoki) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRequestsPerSocket
+	return c.MaxRequestsPerSocket
 }
 
-func (i *InputLoki) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputLoki) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputLoki) GetCaptureHeaders() *bool {
-	if i == nil {
+func (c *CreateInputInputLoki) GetCaptureHeaders() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CaptureHeaders
+	return c.CaptureHeaders
 }
 
-func (i *InputLoki) GetActivityLogSampleRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputLoki) GetActivityLogSampleRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ActivityLogSampleRate
+	return c.ActivityLogSampleRate
 }
 
-func (i *InputLoki) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputLoki) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputLoki) GetSocketTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputLoki) GetSocketTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketTimeout
+	return c.SocketTimeout
 }
 
-func (i *InputLoki) GetKeepAliveTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputLoki) GetKeepAliveTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTimeout
+	return c.KeepAliveTimeout
 }
 
-func (i *InputLoki) GetEnableHealthCheck() *bool {
-	if i == nil {
+func (c *CreateInputInputLoki) GetEnableHealthCheck() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableHealthCheck
+	return c.EnableHealthCheck
 }
 
-func (i *InputLoki) GetIPAllowlistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetIPAllowlistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPAllowlistRegex
+	return c.IPAllowlistRegex
 }
 
-func (i *InputLoki) GetIPDenylistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetIPDenylistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPDenylistRegex
+	return c.IPDenylistRegex
 }
 
-func (i *InputLoki) GetLokiAPI() string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetLokiAPI() string {
+	if c == nil {
 		return ""
 	}
-	return i.LokiAPI
+	return c.LokiAPI
 }
 
-func (i *InputLoki) GetAuthType() *components.AuthenticationTypeOptionsLokiAuth {
-	if i == nil {
+func (c *CreateInputInputLoki) GetAuthType() *components.AuthenticationTypeOptionsLokiAuth {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputLoki) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputLoki) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputLoki) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputLoki) GetUsername() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Username
+	return c.Username
 }
 
-func (i *InputLoki) GetPassword() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Password
+	return c.Password
 }
 
-func (i *InputLoki) GetToken() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetToken() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Token
+	return c.Token
 }
 
-func (i *InputLoki) GetCredentialsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (i *InputLoki) GetTextSecret() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TextSecret
+	return c.TextSecret
 }
 
-func (i *InputLoki) GetLoginURL() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetTemplateHost() *string {
+	if c == nil {
 		return nil
 	}
-	return i.LoginURL
+	return c.TemplateHost
 }
 
-func (i *InputLoki) GetSecretParamName() *string {
-	if i == nil {
+func (c *CreateInputInputLoki) GetTemplatePort() *string {
+	if c == nil {
 		return nil
 	}
-	return i.SecretParamName
+	return c.TemplatePort
 }
 
-func (i *InputLoki) GetSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Secret
-}
-
-func (i *InputLoki) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputLoki) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputLoki) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputLoki) GetOauthParams() []components.ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputLoki) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
-}
-
-type InputGrafanaType2 string
+type CreateInputInputGrafanaType2 string
 
 const (
-	InputGrafanaType2Grafana InputGrafanaType2 = "grafana"
+	CreateInputInputGrafanaType2Grafana CreateInputInputGrafanaType2 = "grafana"
 )
 
-func (e InputGrafanaType2) ToPointer() *InputGrafanaType2 {
+func (e CreateInputInputGrafanaType2) ToPointer() *CreateInputInputGrafanaType2 {
 	return &e
 }
-func (e *InputGrafanaType2) UnmarshalJSON(data []byte) error {
+func (e *CreateInputInputGrafanaType2) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "grafana":
-		*e = InputGrafanaType2(v)
+		*e = CreateInputInputGrafanaType2(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputGrafanaType2: %v", v)
+		return fmt.Errorf("invalid value for CreateInputInputGrafanaType2: %v", v)
 	}
 }
 
-type PrometheusAuth2 struct {
+type CreateInputPrometheusAuth2 struct {
 	// Remote Write authentication type
 	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
 	Username *string                                             `json:"username,omitzero"`
@@ -4861,134 +5770,62 @@ type PrometheusAuth2 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
-func (p PrometheusAuth2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (c CreateInputPrometheusAuth2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (p *PrometheusAuth2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (c *CreateInputPrometheusAuth2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PrometheusAuth2) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuth {
-	if p == nil {
+func (c *CreateInputPrometheusAuth2) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuth {
+	if c == nil {
 		return nil
 	}
-	return p.AuthType
+	return c.AuthType
 }
 
-func (p *PrometheusAuth2) GetUsername() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth2) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Username
+	return c.Username
 }
 
-func (p *PrometheusAuth2) GetPassword() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth2) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Password
+	return c.Password
 }
 
-func (p *PrometheusAuth2) GetToken() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth2) GetToken() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Token
+	return c.Token
 }
 
-func (p *PrometheusAuth2) GetCredentialsSecret() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth2) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return p.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (p *PrometheusAuth2) GetTextSecret() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth2) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return p.TextSecret
+	return c.TextSecret
 }
 
-func (p *PrometheusAuth2) GetLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.LoginURL
-}
-
-func (p *PrometheusAuth2) GetSecretParamName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.SecretParamName
-}
-
-func (p *PrometheusAuth2) GetSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Secret
-}
-
-func (p *PrometheusAuth2) GetTokenAttributeName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TokenAttributeName
-}
-
-func (p *PrometheusAuth2) GetAuthHeaderExpr() *string {
-	if p == nil {
-		return nil
-	}
-	return p.AuthHeaderExpr
-}
-
-func (p *PrometheusAuth2) GetTokenTimeoutSecs() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.TokenTimeoutSecs
-}
-
-func (p *PrometheusAuth2) GetOauthParams() []components.ItemsTypeOauthParams {
-	if p == nil {
-		return nil
-	}
-	return p.OauthParams
-}
-
-func (p *PrometheusAuth2) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if p == nil {
-		return nil
-	}
-	return p.OauthHeaders
-}
-
-type LokiAuth2 struct {
+type CreateInputLokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
 	Username *string                                       `json:"username,omitzero"`
@@ -4999,138 +5836,66 @@ type LokiAuth2 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
-func (l LokiAuth2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
+func (c CreateInputLokiAuth2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (l *LokiAuth2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+func (c *CreateInputLokiAuth2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *LokiAuth2) GetAuthType() *components.AuthenticationTypeOptionsLokiAuth {
-	if l == nil {
+func (c *CreateInputLokiAuth2) GetAuthType() *components.AuthenticationTypeOptionsLokiAuth {
+	if c == nil {
 		return nil
 	}
-	return l.AuthType
+	return c.AuthType
 }
 
-func (l *LokiAuth2) GetUsername() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth2) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return l.Username
+	return c.Username
 }
 
-func (l *LokiAuth2) GetPassword() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth2) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return l.Password
+	return c.Password
 }
 
-func (l *LokiAuth2) GetToken() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth2) GetToken() *string {
+	if c == nil {
 		return nil
 	}
-	return l.Token
+	return c.Token
 }
 
-func (l *LokiAuth2) GetCredentialsSecret() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth2) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return l.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (l *LokiAuth2) GetTextSecret() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth2) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return l.TextSecret
+	return c.TextSecret
 }
 
-func (l *LokiAuth2) GetLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.LoginURL
-}
-
-func (l *LokiAuth2) GetSecretParamName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.SecretParamName
-}
-
-func (l *LokiAuth2) GetSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Secret
-}
-
-func (l *LokiAuth2) GetTokenAttributeName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TokenAttributeName
-}
-
-func (l *LokiAuth2) GetAuthHeaderExpr() *string {
-	if l == nil {
-		return nil
-	}
-	return l.AuthHeaderExpr
-}
-
-func (l *LokiAuth2) GetTokenTimeoutSecs() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.TokenTimeoutSecs
-}
-
-func (l *LokiAuth2) GetOauthParams() []components.ItemsTypeOauthParams {
-	if l == nil {
-		return nil
-	}
-	return l.OauthParams
-}
-
-func (l *LokiAuth2) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if l == nil {
-		return nil
-	}
-	return l.OauthHeaders
-}
-
-type InputGrafanaGrafana2 struct {
+type CreateInputInputGrafanaGrafana2 struct {
 	// Unique ID for this input
-	ID       string            `json:"id"`
-	Type     InputGrafanaType2 `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID       string                       `json:"id"`
+	Type     CreateInputInputGrafanaType2 `json:"type"`
+	Disabled *bool                        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5174,259 +5939,277 @@ type InputGrafanaGrafana2 struct {
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI *string `json:"prometheusAPI,omitzero"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
-	LokiAPI        string           `json:"lokiAPI"`
-	PrometheusAuth *PrometheusAuth2 `json:"prometheusAuth,omitzero"`
-	LokiAuth       *LokiAuth2       `json:"lokiAuth,omitzero"`
+	LokiAPI        string                      `json:"lokiAPI"`
+	PrometheusAuth *CreateInputPrometheusAuth2 `json:"prometheusAuth,omitzero"`
+	LokiAuth       *CreateInputLokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputGrafanaGrafana2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputGrafanaGrafana2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGrafanaGrafana2) GetID() string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputGrafanaGrafana2) GetType() InputGrafanaType2 {
-	if i == nil {
-		return InputGrafanaType2("")
+func (c *CreateInputInputGrafanaGrafana2) GetType() CreateInputInputGrafanaType2 {
+	if c == nil {
+		return CreateInputInputGrafanaType2("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputGrafanaGrafana2) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputGrafanaGrafana2) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputGrafanaGrafana2) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputGrafanaGrafana2) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputGrafanaGrafana2) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputGrafanaGrafana2) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputGrafanaGrafana2) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputGrafanaGrafana2) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputGrafanaGrafana2) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputGrafanaGrafana2) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputGrafanaGrafana2) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputGrafanaGrafana2) GetMaxActiveReq() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetMaxActiveReq() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveReq
+	return c.MaxActiveReq
 }
 
-func (i *InputGrafanaGrafana2) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRequestsPerSocket
+	return c.MaxRequestsPerSocket
 }
 
-func (i *InputGrafanaGrafana2) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputGrafanaGrafana2) GetCaptureHeaders() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetCaptureHeaders() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CaptureHeaders
+	return c.CaptureHeaders
 }
 
-func (i *InputGrafanaGrafana2) GetActivityLogSampleRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetActivityLogSampleRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ActivityLogSampleRate
+	return c.ActivityLogSampleRate
 }
 
-func (i *InputGrafanaGrafana2) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputGrafanaGrafana2) GetSocketTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetSocketTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketTimeout
+	return c.SocketTimeout
 }
 
-func (i *InputGrafanaGrafana2) GetKeepAliveTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetKeepAliveTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTimeout
+	return c.KeepAliveTimeout
 }
 
-func (i *InputGrafanaGrafana2) GetEnableHealthCheck() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetEnableHealthCheck() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableHealthCheck
+	return c.EnableHealthCheck
 }
 
-func (i *InputGrafanaGrafana2) GetIPAllowlistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetIPAllowlistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPAllowlistRegex
+	return c.IPAllowlistRegex
 }
 
-func (i *InputGrafanaGrafana2) GetIPDenylistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetIPDenylistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPDenylistRegex
+	return c.IPDenylistRegex
 }
 
-func (i *InputGrafanaGrafana2) GetPrometheusAPI() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetPrometheusAPI() *string {
+	if c == nil {
 		return nil
 	}
-	return i.PrometheusAPI
+	return c.PrometheusAPI
 }
 
-func (i *InputGrafanaGrafana2) GetLokiAPI() string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetLokiAPI() string {
+	if c == nil {
 		return ""
 	}
-	return i.LokiAPI
+	return c.LokiAPI
 }
 
-func (i *InputGrafanaGrafana2) GetPrometheusAuth() *PrometheusAuth2 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetPrometheusAuth() *CreateInputPrometheusAuth2 {
+	if c == nil {
 		return nil
 	}
-	return i.PrometheusAuth
+	return c.PrometheusAuth
 }
 
-func (i *InputGrafanaGrafana2) GetLokiAuth() *LokiAuth2 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetLokiAuth() *CreateInputLokiAuth2 {
+	if c == nil {
 		return nil
 	}
-	return i.LokiAuth
+	return c.LokiAuth
 }
 
-func (i *InputGrafanaGrafana2) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputGrafanaGrafana2) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana2) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-type InputGrafanaType1 string
+func (c *CreateInputInputGrafanaGrafana2) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputGrafanaGrafana2) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+type CreateInputInputGrafanaType1 string
 
 const (
-	InputGrafanaType1Grafana InputGrafanaType1 = "grafana"
+	CreateInputInputGrafanaType1Grafana CreateInputInputGrafanaType1 = "grafana"
 )
 
-func (e InputGrafanaType1) ToPointer() *InputGrafanaType1 {
+func (e CreateInputInputGrafanaType1) ToPointer() *CreateInputInputGrafanaType1 {
 	return &e
 }
-func (e *InputGrafanaType1) UnmarshalJSON(data []byte) error {
+func (e *CreateInputInputGrafanaType1) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "grafana":
-		*e = InputGrafanaType1(v)
+		*e = CreateInputInputGrafanaType1(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputGrafanaType1: %v", v)
+		return fmt.Errorf("invalid value for CreateInputInputGrafanaType1: %v", v)
 	}
 }
 
-type PrometheusAuth1 struct {
+type CreateInputPrometheusAuth1 struct {
 	// Remote Write authentication type
 	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
 	Username *string                                             `json:"username,omitzero"`
@@ -5437,134 +6220,62 @@ type PrometheusAuth1 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
-func (p PrometheusAuth1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (c CreateInputPrometheusAuth1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (p *PrometheusAuth1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (c *CreateInputPrometheusAuth1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PrometheusAuth1) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuth {
-	if p == nil {
+func (c *CreateInputPrometheusAuth1) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuth {
+	if c == nil {
 		return nil
 	}
-	return p.AuthType
+	return c.AuthType
 }
 
-func (p *PrometheusAuth1) GetUsername() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth1) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Username
+	return c.Username
 }
 
-func (p *PrometheusAuth1) GetPassword() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth1) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Password
+	return c.Password
 }
 
-func (p *PrometheusAuth1) GetToken() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth1) GetToken() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Token
+	return c.Token
 }
 
-func (p *PrometheusAuth1) GetCredentialsSecret() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth1) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return p.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (p *PrometheusAuth1) GetTextSecret() *string {
-	if p == nil {
+func (c *CreateInputPrometheusAuth1) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return p.TextSecret
+	return c.TextSecret
 }
 
-func (p *PrometheusAuth1) GetLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.LoginURL
-}
-
-func (p *PrometheusAuth1) GetSecretParamName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.SecretParamName
-}
-
-func (p *PrometheusAuth1) GetSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Secret
-}
-
-func (p *PrometheusAuth1) GetTokenAttributeName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TokenAttributeName
-}
-
-func (p *PrometheusAuth1) GetAuthHeaderExpr() *string {
-	if p == nil {
-		return nil
-	}
-	return p.AuthHeaderExpr
-}
-
-func (p *PrometheusAuth1) GetTokenTimeoutSecs() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.TokenTimeoutSecs
-}
-
-func (p *PrometheusAuth1) GetOauthParams() []components.ItemsTypeOauthParams {
-	if p == nil {
-		return nil
-	}
-	return p.OauthParams
-}
-
-func (p *PrometheusAuth1) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if p == nil {
-		return nil
-	}
-	return p.OauthHeaders
-}
-
-type LokiAuth1 struct {
+type CreateInputLokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
 	Username *string                                       `json:"username,omitzero"`
@@ -5575,138 +6286,66 @@ type LokiAuth1 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
-func (l LokiAuth1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
+func (c CreateInputLokiAuth1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (l *LokiAuth1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+func (c *CreateInputLokiAuth1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *LokiAuth1) GetAuthType() *components.AuthenticationTypeOptionsLokiAuth {
-	if l == nil {
+func (c *CreateInputLokiAuth1) GetAuthType() *components.AuthenticationTypeOptionsLokiAuth {
+	if c == nil {
 		return nil
 	}
-	return l.AuthType
+	return c.AuthType
 }
 
-func (l *LokiAuth1) GetUsername() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth1) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return l.Username
+	return c.Username
 }
 
-func (l *LokiAuth1) GetPassword() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth1) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return l.Password
+	return c.Password
 }
 
-func (l *LokiAuth1) GetToken() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth1) GetToken() *string {
+	if c == nil {
 		return nil
 	}
-	return l.Token
+	return c.Token
 }
 
-func (l *LokiAuth1) GetCredentialsSecret() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth1) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return l.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (l *LokiAuth1) GetTextSecret() *string {
-	if l == nil {
+func (c *CreateInputLokiAuth1) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return l.TextSecret
+	return c.TextSecret
 }
 
-func (l *LokiAuth1) GetLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.LoginURL
-}
-
-func (l *LokiAuth1) GetSecretParamName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.SecretParamName
-}
-
-func (l *LokiAuth1) GetSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Secret
-}
-
-func (l *LokiAuth1) GetTokenAttributeName() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TokenAttributeName
-}
-
-func (l *LokiAuth1) GetAuthHeaderExpr() *string {
-	if l == nil {
-		return nil
-	}
-	return l.AuthHeaderExpr
-}
-
-func (l *LokiAuth1) GetTokenTimeoutSecs() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.TokenTimeoutSecs
-}
-
-func (l *LokiAuth1) GetOauthParams() []components.ItemsTypeOauthParams {
-	if l == nil {
-		return nil
-	}
-	return l.OauthParams
-}
-
-func (l *LokiAuth1) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if l == nil {
-		return nil
-	}
-	return l.OauthHeaders
-}
-
-type InputGrafanaGrafana1 struct {
+type CreateInputInputGrafanaGrafana1 struct {
 	// Unique ID for this input
-	ID       string            `json:"id"`
-	Type     InputGrafanaType1 `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID       string                       `json:"id"`
+	Type     CreateInputInputGrafanaType1 `json:"type"`
+	Disabled *bool                        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5750,322 +6389,340 @@ type InputGrafanaGrafana1 struct {
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI string `json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
-	LokiAPI        *string          `json:"lokiAPI,omitzero"`
-	PrometheusAuth *PrometheusAuth1 `json:"prometheusAuth,omitzero"`
-	LokiAuth       *LokiAuth1       `json:"lokiAuth,omitzero"`
+	LokiAPI        *string                     `json:"lokiAPI,omitzero"`
+	PrometheusAuth *CreateInputPrometheusAuth1 `json:"prometheusAuth,omitzero"`
+	LokiAuth       *CreateInputLokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputGrafanaGrafana1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputGrafanaGrafana1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGrafanaGrafana1) GetID() string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputGrafanaGrafana1) GetType() InputGrafanaType1 {
-	if i == nil {
-		return InputGrafanaType1("")
+func (c *CreateInputInputGrafanaGrafana1) GetType() CreateInputInputGrafanaType1 {
+	if c == nil {
+		return CreateInputInputGrafanaType1("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputGrafanaGrafana1) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputGrafanaGrafana1) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputGrafanaGrafana1) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputGrafanaGrafana1) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputGrafanaGrafana1) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputGrafanaGrafana1) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputGrafanaGrafana1) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputGrafanaGrafana1) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputGrafanaGrafana1) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputGrafanaGrafana1) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputGrafanaGrafana1) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputGrafanaGrafana1) GetMaxActiveReq() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetMaxActiveReq() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveReq
+	return c.MaxActiveReq
 }
 
-func (i *InputGrafanaGrafana1) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRequestsPerSocket
+	return c.MaxRequestsPerSocket
 }
 
-func (i *InputGrafanaGrafana1) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputGrafanaGrafana1) GetCaptureHeaders() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetCaptureHeaders() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CaptureHeaders
+	return c.CaptureHeaders
 }
 
-func (i *InputGrafanaGrafana1) GetActivityLogSampleRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetActivityLogSampleRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ActivityLogSampleRate
+	return c.ActivityLogSampleRate
 }
 
-func (i *InputGrafanaGrafana1) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputGrafanaGrafana1) GetSocketTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetSocketTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketTimeout
+	return c.SocketTimeout
 }
 
-func (i *InputGrafanaGrafana1) GetKeepAliveTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetKeepAliveTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTimeout
+	return c.KeepAliveTimeout
 }
 
-func (i *InputGrafanaGrafana1) GetEnableHealthCheck() *bool {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetEnableHealthCheck() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableHealthCheck
+	return c.EnableHealthCheck
 }
 
-func (i *InputGrafanaGrafana1) GetIPAllowlistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetIPAllowlistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPAllowlistRegex
+	return c.IPAllowlistRegex
 }
 
-func (i *InputGrafanaGrafana1) GetIPDenylistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetIPDenylistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPDenylistRegex
+	return c.IPDenylistRegex
 }
 
-func (i *InputGrafanaGrafana1) GetPrometheusAPI() string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetPrometheusAPI() string {
+	if c == nil {
 		return ""
 	}
-	return i.PrometheusAPI
+	return c.PrometheusAPI
 }
 
-func (i *InputGrafanaGrafana1) GetLokiAPI() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetLokiAPI() *string {
+	if c == nil {
 		return nil
 	}
-	return i.LokiAPI
+	return c.LokiAPI
 }
 
-func (i *InputGrafanaGrafana1) GetPrometheusAuth() *PrometheusAuth1 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetPrometheusAuth() *CreateInputPrometheusAuth1 {
+	if c == nil {
 		return nil
 	}
-	return i.PrometheusAuth
+	return c.PrometheusAuth
 }
 
-func (i *InputGrafanaGrafana1) GetLokiAuth() *LokiAuth1 {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetLokiAuth() *CreateInputLokiAuth1 {
+	if c == nil {
 		return nil
 	}
-	return i.LokiAuth
+	return c.LokiAuth
 }
 
-func (i *InputGrafanaGrafana1) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputGrafanaGrafana1) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputGrafanaGrafana1) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-type InputGrafanaType string
+func (c *CreateInputInputGrafanaGrafana1) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputGrafanaGrafana1) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+type CreateInputInputGrafanaUnionType string
 
 const (
-	InputGrafanaTypeInputGrafanaGrafana1 InputGrafanaType = "InputGrafana_Grafana_1"
-	InputGrafanaTypeInputGrafanaGrafana2 InputGrafanaType = "InputGrafana_Grafana_2"
+	CreateInputInputGrafanaUnionTypeCreateInputInputGrafanaGrafana1 CreateInputInputGrafanaUnionType = "createInput_InputGrafana_Grafana_1"
+	CreateInputInputGrafanaUnionTypeCreateInputInputGrafanaGrafana2 CreateInputInputGrafanaUnionType = "createInput_InputGrafana_Grafana_2"
 )
 
-type InputGrafana struct {
-	InputGrafanaGrafana1 *InputGrafanaGrafana1 `queryParam:"inline" union:"member"`
-	InputGrafanaGrafana2 *InputGrafanaGrafana2 `queryParam:"inline" union:"member"`
+type CreateInputInputGrafanaUnion struct {
+	CreateInputInputGrafanaGrafana1 *CreateInputInputGrafanaGrafana1 `queryParam:"inline" union:"member"`
+	CreateInputInputGrafanaGrafana2 *CreateInputInputGrafanaGrafana2 `queryParam:"inline" union:"member"`
 
-	Type InputGrafanaType
+	Type CreateInputInputGrafanaUnionType
 }
 
-func CreateInputGrafanaInputGrafanaGrafana1(inputGrafanaGrafana1 InputGrafanaGrafana1) InputGrafana {
-	typ := InputGrafanaTypeInputGrafanaGrafana1
+func CreateCreateInputInputGrafanaUnionCreateInputInputGrafanaGrafana1(createInputInputGrafanaGrafana1 CreateInputInputGrafanaGrafana1) CreateInputInputGrafanaUnion {
+	typ := CreateInputInputGrafanaUnionTypeCreateInputInputGrafanaGrafana1
 
-	return InputGrafana{
-		InputGrafanaGrafana1: &inputGrafanaGrafana1,
-		Type:                 typ,
+	return CreateInputInputGrafanaUnion{
+		CreateInputInputGrafanaGrafana1: &createInputInputGrafanaGrafana1,
+		Type:                            typ,
 	}
 }
 
-func CreateInputGrafanaInputGrafanaGrafana2(inputGrafanaGrafana2 InputGrafanaGrafana2) InputGrafana {
-	typ := InputGrafanaTypeInputGrafanaGrafana2
+func CreateCreateInputInputGrafanaUnionCreateInputInputGrafanaGrafana2(createInputInputGrafanaGrafana2 CreateInputInputGrafanaGrafana2) CreateInputInputGrafanaUnion {
+	typ := CreateInputInputGrafanaUnionTypeCreateInputInputGrafanaGrafana2
 
-	return InputGrafana{
-		InputGrafanaGrafana2: &inputGrafanaGrafana2,
-		Type:                 typ,
+	return CreateInputInputGrafanaUnion{
+		CreateInputInputGrafanaGrafana2: &createInputInputGrafanaGrafana2,
+		Type:                            typ,
 	}
 }
 
-func (u *InputGrafana) UnmarshalJSON(data []byte) error {
+func (u *CreateInputInputGrafanaUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var inputGrafanaGrafana1 InputGrafanaGrafana1 = InputGrafanaGrafana1{}
-	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana1, "", true, nil); err == nil {
+	var createInputInputGrafanaGrafana1 CreateInputInputGrafanaGrafana1 = CreateInputInputGrafanaGrafana1{}
+	if err := utils.UnmarshalJSON(data, &createInputInputGrafanaGrafana1, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputGrafanaTypeInputGrafanaGrafana1,
-			Value: &inputGrafanaGrafana1,
+			Type:  CreateInputInputGrafanaUnionTypeCreateInputInputGrafanaGrafana1,
+			Value: &createInputInputGrafanaGrafana1,
 		})
 	}
 
-	var inputGrafanaGrafana2 InputGrafanaGrafana2 = InputGrafanaGrafana2{}
-	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana2, "", true, nil); err == nil {
+	var createInputInputGrafanaGrafana2 CreateInputInputGrafanaGrafana2 = CreateInputInputGrafanaGrafana2{}
+	if err := utils.UnmarshalJSON(data, &createInputInputGrafanaGrafana2, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputGrafanaTypeInputGrafanaGrafana2,
-			Value: &inputGrafanaGrafana2,
+			Type:  CreateInputInputGrafanaUnionTypeCreateInputInputGrafanaGrafana2,
+			Value: &createInputInputGrafanaGrafana2,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputInputGrafanaUnion", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputInputGrafanaUnion", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(InputGrafanaType)
+	u.Type = best.Type.(CreateInputInputGrafanaUnionType)
 	switch best.Type {
-	case InputGrafanaTypeInputGrafanaGrafana1:
-		u.InputGrafanaGrafana1 = best.Value.(*InputGrafanaGrafana1)
+	case CreateInputInputGrafanaUnionTypeCreateInputInputGrafanaGrafana1:
+		u.CreateInputInputGrafanaGrafana1 = best.Value.(*CreateInputInputGrafanaGrafana1)
 		return nil
-	case InputGrafanaTypeInputGrafanaGrafana2:
-		u.InputGrafanaGrafana2 = best.Value.(*InputGrafanaGrafana2)
+	case CreateInputInputGrafanaUnionTypeCreateInputInputGrafanaGrafana2:
+		u.CreateInputInputGrafanaGrafana2 = best.Value.(*CreateInputInputGrafanaGrafana2)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputInputGrafanaUnion", string(data))
 }
 
-func (u InputGrafana) MarshalJSON() ([]byte, error) {
-	if u.InputGrafanaGrafana1 != nil {
-		return utils.MarshalJSON(u.InputGrafanaGrafana1, "", true)
+func (u CreateInputInputGrafanaUnion) MarshalJSON() ([]byte, error) {
+	if u.CreateInputInputGrafanaGrafana1 != nil {
+		return utils.MarshalJSON(u.CreateInputInputGrafanaGrafana1, "", true)
 	}
 
-	if u.InputGrafanaGrafana2 != nil {
-		return utils.MarshalJSON(u.InputGrafanaGrafana2, "", true)
+	if u.CreateInputInputGrafanaGrafana2 != nil {
+		return utils.MarshalJSON(u.CreateInputInputGrafanaGrafana2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type InputGrafana: all fields are null")
+	return nil, errors.New("could not marshal union type CreateInputInputGrafanaUnion: all fields are null")
 }
 
 type CreateInputTypeConfluentCloud string
@@ -6091,7 +6748,7 @@ func (e *CreateInputTypeConfluentCloud) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputConfluentCloud struct {
+type CreateInputInputConfluentCloud struct {
 	// Unique ID for this input
 	ID       string                        `json:"id"`
 	Type     CreateInputTypeConfluentCloud `json:"type"`
@@ -6162,264 +6819,264 @@ type InputConfluentCloud struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 }
 
-func (i InputConfluentCloud) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputConfluentCloud) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputConfluentCloud) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputConfluentCloud) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputConfluentCloud) GetID() string {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputConfluentCloud) GetType() CreateInputTypeConfluentCloud {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetType() CreateInputTypeConfluentCloud {
+	if c == nil {
 		return CreateInputTypeConfluentCloud("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputConfluentCloud) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputConfluentCloud) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputConfluentCloud) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputConfluentCloud) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputConfluentCloud) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputConfluentCloud) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputConfluentCloud) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputConfluentCloud) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputConfluentCloud) GetBrokers() []string {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetBrokers() []string {
+	if c == nil {
 		return []string{}
 	}
-	return i.Brokers
+	return c.Brokers
 }
 
-func (i *InputConfluentCloud) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputConfluentCloud) GetTopics() []string {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetTopics() []string {
+	if c == nil {
 		return []string{}
 	}
-	return i.Topics
+	return c.Topics
 }
 
-func (i *InputConfluentCloud) GetGroupID() *string {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetGroupID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.GroupID
+	return c.GroupID
 }
 
-func (i *InputConfluentCloud) GetFromBeginning() *bool {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetFromBeginning() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.FromBeginning
+	return c.FromBeginning
 }
 
-func (i *InputConfluentCloud) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationType {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationType {
+	if c == nil {
 		return nil
 	}
-	return i.KafkaSchemaRegistry
+	return c.KafkaSchemaRegistry
 }
 
-func (i *InputConfluentCloud) GetConnectionTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetConnectionTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ConnectionTimeout
+	return c.ConnectionTimeout
 }
 
-func (i *InputConfluentCloud) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputConfluentCloud) GetMaxRetries() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetMaxRetries() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRetries
+	return c.MaxRetries
 }
 
-func (i *InputConfluentCloud) GetMaxBackOff() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetMaxBackOff() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBackOff
+	return c.MaxBackOff
 }
 
-func (i *InputConfluentCloud) GetInitialBackoff() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetInitialBackoff() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.InitialBackoff
+	return c.InitialBackoff
 }
 
-func (i *InputConfluentCloud) GetBackoffRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetBackoffRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.BackoffRate
+	return c.BackoffRate
 }
 
-func (i *InputConfluentCloud) GetAuthenticationTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetAuthenticationTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AuthenticationTimeout
+	return c.AuthenticationTimeout
 }
 
-func (i *InputConfluentCloud) GetReauthenticationThreshold() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetReauthenticationThreshold() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ReauthenticationThreshold
+	return c.ReauthenticationThreshold
 }
 
-func (i *InputConfluentCloud) GetSasl() *components.AuthenticationType {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetSasl() *components.AuthenticationType {
+	if c == nil {
 		return nil
 	}
-	return i.Sasl
+	return c.Sasl
 }
 
-func (i *InputConfluentCloud) GetSessionTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetSessionTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SessionTimeout
+	return c.SessionTimeout
 }
 
-func (i *InputConfluentCloud) GetRebalanceTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetRebalanceTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RebalanceTimeout
+	return c.RebalanceTimeout
 }
 
-func (i *InputConfluentCloud) GetHeartbeatInterval() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetHeartbeatInterval() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.HeartbeatInterval
+	return c.HeartbeatInterval
 }
 
-func (i *InputConfluentCloud) GetAutoCommitInterval() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetAutoCommitInterval() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AutoCommitInterval
+	return c.AutoCommitInterval
 }
 
-func (i *InputConfluentCloud) GetAutoCommitThreshold() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetAutoCommitThreshold() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AutoCommitThreshold
+	return c.AutoCommitThreshold
 }
 
-func (i *InputConfluentCloud) GetMaxBytesPerPartition() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetMaxBytesPerPartition() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBytesPerPartition
+	return c.MaxBytesPerPartition
 }
 
-func (i *InputConfluentCloud) GetMaxBytes() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetMaxBytes() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBytes
+	return c.MaxBytes
 }
 
-func (i *InputConfluentCloud) GetMaxSocketErrors() *float64 {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetMaxSocketErrors() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxSocketErrors
+	return c.MaxSocketErrors
 }
 
-func (i *InputConfluentCloud) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputConfluentCloud) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputConfluentCloud) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
 type CreateInputTypeElastic string
@@ -6445,25 +7102,25 @@ func (e *CreateInputTypeElastic) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AuthenticationTypeElastic string
+type CreateInputAuthenticationTypeElastic string
 
 const (
-	// AuthenticationTypeElasticNone None
-	AuthenticationTypeElasticNone AuthenticationTypeElastic = "none"
-	// AuthenticationTypeElasticBasic Basic
-	AuthenticationTypeElasticBasic AuthenticationTypeElastic = "basic"
-	// AuthenticationTypeElasticCredentialsSecret Basic (credentials secret)
-	AuthenticationTypeElasticCredentialsSecret AuthenticationTypeElastic = "credentialsSecret"
-	// AuthenticationTypeElasticAuthTokens Auth Tokens
-	AuthenticationTypeElasticAuthTokens AuthenticationTypeElastic = "authTokens"
+	// CreateInputAuthenticationTypeElasticNone None
+	CreateInputAuthenticationTypeElasticNone CreateInputAuthenticationTypeElastic = "none"
+	// CreateInputAuthenticationTypeElasticBasic Basic
+	CreateInputAuthenticationTypeElasticBasic CreateInputAuthenticationTypeElastic = "basic"
+	// CreateInputAuthenticationTypeElasticCredentialsSecret Basic (credentials secret)
+	CreateInputAuthenticationTypeElasticCredentialsSecret CreateInputAuthenticationTypeElastic = "credentialsSecret"
+	// CreateInputAuthenticationTypeElasticAuthTokens Auth Tokens
+	CreateInputAuthenticationTypeElasticAuthTokens CreateInputAuthenticationTypeElastic = "authTokens"
 )
 
-func (e AuthenticationTypeElastic) ToPointer() *AuthenticationTypeElastic {
+func (e CreateInputAuthenticationTypeElastic) ToPointer() *CreateInputAuthenticationTypeElastic {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthenticationTypeElastic) IsExact() bool {
+func (e *CreateInputAuthenticationTypeElastic) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "basic", "credentialsSecret", "authTokens":
@@ -6500,21 +7157,21 @@ func (e *CreateInputAPIVersion) IsExact() bool {
 	return false
 }
 
-// ProxyModeAuthenticationMethod - Enter credentials directly, or select a stored secret
-type ProxyModeAuthenticationMethod string
+// CreateInputProxyModeAuthenticationMethod - Enter credentials directly, or select a stored secret
+type CreateInputProxyModeAuthenticationMethod string
 
 const (
-	ProxyModeAuthenticationMethodNone   ProxyModeAuthenticationMethod = "none"
-	ProxyModeAuthenticationMethodManual ProxyModeAuthenticationMethod = "manual"
-	ProxyModeAuthenticationMethodSecret ProxyModeAuthenticationMethod = "secret"
+	CreateInputProxyModeAuthenticationMethodNone   CreateInputProxyModeAuthenticationMethod = "none"
+	CreateInputProxyModeAuthenticationMethodManual CreateInputProxyModeAuthenticationMethod = "manual"
+	CreateInputProxyModeAuthenticationMethodSecret CreateInputProxyModeAuthenticationMethod = "secret"
 )
 
-func (e ProxyModeAuthenticationMethod) ToPointer() *ProxyModeAuthenticationMethod {
+func (e CreateInputProxyModeAuthenticationMethod) ToPointer() *CreateInputProxyModeAuthenticationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ProxyModeAuthenticationMethod) IsExact() bool {
+func (e *CreateInputProxyModeAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "manual", "secret":
@@ -6524,13 +7181,13 @@ func (e *ProxyModeAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type ProxyModeElastic struct {
+type CreateInputProxyModeElastic struct {
 	// Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
 	Enabled bool `json:"enabled"`
 	// Enter credentials directly, or select a stored secret
-	AuthType *ProxyModeAuthenticationMethod `json:"authType,omitzero"`
-	Username *string                        `json:"username,omitzero"`
-	Password *string                        `json:"password,omitzero"`
+	AuthType *CreateInputProxyModeAuthenticationMethod `json:"authType,omitzero"`
+	Username *string                                   `json:"username,omitzero"`
+	Password *string                                   `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
@@ -6541,83 +7198,92 @@ type ProxyModeElastic struct {
 	RemoveHeaders []string `json:"removeHeaders,omitzero"`
 	// Amount of time, in seconds, to wait for a proxy request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
-func (p ProxyModeElastic) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (c CreateInputProxyModeElastic) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (p *ProxyModeElastic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (c *CreateInputProxyModeElastic) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *ProxyModeElastic) GetEnabled() bool {
-	if p == nil {
+func (c *CreateInputProxyModeElastic) GetEnabled() bool {
+	if c == nil {
 		return false
 	}
-	return p.Enabled
+	return c.Enabled
 }
 
-func (p *ProxyModeElastic) GetAuthType() *ProxyModeAuthenticationMethod {
-	if p == nil {
+func (c *CreateInputProxyModeElastic) GetAuthType() *CreateInputProxyModeAuthenticationMethod {
+	if c == nil {
 		return nil
 	}
-	return p.AuthType
+	return c.AuthType
 }
 
-func (p *ProxyModeElastic) GetUsername() *string {
-	if p == nil {
+func (c *CreateInputProxyModeElastic) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Username
+	return c.Username
 }
 
-func (p *ProxyModeElastic) GetPassword() *string {
-	if p == nil {
+func (c *CreateInputProxyModeElastic) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Password
+	return c.Password
 }
 
-func (p *ProxyModeElastic) GetCredentialsSecret() *string {
-	if p == nil {
+func (c *CreateInputProxyModeElastic) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return p.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (p *ProxyModeElastic) GetURL() *string {
-	if p == nil {
+func (c *CreateInputProxyModeElastic) GetURL() *string {
+	if c == nil {
 		return nil
 	}
-	return p.URL
+	return c.URL
 }
 
-func (p *ProxyModeElastic) GetRejectUnauthorized() *bool {
-	if p == nil {
+func (c *CreateInputProxyModeElastic) GetRejectUnauthorized() *bool {
+	if c == nil {
 		return nil
 	}
-	return p.RejectUnauthorized
+	return c.RejectUnauthorized
 }
 
-func (p *ProxyModeElastic) GetRemoveHeaders() []string {
-	if p == nil {
+func (c *CreateInputProxyModeElastic) GetRemoveHeaders() []string {
+	if c == nil {
 		return nil
 	}
-	return p.RemoveHeaders
+	return c.RemoveHeaders
 }
 
-func (p *ProxyModeElastic) GetTimeoutSec() *float64 {
-	if p == nil {
+func (c *CreateInputProxyModeElastic) GetTimeoutSec() *float64 {
+	if c == nil {
 		return nil
 	}
-	return p.TimeoutSec
+	return c.TimeoutSec
 }
 
-type InputElastic struct {
+func (c *CreateInputProxyModeElastic) GetTemplateURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateURL
+}
+
+type CreateInputInputElastic struct {
 	// Unique ID for this input
 	ID       string                 `json:"id"`
 	Type     CreateInputTypeElastic `json:"type"`
@@ -6663,287 +7329,305 @@ type InputElastic struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
-	ElasticAPI string                     `json:"elasticAPI"`
-	AuthType   *AuthenticationTypeElastic `json:"authType,omitzero"`
+	ElasticAPI string                                `json:"elasticAPI"`
+	AuthType   *CreateInputAuthenticationTypeElastic `json:"authType,omitzero"`
 	// The API version to use for communicating with the server
 	APIVersion *CreateInputAPIVersion `json:"apiVersion,omitzero"`
 	// Headers to add to all events
 	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	ProxyMode   *ProxyModeElastic                          `json:"proxyMode,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
-	Username    *string                                    `json:"username,omitzero"`
-	Password    *string                                    `json:"password,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	ProxyMode   *CreateInputProxyModeElastic   `json:"proxyMode,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	Username    *string                        `json:"username,omitzero"`
+	Password    *string                        `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header
 	AuthTokens []string `json:"authTokens,omitzero"`
 	// Custom version information to respond to requests
 	CustomAPIVersion *string `json:"customAPIVersion,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (i InputElastic) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputElastic) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputElastic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputElastic) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputElastic) GetID() string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputElastic) GetType() CreateInputTypeElastic {
-	if i == nil {
+func (c *CreateInputInputElastic) GetType() CreateInputTypeElastic {
+	if c == nil {
 		return CreateInputTypeElastic("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputElastic) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputElastic) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputElastic) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputElastic) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputElastic) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputElastic) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputElastic) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputElastic) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputElastic) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputElastic) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputElastic) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputElastic) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputElastic) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputElastic) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputElastic) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputElastic) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputElastic) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputElastic) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputElastic) GetMaxActiveReq() *float64 {
-	if i == nil {
+func (c *CreateInputInputElastic) GetMaxActiveReq() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveReq
+	return c.MaxActiveReq
 }
 
-func (i *InputElastic) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
+func (c *CreateInputInputElastic) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRequestsPerSocket
+	return c.MaxRequestsPerSocket
 }
 
-func (i *InputElastic) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputElastic) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputElastic) GetCaptureHeaders() *bool {
-	if i == nil {
+func (c *CreateInputInputElastic) GetCaptureHeaders() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CaptureHeaders
+	return c.CaptureHeaders
 }
 
-func (i *InputElastic) GetActivityLogSampleRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputElastic) GetActivityLogSampleRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ActivityLogSampleRate
+	return c.ActivityLogSampleRate
 }
 
-func (i *InputElastic) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputElastic) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputElastic) GetSocketTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputElastic) GetSocketTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketTimeout
+	return c.SocketTimeout
 }
 
-func (i *InputElastic) GetKeepAliveTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputElastic) GetKeepAliveTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTimeout
+	return c.KeepAliveTimeout
 }
 
-func (i *InputElastic) GetEnableHealthCheck() *bool {
-	if i == nil {
+func (c *CreateInputInputElastic) GetEnableHealthCheck() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableHealthCheck
+	return c.EnableHealthCheck
 }
 
-func (i *InputElastic) GetIPAllowlistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetIPAllowlistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPAllowlistRegex
+	return c.IPAllowlistRegex
 }
 
-func (i *InputElastic) GetIPDenylistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetIPDenylistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPDenylistRegex
+	return c.IPDenylistRegex
 }
 
-func (i *InputElastic) GetElasticAPI() string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetElasticAPI() string {
+	if c == nil {
 		return ""
 	}
-	return i.ElasticAPI
+	return c.ElasticAPI
 }
 
-func (i *InputElastic) GetAuthType() *AuthenticationTypeElastic {
-	if i == nil {
+func (c *CreateInputInputElastic) GetAuthType() *CreateInputAuthenticationTypeElastic {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputElastic) GetAPIVersion() *CreateInputAPIVersion {
-	if i == nil {
+func (c *CreateInputInputElastic) GetAPIVersion() *CreateInputAPIVersion {
+	if c == nil {
 		return nil
 	}
-	return i.APIVersion
+	return c.APIVersion
 }
 
-func (i *InputElastic) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
-	if i == nil {
+func (c *CreateInputInputElastic) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+	if c == nil {
 		return nil
 	}
-	return i.ExtraHTTPHeaders
+	return c.ExtraHTTPHeaders
 }
 
-func (i *InputElastic) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputElastic) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputElastic) GetProxyMode() *ProxyModeElastic {
-	if i == nil {
+func (c *CreateInputInputElastic) GetProxyMode() *CreateInputProxyModeElastic {
+	if c == nil {
 		return nil
 	}
-	return i.ProxyMode
+	return c.ProxyMode
 }
 
-func (i *InputElastic) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputElastic) GetUsername() *string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Username
+	return c.Username
 }
 
-func (i *InputElastic) GetPassword() *string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Password
+	return c.Password
 }
 
-func (i *InputElastic) GetCredentialsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (i *InputElastic) GetAuthTokens() []string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetAuthTokens() []string {
+	if c == nil {
 		return nil
 	}
-	return i.AuthTokens
+	return c.AuthTokens
 }
 
-func (i *InputElastic) GetCustomAPIVersion() *string {
-	if i == nil {
+func (c *CreateInputInputElastic) GetCustomAPIVersion() *string {
+	if c == nil {
 		return nil
 	}
-	return i.CustomAPIVersion
+	return c.CustomAPIVersion
+}
+
+func (c *CreateInputInputElastic) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputElastic) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
 }
 
 type CreateInputTypeAzureBlob string
@@ -6969,7 +7653,7 @@ func (e *CreateInputTypeAzureBlob) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputAzureBlob struct {
+type CreateInputInputAzureBlob struct {
 	// Unique ID for this input
 	ID       string                   `json:"id"`
 	Type     CreateInputTypeAzureBlob `json:"type"`
@@ -7002,7 +7686,7 @@ type InputAzureBlob struct {
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
 	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -7030,248 +7714,284 @@ type InputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
 	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+	TemplateQueueName *string `json:"__template_queueName,omitzero"`
+	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
 }
 
-func (i InputAzureBlob) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputAzureBlob) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputAzureBlob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputAzureBlob) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAzureBlob) GetID() string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputAzureBlob) GetType() CreateInputTypeAzureBlob {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetType() CreateInputTypeAzureBlob {
+	if c == nil {
 		return CreateInputTypeAzureBlob("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputAzureBlob) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputAzureBlob) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputAzureBlob) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputAzureBlob) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputAzureBlob) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputAzureBlob) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputAzureBlob) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputAzureBlob) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputAzureBlob) GetQueueName() string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetQueueName() string {
+	if c == nil {
 		return ""
 	}
-	return i.QueueName
+	return c.QueueName
 }
 
-func (i *InputAzureBlob) GetFileFilter() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetFileFilter() *string {
+	if c == nil {
 		return nil
 	}
-	return i.FileFilter
+	return c.FileFilter
 }
 
-func (i *InputAzureBlob) GetVisibilityTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetVisibilityTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.VisibilityTimeout
+	return c.VisibilityTimeout
 }
 
-func (i *InputAzureBlob) GetNumReceivers() *float64 {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetNumReceivers() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.NumReceivers
+	return c.NumReceivers
 }
 
-func (i *InputAzureBlob) GetMaxMessages() *float64 {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetMaxMessages() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxMessages
+	return c.MaxMessages
 }
 
-func (i *InputAzureBlob) GetServicePeriodSecs() *float64 {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetServicePeriodSecs() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ServicePeriodSecs
+	return c.ServicePeriodSecs
 }
 
-func (i *InputAzureBlob) GetSkipOnError() *bool {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetSkipOnError() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SkipOnError
+	return c.SkipOnError
 }
 
-func (i *InputAzureBlob) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputAzureBlob) GetBreakerRulesets() []string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetBreakerRulesets() []string {
+	if c == nil {
 		return nil
 	}
-	return i.BreakerRulesets
+	return c.BreakerRulesets
 }
 
-func (i *InputAzureBlob) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetStaleChannelFlushMs() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.StaleChannelFlushMs
+	return c.StaleChannelFlushMs
 }
 
-func (i *InputAzureBlob) GetParquetChunkSizeMB() *float64 {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetParquetChunkSizeMB() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ParquetChunkSizeMB
+	return c.ParquetChunkSizeMB
 }
 
-func (i *InputAzureBlob) GetParquetChunkDownloadTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetParquetChunkDownloadTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ParquetChunkDownloadTimeout
+	return c.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlob) GetAuthType() *components.AuthenticationMethodOptions {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetAuthType() *components.AuthenticationMethodOptions {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputAzureBlob) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputAzureBlob) GetConnectionString() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetConnectionString() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ConnectionString
+	return c.ConnectionString
 }
 
-func (i *InputAzureBlob) GetTextSecret() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TextSecret
+	return c.TextSecret
 }
 
-func (i *InputAzureBlob) GetStorageAccountName() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetStorageAccountName() *string {
+	if c == nil {
 		return nil
 	}
-	return i.StorageAccountName
+	return c.StorageAccountName
 }
 
-func (i *InputAzureBlob) GetTenantID() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetTenantID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TenantID
+	return c.TenantID
 }
 
-func (i *InputAzureBlob) GetClientID() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetClientID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ClientID
+	return c.ClientID
 }
 
-func (i *InputAzureBlob) GetAzureCloud() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetAzureCloud() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AzureCloud
+	return c.AzureCloud
 }
 
-func (i *InputAzureBlob) GetEndpointSuffix() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetEndpointSuffix() *string {
+	if c == nil {
 		return nil
 	}
-	return i.EndpointSuffix
+	return c.EndpointSuffix
 }
 
-func (i *InputAzureBlob) GetClientTextSecret() *string {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetClientTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ClientTextSecret
+	return c.ClientTextSecret
 }
 
-func (i *InputAzureBlob) GetCertificate() *components.CertificateTypeAzureBlobAuthTypeClientCert {
-	if i == nil {
+func (c *CreateInputInputAzureBlob) GetCertificate() *components.CertificateTypeAzureBlobAuthTypeClientCert {
+	if c == nil {
 		return nil
 	}
-	return i.Certificate
+	return c.Certificate
+}
+
+func (c *CreateInputInputAzureBlob) GetTemplateQueueName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateQueueName
+}
+
+func (c *CreateInputInputAzureBlob) GetTemplateConnectionString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateConnectionString
+}
+
+func (c *CreateInputInputAzureBlob) GetTemplateTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTenantID
+}
+
+func (c *CreateInputInputAzureBlob) GetTemplateClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateClientID
 }
 
 type CreateInputTypeSplunkHec string
@@ -7297,7 +8017,7 @@ func (e *CreateInputTypeSplunkHec) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AuthTokenSplunkHec struct {
+type CreateInputAuthTokenSplunkHec struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Select or create a stored text secret
@@ -7310,70 +8030,70 @@ type AuthTokenSplunkHec struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 }
 
-func (a AuthTokenSplunkHec) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (c CreateInputAuthTokenSplunkHec) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (a *AuthTokenSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (c *CreateInputAuthTokenSplunkHec) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AuthTokenSplunkHec) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
-	if a == nil {
+func (c *CreateInputAuthTokenSplunkHec) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
+	if c == nil {
 		return nil
 	}
-	return a.AuthType
+	return c.AuthType
 }
 
-func (a *AuthTokenSplunkHec) GetTokenSecret() *string {
-	if a == nil {
+func (c *CreateInputAuthTokenSplunkHec) GetTokenSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return a.TokenSecret
+	return c.TokenSecret
 }
 
-func (a *AuthTokenSplunkHec) GetToken() string {
-	if a == nil {
+func (c *CreateInputAuthTokenSplunkHec) GetToken() string {
+	if c == nil {
 		return ""
 	}
-	return a.Token
+	return c.Token
 }
 
-func (a *AuthTokenSplunkHec) GetEnabled() *bool {
-	if a == nil {
+func (c *CreateInputAuthTokenSplunkHec) GetEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return a.Enabled
+	return c.Enabled
 }
 
-func (a *AuthTokenSplunkHec) GetDescription() *string {
-	if a == nil {
+func (c *CreateInputAuthTokenSplunkHec) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return a.Description
+	return c.Description
 }
 
-func (a *AuthTokenSplunkHec) GetAllowedIndexesAtToken() []string {
-	if a == nil {
+func (c *CreateInputAuthTokenSplunkHec) GetAllowedIndexesAtToken() []string {
+	if c == nil {
 		return nil
 	}
-	return a.AllowedIndexesAtToken
+	return c.AllowedIndexesAtToken
 }
 
-func (a *AuthTokenSplunkHec) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if a == nil {
+func (c *CreateInputAuthTokenSplunkHec) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return a.Metadata
+	return c.Metadata
 }
 
-type InputSplunkHec struct {
+type CreateInputInputSplunkHec struct {
 	// Unique ID for this input
 	ID       string                   `json:"id"`
 	Type     CreateInputTypeSplunkHec `json:"type"`
@@ -7396,7 +8116,7 @@ type InputSplunkHec struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []AuthTokenSplunkHec                  `json:"authTokens,omitzero"`
+	AuthTokens []CreateInputAuthTokenSplunkHec       `json:"authTokens,omitzero"`
 	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
@@ -7413,8 +8133,7 @@ type InputSplunkHec struct {
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitzero"`
-	EnableHealthCheck any      `json:"enableHealthCheck,omitzero"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
@@ -7422,7 +8141,7 @@ type InputSplunkHec struct {
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// Enable Splunk HEC acknowledgements
@@ -7444,386 +8163,406 @@ type InputSplunkHec struct {
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
 	Description      *string `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
 }
 
-func (i InputSplunkHec) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputSplunkHec) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputSplunkHec) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkHec) GetID() string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputSplunkHec) GetType() CreateInputTypeSplunkHec {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetType() CreateInputTypeSplunkHec {
+	if c == nil {
 		return CreateInputTypeSplunkHec("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputSplunkHec) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputSplunkHec) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputSplunkHec) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputSplunkHec) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputSplunkHec) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputSplunkHec) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputSplunkHec) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputSplunkHec) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputSplunkHec) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputSplunkHec) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputSplunkHec) GetAuthTokens() []AuthTokenSplunkHec {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetAuthTokens() []CreateInputAuthTokenSplunkHec {
+	if c == nil {
 		return nil
 	}
-	return i.AuthTokens
+	return c.AuthTokens
 }
 
-func (i *InputSplunkHec) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputSplunkHec) GetMaxActiveReq() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetMaxActiveReq() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveReq
+	return c.MaxActiveReq
 }
 
-func (i *InputSplunkHec) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRequestsPerSocket
+	return c.MaxRequestsPerSocket
 }
 
-func (i *InputSplunkHec) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputSplunkHec) GetCaptureHeaders() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetCaptureHeaders() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CaptureHeaders
+	return c.CaptureHeaders
 }
 
-func (i *InputSplunkHec) GetActivityLogSampleRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetActivityLogSampleRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ActivityLogSampleRate
+	return c.ActivityLogSampleRate
 }
 
-func (i *InputSplunkHec) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputSplunkHec) GetSocketTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetSocketTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketTimeout
+	return c.SocketTimeout
 }
 
-func (i *InputSplunkHec) GetKeepAliveTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetKeepAliveTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTimeout
+	return c.KeepAliveTimeout
 }
 
-func (i *InputSplunkHec) GetEnableHealthCheck() any {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetIPAllowlistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.EnableHealthCheck
+	return c.IPAllowlistRegex
 }
 
-func (i *InputSplunkHec) GetIPAllowlistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetIPDenylistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPAllowlistRegex
+	return c.IPDenylistRegex
 }
 
-func (i *InputSplunkHec) GetIPDenylistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPDenylistRegex
-}
-
-func (i *InputSplunkHec) GetSplunkHecAPI() string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetSplunkHecAPI() string {
+	if c == nil {
 		return ""
 	}
-	return i.SplunkHecAPI
+	return c.SplunkHecAPI
 }
 
-func (i *InputSplunkHec) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputSplunkHec) GetAllowedIndexes() []string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetAllowedIndexes() []string {
+	if c == nil {
 		return nil
 	}
-	return i.AllowedIndexes
+	return c.AllowedIndexes
 }
 
-func (i *InputSplunkHec) GetSplunkHecAcks() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetSplunkHecAcks() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SplunkHecAcks
+	return c.SplunkHecAcks
 }
 
-func (i *InputSplunkHec) GetBreakerRulesets() []string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetBreakerRulesets() []string {
+	if c == nil {
 		return nil
 	}
-	return i.BreakerRulesets
+	return c.BreakerRulesets
 }
 
-func (i *InputSplunkHec) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetStaleChannelFlushMs() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.StaleChannelFlushMs
+	return c.StaleChannelFlushMs
 }
 
-func (i *InputSplunkHec) GetUseFwdTimezone() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetUseFwdTimezone() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.UseFwdTimezone
+	return c.UseFwdTimezone
 }
 
-func (i *InputSplunkHec) GetDropControlFields() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetDropControlFields() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.DropControlFields
+	return c.DropControlFields
 }
 
-func (i *InputSplunkHec) GetExtractMetrics() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetExtractMetrics() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.ExtractMetrics
+	return c.ExtractMetrics
 }
 
-func (i *InputSplunkHec) GetAccessControlAllowOrigin() []string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetAccessControlAllowOrigin() []string {
+	if c == nil {
 		return nil
 	}
-	return i.AccessControlAllowOrigin
+	return c.AccessControlAllowOrigin
 }
 
-func (i *InputSplunkHec) GetAccessControlAllowHeaders() []string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetAccessControlAllowHeaders() []string {
+	if c == nil {
 		return nil
 	}
-	return i.AccessControlAllowHeaders
+	return c.AccessControlAllowHeaders
 }
 
-func (i *InputSplunkHec) GetEmitTokenMetrics() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetEmitTokenMetrics() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EmitTokenMetrics
+	return c.EmitTokenMetrics
 }
 
-func (i *InputSplunkHec) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkHec) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-type TypeSplunkSearch string
+func (c *CreateInputInputSplunkHec) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputSplunkHec) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+func (c *CreateInputInputSplunkHec) GetTemplateSplunkHecAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSplunkHecAPI
+}
+
+type CreateInputTypeSplunkSearch string
 
 const (
-	TypeSplunkSearchSplunkSearch TypeSplunkSearch = "splunk_search"
+	CreateInputTypeSplunkSearchSplunkSearch CreateInputTypeSplunkSearch = "splunk_search"
 )
 
-func (e TypeSplunkSearch) ToPointer() *TypeSplunkSearch {
+func (e CreateInputTypeSplunkSearch) ToPointer() *CreateInputTypeSplunkSearch {
 	return &e
 }
-func (e *TypeSplunkSearch) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeSplunkSearch) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "splunk_search":
-		*e = TypeSplunkSearch(v)
+		*e = CreateInputTypeSplunkSearch(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeSplunkSearch: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeSplunkSearch: %v", v)
 	}
 }
 
-type EndpointParam struct {
+type CreateInputEndpointParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
 	Value string `json:"value"`
 }
 
-func (e EndpointParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
+func (c CreateInputEndpointParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (e *EndpointParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+func (c *CreateInputEndpointParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (e *EndpointParam) GetName() string {
-	if e == nil {
+func (c *CreateInputEndpointParam) GetName() string {
+	if c == nil {
 		return ""
 	}
-	return e.Name
+	return c.Name
 }
 
-func (e *EndpointParam) GetValue() string {
-	if e == nil {
+func (c *CreateInputEndpointParam) GetValue() string {
+	if c == nil {
 		return ""
 	}
-	return e.Value
+	return c.Value
 }
 
-type EndpointHeader struct {
+type CreateInputEndpointHeader struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
 	Value string `json:"value"`
 }
 
-func (e EndpointHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
+func (c CreateInputEndpointHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (e *EndpointHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+func (c *CreateInputEndpointHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (e *EndpointHeader) GetName() string {
-	if e == nil {
+func (c *CreateInputEndpointHeader) GetName() string {
+	if c == nil {
 		return ""
 	}
-	return e.Name
+	return c.Name
 }
 
-func (e *EndpointHeader) GetValue() string {
-	if e == nil {
+func (c *CreateInputEndpointHeader) GetValue() string {
+	if c == nil {
 		return ""
 	}
-	return e.Value
+	return c.Value
 }
 
-// LogLevelSplunkSearch - Collector runtime log level (verbosity)
-type LogLevelSplunkSearch string
+// CreateInputLogLevelSplunkSearch - Collector runtime log level (verbosity)
+type CreateInputLogLevelSplunkSearch string
 
 const (
-	LogLevelSplunkSearchError LogLevelSplunkSearch = "error"
-	LogLevelSplunkSearchWarn  LogLevelSplunkSearch = "warn"
-	LogLevelSplunkSearchInfo  LogLevelSplunkSearch = "info"
-	LogLevelSplunkSearchDebug LogLevelSplunkSearch = "debug"
+	CreateInputLogLevelSplunkSearchError CreateInputLogLevelSplunkSearch = "error"
+	CreateInputLogLevelSplunkSearchWarn  CreateInputLogLevelSplunkSearch = "warn"
+	CreateInputLogLevelSplunkSearchInfo  CreateInputLogLevelSplunkSearch = "info"
+	CreateInputLogLevelSplunkSearchDebug CreateInputLogLevelSplunkSearch = "debug"
 )
 
-func (e LogLevelSplunkSearch) ToPointer() *LogLevelSplunkSearch {
+func (e CreateInputLogLevelSplunkSearch) ToPointer() *CreateInputLogLevelSplunkSearch {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LogLevelSplunkSearch) IsExact() bool {
+func (e *CreateInputLogLevelSplunkSearch) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "error", "warn", "info", "debug":
@@ -7833,38 +8572,42 @@ func (e *LogLevelSplunkSearch) IsExact() bool {
 	return false
 }
 
-// AuthenticationTypeSplunkSearch - Splunk Search authentication type
-type AuthenticationTypeSplunkSearch string
+// CreateInputAuthenticationTypeSplunkSearch - Splunk Search authentication type
+type CreateInputAuthenticationTypeSplunkSearch string
 
 const (
-	AuthenticationTypeSplunkSearchNone              AuthenticationTypeSplunkSearch = "none"
-	AuthenticationTypeSplunkSearchBasic             AuthenticationTypeSplunkSearch = "basic"
-	AuthenticationTypeSplunkSearchCredentialsSecret AuthenticationTypeSplunkSearch = "credentialsSecret"
-	AuthenticationTypeSplunkSearchToken             AuthenticationTypeSplunkSearch = "token"
-	AuthenticationTypeSplunkSearchTextSecret        AuthenticationTypeSplunkSearch = "textSecret"
-	AuthenticationTypeSplunkSearchOauth             AuthenticationTypeSplunkSearch = "oauth"
+	// CreateInputAuthenticationTypeSplunkSearchNone None
+	CreateInputAuthenticationTypeSplunkSearchNone CreateInputAuthenticationTypeSplunkSearch = "none"
+	// CreateInputAuthenticationTypeSplunkSearchBasic Basic
+	CreateInputAuthenticationTypeSplunkSearchBasic CreateInputAuthenticationTypeSplunkSearch = "basic"
+	// CreateInputAuthenticationTypeSplunkSearchCredentialsSecret Basic (credentials secret)
+	CreateInputAuthenticationTypeSplunkSearchCredentialsSecret CreateInputAuthenticationTypeSplunkSearch = "credentialsSecret"
+	// CreateInputAuthenticationTypeSplunkSearchToken Token
+	CreateInputAuthenticationTypeSplunkSearchToken CreateInputAuthenticationTypeSplunkSearch = "token"
+	// CreateInputAuthenticationTypeSplunkSearchTextSecret Token (text secret)
+	CreateInputAuthenticationTypeSplunkSearchTextSecret CreateInputAuthenticationTypeSplunkSearch = "textSecret"
 )
 
-func (e AuthenticationTypeSplunkSearch) ToPointer() *AuthenticationTypeSplunkSearch {
+func (e CreateInputAuthenticationTypeSplunkSearch) ToPointer() *CreateInputAuthenticationTypeSplunkSearch {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthenticationTypeSplunkSearch) IsExact() bool {
+func (e *CreateInputAuthenticationTypeSplunkSearch) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
 			return true
 		}
 	}
 	return false
 }
 
-type InputSplunkSearch struct {
+type CreateInputInputSplunkSearch struct {
 	// Unique ID for this input
-	ID       string           `json:"id"`
-	Type     TypeSplunkSearch `json:"type"`
-	Disabled *bool            `json:"disabled,omitzero"`
+	ID       string                      `json:"id"`
+	Type     CreateInputTypeSplunkSearch `json:"type"`
+	Disabled *bool                       `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -7893,11 +8636,11 @@ type InputSplunkSearch struct {
 	// Format of the returned output
 	OutputMode components.OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional request parameters to send to the endpoint
-	EndpointParams []EndpointParam `json:"endpointParams,omitzero"`
+	EndpointParams []CreateInputEndpointParam `json:"endpointParams,omitzero"`
 	// Optional request headers to send to the endpoint
-	EndpointHeaders []EndpointHeader `json:"endpointHeaders,omitzero"`
+	EndpointHeaders []CreateInputEndpointHeader `json:"endpointHeaders,omitzero"`
 	// Collector runtime log level (verbosity)
-	LogLevel *LogLevelSplunkSearch `json:"logLevel,omitzero"`
+	LogLevel *CreateInputLogLevelSplunkSearch `json:"logLevel,omitzero"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
@@ -7917,386 +8660,314 @@ type InputSplunkSearch struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	RetryRules *components.RetryRulesType                 `json:"retryRules,omitzero"`
+	Metadata   []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules *components.RetryRulesType     `json:"retryRules,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Splunk Search authentication type
-	AuthType    *AuthenticationTypeSplunkSearch `json:"authType,omitzero"`
-	Description *string                         `json:"description,omitzero"`
-	Username    *string                         `json:"username,omitzero"`
-	Password    *string                         `json:"password,omitzero"`
+	AuthType    *CreateInputAuthenticationTypeSplunkSearch `json:"authType,omitzero"`
+	Description *string                                    `json:"description,omitzero"`
+	Username    *string                                    `json:"username,omitzero"`
+	Password    *string                                    `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
-func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputSplunkSearch) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputSplunkSearch) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputSplunkSearch) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearch) GetID() string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputSplunkSearch) GetType() TypeSplunkSearch {
-	if i == nil {
-		return TypeSplunkSearch("")
+func (c *CreateInputInputSplunkSearch) GetType() CreateInputTypeSplunkSearch {
+	if c == nil {
+		return CreateInputTypeSplunkSearch("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputSplunkSearch) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputSplunkSearch) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputSplunkSearch) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputSplunkSearch) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputSplunkSearch) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputSplunkSearch) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputSplunkSearch) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputSplunkSearch) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputSplunkSearch) GetSearchHead() string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetSearchHead() string {
+	if c == nil {
 		return ""
 	}
-	return i.SearchHead
+	return c.SearchHead
 }
 
-func (i *InputSplunkSearch) GetSearch() string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetSearch() string {
+	if c == nil {
 		return ""
 	}
-	return i.Search
+	return c.Search
 }
 
-func (i *InputSplunkSearch) GetEarliest() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetEarliest() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Earliest
+	return c.Earliest
 }
 
-func (i *InputSplunkSearch) GetLatest() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetLatest() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Latest
+	return c.Latest
 }
 
-func (i *InputSplunkSearch) GetCronSchedule() string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetCronSchedule() string {
+	if c == nil {
 		return ""
 	}
-	return i.CronSchedule
+	return c.CronSchedule
 }
 
-func (i *InputSplunkSearch) GetEndpoint() string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetEndpoint() string {
+	if c == nil {
 		return ""
 	}
-	return i.Endpoint
+	return c.Endpoint
 }
 
-func (i *InputSplunkSearch) GetOutputMode() components.OutputModeOptionsSplunkCollectorConf {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetOutputMode() components.OutputModeOptionsSplunkCollectorConf {
+	if c == nil {
 		return components.OutputModeOptionsSplunkCollectorConf("")
 	}
-	return i.OutputMode
+	return c.OutputMode
 }
 
-func (i *InputSplunkSearch) GetEndpointParams() []EndpointParam {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetEndpointParams() []CreateInputEndpointParam {
+	if c == nil {
 		return nil
 	}
-	return i.EndpointParams
+	return c.EndpointParams
 }
 
-func (i *InputSplunkSearch) GetEndpointHeaders() []EndpointHeader {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetEndpointHeaders() []CreateInputEndpointHeader {
+	if c == nil {
 		return nil
 	}
-	return i.EndpointHeaders
+	return c.EndpointHeaders
 }
 
-func (i *InputSplunkSearch) GetLogLevel() *LogLevelSplunkSearch {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetLogLevel() *CreateInputLogLevelSplunkSearch {
+	if c == nil {
 		return nil
 	}
-	return i.LogLevel
+	return c.LogLevel
 }
 
-func (i *InputSplunkSearch) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputSplunkSearch) GetUseRoundRobinDNS() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetUseRoundRobinDNS() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.UseRoundRobinDNS
+	return c.UseRoundRobinDNS
 }
 
-func (i *InputSplunkSearch) GetRejectUnauthorized() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetRejectUnauthorized() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.RejectUnauthorized
+	return c.RejectUnauthorized
 }
 
-func (i *InputSplunkSearch) GetEncoding() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetEncoding() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Encoding
+	return c.Encoding
 }
 
-func (i *InputSplunkSearch) GetKeepAliveTime() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetKeepAliveTime() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTime
+	return c.KeepAliveTime
 }
 
-func (i *InputSplunkSearch) GetJobTimeout() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetJobTimeout() *string {
+	if c == nil {
 		return nil
 	}
-	return i.JobTimeout
+	return c.JobTimeout
 }
 
-func (i *InputSplunkSearch) GetMaxMissedKeepAlives() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetMaxMissedKeepAlives() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxMissedKeepAlives
+	return c.MaxMissedKeepAlives
 }
 
-func (i *InputSplunkSearch) GetTTL() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetTTL() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TTL
+	return c.TTL
 }
 
-func (i *InputSplunkSearch) GetIgnoreGroupJobsLimit() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetIgnoreGroupJobsLimit() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.IgnoreGroupJobsLimit
+	return c.IgnoreGroupJobsLimit
 }
 
-func (i *InputSplunkSearch) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputSplunkSearch) GetRetryRules() *components.RetryRulesType {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetRetryRules() *components.RetryRulesType {
+	if c == nil {
 		return nil
 	}
-	return i.RetryRules
+	return c.RetryRules
 }
 
-func (i *InputSplunkSearch) GetBreakerRulesets() []string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetBreakerRulesets() []string {
+	if c == nil {
 		return nil
 	}
-	return i.BreakerRulesets
+	return c.BreakerRulesets
 }
 
-func (i *InputSplunkSearch) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetStaleChannelFlushMs() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.StaleChannelFlushMs
+	return c.StaleChannelFlushMs
 }
 
-func (i *InputSplunkSearch) GetAuthType() *AuthenticationTypeSplunkSearch {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetAuthType() *CreateInputAuthenticationTypeSplunkSearch {
+	if c == nil {
 		return nil
 	}
-	return i.AuthType
+	return c.AuthType
 }
 
-func (i *InputSplunkSearch) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputSplunkSearch) GetUsername() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetUsername() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Username
+	return c.Username
 }
 
-func (i *InputSplunkSearch) GetPassword() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetPassword() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Password
+	return c.Password
 }
 
-func (i *InputSplunkSearch) GetToken() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetToken() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Token
+	return c.Token
 }
 
-func (i *InputSplunkSearch) GetCredentialsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetCredentialsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.CredentialsSecret
+	return c.CredentialsSecret
 }
 
-func (i *InputSplunkSearch) GetTextSecret() *string {
-	if i == nil {
+func (c *CreateInputInputSplunkSearch) GetTextSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.TextSecret
-}
-
-func (i *InputSplunkSearch) GetLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.LoginURL
-}
-
-func (i *InputSplunkSearch) GetSecretParamName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SecretParamName
-}
-
-func (i *InputSplunkSearch) GetSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Secret
-}
-
-func (i *InputSplunkSearch) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputSplunkSearch) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputSplunkSearch) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputSplunkSearch) GetOauthParams() []components.ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputSplunkSearch) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
+	return c.TextSecret
 }
 
 type CreateInputTypeSplunk string
@@ -8322,53 +8993,53 @@ func (e *CreateInputTypeSplunk) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AuthTokenSplunk struct {
+type CreateInputAuthTokenSplunk struct {
 	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitzero"`
 }
 
-func (a AuthTokenSplunk) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (c CreateInputAuthTokenSplunk) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (a *AuthTokenSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (c *CreateInputAuthTokenSplunk) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AuthTokenSplunk) GetToken() string {
-	if a == nil {
+func (c *CreateInputAuthTokenSplunk) GetToken() string {
+	if c == nil {
 		return ""
 	}
-	return a.Token
+	return c.Token
 }
 
-func (a *AuthTokenSplunk) GetDescription() *string {
-	if a == nil {
+func (c *CreateInputAuthTokenSplunk) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return a.Description
+	return c.Description
 }
 
-// MaxS2SVersion - The highest S2S protocol version to advertise during handshake
-type MaxS2SVersion string
+// CreateInputMaxS2SVersion - The highest S2S protocol version to advertise during handshake
+type CreateInputMaxS2SVersion string
 
 const (
-	// MaxS2SVersionV3 v3
-	MaxS2SVersionV3 MaxS2SVersion = "v3"
-	// MaxS2SVersionV4 v4
-	MaxS2SVersionV4 MaxS2SVersion = "v4"
+	// CreateInputMaxS2SVersionV3 v3
+	CreateInputMaxS2SVersionV3 CreateInputMaxS2SVersion = "v3"
+	// CreateInputMaxS2SVersionV4 v4
+	CreateInputMaxS2SVersionV4 CreateInputMaxS2SVersion = "v4"
 )
 
-func (e MaxS2SVersion) ToPointer() *MaxS2SVersion {
+func (e CreateInputMaxS2SVersion) ToPointer() *CreateInputMaxS2SVersion {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MaxS2SVersion) IsExact() bool {
+func (e *CreateInputMaxS2SVersion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "v3", "v4":
@@ -8405,7 +9076,7 @@ func (e *CreateInputCompression) IsExact() bool {
 	return false
 }
 
-type InputSplunk struct {
+type CreateInputInputSplunk struct {
 	// Unique ID for this input
 	ID       string                `json:"id"`
 	Type     CreateInputTypeSplunk `json:"type"`
@@ -8441,16 +9112,16 @@ type InputSplunk struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
-	AuthTokens []AuthTokenSplunk `json:"authTokens,omitzero"`
+	AuthTokens []CreateInputAuthTokenSplunk `json:"authTokens,omitzero"`
 	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *MaxS2SVersion `json:"maxS2Sversion,omitzero"`
-	Description   *string        `json:"description,omitzero"`
+	MaxS2Sversion *CreateInputMaxS2SVersion `json:"maxS2Sversion,omitzero"`
+	Description   *string                   `json:"description,omitzero"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
 	UseFwdTimezone *bool `json:"useFwdTimezone,omitzero"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
@@ -8459,250 +9130,268 @@ type InputSplunk struct {
 	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
 	Compress *CreateInputCompression `json:"compress,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (i InputSplunk) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputSplunk) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputSplunk) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunk) GetID() string {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputSplunk) GetType() CreateInputTypeSplunk {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetType() CreateInputTypeSplunk {
+	if c == nil {
 		return CreateInputTypeSplunk("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputSplunk) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputSplunk) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputSplunk) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputSplunk) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputSplunk) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputSplunk) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputSplunk) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputSplunk) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputSplunk) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputSplunk) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputSplunk) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputSplunk) GetIPWhitelistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetIPWhitelistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPWhitelistRegex
+	return c.IPWhitelistRegex
 }
 
-func (i *InputSplunk) GetMaxActiveCxn() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetMaxActiveCxn() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveCxn
+	return c.MaxActiveCxn
 }
 
-func (i *InputSplunk) GetSocketIdleTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetSocketIdleTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketIdleTimeout
+	return c.SocketIdleTimeout
 }
 
-func (i *InputSplunk) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetSocketEndingMaxWait() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketEndingMaxWait
+	return c.SocketEndingMaxWait
 }
 
-func (i *InputSplunk) GetSocketMaxLifespan() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetSocketMaxLifespan() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketMaxLifespan
+	return c.SocketMaxLifespan
 }
 
-func (i *InputSplunk) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputSplunk) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputSplunk) GetBreakerRulesets() []string {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetBreakerRulesets() []string {
+	if c == nil {
 		return nil
 	}
-	return i.BreakerRulesets
+	return c.BreakerRulesets
 }
 
-func (i *InputSplunk) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetStaleChannelFlushMs() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.StaleChannelFlushMs
+	return c.StaleChannelFlushMs
 }
 
-func (i *InputSplunk) GetAuthTokens() []AuthTokenSplunk {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetAuthTokens() []CreateInputAuthTokenSplunk {
+	if c == nil {
 		return nil
 	}
-	return i.AuthTokens
+	return c.AuthTokens
 }
 
-func (i *InputSplunk) GetMaxS2Sversion() *MaxS2SVersion {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetMaxS2Sversion() *CreateInputMaxS2SVersion {
+	if c == nil {
 		return nil
 	}
-	return i.MaxS2Sversion
+	return c.MaxS2Sversion
 }
 
-func (i *InputSplunk) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputSplunk) GetUseFwdTimezone() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetUseFwdTimezone() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.UseFwdTimezone
+	return c.UseFwdTimezone
 }
 
-func (i *InputSplunk) GetDropControlFields() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetDropControlFields() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.DropControlFields
+	return c.DropControlFields
 }
 
-func (i *InputSplunk) GetExtractMetrics() *bool {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetExtractMetrics() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.ExtractMetrics
+	return c.ExtractMetrics
 }
 
-func (i *InputSplunk) GetCompress() *CreateInputCompression {
-	if i == nil {
+func (c *CreateInputInputSplunk) GetCompress() *CreateInputCompression {
+	if c == nil {
 		return nil
 	}
-	return i.Compress
+	return c.Compress
 }
 
-type TypeHTTP string
+func (c *CreateInputInputSplunk) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputSplunk) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+type CreateInputTypeHTTP string
 
 const (
-	TypeHTTPHTTP TypeHTTP = "http"
+	CreateInputTypeHTTPHTTP CreateInputTypeHTTP = "http"
 )
 
-func (e TypeHTTP) ToPointer() *TypeHTTP {
+func (e CreateInputTypeHTTP) ToPointer() *CreateInputTypeHTTP {
 	return &e
 }
-func (e *TypeHTTP) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeHTTP) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "http":
-		*e = TypeHTTP(v)
+		*e = CreateInputTypeHTTP(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeHTTP: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeHTTP: %v", v)
 	}
 }
 
-type InputHTTP struct {
+type CreateInputInputHTTP struct {
 	// Unique ID for this input
-	ID       string   `json:"id"`
-	Type     TypeHTTP `json:"type"`
-	Disabled *bool    `json:"disabled,omitzero"`
+	ID       string              `json:"id"`
+	Type     CreateInputTypeHTTP `json:"type"`
+	Disabled *bool               `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8753,245 +9442,272 @@ type InputHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                             `json:"description,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
 }
 
-func (i InputHTTP) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputHTTP) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputHTTP) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputHTTP) GetID() string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputHTTP) GetType() TypeHTTP {
-	if i == nil {
-		return TypeHTTP("")
+func (c *CreateInputInputHTTP) GetType() CreateInputTypeHTTP {
+	if c == nil {
+		return CreateInputTypeHTTP("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputHTTP) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputHTTP) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputHTTP) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputHTTP) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputHTTP) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputHTTP) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputHTTP) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputHTTP) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputHTTP) GetHost() string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetHost() string {
+	if c == nil {
 		return ""
 	}
-	return i.Host
+	return c.Host
 }
 
-func (i *InputHTTP) GetPort() float64 {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetPort() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return i.Port
+	return c.Port
 }
 
-func (i *InputHTTP) GetAuthTokens() []string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetAuthTokens() []string {
+	if c == nil {
 		return nil
 	}
-	return i.AuthTokens
+	return c.AuthTokens
 }
 
-func (i *InputHTTP) GetTLS() *components.TLSSettingsServerSideType {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputHTTP) GetMaxActiveReq() *float64 {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetMaxActiveReq() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxActiveReq
+	return c.MaxActiveReq
 }
 
-func (i *InputHTTP) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRequestsPerSocket
+	return c.MaxRequestsPerSocket
 }
 
-func (i *InputHTTP) GetEnableProxyHeader() *bool {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetEnableProxyHeader() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableProxyHeader
+	return c.EnableProxyHeader
 }
 
-func (i *InputHTTP) GetCaptureHeaders() *bool {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetCaptureHeaders() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.CaptureHeaders
+	return c.CaptureHeaders
 }
 
-func (i *InputHTTP) GetActivityLogSampleRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetActivityLogSampleRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ActivityLogSampleRate
+	return c.ActivityLogSampleRate
 }
 
-func (i *InputHTTP) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputHTTP) GetSocketTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetSocketTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SocketTimeout
+	return c.SocketTimeout
 }
 
-func (i *InputHTTP) GetKeepAliveTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetKeepAliveTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.KeepAliveTimeout
+	return c.KeepAliveTimeout
 }
 
-func (i *InputHTTP) GetEnableHealthCheck() *bool {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetEnableHealthCheck() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableHealthCheck
+	return c.EnableHealthCheck
 }
 
-func (i *InputHTTP) GetIPAllowlistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetIPAllowlistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPAllowlistRegex
+	return c.IPAllowlistRegex
 }
 
-func (i *InputHTTP) GetIPDenylistRegex() *string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetIPDenylistRegex() *string {
+	if c == nil {
 		return nil
 	}
-	return i.IPDenylistRegex
+	return c.IPDenylistRegex
 }
 
-func (i *InputHTTP) GetCriblAPI() *string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetCriblAPI() *string {
+	if c == nil {
 		return nil
 	}
-	return i.CriblAPI
+	return c.CriblAPI
 }
 
-func (i *InputHTTP) GetElasticAPI() *string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetElasticAPI() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ElasticAPI
+	return c.ElasticAPI
 }
 
-func (i *InputHTTP) GetSplunkHecAPI() *string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetSplunkHecAPI() *string {
+	if c == nil {
 		return nil
 	}
-	return i.SplunkHecAPI
+	return c.SplunkHecAPI
 }
 
-func (i *InputHTTP) GetSplunkHecAcks() *bool {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetSplunkHecAcks() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SplunkHecAcks
+	return c.SplunkHecAcks
 }
 
-func (i *InputHTTP) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputHTTP) GetAuthTokensExt() []components.ItemsTypeAuthTokensExt {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetAuthTokensExt() []components.ItemsTypeAuthTokensExt {
+	if c == nil {
 		return nil
 	}
-	return i.AuthTokensExt
+	return c.AuthTokensExt
 }
 
-func (i *InputHTTP) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputHTTP) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
+}
+
+func (c *CreateInputInputHTTP) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputHTTP) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+func (c *CreateInputInputHTTP) GetTemplateSplunkHecAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSplunkHecAPI
 }
 
 type CreateInputTypeMsk string
@@ -9017,7 +9733,7 @@ func (e *CreateInputTypeMsk) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputMsk struct {
+type CreateInputInputMsk struct {
 	// Unique ID for this input
 	ID       string             `json:"id"`
 	Type     CreateInputTypeMsk `json:"type"`
@@ -9058,7 +9774,7 @@ type InputMsk struct {
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// Fields to add to events from this input
-	Metadata            []components.ItemsTypeNotificationMetadata        `json:"metadata,omitzero"`
+	Metadata            []components.ItemsTypeMetadata                    `json:"metadata,omitzero"`
 	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -9112,346 +9828,391 @@ type InputMsk struct {
 	AwsAPIKey       *string  `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
-func (i InputMsk) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputMsk) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputMsk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputMsk) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMsk) GetID() string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputMsk) GetType() CreateInputTypeMsk {
-	if i == nil {
+func (c *CreateInputInputMsk) GetType() CreateInputTypeMsk {
+	if c == nil {
 		return CreateInputTypeMsk("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputMsk) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputMsk) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputMsk) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputMsk) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputMsk) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputMsk) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputMsk) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputMsk) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputMsk) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputMsk) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputMsk) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputMsk) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputMsk) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputMsk) GetBrokers() []string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetBrokers() []string {
+	if c == nil {
 		return []string{}
 	}
-	return i.Brokers
+	return c.Brokers
 }
 
-func (i *InputMsk) GetTopics() []string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetTopics() []string {
+	if c == nil {
 		return []string{}
 	}
-	return i.Topics
+	return c.Topics
 }
 
-func (i *InputMsk) GetGroupID() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetGroupID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.GroupID
+	return c.GroupID
 }
 
-func (i *InputMsk) GetFromBeginning() *bool {
-	if i == nil {
+func (c *CreateInputInputMsk) GetFromBeginning() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.FromBeginning
+	return c.FromBeginning
 }
 
-func (i *InputMsk) GetSessionTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetSessionTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SessionTimeout
+	return c.SessionTimeout
 }
 
-func (i *InputMsk) GetRebalanceTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetRebalanceTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RebalanceTimeout
+	return c.RebalanceTimeout
 }
 
-func (i *InputMsk) GetHeartbeatInterval() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetHeartbeatInterval() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.HeartbeatInterval
+	return c.HeartbeatInterval
 }
 
-func (i *InputMsk) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputMsk) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputMsk) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationType {
-	if i == nil {
+func (c *CreateInputInputMsk) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationType {
+	if c == nil {
 		return nil
 	}
-	return i.KafkaSchemaRegistry
+	return c.KafkaSchemaRegistry
 }
 
-func (i *InputMsk) GetConnectionTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetConnectionTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ConnectionTimeout
+	return c.ConnectionTimeout
 }
 
-func (i *InputMsk) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputMsk) GetMaxRetries() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetMaxRetries() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRetries
+	return c.MaxRetries
 }
 
-func (i *InputMsk) GetMaxBackOff() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetMaxBackOff() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBackOff
+	return c.MaxBackOff
 }
 
-func (i *InputMsk) GetInitialBackoff() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetInitialBackoff() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.InitialBackoff
+	return c.InitialBackoff
 }
 
-func (i *InputMsk) GetBackoffRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetBackoffRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.BackoffRate
+	return c.BackoffRate
 }
 
-func (i *InputMsk) GetAuthenticationTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetAuthenticationTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AuthenticationTimeout
+	return c.AuthenticationTimeout
 }
 
-func (i *InputMsk) GetReauthenticationThreshold() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetReauthenticationThreshold() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ReauthenticationThreshold
+	return c.ReauthenticationThreshold
 }
 
-func (i *InputMsk) GetAwsAuthenticationMethod() components.AuthenticationMethodOptionsS3CollectorConf {
-	if i == nil {
+func (c *CreateInputInputMsk) GetAwsAuthenticationMethod() components.AuthenticationMethodOptionsS3CollectorConf {
+	if c == nil {
 		return components.AuthenticationMethodOptionsS3CollectorConf("")
 	}
-	return i.AwsAuthenticationMethod
+	return c.AwsAuthenticationMethod
 }
 
-func (i *InputMsk) GetAwsSecretKey() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetAwsSecretKey() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AwsSecretKey
+	return c.AwsSecretKey
 }
 
-func (i *InputMsk) GetRegion() string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetRegion() string {
+	if c == nil {
 		return ""
 	}
-	return i.Region
+	return c.Region
 }
 
-func (i *InputMsk) GetEndpoint() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetEndpoint() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Endpoint
+	return c.Endpoint
 }
 
-func (i *InputMsk) GetSignatureVersion() *components.SignatureVersionOptions {
-	if i == nil {
+func (c *CreateInputInputMsk) GetSignatureVersion() *components.SignatureVersionOptions {
+	if c == nil {
 		return nil
 	}
-	return i.SignatureVersion
+	return c.SignatureVersion
 }
 
-func (i *InputMsk) GetReuseConnections() *bool {
-	if i == nil {
+func (c *CreateInputInputMsk) GetReuseConnections() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.ReuseConnections
+	return c.ReuseConnections
 }
 
-func (i *InputMsk) GetRejectUnauthorized() *bool {
-	if i == nil {
+func (c *CreateInputInputMsk) GetRejectUnauthorized() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.RejectUnauthorized
+	return c.RejectUnauthorized
 }
 
-func (i *InputMsk) GetEnableAssumeRole() *bool {
-	if i == nil {
+func (c *CreateInputInputMsk) GetEnableAssumeRole() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.EnableAssumeRole
+	return c.EnableAssumeRole
 }
 
-func (i *InputMsk) GetAssumeRoleArn() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetAssumeRoleArn() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AssumeRoleArn
+	return c.AssumeRoleArn
 }
 
-func (i *InputMsk) GetAssumeRoleExternalID() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetAssumeRoleExternalID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AssumeRoleExternalID
+	return c.AssumeRoleExternalID
 }
 
-func (i *InputMsk) GetDurationSeconds() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetDurationSeconds() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.DurationSeconds
+	return c.DurationSeconds
 }
 
-func (i *InputMsk) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
-	if i == nil {
+func (c *CreateInputInputMsk) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputMsk) GetAutoCommitInterval() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetAutoCommitInterval() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AutoCommitInterval
+	return c.AutoCommitInterval
 }
 
-func (i *InputMsk) GetAutoCommitThreshold() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetAutoCommitThreshold() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AutoCommitThreshold
+	return c.AutoCommitThreshold
 }
 
-func (i *InputMsk) GetMaxBytesPerPartition() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetMaxBytesPerPartition() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBytesPerPartition
+	return c.MaxBytesPerPartition
 }
 
-func (i *InputMsk) GetMaxBytes() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetMaxBytes() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBytes
+	return c.MaxBytes
 }
 
-func (i *InputMsk) GetMaxSocketErrors() *float64 {
-	if i == nil {
+func (c *CreateInputInputMsk) GetMaxSocketErrors() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxSocketErrors
+	return c.MaxSocketErrors
 }
 
-func (i *InputMsk) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-func (i *InputMsk) GetAwsAPIKey() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetAwsAPIKey() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AwsAPIKey
+	return c.AwsAPIKey
 }
 
-func (i *InputMsk) GetAwsSecret() *string {
-	if i == nil {
+func (c *CreateInputInputMsk) GetAwsSecret() *string {
+	if c == nil {
 		return nil
 	}
-	return i.AwsSecret
+	return c.AwsSecret
+}
+
+func (c *CreateInputInputMsk) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateInputInputMsk) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
+func (c *CreateInputInputMsk) GetTemplateAssumeRoleArn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAssumeRoleArn
+}
+
+func (c *CreateInputInputMsk) GetTemplateAssumeRoleExternalID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAssumeRoleExternalID
+}
+
+func (c *CreateInputInputMsk) GetTemplateAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsAPIKey
 }
 
 type CreateInputTypeKafka string
@@ -9477,7 +10238,7 @@ func (e *CreateInputTypeKafka) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputKafka struct {
+type CreateInputInputKafka struct {
 	// Unique ID for this input
 	ID       string               `json:"id"`
 	Type     CreateInputTypeKafka `json:"type"`
@@ -9548,294 +10309,294 @@ type InputKafka struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
 }
 
-func (i InputKafka) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputKafka) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputKafka) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputKafka) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKafka) GetID() string {
-	if i == nil {
+func (c *CreateInputInputKafka) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputKafka) GetType() CreateInputTypeKafka {
-	if i == nil {
+func (c *CreateInputInputKafka) GetType() CreateInputTypeKafka {
+	if c == nil {
 		return CreateInputTypeKafka("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputKafka) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputKafka) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputKafka) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputKafka) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputKafka) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputKafka) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputKafka) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputKafka) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputKafka) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputKafka) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputKafka) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputKafka) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputKafka) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputKafka) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputKafka) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputKafka) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputKafka) GetBrokers() []string {
-	if i == nil {
+func (c *CreateInputInputKafka) GetBrokers() []string {
+	if c == nil {
 		return []string{}
 	}
-	return i.Brokers
+	return c.Brokers
 }
 
-func (i *InputKafka) GetTopics() []string {
-	if i == nil {
+func (c *CreateInputInputKafka) GetTopics() []string {
+	if c == nil {
 		return []string{}
 	}
-	return i.Topics
+	return c.Topics
 }
 
-func (i *InputKafka) GetGroupID() *string {
-	if i == nil {
+func (c *CreateInputInputKafka) GetGroupID() *string {
+	if c == nil {
 		return nil
 	}
-	return i.GroupID
+	return c.GroupID
 }
 
-func (i *InputKafka) GetFromBeginning() *bool {
-	if i == nil {
+func (c *CreateInputInputKafka) GetFromBeginning() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.FromBeginning
+	return c.FromBeginning
 }
 
-func (i *InputKafka) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationType {
-	if i == nil {
+func (c *CreateInputInputKafka) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationType {
+	if c == nil {
 		return nil
 	}
-	return i.KafkaSchemaRegistry
+	return c.KafkaSchemaRegistry
 }
 
-func (i *InputKafka) GetConnectionTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetConnectionTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ConnectionTimeout
+	return c.ConnectionTimeout
 }
 
-func (i *InputKafka) GetRequestTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetRequestTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RequestTimeout
+	return c.RequestTimeout
 }
 
-func (i *InputKafka) GetMaxRetries() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetMaxRetries() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxRetries
+	return c.MaxRetries
 }
 
-func (i *InputKafka) GetMaxBackOff() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetMaxBackOff() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBackOff
+	return c.MaxBackOff
 }
 
-func (i *InputKafka) GetInitialBackoff() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetInitialBackoff() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.InitialBackoff
+	return c.InitialBackoff
 }
 
-func (i *InputKafka) GetBackoffRate() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetBackoffRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.BackoffRate
+	return c.BackoffRate
 }
 
-func (i *InputKafka) GetAuthenticationTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetAuthenticationTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AuthenticationTimeout
+	return c.AuthenticationTimeout
 }
 
-func (i *InputKafka) GetReauthenticationThreshold() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetReauthenticationThreshold() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.ReauthenticationThreshold
+	return c.ReauthenticationThreshold
 }
 
-func (i *InputKafka) GetSasl() *components.AuthenticationType {
-	if i == nil {
+func (c *CreateInputInputKafka) GetSasl() *components.AuthenticationType {
+	if c == nil {
 		return nil
 	}
-	return i.Sasl
+	return c.Sasl
 }
 
-func (i *InputKafka) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
-	if i == nil {
+func (c *CreateInputInputKafka) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+	if c == nil {
 		return nil
 	}
-	return i.TLS
+	return c.TLS
 }
 
-func (i *InputKafka) GetSessionTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetSessionTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.SessionTimeout
+	return c.SessionTimeout
 }
 
-func (i *InputKafka) GetRebalanceTimeout() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetRebalanceTimeout() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.RebalanceTimeout
+	return c.RebalanceTimeout
 }
 
-func (i *InputKafka) GetHeartbeatInterval() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetHeartbeatInterval() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.HeartbeatInterval
+	return c.HeartbeatInterval
 }
 
-func (i *InputKafka) GetAutoCommitInterval() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetAutoCommitInterval() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AutoCommitInterval
+	return c.AutoCommitInterval
 }
 
-func (i *InputKafka) GetAutoCommitThreshold() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetAutoCommitThreshold() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.AutoCommitThreshold
+	return c.AutoCommitThreshold
 }
 
-func (i *InputKafka) GetMaxBytesPerPartition() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetMaxBytesPerPartition() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBytesPerPartition
+	return c.MaxBytesPerPartition
 }
 
-func (i *InputKafka) GetMaxBytes() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetMaxBytes() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxBytes
+	return c.MaxBytes
 }
 
-func (i *InputKafka) GetMaxSocketErrors() *float64 {
-	if i == nil {
+func (c *CreateInputInputKafka) GetMaxSocketErrors() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.MaxSocketErrors
+	return c.MaxSocketErrors
 }
 
-func (i *InputKafka) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputKafka) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputKafka) GetDescription() *string {
-	if i == nil {
+func (c *CreateInputInputKafka) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Description
+	return c.Description
 }
 
-type TypeCollection string
+type CreateInputTypeCollection string
 
 const (
-	TypeCollectionCollection TypeCollection = "collection"
+	CreateInputTypeCollectionCollection CreateInputTypeCollection = "collection"
 )
 
-func (e TypeCollection) ToPointer() *TypeCollection {
+func (e CreateInputTypeCollection) ToPointer() *CreateInputTypeCollection {
 	return &e
 }
-func (e *TypeCollection) UnmarshalJSON(data []byte) error {
+func (e *CreateInputTypeCollection) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "collection":
-		*e = TypeCollection(v)
+		*e = CreateInputTypeCollection(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeCollection: %v", v)
+		return fmt.Errorf("invalid value for CreateInputTypeCollection: %v", v)
 	}
 }
 
-type InputCollection struct {
+type CreateInputInputCollection struct {
 	// Unique ID for this input
-	ID       string         `json:"id"`
-	Type     TypeCollection `json:"type"`
-	Disabled *bool          `json:"disabled,omitzero"`
+	ID       string                    `json:"id"`
+	Type     CreateInputTypeCollection `json:"type"`
+	Disabled *bool                     `json:"disabled,omitzero"`
 	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
@@ -9852,137 +10613,137 @@ type InputCollection struct {
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64                                          `json:"staleChannelFlushMs,omitzero"`
-	Preprocess          *components.PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitzero"`
+	StaleChannelFlushMs *float64                   `json:"staleChannelFlushMs,omitzero"`
+	Preprocess          *components.PreprocessType `json:"preprocess,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Destination to send results to
 	Output *string `json:"output,omitzero"`
 }
 
-func (i InputCollection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c CreateInputInputCollection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputCollection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (c *CreateInputInputCollection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCollection) GetID() string {
-	if i == nil {
+func (c *CreateInputInputCollection) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return i.ID
+	return c.ID
 }
 
-func (i *InputCollection) GetType() TypeCollection {
-	if i == nil {
-		return TypeCollection("")
+func (c *CreateInputInputCollection) GetType() CreateInputTypeCollection {
+	if c == nil {
+		return CreateInputTypeCollection("")
 	}
-	return i.Type
+	return c.Type
 }
 
-func (i *InputCollection) GetDisabled() *bool {
-	if i == nil {
+func (c *CreateInputInputCollection) GetDisabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Disabled
+	return c.Disabled
 }
 
-func (i *InputCollection) GetPipeline() *string {
-	if i == nil {
+func (c *CreateInputInputCollection) GetPipeline() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Pipeline
+	return c.Pipeline
 }
 
-func (i *InputCollection) GetSendToRoutes() *bool {
-	if i == nil {
+func (c *CreateInputInputCollection) GetSendToRoutes() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.SendToRoutes
+	return c.SendToRoutes
 }
 
-func (i *InputCollection) GetEnvironment() *string {
-	if i == nil {
+func (c *CreateInputInputCollection) GetEnvironment() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Environment
+	return c.Environment
 }
 
-func (i *InputCollection) GetPqEnabled() *bool {
-	if i == nil {
+func (c *CreateInputInputCollection) GetPqEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.PqEnabled
+	return c.PqEnabled
 }
 
-func (i *InputCollection) GetStreamtags() []string {
-	if i == nil {
+func (c *CreateInputInputCollection) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return i.Streamtags
+	return c.Streamtags
 }
 
-func (i *InputCollection) GetConnections() []components.ItemsTypeConnectionsOptional {
-	if i == nil {
+func (c *CreateInputInputCollection) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
 		return nil
 	}
-	return i.Connections
+	return c.Connections
 }
 
-func (i *InputCollection) GetPq() *components.PqType {
-	if i == nil {
+func (c *CreateInputInputCollection) GetPq() *components.PqType {
+	if c == nil {
 		return nil
 	}
-	return i.Pq
+	return c.Pq
 }
 
-func (i *InputCollection) GetBreakerRulesets() []string {
-	if i == nil {
+func (c *CreateInputInputCollection) GetBreakerRulesets() []string {
+	if c == nil {
 		return nil
 	}
-	return i.BreakerRulesets
+	return c.BreakerRulesets
 }
 
-func (i *InputCollection) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
+func (c *CreateInputInputCollection) GetStaleChannelFlushMs() *float64 {
+	if c == nil {
 		return nil
 	}
-	return i.StaleChannelFlushMs
+	return c.StaleChannelFlushMs
 }
 
-func (i *InputCollection) GetPreprocess() *components.PreprocessTypeSavedJobCollectionInput {
-	if i == nil {
+func (c *CreateInputInputCollection) GetPreprocess() *components.PreprocessType {
+	if c == nil {
 		return nil
 	}
-	return i.Preprocess
+	return c.Preprocess
 }
 
-func (i *InputCollection) GetThrottleRatePerSec() *string {
-	if i == nil {
+func (c *CreateInputInputCollection) GetThrottleRatePerSec() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ThrottleRatePerSec
+	return c.ThrottleRatePerSec
 }
 
-func (i *InputCollection) GetMetadata() []components.ItemsTypeNotificationMetadata {
-	if i == nil {
+func (c *CreateInputInputCollection) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
 		return nil
 	}
-	return i.Metadata
+	return c.Metadata
 }
 
-func (i *InputCollection) GetOutput() *string {
-	if i == nil {
+func (c *CreateInputInputCollection) GetOutput() *string {
+	if c == nil {
 		return nil
 	}
-	return i.Output
+	return c.Output
 }
 
 type CreateInputRequestType string
@@ -10043,6 +10804,7 @@ const (
 	CreateInputRequestTypeRawUDP               CreateInputRequestType = "raw_udp"
 	CreateInputRequestTypeJournalFiles         CreateInputRequestType = "journal_files"
 	CreateInputRequestTypeWiz                  CreateInputRequestType = "wiz"
+	CreateInputRequestTypeOpenai               CreateInputRequestType = "openai"
 	CreateInputRequestTypeWizWebhook           CreateInputRequestType = "wiz_webhook"
 	CreateInputRequestTypeNetflow              CreateInputRequestType = "netflow"
 	CreateInputRequestTypeSecurityLake         CreateInputRequestType = "security_lake"
@@ -10052,781 +10814,794 @@ const (
 
 // CreateInputRequest - Input object
 type CreateInputRequest struct {
-	InputCollection           *InputCollection           `queryParam:"inline" union:"member"`
-	InputKafka                *InputKafka                `queryParam:"inline" union:"member"`
-	InputMsk                  *InputMsk                  `queryParam:"inline" union:"member"`
-	InputHTTP                 *InputHTTP                 `queryParam:"inline" union:"member"`
-	InputSplunk               *InputSplunk               `queryParam:"inline" union:"member"`
-	InputSplunkSearch         *InputSplunkSearch         `queryParam:"inline" union:"member"`
-	InputSplunkHec            *InputSplunkHec            `queryParam:"inline" union:"member"`
-	InputAzureBlob            *InputAzureBlob            `queryParam:"inline" union:"member"`
-	InputElastic              *InputElastic              `queryParam:"inline" union:"member"`
-	InputConfluentCloud       *InputConfluentCloud       `queryParam:"inline" union:"member"`
-	InputGrafana              *InputGrafana              `queryParam:"inline" union:"member"`
-	InputLoki                 *InputLoki                 `queryParam:"inline" union:"member"`
-	InputPrometheusRw         *InputPrometheusRw         `queryParam:"inline" union:"member"`
-	InputPrometheus           *InputPrometheus           `queryParam:"inline" union:"member"`
-	InputEdgePrometheus       *InputEdgePrometheus       `queryParam:"inline" union:"member"`
-	InputOffice365Mgmt        *InputOffice365Mgmt        `queryParam:"inline" union:"member"`
-	InputOffice365Service     *InputOffice365Service     `queryParam:"inline" union:"member"`
-	InputOffice365MsgTrace    *InputOffice365MsgTrace    `queryParam:"inline" union:"member"`
-	InputEventhub             *InputEventhub             `queryParam:"inline" union:"member"`
-	InputExec                 *InputExec                 `queryParam:"inline" union:"member"`
-	InputFirehose             *InputFirehose             `queryParam:"inline" union:"member"`
-	InputGooglePubsub         *InputGooglePubsub         `queryParam:"inline" union:"member"`
-	InputCribl                *InputCribl                `queryParam:"inline" union:"member"`
-	InputCriblTCP             *InputCriblTCP             `queryParam:"inline" union:"member"`
-	InputCriblHTTP            *InputCriblHTTP            `queryParam:"inline" union:"member"`
-	InputCriblLakeHTTP        *InputCriblLakeHTTP        `queryParam:"inline" union:"member"`
-	InputTcpjson              *InputTcpjson              `queryParam:"inline" union:"member"`
-	InputSystemMetrics        *InputSystemMetrics        `queryParam:"inline" union:"member"`
-	InputSystemState          *InputSystemState          `queryParam:"inline" union:"member"`
-	InputKubeMetrics          *InputKubeMetrics          `queryParam:"inline" union:"member"`
-	InputKubeLogs             *InputKubeLogs             `queryParam:"inline" union:"member"`
-	InputKubeEvents           *InputKubeEvents           `queryParam:"inline" union:"member"`
-	InputWindowsMetrics       *InputWindowsMetrics       `queryParam:"inline" union:"member"`
-	InputCrowdstrike          *InputCrowdstrike          `queryParam:"inline" union:"member"`
-	InputDatadogAgent         *InputDatadogAgent         `queryParam:"inline" union:"member"`
-	InputDatagen              *InputDatagen              `queryParam:"inline" union:"member"`
-	InputHTTPRaw              *InputHTTPRaw              `queryParam:"inline" union:"member"`
-	InputKinesis              *InputKinesis              `queryParam:"inline" union:"member"`
-	InputCriblmetrics         *InputCriblmetrics         `queryParam:"inline" union:"member"`
-	InputMetrics              *InputMetrics              `queryParam:"inline" union:"member"`
-	InputS3                   *InputS3                   `queryParam:"inline" union:"member"`
-	InputS3Inventory          *InputS3Inventory          `queryParam:"inline" union:"member"`
-	InputSnmp                 *InputSnmp                 `queryParam:"inline" union:"member"`
-	InputOpenTelemetry        *InputOpenTelemetry        `queryParam:"inline" union:"member"`
-	InputModelDrivenTelemetry *InputModelDrivenTelemetry `queryParam:"inline" union:"member"`
-	InputSqs                  *InputSqs                  `queryParam:"inline" union:"member"`
-	InputSyslog               *InputSyslog               `queryParam:"inline" union:"member"`
-	InputFile                 *InputFile                 `queryParam:"inline" union:"member"`
-	InputTCP                  *InputTCP                  `queryParam:"inline" union:"member"`
-	InputAppscope             *InputAppscope             `queryParam:"inline" union:"member"`
-	InputWef                  *InputWef                  `queryParam:"inline" union:"member"`
-	InputWinEventLogs         *InputWinEventLogs         `queryParam:"inline" union:"member"`
-	InputRawUDP               *InputRawUDP               `queryParam:"inline" union:"member"`
-	InputJournalFiles         *InputJournalFiles         `queryParam:"inline" union:"member"`
-	InputWiz                  *InputWiz                  `queryParam:"inline" union:"member"`
-	InputWizWebhook           *InputWizWebhook           `queryParam:"inline" union:"member"`
-	InputNetflow              *InputNetflow              `queryParam:"inline" union:"member"`
-	InputSecurityLake         *InputSecurityLake         `queryParam:"inline" union:"member"`
-	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
-	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
+	CreateInputInputCollection           *CreateInputInputCollection           `queryParam:"inline" union:"member"`
+	CreateInputInputKafka                *CreateInputInputKafka                `queryParam:"inline" union:"member"`
+	CreateInputInputMsk                  *CreateInputInputMsk                  `queryParam:"inline" union:"member"`
+	CreateInputInputHTTP                 *CreateInputInputHTTP                 `queryParam:"inline" union:"member"`
+	CreateInputInputSplunk               *CreateInputInputSplunk               `queryParam:"inline" union:"member"`
+	CreateInputInputSplunkSearch         *CreateInputInputSplunkSearch         `queryParam:"inline" union:"member"`
+	CreateInputInputSplunkHec            *CreateInputInputSplunkHec            `queryParam:"inline" union:"member"`
+	CreateInputInputAzureBlob            *CreateInputInputAzureBlob            `queryParam:"inline" union:"member"`
+	CreateInputInputElastic              *CreateInputInputElastic              `queryParam:"inline" union:"member"`
+	CreateInputInputConfluentCloud       *CreateInputInputConfluentCloud       `queryParam:"inline" union:"member"`
+	CreateInputInputGrafanaUnion         *CreateInputInputGrafanaUnion         `queryParam:"inline" union:"member"`
+	CreateInputInputLoki                 *CreateInputInputLoki                 `queryParam:"inline" union:"member"`
+	CreateInputInputPrometheusRw         *CreateInputInputPrometheusRw         `queryParam:"inline" union:"member"`
+	CreateInputInputPrometheus           *CreateInputInputPrometheus           `queryParam:"inline" union:"member"`
+	CreateInputInputEdgePrometheus       *CreateInputInputEdgePrometheus       `queryParam:"inline" union:"member"`
+	CreateInputInputOffice365Mgmt        *CreateInputInputOffice365Mgmt        `queryParam:"inline" union:"member"`
+	CreateInputInputOffice365Service     *CreateInputInputOffice365Service     `queryParam:"inline" union:"member"`
+	CreateInputInputOffice365MsgTrace    *CreateInputInputOffice365MsgTrace    `queryParam:"inline" union:"member"`
+	CreateInputInputEventhub             *CreateInputInputEventhub             `queryParam:"inline" union:"member"`
+	CreateInputInputExec                 *CreateInputInputExec                 `queryParam:"inline" union:"member"`
+	CreateInputInputFirehose             *CreateInputInputFirehose             `queryParam:"inline" union:"member"`
+	CreateInputInputGooglePubsub         *CreateInputInputGooglePubsub         `queryParam:"inline" union:"member"`
+	CreateInputInputCribl                *CreateInputInputCribl                `queryParam:"inline" union:"member"`
+	CreateInputInputCriblTCP             *CreateInputInputCriblTCP             `queryParam:"inline" union:"member"`
+	CreateInputInputCriblHTTP            *CreateInputInputCriblHTTP            `queryParam:"inline" union:"member"`
+	CreateInputInputCriblLakeHTTP        *CreateInputInputCriblLakeHTTP        `queryParam:"inline" union:"member"`
+	CreateInputInputTcpjson              *CreateInputInputTcpjson              `queryParam:"inline" union:"member"`
+	CreateInputInputSystemMetrics        *CreateInputInputSystemMetrics        `queryParam:"inline" union:"member"`
+	CreateInputInputSystemState          *CreateInputInputSystemState          `queryParam:"inline" union:"member"`
+	CreateInputInputKubeMetrics          *CreateInputInputKubeMetrics          `queryParam:"inline" union:"member"`
+	CreateInputInputKubeLogs             *CreateInputInputKubeLogs             `queryParam:"inline" union:"member"`
+	CreateInputInputKubeEvents           *CreateInputInputKubeEvents           `queryParam:"inline" union:"member"`
+	CreateInputInputWindowsMetrics       *CreateInputInputWindowsMetrics       `queryParam:"inline" union:"member"`
+	CreateInputInputCrowdstrike          *CreateInputInputCrowdstrike          `queryParam:"inline" union:"member"`
+	CreateInputInputDatadogAgent         *CreateInputInputDatadogAgent         `queryParam:"inline" union:"member"`
+	CreateInputInputDatagen              *CreateInputInputDatagen              `queryParam:"inline" union:"member"`
+	CreateInputInputHTTPRaw              *CreateInputInputHTTPRaw              `queryParam:"inline" union:"member"`
+	CreateInputInputKinesis              *CreateInputInputKinesis              `queryParam:"inline" union:"member"`
+	CreateInputInputCriblmetrics         *CreateInputInputCriblmetrics         `queryParam:"inline" union:"member"`
+	CreateInputInputMetrics              *CreateInputInputMetrics              `queryParam:"inline" union:"member"`
+	CreateInputInputS3                   *CreateInputInputS3                   `queryParam:"inline" union:"member"`
+	CreateInputInputS3Inventory          *CreateInputInputS3Inventory          `queryParam:"inline" union:"member"`
+	CreateInputInputSnmp                 *CreateInputInputSnmp                 `queryParam:"inline" union:"member"`
+	CreateInputInputOpenTelemetry        *CreateInputInputOpenTelemetry        `queryParam:"inline" union:"member"`
+	CreateInputInputModelDrivenTelemetry *CreateInputInputModelDrivenTelemetry `queryParam:"inline" union:"member"`
+	CreateInputInputSqs                  *CreateInputInputSqs                  `queryParam:"inline" union:"member"`
+	CreateInputInputSyslogUnion          *CreateInputInputSyslogUnion          `queryParam:"inline" union:"member"`
+	CreateInputInputFile                 *CreateInputInputFile                 `queryParam:"inline" union:"member"`
+	CreateInputInputTCP                  *CreateInputInputTCP                  `queryParam:"inline" union:"member"`
+	CreateInputInputAppscope             *CreateInputInputAppscope             `queryParam:"inline" union:"member"`
+	CreateInputInputWef                  *CreateInputInputWef                  `queryParam:"inline" union:"member"`
+	CreateInputInputWinEventLogs         *CreateInputInputWinEventLogs         `queryParam:"inline" union:"member"`
+	CreateInputInputRawUDP               *CreateInputInputRawUDP               `queryParam:"inline" union:"member"`
+	CreateInputInputJournalFiles         *CreateInputInputJournalFiles         `queryParam:"inline" union:"member"`
+	CreateInputInputWiz                  *CreateInputInputWiz                  `queryParam:"inline" union:"member"`
+	CreateInputInputOpenai               *CreateInputInputOpenai               `queryParam:"inline" union:"member"`
+	CreateInputInputWizWebhook           *CreateInputInputWizWebhook           `queryParam:"inline" union:"member"`
+	CreateInputInputNetflow              *CreateInputInputNetflow              `queryParam:"inline" union:"member"`
+	CreateInputInputSecurityLake         *CreateInputInputSecurityLake         `queryParam:"inline" union:"member"`
+	CreateInputInputZscalerHec           *CreateInputInputZscalerHec           `queryParam:"inline" union:"member"`
+	CreateInputInputCloudflareHec        *CreateInputInputCloudflareHec        `queryParam:"inline" union:"member"`
 
 	Type CreateInputRequestType
 }
 
-func CreateCreateInputRequestCollection(collection InputCollection) CreateInputRequest {
+func CreateCreateInputRequestCollection(collection CreateInputInputCollection) CreateInputRequest {
 	typ := CreateInputRequestTypeCollection
 
-	typStr := TypeCollection(typ)
+	typStr := CreateInputTypeCollection(typ)
 	collection.Type = typStr
 
 	return CreateInputRequest{
-		InputCollection: &collection,
-		Type:            typ,
+		CreateInputInputCollection: &collection,
+		Type:                       typ,
 	}
 }
 
-func CreateCreateInputRequestKafka(kafka InputKafka) CreateInputRequest {
+func CreateCreateInputRequestKafka(kafka CreateInputInputKafka) CreateInputRequest {
 	typ := CreateInputRequestTypeKafka
 
 	typStr := CreateInputTypeKafka(typ)
 	kafka.Type = typStr
 
 	return CreateInputRequest{
-		InputKafka: &kafka,
-		Type:       typ,
+		CreateInputInputKafka: &kafka,
+		Type:                  typ,
 	}
 }
 
-func CreateCreateInputRequestMsk(msk InputMsk) CreateInputRequest {
+func CreateCreateInputRequestMsk(msk CreateInputInputMsk) CreateInputRequest {
 	typ := CreateInputRequestTypeMsk
 
 	typStr := CreateInputTypeMsk(typ)
 	msk.Type = typStr
 
 	return CreateInputRequest{
-		InputMsk: &msk,
-		Type:     typ,
+		CreateInputInputMsk: &msk,
+		Type:                typ,
 	}
 }
 
-func CreateCreateInputRequestHTTP(http InputHTTP) CreateInputRequest {
+func CreateCreateInputRequestHTTP(http CreateInputInputHTTP) CreateInputRequest {
 	typ := CreateInputRequestTypeHTTP
 
-	typStr := TypeHTTP(typ)
+	typStr := CreateInputTypeHTTP(typ)
 	http.Type = typStr
 
 	return CreateInputRequest{
-		InputHTTP: &http,
-		Type:      typ,
+		CreateInputInputHTTP: &http,
+		Type:                 typ,
 	}
 }
 
-func CreateCreateInputRequestSplunk(splunk InputSplunk) CreateInputRequest {
+func CreateCreateInputRequestSplunk(splunk CreateInputInputSplunk) CreateInputRequest {
 	typ := CreateInputRequestTypeSplunk
 
 	typStr := CreateInputTypeSplunk(typ)
 	splunk.Type = typStr
 
 	return CreateInputRequest{
-		InputSplunk: &splunk,
-		Type:        typ,
+		CreateInputInputSplunk: &splunk,
+		Type:                   typ,
 	}
 }
 
-func CreateCreateInputRequestSplunkSearch(splunkSearch InputSplunkSearch) CreateInputRequest {
+func CreateCreateInputRequestSplunkSearch(splunkSearch CreateInputInputSplunkSearch) CreateInputRequest {
 	typ := CreateInputRequestTypeSplunkSearch
 
-	typStr := TypeSplunkSearch(typ)
+	typStr := CreateInputTypeSplunkSearch(typ)
 	splunkSearch.Type = typStr
 
 	return CreateInputRequest{
-		InputSplunkSearch: &splunkSearch,
-		Type:              typ,
+		CreateInputInputSplunkSearch: &splunkSearch,
+		Type:                         typ,
 	}
 }
 
-func CreateCreateInputRequestSplunkHec(splunkHec InputSplunkHec) CreateInputRequest {
+func CreateCreateInputRequestSplunkHec(splunkHec CreateInputInputSplunkHec) CreateInputRequest {
 	typ := CreateInputRequestTypeSplunkHec
 
 	typStr := CreateInputTypeSplunkHec(typ)
 	splunkHec.Type = typStr
 
 	return CreateInputRequest{
-		InputSplunkHec: &splunkHec,
-		Type:           typ,
+		CreateInputInputSplunkHec: &splunkHec,
+		Type:                      typ,
 	}
 }
 
-func CreateCreateInputRequestAzureBlob(azureBlob InputAzureBlob) CreateInputRequest {
+func CreateCreateInputRequestAzureBlob(azureBlob CreateInputInputAzureBlob) CreateInputRequest {
 	typ := CreateInputRequestTypeAzureBlob
 
 	typStr := CreateInputTypeAzureBlob(typ)
 	azureBlob.Type = typStr
 
 	return CreateInputRequest{
-		InputAzureBlob: &azureBlob,
-		Type:           typ,
+		CreateInputInputAzureBlob: &azureBlob,
+		Type:                      typ,
 	}
 }
 
-func CreateCreateInputRequestElastic(elastic InputElastic) CreateInputRequest {
+func CreateCreateInputRequestElastic(elastic CreateInputInputElastic) CreateInputRequest {
 	typ := CreateInputRequestTypeElastic
 
 	typStr := CreateInputTypeElastic(typ)
 	elastic.Type = typStr
 
 	return CreateInputRequest{
-		InputElastic: &elastic,
-		Type:         typ,
+		CreateInputInputElastic: &elastic,
+		Type:                    typ,
 	}
 }
 
-func CreateCreateInputRequestConfluentCloud(confluentCloud InputConfluentCloud) CreateInputRequest {
+func CreateCreateInputRequestConfluentCloud(confluentCloud CreateInputInputConfluentCloud) CreateInputRequest {
 	typ := CreateInputRequestTypeConfluentCloud
 
 	typStr := CreateInputTypeConfluentCloud(typ)
 	confluentCloud.Type = typStr
 
 	return CreateInputRequest{
-		InputConfluentCloud: &confluentCloud,
-		Type:                typ,
+		CreateInputInputConfluentCloud: &confluentCloud,
+		Type:                           typ,
 	}
 }
 
-func CreateCreateInputRequestGrafana(grafana InputGrafana) CreateInputRequest {
+func CreateCreateInputRequestGrafana(grafana CreateInputInputGrafanaUnion) CreateInputRequest {
 	typ := CreateInputRequestTypeGrafana
 
 	return CreateInputRequest{
-		InputGrafana: &grafana,
-		Type:         typ,
+		CreateInputInputGrafanaUnion: &grafana,
+		Type:                         typ,
 	}
 }
 
-func CreateCreateInputRequestLoki(loki InputLoki) CreateInputRequest {
+func CreateCreateInputRequestLoki(loki CreateInputInputLoki) CreateInputRequest {
 	typ := CreateInputRequestTypeLoki
 
 	typStr := CreateInputTypeLoki(typ)
 	loki.Type = typStr
 
 	return CreateInputRequest{
-		InputLoki: &loki,
-		Type:      typ,
+		CreateInputInputLoki: &loki,
+		Type:                 typ,
 	}
 }
 
-func CreateCreateInputRequestPrometheusRw(prometheusRw InputPrometheusRw) CreateInputRequest {
+func CreateCreateInputRequestPrometheusRw(prometheusRw CreateInputInputPrometheusRw) CreateInputRequest {
 	typ := CreateInputRequestTypePrometheusRw
 
-	typStr := TypePrometheusRw(typ)
+	typStr := CreateInputTypePrometheusRw(typ)
 	prometheusRw.Type = typStr
 
 	return CreateInputRequest{
-		InputPrometheusRw: &prometheusRw,
-		Type:              typ,
+		CreateInputInputPrometheusRw: &prometheusRw,
+		Type:                         typ,
 	}
 }
 
-func CreateCreateInputRequestPrometheus(prometheus InputPrometheus) CreateInputRequest {
+func CreateCreateInputRequestPrometheus(prometheus CreateInputInputPrometheus) CreateInputRequest {
 	typ := CreateInputRequestTypePrometheus
 
 	typStr := CreateInputTypePrometheus(typ)
 	prometheus.Type = typStr
 
 	return CreateInputRequest{
-		InputPrometheus: &prometheus,
-		Type:            typ,
+		CreateInputInputPrometheus: &prometheus,
+		Type:                       typ,
 	}
 }
 
-func CreateCreateInputRequestEdgePrometheus(edgePrometheus InputEdgePrometheus) CreateInputRequest {
+func CreateCreateInputRequestEdgePrometheus(edgePrometheus CreateInputInputEdgePrometheus) CreateInputRequest {
 	typ := CreateInputRequestTypeEdgePrometheus
 
-	typStr := TypeEdgePrometheus(typ)
+	typStr := CreateInputTypeEdgePrometheus(typ)
 	edgePrometheus.Type = typStr
 
 	return CreateInputRequest{
-		InputEdgePrometheus: &edgePrometheus,
-		Type:                typ,
+		CreateInputInputEdgePrometheus: &edgePrometheus,
+		Type:                           typ,
 	}
 }
 
-func CreateCreateInputRequestOffice365Mgmt(office365Mgmt InputOffice365Mgmt) CreateInputRequest {
+func CreateCreateInputRequestOffice365Mgmt(office365Mgmt CreateInputInputOffice365Mgmt) CreateInputRequest {
 	typ := CreateInputRequestTypeOffice365Mgmt
 
-	typStr := TypeOffice365Mgmt(typ)
+	typStr := CreateInputTypeOffice365Mgmt(typ)
 	office365Mgmt.Type = typStr
 
 	return CreateInputRequest{
-		InputOffice365Mgmt: &office365Mgmt,
-		Type:               typ,
+		CreateInputInputOffice365Mgmt: &office365Mgmt,
+		Type:                          typ,
 	}
 }
 
-func CreateCreateInputRequestOffice365Service(office365Service InputOffice365Service) CreateInputRequest {
+func CreateCreateInputRequestOffice365Service(office365Service CreateInputInputOffice365Service) CreateInputRequest {
 	typ := CreateInputRequestTypeOffice365Service
 
-	typStr := TypeOffice365Service(typ)
+	typStr := CreateInputTypeOffice365Service(typ)
 	office365Service.Type = typStr
 
 	return CreateInputRequest{
-		InputOffice365Service: &office365Service,
-		Type:                  typ,
+		CreateInputInputOffice365Service: &office365Service,
+		Type:                             typ,
 	}
 }
 
-func CreateCreateInputRequestOffice365MsgTrace(office365MsgTrace InputOffice365MsgTrace) CreateInputRequest {
+func CreateCreateInputRequestOffice365MsgTrace(office365MsgTrace CreateInputInputOffice365MsgTrace) CreateInputRequest {
 	typ := CreateInputRequestTypeOffice365MsgTrace
 
-	typStr := TypeOffice365MsgTrace(typ)
+	typStr := CreateInputTypeOffice365MsgTrace(typ)
 	office365MsgTrace.Type = typStr
 
 	return CreateInputRequest{
-		InputOffice365MsgTrace: &office365MsgTrace,
-		Type:                   typ,
+		CreateInputInputOffice365MsgTrace: &office365MsgTrace,
+		Type:                              typ,
 	}
 }
 
-func CreateCreateInputRequestEventhub(eventhub InputEventhub) CreateInputRequest {
+func CreateCreateInputRequestEventhub(eventhub CreateInputInputEventhub) CreateInputRequest {
 	typ := CreateInputRequestTypeEventhub
 
-	typStr := TypeEventhub(typ)
+	typStr := CreateInputTypeEventhub(typ)
 	eventhub.Type = typStr
 
 	return CreateInputRequest{
-		InputEventhub: &eventhub,
-		Type:          typ,
+		CreateInputInputEventhub: &eventhub,
+		Type:                     typ,
 	}
 }
 
-func CreateCreateInputRequestExec(exec InputExec) CreateInputRequest {
+func CreateCreateInputRequestExec(exec CreateInputInputExec) CreateInputRequest {
 	typ := CreateInputRequestTypeExec
 
-	typStr := InputExecType(typ)
+	typStr := CreateInputInputExecType(typ)
 	exec.Type = typStr
 
 	return CreateInputRequest{
-		InputExec: &exec,
-		Type:      typ,
+		CreateInputInputExec: &exec,
+		Type:                 typ,
 	}
 }
 
-func CreateCreateInputRequestFirehose(firehose InputFirehose) CreateInputRequest {
+func CreateCreateInputRequestFirehose(firehose CreateInputInputFirehose) CreateInputRequest {
 	typ := CreateInputRequestTypeFirehose
 
-	typStr := TypeFirehose(typ)
+	typStr := CreateInputTypeFirehose(typ)
 	firehose.Type = typStr
 
 	return CreateInputRequest{
-		InputFirehose: &firehose,
-		Type:          typ,
+		CreateInputInputFirehose: &firehose,
+		Type:                     typ,
 	}
 }
 
-func CreateCreateInputRequestGooglePubsub(googlePubsub InputGooglePubsub) CreateInputRequest {
+func CreateCreateInputRequestGooglePubsub(googlePubsub CreateInputInputGooglePubsub) CreateInputRequest {
 	typ := CreateInputRequestTypeGooglePubsub
 
 	typStr := CreateInputTypeGooglePubsub(typ)
 	googlePubsub.Type = typStr
 
 	return CreateInputRequest{
-		InputGooglePubsub: &googlePubsub,
-		Type:              typ,
+		CreateInputInputGooglePubsub: &googlePubsub,
+		Type:                         typ,
 	}
 }
 
-func CreateCreateInputRequestCribl(cribl InputCribl) CreateInputRequest {
+func CreateCreateInputRequestCribl(cribl CreateInputInputCribl) CreateInputRequest {
 	typ := CreateInputRequestTypeCribl
 
-	typStr := TypeCribl(typ)
+	typStr := CreateInputTypeCribl(typ)
 	cribl.Type = typStr
 
 	return CreateInputRequest{
-		InputCribl: &cribl,
-		Type:       typ,
+		CreateInputInputCribl: &cribl,
+		Type:                  typ,
 	}
 }
 
-func CreateCreateInputRequestCriblTCP(criblTCP InputCriblTCP) CreateInputRequest {
+func CreateCreateInputRequestCriblTCP(criblTCP CreateInputInputCriblTCP) CreateInputRequest {
 	typ := CreateInputRequestTypeCriblTCP
 
 	typStr := CreateInputTypeCriblTCP(typ)
 	criblTCP.Type = typStr
 
 	return CreateInputRequest{
-		InputCriblTCP: &criblTCP,
-		Type:          typ,
+		CreateInputInputCriblTCP: &criblTCP,
+		Type:                     typ,
 	}
 }
 
-func CreateCreateInputRequestCriblHTTP(criblHTTP InputCriblHTTP) CreateInputRequest {
+func CreateCreateInputRequestCriblHTTP(criblHTTP CreateInputInputCriblHTTP) CreateInputRequest {
 	typ := CreateInputRequestTypeCriblHTTP
 
 	typStr := CreateInputTypeCriblHTTP(typ)
 	criblHTTP.Type = typStr
 
 	return CreateInputRequest{
-		InputCriblHTTP: &criblHTTP,
-		Type:           typ,
+		CreateInputInputCriblHTTP: &criblHTTP,
+		Type:                      typ,
 	}
 }
 
-func CreateCreateInputRequestCriblLakeHTTP(criblLakeHTTP InputCriblLakeHTTP) CreateInputRequest {
+func CreateCreateInputRequestCriblLakeHTTP(criblLakeHTTP CreateInputInputCriblLakeHTTP) CreateInputRequest {
 	typ := CreateInputRequestTypeCriblLakeHTTP
 
-	typStr := TypeCriblLakeHTTP(typ)
+	typStr := CreateInputTypeCriblLakeHTTP(typ)
 	criblLakeHTTP.Type = typStr
 
 	return CreateInputRequest{
-		InputCriblLakeHTTP: &criblLakeHTTP,
-		Type:               typ,
+		CreateInputInputCriblLakeHTTP: &criblLakeHTTP,
+		Type:                          typ,
 	}
 }
 
-func CreateCreateInputRequestTcpjson(tcpjson InputTcpjson) CreateInputRequest {
+func CreateCreateInputRequestTcpjson(tcpjson CreateInputInputTcpjson) CreateInputRequest {
 	typ := CreateInputRequestTypeTcpjson
 
 	typStr := CreateInputTypeTcpjson(typ)
 	tcpjson.Type = typStr
 
 	return CreateInputRequest{
-		InputTcpjson: &tcpjson,
-		Type:         typ,
+		CreateInputInputTcpjson: &tcpjson,
+		Type:                    typ,
 	}
 }
 
-func CreateCreateInputRequestSystemMetrics(systemMetrics InputSystemMetrics) CreateInputRequest {
+func CreateCreateInputRequestSystemMetrics(systemMetrics CreateInputInputSystemMetrics) CreateInputRequest {
 	typ := CreateInputRequestTypeSystemMetrics
 
-	typStr := TypeSystemMetrics(typ)
+	typStr := CreateInputTypeSystemMetrics(typ)
 	systemMetrics.Type = typStr
 
 	return CreateInputRequest{
-		InputSystemMetrics: &systemMetrics,
-		Type:               typ,
+		CreateInputInputSystemMetrics: &systemMetrics,
+		Type:                          typ,
 	}
 }
 
-func CreateCreateInputRequestSystemState(systemState InputSystemState) CreateInputRequest {
+func CreateCreateInputRequestSystemState(systemState CreateInputInputSystemState) CreateInputRequest {
 	typ := CreateInputRequestTypeSystemState
 
-	typStr := TypeSystemState(typ)
+	typStr := CreateInputTypeSystemState(typ)
 	systemState.Type = typStr
 
 	return CreateInputRequest{
-		InputSystemState: &systemState,
-		Type:             typ,
+		CreateInputInputSystemState: &systemState,
+		Type:                        typ,
 	}
 }
 
-func CreateCreateInputRequestKubeMetrics(kubeMetrics InputKubeMetrics) CreateInputRequest {
+func CreateCreateInputRequestKubeMetrics(kubeMetrics CreateInputInputKubeMetrics) CreateInputRequest {
 	typ := CreateInputRequestTypeKubeMetrics
 
-	typStr := TypeKubeMetrics(typ)
+	typStr := CreateInputTypeKubeMetrics(typ)
 	kubeMetrics.Type = typStr
 
 	return CreateInputRequest{
-		InputKubeMetrics: &kubeMetrics,
-		Type:             typ,
+		CreateInputInputKubeMetrics: &kubeMetrics,
+		Type:                        typ,
 	}
 }
 
-func CreateCreateInputRequestKubeLogs(kubeLogs InputKubeLogs) CreateInputRequest {
+func CreateCreateInputRequestKubeLogs(kubeLogs CreateInputInputKubeLogs) CreateInputRequest {
 	typ := CreateInputRequestTypeKubeLogs
 
-	typStr := TypeKubeLogs(typ)
+	typStr := CreateInputTypeKubeLogs(typ)
 	kubeLogs.Type = typStr
 
 	return CreateInputRequest{
-		InputKubeLogs: &kubeLogs,
-		Type:          typ,
+		CreateInputInputKubeLogs: &kubeLogs,
+		Type:                     typ,
 	}
 }
 
-func CreateCreateInputRequestKubeEvents(kubeEvents InputKubeEvents) CreateInputRequest {
+func CreateCreateInputRequestKubeEvents(kubeEvents CreateInputInputKubeEvents) CreateInputRequest {
 	typ := CreateInputRequestTypeKubeEvents
 
-	typStr := TypeKubeEvents(typ)
+	typStr := CreateInputTypeKubeEvents(typ)
 	kubeEvents.Type = typStr
 
 	return CreateInputRequest{
-		InputKubeEvents: &kubeEvents,
-		Type:            typ,
+		CreateInputInputKubeEvents: &kubeEvents,
+		Type:                       typ,
 	}
 }
 
-func CreateCreateInputRequestWindowsMetrics(windowsMetrics InputWindowsMetrics) CreateInputRequest {
+func CreateCreateInputRequestWindowsMetrics(windowsMetrics CreateInputInputWindowsMetrics) CreateInputRequest {
 	typ := CreateInputRequestTypeWindowsMetrics
 
-	typStr := TypeWindowsMetrics(typ)
+	typStr := CreateInputTypeWindowsMetrics(typ)
 	windowsMetrics.Type = typStr
 
 	return CreateInputRequest{
-		InputWindowsMetrics: &windowsMetrics,
-		Type:                typ,
+		CreateInputInputWindowsMetrics: &windowsMetrics,
+		Type:                           typ,
 	}
 }
 
-func CreateCreateInputRequestCrowdstrike(crowdstrike InputCrowdstrike) CreateInputRequest {
+func CreateCreateInputRequestCrowdstrike(crowdstrike CreateInputInputCrowdstrike) CreateInputRequest {
 	typ := CreateInputRequestTypeCrowdstrike
 
-	typStr := TypeCrowdstrike(typ)
+	typStr := CreateInputTypeCrowdstrike(typ)
 	crowdstrike.Type = typStr
 
 	return CreateInputRequest{
-		InputCrowdstrike: &crowdstrike,
-		Type:             typ,
+		CreateInputInputCrowdstrike: &crowdstrike,
+		Type:                        typ,
 	}
 }
 
-func CreateCreateInputRequestDatadogAgent(datadogAgent InputDatadogAgent) CreateInputRequest {
+func CreateCreateInputRequestDatadogAgent(datadogAgent CreateInputInputDatadogAgent) CreateInputRequest {
 	typ := CreateInputRequestTypeDatadogAgent
 
-	typStr := TypeDatadogAgent(typ)
+	typStr := CreateInputTypeDatadogAgent(typ)
 	datadogAgent.Type = typStr
 
 	return CreateInputRequest{
-		InputDatadogAgent: &datadogAgent,
-		Type:              typ,
+		CreateInputInputDatadogAgent: &datadogAgent,
+		Type:                         typ,
 	}
 }
 
-func CreateCreateInputRequestDatagen(datagen InputDatagen) CreateInputRequest {
+func CreateCreateInputRequestDatagen(datagen CreateInputInputDatagen) CreateInputRequest {
 	typ := CreateInputRequestTypeDatagen
 
-	typStr := TypeDatagen(typ)
+	typStr := CreateInputTypeDatagen(typ)
 	datagen.Type = typStr
 
 	return CreateInputRequest{
-		InputDatagen: &datagen,
-		Type:         typ,
+		CreateInputInputDatagen: &datagen,
+		Type:                    typ,
 	}
 }
 
-func CreateCreateInputRequestHTTPRaw(httpRaw InputHTTPRaw) CreateInputRequest {
+func CreateCreateInputRequestHTTPRaw(httpRaw CreateInputInputHTTPRaw) CreateInputRequest {
 	typ := CreateInputRequestTypeHTTPRaw
 
-	typStr := TypeHTTPRaw(typ)
+	typStr := CreateInputTypeHTTPRaw(typ)
 	httpRaw.Type = typStr
 
 	return CreateInputRequest{
-		InputHTTPRaw: &httpRaw,
-		Type:         typ,
+		CreateInputInputHTTPRaw: &httpRaw,
+		Type:                    typ,
 	}
 }
 
-func CreateCreateInputRequestKinesis(kinesis InputKinesis) CreateInputRequest {
+func CreateCreateInputRequestKinesis(kinesis CreateInputInputKinesis) CreateInputRequest {
 	typ := CreateInputRequestTypeKinesis
 
 	typStr := CreateInputTypeKinesis(typ)
 	kinesis.Type = typStr
 
 	return CreateInputRequest{
-		InputKinesis: &kinesis,
-		Type:         typ,
+		CreateInputInputKinesis: &kinesis,
+		Type:                    typ,
 	}
 }
 
-func CreateCreateInputRequestCriblmetrics(criblmetrics InputCriblmetrics) CreateInputRequest {
+func CreateCreateInputRequestCriblmetrics(criblmetrics CreateInputInputCriblmetrics) CreateInputRequest {
 	typ := CreateInputRequestTypeCriblmetrics
 
-	typStr := TypeCriblmetrics(typ)
+	typStr := CreateInputTypeCriblmetrics(typ)
 	criblmetrics.Type = typStr
 
 	return CreateInputRequest{
-		InputCriblmetrics: &criblmetrics,
-		Type:              typ,
+		CreateInputInputCriblmetrics: &criblmetrics,
+		Type:                         typ,
 	}
 }
 
-func CreateCreateInputRequestMetrics(metrics InputMetrics) CreateInputRequest {
+func CreateCreateInputRequestMetrics(metrics CreateInputInputMetrics) CreateInputRequest {
 	typ := CreateInputRequestTypeMetrics
 
-	typStr := TypeMetrics(typ)
+	typStr := CreateInputTypeMetrics(typ)
 	metrics.Type = typStr
 
 	return CreateInputRequest{
-		InputMetrics: &metrics,
-		Type:         typ,
+		CreateInputInputMetrics: &metrics,
+		Type:                    typ,
 	}
 }
 
-func CreateCreateInputRequestS3(s3 InputS3) CreateInputRequest {
+func CreateCreateInputRequestS3(s3 CreateInputInputS3) CreateInputRequest {
 	typ := CreateInputRequestTypeS3
 
 	typStr := CreateInputTypeS3(typ)
 	s3.Type = typStr
 
 	return CreateInputRequest{
-		InputS3: &s3,
-		Type:    typ,
+		CreateInputInputS3: &s3,
+		Type:               typ,
 	}
 }
 
-func CreateCreateInputRequestS3Inventory(s3Inventory InputS3Inventory) CreateInputRequest {
+func CreateCreateInputRequestS3Inventory(s3Inventory CreateInputInputS3Inventory) CreateInputRequest {
 	typ := CreateInputRequestTypeS3Inventory
 
-	typStr := TypeS3Inventory(typ)
+	typStr := CreateInputTypeS3Inventory(typ)
 	s3Inventory.Type = typStr
 
 	return CreateInputRequest{
-		InputS3Inventory: &s3Inventory,
-		Type:             typ,
+		CreateInputInputS3Inventory: &s3Inventory,
+		Type:                        typ,
 	}
 }
 
-func CreateCreateInputRequestSnmp(snmp InputSnmp) CreateInputRequest {
+func CreateCreateInputRequestSnmp(snmp CreateInputInputSnmp) CreateInputRequest {
 	typ := CreateInputRequestTypeSnmp
 
 	typStr := CreateInputTypeSnmp(typ)
 	snmp.Type = typStr
 
 	return CreateInputRequest{
-		InputSnmp: &snmp,
-		Type:      typ,
+		CreateInputInputSnmp: &snmp,
+		Type:                 typ,
 	}
 }
 
-func CreateCreateInputRequestOpenTelemetry(openTelemetry InputOpenTelemetry) CreateInputRequest {
+func CreateCreateInputRequestOpenTelemetry(openTelemetry CreateInputInputOpenTelemetry) CreateInputRequest {
 	typ := CreateInputRequestTypeOpenTelemetry
 
 	typStr := CreateInputTypeOpenTelemetry(typ)
 	openTelemetry.Type = typStr
 
 	return CreateInputRequest{
-		InputOpenTelemetry: &openTelemetry,
-		Type:               typ,
+		CreateInputInputOpenTelemetry: &openTelemetry,
+		Type:                          typ,
 	}
 }
 
-func CreateCreateInputRequestModelDrivenTelemetry(modelDrivenTelemetry InputModelDrivenTelemetry) CreateInputRequest {
+func CreateCreateInputRequestModelDrivenTelemetry(modelDrivenTelemetry CreateInputInputModelDrivenTelemetry) CreateInputRequest {
 	typ := CreateInputRequestTypeModelDrivenTelemetry
 
-	typStr := TypeModelDrivenTelemetry(typ)
+	typStr := CreateInputTypeModelDrivenTelemetry(typ)
 	modelDrivenTelemetry.Type = typStr
 
 	return CreateInputRequest{
-		InputModelDrivenTelemetry: &modelDrivenTelemetry,
-		Type:                      typ,
+		CreateInputInputModelDrivenTelemetry: &modelDrivenTelemetry,
+		Type:                                 typ,
 	}
 }
 
-func CreateCreateInputRequestSqs(sqs InputSqs) CreateInputRequest {
+func CreateCreateInputRequestSqs(sqs CreateInputInputSqs) CreateInputRequest {
 	typ := CreateInputRequestTypeSqs
 
 	typStr := CreateInputTypeSqs(typ)
 	sqs.Type = typStr
 
 	return CreateInputRequest{
-		InputSqs: &sqs,
-		Type:     typ,
+		CreateInputInputSqs: &sqs,
+		Type:                typ,
 	}
 }
 
-func CreateCreateInputRequestSyslog(syslog InputSyslog) CreateInputRequest {
+func CreateCreateInputRequestSyslog(syslog CreateInputInputSyslogUnion) CreateInputRequest {
 	typ := CreateInputRequestTypeSyslog
 
 	return CreateInputRequest{
-		InputSyslog: &syslog,
-		Type:        typ,
+		CreateInputInputSyslogUnion: &syslog,
+		Type:                        typ,
 	}
 }
 
-func CreateCreateInputRequestFile(file InputFile) CreateInputRequest {
+func CreateCreateInputRequestFile(file CreateInputInputFile) CreateInputRequest {
 	typ := CreateInputRequestTypeFile
 
-	typStr := InputFileType(typ)
+	typStr := CreateInputInputFileType(typ)
 	file.Type = typStr
 
 	return CreateInputRequest{
-		InputFile: &file,
-		Type:      typ,
+		CreateInputInputFile: &file,
+		Type:                 typ,
 	}
 }
 
-func CreateCreateInputRequestTCP(tcp InputTCP) CreateInputRequest {
+func CreateCreateInputRequestTCP(tcp CreateInputInputTCP) CreateInputRequest {
 	typ := CreateInputRequestTypeTCP
 
-	typStr := TypeTCP(typ)
+	typStr := CreateInputTypeTCP(typ)
 	tcp.Type = typStr
 
 	return CreateInputRequest{
-		InputTCP: &tcp,
-		Type:     typ,
+		CreateInputInputTCP: &tcp,
+		Type:                typ,
 	}
 }
 
-func CreateCreateInputRequestAppscope(appscope InputAppscope) CreateInputRequest {
+func CreateCreateInputRequestAppscope(appscope CreateInputInputAppscope) CreateInputRequest {
 	typ := CreateInputRequestTypeAppscope
 
-	typStr := TypeAppscope(typ)
+	typStr := CreateInputTypeAppscope(typ)
 	appscope.Type = typStr
 
 	return CreateInputRequest{
-		InputAppscope: &appscope,
-		Type:          typ,
+		CreateInputInputAppscope: &appscope,
+		Type:                     typ,
 	}
 }
 
-func CreateCreateInputRequestWef(wef InputWef) CreateInputRequest {
+func CreateCreateInputRequestWef(wef CreateInputInputWef) CreateInputRequest {
 	typ := CreateInputRequestTypeWef
 
-	typStr := TypeWef(typ)
+	typStr := CreateInputTypeWef(typ)
 	wef.Type = typStr
 
 	return CreateInputRequest{
-		InputWef: &wef,
-		Type:     typ,
+		CreateInputInputWef: &wef,
+		Type:                typ,
 	}
 }
 
-func CreateCreateInputRequestWinEventLogs(winEventLogs InputWinEventLogs) CreateInputRequest {
+func CreateCreateInputRequestWinEventLogs(winEventLogs CreateInputInputWinEventLogs) CreateInputRequest {
 	typ := CreateInputRequestTypeWinEventLogs
 
-	typStr := TypeWinEventLogs(typ)
+	typStr := CreateInputTypeWinEventLogs(typ)
 	winEventLogs.Type = typStr
 
 	return CreateInputRequest{
-		InputWinEventLogs: &winEventLogs,
-		Type:              typ,
+		CreateInputInputWinEventLogs: &winEventLogs,
+		Type:                         typ,
 	}
 }
 
-func CreateCreateInputRequestRawUDP(rawUDP InputRawUDP) CreateInputRequest {
+func CreateCreateInputRequestRawUDP(rawUDP CreateInputInputRawUDP) CreateInputRequest {
 	typ := CreateInputRequestTypeRawUDP
 
-	typStr := TypeRawUDP(typ)
+	typStr := CreateInputTypeRawUDP(typ)
 	rawUDP.Type = typStr
 
 	return CreateInputRequest{
-		InputRawUDP: &rawUDP,
-		Type:        typ,
+		CreateInputInputRawUDP: &rawUDP,
+		Type:                   typ,
 	}
 }
 
-func CreateCreateInputRequestJournalFiles(journalFiles InputJournalFiles) CreateInputRequest {
+func CreateCreateInputRequestJournalFiles(journalFiles CreateInputInputJournalFiles) CreateInputRequest {
 	typ := CreateInputRequestTypeJournalFiles
 
-	typStr := InputJournalFilesType(typ)
+	typStr := CreateInputInputJournalFilesType(typ)
 	journalFiles.Type = typStr
 
 	return CreateInputRequest{
-		InputJournalFiles: &journalFiles,
-		Type:              typ,
+		CreateInputInputJournalFiles: &journalFiles,
+		Type:                         typ,
 	}
 }
 
-func CreateCreateInputRequestWiz(wiz InputWiz) CreateInputRequest {
+func CreateCreateInputRequestWiz(wiz CreateInputInputWiz) CreateInputRequest {
 	typ := CreateInputRequestTypeWiz
 
-	typStr := TypeWiz(typ)
+	typStr := CreateInputTypeWiz(typ)
 	wiz.Type = typStr
 
 	return CreateInputRequest{
-		InputWiz: &wiz,
-		Type:     typ,
+		CreateInputInputWiz: &wiz,
+		Type:                typ,
 	}
 }
 
-func CreateCreateInputRequestWizWebhook(wizWebhook InputWizWebhook) CreateInputRequest {
+func CreateCreateInputRequestOpenai(openai CreateInputInputOpenai) CreateInputRequest {
+	typ := CreateInputRequestTypeOpenai
+
+	typStr := CreateInputTypeOpenai(typ)
+	openai.Type = typStr
+
+	return CreateInputRequest{
+		CreateInputInputOpenai: &openai,
+		Type:                   typ,
+	}
+}
+
+func CreateCreateInputRequestWizWebhook(wizWebhook CreateInputInputWizWebhook) CreateInputRequest {
 	typ := CreateInputRequestTypeWizWebhook
 
-	typStr := TypeWizWebhook(typ)
+	typStr := CreateInputTypeWizWebhook(typ)
 	wizWebhook.Type = typStr
 
 	return CreateInputRequest{
-		InputWizWebhook: &wizWebhook,
-		Type:            typ,
+		CreateInputInputWizWebhook: &wizWebhook,
+		Type:                       typ,
 	}
 }
 
-func CreateCreateInputRequestNetflow(netflow InputNetflow) CreateInputRequest {
+func CreateCreateInputRequestNetflow(netflow CreateInputInputNetflow) CreateInputRequest {
 	typ := CreateInputRequestTypeNetflow
 
 	typStr := CreateInputTypeNetflow(typ)
 	netflow.Type = typStr
 
 	return CreateInputRequest{
-		InputNetflow: &netflow,
-		Type:         typ,
+		CreateInputInputNetflow: &netflow,
+		Type:                    typ,
 	}
 }
 
-func CreateCreateInputRequestSecurityLake(securityLake InputSecurityLake) CreateInputRequest {
+func CreateCreateInputRequestSecurityLake(securityLake CreateInputInputSecurityLake) CreateInputRequest {
 	typ := CreateInputRequestTypeSecurityLake
 
 	typStr := CreateInputTypeSecurityLake(typ)
 	securityLake.Type = typStr
 
 	return CreateInputRequest{
-		InputSecurityLake: &securityLake,
-		Type:              typ,
+		CreateInputInputSecurityLake: &securityLake,
+		Type:                         typ,
 	}
 }
 
-func CreateCreateInputRequestZscalerHec(zscalerHec InputZscalerHec) CreateInputRequest {
+func CreateCreateInputRequestZscalerHec(zscalerHec CreateInputInputZscalerHec) CreateInputRequest {
 	typ := CreateInputRequestTypeZscalerHec
 
-	typStr := TypeZscalerHec(typ)
+	typStr := CreateInputTypeZscalerHec(typ)
 	zscalerHec.Type = typStr
 
 	return CreateInputRequest{
-		InputZscalerHec: &zscalerHec,
-		Type:            typ,
+		CreateInputInputZscalerHec: &zscalerHec,
+		Type:                       typ,
 	}
 }
 
-func CreateCreateInputRequestCloudflareHec(cloudflareHec InputCloudflareHec) CreateInputRequest {
+func CreateCreateInputRequestCloudflareHec(cloudflareHec CreateInputInputCloudflareHec) CreateInputRequest {
 	typ := CreateInputRequestTypeCloudflareHec
 
-	typStr := TypeCloudflareHec(typ)
+	typStr := CreateInputTypeCloudflareHec(typ)
 	cloudflareHec.Type = typStr
 
 	return CreateInputRequest{
-		InputCloudflareHec: &cloudflareHec,
-		Type:               typ,
+		CreateInputInputCloudflareHec: &cloudflareHec,
+		Type:                          typ,
 	}
 }
 
@@ -10843,543 +11618,552 @@ func (u *CreateInputRequest) UnmarshalJSON(data []byte) error {
 
 	switch dis.Type {
 	case "collection":
-		inputCollection := new(InputCollection)
-		if err := utils.UnmarshalJSON(data, &inputCollection, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == collection) type InputCollection within CreateInputRequest: %w", string(data), err)
+		createInputInputCollection := new(CreateInputInputCollection)
+		if err := utils.UnmarshalJSON(data, &createInputInputCollection, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == collection) type CreateInputInputCollection within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputCollection = inputCollection
+		u.CreateInputInputCollection = createInputInputCollection
 		u.Type = CreateInputRequestTypeCollection
 		return nil
 	case "kafka":
-		inputKafka := new(InputKafka)
-		if err := utils.UnmarshalJSON(data, &inputKafka, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kafka) type InputKafka within CreateInputRequest: %w", string(data), err)
+		createInputInputKafka := new(CreateInputInputKafka)
+		if err := utils.UnmarshalJSON(data, &createInputInputKafka, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kafka) type CreateInputInputKafka within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputKafka = inputKafka
+		u.CreateInputInputKafka = createInputInputKafka
 		u.Type = CreateInputRequestTypeKafka
 		return nil
 	case "msk":
-		inputMsk := new(InputMsk)
-		if err := utils.UnmarshalJSON(data, &inputMsk, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == msk) type InputMsk within CreateInputRequest: %w", string(data), err)
+		createInputInputMsk := new(CreateInputInputMsk)
+		if err := utils.UnmarshalJSON(data, &createInputInputMsk, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == msk) type CreateInputInputMsk within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputMsk = inputMsk
+		u.CreateInputInputMsk = createInputInputMsk
 		u.Type = CreateInputRequestTypeMsk
 		return nil
 	case "http":
-		inputHTTP := new(InputHTTP)
-		if err := utils.UnmarshalJSON(data, &inputHTTP, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == http) type InputHTTP within CreateInputRequest: %w", string(data), err)
+		createInputInputHTTP := new(CreateInputInputHTTP)
+		if err := utils.UnmarshalJSON(data, &createInputInputHTTP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == http) type CreateInputInputHTTP within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputHTTP = inputHTTP
+		u.CreateInputInputHTTP = createInputInputHTTP
 		u.Type = CreateInputRequestTypeHTTP
 		return nil
 	case "splunk":
-		inputSplunk := new(InputSplunk)
-		if err := utils.UnmarshalJSON(data, &inputSplunk, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk) type InputSplunk within CreateInputRequest: %w", string(data), err)
+		createInputInputSplunk := new(CreateInputInputSplunk)
+		if err := utils.UnmarshalJSON(data, &createInputInputSplunk, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk) type CreateInputInputSplunk within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputSplunk = inputSplunk
+		u.CreateInputInputSplunk = createInputInputSplunk
 		u.Type = CreateInputRequestTypeSplunk
 		return nil
 	case "splunk_search":
-		inputSplunkSearch := new(InputSplunkSearch)
-		if err := utils.UnmarshalJSON(data, &inputSplunkSearch, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk_search) type InputSplunkSearch within CreateInputRequest: %w", string(data), err)
+		createInputInputSplunkSearch := new(CreateInputInputSplunkSearch)
+		if err := utils.UnmarshalJSON(data, &createInputInputSplunkSearch, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk_search) type CreateInputInputSplunkSearch within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputSplunkSearch = inputSplunkSearch
+		u.CreateInputInputSplunkSearch = createInputInputSplunkSearch
 		u.Type = CreateInputRequestTypeSplunkSearch
 		return nil
 	case "splunk_hec":
-		inputSplunkHec := new(InputSplunkHec)
-		if err := utils.UnmarshalJSON(data, &inputSplunkHec, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk_hec) type InputSplunkHec within CreateInputRequest: %w", string(data), err)
+		createInputInputSplunkHec := new(CreateInputInputSplunkHec)
+		if err := utils.UnmarshalJSON(data, &createInputInputSplunkHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk_hec) type CreateInputInputSplunkHec within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputSplunkHec = inputSplunkHec
+		u.CreateInputInputSplunkHec = createInputInputSplunkHec
 		u.Type = CreateInputRequestTypeSplunkHec
 		return nil
 	case "azure_blob":
-		inputAzureBlob := new(InputAzureBlob)
-		if err := utils.UnmarshalJSON(data, &inputAzureBlob, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == azure_blob) type InputAzureBlob within CreateInputRequest: %w", string(data), err)
+		createInputInputAzureBlob := new(CreateInputInputAzureBlob)
+		if err := utils.UnmarshalJSON(data, &createInputInputAzureBlob, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == azure_blob) type CreateInputInputAzureBlob within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputAzureBlob = inputAzureBlob
+		u.CreateInputInputAzureBlob = createInputInputAzureBlob
 		u.Type = CreateInputRequestTypeAzureBlob
 		return nil
 	case "elastic":
-		inputElastic := new(InputElastic)
-		if err := utils.UnmarshalJSON(data, &inputElastic, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == elastic) type InputElastic within CreateInputRequest: %w", string(data), err)
+		createInputInputElastic := new(CreateInputInputElastic)
+		if err := utils.UnmarshalJSON(data, &createInputInputElastic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == elastic) type CreateInputInputElastic within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputElastic = inputElastic
+		u.CreateInputInputElastic = createInputInputElastic
 		u.Type = CreateInputRequestTypeElastic
 		return nil
 	case "confluent_cloud":
-		inputConfluentCloud := new(InputConfluentCloud)
-		if err := utils.UnmarshalJSON(data, &inputConfluentCloud, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == confluent_cloud) type InputConfluentCloud within CreateInputRequest: %w", string(data), err)
+		createInputInputConfluentCloud := new(CreateInputInputConfluentCloud)
+		if err := utils.UnmarshalJSON(data, &createInputInputConfluentCloud, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == confluent_cloud) type CreateInputInputConfluentCloud within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputConfluentCloud = inputConfluentCloud
+		u.CreateInputInputConfluentCloud = createInputInputConfluentCloud
 		u.Type = CreateInputRequestTypeConfluentCloud
 		return nil
 	case "grafana":
-		inputGrafana := new(InputGrafana)
-		if err := utils.UnmarshalJSON(data, &inputGrafana, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == grafana) type InputGrafana within CreateInputRequest: %w", string(data), err)
+		createInputInputGrafanaUnion := new(CreateInputInputGrafanaUnion)
+		if err := utils.UnmarshalJSON(data, &createInputInputGrafanaUnion, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == grafana) type CreateInputInputGrafanaUnion within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputGrafana = inputGrafana
+		u.CreateInputInputGrafanaUnion = createInputInputGrafanaUnion
 		u.Type = CreateInputRequestTypeGrafana
 		return nil
 	case "loki":
-		inputLoki := new(InputLoki)
-		if err := utils.UnmarshalJSON(data, &inputLoki, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == loki) type InputLoki within CreateInputRequest: %w", string(data), err)
+		createInputInputLoki := new(CreateInputInputLoki)
+		if err := utils.UnmarshalJSON(data, &createInputInputLoki, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == loki) type CreateInputInputLoki within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputLoki = inputLoki
+		u.CreateInputInputLoki = createInputInputLoki
 		u.Type = CreateInputRequestTypeLoki
 		return nil
 	case "prometheus_rw":
-		inputPrometheusRw := new(InputPrometheusRw)
-		if err := utils.UnmarshalJSON(data, &inputPrometheusRw, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == prometheus_rw) type InputPrometheusRw within CreateInputRequest: %w", string(data), err)
+		createInputInputPrometheusRw := new(CreateInputInputPrometheusRw)
+		if err := utils.UnmarshalJSON(data, &createInputInputPrometheusRw, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == prometheus_rw) type CreateInputInputPrometheusRw within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputPrometheusRw = inputPrometheusRw
+		u.CreateInputInputPrometheusRw = createInputInputPrometheusRw
 		u.Type = CreateInputRequestTypePrometheusRw
 		return nil
 	case "prometheus":
-		inputPrometheus := new(InputPrometheus)
-		if err := utils.UnmarshalJSON(data, &inputPrometheus, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == prometheus) type InputPrometheus within CreateInputRequest: %w", string(data), err)
+		createInputInputPrometheus := new(CreateInputInputPrometheus)
+		if err := utils.UnmarshalJSON(data, &createInputInputPrometheus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == prometheus) type CreateInputInputPrometheus within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputPrometheus = inputPrometheus
+		u.CreateInputInputPrometheus = createInputInputPrometheus
 		u.Type = CreateInputRequestTypePrometheus
 		return nil
 	case "edge_prometheus":
-		inputEdgePrometheus := new(InputEdgePrometheus)
-		if err := utils.UnmarshalJSON(data, &inputEdgePrometheus, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == edge_prometheus) type InputEdgePrometheus within CreateInputRequest: %w", string(data), err)
+		createInputInputEdgePrometheus := new(CreateInputInputEdgePrometheus)
+		if err := utils.UnmarshalJSON(data, &createInputInputEdgePrometheus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == edge_prometheus) type CreateInputInputEdgePrometheus within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputEdgePrometheus = inputEdgePrometheus
+		u.CreateInputInputEdgePrometheus = createInputInputEdgePrometheus
 		u.Type = CreateInputRequestTypeEdgePrometheus
 		return nil
 	case "office365_mgmt":
-		inputOffice365Mgmt := new(InputOffice365Mgmt)
-		if err := utils.UnmarshalJSON(data, &inputOffice365Mgmt, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == office365_mgmt) type InputOffice365Mgmt within CreateInputRequest: %w", string(data), err)
+		createInputInputOffice365Mgmt := new(CreateInputInputOffice365Mgmt)
+		if err := utils.UnmarshalJSON(data, &createInputInputOffice365Mgmt, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == office365_mgmt) type CreateInputInputOffice365Mgmt within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputOffice365Mgmt = inputOffice365Mgmt
+		u.CreateInputInputOffice365Mgmt = createInputInputOffice365Mgmt
 		u.Type = CreateInputRequestTypeOffice365Mgmt
 		return nil
 	case "office365_service":
-		inputOffice365Service := new(InputOffice365Service)
-		if err := utils.UnmarshalJSON(data, &inputOffice365Service, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == office365_service) type InputOffice365Service within CreateInputRequest: %w", string(data), err)
+		createInputInputOffice365Service := new(CreateInputInputOffice365Service)
+		if err := utils.UnmarshalJSON(data, &createInputInputOffice365Service, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == office365_service) type CreateInputInputOffice365Service within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputOffice365Service = inputOffice365Service
+		u.CreateInputInputOffice365Service = createInputInputOffice365Service
 		u.Type = CreateInputRequestTypeOffice365Service
 		return nil
 	case "office365_msg_trace":
-		inputOffice365MsgTrace := new(InputOffice365MsgTrace)
-		if err := utils.UnmarshalJSON(data, &inputOffice365MsgTrace, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == office365_msg_trace) type InputOffice365MsgTrace within CreateInputRequest: %w", string(data), err)
+		createInputInputOffice365MsgTrace := new(CreateInputInputOffice365MsgTrace)
+		if err := utils.UnmarshalJSON(data, &createInputInputOffice365MsgTrace, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == office365_msg_trace) type CreateInputInputOffice365MsgTrace within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputOffice365MsgTrace = inputOffice365MsgTrace
+		u.CreateInputInputOffice365MsgTrace = createInputInputOffice365MsgTrace
 		u.Type = CreateInputRequestTypeOffice365MsgTrace
 		return nil
 	case "eventhub":
-		inputEventhub := new(InputEventhub)
-		if err := utils.UnmarshalJSON(data, &inputEventhub, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == eventhub) type InputEventhub within CreateInputRequest: %w", string(data), err)
+		createInputInputEventhub := new(CreateInputInputEventhub)
+		if err := utils.UnmarshalJSON(data, &createInputInputEventhub, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == eventhub) type CreateInputInputEventhub within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputEventhub = inputEventhub
+		u.CreateInputInputEventhub = createInputInputEventhub
 		u.Type = CreateInputRequestTypeEventhub
 		return nil
 	case "exec":
-		inputExec := new(InputExec)
-		if err := utils.UnmarshalJSON(data, &inputExec, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == exec) type InputExec within CreateInputRequest: %w", string(data), err)
+		createInputInputExec := new(CreateInputInputExec)
+		if err := utils.UnmarshalJSON(data, &createInputInputExec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == exec) type CreateInputInputExec within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputExec = inputExec
+		u.CreateInputInputExec = createInputInputExec
 		u.Type = CreateInputRequestTypeExec
 		return nil
 	case "firehose":
-		inputFirehose := new(InputFirehose)
-		if err := utils.UnmarshalJSON(data, &inputFirehose, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == firehose) type InputFirehose within CreateInputRequest: %w", string(data), err)
+		createInputInputFirehose := new(CreateInputInputFirehose)
+		if err := utils.UnmarshalJSON(data, &createInputInputFirehose, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == firehose) type CreateInputInputFirehose within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputFirehose = inputFirehose
+		u.CreateInputInputFirehose = createInputInputFirehose
 		u.Type = CreateInputRequestTypeFirehose
 		return nil
 	case "google_pubsub":
-		inputGooglePubsub := new(InputGooglePubsub)
-		if err := utils.UnmarshalJSON(data, &inputGooglePubsub, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_pubsub) type InputGooglePubsub within CreateInputRequest: %w", string(data), err)
+		createInputInputGooglePubsub := new(CreateInputInputGooglePubsub)
+		if err := utils.UnmarshalJSON(data, &createInputInputGooglePubsub, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_pubsub) type CreateInputInputGooglePubsub within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputGooglePubsub = inputGooglePubsub
+		u.CreateInputInputGooglePubsub = createInputInputGooglePubsub
 		u.Type = CreateInputRequestTypeGooglePubsub
 		return nil
 	case "cribl":
-		inputCribl := new(InputCribl)
-		if err := utils.UnmarshalJSON(data, &inputCribl, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl) type InputCribl within CreateInputRequest: %w", string(data), err)
+		createInputInputCribl := new(CreateInputInputCribl)
+		if err := utils.UnmarshalJSON(data, &createInputInputCribl, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl) type CreateInputInputCribl within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputCribl = inputCribl
+		u.CreateInputInputCribl = createInputInputCribl
 		u.Type = CreateInputRequestTypeCribl
 		return nil
 	case "cribl_tcp":
-		inputCriblTCP := new(InputCriblTCP)
-		if err := utils.UnmarshalJSON(data, &inputCriblTCP, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_tcp) type InputCriblTCP within CreateInputRequest: %w", string(data), err)
+		createInputInputCriblTCP := new(CreateInputInputCriblTCP)
+		if err := utils.UnmarshalJSON(data, &createInputInputCriblTCP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_tcp) type CreateInputInputCriblTCP within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputCriblTCP = inputCriblTCP
+		u.CreateInputInputCriblTCP = createInputInputCriblTCP
 		u.Type = CreateInputRequestTypeCriblTCP
 		return nil
 	case "cribl_http":
-		inputCriblHTTP := new(InputCriblHTTP)
-		if err := utils.UnmarshalJSON(data, &inputCriblHTTP, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_http) type InputCriblHTTP within CreateInputRequest: %w", string(data), err)
+		createInputInputCriblHTTP := new(CreateInputInputCriblHTTP)
+		if err := utils.UnmarshalJSON(data, &createInputInputCriblHTTP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_http) type CreateInputInputCriblHTTP within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputCriblHTTP = inputCriblHTTP
+		u.CreateInputInputCriblHTTP = createInputInputCriblHTTP
 		u.Type = CreateInputRequestTypeCriblHTTP
 		return nil
 	case "cribl_lake_http":
-		inputCriblLakeHTTP := new(InputCriblLakeHTTP)
-		if err := utils.UnmarshalJSON(data, &inputCriblLakeHTTP, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_lake_http) type InputCriblLakeHTTP within CreateInputRequest: %w", string(data), err)
+		createInputInputCriblLakeHTTP := new(CreateInputInputCriblLakeHTTP)
+		if err := utils.UnmarshalJSON(data, &createInputInputCriblLakeHTTP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_lake_http) type CreateInputInputCriblLakeHTTP within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputCriblLakeHTTP = inputCriblLakeHTTP
+		u.CreateInputInputCriblLakeHTTP = createInputInputCriblLakeHTTP
 		u.Type = CreateInputRequestTypeCriblLakeHTTP
 		return nil
 	case "tcpjson":
-		inputTcpjson := new(InputTcpjson)
-		if err := utils.UnmarshalJSON(data, &inputTcpjson, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tcpjson) type InputTcpjson within CreateInputRequest: %w", string(data), err)
+		createInputInputTcpjson := new(CreateInputInputTcpjson)
+		if err := utils.UnmarshalJSON(data, &createInputInputTcpjson, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tcpjson) type CreateInputInputTcpjson within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputTcpjson = inputTcpjson
+		u.CreateInputInputTcpjson = createInputInputTcpjson
 		u.Type = CreateInputRequestTypeTcpjson
 		return nil
 	case "system_metrics":
-		inputSystemMetrics := new(InputSystemMetrics)
-		if err := utils.UnmarshalJSON(data, &inputSystemMetrics, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == system_metrics) type InputSystemMetrics within CreateInputRequest: %w", string(data), err)
+		createInputInputSystemMetrics := new(CreateInputInputSystemMetrics)
+		if err := utils.UnmarshalJSON(data, &createInputInputSystemMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == system_metrics) type CreateInputInputSystemMetrics within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputSystemMetrics = inputSystemMetrics
+		u.CreateInputInputSystemMetrics = createInputInputSystemMetrics
 		u.Type = CreateInputRequestTypeSystemMetrics
 		return nil
 	case "system_state":
-		inputSystemState := new(InputSystemState)
-		if err := utils.UnmarshalJSON(data, &inputSystemState, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == system_state) type InputSystemState within CreateInputRequest: %w", string(data), err)
+		createInputInputSystemState := new(CreateInputInputSystemState)
+		if err := utils.UnmarshalJSON(data, &createInputInputSystemState, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == system_state) type CreateInputInputSystemState within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputSystemState = inputSystemState
+		u.CreateInputInputSystemState = createInputInputSystemState
 		u.Type = CreateInputRequestTypeSystemState
 		return nil
 	case "kube_metrics":
-		inputKubeMetrics := new(InputKubeMetrics)
-		if err := utils.UnmarshalJSON(data, &inputKubeMetrics, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kube_metrics) type InputKubeMetrics within CreateInputRequest: %w", string(data), err)
+		createInputInputKubeMetrics := new(CreateInputInputKubeMetrics)
+		if err := utils.UnmarshalJSON(data, &createInputInputKubeMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kube_metrics) type CreateInputInputKubeMetrics within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputKubeMetrics = inputKubeMetrics
+		u.CreateInputInputKubeMetrics = createInputInputKubeMetrics
 		u.Type = CreateInputRequestTypeKubeMetrics
 		return nil
 	case "kube_logs":
-		inputKubeLogs := new(InputKubeLogs)
-		if err := utils.UnmarshalJSON(data, &inputKubeLogs, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kube_logs) type InputKubeLogs within CreateInputRequest: %w", string(data), err)
+		createInputInputKubeLogs := new(CreateInputInputKubeLogs)
+		if err := utils.UnmarshalJSON(data, &createInputInputKubeLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kube_logs) type CreateInputInputKubeLogs within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputKubeLogs = inputKubeLogs
+		u.CreateInputInputKubeLogs = createInputInputKubeLogs
 		u.Type = CreateInputRequestTypeKubeLogs
 		return nil
 	case "kube_events":
-		inputKubeEvents := new(InputKubeEvents)
-		if err := utils.UnmarshalJSON(data, &inputKubeEvents, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kube_events) type InputKubeEvents within CreateInputRequest: %w", string(data), err)
+		createInputInputKubeEvents := new(CreateInputInputKubeEvents)
+		if err := utils.UnmarshalJSON(data, &createInputInputKubeEvents, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kube_events) type CreateInputInputKubeEvents within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputKubeEvents = inputKubeEvents
+		u.CreateInputInputKubeEvents = createInputInputKubeEvents
 		u.Type = CreateInputRequestTypeKubeEvents
 		return nil
 	case "windows_metrics":
-		inputWindowsMetrics := new(InputWindowsMetrics)
-		if err := utils.UnmarshalJSON(data, &inputWindowsMetrics, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == windows_metrics) type InputWindowsMetrics within CreateInputRequest: %w", string(data), err)
+		createInputInputWindowsMetrics := new(CreateInputInputWindowsMetrics)
+		if err := utils.UnmarshalJSON(data, &createInputInputWindowsMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == windows_metrics) type CreateInputInputWindowsMetrics within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputWindowsMetrics = inputWindowsMetrics
+		u.CreateInputInputWindowsMetrics = createInputInputWindowsMetrics
 		u.Type = CreateInputRequestTypeWindowsMetrics
 		return nil
 	case "crowdstrike":
-		inputCrowdstrike := new(InputCrowdstrike)
-		if err := utils.UnmarshalJSON(data, &inputCrowdstrike, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == crowdstrike) type InputCrowdstrike within CreateInputRequest: %w", string(data), err)
+		createInputInputCrowdstrike := new(CreateInputInputCrowdstrike)
+		if err := utils.UnmarshalJSON(data, &createInputInputCrowdstrike, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == crowdstrike) type CreateInputInputCrowdstrike within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputCrowdstrike = inputCrowdstrike
+		u.CreateInputInputCrowdstrike = createInputInputCrowdstrike
 		u.Type = CreateInputRequestTypeCrowdstrike
 		return nil
 	case "datadog_agent":
-		inputDatadogAgent := new(InputDatadogAgent)
-		if err := utils.UnmarshalJSON(data, &inputDatadogAgent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == datadog_agent) type InputDatadogAgent within CreateInputRequest: %w", string(data), err)
+		createInputInputDatadogAgent := new(CreateInputInputDatadogAgent)
+		if err := utils.UnmarshalJSON(data, &createInputInputDatadogAgent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == datadog_agent) type CreateInputInputDatadogAgent within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputDatadogAgent = inputDatadogAgent
+		u.CreateInputInputDatadogAgent = createInputInputDatadogAgent
 		u.Type = CreateInputRequestTypeDatadogAgent
 		return nil
 	case "datagen":
-		inputDatagen := new(InputDatagen)
-		if err := utils.UnmarshalJSON(data, &inputDatagen, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == datagen) type InputDatagen within CreateInputRequest: %w", string(data), err)
+		createInputInputDatagen := new(CreateInputInputDatagen)
+		if err := utils.UnmarshalJSON(data, &createInputInputDatagen, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == datagen) type CreateInputInputDatagen within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputDatagen = inputDatagen
+		u.CreateInputInputDatagen = createInputInputDatagen
 		u.Type = CreateInputRequestTypeDatagen
 		return nil
 	case "http_raw":
-		inputHTTPRaw := new(InputHTTPRaw)
-		if err := utils.UnmarshalJSON(data, &inputHTTPRaw, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == http_raw) type InputHTTPRaw within CreateInputRequest: %w", string(data), err)
+		createInputInputHTTPRaw := new(CreateInputInputHTTPRaw)
+		if err := utils.UnmarshalJSON(data, &createInputInputHTTPRaw, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == http_raw) type CreateInputInputHTTPRaw within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputHTTPRaw = inputHTTPRaw
+		u.CreateInputInputHTTPRaw = createInputInputHTTPRaw
 		u.Type = CreateInputRequestTypeHTTPRaw
 		return nil
 	case "kinesis":
-		inputKinesis := new(InputKinesis)
-		if err := utils.UnmarshalJSON(data, &inputKinesis, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kinesis) type InputKinesis within CreateInputRequest: %w", string(data), err)
+		createInputInputKinesis := new(CreateInputInputKinesis)
+		if err := utils.UnmarshalJSON(data, &createInputInputKinesis, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kinesis) type CreateInputInputKinesis within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputKinesis = inputKinesis
+		u.CreateInputInputKinesis = createInputInputKinesis
 		u.Type = CreateInputRequestTypeKinesis
 		return nil
 	case "criblmetrics":
-		inputCriblmetrics := new(InputCriblmetrics)
-		if err := utils.UnmarshalJSON(data, &inputCriblmetrics, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == criblmetrics) type InputCriblmetrics within CreateInputRequest: %w", string(data), err)
+		createInputInputCriblmetrics := new(CreateInputInputCriblmetrics)
+		if err := utils.UnmarshalJSON(data, &createInputInputCriblmetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == criblmetrics) type CreateInputInputCriblmetrics within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputCriblmetrics = inputCriblmetrics
+		u.CreateInputInputCriblmetrics = createInputInputCriblmetrics
 		u.Type = CreateInputRequestTypeCriblmetrics
 		return nil
 	case "metrics":
-		inputMetrics := new(InputMetrics)
-		if err := utils.UnmarshalJSON(data, &inputMetrics, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == metrics) type InputMetrics within CreateInputRequest: %w", string(data), err)
+		createInputInputMetrics := new(CreateInputInputMetrics)
+		if err := utils.UnmarshalJSON(data, &createInputInputMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == metrics) type CreateInputInputMetrics within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputMetrics = inputMetrics
+		u.CreateInputInputMetrics = createInputInputMetrics
 		u.Type = CreateInputRequestTypeMetrics
 		return nil
 	case "s3":
-		inputS3 := new(InputS3)
-		if err := utils.UnmarshalJSON(data, &inputS3, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == s3) type InputS3 within CreateInputRequest: %w", string(data), err)
+		createInputInputS3 := new(CreateInputInputS3)
+		if err := utils.UnmarshalJSON(data, &createInputInputS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == s3) type CreateInputInputS3 within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputS3 = inputS3
+		u.CreateInputInputS3 = createInputInputS3
 		u.Type = CreateInputRequestTypeS3
 		return nil
 	case "s3_inventory":
-		inputS3Inventory := new(InputS3Inventory)
-		if err := utils.UnmarshalJSON(data, &inputS3Inventory, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == s3_inventory) type InputS3Inventory within CreateInputRequest: %w", string(data), err)
+		createInputInputS3Inventory := new(CreateInputInputS3Inventory)
+		if err := utils.UnmarshalJSON(data, &createInputInputS3Inventory, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == s3_inventory) type CreateInputInputS3Inventory within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputS3Inventory = inputS3Inventory
+		u.CreateInputInputS3Inventory = createInputInputS3Inventory
 		u.Type = CreateInputRequestTypeS3Inventory
 		return nil
 	case "snmp":
-		inputSnmp := new(InputSnmp)
-		if err := utils.UnmarshalJSON(data, &inputSnmp, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == snmp) type InputSnmp within CreateInputRequest: %w", string(data), err)
+		createInputInputSnmp := new(CreateInputInputSnmp)
+		if err := utils.UnmarshalJSON(data, &createInputInputSnmp, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == snmp) type CreateInputInputSnmp within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputSnmp = inputSnmp
+		u.CreateInputInputSnmp = createInputInputSnmp
 		u.Type = CreateInputRequestTypeSnmp
 		return nil
 	case "open_telemetry":
-		inputOpenTelemetry := new(InputOpenTelemetry)
-		if err := utils.UnmarshalJSON(data, &inputOpenTelemetry, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == open_telemetry) type InputOpenTelemetry within CreateInputRequest: %w", string(data), err)
+		createInputInputOpenTelemetry := new(CreateInputInputOpenTelemetry)
+		if err := utils.UnmarshalJSON(data, &createInputInputOpenTelemetry, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == open_telemetry) type CreateInputInputOpenTelemetry within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputOpenTelemetry = inputOpenTelemetry
+		u.CreateInputInputOpenTelemetry = createInputInputOpenTelemetry
 		u.Type = CreateInputRequestTypeOpenTelemetry
 		return nil
 	case "model_driven_telemetry":
-		inputModelDrivenTelemetry := new(InputModelDrivenTelemetry)
-		if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetry, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == model_driven_telemetry) type InputModelDrivenTelemetry within CreateInputRequest: %w", string(data), err)
+		createInputInputModelDrivenTelemetry := new(CreateInputInputModelDrivenTelemetry)
+		if err := utils.UnmarshalJSON(data, &createInputInputModelDrivenTelemetry, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == model_driven_telemetry) type CreateInputInputModelDrivenTelemetry within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputModelDrivenTelemetry = inputModelDrivenTelemetry
+		u.CreateInputInputModelDrivenTelemetry = createInputInputModelDrivenTelemetry
 		u.Type = CreateInputRequestTypeModelDrivenTelemetry
 		return nil
 	case "sqs":
-		inputSqs := new(InputSqs)
-		if err := utils.UnmarshalJSON(data, &inputSqs, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sqs) type InputSqs within CreateInputRequest: %w", string(data), err)
+		createInputInputSqs := new(CreateInputInputSqs)
+		if err := utils.UnmarshalJSON(data, &createInputInputSqs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sqs) type CreateInputInputSqs within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputSqs = inputSqs
+		u.CreateInputInputSqs = createInputInputSqs
 		u.Type = CreateInputRequestTypeSqs
 		return nil
 	case "syslog":
-		inputSyslog := new(InputSyslog)
-		if err := utils.UnmarshalJSON(data, &inputSyslog, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == syslog) type InputSyslog within CreateInputRequest: %w", string(data), err)
+		createInputInputSyslogUnion := new(CreateInputInputSyslogUnion)
+		if err := utils.UnmarshalJSON(data, &createInputInputSyslogUnion, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == syslog) type CreateInputInputSyslogUnion within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputSyslog = inputSyslog
+		u.CreateInputInputSyslogUnion = createInputInputSyslogUnion
 		u.Type = CreateInputRequestTypeSyslog
 		return nil
 	case "file":
-		inputFile := new(InputFile)
-		if err := utils.UnmarshalJSON(data, &inputFile, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == file) type InputFile within CreateInputRequest: %w", string(data), err)
+		createInputInputFile := new(CreateInputInputFile)
+		if err := utils.UnmarshalJSON(data, &createInputInputFile, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == file) type CreateInputInputFile within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputFile = inputFile
+		u.CreateInputInputFile = createInputInputFile
 		u.Type = CreateInputRequestTypeFile
 		return nil
 	case "tcp":
-		inputTCP := new(InputTCP)
-		if err := utils.UnmarshalJSON(data, &inputTCP, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tcp) type InputTCP within CreateInputRequest: %w", string(data), err)
+		createInputInputTCP := new(CreateInputInputTCP)
+		if err := utils.UnmarshalJSON(data, &createInputInputTCP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tcp) type CreateInputInputTCP within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputTCP = inputTCP
+		u.CreateInputInputTCP = createInputInputTCP
 		u.Type = CreateInputRequestTypeTCP
 		return nil
 	case "appscope":
-		inputAppscope := new(InputAppscope)
-		if err := utils.UnmarshalJSON(data, &inputAppscope, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == appscope) type InputAppscope within CreateInputRequest: %w", string(data), err)
+		createInputInputAppscope := new(CreateInputInputAppscope)
+		if err := utils.UnmarshalJSON(data, &createInputInputAppscope, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == appscope) type CreateInputInputAppscope within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputAppscope = inputAppscope
+		u.CreateInputInputAppscope = createInputInputAppscope
 		u.Type = CreateInputRequestTypeAppscope
 		return nil
 	case "wef":
-		inputWef := new(InputWef)
-		if err := utils.UnmarshalJSON(data, &inputWef, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wef) type InputWef within CreateInputRequest: %w", string(data), err)
+		createInputInputWef := new(CreateInputInputWef)
+		if err := utils.UnmarshalJSON(data, &createInputInputWef, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wef) type CreateInputInputWef within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputWef = inputWef
+		u.CreateInputInputWef = createInputInputWef
 		u.Type = CreateInputRequestTypeWef
 		return nil
 	case "win_event_logs":
-		inputWinEventLogs := new(InputWinEventLogs)
-		if err := utils.UnmarshalJSON(data, &inputWinEventLogs, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == win_event_logs) type InputWinEventLogs within CreateInputRequest: %w", string(data), err)
+		createInputInputWinEventLogs := new(CreateInputInputWinEventLogs)
+		if err := utils.UnmarshalJSON(data, &createInputInputWinEventLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == win_event_logs) type CreateInputInputWinEventLogs within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputWinEventLogs = inputWinEventLogs
+		u.CreateInputInputWinEventLogs = createInputInputWinEventLogs
 		u.Type = CreateInputRequestTypeWinEventLogs
 		return nil
 	case "raw_udp":
-		inputRawUDP := new(InputRawUDP)
-		if err := utils.UnmarshalJSON(data, &inputRawUDP, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == raw_udp) type InputRawUDP within CreateInputRequest: %w", string(data), err)
+		createInputInputRawUDP := new(CreateInputInputRawUDP)
+		if err := utils.UnmarshalJSON(data, &createInputInputRawUDP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == raw_udp) type CreateInputInputRawUDP within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputRawUDP = inputRawUDP
+		u.CreateInputInputRawUDP = createInputInputRawUDP
 		u.Type = CreateInputRequestTypeRawUDP
 		return nil
 	case "journal_files":
-		inputJournalFiles := new(InputJournalFiles)
-		if err := utils.UnmarshalJSON(data, &inputJournalFiles, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == journal_files) type InputJournalFiles within CreateInputRequest: %w", string(data), err)
+		createInputInputJournalFiles := new(CreateInputInputJournalFiles)
+		if err := utils.UnmarshalJSON(data, &createInputInputJournalFiles, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == journal_files) type CreateInputInputJournalFiles within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputJournalFiles = inputJournalFiles
+		u.CreateInputInputJournalFiles = createInputInputJournalFiles
 		u.Type = CreateInputRequestTypeJournalFiles
 		return nil
 	case "wiz":
-		inputWiz := new(InputWiz)
-		if err := utils.UnmarshalJSON(data, &inputWiz, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wiz) type InputWiz within CreateInputRequest: %w", string(data), err)
+		createInputInputWiz := new(CreateInputInputWiz)
+		if err := utils.UnmarshalJSON(data, &createInputInputWiz, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wiz) type CreateInputInputWiz within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputWiz = inputWiz
+		u.CreateInputInputWiz = createInputInputWiz
 		u.Type = CreateInputRequestTypeWiz
 		return nil
-	case "wiz_webhook":
-		inputWizWebhook := new(InputWizWebhook)
-		if err := utils.UnmarshalJSON(data, &inputWizWebhook, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wiz_webhook) type InputWizWebhook within CreateInputRequest: %w", string(data), err)
+	case "openai":
+		createInputInputOpenai := new(CreateInputInputOpenai)
+		if err := utils.UnmarshalJSON(data, &createInputInputOpenai, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openai) type CreateInputInputOpenai within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputWizWebhook = inputWizWebhook
+		u.CreateInputInputOpenai = createInputInputOpenai
+		u.Type = CreateInputRequestTypeOpenai
+		return nil
+	case "wiz_webhook":
+		createInputInputWizWebhook := new(CreateInputInputWizWebhook)
+		if err := utils.UnmarshalJSON(data, &createInputInputWizWebhook, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wiz_webhook) type CreateInputInputWizWebhook within CreateInputRequest: %w", string(data), err)
+		}
+
+		u.CreateInputInputWizWebhook = createInputInputWizWebhook
 		u.Type = CreateInputRequestTypeWizWebhook
 		return nil
 	case "netflow":
-		inputNetflow := new(InputNetflow)
-		if err := utils.UnmarshalJSON(data, &inputNetflow, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == netflow) type InputNetflow within CreateInputRequest: %w", string(data), err)
+		createInputInputNetflow := new(CreateInputInputNetflow)
+		if err := utils.UnmarshalJSON(data, &createInputInputNetflow, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == netflow) type CreateInputInputNetflow within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputNetflow = inputNetflow
+		u.CreateInputInputNetflow = createInputInputNetflow
 		u.Type = CreateInputRequestTypeNetflow
 		return nil
 	case "security_lake":
-		inputSecurityLake := new(InputSecurityLake)
-		if err := utils.UnmarshalJSON(data, &inputSecurityLake, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == security_lake) type InputSecurityLake within CreateInputRequest: %w", string(data), err)
+		createInputInputSecurityLake := new(CreateInputInputSecurityLake)
+		if err := utils.UnmarshalJSON(data, &createInputInputSecurityLake, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == security_lake) type CreateInputInputSecurityLake within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputSecurityLake = inputSecurityLake
+		u.CreateInputInputSecurityLake = createInputInputSecurityLake
 		u.Type = CreateInputRequestTypeSecurityLake
 		return nil
 	case "zscaler_hec":
-		inputZscalerHec := new(InputZscalerHec)
-		if err := utils.UnmarshalJSON(data, &inputZscalerHec, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == zscaler_hec) type InputZscalerHec within CreateInputRequest: %w", string(data), err)
+		createInputInputZscalerHec := new(CreateInputInputZscalerHec)
+		if err := utils.UnmarshalJSON(data, &createInputInputZscalerHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == zscaler_hec) type CreateInputInputZscalerHec within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputZscalerHec = inputZscalerHec
+		u.CreateInputInputZscalerHec = createInputInputZscalerHec
 		u.Type = CreateInputRequestTypeZscalerHec
 		return nil
 	case "cloudflare_hec":
-		inputCloudflareHec := new(InputCloudflareHec)
-		if err := utils.UnmarshalJSON(data, &inputCloudflareHec, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cloudflare_hec) type InputCloudflareHec within CreateInputRequest: %w", string(data), err)
+		createInputInputCloudflareHec := new(CreateInputInputCloudflareHec)
+		if err := utils.UnmarshalJSON(data, &createInputInputCloudflareHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cloudflare_hec) type CreateInputInputCloudflareHec within CreateInputRequest: %w", string(data), err)
 		}
 
-		u.InputCloudflareHec = inputCloudflareHec
+		u.CreateInputInputCloudflareHec = createInputInputCloudflareHec
 		u.Type = CreateInputRequestTypeCloudflareHec
 		return nil
 	}
@@ -11388,244 +12172,248 @@ func (u *CreateInputRequest) UnmarshalJSON(data []byte) error {
 }
 
 func (u CreateInputRequest) MarshalJSON() ([]byte, error) {
-	if u.InputCollection != nil {
-		return utils.MarshalJSON(u.InputCollection, "", true)
+	if u.CreateInputInputCollection != nil {
+		return utils.MarshalJSON(u.CreateInputInputCollection, "", true)
 	}
 
-	if u.InputKafka != nil {
-		return utils.MarshalJSON(u.InputKafka, "", true)
+	if u.CreateInputInputKafka != nil {
+		return utils.MarshalJSON(u.CreateInputInputKafka, "", true)
 	}
 
-	if u.InputMsk != nil {
-		return utils.MarshalJSON(u.InputMsk, "", true)
+	if u.CreateInputInputMsk != nil {
+		return utils.MarshalJSON(u.CreateInputInputMsk, "", true)
 	}
 
-	if u.InputHTTP != nil {
-		return utils.MarshalJSON(u.InputHTTP, "", true)
+	if u.CreateInputInputHTTP != nil {
+		return utils.MarshalJSON(u.CreateInputInputHTTP, "", true)
 	}
 
-	if u.InputSplunk != nil {
-		return utils.MarshalJSON(u.InputSplunk, "", true)
+	if u.CreateInputInputSplunk != nil {
+		return utils.MarshalJSON(u.CreateInputInputSplunk, "", true)
 	}
 
-	if u.InputSplunkSearch != nil {
-		return utils.MarshalJSON(u.InputSplunkSearch, "", true)
+	if u.CreateInputInputSplunkSearch != nil {
+		return utils.MarshalJSON(u.CreateInputInputSplunkSearch, "", true)
 	}
 
-	if u.InputSplunkHec != nil {
-		return utils.MarshalJSON(u.InputSplunkHec, "", true)
+	if u.CreateInputInputSplunkHec != nil {
+		return utils.MarshalJSON(u.CreateInputInputSplunkHec, "", true)
 	}
 
-	if u.InputAzureBlob != nil {
-		return utils.MarshalJSON(u.InputAzureBlob, "", true)
+	if u.CreateInputInputAzureBlob != nil {
+		return utils.MarshalJSON(u.CreateInputInputAzureBlob, "", true)
 	}
 
-	if u.InputElastic != nil {
-		return utils.MarshalJSON(u.InputElastic, "", true)
+	if u.CreateInputInputElastic != nil {
+		return utils.MarshalJSON(u.CreateInputInputElastic, "", true)
 	}
 
-	if u.InputConfluentCloud != nil {
-		return utils.MarshalJSON(u.InputConfluentCloud, "", true)
+	if u.CreateInputInputConfluentCloud != nil {
+		return utils.MarshalJSON(u.CreateInputInputConfluentCloud, "", true)
 	}
 
-	if u.InputGrafana != nil {
-		return utils.MarshalJSON(u.InputGrafana, "", true)
+	if u.CreateInputInputGrafanaUnion != nil {
+		return utils.MarshalJSON(u.CreateInputInputGrafanaUnion, "", true)
 	}
 
-	if u.InputLoki != nil {
-		return utils.MarshalJSON(u.InputLoki, "", true)
+	if u.CreateInputInputLoki != nil {
+		return utils.MarshalJSON(u.CreateInputInputLoki, "", true)
 	}
 
-	if u.InputPrometheusRw != nil {
-		return utils.MarshalJSON(u.InputPrometheusRw, "", true)
+	if u.CreateInputInputPrometheusRw != nil {
+		return utils.MarshalJSON(u.CreateInputInputPrometheusRw, "", true)
 	}
 
-	if u.InputPrometheus != nil {
-		return utils.MarshalJSON(u.InputPrometheus, "", true)
+	if u.CreateInputInputPrometheus != nil {
+		return utils.MarshalJSON(u.CreateInputInputPrometheus, "", true)
 	}
 
-	if u.InputEdgePrometheus != nil {
-		return utils.MarshalJSON(u.InputEdgePrometheus, "", true)
+	if u.CreateInputInputEdgePrometheus != nil {
+		return utils.MarshalJSON(u.CreateInputInputEdgePrometheus, "", true)
 	}
 
-	if u.InputOffice365Mgmt != nil {
-		return utils.MarshalJSON(u.InputOffice365Mgmt, "", true)
+	if u.CreateInputInputOffice365Mgmt != nil {
+		return utils.MarshalJSON(u.CreateInputInputOffice365Mgmt, "", true)
 	}
 
-	if u.InputOffice365Service != nil {
-		return utils.MarshalJSON(u.InputOffice365Service, "", true)
+	if u.CreateInputInputOffice365Service != nil {
+		return utils.MarshalJSON(u.CreateInputInputOffice365Service, "", true)
 	}
 
-	if u.InputOffice365MsgTrace != nil {
-		return utils.MarshalJSON(u.InputOffice365MsgTrace, "", true)
+	if u.CreateInputInputOffice365MsgTrace != nil {
+		return utils.MarshalJSON(u.CreateInputInputOffice365MsgTrace, "", true)
 	}
 
-	if u.InputEventhub != nil {
-		return utils.MarshalJSON(u.InputEventhub, "", true)
+	if u.CreateInputInputEventhub != nil {
+		return utils.MarshalJSON(u.CreateInputInputEventhub, "", true)
 	}
 
-	if u.InputExec != nil {
-		return utils.MarshalJSON(u.InputExec, "", true)
+	if u.CreateInputInputExec != nil {
+		return utils.MarshalJSON(u.CreateInputInputExec, "", true)
 	}
 
-	if u.InputFirehose != nil {
-		return utils.MarshalJSON(u.InputFirehose, "", true)
+	if u.CreateInputInputFirehose != nil {
+		return utils.MarshalJSON(u.CreateInputInputFirehose, "", true)
 	}
 
-	if u.InputGooglePubsub != nil {
-		return utils.MarshalJSON(u.InputGooglePubsub, "", true)
+	if u.CreateInputInputGooglePubsub != nil {
+		return utils.MarshalJSON(u.CreateInputInputGooglePubsub, "", true)
 	}
 
-	if u.InputCribl != nil {
-		return utils.MarshalJSON(u.InputCribl, "", true)
+	if u.CreateInputInputCribl != nil {
+		return utils.MarshalJSON(u.CreateInputInputCribl, "", true)
 	}
 
-	if u.InputCriblTCP != nil {
-		return utils.MarshalJSON(u.InputCriblTCP, "", true)
+	if u.CreateInputInputCriblTCP != nil {
+		return utils.MarshalJSON(u.CreateInputInputCriblTCP, "", true)
 	}
 
-	if u.InputCriblHTTP != nil {
-		return utils.MarshalJSON(u.InputCriblHTTP, "", true)
+	if u.CreateInputInputCriblHTTP != nil {
+		return utils.MarshalJSON(u.CreateInputInputCriblHTTP, "", true)
 	}
 
-	if u.InputCriblLakeHTTP != nil {
-		return utils.MarshalJSON(u.InputCriblLakeHTTP, "", true)
+	if u.CreateInputInputCriblLakeHTTP != nil {
+		return utils.MarshalJSON(u.CreateInputInputCriblLakeHTTP, "", true)
 	}
 
-	if u.InputTcpjson != nil {
-		return utils.MarshalJSON(u.InputTcpjson, "", true)
+	if u.CreateInputInputTcpjson != nil {
+		return utils.MarshalJSON(u.CreateInputInputTcpjson, "", true)
 	}
 
-	if u.InputSystemMetrics != nil {
-		return utils.MarshalJSON(u.InputSystemMetrics, "", true)
+	if u.CreateInputInputSystemMetrics != nil {
+		return utils.MarshalJSON(u.CreateInputInputSystemMetrics, "", true)
 	}
 
-	if u.InputSystemState != nil {
-		return utils.MarshalJSON(u.InputSystemState, "", true)
+	if u.CreateInputInputSystemState != nil {
+		return utils.MarshalJSON(u.CreateInputInputSystemState, "", true)
 	}
 
-	if u.InputKubeMetrics != nil {
-		return utils.MarshalJSON(u.InputKubeMetrics, "", true)
+	if u.CreateInputInputKubeMetrics != nil {
+		return utils.MarshalJSON(u.CreateInputInputKubeMetrics, "", true)
 	}
 
-	if u.InputKubeLogs != nil {
-		return utils.MarshalJSON(u.InputKubeLogs, "", true)
+	if u.CreateInputInputKubeLogs != nil {
+		return utils.MarshalJSON(u.CreateInputInputKubeLogs, "", true)
 	}
 
-	if u.InputKubeEvents != nil {
-		return utils.MarshalJSON(u.InputKubeEvents, "", true)
+	if u.CreateInputInputKubeEvents != nil {
+		return utils.MarshalJSON(u.CreateInputInputKubeEvents, "", true)
 	}
 
-	if u.InputWindowsMetrics != nil {
-		return utils.MarshalJSON(u.InputWindowsMetrics, "", true)
+	if u.CreateInputInputWindowsMetrics != nil {
+		return utils.MarshalJSON(u.CreateInputInputWindowsMetrics, "", true)
 	}
 
-	if u.InputCrowdstrike != nil {
-		return utils.MarshalJSON(u.InputCrowdstrike, "", true)
+	if u.CreateInputInputCrowdstrike != nil {
+		return utils.MarshalJSON(u.CreateInputInputCrowdstrike, "", true)
 	}
 
-	if u.InputDatadogAgent != nil {
-		return utils.MarshalJSON(u.InputDatadogAgent, "", true)
+	if u.CreateInputInputDatadogAgent != nil {
+		return utils.MarshalJSON(u.CreateInputInputDatadogAgent, "", true)
 	}
 
-	if u.InputDatagen != nil {
-		return utils.MarshalJSON(u.InputDatagen, "", true)
+	if u.CreateInputInputDatagen != nil {
+		return utils.MarshalJSON(u.CreateInputInputDatagen, "", true)
 	}
 
-	if u.InputHTTPRaw != nil {
-		return utils.MarshalJSON(u.InputHTTPRaw, "", true)
+	if u.CreateInputInputHTTPRaw != nil {
+		return utils.MarshalJSON(u.CreateInputInputHTTPRaw, "", true)
 	}
 
-	if u.InputKinesis != nil {
-		return utils.MarshalJSON(u.InputKinesis, "", true)
+	if u.CreateInputInputKinesis != nil {
+		return utils.MarshalJSON(u.CreateInputInputKinesis, "", true)
 	}
 
-	if u.InputCriblmetrics != nil {
-		return utils.MarshalJSON(u.InputCriblmetrics, "", true)
+	if u.CreateInputInputCriblmetrics != nil {
+		return utils.MarshalJSON(u.CreateInputInputCriblmetrics, "", true)
 	}
 
-	if u.InputMetrics != nil {
-		return utils.MarshalJSON(u.InputMetrics, "", true)
+	if u.CreateInputInputMetrics != nil {
+		return utils.MarshalJSON(u.CreateInputInputMetrics, "", true)
 	}
 
-	if u.InputS3 != nil {
-		return utils.MarshalJSON(u.InputS3, "", true)
+	if u.CreateInputInputS3 != nil {
+		return utils.MarshalJSON(u.CreateInputInputS3, "", true)
 	}
 
-	if u.InputS3Inventory != nil {
-		return utils.MarshalJSON(u.InputS3Inventory, "", true)
+	if u.CreateInputInputS3Inventory != nil {
+		return utils.MarshalJSON(u.CreateInputInputS3Inventory, "", true)
 	}
 
-	if u.InputSnmp != nil {
-		return utils.MarshalJSON(u.InputSnmp, "", true)
+	if u.CreateInputInputSnmp != nil {
+		return utils.MarshalJSON(u.CreateInputInputSnmp, "", true)
 	}
 
-	if u.InputOpenTelemetry != nil {
-		return utils.MarshalJSON(u.InputOpenTelemetry, "", true)
+	if u.CreateInputInputOpenTelemetry != nil {
+		return utils.MarshalJSON(u.CreateInputInputOpenTelemetry, "", true)
 	}
 
-	if u.InputModelDrivenTelemetry != nil {
-		return utils.MarshalJSON(u.InputModelDrivenTelemetry, "", true)
+	if u.CreateInputInputModelDrivenTelemetry != nil {
+		return utils.MarshalJSON(u.CreateInputInputModelDrivenTelemetry, "", true)
 	}
 
-	if u.InputSqs != nil {
-		return utils.MarshalJSON(u.InputSqs, "", true)
+	if u.CreateInputInputSqs != nil {
+		return utils.MarshalJSON(u.CreateInputInputSqs, "", true)
 	}
 
-	if u.InputSyslog != nil {
-		return utils.MarshalJSON(u.InputSyslog, "", true)
+	if u.CreateInputInputSyslogUnion != nil {
+		return utils.MarshalJSON(u.CreateInputInputSyslogUnion, "", true)
 	}
 
-	if u.InputFile != nil {
-		return utils.MarshalJSON(u.InputFile, "", true)
+	if u.CreateInputInputFile != nil {
+		return utils.MarshalJSON(u.CreateInputInputFile, "", true)
 	}
 
-	if u.InputTCP != nil {
-		return utils.MarshalJSON(u.InputTCP, "", true)
+	if u.CreateInputInputTCP != nil {
+		return utils.MarshalJSON(u.CreateInputInputTCP, "", true)
 	}
 
-	if u.InputAppscope != nil {
-		return utils.MarshalJSON(u.InputAppscope, "", true)
+	if u.CreateInputInputAppscope != nil {
+		return utils.MarshalJSON(u.CreateInputInputAppscope, "", true)
 	}
 
-	if u.InputWef != nil {
-		return utils.MarshalJSON(u.InputWef, "", true)
+	if u.CreateInputInputWef != nil {
+		return utils.MarshalJSON(u.CreateInputInputWef, "", true)
 	}
 
-	if u.InputWinEventLogs != nil {
-		return utils.MarshalJSON(u.InputWinEventLogs, "", true)
+	if u.CreateInputInputWinEventLogs != nil {
+		return utils.MarshalJSON(u.CreateInputInputWinEventLogs, "", true)
 	}
 
-	if u.InputRawUDP != nil {
-		return utils.MarshalJSON(u.InputRawUDP, "", true)
+	if u.CreateInputInputRawUDP != nil {
+		return utils.MarshalJSON(u.CreateInputInputRawUDP, "", true)
 	}
 
-	if u.InputJournalFiles != nil {
-		return utils.MarshalJSON(u.InputJournalFiles, "", true)
+	if u.CreateInputInputJournalFiles != nil {
+		return utils.MarshalJSON(u.CreateInputInputJournalFiles, "", true)
 	}
 
-	if u.InputWiz != nil {
-		return utils.MarshalJSON(u.InputWiz, "", true)
+	if u.CreateInputInputWiz != nil {
+		return utils.MarshalJSON(u.CreateInputInputWiz, "", true)
 	}
 
-	if u.InputWizWebhook != nil {
-		return utils.MarshalJSON(u.InputWizWebhook, "", true)
+	if u.CreateInputInputOpenai != nil {
+		return utils.MarshalJSON(u.CreateInputInputOpenai, "", true)
 	}
 
-	if u.InputNetflow != nil {
-		return utils.MarshalJSON(u.InputNetflow, "", true)
+	if u.CreateInputInputWizWebhook != nil {
+		return utils.MarshalJSON(u.CreateInputInputWizWebhook, "", true)
 	}
 
-	if u.InputSecurityLake != nil {
-		return utils.MarshalJSON(u.InputSecurityLake, "", true)
+	if u.CreateInputInputNetflow != nil {
+		return utils.MarshalJSON(u.CreateInputInputNetflow, "", true)
 	}
 
-	if u.InputZscalerHec != nil {
-		return utils.MarshalJSON(u.InputZscalerHec, "", true)
+	if u.CreateInputInputSecurityLake != nil {
+		return utils.MarshalJSON(u.CreateInputInputSecurityLake, "", true)
 	}
 
-	if u.InputCloudflareHec != nil {
-		return utils.MarshalJSON(u.InputCloudflareHec, "", true)
+	if u.CreateInputInputZscalerHec != nil {
+		return utils.MarshalJSON(u.CreateInputInputZscalerHec, "", true)
+	}
+
+	if u.CreateInputInputCloudflareHec != nil {
+		return utils.MarshalJSON(u.CreateInputInputCloudflareHec, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateInputRequest: all fields are null")

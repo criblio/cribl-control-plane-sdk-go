@@ -122,12 +122,16 @@ func (e *InputSplunkSearchLogLevel) IsExact() bool {
 type InputSplunkSearchAuthenticationType string
 
 const (
-	InputSplunkSearchAuthenticationTypeNone              InputSplunkSearchAuthenticationType = "none"
-	InputSplunkSearchAuthenticationTypeBasic             InputSplunkSearchAuthenticationType = "basic"
+	// InputSplunkSearchAuthenticationTypeNone None
+	InputSplunkSearchAuthenticationTypeNone InputSplunkSearchAuthenticationType = "none"
+	// InputSplunkSearchAuthenticationTypeBasic Basic
+	InputSplunkSearchAuthenticationTypeBasic InputSplunkSearchAuthenticationType = "basic"
+	// InputSplunkSearchAuthenticationTypeCredentialsSecret Basic (credentials secret)
 	InputSplunkSearchAuthenticationTypeCredentialsSecret InputSplunkSearchAuthenticationType = "credentialsSecret"
-	InputSplunkSearchAuthenticationTypeToken             InputSplunkSearchAuthenticationType = "token"
-	InputSplunkSearchAuthenticationTypeTextSecret        InputSplunkSearchAuthenticationType = "textSecret"
-	InputSplunkSearchAuthenticationTypeOauth             InputSplunkSearchAuthenticationType = "oauth"
+	// InputSplunkSearchAuthenticationTypeToken Token
+	InputSplunkSearchAuthenticationTypeToken InputSplunkSearchAuthenticationType = "token"
+	// InputSplunkSearchAuthenticationTypeTextSecret Token (text secret)
+	InputSplunkSearchAuthenticationTypeTextSecret InputSplunkSearchAuthenticationType = "textSecret"
 )
 
 func (e InputSplunkSearchAuthenticationType) ToPointer() *InputSplunkSearchAuthenticationType {
@@ -138,7 +142,7 @@ func (e InputSplunkSearchAuthenticationType) ToPointer() *InputSplunkSearchAuthe
 func (e *InputSplunkSearchAuthenticationType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
 			return true
 		}
 	}
@@ -202,8 +206,8 @@ type InputSplunkSearch struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	RetryRules *RetryRulesType                 `json:"retryRules,omitzero"`
+	Metadata   []ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType     `json:"retryRules,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -219,22 +223,6 @@ type InputSplunkSearch struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
 func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
@@ -451,7 +439,7 @@ func (i *InputSplunkSearch) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputSplunkSearch) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkSearch) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
@@ -526,60 +514,4 @@ func (i *InputSplunkSearch) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
-}
-
-func (i *InputSplunkSearch) GetLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.LoginURL
-}
-
-func (i *InputSplunkSearch) GetSecretParamName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SecretParamName
-}
-
-func (i *InputSplunkSearch) GetSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Secret
-}
-
-func (i *InputSplunkSearch) GetTokenAttributeName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenAttributeName
-}
-
-func (i *InputSplunkSearch) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputSplunkSearch) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
-}
-
-func (i *InputSplunkSearch) GetOauthParams() []ItemsTypeOauthParams {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputSplunkSearch) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if i == nil {
-		return nil
-	}
-	return i.OauthHeaders
 }

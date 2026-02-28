@@ -8,10 +8,10 @@ import (
 )
 
 type HealthServerStatusError struct {
-	Role      *components.Role        `json:"role,omitzero"`
-	StartTime float64                 `json:"startTime"`
-	Status    components.Status       `json:"status"`
-	HTTPMeta  components.HTTPMetadata `json:"-"`
+	Role      *components.Role                    `json:"role,omitzero"`
+	StartTime float64                             `json:"startTime"`
+	Status    components.HealthServerStatusStatus `json:"status"`
+	HTTPMeta  components.HTTPMetadata             `json:"-"`
 }
 
 var _ error = &HealthServerStatusError{}

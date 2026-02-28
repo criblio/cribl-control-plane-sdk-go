@@ -14,7 +14,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"net/http"
-	"net/url"
 )
 
 type Summaries struct {
@@ -31,11 +30,11 @@ func newSummaries(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 	}
 }
 
-// Get a summary of the Distributed deployment
-// Get a summary of the Distributed deployment. The response includes counts of Worker Groups, Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker and Edge Nodes, as well as statistics for the Worker and Edge Nodes.
-func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts ...operations.Option) (*operations.GetSummaryResponse, error) {
-	request := operations.GetSummaryRequest{
-		Mode: mode,
+// Get a summary of the Distributed deployment for a specific product
+// Get a summary of the Distributed deployment for a specific Cribl product (Stream or Edge). The response includes counts of Worker Groups or Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker or Edge Nodes, as well as statistics for the nodes.
+func (s *Summaries) Get(ctx context.Context, product components.ProductsBase, opts ...operations.Option) (*operations.GetProductsSummaryByProductResponse, error) {
+	request := operations.GetProductsSummaryByProductRequest{
+		Product: product,
 	}
 
 	o := operations.Options{}
@@ -56,7 +55,7 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/summary")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/products/{product}/summary", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -66,7 +65,7 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getSummary",
+		OperationID:      "getProductsSummaryByProduct",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -88,10 +87,6 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -183,7 +178,7 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"401", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"400", "401", "403", "4XX", "500", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -198,7 +193,7 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 		}
 	}
 
-	res := &operations.GetSummaryResponse{
+	res := &operations.GetProductsSummaryByProductResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -252,7 +247,11 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 400:
+		fallthrough
 	case httpRes.StatusCode == 401:
+		fallthrough
+	case httpRes.StatusCode == 403:
 		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)

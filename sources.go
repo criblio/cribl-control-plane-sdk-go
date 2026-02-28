@@ -20,6 +20,8 @@ import (
 // Sources - Actions related to Sources
 type Sources struct {
 	HecTokens *HecTokens
+	Pq        *SourcesPq
+	Statuses  *SourcesStatuses
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -32,6 +34,8 @@ func newSources(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, h
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
 		HecTokens:        newHecTokens(rootSDK, sdkConfig, hooks),
+		Pq:               newSourcesPq(rootSDK, sdkConfig, hooks),
+		Statuses:         newSourcesStatuses(rootSDK, sdkConfig, hooks),
 	}
 }
 
@@ -765,7 +769,7 @@ func (s *Sources) Get(ctx context.Context, id string, opts ...operations.Option)
 
 // Update a Source
 // Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
-func (s *Sources) Update(ctx context.Context, id string, input components.Input, opts ...operations.Option) (*operations.UpdateInputByIDResponse, error) {
+func (s *Sources) Update(ctx context.Context, id string, input components.Input2, opts ...operations.Option) (*operations.UpdateInputByIDResponse, error) {
 	request := operations.UpdateInputByIDRequest{
 		ID:    id,
 		Input: input,

@@ -574,7 +574,7 @@ type InputWindowsMetrics struct {
 	Host     *InputWindowsMetricsHost `json:"host,omitzero"`
 	Process  *ProcessType             `json:"process,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata    []ItemsTypeMetadata             `json:"metadata,omitzero"`
 	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
 	DisableNativeModule *bool   `json:"disableNativeModule,omitzero"`
@@ -683,7 +683,7 @@ func (i *InputWindowsMetrics) GetProcess() *ProcessType {
 	return i.Process
 }
 
-func (i *InputWindowsMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWindowsMetrics) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

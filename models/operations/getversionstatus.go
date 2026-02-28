@@ -7,18 +7,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type GetVersionStatusRequest struct {
-	// The <code>id</code> of the Worker Group or Edge Fleet to get the status for.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
-}
-
-func (g *GetVersionStatusRequest) GetGroupID() *string {
-	if g == nil {
-		return nil
-	}
-	return g.GroupID
-}
-
 type GetVersionStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitStatusResult objects

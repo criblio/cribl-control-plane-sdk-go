@@ -40,7 +40,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.List(ctx)
+    res, err := s.Destinations.List(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -52,10 +52,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                                                                                        | Type                                                                                                                                                             | Required                                                                                                                                                         | Description                                                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                            | :heavy_check_mark:                                                                                                                                               | The context to use for the request.                                                                                                                              |
+| `type_`                                                                                                                                                          | [*components.DestinationType](../../models/components/destinationtype.md)                                                                                        | :heavy_minus_sign:                                                                                                                                               | Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
+| `opts`                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                         | :heavy_minus_sign:                                                                                                                                               | The options for this request.                                                                                                                                    |
 
 ### Response
 
@@ -98,7 +99,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAzureBlob(
-        operations.OutputAzureBlob{
+        operations.CreateOutputOutputAzureBlob{
             ID: "azure-blob-output",
             Type: operations.CreateOutputTypeAzureBlobAzureBlob,
             ContainerName: "my-container",
@@ -139,18 +140,18 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAzureDataExplorer(
-        operations.OutputAzureDataExplorer{
+        operations.CreateOutputOutputAzureDataExplorer{
             ID: "azure-data-explorer-output",
-            Type: operations.TypeAzureDataExplorerAzureDataExplorer,
+            Type: operations.CreateOutputTypeAzureDataExplorerAzureDataExplorer,
             ClusterURL: "https://mycluster.kusto.windows.net",
             Database: "mydatabase",
             Table: "mytable",
-            IngestMode: operations.IngestionModeStreaming.ToPointer(),
+            IngestMode: operations.CreateOutputIngestionModeStreaming.ToPointer(),
             OauthEndpoint: components.MicrosoftEntraIDAuthenticationEndpointOptionsSaslHTTPSLoginMicrosoftonlineCom,
             TenantID: "tenant-id",
             ClientID: "client-id",
             Scope: "https://mycluster.kusto.windows.net/.default",
-            OauthType: operations.OauthTypeAuthenticationMethodClientSecret,
+            OauthType: operations.CreateOutputOauthTypeAuthenticationMethodClientSecret,
             ClientSecret: criblcontrolplanesdkgo.Pointer("client-secret"),
             Format: components.DataFormatOptionsJSON.ToPointer(),
             Compress: components.CompressionOptions2Gzip,
@@ -190,9 +191,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAzureEventhub(
-        operations.OutputAzureEventhub{
+        operations.CreateOutputOutputAzureEventhub{
             ID: "azure-eventhub-output",
-            Type: operations.TypeAzureEventhubAzureEventhub,
+            Type: operations.CreateOutputTypeAzureEventhubAzureEventhub,
             Brokers: []string{
                 "myeventhub.servicebus.windows.net:9093",
             },
@@ -233,11 +234,11 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAzureLogs(
-        operations.OutputAzureLogs{
+        operations.CreateOutputOutputAzureLogs{
             ID: "azure-logs-output",
-            Type: operations.TypeAzureLogsAzureLogs,
+            Type: operations.CreateOutputTypeAzureLogsAzureLogs,
             LogType: "Cribl",
-            AuthType: operations.AuthenticationMethodAzureLogsManual.ToPointer(),
+            AuthType: operations.CreateOutputAuthenticationMethodAzureLogsManual.ToPointer(),
             WorkspaceID: criblcontrolplanesdkgo.Pointer("workspace-id"),
             WorkspaceKey: criblcontrolplanesdkgo.Pointer("workspace-key"),
         },
@@ -276,9 +277,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestChronicle(
-        operations.OutputChronicle{
+        operations.CreateOutputOutputChronicle{
             ID: "chronicle-output",
-            Type: operations.TypeChronicleChronicle,
+            Type: operations.CreateOutputTypeChronicleChronicle,
             Region: "us",
             LogType: "UNKNOWN",
             GcpProjectID: "my-project",
@@ -319,9 +320,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestClickHouse(
-        operations.OutputClickHouse{
+        operations.CreateOutputOutputClickHouse{
             ID: "clickhouse-output",
-            Type: operations.TypeClickHouseClickHouse,
+            Type: operations.CreateOutputTypeClickHouseClickHouse,
             URL: "http://localhost:8123/",
             Database: "mydb",
             TableName: "mytable",
@@ -361,9 +362,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCloudflareR2(
-        operations.OutputCloudflareR2{
+        operations.CreateOutputOutputCloudflareR2{
             ID: "cloudflare-r2-output",
-            Type: operations.TypeCloudflareR2CloudflareR2,
+            Type: operations.CreateOutputTypeCloudflareR2CloudflareR2,
             Endpoint: "https://account-id.r2.cloudflarestorage.com",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
@@ -403,9 +404,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCloudwatch(
-        operations.OutputCloudwatch{
+        operations.CreateOutputOutputCloudwatch{
             ID: "cloudwatch-output",
-            Type: operations.TypeCloudwatchCloudwatch,
+            Type: operations.CreateOutputTypeCloudwatchCloudwatch,
             LogGroupName: "my-log-group",
             LogStreamName: "my-log-stream",
             Region: "us-east-1",
@@ -445,7 +446,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestConfluentCloud(
-        operations.OutputConfluentCloud{
+        operations.CreateOutputOutputConfluentCloud{
             ID: "confluent-cloud-output",
             Type: operations.CreateOutputTypeConfluentCloudConfluentCloud,
             Brokers: []string{
@@ -488,7 +489,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCriblHTTP(
-        operations.OutputCriblHTTP{
+        operations.CreateOutputOutputCriblHTTP{
             ID: "cribl-http-output",
             Type: operations.CreateOutputTypeCriblHTTPCriblHTTP,
         },
@@ -527,9 +528,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCriblLake(
-        operations.OutputCriblLake{
+        operations.CreateOutputOutputCriblLake{
             ID: "cribl-lake-output",
-            Type: operations.TypeCriblLakeCriblLake,
+            Type: operations.CreateOutputTypeCriblLakeCriblLake,
         },
     ))
     if err != nil {
@@ -566,9 +567,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCriblSearchEngine(
-        operations.OutputCriblSearchEngine{
+        operations.CreateOutputOutputCriblSearchEngine{
             ID: "cribl-search-engine-output",
-            Type: operations.TypeCriblSearchEngineCriblSearchEngine,
+            Type: operations.CreateOutputTypeCriblSearchEngineCriblSearchEngine,
             SystemFields: []string{
                 "cribl_pipe",
             },
@@ -692,7 +693,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCriblTCP(
-        operations.OutputCriblTCP{
+        operations.CreateOutputOutputCriblTCP{
             ID: "cribl-tcp-output",
             Type: operations.CreateOutputTypeCriblTCPCriblTCP,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
@@ -733,9 +734,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCrowdstrikeNextGenSiem(
-        operations.OutputCrowdstrikeNextGenSiem{
+        operations.CreateOutputOutputCrowdstrikeNextGenSiem{
             ID: "crowdstrike-next-gen-siem-output",
-            Type: operations.TypeCrowdstrikeNextGenSiemCrowdstrikeNextGenSiem,
+            Type: operations.CreateOutputTypeCrowdstrikeNextGenSiemCrowdstrikeNextGenSiem,
             URL: "https://ingest.us.crowdstrike.com/api/ingest/hec/connection-id/v1/services/collector",
             Format: components.RequestFormatOptionsJSON,
             AuthType: components.AuthenticationMethodOptionsAuthTokensItemsManual.ToPointer(),
@@ -776,15 +777,15 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDatabricks(
-        operations.OutputDatabricks{
+        operations.CreateOutputOutputDatabricks{
             ID: "databricks-output",
-            Type: operations.TypeDatabricksDatabricks,
+            Type: operations.CreateOutputTypeDatabricksDatabricks,
             WorkspaceID: "your-workspace-id",
-            Scope: "my-scope",
+            Scope: "all-apis",
             ClientID: "your-client-id",
-            Catalog: "my-catalog",
-            Schema: "my-schema",
-            EventsVolumeName: "my-volume",
+            Catalog: "main",
+            Schema: "external",
+            EventsVolumeName: "events",
             ClientTextSecret: "your-client-secret",
         },
     ))
@@ -822,9 +823,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDatadog(
-        operations.OutputDatadog{
+        operations.CreateOutputOutputDatadog{
             ID: "datadog-output",
-            Type: operations.TypeDatadogDatadog,
+            Type: operations.CreateOutputTypeDatadogDatadog,
             APIKey: criblcontrolplanesdkgo.Pointer("your-api-key"),
         },
     ))
@@ -862,9 +863,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDataset(
-        operations.OutputDataset{
+        operations.CreateOutputOutputDataset{
             ID: "dataset-output",
-            Type: operations.TypeDatasetDataset,
+            Type: operations.CreateOutputTypeDatasetDataset,
         },
     ))
     if err != nil {
@@ -901,9 +902,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDiskSpool(
-        operations.OutputDiskSpool{
+        operations.CreateOutputOutputDiskSpool{
             ID: "disk-spool-output",
-            Type: operations.TypeDiskSpoolDiskSpool,
+            Type: operations.CreateOutputTypeDiskSpoolDiskSpool,
         },
     ))
     if err != nil {
@@ -940,9 +941,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDlS3(
-        operations.OutputDlS3{
+        operations.CreateOutputOutputDlS3{
             ID: "dl-s3-output",
-            Type: operations.TypeDlS3DlS3,
+            Type: operations.CreateOutputTypeDlS3DlS3,
             Bucket: "my-bucket",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
             StagePath: "/tmp/staging",
@@ -982,13 +983,13 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDynatraceHTTP(
-        operations.OutputDynatraceHTTP{
+        operations.CreateOutputOutputDynatraceHTTP{
             ID: "dynatrace-http-output",
-            Type: operations.TypeDynatraceHTTPDynatraceHTTP,
-            AuthType: operations.AuthenticationTypeDynatraceHTTPToken.ToPointer(),
-            Format: operations.FormatDynatraceHTTPJSONArray,
-            Endpoint: operations.EndpointCloud,
-            TelemetryType: operations.TelemetryTypeLogs,
+            Type: operations.CreateOutputTypeDynatraceHTTPDynatraceHTTP,
+            AuthType: operations.CreateOutputAuthenticationTypeDynatraceHTTPToken.ToPointer(),
+            Format: operations.CreateOutputFormatDynatraceHTTPJSONArray,
+            Endpoint: operations.CreateOutputEndpointCloud,
+            TelemetryType: operations.CreateOutputTelemetryTypeLogs,
             Token: criblcontrolplanesdkgo.Pointer("your-api-key"),
         },
     ))
@@ -1026,13 +1027,13 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDynatraceOtlp(
-        operations.OutputDynatraceOtlp{
+        operations.CreateOutputOutputDynatraceOtlp{
             ID: "dynatrace-otlp-output",
-            Type: operations.TypeDynatraceOtlpDynatraceOtlp,
-            Protocol: operations.ProtocolDynatraceOtlpHTTP,
+            Type: operations.CreateOutputTypeDynatraceOtlpDynatraceOtlp,
+            Protocol: operations.CreateOutputProtocolDynatraceOtlpHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
             OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
-            EndpointType: operations.EndpointTypeSaas,
+            EndpointType: operations.CreateOutputEndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
     ))
@@ -1070,7 +1071,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestElastic(
-        operations.OutputElastic{
+        operations.CreateOutputOutputElastic{
             ID: "elastic-output",
             Type: operations.CreateOutputTypeElasticElastic,
             Index: "logs",
@@ -1110,9 +1111,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestElasticCloud(
-        operations.OutputElasticCloud{
+        operations.CreateOutputOutputElasticCloud{
             ID: "elastic-cloud-output",
-            Type: operations.TypeElasticCloudElasticCloud,
+            Type: operations.CreateOutputTypeElasticCloudElasticCloud,
             URL: "my-cloud-id",
             Index: "logs",
         },
@@ -1151,9 +1152,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestExabeam(
-        operations.OutputExabeam{
+        operations.CreateOutputOutputExabeam{
             ID: "exabeam-output",
-            Type: operations.TypeExabeamExabeam,
+            Type: operations.CreateOutputTypeExabeamExabeam,
             Bucket: "my-bucket",
             Region: "us-east1",
             StagePath: "/tmp/staging",
@@ -1195,9 +1196,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestFilesystem(
-        operations.OutputFilesystem{
+        operations.CreateOutputOutputFilesystem{
             ID: "filesystem-output",
-            Type: operations.TypeFilesystemFilesystem,
+            Type: operations.CreateOutputTypeFilesystemFilesystem,
             DestPath: "/var/log/output",
         },
     ))
@@ -1235,10 +1236,10 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGoogleChronicle(
-        operations.OutputGoogleChronicle{
+        operations.CreateOutputOutputGoogleChronicle{
             ID: "google-chronicle-output",
-            Type: operations.TypeGoogleChronicleGoogleChronicle,
-            LogFormatType: operations.SendEventsAsUnstructured,
+            Type: operations.CreateOutputTypeGoogleChronicleGoogleChronicle,
+            LogFormatType: operations.CreateOutputSendEventsAsUnstructured,
             Region: criblcontrolplanesdkgo.Pointer("us"),
             CustomerID: criblcontrolplanesdkgo.Pointer("customer-id"),
         },
@@ -1277,10 +1278,10 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGoogleCloudLogging(
-        operations.OutputGoogleCloudLogging{
+        operations.CreateOutputOutputGoogleCloudLogging{
             ID: "google-cloud-logging-output",
-            Type: operations.TypeGoogleCloudLoggingGoogleCloudLogging,
-            LogLocationType: operations.LogLocationTypeProject,
+            Type: operations.CreateOutputTypeGoogleCloudLoggingGoogleCloudLogging,
+            LogLocationType: operations.CreateOutputLogLocationTypeProject,
             LogNameExpression: "my-log",
             LogLocationExpression: "my-project",
         },
@@ -1319,9 +1320,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGoogleCloudStorage(
-        operations.OutputGoogleCloudStorage{
+        operations.CreateOutputOutputGoogleCloudStorage{
             ID: "google-cloud-storage-output",
-            Type: operations.TypeGoogleCloudStorageGoogleCloudStorage,
+            Type: operations.CreateOutputTypeGoogleCloudStorageGoogleCloudStorage,
             Bucket: "my-bucket",
             Region: "us-east1",
             Endpoint: "https://storage.googleapis.com",
@@ -1362,7 +1363,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGooglePubsub(
-        operations.OutputGooglePubsub{
+        operations.CreateOutputOutputGooglePubsub{
             ID: "google-pubsub-output",
             Type: operations.CreateOutputTypeGooglePubsubGooglePubsub,
             TopicName: "my-topic",
@@ -1402,10 +1403,10 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGrafanaCloud(
-        operations.CreateOutputGrafanaCloudOutputGrafanaCloudGrafanaCloud1(
-            operations.OutputGrafanaCloudGrafanaCloud1{
+        operations.CreateCreateOutputOutputGrafanaCloudUnionCreateOutputOutputGrafanaCloudGrafanaCloud1(
+            operations.CreateOutputOutputGrafanaCloudGrafanaCloud1{
                 ID: "grafana-cloud-output",
-                Type: operations.OutputGrafanaCloudType1GrafanaCloud,
+                Type: operations.CreateOutputOutputGrafanaCloudType1GrafanaCloud,
                 LokiURL: "https://logs-prod-us-central1.grafana.net",
             },
         ),
@@ -1444,9 +1445,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGraphite(
-        operations.OutputGraphite{
+        operations.CreateOutputOutputGraphite{
             ID: "graphite-output",
-            Type: operations.TypeGraphiteGraphite,
+            Type: operations.CreateOutputTypeGraphiteGraphite,
             Protocol: components.DestinationProtocolOptionsTCP,
             Host: "localhost",
             Port: 2003,
@@ -1486,9 +1487,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestHoneycomb(
-        operations.OutputHoneycomb{
+        operations.CreateOutputOutputHoneycomb{
             ID: "honeycomb-output",
-            Type: operations.TypeHoneycombHoneycomb,
+            Type: operations.CreateOutputTypeHoneycombHoneycomb,
             Dataset: "my-dataset",
         },
     ))
@@ -1526,9 +1527,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestHumioHec(
-        operations.OutputHumioHec{
+        operations.CreateOutputOutputHumioHec{
             ID: "humio-hec-output",
-            Type: operations.TypeHumioHecHumioHec,
+            Type: operations.CreateOutputTypeHumioHecHumioHec,
             URL: "https://cloud.us.humio.com/api/v1/ingest/hec",
             Format: components.RequestFormatOptionsJSON,
             AuthType: components.AuthenticationMethodOptionsAuthTokensItemsManual.ToPointer(),
@@ -1569,9 +1570,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestInfluxdb(
-        operations.OutputInfluxdb{
+        operations.CreateOutputOutputInfluxdb{
             ID: "influxdb-output",
-            Type: operations.TypeInfluxdbInfluxdb,
+            Type: operations.CreateOutputTypeInfluxdbInfluxdb,
             URL: "http://localhost:8086",
             Database: criblcontrolplanesdkgo.Pointer("mydb"),
         },
@@ -1610,7 +1611,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestKafka(
-        operations.OutputKafka{
+        operations.CreateOutputOutputKafka{
             ID: "kafka-output",
             Type: operations.CreateOutputTypeKafkaKafka,
             Brokers: []string{
@@ -1653,11 +1654,53 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestKinesis(
-        operations.OutputKinesis{
+        operations.CreateOutputOutputKinesis{
             ID: "kinesis-output",
             Type: operations.CreateOutputTypeKinesisKinesis,
             StreamName: "my-stream",
             Region: "us-east-1",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesLocalSearchStorage
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesLocalSearchStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestLocalSearchStorage(
+        operations.CreateOutputOutputLocalSearchStorage{
+            ID: "local-search-storage-output",
+            Type: operations.CreateOutputTypeLocalSearchStorageLocalSearchStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
         },
     ))
     if err != nil {
@@ -1694,7 +1737,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestLoki(
-        operations.OutputLoki{
+        operations.CreateOutputOutputLoki{
             ID: "loki-output",
             Type: operations.CreateOutputTypeLokiLoki,
             URL: "http://localhost:3100/loki/api/v1/push",
@@ -1734,9 +1777,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestMicrosoftFabric(
-        operations.OutputMicrosoftFabric{
+        operations.CreateOutputOutputMicrosoftFabric{
             ID: "microsoft-fabric-output",
-            Type: operations.TypeMicrosoftFabricMicrosoftFabric,
+            Type: operations.CreateOutputTypeMicrosoftFabricMicrosoftFabric,
             Topic: "logs",
             BootstrapServer: "myeventstream.servicebus.windows.net:9093",
         },
@@ -1775,9 +1818,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestMinio(
-        operations.OutputMinio{
+        operations.CreateOutputOutputMinio{
             ID: "minio-output",
-            Type: operations.TypeMinioMinio,
+            Type: operations.CreateOutputTypeMinioMinio,
             Endpoint: "http://localhost:9000",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
@@ -1817,7 +1860,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestMsk(
-        operations.OutputMsk{
+        operations.CreateOutputOutputMsk{
             ID: "msk-output",
             Type: operations.CreateOutputTypeMskMsk,
             Brokers: []string{
@@ -1862,11 +1905,11 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestNetflow(
-        operations.OutputNetflow{
+        operations.CreateOutputOutputNetflow{
             ID: "netflow-output",
             Type: operations.CreateOutputTypeNetflowNetflow,
-            Hosts: []operations.HostNetflow{
-                operations.HostNetflow{
+            Hosts: []operations.CreateOutputHostNetflow{
+                operations.CreateOutputHostNetflow{
                     Host: "localhost",
                     Port: 2055,
                 },
@@ -1907,9 +1950,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestNewrelic(
-        operations.OutputNewrelic{
+        operations.CreateOutputOutputNewrelic{
             ID: "newrelic-output",
-            Type: operations.TypeNewrelicNewrelic,
+            Type: operations.CreateOutputTypeNewrelicNewrelic,
             APIKey: criblcontrolplanesdkgo.Pointer("your-api-key"),
         },
     ))
@@ -1947,9 +1990,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestNewrelicEvents(
-        operations.OutputNewrelicEvents{
+        operations.CreateOutputOutputNewrelicEvents{
             ID: "newrelic-events-output",
-            Type: operations.TypeNewrelicEventsNewrelicEvents,
+            Type: operations.CreateOutputTypeNewrelicEventsNewrelicEvents,
             AccountID: "123456",
             EventType: "CriblEvent",
             APIKey: criblcontrolplanesdkgo.Pointer("your-api-key"),
@@ -1989,7 +2032,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestOpenTelemetry(
-        operations.OutputOpenTelemetry{
+        operations.CreateOutputOutputOpenTelemetry{
             ID: "opentelemetry-output",
             Type: operations.CreateOutputTypeOpenTelemetryOpenTelemetry,
             Endpoint: "http://localhost:4317",
@@ -2029,7 +2072,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestPrometheus(
-        operations.OutputPrometheus{
+        operations.CreateOutputOutputPrometheus{
             ID: "prometheus-output",
             Type: operations.CreateOutputTypePrometheusPrometheus,
             URL: "http://localhost:9091/api/v1/write",
@@ -2069,9 +2112,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestRing(
-        operations.OutputRing{
+        operations.CreateOutputOutputRing{
             ID: "ring-output",
-            Type: operations.TypeRingRing,
+            Type: operations.CreateOutputTypeRingRing,
         },
     ))
     if err != nil {
@@ -2108,9 +2151,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestRouter(
-        operations.OutputRouter{
+        operations.CreateOutputOutputRouter{
             ID: "router-output",
-            Type: operations.TypeRouterRouter,
+            Type: operations.CreateOutputTypeRouterRouter,
             Rules: []operations.CreateOutputRule{
                 operations.CreateOutputRule{
                     Filter: "true",
@@ -2153,7 +2196,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestS3(
-        operations.OutputS3{
+        operations.CreateOutputOutputS3{
             ID: "s3-output",
             Type: operations.CreateOutputTypeS3S3,
             Bucket: "my-bucket",
@@ -2195,7 +2238,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSecurityLake(
-        operations.OutputSecurityLake{
+        operations.CreateOutputOutputSecurityLake{
             ID: "security-lake-output",
             Type: operations.CreateOutputTypeSecurityLakeSecurityLake,
             Bucket: "my-bucket",
@@ -2240,13 +2283,13 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSentinel(
-        operations.OutputSentinel{
+        operations.CreateOutputOutputSentinel{
             ID: "sentinel-output",
-            Type: operations.TypeSentinelSentinel,
+            Type: operations.CreateOutputTypeSentinelSentinel,
             LoginURL: "https://login.microsoftonline.com",
             Secret: "client-secret",
             ClientID: "client-id",
-            EndpointURLConfiguration: operations.EndpointConfigurationURL,
+            EndpointURLConfiguration: operations.CreateOutputEndpointConfigurationURL,
             URL: criblcontrolplanesdkgo.Pointer("https://your-workspace.ingest.monitor.azure.com"),
         },
     ))
@@ -2284,11 +2327,11 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSentinelOneAiSiem(
-        operations.OutputSentinelOneAiSiem{
+        operations.CreateOutputOutputSentinelOneAiSiem{
             ID: "sentinel-one-ai-siem-output",
-            Type: operations.TypeSentinelOneAiSiemSentinelOneAiSiem,
-            Region: operations.RegionUs,
-            Endpoint: operations.AISIEMEndpointPathRootServicesCollectorEvent,
+            Type: operations.CreateOutputTypeSentinelOneAiSiemSentinelOneAiSiem,
+            Region: operations.CreateOutputRegionUs,
+            Endpoint: operations.CreateOutputAISIEMEndpointPathRootServicesCollectorEvent,
         },
     ))
     if err != nil {
@@ -2325,9 +2368,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestServiceNow(
-        operations.OutputServiceNow{
+        operations.CreateOutputOutputServiceNow{
             ID: "servicenow-output",
-            Type: operations.TypeServiceNowServiceNow,
+            Type: operations.CreateOutputTypeServiceNowServiceNow,
             Endpoint: "ingest.lightstep.com:443",
             TokenSecret: "your-token-secret",
             OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
@@ -2368,9 +2411,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSignalfx(
-        operations.OutputSignalfx{
+        operations.CreateOutputOutputSignalfx{
             ID: "signalfx-output",
-            Type: operations.TypeSignalfxSignalfx,
+            Type: operations.CreateOutputTypeSignalfxSignalfx,
             Realm: "us0",
             Token: criblcontrolplanesdkgo.Pointer("your-token"),
         },
@@ -2409,11 +2452,11 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSnmp(
-        operations.OutputSnmp{
+        operations.CreateOutputOutputSnmp{
             ID: "snmp-output",
             Type: operations.CreateOutputTypeSnmpSnmp,
-            Hosts: []operations.HostSnmp{
-                operations.HostSnmp{
+            Hosts: []operations.CreateOutputHostSnmp{
+                operations.CreateOutputHostSnmp{
                     Host: "192.168.1.1",
                     Port: 161,
                 },
@@ -2454,9 +2497,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSns(
-        operations.OutputSns{
+        operations.CreateOutputOutputSns{
             ID: "sns-output",
-            Type: operations.TypeSnsSns,
+            Type: operations.CreateOutputTypeSnsSns,
             TopicArn: "arn:aws:sns:us-east-1:123456789012:my-topic",
             MessageGroupID: "my-message-group",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
@@ -2496,7 +2539,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSplunk(
-        operations.OutputSplunk{
+        operations.CreateOutputOutputSplunk{
             ID: "splunk-output",
             Type: operations.CreateOutputTypeSplunkSplunk,
             Host: "localhost",
@@ -2537,7 +2580,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSplunkHec(
-        operations.OutputSplunkHec{
+        operations.CreateOutputOutputSplunkHec{
             ID: "splunk-hec-output",
             Type: operations.CreateOutputTypeSplunkHecSplunkHec,
         },
@@ -2576,9 +2619,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSplunkLb(
-        operations.OutputSplunkLb{
+        operations.CreateOutputOutputSplunkLb{
             ID: "splunk-lb-output",
-            Type: operations.TypeSplunkLbSplunkLb,
+            Type: operations.CreateOutputTypeSplunkLbSplunkLb,
             Hosts: []components.ItemsTypeHosts{
                 components.ItemsTypeHosts{
                     Host: "localhost",
@@ -2621,7 +2664,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSqs(
-        operations.OutputSqs{
+        operations.CreateOutputOutputSqs{
             ID: "sqs-output",
             Type: operations.CreateOutputTypeSqsSqs,
             QueueName: "my-queue",
@@ -2663,9 +2706,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestStatsd(
-        operations.OutputStatsd{
+        operations.CreateOutputOutputStatsd{
             ID: "statsd-output",
-            Type: operations.TypeStatsdStatsd,
+            Type: operations.CreateOutputTypeStatsdStatsd,
             Protocol: components.DestinationProtocolOptionsUDP,
             Host: "localhost",
             Port: 8125,
@@ -2705,9 +2748,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestStatsdExt(
-        operations.OutputStatsdExt{
+        operations.CreateOutputOutputStatsdExt{
             ID: "statsd-ext-output",
-            Type: operations.TypeStatsdExtStatsdExt,
+            Type: operations.CreateOutputTypeStatsdExtStatsdExt,
             Protocol: components.DestinationProtocolOptionsUDP,
             Host: "localhost",
             Port: 8125,
@@ -2747,9 +2790,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSumoLogic(
-        operations.OutputSumoLogic{
+        operations.CreateOutputOutputSumoLogic{
             ID: "sumo-logic-output",
-            Type: operations.TypeSumoLogicSumoLogic,
+            Type: operations.CreateOutputTypeSumoLogicSumoLogic,
             URL: "https://endpoint1.collection.us2.sumologic.com",
         },
     ))
@@ -2787,7 +2830,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSyslog(
-        operations.OutputSyslog{
+        operations.CreateOutputOutputSyslog{
             ID: "syslog-output",
             Type: operations.CreateOutputTypeSyslogSyslog,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
@@ -2828,7 +2871,7 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestTcpjson(
-        operations.OutputTcpjson{
+        operations.CreateOutputOutputTcpjson{
             ID: "tcpjson-output",
             Type: operations.CreateOutputTypeTcpjsonTcpjson,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
@@ -2869,9 +2912,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestWavefront(
-        operations.OutputWavefront{
+        operations.CreateOutputOutputWavefront{
             ID: "wavefront-output",
-            Type: operations.TypeWavefrontWavefront,
+            Type: operations.CreateOutputTypeWavefrontWavefront,
             Domain: "longboard",
             Token: criblcontrolplanesdkgo.Pointer("your-token"),
         },
@@ -2910,9 +2953,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestWebhook(
-        operations.OutputWebhook{
+        operations.CreateOutputOutputWebhook{
             ID: "webhook-output",
-            Type: operations.TypeWebhookWebhook,
+            Type: operations.CreateOutputTypeWebhookWebhook,
             URL: criblcontrolplanesdkgo.Pointer("https://example.com/webhook"),
         },
     ))
@@ -2950,9 +2993,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestWizHec(
-        operations.OutputWizHec{
+        operations.CreateOutputOutputWizHec{
             ID: "wiz-hec-output",
-            Type: operations.TypeWizHecWizHec,
+            Type: operations.CreateOutputTypeWizHecWizHec,
             AuthType: components.AuthenticationMethodOptionsAuthTokensItemsManual.ToPointer(),
             WizConnectorID: "00000000-0000-0000-0000-000000000000",
             WizEnvironment: "test",
@@ -2994,9 +3037,9 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestXsiam(
-        operations.OutputXsiam{
+        operations.CreateOutputOutputXsiam{
             ID: "xsiam-output",
-            Type: operations.TypeXsiamXsiam,
+            Type: operations.CreateOutputTypeXsiamXsiam,
         },
     ))
     if err != nil {
@@ -3086,7 +3129,7 @@ func main() {
 
 ## Update
 
-Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
+Update the specified Destination.<br/><br/>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
 
 ### Example Usage: OutputCreateExamplesAzureBlob
 
@@ -3781,11 +3824,11 @@ func main() {
             ID: criblcontrolplanesdkgo.Pointer("databricks-output"),
             Type: components.OutputDatabricksTypeDatabricks,
             WorkspaceID: "your-workspace-id",
-            Scope: "my-scope",
+            Scope: "all-apis",
             ClientID: "your-client-id",
-            Catalog: "my-catalog",
-            Schema: "my-schema",
-            EventsVolumeName: "my-volume",
+            Catalog: "main",
+            Schema: "external",
+            EventsVolumeName: "events",
             ClientTextSecret: "your-client-secret",
         },
     ))
@@ -4638,6 +4681,47 @@ func main() {
             Type: components.OutputKinesisTypeKinesis,
             StreamName: "my-stream",
             Region: "us-east-1",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesLocalSearchStorage
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesLocalSearchStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputLocalSearchStorage(
+        components.OutputLocalSearchStorage{
+            ID: criblcontrolplanesdkgo.Pointer("local-search-storage-output"),
+            Type: components.OutputLocalSearchStorageTypeLocalSearchStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
         },
     ))
     if err != nil {
@@ -5983,7 +6067,7 @@ func main() {
         components.OutputDefault{
             ID: criblcontrolplanesdkgo.Pointer("default-output"),
             Type: components.OutputDefaultTypeDefault,
-            DefaultID: "my-default-output",
+            DefaultID: criblcontrolplanesdkgo.Pointer("my-default-output"),
         },
     ))
     if err != nil {

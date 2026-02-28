@@ -98,9 +98,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestAppscope(
-        operations.InputAppscope{
+        operations.CreateInputInputAppscope{
             ID: "appscope-source",
-            Type: operations.TypeAppscopeAppscope,
+            Type: operations.CreateInputTypeAppscopeAppscope,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
@@ -141,7 +141,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestAzureBlob(
-        operations.InputAzureBlob{
+        operations.CreateInputInputAzureBlob{
             ID: "azure-blob-source",
             Type: operations.CreateInputTypeAzureBlobAzureBlob,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -183,9 +183,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestCloudflareHec(
-        operations.InputCloudflareHec{
+        operations.CreateInputInputCloudflareHec{
             ID: "cloudflare-hec-source",
-            Type: operations.TypeCloudflareHecCloudflareHec,
+            Type: operations.CreateInputTypeCloudflareHecCloudflareHec,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -227,9 +227,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestCollection(
-        operations.InputCollection{
+        operations.CreateInputInputCollection{
             ID: "collection-source",
-            Type: operations.TypeCollectionCollection,
+            Type: operations.CreateInputTypeCollectionCollection,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
         },
@@ -268,7 +268,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestConfluentCloud(
-        operations.InputConfluentCloud{
+        operations.CreateInputInputConfluentCloud{
             ID: "confluent-cloud-source",
             Type: operations.CreateInputTypeConfluentCloudConfluentCloud,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -315,7 +315,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestCriblHTTP(
-        operations.InputCriblHTTP{
+        operations.CreateInputInputCriblHTTP{
             ID: "cribl-http-source",
             Type: operations.CreateInputTypeCriblHTTPCriblHTTP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -358,9 +358,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestCriblLakeHTTP(
-        operations.InputCriblLakeHTTP{
+        operations.CreateInputInputCriblLakeHTTP{
             ID: "cribl-lake-http-source",
-            Type: operations.TypeCriblLakeHTTPCriblLakeHTTP,
+            Type: operations.CreateInputTypeCriblLakeHTTPCriblLakeHTTP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -401,7 +401,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestCriblTCP(
-        operations.InputCriblTCP{
+        operations.CreateInputInputCriblTCP{
             ID: "cribl-tcp-source",
             Type: operations.CreateInputTypeCriblTCPCriblTCP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -444,9 +444,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestCrowdstrike(
-        operations.InputCrowdstrike{
+        operations.CreateInputInputCrowdstrike{
             ID: "crowdstrike-source",
-            Type: operations.TypeCrowdstrikeCrowdstrike,
+            Type: operations.CreateInputTypeCrowdstrikeCrowdstrike,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "crowdstrike-queue",
@@ -487,9 +487,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestDatadogAgent(
-        operations.InputDatadogAgent{
+        operations.CreateInputInputDatadogAgent{
             ID: "datadog-agent-source",
-            Type: operations.TypeDatadogAgentDatadogAgent,
+            Type: operations.CreateInputTypeDatadogAgentDatadogAgent,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -530,13 +530,13 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestDatagen(
-        operations.InputDatagen{
+        operations.CreateInputInputDatagen{
             ID: "datagen-source",
-            Type: operations.TypeDatagenDatagen,
+            Type: operations.CreateInputTypeDatagenDatagen,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
-            Samples: []operations.Sample{
-                operations.Sample{
+            Samples: []operations.CreateInputSample{
+                operations.CreateInputSample{
                     Sample: "sample.json",
                     EventsPerSec: 10,
                 },
@@ -577,15 +577,15 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestEdgePrometheus(
-        operations.InputEdgePrometheus{
+        operations.CreateInputInputEdgePrometheus{
             ID: "edge-prometheus-source",
-            Type: operations.TypeEdgePrometheusEdgePrometheus,
+            Type: operations.CreateInputTypeEdgePrometheusEdgePrometheus,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
-            DiscoveryType: operations.DiscoveryTypeEdgePrometheusStatic,
+            DiscoveryType: operations.CreateInputDiscoveryTypeEdgePrometheusStatic,
             Interval: 60,
-            Targets: []operations.Target{
-                operations.Target{
+            Targets: []operations.CreateInputTarget{
+                operations.CreateInputTarget{
                     Host: "localhost",
                 },
             },
@@ -625,7 +625,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestElastic(
-        operations.InputElastic{
+        operations.CreateInputInputElastic{
             ID: "elastic-source",
             Type: operations.CreateInputTypeElasticElastic,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -669,9 +669,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestEventhub(
-        operations.InputEventhub{
+        operations.CreateInputInputEventhub{
             ID: "eventhub-source",
-            Type: operations.TypeEventhubEventhub,
+            Type: operations.CreateInputTypeEventhubEventhub,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -716,9 +716,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestExec(
-        operations.InputExec{
+        operations.CreateInputInputExec{
             ID: "exec-source",
-            Type: operations.InputExecTypeExec,
+            Type: operations.CreateInputInputExecTypeExec,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Command: "echo \"Hello World\"",
@@ -759,12 +759,12 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestFile(
-        operations.InputFile{
+        operations.CreateInputInputFile{
             ID: "file-source",
-            Type: operations.InputFileTypeFile,
+            Type: operations.CreateInputInputFileTypeFile,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
-            Mode: operations.InputFileModeManual.ToPointer(),
+            Mode: operations.CreateInputInputFileModeManual.ToPointer(),
         },
     ))
     if err != nil {
@@ -801,9 +801,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestFirehose(
-        operations.InputFirehose{
+        operations.CreateInputInputFirehose{
             ID: "firehose-source",
-            Type: operations.TypeFirehoseFirehose,
+            Type: operations.CreateInputTypeFirehoseFirehose,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -844,7 +844,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestGooglePubsub(
-        operations.InputGooglePubsub{
+        operations.CreateInputInputGooglePubsub{
             ID: "google-pubsub-source",
             Type: operations.CreateInputTypeGooglePubsubGooglePubsub,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -887,10 +887,10 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestGrafana(
-        operations.CreateInputGrafanaInputGrafanaGrafana1(
-            operations.InputGrafanaGrafana1{
+        operations.CreateCreateInputInputGrafanaUnionCreateInputInputGrafanaGrafana1(
+            operations.CreateInputInputGrafanaGrafana1{
                 ID: "grafana-source",
-                Type: operations.InputGrafanaType1Grafana,
+                Type: operations.CreateInputInputGrafanaType1Grafana,
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
                 PqEnabled: criblcontrolplanesdkgo.Pointer(false),
                 Host: "0.0.0.0",
@@ -933,9 +933,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestHTTP(
-        operations.InputHTTP{
+        operations.CreateInputInputHTTP{
             ID: "http-source",
-            Type: operations.TypeHTTPHTTP,
+            Type: operations.CreateInputTypeHTTPHTTP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -976,9 +976,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestHTTPRaw(
-        operations.InputHTTPRaw{
+        operations.CreateInputInputHTTPRaw{
             ID: "http-raw-source",
-            Type: operations.TypeHTTPRawHTTPRaw,
+            Type: operations.CreateInputTypeHTTPRawHTTPRaw,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -1019,9 +1019,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestJournalFiles(
-        operations.InputJournalFiles{
+        operations.CreateInputInputJournalFiles{
             ID: "journal-files-source",
-            Type: operations.InputJournalFilesTypeJournalFiles,
+            Type: operations.CreateInputInputJournalFilesTypeJournalFiles,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Path: "/var/log/journal",
@@ -1064,7 +1064,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestKafka(
-        operations.InputKafka{
+        operations.CreateInputInputKafka{
             ID: "kafka-source",
             Type: operations.CreateInputTypeKafkaKafka,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -1111,7 +1111,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestKinesis(
-        operations.InputKinesis{
+        operations.CreateInputInputKinesis{
             ID: "kinesis-source",
             Type: operations.CreateInputTypeKinesisKinesis,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -1154,9 +1154,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestKubeEvents(
-        operations.InputKubeEvents{
+        operations.CreateInputInputKubeEvents{
             ID: "kube-events-source",
-            Type: operations.TypeKubeEventsKubeEvents,
+            Type: operations.CreateInputTypeKubeEventsKubeEvents,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
         },
@@ -1195,9 +1195,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestKubeLogs(
-        operations.InputKubeLogs{
+        operations.CreateInputInputKubeLogs{
             ID: "kube-logs-source",
-            Type: operations.TypeKubeLogsKubeLogs,
+            Type: operations.CreateInputTypeKubeLogsKubeLogs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
         },
@@ -1236,9 +1236,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestKubeMetrics(
-        operations.InputKubeMetrics{
+        operations.CreateInputInputKubeMetrics{
             ID: "kube-metrics-source",
-            Type: operations.TypeKubeMetricsKubeMetrics,
+            Type: operations.CreateInputTypeKubeMetricsKubeMetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
         },
@@ -1277,7 +1277,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestLoki(
-        operations.InputLoki{
+        operations.CreateInputInputLoki{
             ID: "loki-source",
             Type: operations.CreateInputTypeLokiLoki,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -1321,9 +1321,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestMetrics(
-        operations.InputMetrics{
+        operations.CreateInputInputMetrics{
             ID: "metrics-source",
-            Type: operations.TypeMetricsMetrics,
+            Type: operations.CreateInputTypeMetricsMetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -1364,9 +1364,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestModelDrivenTelemetry(
-        operations.InputModelDrivenTelemetry{
+        operations.CreateInputInputModelDrivenTelemetry{
             ID: "mdt-source",
-            Type: operations.TypeModelDrivenTelemetryModelDrivenTelemetry,
+            Type: operations.CreateInputTypeModelDrivenTelemetryModelDrivenTelemetry,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -1407,7 +1407,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestMsk(
-        operations.InputMsk{
+        operations.CreateInputInputMsk{
             ID: "msk-source",
             Type: operations.CreateInputTypeMskMsk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -1456,7 +1456,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestNetflow(
-        operations.InputNetflow{
+        operations.CreateInputInputNetflow{
             ID: "netflow-source",
             Type: operations.CreateInputTypeNetflowNetflow,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -1499,9 +1499,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestOffice365Mgmt(
-        operations.InputOffice365Mgmt{
+        operations.CreateInputInputOffice365Mgmt{
             ID: "office365-mgmt-source",
-            Type: operations.TypeOffice365MgmtOffice365Mgmt,
+            Type: operations.CreateInputTypeOffice365MgmtOffice365Mgmt,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             PlanType: components.SubscriptionPlanOptionsEnterpriseGcc,
@@ -1543,9 +1543,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestOffice365MsgTrace(
-        operations.InputOffice365MsgTrace{
+        operations.CreateInputInputOffice365MsgTrace{
             ID: "office365-msg-trace-source",
-            Type: operations.TypeOffice365MsgTraceOffice365MsgTrace,
+            Type: operations.CreateInputTypeOffice365MsgTraceOffice365MsgTrace,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             URL: "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
@@ -1586,13 +1586,78 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestOffice365Service(
-        operations.InputOffice365Service{
+        operations.CreateInputInputOffice365Service{
             ID: "office365-service-source",
-            Type: operations.TypeOffice365ServiceOffice365Service,
+            Type: operations.CreateInputTypeOffice365ServiceOffice365Service,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TenantID: "tenant-id",
             AppID: "app-id",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesOpenAI
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesOpenAI" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestOpenai(
+        operations.CreateInputInputOpenai{
+            ID: "openai-source",
+            Type: operations.CreateInputTypeOpenaiOpenai,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            ContentConfig: []operations.CreateInputContentConfigInput{
+                operations.CreateInputContentConfigInput{
+                    Disabled: criblcontrolplanesdkgo.Pointer(false),
+                    RequestParams: []components.ItemsTypeContentConfigItemsRequestParams{
+                        components.ItemsTypeContentConfigItemsRequestParams{
+                            Name: "effective_at[gt]",
+                            Value: "`${Math.round(Date.now()/1000 - 3600)}`",
+                        },
+                        components.ItemsTypeContentConfigItemsRequestParams{
+                            Name: "limit",
+                            Value: "100",
+                        },
+                    },
+                    PaginationType: operations.CreateInputPaginationTypeResponseBody,
+                    PaginationAttribute: []string{
+                        "last_id",
+                    },
+                    PaginationLastPageExpr: criblcontrolplanesdkgo.Pointer("has_more === false"),
+                    CronSchedule: "0 * * * *",
+                    Earliest: "-1h",
+                    Latest: "now",
+                },
+            },
+            TextSecret: "openai-api-key-secret",
         },
     ))
     if err != nil {
@@ -1629,7 +1694,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestOpenTelemetry(
-        operations.InputOpenTelemetry{
+        operations.CreateInputInputOpenTelemetry{
             ID: "otel-source",
             Type: operations.CreateInputTypeOpenTelemetryOpenTelemetry,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -1672,14 +1737,14 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestPrometheus(
-        operations.InputPrometheus{
+        operations.CreateInputInputPrometheus{
             ID: "prometheus-source",
             Type: operations.CreateInputTypePrometheusPrometheus,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
-            DiscoveryType: operations.DiscoveryTypePrometheusStatic.ToPointer(),
+            DiscoveryType: operations.CreateInputDiscoveryTypePrometheusStatic.ToPointer(),
             Interval: 60,
-            LogLevel: operations.LogLevelPrometheusInfo,
+            LogLevel: operations.CreateInputLogLevelPrometheusInfo,
             TargetList: []string{
                 "http://localhost:9090/metrics",
             },
@@ -1719,9 +1784,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestPrometheusRw(
-        operations.InputPrometheusRw{
+        operations.CreateInputInputPrometheusRw{
             ID: "prometheus-rw-source",
-            Type: operations.TypePrometheusRwPrometheusRw,
+            Type: operations.CreateInputTypePrometheusRwPrometheusRw,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -1763,9 +1828,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestRawUDP(
-        operations.InputRawUDP{
+        operations.CreateInputInputRawUDP{
             ID: "raw-udp-source",
-            Type: operations.TypeRawUDPRawUDP,
+            Type: operations.CreateInputTypeRawUDPRawUDP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -1806,7 +1871,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestS3(
-        operations.InputS3{
+        operations.CreateInputInputS3{
             ID: "s3-source",
             Type: operations.CreateInputTypeS3S3,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -1849,9 +1914,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestS3Inventory(
-        operations.InputS3Inventory{
+        operations.CreateInputInputS3Inventory{
             ID: "s3-inventory-source",
-            Type: operations.TypeS3InventoryS3Inventory,
+            Type: operations.CreateInputTypeS3InventoryS3Inventory,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "s3-inventory-queue",
@@ -1892,7 +1957,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSecurityLake(
-        operations.InputSecurityLake{
+        operations.CreateInputInputSecurityLake{
             ID: "security-lake-source",
             Type: operations.CreateInputTypeSecurityLakeSecurityLake,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -1935,7 +2000,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSnmp(
-        operations.InputSnmp{
+        operations.CreateInputInputSnmp{
             ID: "snmp-source",
             Type: operations.CreateInputTypeSnmpSnmp,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -1978,7 +2043,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSplunk(
-        operations.InputSplunk{
+        operations.CreateInputInputSplunk{
             ID: "splunk-source",
             Type: operations.CreateInputTypeSplunkSplunk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -2021,7 +2086,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSplunkHec(
-        operations.InputSplunkHec{
+        operations.CreateInputInputSplunkHec{
             ID: "splunk-hec-source",
             Type: operations.CreateInputTypeSplunkHecSplunkHec,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -2065,9 +2130,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSplunkSearch(
-        operations.InputSplunkSearch{
+        operations.CreateInputInputSplunkSearch{
             ID: "splunk-search-source",
-            Type: operations.TypeSplunkSearchSplunkSearch,
+            Type: operations.CreateInputTypeSplunkSearchSplunkSearch,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             SearchHead: "https://localhost:8089",
@@ -2111,7 +2176,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSqs(
-        operations.InputSqs{
+        operations.CreateInputInputSqs{
             ID: "sqs-source",
             Type: operations.CreateInputTypeSqsSqs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -2155,10 +2220,10 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSyslog(
-        operations.CreateInputSyslogInputSyslogSyslog1(
-            operations.InputSyslogSyslog1{
+        operations.CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog1(
+            operations.CreateInputInputSyslogSyslog1{
                 ID: "syslog-source",
-                Type: operations.InputSyslogType1Syslog,
+                Type: operations.CreateInputInputSyslogType1Syslog,
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
                 PqEnabled: criblcontrolplanesdkgo.Pointer(false),
                 Host: "0.0.0.0",
@@ -2200,9 +2265,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSystemMetrics(
-        operations.InputSystemMetrics{
+        operations.CreateInputInputSystemMetrics{
             ID: "system-metrics-source",
-            Type: operations.TypeSystemMetricsSystemMetrics,
+            Type: operations.CreateInputTypeSystemMetricsSystemMetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
         },
@@ -2241,9 +2306,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSystemState(
-        operations.InputSystemState{
+        operations.CreateInputInputSystemState{
             ID: "system-state-source",
-            Type: operations.TypeSystemStateSystemState,
+            Type: operations.CreateInputTypeSystemStateSystemState,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
         },
@@ -2282,9 +2347,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestTCP(
-        operations.InputTCP{
+        operations.CreateInputInputTCP{
             ID: "tcp-source",
-            Type: operations.TypeTCPTCP,
+            Type: operations.CreateInputTypeTCPTCP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -2325,7 +2390,7 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestTcpjson(
-        operations.InputTcpjson{
+        operations.CreateInputInputTcpjson{
             ID: "tcpjson-source",
             Type: operations.CreateInputTypeTcpjsonTcpjson,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -2368,15 +2433,15 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestWef(
-        operations.InputWef{
+        operations.CreateInputInputWef{
             ID: "wef-source",
-            Type: operations.TypeWefWef,
+            Type: operations.CreateInputTypeWefWef,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
             Port: 5985,
-            Subscriptions: []operations.Subscription{
-                operations.Subscription{
+            Subscriptions: []operations.CreateInputSubscription{
+                operations.CreateInputSubscription{
                     SubscriptionName: "subscription-1",
                     ContentFormat: operations.CreateInputFormatRenderedText,
                     HeartbeatInterval: 60,
@@ -2420,9 +2485,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestWinEventLogs(
-        operations.InputWinEventLogs{
+        operations.CreateInputInputWinEventLogs{
             ID: "win-event-logs-source",
-            Type: operations.TypeWinEventLogsWinEventLogs,
+            Type: operations.CreateInputTypeWinEventLogsWinEventLogs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             LogNames: []string{
@@ -2465,9 +2530,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestWindowsMetrics(
-        operations.InputWindowsMetrics{
+        operations.CreateInputInputWindowsMetrics{
             ID: "windows-metrics-source",
-            Type: operations.TypeWindowsMetricsWindowsMetrics,
+            Type: operations.CreateInputTypeWindowsMetricsWindowsMetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
         },
@@ -2506,15 +2571,15 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestWiz(
-        operations.InputWiz{
+        operations.CreateInputInputWiz{
             ID: "wiz-source",
-            Type: operations.TypeWizWiz,
+            Type: operations.CreateInputTypeWizWiz,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Endpoint: "https://api.wiz.io",
             AuthURL: "https://auth.wiz.io/oauth/token",
             ClientID: "client-id",
-            ContentConfig: []operations.ContentConfigWiz{},
+            ContentConfig: []operations.CreateInputContentConfigWiz{},
         },
     ))
     if err != nil {
@@ -2551,9 +2616,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestWizWebhook(
-        operations.InputWizWebhook{
+        operations.CreateInputInputWizWebhook{
             ID: "wiz-webhook-source",
-            Type: operations.TypeWizWebhookWizWebhook,
+            Type: operations.CreateInputTypeWizWebhookWizWebhook,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -2594,9 +2659,9 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestZscalerHec(
-        operations.InputZscalerHec{
+        operations.CreateInputInputZscalerHec{
             ID: "zscaler-hec-source",
-            Type: operations.TypeZscalerHecZscalerHec,
+            Type: operations.CreateInputTypeZscalerHecZscalerHec,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -2717,7 +2782,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAppscope(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Appscope(
         components.InputAppscope{
             ID: criblcontrolplanesdkgo.Pointer("appscope-source"),
             Type: components.InputAppscopeTypeAppscope,
@@ -2759,7 +2824,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAzureBlob(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2AzureBlob(
         components.InputAzureBlob{
             ID: criblcontrolplanesdkgo.Pointer("azure-blob-source"),
             Type: components.InputAzureBlobTypeAzureBlob,
@@ -2800,7 +2865,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCloudflareHec(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2CloudflareHec(
         components.InputCloudflareHec{
             ID: criblcontrolplanesdkgo.Pointer("cloudflare-hec-source"),
             Type: components.InputCloudflareHecTypeCloudflareHec,
@@ -2843,7 +2908,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCollection(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Collection(
         components.InputCollection{
             ID: criblcontrolplanesdkgo.Pointer("collection-source"),
             Type: components.InputCollectionTypeCollection,
@@ -2883,7 +2948,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputConfluentCloud(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2ConfluentCloud(
         components.InputConfluentCloud{
             ID: criblcontrolplanesdkgo.Pointer("confluent-cloud-source"),
             Type: components.InputConfluentCloudTypeConfluentCloud,
@@ -2929,7 +2994,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblHTTP(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2CriblHTTP(
         components.InputCriblHTTP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-http-source"),
             Type: components.InputCriblHTTPTypeCriblHTTP,
@@ -2971,7 +3036,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblLakeHTTP(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2CriblLakeHTTP(
         components.InputCriblLakeHTTP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-lake-http-source"),
             Type: components.InputCriblLakeHTTPTypeCriblLakeHTTP,
@@ -3013,7 +3078,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblTCP(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2CriblTCP(
         components.InputCriblTCP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-source"),
             Type: components.InputCriblTCPTypeCriblTCP,
@@ -3055,7 +3120,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCrowdstrike(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Crowdstrike(
         components.InputCrowdstrike{
             ID: criblcontrolplanesdkgo.Pointer("crowdstrike-source"),
             Type: components.InputCrowdstrikeTypeCrowdstrike,
@@ -3097,7 +3162,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputDatadogAgent(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2DatadogAgent(
         components.InputDatadogAgent{
             ID: criblcontrolplanesdkgo.Pointer("datadog-agent-source"),
             Type: components.InputDatadogAgentTypeDatadogAgent,
@@ -3139,7 +3204,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputDatagen(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Datagen(
         components.InputDatagen{
             ID: criblcontrolplanesdkgo.Pointer("datagen-source"),
             Type: components.InputDatagenTypeDatagen,
@@ -3185,7 +3250,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputEdgePrometheus(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2EdgePrometheus(
         components.InputEdgePrometheus{
             ID: criblcontrolplanesdkgo.Pointer("edge-prometheus-source"),
             Type: components.InputEdgePrometheusTypeEdgePrometheus,
@@ -3232,7 +3297,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputElastic(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Elastic(
         components.InputElastic{
             ID: criblcontrolplanesdkgo.Pointer("elastic-source"),
             Type: components.InputElasticTypeElastic,
@@ -3275,7 +3340,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputEventhub(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Eventhub(
         components.InputEventhub{
             ID: criblcontrolplanesdkgo.Pointer("eventhub-source"),
             Type: components.InputEventhubTypeEventhub,
@@ -3321,7 +3386,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputExec(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Exec(
         components.InputExec{
             ID: criblcontrolplanesdkgo.Pointer("exec-source"),
             Type: components.InputExecTypeExec,
@@ -3363,7 +3428,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputFile(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2File(
         components.InputFile{
             ID: criblcontrolplanesdkgo.Pointer("file-source"),
             Type: components.InputFileTypeFile,
@@ -3404,7 +3469,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputFirehose(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Firehose(
         components.InputFirehose{
             ID: criblcontrolplanesdkgo.Pointer("firehose-source"),
             Type: components.InputFirehoseTypeFirehose,
@@ -3446,7 +3511,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputGooglePubsub(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2GooglePubsub(
         components.InputGooglePubsub{
             ID: criblcontrolplanesdkgo.Pointer("google-pubsub-source"),
             Type: components.InputGooglePubsubTypeGooglePubsub,
@@ -3488,7 +3553,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputGrafana(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Grafana(
         components.CreateInputGrafanaInputGrafanaGrafana1(
             components.InputGrafanaGrafana1{
                 ID: criblcontrolplanesdkgo.Pointer("grafana-source"),
@@ -3533,7 +3598,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputHTTP(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2HTTP(
         components.InputHTTP{
             ID: criblcontrolplanesdkgo.Pointer("http-source"),
             Type: components.InputHTTPTypeHTTP,
@@ -3575,7 +3640,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputHTTPRaw(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2HTTPRaw(
         components.InputHTTPRaw{
             ID: criblcontrolplanesdkgo.Pointer("http-raw-source"),
             Type: components.InputHTTPRawTypeHTTPRaw,
@@ -3617,7 +3682,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputJournalFiles(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2JournalFiles(
         components.InputJournalFiles{
             ID: criblcontrolplanesdkgo.Pointer("journal-files-source"),
             Type: components.InputJournalFilesTypeJournalFiles,
@@ -3661,7 +3726,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKafka(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Kafka(
         components.InputKafka{
             ID: criblcontrolplanesdkgo.Pointer("kafka-source"),
             Type: components.InputKafkaTypeKafka,
@@ -3707,7 +3772,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKinesis(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Kinesis(
         components.InputKinesis{
             ID: criblcontrolplanesdkgo.Pointer("kinesis-source"),
             Type: components.InputKinesisTypeKinesis,
@@ -3749,7 +3814,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeEvents(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2KubeEvents(
         components.InputKubeEvents{
             ID: criblcontrolplanesdkgo.Pointer("kube-events-source"),
             Type: components.InputKubeEventsTypeKubeEvents,
@@ -3789,7 +3854,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeLogs(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2KubeLogs(
         components.InputKubeLogs{
             ID: criblcontrolplanesdkgo.Pointer("kube-logs-source"),
             Type: components.InputKubeLogsTypeKubeLogs,
@@ -3829,7 +3894,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeMetrics(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2KubeMetrics(
         components.InputKubeMetrics{
             ID: criblcontrolplanesdkgo.Pointer("kube-metrics-source"),
             Type: components.InputKubeMetricsTypeKubeMetrics,
@@ -3869,7 +3934,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputLoki(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Loki(
         components.InputLoki{
             ID: criblcontrolplanesdkgo.Pointer("loki-source"),
             Type: components.InputLokiTypeLoki,
@@ -3912,7 +3977,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputMetrics(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Metrics(
         components.InputMetrics{
             ID: criblcontrolplanesdkgo.Pointer("metrics-source"),
             Type: components.InputMetricsTypeMetrics,
@@ -3954,7 +4019,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputModelDrivenTelemetry(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2ModelDrivenTelemetry(
         components.InputModelDrivenTelemetry{
             ID: criblcontrolplanesdkgo.Pointer("mdt-source"),
             Type: components.InputModelDrivenTelemetryTypeModelDrivenTelemetry,
@@ -3996,7 +4061,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputMsk(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Msk(
         components.InputMsk{
             ID: criblcontrolplanesdkgo.Pointer("msk-source"),
             Type: components.InputMskTypeMsk,
@@ -4044,7 +4109,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputNetflow(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Netflow(
         components.InputNetflow{
             ID: criblcontrolplanesdkgo.Pointer("netflow-source"),
             Type: components.InputNetflowTypeNetflow,
@@ -4086,7 +4151,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOffice365Mgmt(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Office365Mgmt(
         components.InputOffice365Mgmt{
             ID: criblcontrolplanesdkgo.Pointer("office365-mgmt-source"),
             Type: components.InputOffice365MgmtTypeOffice365Mgmt,
@@ -4129,7 +4194,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOffice365MsgTrace(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Office365MsgTrace(
         components.InputOffice365MsgTrace{
             ID: criblcontrolplanesdkgo.Pointer("office365-msg-trace-source"),
             Type: components.InputOffice365MsgTraceTypeOffice365MsgTrace,
@@ -4171,7 +4236,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOffice365Service(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Office365Service(
         components.InputOffice365Service{
             ID: criblcontrolplanesdkgo.Pointer("office365-service-source"),
             Type: components.InputOffice365ServiceTypeOffice365Service,
@@ -4179,6 +4244,70 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TenantID: "tenant-id",
             AppID: "app-id",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesOpenAI
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesOpenAI" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Openai(
+        components.InputOpenaiInput{
+            ID: criblcontrolplanesdkgo.Pointer("openai-source"),
+            Type: components.InputOpenaiTypeOpenai,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            ContentConfig: []components.ContentConfigInput{
+                components.ContentConfigInput{
+                    Disabled: criblcontrolplanesdkgo.Pointer(false),
+                    RequestParams: []components.ItemsTypeContentConfigItemsRequestParams{
+                        components.ItemsTypeContentConfigItemsRequestParams{
+                            Name: "effective_at[gt]",
+                            Value: "`${Math.round(Date.now()/1000 - 3600)}`",
+                        },
+                        components.ItemsTypeContentConfigItemsRequestParams{
+                            Name: "limit",
+                            Value: "100",
+                        },
+                    },
+                    PaginationType: components.PaginationTypeResponseBody,
+                    PaginationAttribute: []string{
+                        "last_id",
+                    },
+                    PaginationLastPageExpr: criblcontrolplanesdkgo.Pointer("has_more === false"),
+                    CronSchedule: "0 * * * *",
+                    Earliest: "-1h",
+                    Latest: "now",
+                },
+            },
+            TextSecret: "openai-api-key-secret",
         },
     ))
     if err != nil {
@@ -4213,7 +4342,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOpenTelemetry(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2OpenTelemetry(
         components.InputOpenTelemetry{
             ID: criblcontrolplanesdkgo.Pointer("otel-source"),
             Type: components.InputOpenTelemetryTypeOpenTelemetry,
@@ -4255,7 +4384,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputPrometheus(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Prometheus(
         components.InputPrometheus{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-source"),
             Type: components.InputPrometheusTypePrometheus,
@@ -4301,7 +4430,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputPrometheusRw(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2PrometheusRw(
         components.InputPrometheusRw{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-rw-source"),
             Type: components.InputPrometheusRwTypePrometheusRw,
@@ -4344,7 +4473,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputRawUDP(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2RawUDP(
         components.InputRawUDP{
             ID: criblcontrolplanesdkgo.Pointer("raw-udp-source"),
             Type: components.InputRawUDPTypeRawUDP,
@@ -4386,7 +4515,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputS3(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2S3(
         components.InputS3{
             ID: criblcontrolplanesdkgo.Pointer("s3-source"),
             Type: components.InputS3TypeS3,
@@ -4428,7 +4557,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputS3Inventory(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2S3Inventory(
         components.InputS3Inventory{
             ID: criblcontrolplanesdkgo.Pointer("s3-inventory-source"),
             Type: components.InputS3InventoryTypeS3Inventory,
@@ -4470,7 +4599,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSecurityLake(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SecurityLake(
         components.InputSecurityLake{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-source"),
             Type: components.InputSecurityLakeTypeSecurityLake,
@@ -4512,7 +4641,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSnmp(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Snmp(
         components.InputSnmp{
             ID: criblcontrolplanesdkgo.Pointer("snmp-source"),
             Type: components.InputSnmpTypeSnmp,
@@ -4554,7 +4683,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSplunk(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Splunk(
         components.InputSplunk{
             ID: criblcontrolplanesdkgo.Pointer("splunk-source"),
             Type: components.InputSplunkTypeSplunk,
@@ -4596,7 +4725,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSplunkHec(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SplunkHec(
         components.InputSplunkHec{
             ID: criblcontrolplanesdkgo.Pointer("splunk-hec-source"),
             Type: components.InputSplunkHecTypeSplunkHec,
@@ -4639,7 +4768,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSplunkSearch(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SplunkSearch(
         components.InputSplunkSearch{
             ID: criblcontrolplanesdkgo.Pointer("splunk-search-source"),
             Type: components.InputSplunkSearchTypeSplunkSearch,
@@ -4684,7 +4813,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSqs(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Sqs(
         components.InputSqs{
             ID: criblcontrolplanesdkgo.Pointer("sqs-source"),
             Type: components.InputSqsTypeSqs,
@@ -4727,7 +4856,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSyslog(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Syslog(
         components.CreateInputSyslogInputSyslogSyslog1(
             components.InputSyslogSyslog1{
                 ID: criblcontrolplanesdkgo.Pointer("syslog-source"),
@@ -4771,7 +4900,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSystemMetrics(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SystemMetrics(
         components.InputSystemMetrics{
             ID: criblcontrolplanesdkgo.Pointer("system-metrics-source"),
             Type: components.InputSystemMetricsTypeSystemMetrics,
@@ -4811,7 +4940,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSystemState(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SystemState(
         components.InputSystemState{
             ID: criblcontrolplanesdkgo.Pointer("system-state-source"),
             Type: components.InputSystemStateTypeSystemState,
@@ -4851,7 +4980,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputTCP(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2TCP(
         components.InputTCP{
             ID: criblcontrolplanesdkgo.Pointer("tcp-source"),
             Type: components.InputTCPTypeTCP,
@@ -4893,7 +5022,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputTcpjson(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Tcpjson(
         components.InputTcpjson{
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-source"),
             Type: components.InputTcpjsonTypeTcpjson,
@@ -4935,7 +5064,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWef(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Wef(
         components.InputWef{
             ID: criblcontrolplanesdkgo.Pointer("wef-source"),
             Type: components.InputWefTypeWef,
@@ -4986,7 +5115,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWinEventLogs(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2WinEventLogs(
         components.InputWinEventLogs{
             ID: criblcontrolplanesdkgo.Pointer("win-event-logs-source"),
             Type: components.InputWinEventLogsTypeWinEventLogs,
@@ -5030,7 +5159,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWindowsMetrics(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2WindowsMetrics(
         components.InputWindowsMetrics{
             ID: criblcontrolplanesdkgo.Pointer("windows-metrics-source"),
             Type: components.InputWindowsMetricsTypeWindowsMetrics,
@@ -5070,7 +5199,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWiz(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Wiz(
         components.InputWiz{
             ID: criblcontrolplanesdkgo.Pointer("wiz-source"),
             Type: components.InputWizTypeWiz,
@@ -5114,7 +5243,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWizWebhook(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2WizWebhook(
         components.InputWizWebhook{
             ID: criblcontrolplanesdkgo.Pointer("wiz-webhook-source"),
             Type: components.InputWizWebhookTypeWizWebhook,
@@ -5156,7 +5285,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputZscalerHec(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2ZscalerHec(
         components.InputZscalerHec{
             ID: criblcontrolplanesdkgo.Pointer("zscaler-hec-source"),
             Type: components.InputZscalerHecTypeZscalerHec,
@@ -5199,7 +5328,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCribl(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Cribl(
         components.InputCribl{
             ID: criblcontrolplanesdkgo.Pointer("cribl-source"),
             Type: components.InputCriblTypeCribl,
@@ -5239,7 +5368,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblmetrics(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Criblmetrics(
         components.InputCriblmetrics{
             ID: criblcontrolplanesdkgo.Pointer("cribl-metrics-source"),
             Type: components.InputCriblmetricsTypeCriblmetrics,
@@ -5262,7 +5391,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Source to update.             |
-| `input`                                                  | [components.Input](../../models/components/input.md)     | :heavy_check_mark:                                       | Input object                                             |
+| `input`                                                  | [components.Input2](../../models/components/input2.md)   | :heavy_check_mark:                                       | Input object                                             |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response

@@ -112,7 +112,7 @@ type InputWinEventLogs struct {
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
 	BatchSize *float64 `json:"batchSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	Description   *string  `json:"description,omitzero"`
@@ -245,7 +245,7 @@ func (i *InputWinEventLogs) GetBatchSize() *float64 {
 	return i.BatchSize
 }
 
-func (i *InputWinEventLogs) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWinEventLogs) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

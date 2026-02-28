@@ -11,7 +11,7 @@ type ItemsTypeAuthTokensExt struct {
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 }
 
 func (i ItemsTypeAuthTokensExt) MarshalJSON() ([]byte, error) {
@@ -39,7 +39,7 @@ func (i *ItemsTypeAuthTokensExt) GetDescription() *string {
 	return i.Description
 }
 
-func (i *ItemsTypeAuthTokensExt) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *ItemsTypeAuthTokensExt) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

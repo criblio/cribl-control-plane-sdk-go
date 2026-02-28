@@ -54,8 +54,8 @@ type InputCriblmetrics struct {
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
 	FullFidelity *bool `json:"fullFidelity,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
-	Description *string                         `json:"description,omitzero"`
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
 }
 
 func (i InputCriblmetrics) MarshalJSON() ([]byte, error) {
@@ -153,7 +153,7 @@ func (i *InputCriblmetrics) GetFullFidelity() *bool {
 	return i.FullFidelity
 }
 
-func (i *InputCriblmetrics) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblmetrics) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}

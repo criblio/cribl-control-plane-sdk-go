@@ -31,33 +31,6 @@ func (e *OutputClickHouseType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputClickHouseAuthenticationType string
-
-const (
-	OutputClickHouseAuthenticationTypeNone               OutputClickHouseAuthenticationType = "none"
-	OutputClickHouseAuthenticationTypeBasic              OutputClickHouseAuthenticationType = "basic"
-	OutputClickHouseAuthenticationTypeCredentialsSecret  OutputClickHouseAuthenticationType = "credentialsSecret"
-	OutputClickHouseAuthenticationTypeSslUserCertificate OutputClickHouseAuthenticationType = "sslUserCertificate"
-	OutputClickHouseAuthenticationTypeToken              OutputClickHouseAuthenticationType = "token"
-	OutputClickHouseAuthenticationTypeTextSecret         OutputClickHouseAuthenticationType = "textSecret"
-	OutputClickHouseAuthenticationTypeOauth              OutputClickHouseAuthenticationType = "oauth"
-)
-
-func (e OutputClickHouseAuthenticationType) ToPointer() *OutputClickHouseAuthenticationType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseAuthenticationType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "credentialsSecret", "sslUserCertificate", "token", "textSecret", "oauth":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputClickHouseFormat - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
 type OutputClickHouseFormat string
 
@@ -83,22 +56,22 @@ func (e *OutputClickHouseFormat) IsExact() bool {
 	return false
 }
 
-// MappingType - How event fields are mapped to ClickHouse columns.
-type MappingType string
+// OutputClickHouseMappingType - How event fields are mapped to ClickHouse columns.
+type OutputClickHouseMappingType string
 
 const (
-	// MappingTypeAutomatic Automatic
-	MappingTypeAutomatic MappingType = "automatic"
-	// MappingTypeCustom Custom
-	MappingTypeCustom MappingType = "custom"
+	// OutputClickHouseMappingTypeAutomatic Automatic
+	OutputClickHouseMappingTypeAutomatic OutputClickHouseMappingType = "automatic"
+	// OutputClickHouseMappingTypeCustom Custom
+	OutputClickHouseMappingTypeCustom OutputClickHouseMappingType = "custom"
 )
 
-func (e MappingType) ToPointer() *MappingType {
+func (e OutputClickHouseMappingType) ToPointer() *OutputClickHouseMappingType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MappingType) IsExact() bool {
+func (e *OutputClickHouseMappingType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "automatic", "custom":
@@ -108,77 +81,7 @@ func (e *MappingType) IsExact() bool {
 	return false
 }
 
-type StatsDestination struct {
-	URL         *string `json:"url,omitzero"`
-	Database    *string `json:"database,omitzero"`
-	TableName   *string `json:"tableName,omitzero"`
-	AuthType    *string `json:"authType,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	SQLUsername *string `json:"sqlUsername,omitzero"`
-	Password    *string `json:"password,omitzero"`
-}
-
-func (s StatsDestination) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StatsDestination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *StatsDestination) GetURL() *string {
-	if s == nil {
-		return nil
-	}
-	return s.URL
-}
-
-func (s *StatsDestination) GetDatabase() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Database
-}
-
-func (s *StatsDestination) GetTableName() *string {
-	if s == nil {
-		return nil
-	}
-	return s.TableName
-}
-
-func (s *StatsDestination) GetAuthType() *string {
-	if s == nil {
-		return nil
-	}
-	return s.AuthType
-}
-
-func (s *StatsDestination) GetUsername() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Username
-}
-
-func (s *StatsDestination) GetSQLUsername() *string {
-	if s == nil {
-		return nil
-	}
-	return s.SQLUsername
-}
-
-func (s *StatsDestination) GetPassword() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Password
-}
-
-type ColumnMapping struct {
+type OutputClickHouseColumnMapping struct {
 	// Name of the column in ClickHouse that will store field value
 	ColumnName string `json:"columnName"`
 	// Type of the column in the ClickHouse database
@@ -187,36 +90,36 @@ type ColumnMapping struct {
 	ColumnValueExpression string `json:"columnValueExpression"`
 }
 
-func (c ColumnMapping) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (o OutputClickHouseColumnMapping) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (c *ColumnMapping) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+func (o *OutputClickHouseColumnMapping) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *ColumnMapping) GetColumnName() string {
-	if c == nil {
+func (o *OutputClickHouseColumnMapping) GetColumnName() string {
+	if o == nil {
 		return ""
 	}
-	return c.ColumnName
+	return o.ColumnName
 }
 
-func (c *ColumnMapping) GetColumnType() *string {
-	if c == nil {
+func (o *OutputClickHouseColumnMapping) GetColumnType() *string {
+	if o == nil {
 		return nil
 	}
-	return c.ColumnType
+	return o.ColumnType
 }
 
-func (c *ColumnMapping) GetColumnValueExpression() string {
-	if c == nil {
+func (o *OutputClickHouseColumnMapping) GetColumnValueExpression() string {
+	if o == nil {
 		return ""
 	}
-	return c.ColumnValueExpression
+	return o.ColumnValueExpression
 }
 
 type OutputClickHousePqControls struct {
@@ -246,15 +149,15 @@ type OutputClickHouse struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the ClickHouse instance. Example: http://localhost:8123/
-	URL      string                              `json:"url"`
-	AuthType *OutputClickHouseAuthenticationType `json:"authType,omitzero"`
-	Database string                              `json:"database"`
+	URL      string                      `json:"url"`
+	AuthType *AuthenticationTypeOptions1 `json:"authType,omitzero"`
+	Database string                      `json:"database"`
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
 	Format *OutputClickHouseFormat `json:"format,omitzero"`
 	// How event fields are mapped to ClickHouse columns.
-	MappingType *MappingType `json:"mappingType,omitzero"`
+	MappingType *OutputClickHouseMappingType `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
 	AsyncInserts *bool                       `json:"asyncInserts,omitzero"`
 	TLS          *TLSSettingsClientSideType1 `json:"tls,omitzero"`
@@ -288,35 +191,14 @@ type OutputClickHouse struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Log the most recent event that fails to match the table schema
-	DumpFormatErrorsToDisk *bool             `json:"dumpFormatErrorsToDisk,omitzero"`
-	StatsDestination       *StatsDestination `json:"statsDestination,omitzero"`
+	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                      `json:"description,omitzero"`
 	Username       *string                      `json:"username,omitzero"`
 	Password       *string                      `json:"password,omitzero"`
-	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 	// Username for certificate authentication
 	SQLUsername *string `json:"sqlUsername,omitzero"`
 	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
@@ -324,8 +206,8 @@ type OutputClickHouse struct {
 	// Fields to exclude from sending to ClickHouse
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
 	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
-	DescribeTable  *string         `json:"describeTable,omitzero"`
-	ColumnMappings []ColumnMapping `json:"columnMappings,omitzero"`
+	DescribeTable  *string                         `json:"describeTable,omitzero"`
+	ColumnMappings []OutputClickHouseColumnMapping `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -347,6 +229,12 @@ type OutputClickHouse struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions   `json:"pqOnBackpressure,omitzero"`
 	PqControls       *OutputClickHousePqControls `json:"pqControls,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
+	TemplateDatabase *string `json:"__template_database,omitzero"`
+	// Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
+	TemplateTableName *string `json:"__template_tableName,omitzero"`
 }
 
 func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
@@ -409,7 +297,7 @@ func (o *OutputClickHouse) GetURL() string {
 	return o.URL
 }
 
-func (o *OutputClickHouse) GetAuthType() *OutputClickHouseAuthenticationType {
+func (o *OutputClickHouse) GetAuthType() *AuthenticationTypeOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -437,7 +325,7 @@ func (o *OutputClickHouse) GetFormat() *OutputClickHouseFormat {
 	return o.Format
 }
 
-func (o *OutputClickHouse) GetMappingType() *MappingType {
+func (o *OutputClickHouse) GetMappingType() *OutputClickHouseMappingType {
 	if o == nil {
 		return nil
 	}
@@ -563,13 +451,6 @@ func (o *OutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
 	return o.DumpFormatErrorsToDisk
 }
 
-func (o *OutputClickHouse) GetStatsDestination() *StatsDestination {
-	if o == nil {
-		return nil
-	}
-	return o.StatsDestination
-}
-
 func (o *OutputClickHouse) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
@@ -598,81 +479,11 @@ func (o *OutputClickHouse) GetPassword() *string {
 	return o.Password
 }
 
-func (o *OutputClickHouse) GetToken() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Token
-}
-
 func (o *OutputClickHouse) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
-}
-
-func (o *OutputClickHouse) GetTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TextSecret
-}
-
-func (o *OutputClickHouse) GetLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.LoginURL
-}
-
-func (o *OutputClickHouse) GetSecretParamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SecretParamName
-}
-
-func (o *OutputClickHouse) GetSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Secret
-}
-
-func (o *OutputClickHouse) GetTokenAttributeName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenAttributeName
-}
-
-func (o *OutputClickHouse) GetAuthHeaderExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AuthHeaderExpr
-}
-
-func (o *OutputClickHouse) GetTokenTimeoutSecs() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TokenTimeoutSecs
-}
-
-func (o *OutputClickHouse) GetOauthParams() []ItemsTypeOauthParams {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputClickHouse) GetOauthHeaders() []ItemsTypeOauthHeaders {
-	if o == nil {
-		return nil
-	}
-	return o.OauthHeaders
 }
 
 func (o *OutputClickHouse) GetSQLUsername() *string {
@@ -703,7 +514,7 @@ func (o *OutputClickHouse) GetDescribeTable() *string {
 	return o.DescribeTable
 }
 
-func (o *OutputClickHouse) GetColumnMappings() []ColumnMapping {
+func (o *OutputClickHouse) GetColumnMappings() []OutputClickHouseColumnMapping {
 	if o == nil {
 		return nil
 	}
@@ -785,4 +596,25 @@ func (o *OutputClickHouse) GetPqControls() *OutputClickHousePqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputClickHouse) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
+}
+
+func (o *OutputClickHouse) GetTemplateDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateDatabase
+}
+
+func (o *OutputClickHouse) GetTemplateTableName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTableName
 }

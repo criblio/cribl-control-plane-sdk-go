@@ -56,8 +56,7 @@ type OutputWizHec struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags   []string `json:"streamtags,omitzero"`
-	LoadBalanced any      `json:"loadBalanced,omitzero"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
 	NextQueue *string `json:"nextQueue,omitzero"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
@@ -84,8 +83,7 @@ type OutputWizHec struct {
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders        []string `json:"safeHeaders,omitzero"`
-	EnableMultiMetrics any      `json:"enableMultiMetrics,omitzero"`
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
@@ -128,6 +126,12 @@ type OutputWizHec struct {
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
+	TemplateWizEnvironment *string `json:"__template_wiz_environment,omitzero"`
+	// Binds 'data_center' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'data_center' at runtime.
+	TemplateDataCenter *string `json:"__template_data_center,omitzero"`
+	// Binds 'wiz_sourcetype' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_sourcetype' at runtime.
+	TemplateWizSourcetype *string `json:"__template_wiz_sourcetype,omitzero"`
 }
 
 func (o OutputWizHec) MarshalJSON() ([]byte, error) {
@@ -181,13 +185,6 @@ func (o *OutputWizHec) GetStreamtags() []string {
 		return nil
 	}
 	return o.Streamtags
-}
-
-func (o *OutputWizHec) GetLoadBalanced() any {
-	if o == nil {
-		return nil
-	}
-	return o.LoadBalanced
 }
 
 func (o *OutputWizHec) GetNextQueue() *string {
@@ -279,13 +276,6 @@ func (o *OutputWizHec) GetSafeHeaders() []string {
 		return nil
 	}
 	return o.SafeHeaders
-}
-
-func (o *OutputWizHec) GetEnableMultiMetrics() any {
-	if o == nil {
-		return nil
-	}
-	return o.EnableMultiMetrics
 }
 
 func (o *OutputWizHec) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
@@ -447,4 +437,25 @@ func (o *OutputWizHec) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
+}
+
+func (o *OutputWizHec) GetTemplateWizEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateWizEnvironment
+}
+
+func (o *OutputWizHec) GetTemplateDataCenter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateDataCenter
+}
+
+func (o *OutputWizHec) GetTemplateWizSourcetype() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateWizSourcetype
 }

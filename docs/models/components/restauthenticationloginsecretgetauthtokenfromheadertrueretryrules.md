@@ -1,0 +1,39 @@
+# RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules
+
+
+## Supported Types
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRulesNone(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStatic
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRulesStatic(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStatic{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoff
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRulesBackoff(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoff{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules.Type {
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRulesTypeNone:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeNone is populated
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRulesTypeStatic:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeStatic is populated
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRulesTypeBackoff:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestRetryRulesTypeBackoff is populated
+	default:
+		// Unknown type - use restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules.GetUnknownRaw() for raw JSON
+}
+```

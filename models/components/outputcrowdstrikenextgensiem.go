@@ -120,6 +120,8 @@ type OutputCrowdstrikeNextGenSiem struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions               `json:"pqOnBackpressure,omitzero"`
 	PqControls       *OutputCrowdstrikeNextGenSiemPqControls `json:"pqControls,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
 func (o OutputCrowdstrikeNextGenSiem) MarshalJSON() ([]byte, error) {
@@ -397,4 +399,11 @@ func (o *OutputCrowdstrikeNextGenSiem) GetPqControls() *OutputCrowdstrikeNextGen
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputCrowdstrikeNextGenSiem) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
 }
