@@ -92,17 +92,19 @@ func main() {
 
 	// Create Syslog Source
 	udpPort := float64(SYSLOG_PORT)
-	syslogSource := operations.CreateInputSyslogInputSyslogSyslog2(operations.InputSyslogSyslog2{
+	syslogSource := operations.CreateInputInputSyslogSyslog2{
 		ID:      "my-syslog-source",
-		Type:    operations.InputSyslogType2Syslog,
+		Type:    operations.CreateInputInputSyslogType2Syslog,
+		Host:    "0.0.0.0",
 		TCPPort: float64(SYSLOG_PORT),
 		UDPPort: &udpPort,
 		TLS: &components.TLSSettingsServerSideType{
 			Disabled: criblcontrolplanesdkgo.Bool(true),
 		},
-	})
+	}
 
-	createRequest := operations.CreateCreateInputRequestSyslog(syslogSource)
+	syslogUnion := operations.CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog2(syslogSource)
+	createRequest := operations.CreateCreateInputRequestSyslog(syslogUnion)
 	_, err = client.Sources.Create(ctx, createRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating Syslog source: %v", err)
@@ -115,13 +117,14 @@ func main() {
 	region := AWS_REGION
 	secretKey := AWS_SECRET_KEY
 	apiKey := AWS_API_KEY
-	s3Destination := operations.OutputS3{
+	s3Destination := operations.CreateOutputOutputS3{
 		ID:             "my-s3-destination",
 		Type:           operations.CreateOutputTypeS3S3,
 		Bucket:         AWS_BUCKET_NAME,
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
+		StagePath:      "/tmp/cribl-s3-stage",
 		Compress:       components.CompressionOptions2Gzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}
@@ -174,23 +177,23 @@ func main() {
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route
-		newRoute := components.RoutesRoute{
-			Final:                  criblcontrolplanesdkgo.Bool(false),
-			ID:                     criblcontrolplanesdkgo.String("my-route"),
+		newRoute := components.RouteConf{
+			Final:                  false,
+			ID:                     "my-route",
 			Name:                   "my-route",
 			Pipeline:               "my-pipeline",
-			Output:                 "my-s3-destination",
+			Output:                 criblcontrolplanesdkgo.String("my-s3-destination"),
 			EnableOutputExpression: criblcontrolplanesdkgo.Bool(true), // Allow custom output destinations
 			Filter:                 criblcontrolplanesdkgo.String("__inputId=='syslog:my-syslog-source'"),
 			Description:            criblcontrolplanesdkgo.String("This is my new Route"),
 		}
 
 		// Add new Route to existing Routes
-		updatedRoutes := append([]components.RoutesRoute{newRoute}, existingRoutes.Routes...)
+		updatedRoutes := append([]components.RouteConf{newRoute}, existingRoutes.Routes...)
 
 		// Update Routes configuration
-		if existingRoutes.ID != nil {
-			_, err = client.Routes.Update(ctx, *existingRoutes.ID, components.Routes{
+		if existingRoutes.ID != "" {
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
 				ID:     existingRoutes.ID,
 				Routes: updatedRoutes,
 			}, operations.WithServerURL(groupURL))
@@ -205,14 +208,13 @@ func main() {
 
 	// Commit configuration changes
 	effective := true
-	commitParams := components.GitCommitParams{
+	commitParams := components.GitCommitBody{
 		Message:   "Commit for Edge example",
 		Effective: &effective,
 		Files:     []string{"."},
 	}
 
-	fleetID := FLEET_ID
-	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, &fleetID)
+	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
 	} else if commitResponse.CountedGitCommitSummary != nil && commitResponse.CountedGitCommitSummary.Items != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {
