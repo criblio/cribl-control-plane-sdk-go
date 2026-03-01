@@ -1200,23 +1200,23 @@ type CreateOutputOutputDatabricks struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	// Databricks workspace ID
+	// Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
 	WorkspaceID string `json:"workspaceId"`
 	// OAuth scope for Unity Catalog authentication
 	Scope string `json:"scope"`
 	// OAuth client ID for Unity Catalog authentication
 	ClientID string `json:"clientId"`
-	// Name of the catalog to use for the output
+	// Name of the Unity Catalog catalog to use for the Destination.
 	Catalog string `json:"catalog"`
-	// Name of the catalog schema to use for the output
+	// Name of the Unity Catalog schema to use for the Destination.
 	Schema string `json:"schema"`
-	// Name of the events volume in Databricks
+	// Name of the Unity Catalog volume where event data is written.
 	EventsVolumeName string `json:"eventsVolumeName"`
 	// OAuth client secret for Unity Catalog authentication
 	ClientTextSecret string `json:"clientTextSecret"`
-	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec  *float64 `json:"timeoutSec,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec  *int64  `json:"timeoutSec,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
@@ -1490,7 +1490,7 @@ func (c *CreateOutputOutputDatabricks) GetClientTextSecret() string {
 	return c.ClientTextSecret
 }
 
-func (c *CreateOutputOutputDatabricks) GetTimeoutSec() *float64 {
+func (c *CreateOutputOutputDatabricks) GetTimeoutSec() *int64 {
 	if c == nil {
 		return nil
 	}
@@ -8655,7 +8655,7 @@ type CreateOutputOutputCriblSearchEngine struct {
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
-	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
 	AuthTokens []components.ItemsTypeAuthTokens1 `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`

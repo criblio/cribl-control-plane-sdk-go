@@ -39,8 +39,9 @@ func newPacksDestinations(rootSDK *CriblControlPlane, sdkConfig config.SDKConfig
 
 // List all Destinations within a Pack
 // Get a list of all Destinations within the specified Pack.
-func (s *PacksDestinations) List(ctx context.Context, pack string, opts ...operations.Option) (*operations.GetOutputSystemByPackResponse, error) {
+func (s *PacksDestinations) List(ctx context.Context, pack string, type_ *components.DestinationType, opts ...operations.Option) (*operations.GetOutputSystemByPackResponse, error) {
 	request := operations.GetOutputSystemByPackRequest{
+		Type: type_,
 		Pack: pack,
 	}
 
@@ -94,6 +95,10 @@ func (s *PacksDestinations) List(ctx context.Context, pack string, opts ...opera
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -776,7 +781,7 @@ func (s *PacksDestinations) Get(ctx context.Context, id string, pack string, opt
 }
 
 // Update a Destination within a Pack
-// Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected within the specified Pack.
+// Update the specified Destination.<br/><br/>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected within the specified Pack.
 func (s *PacksDestinations) Update(ctx context.Context, id string, pack string, output components.Output, opts ...operations.Option) (*operations.UpdateOutputSystemByPackAndIDResponse, error) {
 	request := operations.UpdateOutputSystemByPackAndIDRequest{
 		ID:     id,

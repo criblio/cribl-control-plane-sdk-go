@@ -80,23 +80,23 @@ type OutputDatabricks struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
-	// Databricks workspace ID
+	// Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
 	WorkspaceID string `json:"workspaceId"`
 	// OAuth scope for Unity Catalog authentication
 	Scope string `json:"scope"`
 	// OAuth client ID for Unity Catalog authentication
 	ClientID string `json:"clientId"`
-	// Name of the catalog to use for the output
+	// Name of the Unity Catalog catalog to use for the Destination.
 	Catalog string `json:"catalog"`
-	// Name of the catalog schema to use for the output
+	// Name of the Unity Catalog schema to use for the Destination.
 	Schema string `json:"schema"`
-	// Name of the events volume in Databricks
+	// Name of the Unity Catalog volume where event data is written.
 	EventsVolumeName string `json:"eventsVolumeName"`
 	// OAuth client secret for Unity Catalog authentication
 	ClientTextSecret string `json:"clientTextSecret"`
-	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec  *float64 `json:"timeoutSec,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec  *int64  `json:"timeoutSec,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
@@ -370,7 +370,7 @@ func (o *OutputDatabricks) GetClientTextSecret() string {
 	return o.ClientTextSecret
 }
 
-func (o *OutputDatabricks) GetTimeoutSec() *float64 {
+func (o *OutputDatabricks) GetTimeoutSec() *int64 {
 	if o == nil {
 		return nil
 	}

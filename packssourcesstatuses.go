@@ -281,7 +281,7 @@ func (s *PacksSourcesStatuses) Get(ctx context.Context, id string, pack string, 
 }
 
 // List the status of all Sources within a Pack
-// Get a list of status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet within the specified Pack.
+// List status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet within the specified Pack.
 func (s *PacksSourcesStatuses) List(ctx context.Context, pack string, metrics *bool, type_ *bool, opts ...operations.Option) (*operations.GetInputStatusSystemInputsByPackResponse, error) {
 	request := operations.GetInputStatusSystemInputsByPackRequest{
 		Metrics: metrics,

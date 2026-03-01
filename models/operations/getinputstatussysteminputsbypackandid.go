@@ -10,7 +10,7 @@ import (
 type GetInputStatusSystemInputsByPackAndIDRequest struct {
 	// The <code>id</code> of the Source to get the status for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// Set to true <code>true</code> to include metrics for each Source. Otherwise, <code>false</code> (default).
+	// Set to <code>true</code> to include metrics for each Source. Otherwise, <code>false</code> (default).
 	Metrics *bool `queryParam:"style=form,explode=true,name=metrics"`
 	// Set to <code>true</code> to prefix the Source <code>id</code> with the Source type. Otherwise, <code>false</code> (default).
 	Type *bool `queryParam:"style=form,explode=true,name=type"`
@@ -48,7 +48,7 @@ func (g *GetInputStatusSystemInputsByPackAndIDRequest) GetPack() string {
 
 type GetInputStatusSystemInputsByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of InputStatus objects
+	// a Source status object
 	CountedInputStatus *components.CountedInputStatus
 }
 
