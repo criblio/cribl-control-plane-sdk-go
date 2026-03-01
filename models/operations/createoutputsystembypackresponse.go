@@ -18114,7 +18114,7 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyCloudflareR2() *CreateOu
 
 type CreateOutputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
+	// the created Destination object
 	CountedOutput *components.CountedOutput
 }
 

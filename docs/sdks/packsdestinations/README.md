@@ -38,7 +38,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Destinations.List(ctx, "<value>")
+    res, err := s.Packs.Destinations.List(ctx, "<value>", nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -50,11 +50,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `pack`                                                   | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to list.                 |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                                                                                        | Type                                                                                                                                                             | Required                                                                                                                                                         | Description                                                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                            | :heavy_check_mark:                                                                                                                                               | The context to use for the request.                                                                                                                              |
+| `pack`                                                                                                                                                           | *string*                                                                                                                                                         | :heavy_check_mark:                                                                                                                                               | The <code>id</code> of the Pack to list.                                                                                                                         |
+| `type_`                                                                                                                                                          | [*components.DestinationType](../../models/components/destinationtype.md)                                                                                        | :heavy_minus_sign:                                                                                                                                               | Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
+| `opts`                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                         | :heavy_minus_sign:                                                                                                                                               | The options for this request.                                                                                                                                    |
 
 ### Response
 
@@ -779,11 +780,11 @@ func main() {
             ID: "databricks-output",
             Type: operations.CreateOutputSystemByPackTypeDatabricksDatabricks,
             WorkspaceID: "your-workspace-id",
-            Scope: "my-scope",
+            Scope: "all-apis",
             ClientID: "your-client-id",
-            Catalog: "my-catalog",
-            Schema: "my-schema",
-            EventsVolumeName: "my-volume",
+            Catalog: "main",
+            Schema: "external",
+            EventsVolumeName: "events",
             ClientTextSecret: "your-client-secret",
         },
     ))
@@ -3129,7 +3130,7 @@ func main() {
 
 ## Update
 
-Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected within the specified Pack.
+Update the specified Destination.<br/><br/>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected within the specified Pack.
 
 ### Example Usage: OutputCreateExamplesAzureBlob
 
@@ -3824,11 +3825,11 @@ func main() {
             ID: criblcontrolplanesdkgo.Pointer("databricks-output"),
             Type: components.OutputDatabricksTypeDatabricks,
             WorkspaceID: "your-workspace-id",
-            Scope: "my-scope",
+            Scope: "all-apis",
             ClientID: "your-client-id",
-            Catalog: "my-catalog",
-            Schema: "my-schema",
-            EventsVolumeName: "my-volume",
+            Catalog: "main",
+            Schema: "external",
+            EventsVolumeName: "events",
             ClientTextSecret: "your-client-secret",
         },
     ))

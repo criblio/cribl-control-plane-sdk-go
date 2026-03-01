@@ -3,6 +3,7 @@
 package components
 
 type OutputTestRequest struct {
+	// Array of event objects to send to the Destination for testing.
 	Events []map[string]any `json:"events"`
 }
 

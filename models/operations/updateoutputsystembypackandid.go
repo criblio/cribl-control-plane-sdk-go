@@ -323,7 +323,7 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputCloudflareR2() *componen
 
 type UpdateOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
+	// the updated Destination object
 	CountedOutput *components.CountedOutput
 }
 

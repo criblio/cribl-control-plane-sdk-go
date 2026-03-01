@@ -10,7 +10,7 @@ import (
 type GetOutputStatusSystemOutputsByPackAndIDRequest struct {
 	// The <code>id</code> of the Destination to get the status for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// Set to true <code>true</code> to include metrics for each Destination. Otherwise, <code>false</code> (default).
+	// Set to <code>true</code> to include metrics for each Destination. Otherwise, <code>false</code> (default).
 	Metrics *bool `queryParam:"style=form,explode=true,name=metrics"`
 	// Set to <code>true</code> to prefix the Destination <code>id</code> with the Destination type. Otherwise, <code>false</code> (default).
 	Type *bool `queryParam:"style=form,explode=true,name=type"`
@@ -48,7 +48,7 @@ func (g *GetOutputStatusSystemOutputsByPackAndIDRequest) GetPack() string {
 
 type GetOutputStatusSystemOutputsByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of OutputStatus objects
+	// Destination status object
 	CountedOutputStatus *components.CountedOutputStatus
 }
 

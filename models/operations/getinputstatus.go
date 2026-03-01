@@ -8,7 +8,7 @@ import (
 )
 
 type GetInputStatusRequest struct {
-	// Set to true <code>true</code> to include metrics for each Source. Otherwise, <code>false</code> (default).
+	// Set to <code>true</code> to include metrics for each Source. Otherwise, <code>false</code> (default).
 	Metrics *bool `queryParam:"style=form,explode=true,name=metrics"`
 	// Set to <code>true</code> to prefix the Source <code>id</code> with the Source type. Otherwise, <code>false</code> (default).
 	Type *bool `queryParam:"style=form,explode=true,name=type"`
@@ -30,7 +30,7 @@ func (g *GetInputStatusRequest) GetType() *bool {
 
 type GetInputStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of InputStatus objects
+	// a list of Source status objects
 	CountedInputStatus *components.CountedInputStatus
 }
 

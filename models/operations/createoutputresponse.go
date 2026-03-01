@@ -17809,7 +17809,7 @@ func (u CreateOutputRequest) MarshalJSON() ([]byte, error) {
 
 type CreateOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
+	// the created Destination object
 	CountedOutput *components.CountedOutput
 }
 

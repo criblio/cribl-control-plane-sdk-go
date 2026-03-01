@@ -8,7 +8,7 @@ import (
 )
 
 type GetOutputStatusRequest struct {
-	// Set to true <code>true</code> to include metrics for each Destination. Otherwise, <code>false</code> (default).
+	// Set to <code>true</code> to include metrics for each Destination. Otherwise, <code>false</code> (default).
 	Metrics *bool `queryParam:"style=form,explode=true,name=metrics"`
 	// Set to <code>true</code> to prefix the Destination <code>id</code> with the Destination type. Otherwise, <code>false</code> (default).
 	Type *bool `queryParam:"style=form,explode=true,name=type"`
@@ -30,7 +30,7 @@ func (g *GetOutputStatusRequest) GetType() *bool {
 
 type GetOutputStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of OutputStatus objects
+	// a list of Destination status objects
 	CountedOutputStatus *components.CountedOutputStatus
 }
 
