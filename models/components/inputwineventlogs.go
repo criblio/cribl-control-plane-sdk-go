@@ -83,43 +83,43 @@ func (e *EventFormat) IsExact() bool {
 
 type InputWinEventLogs struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitempty"`
+	ID       *string               `json:"id,omitzero"`
 	Type     InputWinEventLogsType `json:"type"`
-	Disabled *bool                 `json:"disabled,omitempty"`
+	Disabled *bool                 `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
-	ReadMode *ReadMode `json:"readMode,omitempty"`
+	ReadMode *ReadMode `json:"readMode,omitzero"`
 	// Format of individual events
-	EventFormat *EventFormat `json:"eventFormat,omitempty"`
+	EventFormat *EventFormat `json:"eventFormat,omitzero"`
 	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
-	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	BatchSize *float64 `json:"batchSize,omitempty"`
+	BatchSize *float64 `json:"batchSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
-	Description   *string  `json:"description,omitempty"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
+	Description   *string  `json:"description,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableJSONRendering *bool `json:"disableJsonRendering,omitempty"`
+	DisableJSONRendering *bool `json:"disableJsonRendering,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableXMLRendering *bool `json:"disableXmlRendering,omitempty"`
+	DisableXMLRendering *bool `json:"disableXmlRendering,omitzero"`
 }
 
 func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
@@ -127,7 +127,7 @@ func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWinEventLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

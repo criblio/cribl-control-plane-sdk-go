@@ -17,7 +17,7 @@ func (o Os) MarshalJSON() ([]byte, error) {
 }
 
 func (o *Os) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"addresses"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -64,17 +64,43 @@ func CreateOsUnionOs(os Os) OsUnion {
 
 func (u *OsUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var hostOsTypeHeartbeatMetadata HostOsTypeHeartbeatMetadata = HostOsTypeHeartbeatMetadata{}
 	if err := utils.UnmarshalJSON(data, &hostOsTypeHeartbeatMetadata, "", true, nil); err == nil {
-		u.HostOsTypeHeartbeatMetadata = &hostOsTypeHeartbeatMetadata
-		u.Type = OsUnionTypeHostOsTypeHeartbeatMetadata
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OsUnionTypeHostOsTypeHeartbeatMetadata,
+			Value: &hostOsTypeHeartbeatMetadata,
+		})
 	}
 
 	var os Os = Os{}
 	if err := utils.UnmarshalJSON(data, &os, "", true, nil); err == nil {
-		u.Os = &os
-		u.Type = OsUnionTypeOs
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OsUnionTypeOs,
+			Value: &os,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OsUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OsUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(OsUnionType)
+	switch best.Type {
+	case OsUnionTypeHostOsTypeHeartbeatMetadata:
+		u.HostOsTypeHeartbeatMetadata = best.Value.(*HostOsTypeHeartbeatMetadata)
+		return nil
+	case OsUnionTypeOs:
+		u.Os = best.Value.(*Os)
 		return nil
 	}
 
@@ -95,26 +121,37 @@ func (u OsUnion) MarshalJSON() ([]byte, error) {
 
 type NodeProvidedInfo struct {
 	Architecture   string                       `json:"architecture"`
-	Aws            *AwsTypeHeartbeatMetadata    `json:"aws,omitempty"`
-	Azure          *AzureTypeHeartbeatMetadata  `json:"azure,omitempty"`
-	ConnIP         *string                      `json:"conn_ip,omitempty"`
+	Aws            *AwsTypeHeartbeatMetadata    `json:"aws,omitzero"`
+	Azure          *AzureTypeHeartbeatMetadata  `json:"azure,omitzero"`
+	ConnIP         *string                      `json:"conn_ip,omitzero"`
 	Cpus           float64                      `json:"cpus"`
 	Cribl          HBCriblInfo                  `json:"cribl"`
 	Env            map[string]string            `json:"env"`
-	FreeDiskSpace  *float64                     `json:"freeDiskSpace,omitempty"`
-	HostOs         *HostOsTypeHeartbeatMetadata `json:"hostOs,omitempty"`
+	FreeDiskSpace  *float64                     `json:"freeDiskSpace,omitzero"`
+	HostOs         *HostOsTypeHeartbeatMetadata `json:"hostOs,omitzero"`
 	Hostname       string                       `json:"hostname"`
-	IsSaasWorker   *bool                        `json:"isSaasWorker,omitempty"`
-	Kube           *KubeTypeHeartbeatMetadata   `json:"kube,omitempty"`
-	LocalTime      *float64                     `json:"localTime,omitempty"`
-	Metadata       *HeartbeatMetadata           `json:"metadata,omitempty"`
+	IsSaasWorker   *bool                        `json:"isSaasWorker,omitzero"`
+	Kube           *KubeTypeHeartbeatMetadata   `json:"kube,omitzero"`
+	LocalTime      *float64                     `json:"localTime,omitzero"`
+	Metadata       *HeartbeatMetadata           `json:"metadata,omitzero"`
 	Node           string                       `json:"node"`
-	Os             *OsUnion                     `json:"os,omitempty"`
-	Outpost        *OutpostNodeInfo             `json:"outpost,omitempty"`
+	Os             *OsUnion                     `json:"os,omitzero"`
+	Outpost        *OutpostNodeInfo             `json:"outpost,omitzero"`
 	Platform       string                       `json:"platform"`
 	Release        string                       `json:"release"`
-	TotalDiskSpace *float64                     `json:"totalDiskSpace,omitempty"`
+	TotalDiskSpace *float64                     `json:"totalDiskSpace,omitzero"`
 	Totalmem       float64                      `json:"totalmem"`
+}
+
+func (n NodeProvidedInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(n, "", false)
+}
+
+func (n *NodeProvidedInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (n *NodeProvidedInfo) GetArchitecture() string {

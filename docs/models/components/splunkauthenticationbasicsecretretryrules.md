@@ -21,3 +21,19 @@ splunkAuthenticationBasicSecretRetryRules := components.CreateSplunkAuthenticati
 splunkAuthenticationBasicSecretRetryRules := components.CreateSplunkAuthenticationBasicSecretRetryRulesBackoff(components.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch splunkAuthenticationBasicSecretRetryRules.Type {
+	case components.SplunkAuthenticationBasicSecretRetryRulesTypeNone:
+		// splunkAuthenticationBasicSecretRetryRules.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone is populated
+	case components.SplunkAuthenticationBasicSecretRetryRulesTypeStatic:
+		// splunkAuthenticationBasicSecretRetryRules.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic is populated
+	case components.SplunkAuthenticationBasicSecretRetryRulesTypeBackoff:
+		// splunkAuthenticationBasicSecretRetryRules.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff is populated
+	default:
+		// Unknown type - use splunkAuthenticationBasicSecretRetryRules.GetUnknownRaw() for raw JSON
+}
+```

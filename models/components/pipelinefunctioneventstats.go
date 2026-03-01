@@ -36,11 +36,11 @@ type EventstatsConfiguration struct {
 	// Aggregate function(s) to perform on events. E.g., sum(bytes).where(action=='REJECT').as(TotalBytes)
 	Aggregations []string `json:"aggregations"`
 	// Fields to group aggregates by, supports wildcard expressions.
-	GroupBys []string `json:"groupBys,omitempty"`
+	GroupBys []string `json:"groupBys,omitzero"`
 	// Specifies how many events are at max kept in memory to be enriched with aggregations
-	MaxEvents *float64 `json:"maxEvents,omitempty"`
+	MaxEvents *float64 `json:"maxEvents,omitzero"`
 	// Determines if aggregations should flush when an input stream is closed. If disabled, time window settings will control flush behavior.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitzero"`
 }
 
 func (e EventstatsConfiguration) MarshalJSON() ([]byte, error) {
@@ -48,7 +48,7 @@ func (e EventstatsConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (e *EventstatsConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -84,18 +84,18 @@ func (e *EventstatsConfiguration) GetFlushOnInputClose() *bool {
 
 type PipelineFunctionEventstats struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionEventstatsID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                   `json:"final,omitempty"`
+	Final *bool                   `json:"final,omitzero"`
 	Conf  EventstatsConfiguration `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionEventstats) MarshalJSON() ([]byte, error) {
@@ -103,7 +103,7 @@ func (p PipelineFunctionEventstats) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionEventstats) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

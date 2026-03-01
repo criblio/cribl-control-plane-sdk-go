@@ -33,16 +33,16 @@ func (e *InputKubeMetricsType) UnmarshalJSON(data []byte) error {
 
 type InputKubeMetricsPersistence struct {
 	// Spool metrics on disk for Cribl Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (i InputKubeMetricsPersistence) MarshalJSON() ([]byte, error) {
@@ -100,30 +100,30 @@ func (i *InputKubeMetricsPersistence) GetDestPath() *string {
 
 type InputKubeMetrics struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
+	ID       *string              `json:"id,omitzero"`
 	Type     InputKubeMetricsType `json:"type"`
-	Disabled *bool                `json:"disabled,omitempty"`
+	Disabled *bool                `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
-	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	Rules []ItemsTypeRules `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *InputKubeMetricsPersistence    `json:"persistence,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Persistence *InputKubeMetricsPersistence    `json:"persistence,omitzero"`
+	Description *string                         `json:"description,omitzero"`
 }
 
 func (i InputKubeMetrics) MarshalJSON() ([]byte, error) {
@@ -131,7 +131,7 @@ func (i InputKubeMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKubeMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

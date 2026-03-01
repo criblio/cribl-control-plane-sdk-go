@@ -63,10 +63,10 @@ func (e *PrivacyProtocol) IsExact() bool {
 
 type InputSnmpV3User struct {
 	Name         string                               `json:"name"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
-	AuthKey      *string                              `json:"authKey,omitempty"`
-	PrivProtocol *PrivacyProtocol                     `json:"privProtocol,omitempty"`
-	PrivKey      *string                              `json:"privKey,omitempty"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
+	AuthKey      *string                              `json:"authKey,omitzero"`
+	PrivProtocol *PrivacyProtocol                     `json:"privProtocol,omitzero"`
+	PrivKey      *string                              `json:"privKey,omitzero"`
 }
 
 func (i InputSnmpV3User) MarshalJSON() ([]byte, error) {
@@ -74,7 +74,7 @@ func (i InputSnmpV3User) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmpV3User) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -119,9 +119,9 @@ func (i *InputSnmpV3User) GetPrivKey() *string {
 type SNMPv3Authentication struct {
 	V3AuthEnabled bool `json:"v3AuthEnabled"`
 	// Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
-	AllowUnmatchedTrap *bool `json:"allowUnmatchedTrap,omitempty"`
+	AllowUnmatchedTrap *bool `json:"allowUnmatchedTrap,omitzero"`
 	// User credentials for receiving v3 traps
-	V3Users []InputSnmpV3User `json:"v3Users,omitempty"`
+	V3Users []InputSnmpV3User `json:"v3Users,omitzero"`
 }
 
 func (s SNMPv3Authentication) MarshalJSON() ([]byte, error) {
@@ -129,7 +129,7 @@ func (s SNMPv3Authentication) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SNMPv3Authentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"v3AuthEnabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -158,41 +158,41 @@ func (s *SNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 
 type InputSnmp struct {
 	// Unique ID for this input
-	ID       *string       `json:"id,omitempty"`
+	ID       *string       `json:"id,omitzero"`
 	Type     InputSnmpType `json:"type"`
-	Disabled *bool         `json:"disabled,omitempty"`
+	Disabled *bool         `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
 	Port float64 `json:"port"`
 	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
-	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitempty"`
+	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitzero"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
-	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitempty"`
+	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitzero"`
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
-	BestEffortParsing *bool   `json:"bestEffortParsing,omitempty"`
-	Description       *string `json:"description,omitempty"`
+	BestEffortParsing *bool   `json:"bestEffortParsing,omitzero"`
+	Description       *string `json:"description,omitzero"`
 }
 
 func (i InputSnmp) MarshalJSON() ([]byte, error) {
@@ -200,7 +200,7 @@ func (i InputSnmp) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

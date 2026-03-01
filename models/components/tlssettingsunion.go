@@ -35,7 +35,7 @@ func (t TLSSettings1) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TLSSettings1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"defaultCipherList", "defaultEcdhCurve", "maxVersion", "minVersion", "rejectUnauthorized"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -110,17 +110,43 @@ func CreateTLSSettingsUnionTLSSettings2(tlsSettings2 TLSSettings2) TLSSettingsUn
 
 func (u *TLSSettingsUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var tlsSettings1 TLSSettings1 = TLSSettings1{}
 	if err := utils.UnmarshalJSON(data, &tlsSettings1, "", true, nil); err == nil {
-		u.TLSSettings1 = &tlsSettings1
-		u.Type = TLSSettingsUnionTypeTLSSettings1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  TLSSettingsUnionTypeTLSSettings1,
+			Value: &tlsSettings1,
+		})
 	}
 
 	var tlsSettings2 TLSSettings2 = TLSSettings2{}
 	if err := utils.UnmarshalJSON(data, &tlsSettings2, "", true, nil); err == nil {
-		u.TLSSettings2 = &tlsSettings2
-		u.Type = TLSSettingsUnionTypeTLSSettings2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  TLSSettingsUnionTypeTLSSettings2,
+			Value: &tlsSettings2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for TLSSettingsUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for TLSSettingsUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(TLSSettingsUnionType)
+	switch best.Type {
+	case TLSSettingsUnionTypeTLSSettings1:
+		u.TLSSettings1 = best.Value.(*TLSSettings1)
+		return nil
+	case TLSSettingsUnionTypeTLSSettings2:
+		u.TLSSettings2 = best.Value.(*TLSSettings2)
 		return nil
 	}
 

@@ -33,11 +33,11 @@ func (e *OutputSplunkLbType) UnmarshalJSON(data []byte) error {
 
 type OutputSplunkLbAuthToken struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (o OutputSplunkLbAuthToken) MarshalJSON() ([]byte, error) {
@@ -81,15 +81,15 @@ type IndexerDiscoveryConfigs struct {
 	// Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
 	RefreshIntervalSec float64 `json:"refreshIntervalSec"`
 	// During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Tokens required to authenticate to cluster manager for indexer discovery
-	AuthTokens []OutputSplunkLbAuthToken `json:"authTokens,omitempty"`
+	AuthTokens []OutputSplunkLbAuthToken `json:"authTokens,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (i IndexerDiscoveryConfigs) MarshalJSON() ([]byte, error) {
@@ -97,7 +97,7 @@ func (i IndexerDiscoveryConfigs) MarshalJSON() ([]byte, error) {
 }
 
 func (i *IndexerDiscoveryConfigs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"site", "masterUri", "refreshIntervalSec"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -175,83 +175,83 @@ func (o *OutputSplunkLbPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSplunkLb struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitempty"`
+	ID   *string            `json:"id,omitzero"`
 	Type OutputSplunkLbType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
 	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
-	MaxConcurrentSenders *float64 `json:"maxConcurrentSenders,omitempty"`
+	MaxConcurrentSenders *float64 `json:"maxConcurrentSenders,omitzero"`
 	// How to serialize nested fields into index-time fields
-	NestedFields *NestedFieldSerializationOptions `json:"nestedFields,omitempty"`
+	NestedFields *NestedFieldSerializationOptions `json:"nestedFields,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                      `json:"writeTimeout,omitempty"`
-	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	WriteTimeout *float64                                      `json:"writeTimeout,omitzero"`
+	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
-	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitempty"`
+	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitzero"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
-	EnableACK *bool `json:"enableACK,omitempty"`
+	EnableACK *bool `json:"enableACK,omitzero"`
 	// Use to troubleshoot issues with sending data
-	LogFailedRequests *bool `json:"logFailedRequests,omitempty"`
+	LogFailedRequests *bool `json:"logFailedRequests,omitzero"`
 	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *MaxS2SVersionOptions `json:"maxS2Sversion,omitempty"`
+	MaxS2Sversion *MaxS2SVersionOptions `json:"maxS2Sversion,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Automatically discover indexers in indexer clustering environment.
-	IndexerDiscovery *bool `json:"indexerDiscovery,omitempty"`
+	IndexerDiscovery *bool `json:"indexerDiscovery,omitzero"`
 	// How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
-	SenderUnhealthyTimeAllowance *float64 `json:"senderUnhealthyTimeAllowance,omitempty"`
+	SenderUnhealthyTimeAllowance *float64 `json:"senderUnhealthyTimeAllowance,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                     `json:"description,omitempty"`
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                     `json:"description,omitzero"`
 	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
-	MaxFailedHealthChecks *float64 `json:"maxFailedHealthChecks,omitempty"`
+	MaxFailedHealthChecks *float64 `json:"maxFailedHealthChecks,omitzero"`
 	// Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
-	Compress *CompressionOptions `json:"compress,omitempty"`
+	Compress *CompressionOptions `json:"compress,omitzero"`
 	// List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
-	IndexerDiscoveryConfigs *IndexerDiscoveryConfigs `json:"indexerDiscoveryConfigs,omitempty"`
+	IndexerDiscoveryConfigs *IndexerDiscoveryConfigs `json:"indexerDiscoveryConfigs,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool `json:"excludeSelf,omitempty"`
+	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of Splunk indexers to load-balance data to.
 	Hosts []ItemsTypeHosts `json:"hosts"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputSplunkLbPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputSplunkLbPqControls `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
-	AuthToken *string `json:"authToken,omitempty"`
+	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (o OutputSplunkLb) MarshalJSON() ([]byte, error) {
@@ -259,7 +259,7 @@ func (o OutputSplunkLb) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSplunkLb) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "hosts"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

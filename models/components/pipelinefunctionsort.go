@@ -34,15 +34,15 @@ func (e *PipelineFunctionSortID) UnmarshalJSON(data []byte) error {
 
 type SortConfiguration struct {
 	// Has to be unique if there are multiple sorts on the pipeline.
-	SortID *string `json:"sortId,omitempty"`
+	SortID *string `json:"sortId,omitzero"`
 	// The expression can access the events via the 'left' and 'right' properties.
 	ComparisonExpression string `json:"comparisonExpression"`
 	// Limits the output to N (highest/lowest) events
-	TopN *float64 `json:"topN,omitempty"`
+	TopN *float64 `json:"topN,omitzero"`
 	// Specifies the number of events that can flow into this function
-	MaxEvents *float64 `json:"maxEvents,omitempty"`
+	MaxEvents *float64 `json:"maxEvents,omitzero"`
 	// Toggle this on to suppress generating previews of intermediate results
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
+	SuppressPreviews *bool `json:"suppressPreviews,omitzero"`
 }
 
 func (s SortConfiguration) MarshalJSON() ([]byte, error) {
@@ -50,7 +50,7 @@ func (s SortConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SortConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"comparisonExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -93,18 +93,18 @@ func (s *SortConfiguration) GetSuppressPreviews() *bool {
 
 type PipelineFunctionSort struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionSortID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool             `json:"final,omitempty"`
+	Final *bool             `json:"final,omitzero"`
 	Conf  SortConfiguration `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionSort) MarshalJSON() ([]byte, error) {
@@ -112,7 +112,7 @@ func (p PipelineFunctionSort) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSort) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

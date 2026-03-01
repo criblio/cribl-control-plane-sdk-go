@@ -50,11 +50,11 @@ func (e *ResourceRecordType) IsExact() bool {
 }
 
 type DNSLookupField struct {
-	InFieldName *string `json:"inFieldName,omitempty"`
+	InFieldName *string `json:"inFieldName,omitzero"`
 	// The DNS record type (RR) to return. Defaults to 'A'.
-	ResourceRecordType *ResourceRecordType `json:"resourceRecordType,omitempty"`
+	ResourceRecordType *ResourceRecordType `json:"resourceRecordType,omitzero"`
 	// Name of field to add lookup results to. Leave blank to overwrite the lookup field.
-	OutFieldName *string `json:"outFieldName,omitempty"`
+	OutFieldName *string `json:"outFieldName,omitzero"`
 }
 
 func (d DNSLookupField) MarshalJSON() ([]byte, error) {
@@ -91,9 +91,9 @@ func (d *DNSLookupField) GetOutFieldName() *string {
 
 type ReverseLookupField struct {
 	// Name of the field containing the IP to look up. If the field value is not in IPv4 or IPv6 format, the lookup is skipped.
-	InFieldName *string `json:"inFieldName,omitempty"`
+	InFieldName *string `json:"inFieldName,omitzero"`
 	// Name of field to add the resolved domain to. Leave blank to overwrite the lookup field.
-	OutFieldName *string `json:"outFieldName,omitempty"`
+	OutFieldName *string `json:"outFieldName,omitzero"`
 }
 
 func (r ReverseLookupField) MarshalJSON() ([]byte, error) {
@@ -153,22 +153,22 @@ func (e *LogLevelForFailedLookups) IsExact() bool {
 
 type FunctionConfSchemaDNSLookup struct {
 	// List of field names on which to perform DNS lookup
-	DNSLookupFields []DNSLookupField `json:"dnsLookupFields,omitempty"`
+	DNSLookupFields []DNSLookupField `json:"dnsLookupFields,omitzero"`
 	// List of field names on which to perform reverse DNS lookup
-	ReverseLookupFields []ReverseLookupField `json:"reverseLookupFields,omitempty"`
+	ReverseLookupFields []ReverseLookupField `json:"reverseLookupFields,omitzero"`
 	// IPs, in RFC 5952 format, of the DNS servers to use for resolution. Examples: IPv4 1.1.1.1, 4.2.2.2:53, or IPv6 [2001:4860:4860::8888], [2001:4860:4860::8888]:1053. If not specified, system's DNS will be used.
-	DNSServers []string `json:"dnsServers,omitempty"`
+	DNSServers []string `json:"dnsServers,omitzero"`
 	// How frequently to expire and refetch DNS cache. Use 0 to disable.
-	CacheTTL *float64 `json:"cacheTTL,omitempty"`
+	CacheTTL *float64 `json:"cacheTTL,omitzero"`
 	// The maximum number of DNS resolutions to be cached locally. Leave at default unless you understand the implications of changing.
-	MaxCacheSize *float64 `json:"maxCacheSize,omitempty"`
+	MaxCacheSize *float64 `json:"maxCacheSize,omitzero"`
 	// Attempt to resolve DNS short names using the search or domain directive from /etc/resolv.conf
-	UseResolvConf *bool `json:"useResolvConf,omitempty"`
+	UseResolvConf *bool `json:"useResolvConf,omitzero"`
 	// If unable to resolve a DNS short name, make a DNS.lookup() call to resolve it. Caution: This might degrade performance in unrelated areas of @{product}.
-	LookupFallback *bool `json:"lookupFallback,omitempty"`
+	LookupFallback *bool `json:"lookupFallback,omitzero"`
 	// Specify fallback values for the DNS resolver to use when it cannot resolve a DNS short name
-	DomainOverrides      []string                  `json:"domainOverrides,omitempty"`
-	LookupFailLogLevel   *LogLevelForFailedLookups `json:"lookupFailLogLevel,omitempty"`
+	DomainOverrides      []string                  `json:"domainOverrides,omitzero"`
+	LookupFailLogLevel   *LogLevelForFailedLookups `json:"lookupFailLogLevel,omitzero"`
 	AdditionalProperties map[string]any            `additionalProperties:"true" json:"-"`
 }
 

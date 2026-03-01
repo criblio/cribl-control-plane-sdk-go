@@ -31,7 +31,7 @@ func (p PiiSettings1) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PiiSettings1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"enablePiiDetection"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -78,17 +78,43 @@ func CreatePiiSettingsUnionPiiSettings2(piiSettings2 PiiSettings2) PiiSettingsUn
 
 func (u *PiiSettingsUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var piiSettings1 PiiSettings1 = PiiSettings1{}
 	if err := utils.UnmarshalJSON(data, &piiSettings1, "", true, nil); err == nil {
-		u.PiiSettings1 = &piiSettings1
-		u.Type = PiiSettingsUnionTypePiiSettings1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PiiSettingsUnionTypePiiSettings1,
+			Value: &piiSettings1,
+		})
 	}
 
 	var piiSettings2 PiiSettings2 = PiiSettings2{}
 	if err := utils.UnmarshalJSON(data, &piiSettings2, "", true, nil); err == nil {
-		u.PiiSettings2 = &piiSettings2
-		u.Type = PiiSettingsUnionTypePiiSettings2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PiiSettingsUnionTypePiiSettings2,
+			Value: &piiSettings2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PiiSettingsUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PiiSettingsUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(PiiSettingsUnionType)
+	switch best.Type {
+	case PiiSettingsUnionTypePiiSettings1:
+		u.PiiSettings1 = best.Value.(*PiiSettings1)
+		return nil
+	case PiiSettingsUnionTypePiiSettings2:
+		u.PiiSettings2 = best.Value.(*PiiSettings2)
 		return nil
 	}
 

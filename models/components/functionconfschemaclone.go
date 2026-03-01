@@ -8,7 +8,7 @@ import (
 
 type FunctionConfSchemaClone struct {
 	// Create clones with the following fields set
-	Clones []map[string]string `json:"clones,omitempty"`
+	Clones []map[string]string `json:"clones,omitzero"`
 }
 
 func (f FunctionConfSchemaClone) MarshalJSON() ([]byte, error) {

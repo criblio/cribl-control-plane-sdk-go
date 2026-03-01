@@ -9,9 +9,9 @@ import (
 type ItemsTypeAuthTokensExt struct {
 	// Shared secret to be provided by any client (Authorization: <token>)
 	Token       string  `json:"token"`
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 }
 
 func (i ItemsTypeAuthTokensExt) MarshalJSON() ([]byte, error) {
@@ -19,7 +19,7 @@ func (i ItemsTypeAuthTokensExt) MarshalJSON() ([]byte, error) {
 }
 
 func (i *ItemsTypeAuthTokensExt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

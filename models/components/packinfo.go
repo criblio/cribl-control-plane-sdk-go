@@ -2,22 +2,37 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type PackInfo struct {
-	Author              *string                  `json:"author,omitempty"`
-	Dependencies        map[string]string        `json:"dependencies,omitempty"`
-	Description         *string                  `json:"description,omitempty"`
-	DisplayName         *string                  `json:"displayName,omitempty"`
-	Exports             []string                 `json:"exports,omitempty"`
+	Author              *string                  `json:"author,omitzero"`
+	Dependencies        map[string]string        `json:"dependencies,omitzero"`
+	Description         *string                  `json:"description,omitzero"`
+	DisplayName         *string                  `json:"displayName,omitzero"`
+	Exports             []string                 `json:"exports,omitzero"`
 	ID                  string                   `json:"id"`
-	Inputs              *float64                 `json:"inputs,omitempty"`
-	IsDisabled          *bool                    `json:"isDisabled,omitempty"`
-	MinLogStreamVersion *string                  `json:"minLogStreamVersion,omitempty"`
-	Outputs             *float64                 `json:"outputs,omitempty"`
-	Settings            map[string]any           `json:"settings,omitempty"`
+	Inputs              *float64                 `json:"inputs,omitzero"`
+	IsDisabled          *bool                    `json:"isDisabled,omitzero"`
+	MinLogStreamVersion *string                  `json:"minLogStreamVersion,omitzero"`
+	Outputs             *float64                 `json:"outputs,omitzero"`
+	Settings            map[string]any           `json:"settings,omitzero"`
 	Source              string                   `json:"source"`
-	Spec                *string                  `json:"spec,omitempty"`
-	Tags                *TagsTypePackInstallInfo `json:"tags,omitempty"`
-	Version             *string                  `json:"version,omitempty"`
+	Spec                *string                  `json:"spec,omitzero"`
+	Tags                *TagsTypePackInstallInfo `json:"tags,omitzero"`
+	Version             *string                  `json:"version,omitzero"`
+}
+
+func (p PackInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PackInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PackInfo) GetAuthor() *string {

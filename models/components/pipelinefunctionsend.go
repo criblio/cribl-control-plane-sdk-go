@@ -57,23 +57,23 @@ func (e *PipelineFunctionSendMode) IsExact() bool {
 
 type SendConfiguration struct {
 	// Full URL to send search to.
-	URL *string `json:"url,omitempty"`
+	URL *string `json:"url,omitzero"`
 	// Group within the workspace we're sending to.
-	Group *string `json:"group,omitempty"`
+	Group *string `json:"group,omitzero"`
 	// Workspace within the deployment to send the search results to.
-	Workspace *string `json:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitzero"`
 	// Template to build the URL to send from.
-	SendURLTemplate *string `json:"sendUrlTemplate,omitempty"`
+	SendURLTemplate *string `json:"sendUrlTemplate,omitzero"`
 	// Id of the search this function is running on.
 	SearchID string `json:"searchId"`
 	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *bool `json:"tee,omitempty"`
+	Tee *bool `json:"tee,omitzero"`
 	// How often are stats flushed in ms
-	FlushMs *float64 `json:"flushMs,omitempty"`
+	FlushMs *float64 `json:"flushMs,omitzero"`
 	// Disables generation of intermediate stats. When true stats will be emitted only on end
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
+	SuppressPreviews *bool `json:"suppressPreviews,omitzero"`
 	// In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
-	Mode *PipelineFunctionSendMode `json:"mode,omitempty"`
+	Mode *PipelineFunctionSendMode `json:"mode,omitzero"`
 }
 
 func (s SendConfiguration) MarshalJSON() ([]byte, error) {
@@ -81,7 +81,7 @@ func (s SendConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SendConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"searchId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -152,18 +152,18 @@ func (s *SendConfiguration) GetMode() *PipelineFunctionSendMode {
 
 type PipelineFunctionSend struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionSendID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool             `json:"final,omitempty"`
+	Final *bool             `json:"final,omitzero"`
 	Conf  SendConfiguration `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionSend) MarshalJSON() ([]byte, error) {
@@ -171,7 +171,7 @@ func (p PipelineFunctionSend) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSend) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -8,16 +8,16 @@ import (
 
 type AuthType struct {
 	Disabled bool    `json:"disabled"`
-	Username *string `json:"username,omitempty"`
-	Password *string `json:"password,omitempty"`
+	Username *string `json:"username,omitzero"`
+	Password *string `json:"password,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType *AuthenticationMethodOptionsAuth `json:"authType,omitempty"`
+	AuthType *AuthenticationMethodOptionsAuth `json:"authType,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Enter API key directly
-	ManualAPIKey *string `json:"manualAPIKey,omitempty"`
+	ManualAPIKey *string `json:"manualAPIKey,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (a AuthType) MarshalJSON() ([]byte, error) {
@@ -25,7 +25,7 @@ func (a AuthType) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthType) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"disabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil

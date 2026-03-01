@@ -7,11 +7,11 @@ import (
 )
 
 type FunctionConfSchemaSidlookupField struct {
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Expr string `json:"expr"`
 	// Set to No to disable the evaluation of an individual expression
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 }
 
 func (f FunctionConfSchemaSidlookupField) MarshalJSON() ([]byte, error) {
@@ -19,7 +19,7 @@ func (f FunctionConfSchemaSidlookupField) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionConfSchemaSidlookupField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"expr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -48,7 +48,7 @@ func (f *FunctionConfSchemaSidlookupField) GetDisabled() *bool {
 
 type FunctionConfSchemaSidlookup struct {
 	// Set of expressions matched to lookup responses
-	Fields []FunctionConfSchemaSidlookupField `json:"fields,omitempty"`
+	Fields []FunctionConfSchemaSidlookupField `json:"fields,omitzero"`
 }
 
 func (f FunctionConfSchemaSidlookup) MarshalJSON() ([]byte, error) {

@@ -28,22 +28,22 @@ func (e *TypeCollectionWithBreakerRulesetsConstraintType) IsExact() bool {
 }
 
 type TypeCollectionWithBreakerRulesetsConstraint struct {
-	Type *TypeCollectionWithBreakerRulesetsConstraintType `json:"type,omitempty"`
+	Type *TypeCollectionWithBreakerRulesetsConstraintType `json:"type,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-	SendToRoutes *bool                                  `json:"sendToRoutes,omitempty"`
-	Preprocess   *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	SendToRoutes *bool                                  `json:"sendToRoutes,omitzero"`
+	Preprocess   *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Pipeline to process results
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Destination to send results to
-	Output *string `json:"output,omitempty"`
+	Output *string `json:"output,omitzero"`
 }
 
 func (t TypeCollectionWithBreakerRulesetsConstraint) MarshalJSON() ([]byte, error) {

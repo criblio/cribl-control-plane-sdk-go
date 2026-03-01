@@ -48,7 +48,7 @@ func (e *Status) IsExact() bool {
 }
 
 type HealthServerStatus struct {
-	Role      *Role   `json:"role,omitempty"`
+	Role      *Role   `json:"role,omitzero"`
 	StartTime float64 `json:"startTime"`
 	Status    Status  `json:"status"`
 }

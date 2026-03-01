@@ -2,20 +2,35 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type RouteConf struct {
-	Clones                 []map[string]string `json:"clones,omitempty"`
-	Context                *string             `json:"context,omitempty"`
-	Description            *string             `json:"description,omitempty"`
-	Disabled               *bool               `json:"disabled,omitempty"`
-	EnableOutputExpression *bool               `json:"enableOutputExpression,omitempty"`
-	Filter                 *string             `json:"filter,omitempty"`
+	Clones                 []map[string]string `json:"clones,omitzero"`
+	Context                *string             `json:"context,omitzero"`
+	Description            *string             `json:"description,omitzero"`
+	Disabled               *bool               `json:"disabled,omitzero"`
+	EnableOutputExpression *bool               `json:"enableOutputExpression,omitzero"`
+	Filter                 *string             `json:"filter,omitzero"`
 	Final                  bool                `json:"final"`
-	GroupID                *string             `json:"groupId,omitempty"`
+	GroupID                *string             `json:"groupId,omitzero"`
 	ID                     string              `json:"id"`
 	Name                   string              `json:"name"`
-	Output                 *string             `json:"output,omitempty"`
-	OutputExpression       *string             `json:"outputExpression,omitempty"`
+	Output                 *string             `json:"output,omitzero"`
+	OutputExpression       *string             `json:"outputExpression,omitzero"`
 	Pipeline               string              `json:"pipeline"`
+}
+
+func (r RouteConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RouteConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *RouteConf) GetClones() []map[string]string {

@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type GitCommitParams struct {
-	Effective *bool    `json:"effective,omitempty"`
-	Files     []string `json:"files,omitempty"`
-	Group     *string  `json:"group,omitempty"`
+	Effective *bool    `json:"effective,omitzero"`
+	Files     []string `json:"files,omitzero"`
+	Group     *string  `json:"group,omitzero"`
 	Message   string   `json:"message"`
+}
+
+func (g GitCommitParams) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GitCommitParams) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GitCommitParams) GetEffective() *bool {

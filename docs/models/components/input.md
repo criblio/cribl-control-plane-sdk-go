@@ -363,3 +363,133 @@ input := components.CreateInputZscalerHec(components.InputZscalerHec{/* values h
 input := components.CreateInputCloudflareHec(components.InputCloudflareHec{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch input.Type {
+	case components.InputTypeCollection:
+		// input.InputCollection is populated
+	case components.InputTypeKafka:
+		// input.InputKafka is populated
+	case components.InputTypeMsk:
+		// input.InputMsk is populated
+	case components.InputTypeHTTP:
+		// input.InputHTTP is populated
+	case components.InputTypeSplunk:
+		// input.InputSplunk is populated
+	case components.InputTypeSplunkSearch:
+		// input.InputSplunkSearch is populated
+	case components.InputTypeSplunkHec:
+		// input.InputSplunkHec is populated
+	case components.InputTypeAzureBlob:
+		// input.InputAzureBlob is populated
+	case components.InputTypeElastic:
+		// input.InputElastic is populated
+	case components.InputTypeConfluentCloud:
+		// input.InputConfluentCloud is populated
+	case components.InputTypeGrafana:
+		// input.InputGrafana is populated
+	case components.InputTypeLoki:
+		// input.InputLoki is populated
+	case components.InputTypePrometheusRw:
+		// input.InputPrometheusRw is populated
+	case components.InputTypePrometheus:
+		// input.InputPrometheus is populated
+	case components.InputTypeEdgePrometheus:
+		// input.InputEdgePrometheus is populated
+	case components.InputTypeOffice365Mgmt:
+		// input.InputOffice365Mgmt is populated
+	case components.InputTypeOffice365Service:
+		// input.InputOffice365Service is populated
+	case components.InputTypeOffice365MsgTrace:
+		// input.InputOffice365MsgTrace is populated
+	case components.InputTypeEventhub:
+		// input.InputEventhub is populated
+	case components.InputTypeExec:
+		// input.InputExec is populated
+	case components.InputTypeFirehose:
+		// input.InputFirehose is populated
+	case components.InputTypeGooglePubsub:
+		// input.InputGooglePubsub is populated
+	case components.InputTypeCribl:
+		// input.InputCribl is populated
+	case components.InputTypeCriblTCP:
+		// input.InputCriblTCP is populated
+	case components.InputTypeCriblHTTP:
+		// input.InputCriblHTTP is populated
+	case components.InputTypeCriblLakeHTTP:
+		// input.InputCriblLakeHTTP is populated
+	case components.InputTypeTcpjson:
+		// input.InputTcpjson is populated
+	case components.InputTypeSystemMetrics:
+		// input.InputSystemMetrics is populated
+	case components.InputTypeSystemState:
+		// input.InputSystemState is populated
+	case components.InputTypeKubeMetrics:
+		// input.InputKubeMetrics is populated
+	case components.InputTypeKubeLogs:
+		// input.InputKubeLogs is populated
+	case components.InputTypeKubeEvents:
+		// input.InputKubeEvents is populated
+	case components.InputTypeWindowsMetrics:
+		// input.InputWindowsMetrics is populated
+	case components.InputTypeCrowdstrike:
+		// input.InputCrowdstrike is populated
+	case components.InputTypeDatadogAgent:
+		// input.InputDatadogAgent is populated
+	case components.InputTypeDatagen:
+		// input.InputDatagen is populated
+	case components.InputTypeHTTPRaw:
+		// input.InputHTTPRaw is populated
+	case components.InputTypeKinesis:
+		// input.InputKinesis is populated
+	case components.InputTypeCriblmetrics:
+		// input.InputCriblmetrics is populated
+	case components.InputTypeMetrics:
+		// input.InputMetrics is populated
+	case components.InputTypeS3:
+		// input.InputS3 is populated
+	case components.InputTypeS3Inventory:
+		// input.InputS3Inventory is populated
+	case components.InputTypeSnmp:
+		// input.InputSnmp is populated
+	case components.InputTypeOpenTelemetry:
+		// input.InputOpenTelemetry is populated
+	case components.InputTypeModelDrivenTelemetry:
+		// input.InputModelDrivenTelemetry is populated
+	case components.InputTypeSqs:
+		// input.InputSqs is populated
+	case components.InputTypeSyslog:
+		// input.InputSyslog is populated
+	case components.InputTypeFile:
+		// input.InputFile is populated
+	case components.InputTypeTCP:
+		// input.InputTCP is populated
+	case components.InputTypeAppscope:
+		// input.InputAppscope is populated
+	case components.InputTypeWef:
+		// input.InputWef is populated
+	case components.InputTypeWinEventLogs:
+		// input.InputWinEventLogs is populated
+	case components.InputTypeRawUDP:
+		// input.InputRawUDP is populated
+	case components.InputTypeJournalFiles:
+		// input.InputJournalFiles is populated
+	case components.InputTypeWiz:
+		// input.InputWiz is populated
+	case components.InputTypeWizWebhook:
+		// input.InputWizWebhook is populated
+	case components.InputTypeNetflow:
+		// input.InputNetflow is populated
+	case components.InputTypeSecurityLake:
+		// input.InputSecurityLake is populated
+	case components.InputTypeZscalerHec:
+		// input.InputZscalerHec is populated
+	case components.InputTypeCloudflareHec:
+		// input.InputCloudflareHec is populated
+	default:
+		// Unknown type - use input.GetUnknownRaw() for raw JSON
+}
+```

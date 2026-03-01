@@ -7,9 +7,9 @@ import (
 )
 
 type FunctionConfSchemaOtlpLogs struct {
-	DropNonLogEvents *bool `json:"dropNonLogEvents,omitempty"`
+	DropNonLogEvents *bool `json:"dropNonLogEvents,omitzero"`
 	// Batch OTLP log records by shared top-level `resource` attributes
-	BatchOTLPLogs *bool `json:"batchOTLPLogs,omitempty"`
+	BatchOTLPLogs *bool `json:"batchOTLPLogs,omitzero"`
 }
 
 func (f FunctionConfSchemaOtlpLogs) MarshalJSON() ([]byte, error) {

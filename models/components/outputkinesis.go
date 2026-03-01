@@ -72,80 +72,80 @@ func (o *OutputKinesisPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputKinesis struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitempty"`
+	ID   *string           `json:"id,omitzero"`
 	Type OutputKinesisType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Kinesis stream name to send events to.
 	StreamName string `json:"streamName"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *SignatureVersionOptions2 `json:"signatureVersion,omitempty"`
+	SignatureVersion *SignatureVersionOptions2 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access Kinesis stream
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
 	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Maximum number of ongoing put requests before blocking.
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Compression type to use for records
-	Compression *OutputKinesisCompression `json:"compression,omitempty"`
+	Compression *OutputKinesisCompression `json:"compression,omitzero"`
 	// Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
-	UseListShards *bool `json:"useListShards,omitempty"`
+	UseListShards *bool `json:"useListShards,omitzero"`
 	// Batch events into a single record as NDJSON
-	AsNdjson *bool `json:"asNdjson,omitempty"`
+	AsNdjson *bool `json:"asNdjson,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                      `json:"description,omitempty"`
-	AwsAPIKey      *string                      `json:"awsApiKey,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                      `json:"description,omitzero"`
+	AwsAPIKey      *string                      `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Maximum number of records to send in a single request
-	MaxEventsPerFlush *float64 `json:"maxEventsPerFlush,omitempty"`
+	MaxEventsPerFlush *float64 `json:"maxEventsPerFlush,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputKinesisPqControls  `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputKinesisPqControls  `json:"pqControls,omitzero"`
 }
 
 func (o OutputKinesis) MarshalJSON() ([]byte, error) {
@@ -153,7 +153,7 @@ func (o OutputKinesis) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputKinesis) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "streamName", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

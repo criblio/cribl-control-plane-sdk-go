@@ -40,9 +40,9 @@ type PipelineFunctionMvPullConf struct {
 	// Extract the K-V pair's value from this field, relative to the data object.
 	RelativeValuePath string `json:"relativeValuePath"`
 	// Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
-	TargetBagPath *string `json:"targetBagPath,omitempty"`
+	TargetBagPath *string `json:"targetBagPath,omitzero"`
 	// Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
-	DeleteOriginal *bool `json:"deleteOriginal,omitempty"`
+	DeleteOriginal *bool `json:"deleteOriginal,omitzero"`
 }
 
 func (p PipelineFunctionMvPullConf) MarshalJSON() ([]byte, error) {
@@ -50,7 +50,7 @@ func (p PipelineFunctionMvPullConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMvPullConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"arrayPath", "relativeKeyPath", "relativeValuePath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -93,18 +93,18 @@ func (p *PipelineFunctionMvPullConf) GetDeleteOriginal() *bool {
 
 type PipelineFunctionMvPull struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionMvPullID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitempty"`
+	Final *bool                      `json:"final,omitzero"`
 	Conf  PipelineFunctionMvPullConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionMvPull) MarshalJSON() ([]byte, error) {
@@ -112,7 +112,7 @@ func (p PipelineFunctionMvPull) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMvPull) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

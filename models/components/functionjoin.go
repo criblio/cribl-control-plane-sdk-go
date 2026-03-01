@@ -33,19 +33,19 @@ func (e *FunctionJoinID) UnmarshalJSON(data []byte) error {
 
 type FunctionJoin struct {
 	Filename      string         `json:"__filename"`
-	AsyncTimeout  *float64       `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string        `json:"cribl_version,omitempty"`
-	Disabled      *bool          `json:"disabled,omitempty"`
+	AsyncTimeout  *float64       `json:"asyncTimeout,omitzero"`
+	CriblVersion  *string        `json:"cribl_version,omitzero"`
+	Disabled      *bool          `json:"disabled,omitzero"`
 	Group         string         `json:"group"`
-	HandleSignals *bool          `json:"handleSignals,omitempty"`
+	HandleSignals *bool          `json:"handleSignals,omitzero"`
 	ID            FunctionJoinID `json:"id"`
 	LoadTime      float64        `json:"loadTime"`
 	ModTime       float64        `json:"modTime"`
 	Name          string         `json:"name"`
-	Sync          *bool          `json:"sync,omitempty"`
+	Sync          *bool          `json:"sync,omitzero"`
 	Uischema      map[string]any `json:"uischema"`
 	Version       string         `json:"version"`
-	Schema        map[string]any `json:"schema,omitempty"`
+	Schema        map[string]any `json:"schema,omitzero"`
 }
 
 func (f FunctionJoin) MarshalJSON() ([]byte, error) {
@@ -53,7 +53,7 @@ func (f FunctionJoin) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionJoin) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"__filename", "group", "id", "loadTime", "modTime", "name", "uischema", "version"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil

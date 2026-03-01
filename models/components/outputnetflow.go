@@ -43,7 +43,7 @@ func (o OutputNetflowHost) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputNetflowHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -65,25 +65,25 @@ func (o *OutputNetflowHost) GetPort() float64 {
 
 type OutputNetflow struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitempty"`
+	ID   *string           `json:"id,omitzero"`
 	Type OutputNetflowType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// One or more NetFlow Destinations to forward events to
 	Hosts []OutputNetflowHost `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// Send NetFlow traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
-	EnableIPSpoofing *bool   `json:"enableIpSpoofing,omitempty"`
-	Description      *string `json:"description,omitempty"`
+	EnableIPSpoofing *bool   `json:"enableIpSpoofing,omitzero"`
+	Description      *string `json:"description,omitzero"`
 	// MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
-	MaxRecordSize *float64 `json:"maxRecordSize,omitempty"`
+	MaxRecordSize *float64 `json:"maxRecordSize,omitzero"`
 }
 
 func (o OutputNetflow) MarshalJSON() ([]byte, error) {
@@ -91,7 +91,7 @@ func (o OutputNetflow) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputNetflow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "hosts"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

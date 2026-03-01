@@ -42,7 +42,7 @@ func (p PatternList) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PatternList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"pattern"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -58,9 +58,9 @@ func (p *PatternList) GetPattern() string {
 type PipelineFunctionGrokConf struct {
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
 	Pattern     string        `json:"pattern"`
-	PatternList []PatternList `json:"patternList,omitempty"`
+	PatternList []PatternList `json:"patternList,omitzero"`
 	// Field on which to perform Grok extractions
-	Source *string `json:"source,omitempty"`
+	Source *string `json:"source,omitzero"`
 }
 
 func (p PipelineFunctionGrokConf) MarshalJSON() ([]byte, error) {
@@ -68,7 +68,7 @@ func (p PipelineFunctionGrokConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionGrokConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"pattern"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -97,18 +97,18 @@ func (p *PipelineFunctionGrokConf) GetSource() *string {
 
 type PipelineFunctionGrok struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionGrokID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
+	Final *bool                    `json:"final,omitzero"`
 	Conf  PipelineFunctionGrokConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionGrok) MarshalJSON() ([]byte, error) {
@@ -116,7 +116,7 @@ func (p PipelineFunctionGrok) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionGrok) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -8,7 +8,7 @@ import (
 )
 
 type HealthServerStatusError struct {
-	Role      *components.Role        `json:"role,omitempty"`
+	Role      *components.Role        `json:"role,omitzero"`
 	StartTime float64                 `json:"startTime"`
 	Status    components.Status       `json:"status"`
 	HTTPMeta  components.HTTPMetadata `json:"-"`

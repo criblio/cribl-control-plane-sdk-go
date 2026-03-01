@@ -16,7 +16,7 @@ func (c CriblLakeCollectorConf) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CriblLakeCollectorConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"dataset"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil

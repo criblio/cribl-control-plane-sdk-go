@@ -27,3 +27,21 @@ restAuthenticationOauthDiscovery := components.CreateRestAuthenticationOauthDisc
 restAuthenticationOauthDiscovery := components.CreateRestAuthenticationOauthDiscoveryNone(components.RestAuthenticationOauthRestDiscoveryDiscoverTypeNone{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationOauthDiscovery.Type {
+	case components.RestAuthenticationOauthDiscoveryTypeHTTP:
+		// restAuthenticationOauthDiscovery.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTP is populated
+	case components.RestAuthenticationOauthDiscoveryTypeJSON:
+		// restAuthenticationOauthDiscovery.RestAuthenticationOauthRestDiscoveryDiscoverTypeJSON is populated
+	case components.RestAuthenticationOauthDiscoveryTypeList:
+		// restAuthenticationOauthDiscovery.RestAuthenticationOauthRestDiscoveryDiscoverTypeList is populated
+	case components.RestAuthenticationOauthDiscoveryTypeNone:
+		// restAuthenticationOauthDiscovery.RestAuthenticationOauthRestDiscoveryDiscoverTypeNone is populated
+	default:
+		// Unknown type - use restAuthenticationOauthDiscovery.GetUnknownRaw() for raw JSON
+}
+```

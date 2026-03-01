@@ -3,7 +3,7 @@
 package components
 
 type UpgradePackageUrls struct {
-	PackageHashURL *string `json:"packageHashUrl,omitempty"`
+	PackageHashURL *string `json:"packageHashUrl,omitzero"`
 	PackageURL     string  `json:"packageUrl"`
 }
 

@@ -10,7 +10,7 @@ type CheckpointingType struct {
 	// Resume processing files after an interruption
 	Enabled bool `json:"enabled"`
 	// The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
-	Retries *float64 `json:"retries,omitempty"`
+	Retries *float64 `json:"retries,omitzero"`
 }
 
 func (c CheckpointingType) MarshalJSON() ([]byte, error) {
@@ -18,7 +18,7 @@ func (c CheckpointingType) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CheckpointingType) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"enabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil

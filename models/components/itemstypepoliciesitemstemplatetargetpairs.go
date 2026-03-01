@@ -18,7 +18,7 @@ func (i ItemsTypePoliciesItemsTemplateTargetPairs) MarshalJSON() ([]byte, error)
 }
 
 func (i *ItemsTypePoliciesItemsTemplateTargetPairs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"templateId", "targetId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

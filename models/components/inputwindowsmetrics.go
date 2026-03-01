@@ -62,9 +62,9 @@ func (e *InputWindowsMetricsSystemMode) IsExact() bool {
 
 type InputWindowsMetricsSystem struct {
 	// Select the level of details for system metrics
-	Mode *InputWindowsMetricsSystemMode `json:"mode,omitempty"`
+	Mode *InputWindowsMetricsSystemMode `json:"mode,omitzero"`
 	// Generate metrics for all system information
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 }
 
 func (i InputWindowsMetricsSystem) MarshalJSON() ([]byte, error) {
@@ -123,13 +123,13 @@ func (e *InputWindowsMetricsCPUMode) IsExact() bool {
 
 type InputWindowsMetricsCPU struct {
 	// Select the level of details for CPU metrics
-	Mode *InputWindowsMetricsCPUMode `json:"mode,omitempty"`
+	Mode *InputWindowsMetricsCPUMode `json:"mode,omitzero"`
 	// Generate metrics for each CPU
-	PerCPU *bool `json:"perCpu,omitempty"`
+	PerCPU *bool `json:"perCpu,omitzero"`
 	// Generate metrics for all CPU states
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate raw, monotonic CPU time counters
-	Time *bool `json:"time,omitempty"`
+	Time *bool `json:"time,omitzero"`
 }
 
 func (i InputWindowsMetricsCPU) MarshalJSON() ([]byte, error) {
@@ -202,9 +202,9 @@ func (e *InputWindowsMetricsMemoryMode) IsExact() bool {
 
 type InputWindowsMetricsMemory struct {
 	// Select the level of details for memory metrics
-	Mode *InputWindowsMetricsMemoryMode `json:"mode,omitempty"`
+	Mode *InputWindowsMetricsMemoryMode `json:"mode,omitzero"`
 	// Generate metrics for all memory states
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 }
 
 func (i InputWindowsMetricsMemory) MarshalJSON() ([]byte, error) {
@@ -263,15 +263,15 @@ func (e *InputWindowsMetricsNetworkMode) IsExact() bool {
 
 type InputWindowsMetricsNetwork struct {
 	// Select the level of details for network metrics
-	Mode *InputWindowsMetricsNetworkMode `json:"mode,omitempty"`
+	Mode *InputWindowsMetricsNetworkMode `json:"mode,omitzero"`
 	// Generate full network metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
-	Protocols *bool `json:"protocols,omitempty"`
+	Protocols *bool `json:"protocols,omitzero"`
 	// Network interfaces to include/exclude. All interfaces are included if this list is empty.
-	Devices []string `json:"devices,omitempty"`
+	Devices []string `json:"devices,omitzero"`
 	// Generate separate metrics for each interface
-	PerInterface *bool `json:"perInterface,omitempty"`
+	PerInterface *bool `json:"perInterface,omitzero"`
 }
 
 func (i InputWindowsMetricsNetwork) MarshalJSON() ([]byte, error) {
@@ -351,13 +351,13 @@ func (e *InputWindowsMetricsDiskMode) IsExact() bool {
 
 type InputWindowsMetricsDisk struct {
 	// Select the level of details for disk metrics
-	Mode *InputWindowsMetricsDiskMode `json:"mode,omitempty"`
+	Mode *InputWindowsMetricsDiskMode `json:"mode,omitzero"`
 	// Generate separate metrics for each volume
-	PerVolume *bool `json:"perVolume,omitempty"`
+	PerVolume *bool `json:"perVolume,omitzero"`
 	// Generate full disk metrics
-	Detail *bool `json:"detail,omitempty"`
+	Detail *bool `json:"detail,omitzero"`
 	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
-	Volumes []string `json:"volumes,omitempty"`
+	Volumes []string `json:"volumes,omitzero"`
 }
 
 func (i InputWindowsMetricsDisk) MarshalJSON() ([]byte, error) {
@@ -400,11 +400,11 @@ func (i *InputWindowsMetricsDisk) GetVolumes() []string {
 }
 
 type InputWindowsMetricsCustom struct {
-	System  *InputWindowsMetricsSystem  `json:"system,omitempty"`
-	CPU     *InputWindowsMetricsCPU     `json:"cpu,omitempty"`
-	Memory  *InputWindowsMetricsMemory  `json:"memory,omitempty"`
-	Network *InputWindowsMetricsNetwork `json:"network,omitempty"`
-	Disk    *InputWindowsMetricsDisk    `json:"disk,omitempty"`
+	System  *InputWindowsMetricsSystem  `json:"system,omitzero"`
+	CPU     *InputWindowsMetricsCPU     `json:"cpu,omitzero"`
+	Memory  *InputWindowsMetricsMemory  `json:"memory,omitzero"`
+	Network *InputWindowsMetricsNetwork `json:"network,omitzero"`
+	Disk    *InputWindowsMetricsDisk    `json:"disk,omitzero"`
 }
 
 func (i InputWindowsMetricsCustom) MarshalJSON() ([]byte, error) {
@@ -455,8 +455,8 @@ func (i *InputWindowsMetricsCustom) GetDisk() *InputWindowsMetricsDisk {
 
 type InputWindowsMetricsHost struct {
 	// Select level of detail for host metrics
-	Mode   *ModeOptionsHost           `json:"mode,omitempty"`
-	Custom *InputWindowsMetricsCustom `json:"custom,omitempty"`
+	Mode   *ModeOptionsHost           `json:"mode,omitzero"`
+	Custom *InputWindowsMetricsCustom `json:"custom,omitzero"`
 }
 
 func (i InputWindowsMetricsHost) MarshalJSON() ([]byte, error) {
@@ -486,16 +486,16 @@ func (i *InputWindowsMetricsHost) GetCustom() *InputWindowsMetricsCustom {
 
 type InputWindowsMetricsPersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/windows_metrics
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (i InputWindowsMetricsPersistence) MarshalJSON() ([]byte, error) {
@@ -553,32 +553,32 @@ func (i *InputWindowsMetricsPersistence) GetDestPath() *string {
 
 type InputWindowsMetrics struct {
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
+	ID       *string                 `json:"id,omitzero"`
 	Type     InputWindowsMetricsType `json:"type"`
-	Disabled *bool                   `json:"disabled,omitempty"`
+	Disabled *bool                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval *float64                 `json:"interval,omitempty"`
-	Host     *InputWindowsMetricsHost `json:"host,omitempty"`
-	Process  *ProcessType             `json:"process,omitempty"`
+	Interval *float64                 `json:"interval,omitzero"`
+	Host     *InputWindowsMetricsHost `json:"host,omitzero"`
+	Process  *ProcessType             `json:"process,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
-	Description         *string `json:"description,omitempty"`
+	DisableNativeModule *bool   `json:"disableNativeModule,omitzero"`
+	Description         *string `json:"description,omitzero"`
 }
 
 func (i InputWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -586,7 +586,7 @@ func (i InputWindowsMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWindowsMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

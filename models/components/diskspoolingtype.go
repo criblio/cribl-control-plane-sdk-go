@@ -8,15 +8,15 @@ import (
 
 type DiskSpoolingType struct {
 	// Spool events on disk for Cribl Edge and Search. Default is disabled.
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time period for grouping spooled events. Default is 10m.
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space that can be consumed before older buckets are deleted. Examples: 420MB, 4GB. Default is 1GB.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data before older buckets are deleted. Examples: 2h, 4d. Default is 24h.
-	MaxDataTime *string `json:"maxDataTime,omitempty"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
 	// Data compression format. Default is gzip.
-	Compress *CompressionOptionsPersistence `json:"compress,omitempty"`
+	Compress *CompressionOptionsPersistence `json:"compress,omitzero"`
 }
 
 func (d DiskSpoolingType) MarshalJSON() ([]byte, error) {

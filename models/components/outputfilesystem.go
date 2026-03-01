@@ -33,88 +33,88 @@ func (e *OutputFilesystemType) UnmarshalJSON(data []byte) error {
 
 type OutputFilesystem struct {
 	// Unique ID for this output
-	ID   *string              `json:"id,omitempty"`
+	ID   *string              `json:"id,omitzero"`
 	Type OutputFilesystemType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Final destination for the output files
 	DestPath string `json:"destPath"`
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
-	StagePath *string `json:"stagePath,omitempty"`
+	StagePath *string `json:"stagePath,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
-	PartitionExpr *string `json:"partitionExpr,omitempty"`
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
 	// Format of the output data
-	Format *DataFormatOptions `json:"format,omitempty"`
+	Format *DataFormatOptions `json:"format,omitzero"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `json:"baseFileName,omitempty"`
+	BaseFileName *string `json:"baseFileName,omitzero"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `json:"fileNameSuffix,omitempty"`
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
-	HeaderLine *string `json:"headerLine,omitempty"`
+	HeaderLine *string `json:"headerLine,omitzero"`
 	// Buffer size used to write to a file
-	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitempty"`
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitempty"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitempty"`
-	Description          *string            `json:"description,omitempty"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	Description          *string            `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `json:"compress,omitempty"`
+	Compress *CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitempty"`
+	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `json:"automaticSchema,omitempty"`
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *ParquetVersionOptions `json:"parquetVersion,omitempty"`
+	ParquetVersion *ParquetVersionOptions `json:"parquetVersion,omitzero"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *DataPageVersionOptions `json:"parquetDataPageVersion,omitempty"`
+	ParquetDataPageVersion *DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitempty"`
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `json:"parquetPageSize,omitempty"`
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
 	// Log up to 3 rows that @{product} skips due to data mismatch
-	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `json:"enableStatistics,omitempty"`
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitempty"`
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool `json:"enablePageChecksum,omitempty"`
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 }
 
 func (o OutputFilesystem) MarshalJSON() ([]byte, error) {
@@ -122,7 +122,7 @@ func (o OutputFilesystem) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputFilesystem) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "destPath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

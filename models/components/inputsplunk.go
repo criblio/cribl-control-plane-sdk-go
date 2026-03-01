@@ -34,7 +34,7 @@ func (e *InputSplunkType) UnmarshalJSON(data []byte) error {
 type InputSplunkAuthToken struct {
 	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
 	Token       string  `json:"token"`
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (i InputSplunkAuthToken) MarshalJSON() ([]byte, error) {
@@ -42,7 +42,7 @@ func (i InputSplunkAuthToken) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSplunkAuthToken) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"token"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -116,58 +116,58 @@ func (e *InputSplunkCompression) IsExact() bool {
 
 type InputSplunk struct {
 	// Unique ID for this input
-	ID       *string         `json:"id,omitempty"`
+	ID       *string         `json:"id,omitzero"`
 	Type     InputSplunkType `json:"type"`
-	Disabled *bool           `json:"disabled,omitempty"`
+	Disabled *bool           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
-	AuthTokens []InputSplunkAuthToken `json:"authTokens,omitempty"`
+	AuthTokens []InputSplunkAuthToken `json:"authTokens,omitzero"`
 	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *MaxS2SVersion `json:"maxS2Sversion,omitempty"`
-	Description   *string        `json:"description,omitempty"`
+	MaxS2Sversion *MaxS2SVersion `json:"maxS2Sversion,omitzero"`
+	Description   *string        `json:"description,omitzero"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
+	UseFwdTimezone *bool `json:"useFwdTimezone,omitzero"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `json:"dropControlFields,omitempty"`
+	DropControlFields *bool `json:"dropControlFields,omitzero"`
 	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
+	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
-	Compress *InputSplunkCompression `json:"compress,omitempty"`
+	Compress *InputSplunkCompression `json:"compress,omitzero"`
 }
 
 func (i InputSplunk) MarshalJSON() ([]byte, error) {
@@ -175,7 +175,7 @@ func (i InputSplunk) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -33,16 +33,16 @@ func (e *OutputDevnullType) UnmarshalJSON(data []byte) error {
 
 type OutputDevnull struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitempty"`
+	ID   *string           `json:"id,omitzero"`
 	Type OutputDevnullType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 }
 
 func (o OutputDevnull) MarshalJSON() ([]byte, error) {
@@ -50,7 +50,7 @@ func (o OutputDevnull) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDevnull) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
