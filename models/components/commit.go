@@ -3,8 +3,8 @@
 package components
 
 type Commit struct {
-	AuthorEmail *string `json:"author_email,omitempty"`
-	AuthorName  *string `json:"author_name,omitempty"`
+	AuthorEmail *string `json:"author_email,omitzero"`
+	AuthorName  *string `json:"author_name,omitzero"`
 	Date        string  `json:"date"`
 	Hash        string  `json:"hash"`
 	Message     string  `json:"message"`

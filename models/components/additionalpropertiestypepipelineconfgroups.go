@@ -5,9 +5,9 @@ package components
 type AdditionalPropertiesTypePipelineConfGroups struct {
 	Name string `json:"name"`
 	// Short description of this group
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// Whether this group is disabled
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 }
 
 func (a *AdditionalPropertiesTypePipelineConfGroups) GetName() string {

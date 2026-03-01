@@ -58,62 +58,62 @@ func (e *InputFileMode) IsExact() bool {
 
 type InputFile struct {
 	// Unique ID for this input
-	ID       *string       `json:"id,omitempty"`
+	ID       *string       `json:"id,omitzero"`
 	Type     InputFileType `json:"type"`
-	Disabled *bool         `json:"disabled,omitempty"`
+	Disabled *bool         `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Choose how to discover files to monitor
-	Mode *InputFileMode `json:"mode,omitempty"`
+	Mode *InputFileMode `json:"mode,omitzero"`
 	// Time, in seconds, between scanning for files
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// The full path of discovered files are matched against this wildcard list
-	Filenames []string `json:"filenames,omitempty"`
+	Filenames []string `json:"filenames,omitzero"`
 	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
+	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitzero"`
 	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `json:"tailOnly,omitempty"`
+	TailOnly *bool `json:"tailOnly,omitzero"`
 	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
+	IdleTimeout *float64 `json:"idleTimeout,omitzero"`
 	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
-	MinAgeDur *string `json:"minAgeDur,omitempty"`
+	MinAgeDur *string `json:"minAgeDur,omitzero"`
 	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
-	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	MaxAgeDur *string `json:"maxAgeDur,omitzero"`
 	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
+	CheckFileModTime *bool `json:"checkFileModTime,omitzero"`
 	// Forces files containing binary data to be streamed as text
-	ForceText *bool `json:"forceText,omitempty"`
+	ForceText *bool `json:"forceText,omitzero"`
 	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `json:"hashLen,omitempty"`
+	HashLen *float64 `json:"hashLen,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
-	Description         *string  `json:"description,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
+	Description         *string  `json:"description,omitzero"`
 	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
-	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
+	Depth                     *float64 `json:"depth,omitzero"`
+	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitzero"`
 	// Delete files after they have been collected
-	DeleteFiles *bool `json:"deleteFiles,omitempty"`
+	DeleteFiles *bool `json:"deleteFiles,omitzero"`
 	// Salt the file hash with the Source file path. Ensures that all files with the same header hash, such as CSV files, are ingested. Moving or renaming the file, or toggling this after starting the Source will cause re-ingestion.
-	SaltHash *bool `json:"saltHash,omitempty"`
+	SaltHash *bool `json:"saltHash,omitzero"`
 	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
+	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitzero"`
 }
 
 func (i InputFile) MarshalJSON() ([]byte, error) {
@@ -121,7 +121,7 @@ func (i InputFile) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputFile) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

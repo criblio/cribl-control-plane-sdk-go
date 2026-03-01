@@ -43,7 +43,7 @@ func (o OutputSnmpHost) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSnmpHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -65,21 +65,21 @@ func (o *OutputSnmpHost) GetPort() float64 {
 
 type OutputSnmp struct {
 	// Unique ID for this output
-	ID   *string        `json:"id,omitempty"`
+	ID   *string        `json:"id,omitzero"`
 	Type OutputSnmpType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// One or more SNMP destinations to forward traps to
 	Hosts []OutputSnmpHost `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
-	Description         *string  `json:"description,omitempty"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
+	Description         *string  `json:"description,omitzero"`
 }
 
 func (o OutputSnmp) MarshalJSON() ([]byte, error) {
@@ -87,7 +87,7 @@ func (o OutputSnmp) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSnmp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "hosts"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

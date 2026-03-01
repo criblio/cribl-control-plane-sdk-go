@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type OutputTestResponse struct {
-	Details       map[string]any `json:"details,omitempty"`
-	Error         *string        `json:"error,omitempty"`
+	Details       map[string]any `json:"details,omitzero"`
+	Error         *string        `json:"error,omitzero"`
 	OutputID      string         `json:"outputId"`
 	Success       bool           `json:"success"`
-	SuccessDetail *string        `json:"successDetail,omitempty"`
+	SuccessDetail *string        `json:"successDetail,omitzero"`
+}
+
+func (o OutputTestResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputTestResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *OutputTestResponse) GetDetails() map[string]any {

@@ -9,9 +9,9 @@ import (
 type ItemsTypeAuthTokens struct {
 	// Select or create a stored text secret
 	TokenSecret string `json:"tokenSecret"`
-	Enabled     *bool  `json:"enabled,omitempty"`
+	Enabled     *bool  `json:"enabled,omitzero"`
 	// Optional token description
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 func (i ItemsTypeAuthTokens) MarshalJSON() ([]byte, error) {
@@ -19,7 +19,7 @@ func (i ItemsTypeAuthTokens) MarshalJSON() ([]byte, error) {
 }
 
 func (i *ItemsTypeAuthTokens) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"tokenSecret"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

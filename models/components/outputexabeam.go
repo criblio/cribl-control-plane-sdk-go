@@ -33,16 +33,16 @@ func (e *OutputExabeamType) UnmarshalJSON(data []byte) error {
 
 type OutputExabeam struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitempty"`
+	ID   *string           `json:"id,omitzero"`
 	Type OutputExabeamType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Name of the destination bucket. A constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a JavaScript Global Variable: `myBucket-${C.vars.myVar}`.
 	Bucket string `json:"bucket"`
 	// Region where the bucket is located
@@ -52,57 +52,57 @@ type OutputExabeam struct {
 	// Google Cloud Storage service endpoint
 	Endpoint string `json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion *SignatureVersionOptions4 `json:"signatureVersion,omitempty"`
+	SignatureVersion *SignatureVersionOptions4 `json:"signatureVersion,omitzero"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions1 `json:"objectACL,omitempty"`
+	ObjectACL *ObjectACLOptions1 `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptions1 `json:"storageClass,omitempty"`
+	StorageClass *StorageClassOptions1 `json:"storageClass,omitzero"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
-	RetrySettings          *RetrySettingsType          `json:"retrySettings,omitempty"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
+	RetrySettings          *RetrySettingsType          `json:"retrySettings,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Enter an encoded string containing Exabeam configurations
-	EncodedConfiguration *string `json:"encodedConfiguration,omitempty"`
+	EncodedConfiguration *string `json:"encodedConfiguration,omitzero"`
 	// ID of the Exabeam Collector where data should be sent. Example: 11112222-3333-4444-5555-666677778888
 	//
 	CollectorInstanceID string `json:"collectorInstanceId"`
 	// Constant or JavaScript expression to create an Exabeam site name. Values that aren't successfully evaluated will be treated as string constants.
-	SiteName *string `json:"siteName,omitempty"`
+	SiteName *string `json:"siteName,omitzero"`
 	// Exabeam site ID. If left blank, @{product} will use the value of the Exabeam site name.
-	SiteID         *string `json:"siteId,omitempty"`
-	TimezoneOffset *string `json:"timezoneOffset,omitempty"`
+	SiteID         *string `json:"siteId,omitzero"`
+	TimezoneOffset *string `json:"timezoneOffset,omitzero"`
 	// HMAC access key. Can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
-	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
-	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
-	Description  *string `json:"description,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 }
 
 func (o OutputExabeam) MarshalJSON() ([]byte, error) {
@@ -110,7 +110,7 @@ func (o OutputExabeam) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputExabeam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "stagePath", "endpoint", "collectorInstanceId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

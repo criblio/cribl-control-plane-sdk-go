@@ -18,7 +18,7 @@ func (f FunctionConfSchemaSamplingRule) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionConfSchemaSamplingRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"filter", "rate"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -40,7 +40,7 @@ func (f *FunctionConfSchemaSamplingRule) GetRate() int64 {
 
 type FunctionConfSchemaSampling struct {
 	// Events matching these rules will be sampled at the given rate
-	Rules []FunctionConfSchemaSamplingRule `json:"rules,omitempty"`
+	Rules []FunctionConfSchemaSamplingRule `json:"rules,omitzero"`
 }
 
 func (f FunctionConfSchemaSampling) MarshalJSON() ([]byte, error) {

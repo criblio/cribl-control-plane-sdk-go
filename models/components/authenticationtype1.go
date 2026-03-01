@@ -10,32 +10,32 @@ import (
 type AuthenticationType1 struct {
 	Disabled bool `json:"disabled"`
 	// Enter password directly, or select a stored secret
-	AuthType *AuthenticationMethodOptionsSasl1 `json:"authType,omitempty"`
+	AuthType *AuthenticationMethodOptionsSasl1 `json:"authType,omitzero"`
 	// Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string                    `json:"textSecret,omitempty"`
-	Mechanism  *SaslMechanismOptionsSasl1 `json:"mechanism,omitempty"`
+	TextSecret *string                    `json:"textSecret,omitzero"`
+	Mechanism  *SaslMechanismOptionsSasl1 `json:"mechanism,omitzero"`
 	// The username for authentication. For Event Hubs, this should always be $ConnectionString.
-	Username             *string                           `json:"username,omitempty"`
-	ClientSecretAuthType *AuthenticationMethodOptionsSasl2 `json:"clientSecretAuthType,omitempty"`
+	Username             *string                           `json:"username,omitzero"`
+	ClientSecretAuthType *AuthenticationMethodOptionsSasl2 `json:"clientSecretAuthType,omitzero"`
 	// client_secret to pass in the OAuth request parameter
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// Select or create a stored certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	CertPath        *string `json:"certPath,omitempty"`
-	PrivKeyPath     *string `json:"privKeyPath,omitempty"`
-	Passphrase      *string `json:"passphrase,omitempty"`
+	CertificateName *string `json:"certificateName,omitzero"`
+	CertPath        *string `json:"certPath,omitzero"`
+	PrivKeyPath     *string `json:"privKeyPath,omitzero"`
+	Passphrase      *string `json:"passphrase,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
-	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitempty"`
+	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
 	// client_id to pass in the OAuth request parameter
-	ClientID *string `json:"clientId,omitempty"`
+	ClientID *string `json:"clientId,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string `json:"tenantId,omitzero"`
 	// Scope to pass in the OAuth request parameter
-	Scope *string `json:"scope,omitempty"`
+	Scope *string `json:"scope,omitzero"`
 }
 
 func (a AuthenticationType1) MarshalJSON() ([]byte, error) {
@@ -43,7 +43,7 @@ func (a AuthenticationType1) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthenticationType1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"disabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil

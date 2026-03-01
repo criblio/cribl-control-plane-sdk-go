@@ -33,34 +33,34 @@ func (e *InputModelDrivenTelemetryType) UnmarshalJSON(data []byte) error {
 
 type InputModelDrivenTelemetry struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitempty"`
+	ID       *string                       `json:"id,omitzero"`
 	Type     InputModelDrivenTelemetryType `json:"type"`
-	Disabled *bool                         `json:"disabled,omitempty"`
+	Disabled *bool                         `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
-	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitempty"`
-	Description       *string  `json:"description,omitempty"`
+	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitzero"`
+	Description       *string  `json:"description,omitzero"`
 }
 
 func (i InputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
@@ -68,7 +68,7 @@ func (i InputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

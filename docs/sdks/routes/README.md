@@ -128,9 +128,9 @@ func main() {
 
 Update a Route in the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
 
-### Example Usage
+### Example Usage: RoutesUpdateExamplesBasicRoute
 
-<!-- UsageSnippet language="go" operationID="updateRoutesById" method="patch" path="/routes/{id}" -->
+<!-- UsageSnippet language="go" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesBasicRoute" -->
 ```go
 package main
 
@@ -158,26 +158,130 @@ func main() {
             components.RoutesRoute{
                 ID: criblcontrolplanesdkgo.Pointer("default"),
                 Name: "my-route",
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
                 Pipeline: "main",
-                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
-                Output: "<value>",
-                OutputExpression: "<value>",
                 Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
                 Final: criblcontrolplanesdkgo.Pointer(true),
             },
         },
-        Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
-            "key": components.AdditionalPropertiesTypePipelineConfGroups{
-                Name: "<value>",
-                Description: criblcontrolplanesdkgo.Pointer("drat yet spectacles ha"),
-                Disabled: criblcontrolplanesdkgo.Pointer(false),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RoutesUpdateExamplesMultipleRoutes
+
+<!-- UsageSnippet language="go" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesMultipleRoutes" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Update(ctx, "<id>", components.Routes{
+        ID: criblcontrolplanesdkgo.Pointer("default"),
+        Routes: []components.RoutesRoute{
+            components.RoutesRoute{
+                ID: criblcontrolplanesdkgo.Pointer("route-speedtest"),
+                Name: "speedtest",
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"speedtest.log\""),
+                Pipeline: "main",
+                Output: "default",
+                Description: criblcontrolplanesdkgo.Pointer("Route speedtest logs"),
+                Final: criblcontrolplanesdkgo.Pointer(false),
+            },
+            components.RoutesRoute{
+                ID: criblcontrolplanesdkgo.Pointer("route-mtr"),
+                Name: "mtr",
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"mtr.log\""),
+                Pipeline: "passthru",
+                Output: "default",
+                Description: criblcontrolplanesdkgo.Pointer("Route mtr logs"),
+                Final: criblcontrolplanesdkgo.Pointer(false),
+            },
+            components.RoutesRoute{
+                ID: criblcontrolplanesdkgo.Pointer("route-statsd"),
+                Name: "statsd",
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"statsd.log\""),
+                Pipeline: "prometheus_metrics",
+                Output: "devnull",
+                Description: criblcontrolplanesdkgo.Pointer("Route statsd metrics"),
+                Final: criblcontrolplanesdkgo.Pointer(false),
+            },
+            components.RoutesRoute{
+                ID: criblcontrolplanesdkgo.Pointer("route-default"),
+                Name: "default",
+                Filter: criblcontrolplanesdkgo.Pointer("true"),
+                Pipeline: "main",
+                Output: "default",
+                Description: criblcontrolplanesdkgo.Pointer("Catch-all Route for all other events"),
+                Final: criblcontrolplanesdkgo.Pointer(true),
             },
         },
-        Comments: []components.Comment{
-            components.Comment{
-                Comment: criblcontrolplanesdkgo.Pointer("The Football Is Good For Training And Recreational Purposes"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RoutesUpdateExamplesRouteWithOutputExpression
+
+<!-- UsageSnippet language="go" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesRouteWithOutputExpression" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Update(ctx, "<id>", components.Routes{
+        ID: criblcontrolplanesdkgo.Pointer("default"),
+        Routes: []components.RoutesRoute{
+            components.RoutesRoute{
+                ID: criblcontrolplanesdkgo.Pointer("route-dynamic"),
+                Name: "dynamic-output",
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
+                Pipeline: "main",
+                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
+                OutputExpression: "`myDest_${C.logStreamEnv}`",
+                Description: criblcontrolplanesdkgo.Pointer("Route with dynamic Destination based on environment"),
+                Final: criblcontrolplanesdkgo.Pointer(true),
             },
         },
     })
@@ -214,9 +318,9 @@ func main() {
 
 Add a Route to the end of the specified Routing table.
 
-### Example Usage
+### Example Usage: RoutesAppendExamplesMultipleRoutes
 
-<!-- UsageSnippet language="go" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" -->
+<!-- UsageSnippet language="go" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesAppendExamplesMultipleRoutes" -->
 ```go
 package main
 
@@ -240,25 +344,107 @@ func main() {
 
     res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
         components.RouteConf{
-            Clones: []map[string]string{
-                map[string]string{
-                    "key": "<value>",
-                },
-                map[string]string{
+            Description: criblcontrolplanesdkgo.Pointer("Route audit logs"),
+            Filter: criblcontrolplanesdkgo.Pointer("source == \"audit.log\""),
+            Final: false,
+            ID: "route-audit",
+            Name: "audit",
+            Output: criblcontrolplanesdkgo.Pointer("default"),
+            Pipeline: "main",
+        },
+        components.RouteConf{
+            Description: criblcontrolplanesdkgo.Pointer("Route security logs"),
+            Filter: criblcontrolplanesdkgo.Pointer("source == \"security.log\""),
+            Final: false,
+            ID: "route-security",
+            Name: "security",
+            Output: criblcontrolplanesdkgo.Pointer("devnull"),
+            Pipeline: "passthru",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RoutesAppendExamplesRouteWithOutputExpression
 
-                },
-            },
-            Context: criblcontrolplanesdkgo.Pointer("<value>"),
-            Description: criblcontrolplanesdkgo.Pointer("Route new logs to main pipeline"),
-            Disabled: criblcontrolplanesdkgo.Pointer(true),
+<!-- UsageSnippet language="go" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesAppendExamplesRouteWithOutputExpression" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
+        components.RouteConf{
+            Description: criblcontrolplanesdkgo.Pointer("Route with dynamic Destination based on environment"),
             EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
+            Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
+            Final: true,
+            ID: "route-dynamic-append",
+            Name: "dynamic-append",
+            OutputExpression: criblcontrolplanesdkgo.Pointer("`myDest_${C.logStreamEnv}`"),
+            Pipeline: "main",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RoutesAppendExamplesSingleRoute
+
+<!-- UsageSnippet language="go" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesAppendExamplesSingleRoute" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
+        components.RouteConf{
+            Description: criblcontrolplanesdkgo.Pointer("Route new logs to main pipeline"),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"new.log\""),
             Final: true,
-            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
             ID: "route-new",
             Name: "new-route",
-            Output: criblcontrolplanesdkgo.Pointer("<value>"),
-            OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
             Pipeline: "main",
         },
     })

@@ -56,27 +56,27 @@ func (e *OutputMicrosoftFabricAuthenticationMethod) IsExact() bool {
 // OutputMicrosoftFabricAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
 type OutputMicrosoftFabricAuthentication struct {
 	Disabled  bool                       `json:"disabled"`
-	Mechanism *SaslMechanismOptionsSasl1 `json:"mechanism,omitempty"`
+	Mechanism *SaslMechanismOptionsSasl1 `json:"mechanism,omitzero"`
 	// The username for authentication. This should always be $ConnectionString.
-	Username *string `json:"username,omitempty"`
+	Username *string `json:"username,omitzero"`
 	// Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
-	TextSecret           *string                                    `json:"textSecret,omitempty"`
-	ClientSecretAuthType *OutputMicrosoftFabricAuthenticationMethod `json:"clientSecretAuthType,omitempty"`
+	TextSecret           *string                                    `json:"textSecret,omitzero"`
+	ClientSecretAuthType *OutputMicrosoftFabricAuthenticationMethod `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// Select or create a stored certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	CertPath        *string `json:"certPath,omitempty"`
-	PrivKeyPath     *string `json:"privKeyPath,omitempty"`
-	Passphrase      *string `json:"passphrase,omitempty"`
+	CertificateName *string `json:"certificateName,omitzero"`
+	CertPath        *string `json:"certPath,omitzero"`
+	PrivKeyPath     *string `json:"privKeyPath,omitzero"`
+	Passphrase      *string `json:"passphrase,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
-	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitempty"`
+	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
 	// client_id to pass in the OAuth request parameter
-	ClientID *string `json:"clientId,omitempty"`
+	ClientID *string `json:"clientId,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string `json:"tenantId,omitzero"`
 	// Scope to pass in the OAuth request parameter
-	Scope *string `json:"scope,omitempty"`
+	Scope *string `json:"scope,omitzero"`
 }
 
 func (o OutputMicrosoftFabricAuthentication) MarshalJSON() ([]byte, error) {
@@ -84,7 +84,7 @@ func (o OutputMicrosoftFabricAuthentication) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputMicrosoftFabricAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"disabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -204,73 +204,73 @@ func (o *OutputMicrosoftFabricPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputMicrosoftFabric struct {
 	// Unique ID for this output
-	ID   *string                   `json:"id,omitempty"`
+	ID   *string                   `json:"id,omitzero"`
 	Type OutputMicrosoftFabricType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Topic name from Fabric Eventstream's endpoint
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments
-	Ack *AcknowledgmentsOptions `json:"ack,omitempty"`
+	Ack *AcknowledgmentsOptions `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to the Event Hubs Kafka brokers
-	Format *RecordDataFormatOptions `json:"format,omitempty"`
+	Format *RecordDataFormatOptions `json:"format,omitzero"`
 	// Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
-	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// Maximum number of events in a batch before forcing a flush
-	FlushEventCount *float64 `json:"flushEventCount,omitempty"`
+	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
-	Sasl *OutputMicrosoftFabricAuthentication `json:"sasl,omitempty"`
-	TLS  *TLSSettingsClientSideType           `json:"tls,omitempty"`
+	Sasl *OutputMicrosoftFabricAuthentication `json:"sasl,omitzero"`
+	TLS  *TLSSettingsClientSideType           `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Bootstrap server from Fabric Eventstream's endpoint
 	BootstrapServer string  `json:"bootstrap_server"`
-	Description     *string `json:"description,omitempty"`
+	Description     *string `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputMicrosoftFabricPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputMicrosoftFabricPqControls `json:"pqControls,omitzero"`
 }
 
 func (o OutputMicrosoftFabric) MarshalJSON() ([]byte, error) {
@@ -278,7 +278,7 @@ func (o OutputMicrosoftFabric) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputMicrosoftFabric) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topic", "bootstrap_server"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

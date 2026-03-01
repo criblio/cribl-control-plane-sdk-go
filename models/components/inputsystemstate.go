@@ -33,7 +33,7 @@ func (e *InputSystemStateType) UnmarshalJSON(data []byte) error {
 
 // HostsFile - Creates events based on entries collected from the hosts file
 type HostsFile struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (h HostsFile) MarshalJSON() ([]byte, error) {
@@ -56,7 +56,7 @@ func (h *HostsFile) GetEnable() *bool {
 
 // Interfaces - Creates events for each of the host’s network interfaces
 type Interfaces struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (i Interfaces) MarshalJSON() ([]byte, error) {
@@ -79,7 +79,7 @@ func (i *Interfaces) GetEnable() *bool {
 
 // DisksAndFileSystems - Creates events for physical disks, partitions, and file systems
 type DisksAndFileSystems struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (d DisksAndFileSystems) MarshalJSON() ([]byte, error) {
@@ -102,7 +102,7 @@ func (d *DisksAndFileSystems) GetEnable() *bool {
 
 // HostInfo - Creates events based on the host system’s current state
 type HostInfo struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (h HostInfo) MarshalJSON() ([]byte, error) {
@@ -125,7 +125,7 @@ func (h *HostInfo) GetEnable() *bool {
 
 // InputSystemStateRoutes - Creates events based on entries collected from the host’s network routes
 type InputSystemStateRoutes struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (i InputSystemStateRoutes) MarshalJSON() ([]byte, error) {
@@ -148,7 +148,7 @@ func (i *InputSystemStateRoutes) GetEnable() *bool {
 
 // DNS - Creates events for DNS resolvers and search entries
 type DNS struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (d DNS) MarshalJSON() ([]byte, error) {
@@ -171,7 +171,7 @@ func (d *DNS) GetEnable() *bool {
 
 // UsersAndGroups - Creates events for local users and groups
 type UsersAndGroups struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (u UsersAndGroups) MarshalJSON() ([]byte, error) {
@@ -194,7 +194,7 @@ func (u *UsersAndGroups) GetEnable() *bool {
 
 // Firewall - Creates events for Firewall rules entries
 type Firewall struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (f Firewall) MarshalJSON() ([]byte, error) {
@@ -217,7 +217,7 @@ func (f *Firewall) GetEnable() *bool {
 
 // Services - Creates events from the list of services
 type Services struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (s Services) MarshalJSON() ([]byte, error) {
@@ -240,7 +240,7 @@ func (s *Services) GetEnable() *bool {
 
 // ListeningPorts - Creates events from list of listening ports
 type ListeningPorts struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (l ListeningPorts) MarshalJSON() ([]byte, error) {
@@ -263,7 +263,7 @@ func (l *ListeningPorts) GetEnable() *bool {
 
 // LoggedInUsers - Creates events from list of logged-in users
 type LoggedInUsers struct {
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 }
 
 func (l LoggedInUsers) MarshalJSON() ([]byte, error) {
@@ -286,27 +286,27 @@ func (l *LoggedInUsers) GetEnable() *bool {
 
 type Collectors struct {
 	// Creates events based on entries collected from the hosts file
-	Hostsfile *HostsFile `json:"hostsfile,omitempty"`
+	Hostsfile *HostsFile `json:"hostsfile,omitzero"`
 	// Creates events for each of the host’s network interfaces
-	Interfaces *Interfaces `json:"interfaces,omitempty"`
+	Interfaces *Interfaces `json:"interfaces,omitzero"`
 	// Creates events for physical disks, partitions, and file systems
-	Disk *DisksAndFileSystems `json:"disk,omitempty"`
+	Disk *DisksAndFileSystems `json:"disk,omitzero"`
 	// Creates events based on the host system’s current state
-	Metadata *HostInfo `json:"metadata,omitempty"`
+	Metadata *HostInfo `json:"metadata,omitzero"`
 	// Creates events based on entries collected from the host’s network routes
-	Routes *InputSystemStateRoutes `json:"routes,omitempty"`
+	Routes *InputSystemStateRoutes `json:"routes,omitzero"`
 	// Creates events for DNS resolvers and search entries
-	DNS *DNS `json:"dns,omitempty"`
+	DNS *DNS `json:"dns,omitzero"`
 	// Creates events for local users and groups
-	User *UsersAndGroups `json:"user,omitempty"`
+	User *UsersAndGroups `json:"user,omitzero"`
 	// Creates events for Firewall rules entries
-	Firewall *Firewall `json:"firewall,omitempty"`
+	Firewall *Firewall `json:"firewall,omitzero"`
 	// Creates events from the list of services
-	Services *Services `json:"services,omitempty"`
+	Services *Services `json:"services,omitzero"`
 	// Creates events from list of listening ports
-	Ports *ListeningPorts `json:"ports,omitempty"`
+	Ports *ListeningPorts `json:"ports,omitzero"`
 	// Creates events from list of logged-in users
-	LoginUsers *LoggedInUsers `json:"loginUsers,omitempty"`
+	LoginUsers *LoggedInUsers `json:"loginUsers,omitzero"`
 }
 
 func (c Collectors) MarshalJSON() ([]byte, error) {
@@ -399,16 +399,16 @@ func (c *Collectors) GetLoginUsers() *LoggedInUsers {
 
 type InputSystemStatePersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `json:"enable,omitempty"`
+	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
-	DestPath *string `json:"destPath,omitempty"`
+	DestPath *string `json:"destPath,omitzero"`
 }
 
 func (i InputSystemStatePersistence) MarshalJSON() ([]byte, error) {
@@ -466,33 +466,33 @@ func (i *InputSystemStatePersistence) GetDestPath() *string {
 
 type InputSystemState struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
+	ID       *string              `json:"id,omitzero"`
 	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `json:"disabled,omitempty"`
+	Disabled *bool                `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `json:"interval,omitempty"`
+	Interval *float64 `json:"interval,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Collectors  *Collectors                     `json:"collectors,omitempty"`
-	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Collectors  *Collectors                     `json:"collectors,omitzero"`
+	Persistence *InputSystemStatePersistence    `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitempty"`
-	Description                *string `json:"description,omitempty"`
+	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitzero"`
+	Description                *string `json:"description,omitzero"`
 }
 
 func (i InputSystemState) MarshalJSON() ([]byte, error) {
@@ -500,7 +500,7 @@ func (i InputSystemState) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

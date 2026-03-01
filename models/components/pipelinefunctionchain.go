@@ -42,7 +42,7 @@ func (p PipelineFunctionChainConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionChainConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"processor"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -57,18 +57,18 @@ func (p *PipelineFunctionChainConf) GetProcessor() string {
 
 type PipelineFunctionChain struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionChainID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                     `json:"final,omitempty"`
+	Final *bool                     `json:"final,omitzero"`
 	Conf  PipelineFunctionChainConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionChain) MarshalJSON() ([]byte, error) {
@@ -76,7 +76,7 @@ func (p PipelineFunctionChain) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionChain) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

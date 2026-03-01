@@ -7,25 +7,25 @@ import (
 )
 
 type TLSSettingsServerSideType struct {
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `json:"requestCert,omitempty"`
+	RequestCert *bool `json:"requestCert,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `json:"commonNameRegex,omitempty"`
+	CommonNameRegex *string `json:"commonNameRegex,omitzero"`
 	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
+	CertificateName *string `json:"certificateName,omitzero"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	PrivKeyPath *string `json:"privKeyPath,omitzero"`
 	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
+	Passphrase *string `json:"passphrase,omitzero"`
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
+	CertPath *string `json:"certPath,omitzero"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                                         `json:"caPath,omitempty"`
-	MinVersion *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitempty"`
-	MaxVersion *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitempty"`
+	CaPath     *string                                         `json:"caPath,omitzero"`
+	MinVersion *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitzero"`
+	MaxVersion *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
 }
 
 func (t TLSSettingsServerSideType) MarshalJSON() ([]byte, error) {

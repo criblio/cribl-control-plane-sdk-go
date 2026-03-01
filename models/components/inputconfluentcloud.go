@@ -33,77 +33,77 @@ func (e *InputConfluentCloudType) UnmarshalJSON(data []byte) error {
 
 type InputConfluentCloud struct {
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
+	ID       *string                 `json:"id,omitzero"`
 	Type     InputConfluentCloudType `json:"type"`
-	Disabled *bool                   `json:"disabled,omitempty"`
+	Disabled *bool                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                                      `json:"brokers"`
-	TLS     *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	TLS     *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
-	FromBeginning       *bool                                  `json:"fromBeginning,omitempty"`
-	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	FromBeginning       *bool                                  `json:"fromBeginning,omitzero"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
+	MaxBackOff *float64 `json:"maxBackOff,omitzero"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitzero"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *AuthenticationType `json:"sasl,omitempty"`
+	Sasl *AuthenticationType `json:"sasl,omitzero"`
 	//       Timeout used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires,
 	//       the broker will remove the client from the group and initiate a rebalance.
 	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
-	SessionTimeout *float64 `json:"sessionTimeout,omitempty"`
+	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
 	//       Maximum allowed time for each worker to join the group after a rebalance begins.
 	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
-	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitempty"`
+	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitzero"`
 	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
 	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
-	HeartbeatInterval *float64 `json:"heartbeatInterval,omitempty"`
+	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitzero"`
 	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
-	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitempty"`
+	MaxBytesPerPartition *float64 `json:"maxBytesPerPartition,omitzero"`
 	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
-	MaxBytes *float64 `json:"maxBytes,omitempty"`
+	MaxBytes *float64 `json:"maxBytes,omitzero"`
 	// Maximum number of network errors before the consumer re-creates a socket
-	MaxSocketErrors *float64 `json:"maxSocketErrors,omitempty"`
+	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                         `json:"description,omitzero"`
 }
 
 func (i InputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -111,7 +111,7 @@ func (i InputConfluentCloud) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputConfluentCloud) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

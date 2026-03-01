@@ -34,31 +34,31 @@ func (e *InputGrafanaType2) UnmarshalJSON(data []byte) error {
 
 type PrometheusAuth2 struct {
 	// Remote Write authentication type
-	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitempty"`
-	Username *string                                  `json:"username,omitempty"`
-	Password *string                                  `json:"password,omitempty"`
+	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
+	Username *string                                  `json:"username,omitzero"`
+	Password *string                                  `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
+	LoginURL *string `json:"loginUrl,omitzero"`
 	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
+	SecretParamName *string `json:"secretParamName,omitzero"`
 	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
 func (p PrometheusAuth2) MarshalJSON() ([]byte, error) {
@@ -172,31 +172,31 @@ func (p *PrometheusAuth2) GetOauthHeaders() []ItemsTypeOauthHeaders {
 
 type LokiAuth2 struct {
 	// Loki logs authentication type
-	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
-	Username *string                            `json:"username,omitempty"`
-	Password *string                            `json:"password,omitempty"`
+	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
+	Username *string                            `json:"username,omitzero"`
+	Password *string                            `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
+	LoginURL *string `json:"loginUrl,omitzero"`
 	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
+	SecretParamName *string `json:"secretParamName,omitzero"`
 	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
 func (l LokiAuth2) MarshalJSON() ([]byte, error) {
@@ -310,58 +310,58 @@ func (l *LokiAuth2) GetOauthHeaders() []ItemsTypeOauthHeaders {
 
 type InputGrafanaGrafana2 struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitempty"`
+	ID       *string           `json:"id,omitzero"`
 	Type     InputGrafanaType2 `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
+	Disabled *bool             `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Maximum time to wait for additional data, after the last response was sent, before closing a socket connection. This can be very useful when Grafana Agent remote write's request frequency is high so, reusing connections, would help mitigating the cost of creating a new connection per request. Note that Grafana Agent's embedded Prometheus would attempt to keep connections open for up to 5 minutes.
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
-	PrometheusAPI *string `json:"prometheusAPI,omitempty"`
+	PrometheusAPI *string `json:"prometheusAPI,omitzero"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
 	LokiAPI        string           `json:"lokiAPI"`
-	PrometheusAuth *PrometheusAuth2 `json:"prometheusAuth,omitempty"`
-	LokiAuth       *LokiAuth2       `json:"lokiAuth,omitempty"`
+	PrometheusAuth *PrometheusAuth2 `json:"prometheusAuth,omitzero"`
+	LokiAuth       *LokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                         `json:"description,omitzero"`
 }
 
 func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
@@ -369,7 +369,7 @@ func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputGrafanaGrafana2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port", "lokiAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -610,31 +610,31 @@ func (e *InputGrafanaType1) UnmarshalJSON(data []byte) error {
 
 type PrometheusAuth1 struct {
 	// Remote Write authentication type
-	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitempty"`
-	Username *string                                  `json:"username,omitempty"`
-	Password *string                                  `json:"password,omitempty"`
+	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
+	Username *string                                  `json:"username,omitzero"`
+	Password *string                                  `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
+	LoginURL *string `json:"loginUrl,omitzero"`
 	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
+	SecretParamName *string `json:"secretParamName,omitzero"`
 	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
 func (p PrometheusAuth1) MarshalJSON() ([]byte, error) {
@@ -748,31 +748,31 @@ func (p *PrometheusAuth1) GetOauthHeaders() []ItemsTypeOauthHeaders {
 
 type LokiAuth1 struct {
 	// Loki logs authentication type
-	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
-	Username *string                            `json:"username,omitempty"`
-	Password *string                            `json:"password,omitempty"`
+	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
+	Username *string                            `json:"username,omitzero"`
+	Password *string                            `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitempty"`
+	LoginURL *string `json:"loginUrl,omitzero"`
 	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitempty"`
+	SecretParamName *string `json:"secretParamName,omitzero"`
 	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 }
 
 func (l LokiAuth1) MarshalJSON() ([]byte, error) {
@@ -886,58 +886,58 @@ func (l *LokiAuth1) GetOauthHeaders() []ItemsTypeOauthHeaders {
 
 type InputGrafanaGrafana1 struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitempty"`
+	ID       *string           `json:"id,omitzero"`
 	Type     InputGrafanaType1 `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
+	Disabled *bool             `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Maximum time to wait for additional data, after the last response was sent, before closing a socket connection. This can be very useful when Grafana Agent remote write's request frequency is high so, reusing connections, would help mitigating the cost of creating a new connection per request. Note that Grafana Agent's embedded Prometheus would attempt to keep connections open for up to 5 minutes.
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI string `json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
-	LokiAPI        *string          `json:"lokiAPI,omitempty"`
-	PrometheusAuth *PrometheusAuth1 `json:"prometheusAuth,omitempty"`
-	LokiAuth       *LokiAuth1       `json:"lokiAuth,omitempty"`
+	LokiAPI        *string          `json:"lokiAPI,omitzero"`
+	PrometheusAuth *PrometheusAuth1 `json:"prometheusAuth,omitzero"`
+	LokiAuth       *LokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
+	Description *string                         `json:"description,omitzero"`
 }
 
 func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
@@ -945,7 +945,7 @@ func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputGrafanaGrafana1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port", "prometheusAPI"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1195,17 +1195,43 @@ func CreateInputGrafanaInputGrafanaGrafana2(inputGrafanaGrafana2 InputGrafanaGra
 
 func (u *InputGrafana) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var inputGrafanaGrafana1 InputGrafanaGrafana1 = InputGrafanaGrafana1{}
 	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana1, "", true, nil); err == nil {
-		u.InputGrafanaGrafana1 = &inputGrafanaGrafana1
-		u.Type = InputGrafanaTypeInputGrafanaGrafana1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputGrafanaTypeInputGrafanaGrafana1,
+			Value: &inputGrafanaGrafana1,
+		})
 	}
 
 	var inputGrafanaGrafana2 InputGrafanaGrafana2 = InputGrafanaGrafana2{}
 	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana2, "", true, nil); err == nil {
-		u.InputGrafanaGrafana2 = &inputGrafanaGrafana2
-		u.Type = InputGrafanaTypeInputGrafanaGrafana2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputGrafanaTypeInputGrafanaGrafana2,
+			Value: &inputGrafanaGrafana2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(InputGrafanaType)
+	switch best.Type {
+	case InputGrafanaTypeInputGrafanaGrafana1:
+		u.InputGrafanaGrafana1 = best.Value.(*InputGrafanaGrafana1)
+		return nil
+	case InputGrafanaTypeInputGrafanaGrafana2:
+		u.InputGrafanaGrafana2 = best.Value.(*InputGrafanaGrafana2)
 		return nil
 	}
 

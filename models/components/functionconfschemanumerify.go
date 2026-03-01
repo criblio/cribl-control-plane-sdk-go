@@ -36,12 +36,12 @@ func (e *FunctionConfSchemaNumerifyFormat) IsExact() bool {
 
 type FunctionConfSchemaNumerify struct {
 	// Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
-	Depth *int64 `json:"depth,omitempty"`
+	Depth *int64 `json:"depth,omitzero"`
 	// Fields to NOT numerify. Takes precedence over 'Include expression' when set. Supports wildcards. A '!' before field name(s) means: numerify all fields EXCEPT these. For syntax details, see [Wildcard Lists](https://docs.cribl.io/stream/introduction-reference/#wildcard-lists).
-	IgnoreFields []string `json:"ignoreFields,omitempty"`
+	IgnoreFields []string `json:"ignoreFields,omitzero"`
 	// Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
-	FilterExpr *string                           `json:"filterExpr,omitempty"`
-	Format     *FunctionConfSchemaNumerifyFormat `json:"format,omitempty"`
+	FilterExpr *string                           `json:"filterExpr,omitzero"`
+	Format     *FunctionConfSchemaNumerifyFormat `json:"format,omitzero"`
 }
 
 func (f FunctionConfSchemaNumerify) MarshalJSON() ([]byte, error) {

@@ -5,7 +5,7 @@ package components
 type JobInfo struct {
 	Args   RunnableJob                                     `json:"args"`
 	ID     string                                          `json:"id"`
-	Keep   *bool                                           `json:"keep,omitempty"`
+	Keep   *bool                                           `json:"keep,omitzero"`
 	Stats  map[string]AdditionalPropertiesTypeJobInfoStats `json:"stats"`
 	Status JobStatus                                       `json:"status"`
 }

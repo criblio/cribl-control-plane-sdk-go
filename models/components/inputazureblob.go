@@ -33,65 +33,65 @@ func (e *InputAzureBlobType) UnmarshalJSON(data []byte) error {
 
 type InputAzureBlob struct {
 	// Unique ID for this input
-	ID       *string            `json:"id,omitempty"`
+	ID       *string            `json:"id,omitzero"`
 	Type     InputAzureBlobType `json:"type"`
-	Disabled *bool              `json:"disabled,omitempty"`
+	Disabled *bool              `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `json:"fileFilter,omitempty"`
+	FileFilter *string `json:"fileFilter,omitzero"`
 	// The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
+	NumReceivers *float64 `json:"numReceivers,omitzero"`
 	// The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
+	MaxMessages *float64 `json:"maxMessages,omitzero"`
 	// The duration (in seconds) which pollers should be validated and restarted if exited
-	ServicePeriodSecs *float64 `json:"servicePeriodSecs,omitempty"`
+	ServicePeriodSecs *float64 `json:"servicePeriodSecs,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `json:"skipOnError,omitempty"`
+	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                     `json:"parquetChunkDownloadTimeout,omitempty"`
-	AuthType                    *AuthenticationMethodOptions `json:"authType,omitempty"`
-	Description                 *string                      `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                     `json:"parquetChunkDownloadTimeout,omitzero"`
+	AuthType                    *AuthenticationMethodOptions `json:"authType,omitzero"`
+	Description                 *string                      `json:"description,omitzero"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
-	ConnectionString *string `json:"connectionString,omitempty"`
+	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret *string `json:"textSecret,omitzero"`
 	// The name of your Azure storage account
-	StorageAccountName *string `json:"storageAccountName,omitempty"`
+	StorageAccountName *string `json:"storageAccountName,omitzero"`
 	// The service principal's tenant ID
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string `json:"tenantId,omitzero"`
 	// The service principal's client ID
-	ClientID *string `json:"clientId,omitempty"`
+	ClientID *string `json:"clientId,omitzero"`
 	// The Azure cloud to use. Defaults to Azure Public Cloud.
-	AzureCloud *string `json:"azureCloud,omitempty"`
+	AzureCloud *string `json:"azureCloud,omitzero"`
 	// Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
-	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
+	EndpointSuffix *string `json:"endpointSuffix,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string                                     `json:"clientTextSecret,omitempty"`
-	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
+	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
+	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 }
 
 func (i InputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -99,7 +99,7 @@ func (i InputAzureBlob) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputAzureBlob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

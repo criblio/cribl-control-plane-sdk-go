@@ -62,15 +62,15 @@ type PipelineFunctionSerdeConf struct {
 	Mode OperationMode `json:"mode"`
 	// Parser or formatter type to use
 	Type       TypeOptions `json:"type"`
-	DelimChar  any         `json:"delimChar,omitempty"`
-	QuoteChar  any         `json:"quoteChar,omitempty"`
-	EscapeChar any         `json:"escapeChar,omitempty"`
-	NullValue  any         `json:"nullValue,omitempty"`
+	DelimChar  any         `json:"delimChar,omitzero"`
+	QuoteChar  any         `json:"quoteChar,omitzero"`
+	EscapeChar any         `json:"escapeChar,omitzero"`
+	NullValue  any         `json:"nullValue,omitzero"`
 	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitempty"`
+	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
-	DstField    *string `json:"dstField,omitempty"`
-	CleanFields any     `json:"cleanFields,omitempty"`
+	DstField    *string `json:"dstField,omitzero"`
+	CleanFields any     `json:"cleanFields,omitzero"`
 }
 
 func (p PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
@@ -78,7 +78,7 @@ func (p PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"mode", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -149,18 +149,18 @@ func (p *PipelineFunctionSerdeConf) GetCleanFields() any {
 
 type PipelineFunctionSerde struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionSerdeID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                     `json:"final,omitempty"`
+	Final *bool                     `json:"final,omitzero"`
 	Conf  PipelineFunctionSerdeConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionSerde) MarshalJSON() ([]byte, error) {
@@ -168,7 +168,7 @@ func (p PipelineFunctionSerde) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSerde) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

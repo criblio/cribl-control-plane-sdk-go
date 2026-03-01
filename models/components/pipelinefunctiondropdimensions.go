@@ -38,7 +38,7 @@ type PipelineFunctionDropDimensionsConf struct {
 	// One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
 	DropDimensions []string `json:"dropDimensions"`
 	// Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitzero"`
 }
 
 func (p PipelineFunctionDropDimensionsConf) MarshalJSON() ([]byte, error) {
@@ -46,7 +46,7 @@ func (p PipelineFunctionDropDimensionsConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionDropDimensionsConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "dropDimensions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -75,18 +75,18 @@ func (p *PipelineFunctionDropDimensionsConf) GetFlushOnInputClose() *bool {
 
 type PipelineFunctionDropDimensions struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionDropDimensionsID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                              `json:"final,omitempty"`
+	Final *bool                              `json:"final,omitzero"`
 	Conf  PipelineFunctionDropDimensionsConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionDropDimensions) MarshalJSON() ([]byte, error) {
@@ -94,7 +94,7 @@ func (p PipelineFunctionDropDimensions) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionDropDimensions) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

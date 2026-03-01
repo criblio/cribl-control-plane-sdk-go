@@ -100,138 +100,138 @@ func (o *OutputGoogleCloudLoggingPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputGoogleCloudLogging struct {
 	// Unique ID for this output
-	ID   *string                      `json:"id,omitempty"`
+	ID   *string                      `json:"id,omitzero"`
 	Type OutputGoogleCloudLoggingType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags      []string        `json:"streamtags,omitempty"`
+	Streamtags      []string        `json:"streamtags,omitzero"`
 	LogLocationType LogLocationType `json:"logLocationType"`
 	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogNameExpression string `json:"logNameExpression"`
-	SanitizeLogNames  *bool  `json:"sanitizeLogNames,omitempty"`
+	SanitizeLogNames  *bool  `json:"sanitizeLogNames,omitzero"`
 	// Format to use when sending payload. Defaults to Text.
-	PayloadFormat *PayloadFormat `json:"payloadFormat,omitempty"`
+	PayloadFormat *PayloadFormat `json:"payloadFormat,omitzero"`
 	// Labels to apply to the log entry
-	LogLabels []ItemsTypeLogLabels `json:"logLabels,omitempty"`
+	LogLabels []ItemsTypeLogLabels `json:"logLabels,omitzero"`
 	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
-	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitzero"`
 	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
-	ResourceTypeLabels []ItemsTypeLogLabels `json:"resourceTypeLabels,omitempty"`
+	ResourceTypeLabels []ItemsTypeLogLabels `json:"resourceTypeLabels,omitzero"`
 	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
-	SeverityExpression *string `json:"severityExpression,omitempty"`
+	SeverityExpression *string `json:"severityExpression,omitzero"`
 	// JavaScript expression to compute the value of the insert ID field.
-	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	InsertIDExpression *string `json:"insertIdExpression,omitzero"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
+	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret
-	Secret *string `json:"secret,omitempty"`
+	Secret *string `json:"secret,omitzero"`
 	// Maximum size, in KB, of the request body.
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Max number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Maximum number of ongoing requests before blocking.
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it.
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Maximum number of requests to limit to per second.
-	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	RequestMethodExpression *string `json:"requestMethodExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	RequestURLExpression *string `json:"requestUrlExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	RequestSizeExpression *string `json:"requestSizeExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	StatusExpression *string `json:"statusExpression,omitempty"`
+	StatusExpression *string `json:"statusExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	UserAgentExpression *string `json:"userAgentExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	RemoteIPExpression *string `json:"remoteIpExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	ServerIPExpression *string `json:"serverIpExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	RefererExpression *string `json:"refererExpression,omitempty"`
+	RefererExpression *string `json:"refererExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	LatencyExpression *string `json:"latencyExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	CacheHitExpression *string `json:"cacheHitExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitzero"`
 	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	ProtocolExpression *string `json:"protocolExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-	IDExpression *string `json:"idExpression,omitempty"`
+	IDExpression *string `json:"idExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-	ProducerExpression *string `json:"producerExpression,omitempty"`
+	ProducerExpression *string `json:"producerExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-	FirstExpression *string `json:"firstExpression,omitempty"`
+	FirstExpression *string `json:"firstExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-	LastExpression *string `json:"lastExpression,omitempty"`
+	LastExpression *string `json:"lastExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
-	FileExpression *string `json:"fileExpression,omitempty"`
+	FileExpression *string `json:"fileExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
-	LineExpression *string `json:"lineExpression,omitempty"`
+	LineExpression *string `json:"lineExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
-	FunctionExpression *string `json:"functionExpression,omitempty"`
+	FunctionExpression *string `json:"functionExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
-	UIDExpression *string `json:"uidExpression,omitempty"`
+	UIDExpression *string `json:"uidExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
-	IndexExpression *string `json:"indexExpression,omitempty"`
+	IndexExpression *string `json:"indexExpression,omitzero"`
 	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
-	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitzero"`
 	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
-	TraceExpression *string `json:"traceExpression,omitempty"`
+	TraceExpression *string `json:"traceExpression,omitzero"`
 	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
-	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	SpanIDExpression *string `json:"spanIdExpression,omitzero"`
 	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
-	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	TraceSampledExpression *string `json:"traceSampledExpression,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
-	Description        *string  `json:"description,omitempty"`
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
+	Description        *string  `json:"description,omitzero"`
 	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogLocationExpression string `json:"logLocationExpression"`
 	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
-	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	PayloadExpression *string `json:"payloadExpression,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions           `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions           `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitzero"`
 }
 
 func (o OutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
@@ -239,7 +239,7 @@ func (o OutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputGoogleCloudLogging) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logLocationType", "logNameExpression", "logLocationExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

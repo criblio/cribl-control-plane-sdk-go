@@ -8,7 +8,7 @@ import (
 
 type DatabaseCollectorConfStateTracking struct {
 	// Enable tracking of collection progress between consecutive scheduled executions.
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled *bool `json:"enabled,omitzero"`
 }
 
 func (d DatabaseCollectorConfStateTracking) MarshalJSON() ([]byte, error) {
@@ -30,7 +30,7 @@ func (d *DatabaseCollectorConfStateTracking) GetEnabled() *bool {
 }
 
 type DatabaseCollectorConfScheduling struct {
-	StateTracking *DatabaseCollectorConfStateTracking `json:"stateTracking,omitempty"`
+	StateTracking *DatabaseCollectorConfStateTracking `json:"stateTracking,omitzero"`
 }
 
 func (d DatabaseCollectorConfScheduling) MarshalJSON() ([]byte, error) {
@@ -57,9 +57,9 @@ type DatabaseCollectorConf struct {
 	// An expression that resolves to the query string for selecting data from the database. Has access to the special ${earliest} and ${latest} variables, which will resolve to the Collector run's start and end time.
 	Query string `json:"query"`
 	// Enforces a basic query validation that allows only a single 'select' statement. Disable for more complex queries or when using semicolons. Caution: Disabling query validation allows DDL and DML statements to be executed, which could be destructive to your database.
-	QueryValidationEnabled *bool                                              `json:"queryValidationEnabled,omitempty"`
-	DefaultBreakers        *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
-	Scheduling             *DatabaseCollectorConfScheduling                   `json:"__scheduling,omitempty"`
+	QueryValidationEnabled *bool                                              `json:"queryValidationEnabled,omitzero"`
+	DefaultBreakers        *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	Scheduling             *DatabaseCollectorConfScheduling                   `json:"__scheduling,omitzero"`
 }
 
 func (d DatabaseCollectorConf) MarshalJSON() ([]byte, error) {
@@ -67,7 +67,7 @@ func (d DatabaseCollectorConf) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DatabaseCollectorConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"connectionId", "query"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil

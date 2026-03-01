@@ -79,24 +79,54 @@ func CreateValueBoolean(boolean bool) Value {
 
 func (u *Value) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		u.Str = &str
-		u.Type = ValueTypeStr
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ValueTypeStr,
+			Value: &str,
+		})
 	}
 
 	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
-		u.Number = &number
-		u.Type = ValueTypeNumber
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ValueTypeNumber,
+			Value: &number,
+		})
 	}
 
 	var boolean bool = false
 	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
-		u.Boolean = &boolean
-		u.Type = ValueTypeBoolean
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ValueTypeBoolean,
+			Value: &boolean,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Value", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Value", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(ValueType)
+	switch best.Type {
+	case ValueTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case ValueTypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	case ValueTypeBoolean:
+		u.Boolean = best.Value.(*bool)
 		return nil
 	}
 
@@ -133,7 +163,7 @@ func (c Condition) MarshalJSON() ([]byte, error) {
 }
 
 func (c *Condition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "operator", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -164,17 +194,17 @@ type Policy struct {
 	// Unique identifier for this policy
 	ID string `json:"id"`
 	// If true, this policy will be skipped during evaluation
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// Time to wait (in minutes) to group similar alerts before sending
-	WaitToGroup *float64 `json:"waitToGroup,omitempty"`
+	WaitToGroup *float64 `json:"waitToGroup,omitzero"`
 	// Event fields to use for grouping
-	GroupByLabels []string `json:"groupByLabels,omitempty"`
+	GroupByLabels []string `json:"groupByLabels,omitzero"`
 	// List of conditions. If ANY condition matches (OR), the policy applies. Each condition is a list of tags that must ALL match (AND).
-	Conditions [][]Condition `json:"conditions,omitempty"`
+	Conditions [][]Condition `json:"conditions,omitzero"`
 	// List of targets to route to and the templates to use
 	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs"`
 	// If true, stop evaluating further policies after this one matches
-	Final *bool `json:"final,omitempty"`
+	Final *bool `json:"final,omitzero"`
 	// Evaluation order of this policy (lower numbers evaluated first)
 	Order float64 `json:"order"`
 }
@@ -184,7 +214,7 @@ func (p Policy) MarshalJSON() ([]byte, error) {
 }
 
 func (p *Policy) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "templateTargetPairs", "order"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -248,7 +278,7 @@ func (p *Policy) GetOrder() float64 {
 
 type FunctionConfSchemaNotificationPolicies struct {
 	// List of notification routing policies evaluated in order
-	Policies []Policy `json:"policies,omitempty"`
+	Policies []Policy `json:"policies,omitzero"`
 }
 
 func (f FunctionConfSchemaNotificationPolicies) MarshalJSON() ([]byte, error) {

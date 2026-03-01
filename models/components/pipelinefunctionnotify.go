@@ -100,25 +100,25 @@ type NotifyConfiguration struct {
 	// Id of the saved query
 	SavedQueryID string `json:"savedQueryId"`
 	// Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
-	Trigger *string `json:"trigger,omitempty"`
+	Trigger *string `json:"trigger,omitzero"`
 	// Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
-	TriggerType *TriggerType `json:"triggerType,omitempty"`
+	TriggerType *TriggerType `json:"triggerType,omitzero"`
 	// Operation to be applied over the results count
-	TriggerComparator *CountComparator `json:"triggerComparator,omitempty"`
+	TriggerComparator *CountComparator `json:"triggerComparator,omitzero"`
 	// How many results that match trigger the condition
-	TriggerCount *float64 `json:"triggerCount,omitempty"`
+	TriggerCount *float64 `json:"triggerCount,omitzero"`
 	// Number of results to include in the notification event
-	ResultsLimit *float64 `json:"resultsLimit,omitempty"`
+	ResultsLimit *float64 `json:"resultsLimit,omitzero"`
 	// Url of the search results
 	SearchURL string `json:"searchUrl"`
 	// Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl
-	Message *string `json:"message,omitempty"`
+	Message *string `json:"message,omitzero"`
 	// Auth token for sending notification messages
 	AuthToken string `json:"authToken"`
 	// System messages api endpoint
 	MessagesEndpoint string `json:"messagesEndpoint"`
 	// Current tenant id
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string `json:"tenantId,omitzero"`
 }
 
 func (n NotifyConfiguration) MarshalJSON() ([]byte, error) {
@@ -126,7 +126,7 @@ func (n NotifyConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (n *NotifyConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"group", "notificationId", "searchId", "savedQueryId", "searchUrl", "authToken", "messagesEndpoint"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -232,18 +232,18 @@ func (n *NotifyConfiguration) GetTenantID() *string {
 
 type PipelineFunctionNotify struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionNotifyID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool               `json:"final,omitempty"`
+	Final *bool               `json:"final,omitzero"`
 	Conf  NotifyConfiguration `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionNotify) MarshalJSON() ([]byte, error) {
@@ -251,7 +251,7 @@ func (p PipelineFunctionNotify) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionNotify) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

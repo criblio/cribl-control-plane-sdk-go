@@ -18,7 +18,7 @@ func (r Rename) MarshalJSON() ([]byte, error) {
 }
 
 func (r *Rename) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"currentName", "newName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -40,13 +40,13 @@ func (r *Rename) GetNewName() string {
 
 type FunctionConfSchemaRename struct {
 	// Fields whose children will inherit the Rename fields and Rename expression operations. Supports wildcards. If empty, only top-level fields will be renamed.
-	BaseFields []string `json:"baseFields,omitempty"`
+	BaseFields []string `json:"baseFields,omitzero"`
 	// Set of key-value pairs to rename fields, where key is the current name and value is the new name. Does not support internal fields.
-	Rename []Rename `json:"rename,omitempty"`
+	Rename []Rename `json:"rename,omitzero"`
 	// Optional JavaScript expression whose returned value will be used to rename fields. Use the 'name' and 'value' global variables to access field names/values. Example: `name.startsWith('data') ? name.toUpperCase() : name`. You can access other field values via __e.<fieldName>.
-	RenameExpr *string `json:"renameExpr,omitempty"`
+	RenameExpr *string `json:"renameExpr,omitzero"`
 	// For wildcards specified in Parent fields, sets the maximum depth within events to match and rename fields. Enter `0` to match only top-level fields. Defaults to `5` levels down.
-	WildcardDepth *int64 `json:"wildcardDepth,omitempty"`
+	WildcardDepth *int64 `json:"wildcardDepth,omitzero"`
 }
 
 func (f FunctionConfSchemaRename) MarshalJSON() ([]byte, error) {

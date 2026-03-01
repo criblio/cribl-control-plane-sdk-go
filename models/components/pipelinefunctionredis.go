@@ -34,13 +34,13 @@ func (e *PipelineFunctionRedisID) UnmarshalJSON(data []byte) error {
 
 type Command struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
+	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
 	Command string `json:"command"`
 	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
 	KeyExpr string `json:"keyExpr"`
 	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
+	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
 func (c Command) MarshalJSON() ([]byte, error) {
@@ -48,7 +48,7 @@ func (c Command) MarshalJSON() ([]byte, error) {
 }
 
 func (c *Command) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"command", "keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -140,12 +140,12 @@ func (e *PipelineFunctionRedisAuthenticationMethod) IsExact() bool {
 type PipelineFunctionRedisConf struct {
 	Commands []Command `json:"commands"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *DeploymentType                            `json:"deploymentType,omitempty"`
-	AuthType       *PipelineFunctionRedisAuthenticationMethod `json:"authType,omitempty"`
+	DeploymentType *DeploymentType                            `json:"deploymentType,omitzero"`
+	AuthType       *PipelineFunctionRedisAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
 func (p PipelineFunctionRedisConf) MarshalJSON() ([]byte, error) {
@@ -153,7 +153,7 @@ func (p PipelineFunctionRedisConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionRedisConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -196,18 +196,18 @@ func (p *PipelineFunctionRedisConf) GetEnableClientSideCaching() *bool {
 
 type PipelineFunctionRedis struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionRedisID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                     `json:"final,omitempty"`
+	Final *bool                     `json:"final,omitzero"`
 	Conf  PipelineFunctionRedisConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionRedis) MarshalJSON() ([]byte, error) {
@@ -215,7 +215,7 @@ func (p PipelineFunctionRedis) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionRedis) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

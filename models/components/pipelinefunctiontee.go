@@ -35,11 +35,11 @@ func (e *PipelineFunctionTeeID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionTeeConf struct {
 	// Command to execute and feed events to, via stdin. One JSON-formatted event per line.
 	Command string   `json:"command"`
-	Args    []string `json:"args,omitempty"`
+	Args    []string `json:"args,omitzero"`
 	// Restart the process if it exits and/or we fail to write to it
-	RestartOnExit *bool `json:"restartOnExit,omitempty"`
+	RestartOnExit *bool `json:"restartOnExit,omitzero"`
 	// Environment variables to overwrite or set
-	Env map[string]string `json:"env,omitempty"`
+	Env map[string]string `json:"env,omitzero"`
 }
 
 func (p PipelineFunctionTeeConf) MarshalJSON() ([]byte, error) {
@@ -47,7 +47,7 @@ func (p PipelineFunctionTeeConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionTeeConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"command"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -83,18 +83,18 @@ func (p *PipelineFunctionTeeConf) GetEnv() map[string]string {
 
 type PipelineFunctionTee struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionTeeID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                   `json:"final,omitempty"`
+	Final *bool                   `json:"final,omitzero"`
 	Conf  PipelineFunctionTeeConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionTee) MarshalJSON() ([]byte, error) {
@@ -102,7 +102,7 @@ func (p PipelineFunctionTee) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionTee) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -8,7 +8,7 @@ import (
 
 type Comment struct {
 	// Optional, short description of this Route's purpose
-	Comment              *string        `json:"comment,omitempty"`
+	Comment              *string        `json:"comment,omitzero"`
 	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 
@@ -39,12 +39,23 @@ func (c *Comment) GetAdditionalProperties() map[string]any {
 
 type Routes struct {
 	// Routes ID
-	ID *string `json:"id,omitempty"`
+	ID *string `json:"id,omitzero"`
 	// Pipeline routing rules
 	Routes []RoutesRoute                                         `json:"routes"`
-	Groups map[string]AdditionalPropertiesTypePipelineConfGroups `json:"groups,omitempty"`
+	Groups map[string]AdditionalPropertiesTypePipelineConfGroups `json:"groups,omitzero"`
 	// Comments
-	Comments []Comment `json:"comments,omitempty"`
+	Comments []Comment `json:"comments,omitzero"`
+}
+
+func (r Routes) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *Routes) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *Routes) GetID() *string {

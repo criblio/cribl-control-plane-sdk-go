@@ -27,3 +27,21 @@ restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP := components.C
 restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPOther(components.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP.Type {
+	case components.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeGet:
+		// restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypePost:
+		// restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	case components.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPTypeOther:
+		// restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP.RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther is populated
+	default:
+		// Unknown type - use restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```

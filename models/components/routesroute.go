@@ -7,21 +7,21 @@ import (
 )
 
 type RoutesRoute struct {
-	ID   *string `json:"id,omitempty"`
+	ID   *string `json:"id,omitzero"`
 	Name string  `json:"name"`
 	// Disable this routing rule
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// JavaScript expression to select data to route
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Pipeline to send the matching data to
 	Pipeline string `json:"pipeline"`
 	// Enable to use a JavaScript expression that evaluates to the name of the Description below
-	EnableOutputExpression *bool   `json:"enableOutputExpression,omitempty"`
-	Output                 any     `json:"output,omitempty"`
-	OutputExpression       any     `json:"outputExpression,omitempty"`
-	Description            *string `json:"description,omitempty"`
+	EnableOutputExpression *bool   `json:"enableOutputExpression,omitzero"`
+	Output                 any     `json:"output,omitzero"`
+	OutputExpression       any     `json:"outputExpression,omitzero"`
+	Description            *string `json:"description,omitzero"`
 	// Flag to control whether the event gets consumed by this Route (Final), or cloned into it
-	Final                *bool          `json:"final,omitempty"`
+	Final                *bool          `json:"final,omitzero"`
 	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 

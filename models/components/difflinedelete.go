@@ -42,7 +42,7 @@ func (d DiffLineDelete) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DiffLineDelete) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"type", "oldNumber", "content"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -84,7 +84,7 @@ func (e *OutputAzureDataExplorerAuthenticationMethod) IsExact() bool {
 
 type Certificate struct {
 	// The certificate you registered as credentials for your app in the Azure portal
-	CertificateName *string `json:"certificateName,omitempty"`
+	CertificateName *string `json:"certificateName,omitzero"`
 }
 
 func (c Certificate) MarshalJSON() ([]byte, error) {
@@ -130,7 +130,7 @@ func (e *PrefixOptional) IsExact() bool {
 }
 
 type ExtentTag struct {
-	Prefix *PrefixOptional `json:"prefix,omitempty"`
+	Prefix *PrefixOptional `json:"prefix,omitzero"`
 	Value  string          `json:"value"`
 }
 
@@ -139,7 +139,7 @@ func (e ExtentTag) MarshalJSON() ([]byte, error) {
 }
 
 func (e *ExtentTag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -168,7 +168,7 @@ func (i IngestIfNotExist) MarshalJSON() ([]byte, error) {
 }
 
 func (i *IngestIfNotExist) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -245,7 +245,7 @@ func (a AdditionalProperty) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AdditionalProperty) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"key", "value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -281,16 +281,16 @@ func (o *OutputAzureDataExplorerPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputAzureDataExplorer struct {
 	// Unique ID for this output
-	ID   *string                     `json:"id,omitempty"`
+	ID   *string                     `json:"id,omitzero"`
 	Type OutputAzureDataExplorerType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
 	ClusterURL string `json:"clusterUrl"`
 	// Name of the database containing the table where data will be ingested
@@ -298,8 +298,8 @@ type OutputAzureDataExplorer struct {
 	// Name of the table to ingest data into
 	Table string `json:"table"`
 	// When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
-	ValidateDatabaseSettings *bool          `json:"validateDatabaseSettings,omitempty"`
-	IngestMode               *IngestionMode `json:"ingestMode,omitempty"`
+	ValidateDatabaseSettings *bool          `json:"validateDatabaseSettings,omitzero"`
+	IngestMode               *IngestionMode `json:"ingestMode,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint"`
 	// Directory ID (tenant identifier) in Azure Active Directory
@@ -310,139 +310,139 @@ type OutputAzureDataExplorer struct {
 	Scope string `json:"scope"`
 	// The type of OAuth 2.0 client credentials grant flow to use
 	OauthType   OutputAzureDataExplorerAuthenticationMethod `json:"oauthType"`
-	Description *string                                     `json:"description,omitempty"`
+	Description *string                                     `json:"description,omitzero"`
 	// The client secret that you generated for your app in the Azure portal
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret  *string      `json:"textSecret,omitempty"`
-	Certificate *Certificate `json:"certificate,omitempty"`
+	TextSecret  *string      `json:"textSecret,omitzero"`
+	Certificate *Certificate `json:"certificate,omitzero"`
 	// Format of the output data
-	Format *DataFormatOptions `json:"format,omitempty"`
+	Format *DataFormatOptions `json:"format,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress CompressionOptions2 `json:"compress"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitempty"`
+	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `json:"automaticSchema,omitempty"`
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *ParquetVersionOptions `json:"parquetVersion,omitempty"`
+	ParquetVersion *ParquetVersionOptions `json:"parquetVersion,omitzero"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *DataPageVersionOptions `json:"parquetDataPageVersion,omitempty"`
+	ParquetDataPageVersion *DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitempty"`
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `json:"parquetPageSize,omitempty"`
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
 	// Log up to 3 rows that @{product} skips due to data mismatch
-	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `json:"enableStatistics,omitempty"`
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitempty"`
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool `json:"enablePageChecksum,omitempty"`
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `json:"deadletterPath,omitempty"`
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Send a JSON mapping object instead of specifying an existing named data mapping
-	IsMappingObj *bool `json:"isMappingObj,omitempty"`
+	IsMappingObj *bool `json:"isMappingObj,omitzero"`
 	// Enter a JSON object that defines your desired data mapping
-	MappingObj *string `json:"mappingObj,omitempty"`
+	MappingObj *string `json:"mappingObj,omitzero"`
 	// Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
-	MappingRef *string `json:"mappingRef,omitempty"`
+	MappingRef *string `json:"mappingRef,omitzero"`
 	// The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
-	IngestURL *string `json:"ingestUrl,omitempty"`
+	IngestURL *string `json:"ingestUrl,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `json:"stagePath,omitempty"`
+	StagePath *string `json:"stagePath,omitzero"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `json:"fileNameSuffix,omitempty"`
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// Maximum number of parts to upload in parallel per file
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitempty"`
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool              `json:"addIdToStagePath,omitempty"`
-	RetrySettings    *RetrySettingsType `json:"retrySettings,omitempty"`
+	AddIDToStagePath *bool              `json:"addIdToStagePath,omitzero"`
+	RetrySettings    *RetrySettingsType `json:"retrySettings,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Bypass the data management service's aggregation mechanism
-	FlushImmediately *bool `json:"flushImmediately,omitempty"`
+	FlushImmediately *bool `json:"flushImmediately,omitzero"`
 	// Prevent blob deletion after ingestion is complete
-	RetainBlobOnSuccess *bool `json:"retainBlobOnSuccess,omitempty"`
+	RetainBlobOnSuccess *bool `json:"retainBlobOnSuccess,omitzero"`
 	// Strings or tags associated with the extent (ingested data shard)
-	ExtentTags []ExtentTag `json:"extentTags,omitempty"`
+	ExtentTags []ExtentTag `json:"extentTags,omitzero"`
 	// Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
-	IngestIfNotExists []IngestIfNotExist `json:"ingestIfNotExists,omitempty"`
+	IngestIfNotExists []IngestIfNotExist `json:"ingestIfNotExists,omitzero"`
 	// Level of ingestion status reporting. Defaults to FailuresOnly.
-	ReportLevel *ReportLevel `json:"reportLevel,omitempty"`
+	ReportLevel *ReportLevel `json:"reportLevel,omitzero"`
 	// Target of the ingestion status reporting. Defaults to Queue.
-	ReportMethod *ReportMethod `json:"reportMethod,omitempty"`
+	ReportMethod *ReportMethod `json:"reportMethod,omitzero"`
 	// Optionally, enter additional configuration properties to send to the ingestion service
-	AdditionalProperties []AdditionalProperty `json:"additionalProperties,omitempty"`
+	AdditionalProperties []AdditionalProperty `json:"additionalProperties,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitempty"`
+	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable to close the connection immediately after sending the outgoing request
-	KeepAlive *bool `json:"keepAlive,omitempty"`
+	KeepAlive *bool `json:"keepAlive,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `json:"pqMode,omitempty"`
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitempty"`
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitempty"`
+	PqPath *string `json:"pqPath,omitzero"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions          `json:"pqOnBackpressure,omitempty"`
-	PqControls       *OutputAzureDataExplorerPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions          `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputAzureDataExplorerPqControls `json:"pqControls,omitzero"`
 }
 
 func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
@@ -450,7 +450,7 @@ func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputAzureDataExplorer) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "clusterUrl", "database", "table", "oauthEndpoint", "tenantId", "clientId", "scope", "oauthType", "compress"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
