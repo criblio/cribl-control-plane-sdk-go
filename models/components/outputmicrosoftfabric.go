@@ -55,8 +55,8 @@ func (e *OutputMicrosoftFabricAuthenticationMethod) IsExact() bool {
 
 // OutputMicrosoftFabricAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
 type OutputMicrosoftFabricAuthentication struct {
-	Disabled  bool                       `json:"disabled"`
-	Mechanism *SaslMechanismOptionsSasl1 `json:"mechanism,omitzero"`
+	Disabled  bool                                      `json:"disabled"`
+	Mechanism *SaslMechanismOptionsSaslOauthbearerPlain `json:"mechanism,omitzero"`
 	// The username for authentication. This should always be $ConnectionString.
 	Username *string `json:"username,omitzero"`
 	// Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
@@ -97,7 +97,7 @@ func (o *OutputMicrosoftFabricAuthentication) GetDisabled() bool {
 	return o.Disabled
 }
 
-func (o *OutputMicrosoftFabricAuthentication) GetMechanism() *SaslMechanismOptionsSasl1 {
+func (o *OutputMicrosoftFabricAuthentication) GetMechanism() *SaslMechanismOptionsSaslOauthbearerPlain {
 	if o == nil {
 		return nil
 	}

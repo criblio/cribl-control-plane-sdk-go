@@ -110,8 +110,8 @@ type InputMsk struct {
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                      `json:"durationSeconds,omitzero"`
-	TLS             *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	DurationSeconds *float64                                 `json:"durationSeconds,omitzero"`
+	TLS             *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
 	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
@@ -415,7 +415,7 @@ func (i *InputMsk) GetDurationSeconds() *float64 {
 	return i.DurationSeconds
 }
 
-func (i *InputMsk) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (i *InputMsk) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if i == nil {
 		return nil
 	}

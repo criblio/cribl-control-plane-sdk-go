@@ -92,7 +92,7 @@ type OutputKinesis struct {
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *SignatureVersionOptions2 `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptionsKinesis `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -248,7 +248,7 @@ func (o *OutputKinesis) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputKinesis) GetSignatureVersion() *SignatureVersionOptions2 {
+func (o *OutputKinesis) GetSignatureVersion() *SignatureVersionOptionsKinesis {
 	if o == nil {
 		return nil
 	}

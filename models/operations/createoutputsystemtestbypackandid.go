@@ -39,7 +39,7 @@ func (c *CreateOutputSystemTestByPackAndIDRequest) GetOutputTestRequest() compon
 
 type CreateOutputSystemTestByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of OutputTestResponse objects
+	// Destination test result
 	CountedOutputTestResponse *components.CountedOutputTestResponse
 }
 

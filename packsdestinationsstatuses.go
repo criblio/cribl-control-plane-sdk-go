@@ -281,7 +281,7 @@ func (s *PacksDestinationsStatuses) Get(ctx context.Context, id string, pack str
 }
 
 // List the status of all Destinations within a Pack
-// Get a list of status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
+// List status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
 func (s *PacksDestinationsStatuses) List(ctx context.Context, pack string, metrics *bool, type_ *bool, opts ...operations.Option) (*operations.GetOutputStatusSystemOutputsByPackResponse, error) {
 	request := operations.GetOutputStatusSystemOutputsByPackRequest{
 		Metrics: metrics,

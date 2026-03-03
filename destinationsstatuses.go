@@ -281,7 +281,7 @@ func (s *DestinationsStatuses) Get(ctx context.Context, id string, metrics *bool
 }
 
 // List the status of all Destinations
-// Get a list of status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet.
+// List status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet.
 func (s *DestinationsStatuses) List(ctx context.Context, metrics *bool, type_ *bool, opts ...operations.Option) (*operations.GetOutputStatusResponse, error) {
 	request := operations.GetOutputStatusRequest{
 		Metrics: metrics,

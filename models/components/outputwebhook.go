@@ -262,8 +262,8 @@ type OutputWebhook struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Authentication method to use for the HTTP request
-	AuthType *OutputWebhookAuthenticationType `json:"authType,omitzero"`
-	TLS      *TLSSettingsClientSideType1      `json:"tls,omitzero"`
+	AuthType *OutputWebhookAuthenticationType                 `json:"authType,omitzero"`
+	TLS      *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
@@ -533,7 +533,7 @@ func (o *OutputWebhook) GetAuthType() *OutputWebhookAuthenticationType {
 	return o.AuthType
 }
 
-func (o *OutputWebhook) GetTLS() *TLSSettingsClientSideType1 {
+func (o *OutputWebhook) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if o == nil {
 		return nil
 	}

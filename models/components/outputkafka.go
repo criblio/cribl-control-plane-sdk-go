@@ -62,18 +62,18 @@ type OutputKafka struct {
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *AcknowledgmentsOptions1 `json:"ack,omitzero"`
+	Ack *AcknowledgmentsOptionsAllLeader `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *RecordDataFormatOptions1 `json:"format,omitzero"`
+	Format *RecordDataFormatOptionsJSONProtobuf `json:"format,omitzero"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *CompressionOptions3 `json:"compression,omitzero"`
+	Compression *CompressionOptionsGzipLz4 `json:"compression,omitzero"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
 	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                `json:"flushPeriodSec,omitzero"`
-	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitzero"`
+	FlushPeriodSec      *float64                                                    `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -91,8 +91,8 @@ type OutputKafka struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *AuthenticationType                           `json:"sasl,omitzero"`
-	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	Sasl *AuthenticationType                      `json:"sasl,omitzero"`
+	TLS  *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                      `json:"description,omitzero"`
@@ -192,21 +192,21 @@ func (o *OutputKafka) GetTopic() string {
 	return o.Topic
 }
 
-func (o *OutputKafka) GetAck() *AcknowledgmentsOptions1 {
+func (o *OutputKafka) GetAck() *AcknowledgmentsOptionsAllLeader {
 	if o == nil {
 		return nil
 	}
 	return o.Ack
 }
 
-func (o *OutputKafka) GetFormat() *RecordDataFormatOptions1 {
+func (o *OutputKafka) GetFormat() *RecordDataFormatOptionsJSONProtobuf {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputKafka) GetCompression() *CompressionOptions3 {
+func (o *OutputKafka) GetCompression() *CompressionOptionsGzipLz4 {
 	if o == nil {
 		return nil
 	}
@@ -234,7 +234,7 @@ func (o *OutputKafka) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputKafka) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType1 {
+func (o *OutputKafka) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout {
 	if o == nil {
 		return nil
 	}
@@ -304,7 +304,7 @@ func (o *OutputKafka) GetSasl() *AuthenticationType {
 	return o.Sasl
 }
 
-func (o *OutputKafka) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputKafka) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if o == nil {
 		return nil
 	}

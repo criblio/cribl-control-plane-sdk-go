@@ -281,7 +281,7 @@ func (s *SourcesStatuses) Get(ctx context.Context, id string, metrics *bool, typ
 }
 
 // List the status of all Sources
-// Get a list of status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet.
+// List status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet.
 func (s *SourcesStatuses) List(ctx context.Context, metrics *bool, type_ *bool, opts ...operations.Option) (*operations.GetInputStatusResponse, error) {
 	request := operations.GetInputStatusRequest{
 		Metrics: metrics,

@@ -30,7 +30,7 @@ func (g *GetOutputSystemPqByPackAndIDRequest) GetPack() string {
 
 type GetOutputSystemPqByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of JobInfo objects
+	// information about the latest PQ clear job for the Destination
 	CountedJobInfo *components.CountedJobInfo
 }
 

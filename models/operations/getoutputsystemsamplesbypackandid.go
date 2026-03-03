@@ -30,7 +30,7 @@ func (g *GetOutputSystemSamplesByPackAndIDRequest) GetPack() string {
 
 type GetOutputSystemSamplesByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of OutputSamplesResponse objects
+	// sample event data for the Destination
 	CountedOutputSamplesResponse *components.CountedOutputSamplesResponse
 }
 

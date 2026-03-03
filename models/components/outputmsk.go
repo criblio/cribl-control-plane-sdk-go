@@ -62,18 +62,18 @@ type OutputMsk struct {
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *AcknowledgmentsOptions1 `json:"ack,omitzero"`
+	Ack *AcknowledgmentsOptionsAllLeader `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *RecordDataFormatOptions1 `json:"format,omitzero"`
+	Format *RecordDataFormatOptionsJSONProtobuf `json:"format,omitzero"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *CompressionOptions3 `json:"compression,omitzero"`
+	Compression *CompressionOptionsGzipLz4 `json:"compression,omitzero"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
 	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                `json:"flushPeriodSec,omitzero"`
-	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitzero"`
+	FlushPeriodSec      *float64                                                    `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -110,8 +110,8 @@ type OutputMsk struct {
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                      `json:"durationSeconds,omitzero"`
-	TLS             *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	DurationSeconds *float64                                 `json:"durationSeconds,omitzero"`
+	TLS             *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                      `json:"description,omitzero"`
@@ -224,21 +224,21 @@ func (o *OutputMsk) GetTopic() string {
 	return o.Topic
 }
 
-func (o *OutputMsk) GetAck() *AcknowledgmentsOptions1 {
+func (o *OutputMsk) GetAck() *AcknowledgmentsOptionsAllLeader {
 	if o == nil {
 		return nil
 	}
 	return o.Ack
 }
 
-func (o *OutputMsk) GetFormat() *RecordDataFormatOptions1 {
+func (o *OutputMsk) GetFormat() *RecordDataFormatOptionsJSONProtobuf {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputMsk) GetCompression() *CompressionOptions3 {
+func (o *OutputMsk) GetCompression() *CompressionOptionsGzipLz4 {
 	if o == nil {
 		return nil
 	}
@@ -266,7 +266,7 @@ func (o *OutputMsk) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputMsk) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType1 {
+func (o *OutputMsk) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout {
 	if o == nil {
 		return nil
 	}
@@ -406,7 +406,7 @@ func (o *OutputMsk) GetDurationSeconds() *float64 {
 	return o.DurationSeconds
 }
 
-func (o *OutputMsk) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputMsk) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if o == nil {
 		return nil
 	}

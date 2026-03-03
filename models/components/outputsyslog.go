@@ -250,8 +250,8 @@ type OutputSyslog struct {
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                      `json:"writeTimeout,omitzero"`
-	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	WriteTimeout *float64                                 `json:"writeTimeout,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
@@ -480,7 +480,7 @@ func (o *OutputSyslog) GetWriteTimeout() *float64 {
 	return o.WriteTimeout
 }
 
-func (o *OutputSyslog) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputSyslog) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if o == nil {
 		return nil
 	}

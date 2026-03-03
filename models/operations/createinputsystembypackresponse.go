@@ -2300,7 +2300,7 @@ type CreateInputSystemByPackInputEventhub struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType1       `json:"sasl,omitzero"`
+	Sasl *components.AuthenticationTypeUse     `json:"sasl,omitzero"`
 	TLS  *components.TLSSettingsClientSideType `json:"tls,omitzero"`
 	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
@@ -2497,7 +2497,7 @@ func (c *CreateInputSystemByPackInputEventhub) GetReauthenticationThreshold() *f
 	return c.ReauthenticationThreshold
 }
 
-func (c *CreateInputSystemByPackInputEventhub) GetSasl() *components.AuthenticationType1 {
+func (c *CreateInputSystemByPackInputEventhub) GetSasl() *components.AuthenticationTypeUse {
 	if c == nil {
 		return nil
 	}
@@ -2762,9 +2762,9 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules  *components.RetryRulesType1    `json:"retryRules,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata              `json:"metadata,omitzero"`
+	RetryRules  *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	Description *string                                     `json:"description,omitzero"`
 	// Username to run Message Trace API call.
 	Username *string `json:"username,omitzero"`
 	// Password to run Message Trace API call.
@@ -2987,7 +2987,7 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetMetadata() []componen
 	return c.Metadata
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetRetryRules() *components.RetryRulesType1 {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetRetryRules() *components.RetryRulesTypeCodesEnableHeader {
 	if c == nil {
 		return nil
 	}
@@ -3219,10 +3219,10 @@ type CreateInputSystemByPackInputOffice365Service struct {
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []CreateInputSystemByPackContentConfigOffice365Service `json:"contentConfig,omitzero"`
-	RetryRules    *components.RetryRulesType1                            `json:"retryRules,omitzero"`
+	RetryRules    *components.RetryRulesTypeCodesEnableHeader            `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType    *components.AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	Description *string                                             `json:"description,omitzero"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -3393,14 +3393,14 @@ func (c *CreateInputSystemByPackInputOffice365Service) GetContentConfig() []Crea
 	return c.ContentConfig
 }
 
-func (c *CreateInputSystemByPackInputOffice365Service) GetRetryRules() *components.RetryRulesType1 {
+func (c *CreateInputSystemByPackInputOffice365Service) GetRetryRules() *components.RetryRulesTypeCodesEnableHeader {
 	if c == nil {
 		return nil
 	}
 	return c.RetryRules
 }
 
-func (c *CreateInputSystemByPackInputOffice365Service) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (c *CreateInputSystemByPackInputOffice365Service) GetAuthType() *components.AuthenticationMethodOptionsManualSecret {
 	if c == nil {
 		return nil
 	}
@@ -3572,11 +3572,11 @@ type CreateInputSystemByPackInputOffice365Mgmt struct {
 	// Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []CreateInputSystemByPackContentConfigOffice365Mgmt `json:"contentConfig,omitzero"`
 	// Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
-	IngestionLag *float64                    `json:"ingestionLag,omitzero"`
-	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitzero"`
+	IngestionLag *float64                                    `json:"ingestionLag,omitzero"`
+	RetryRules   *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType    *components.AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	Description *string                                             `json:"description,omitzero"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -3763,14 +3763,14 @@ func (c *CreateInputSystemByPackInputOffice365Mgmt) GetIngestionLag() *float64 {
 	return c.IngestionLag
 }
 
-func (c *CreateInputSystemByPackInputOffice365Mgmt) GetRetryRules() *components.RetryRulesType1 {
+func (c *CreateInputSystemByPackInputOffice365Mgmt) GetRetryRules() *components.RetryRulesTypeCodesEnableHeader {
 	if c == nil {
 		return nil
 	}
 	return c.RetryRules
 }
 
-func (c *CreateInputSystemByPackInputOffice365Mgmt) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (c *CreateInputSystemByPackInputOffice365Mgmt) GetAuthType() *components.AuthenticationMethodOptionsManualSecret {
 	if c == nil {
 		return nil
 	}
@@ -4044,7 +4044,7 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *components.SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
+	SignatureVersion *components.SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -4321,7 +4321,7 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CreateInputSystemByPackInputEdgePrometheus) GetSignatureVersion() *components.SignatureVersionOptions1 {
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetSignatureVersion() *components.SignatureVersionOptionsV2V4 {
 	if c == nil {
 		return nil
 	}
@@ -4624,7 +4624,7 @@ type CreateInputSystemByPackInputPrometheus struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *components.SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
+	SignatureVersion *components.SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Use Assume Role credentials to access EC2
@@ -4932,7 +4932,7 @@ func (c *CreateInputSystemByPackInputPrometheus) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CreateInputSystemByPackInputPrometheus) GetSignatureVersion() *components.SignatureVersionOptions1 {
+func (c *CreateInputSystemByPackInputPrometheus) GetSignatureVersion() *components.SignatureVersionOptionsV2V4 {
 	if c == nil {
 		return nil
 	}
@@ -6767,8 +6767,8 @@ type CreateInputSystemByPackInputConfluentCloud struct {
 	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
-	Brokers []string                                                 `json:"brokers"`
-	TLS     *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	Brokers []string                                            `json:"brokers"`
+	TLS     *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
@@ -6911,7 +6911,7 @@ func (c *CreateInputSystemByPackInputConfluentCloud) GetBrokers() []string {
 	return c.Brokers
 }
 
-func (c *CreateInputSystemByPackInputConfluentCloud) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (c *CreateInputSystemByPackInputConfluentCloud) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
@@ -9812,8 +9812,8 @@ type CreateInputSystemByPackInputMsk struct {
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                                 `json:"durationSeconds,omitzero"`
-	TLS             *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	DurationSeconds *float64                                            `json:"durationSeconds,omitzero"`
+	TLS             *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
 	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
@@ -10117,7 +10117,7 @@ func (c *CreateInputSystemByPackInputMsk) GetDurationSeconds() *float64 {
 	return c.DurationSeconds
 }
 
-func (c *CreateInputSystemByPackInputMsk) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (c *CreateInputSystemByPackInputMsk) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
@@ -10282,8 +10282,8 @@ type CreateInputSystemByPackInputKafka struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType                           `json:"sasl,omitzero"`
-	TLS  *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	Sasl *components.AuthenticationType                      `json:"sasl,omitzero"`
+	TLS  *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	//       Timeout used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires,
 	//       the broker will remove the client from the group and initiate a rebalance.
@@ -10492,7 +10492,7 @@ func (c *CreateInputSystemByPackInputKafka) GetSasl() *components.Authentication
 	return c.Sasl
 }
 
-func (c *CreateInputSystemByPackInputKafka) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (c *CreateInputSystemByPackInputKafka) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
