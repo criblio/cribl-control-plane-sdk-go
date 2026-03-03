@@ -85,9 +85,9 @@ type CreateOutputSystemByPackOutputCloudflareR2 struct {
 	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
 	DestPath *string `json:"destPath,omitzero"`
 	// Signature version to use for signing MinIO requests
-	SignatureVersion *components.SignatureVersionOptions5 `json:"signatureVersion,omitzero"`
+	SignatureVersion *components.SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *components.StorageClassOptions2 `json:"storageClass,omitzero"`
+	StorageClass *components.StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
 	// Server-side encryption for uploaded objects
 	ServerSideEncryption *components.ServerSideEncryptionOptions `json:"serverSideEncryption,omitzero"`
 	// Reuse connections between requests, which can improve performance
@@ -115,7 +115,7 @@ type CreateOutputSystemByPackOutputCloudflareR2 struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -133,7 +133,7 @@ type CreateOutputSystemByPackOutputCloudflareR2 struct {
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
+	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -274,14 +274,14 @@ func (c *CreateOutputSystemByPackOutputCloudflareR2) GetDestPath() *string {
 	return c.DestPath
 }
 
-func (c *CreateOutputSystemByPackOutputCloudflareR2) GetSignatureVersion() *components.SignatureVersionOptions5 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetSignatureVersion() *components.SignatureVersionOptionsMinIo {
 	if c == nil {
 		return nil
 	}
 	return c.SignatureVersion
 }
 
-func (c *CreateOutputSystemByPackOutputCloudflareR2) GetStorageClass() *components.StorageClassOptions2 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetStorageClass() *components.StorageClassOptionsReducedredundancyStandard {
 	if c == nil {
 		return nil
 	}
@@ -379,7 +379,7 @@ func (c *CreateOutputSystemByPackOutputCloudflareR2) GetWriteHighWaterMark() *fl
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputSystemByPackOutputCloudflareR2) GetOnBackpressure() *components.BackpressureBehaviorOptions1 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
@@ -449,7 +449,7 @@ func (c *CreateOutputSystemByPackOutputCloudflareR2) GetAwsSecret() *string {
 	return c.AwsSecret
 }
 
-func (c *CreateOutputSystemByPackOutputCloudflareR2) GetCompress() *components.CompressionOptions2 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
@@ -629,8 +629,8 @@ func (e *CreateOutputSystemByPackClientSecretAuthTypeAuthenticationMethod) IsExa
 
 // CreateOutputSystemByPackAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
 type CreateOutputSystemByPackAuthentication struct {
-	Disabled  bool                                  `json:"disabled"`
-	Mechanism *components.SaslMechanismOptionsSasl1 `json:"mechanism,omitzero"`
+	Disabled  bool                                                 `json:"disabled"`
+	Mechanism *components.SaslMechanismOptionsSaslOauthbearerPlain `json:"mechanism,omitzero"`
 	// The username for authentication. This should always be $ConnectionString.
 	Username *string `json:"username,omitzero"`
 	// Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
@@ -671,7 +671,7 @@ func (c *CreateOutputSystemByPackAuthentication) GetDisabled() bool {
 	return c.Disabled
 }
 
-func (c *CreateOutputSystemByPackAuthentication) GetMechanism() *components.SaslMechanismOptionsSasl1 {
+func (c *CreateOutputSystemByPackAuthentication) GetMechanism() *components.SaslMechanismOptionsSaslOauthbearerPlain {
 	if c == nil {
 		return nil
 	}
@@ -1192,7 +1192,7 @@ type CreateOutputSystemByPackOutputDatabricks struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -1200,25 +1200,25 @@ type CreateOutputSystemByPackOutputDatabricks struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	// Databricks workspace ID
+	// Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
 	WorkspaceID string `json:"workspaceId"`
 	// OAuth scope for Unity Catalog authentication
 	Scope string `json:"scope"`
 	// OAuth client ID for Unity Catalog authentication
 	ClientID string `json:"clientId"`
-	// Name of the catalog to use for the output
+	// Name of the Unity Catalog catalog to use for the Destination.
 	Catalog string `json:"catalog"`
-	// Name of the catalog schema to use for the output
+	// Name of the Unity Catalog schema to use for the Destination.
 	Schema string `json:"schema"`
-	// Name of the events volume in Databricks
+	// Name of the Unity Catalog volume where event data is written.
 	EventsVolumeName string `json:"eventsVolumeName"`
 	// OAuth client secret for Unity Catalog authentication
 	ClientTextSecret string `json:"clientTextSecret"`
-	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec  *float64 `json:"timeoutSec,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec  *int64  `json:"timeoutSec,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
+	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -1406,7 +1406,7 @@ func (c *CreateOutputSystemByPackOutputDatabricks) GetWriteHighWaterMark() *floa
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputSystemByPackOutputDatabricks) GetOnBackpressure() *components.BackpressureBehaviorOptions1 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
@@ -1490,7 +1490,7 @@ func (c *CreateOutputSystemByPackOutputDatabricks) GetClientTextSecret() string 
 	return c.ClientTextSecret
 }
 
-func (c *CreateOutputSystemByPackOutputDatabricks) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTimeoutSec() *int64 {
 	if c == nil {
 		return nil
 	}
@@ -1504,7 +1504,7 @@ func (c *CreateOutputSystemByPackOutputDatabricks) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CreateOutputSystemByPackOutputDatabricks) GetCompress() *components.CompressionOptions2 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
@@ -2848,11 +2848,11 @@ type CreateOutputSystemByPackOutputDynatraceOtlp struct {
 	// The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion components.OtlpVersionOptions1 `json:"otlpVersion"`
+	OtlpVersion components.OtlpVersionOptions131 `json:"otlpVersion"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *components.CompressionOptions4 `json:"compress,omitzero"`
+	Compress *components.CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *components.CompressionOptions5 `json:"httpCompress,omitzero"`
+	HTTPCompress *components.CompressionOptionsMessages `json:"httpCompress,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -2990,21 +2990,21 @@ func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetEndpoint() string {
 	return c.Endpoint
 }
 
-func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetOtlpVersion() components.OtlpVersionOptions1 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetOtlpVersion() components.OtlpVersionOptions131 {
 	if c == nil {
-		return components.OtlpVersionOptions1("")
+		return components.OtlpVersionOptions131("")
 	}
 	return c.OtlpVersion
 }
 
-func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetCompress() *components.CompressionOptions4 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetCompress() *components.CompressionOptionsDeflateGzip {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetHTTPCompress() *components.CompressionOptions5 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetHTTPCompress() *components.CompressionOptionsMessages {
 	if c == nil {
 		return nil
 	}
@@ -4700,9 +4700,9 @@ type CreateOutputSystemByPackOutputLocalSearchStorage struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the database instance. Example: http://localhost:8123/
-	URL      string                                 `json:"url"`
-	AuthType *components.AuthenticationTypeOptions1 `json:"authType,omitzero"`
-	Database string                                 `json:"database"`
+	URL      string                                                      `json:"url"`
+	AuthType *components.AuthenticationTypeOptionsBasicCredentialsSecret `json:"authType,omitzero"`
+	Database string                                                      `json:"database"`
 	// Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data. Defaults to JSON Compact.
@@ -4710,8 +4710,8 @@ type CreateOutputSystemByPackOutputLocalSearchStorage struct {
 	// How event fields are mapped to columns.
 	MappingType *CreateOutputSystemByPackMappingTypeLocalSearchStorage `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a table immediately.
-	AsyncInserts *bool                                  `json:"asyncInserts,omitzero"`
-	TLS          *components.TLSSettingsClientSideType1 `json:"tls,omitzero"`
+	AsyncInserts *bool                                                       `json:"asyncInserts,omitzero"`
+	TLS          *components.TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -4849,7 +4849,7 @@ func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetURL() string {
 	return c.URL
 }
 
-func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetAuthType() *components.AuthenticationTypeOptions1 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetAuthType() *components.AuthenticationTypeOptionsBasicCredentialsSecret {
 	if c == nil {
 		return nil
 	}
@@ -4891,7 +4891,7 @@ func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetAsyncInserts() *bo
 	return c.AsyncInserts
 }
 
-func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTLS() *components.TLSSettingsClientSideType1 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if c == nil {
 		return nil
 	}
@@ -5319,9 +5319,9 @@ type CreateOutputSystemByPackOutputClickHouse struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the ClickHouse instance. Example: http://localhost:8123/
-	URL      string                                 `json:"url"`
-	AuthType *components.AuthenticationTypeOptions1 `json:"authType,omitzero"`
-	Database string                                 `json:"database"`
+	URL      string                                                      `json:"url"`
+	AuthType *components.AuthenticationTypeOptionsBasicCredentialsSecret `json:"authType,omitzero"`
+	Database string                                                      `json:"database"`
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
@@ -5329,8 +5329,8 @@ type CreateOutputSystemByPackOutputClickHouse struct {
 	// How event fields are mapped to ClickHouse columns.
 	MappingType *CreateOutputSystemByPackMappingTypeClickHouse `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
-	AsyncInserts *bool                                  `json:"asyncInserts,omitzero"`
-	TLS          *components.TLSSettingsClientSideType1 `json:"tls,omitzero"`
+	AsyncInserts *bool                                                       `json:"asyncInserts,omitzero"`
+	TLS          *components.TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -5467,7 +5467,7 @@ func (c *CreateOutputSystemByPackOutputClickHouse) GetURL() string {
 	return c.URL
 }
 
-func (c *CreateOutputSystemByPackOutputClickHouse) GetAuthType() *components.AuthenticationTypeOptions1 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetAuthType() *components.AuthenticationTypeOptionsBasicCredentialsSecret {
 	if c == nil {
 		return nil
 	}
@@ -5509,7 +5509,7 @@ func (c *CreateOutputSystemByPackOutputClickHouse) GetAsyncInserts() *bool {
 	return c.AsyncInserts
 }
 
-func (c *CreateOutputSystemByPackOutputClickHouse) GetTLS() *components.TLSSettingsClientSideType1 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if c == nil {
 		return nil
 	}
@@ -6017,7 +6017,7 @@ type CreateOutputSystemByPackOutputCriblLake struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -6288,7 +6288,7 @@ func (c *CreateOutputSystemByPackOutputCriblLake) GetWriteHighWaterMark() *float
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputSystemByPackOutputCriblLake) GetOnBackpressure() *components.BackpressureBehaviorOptions1 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
@@ -6554,7 +6554,7 @@ type CreateOutputSystemByPackOutputSecurityLake struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -6846,7 +6846,7 @@ func (c *CreateOutputSystemByPackOutputSecurityLake) GetWriteHighWaterMark() *fl
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputSystemByPackOutputSecurityLake) GetOnBackpressure() *components.BackpressureBehaviorOptions1 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
@@ -7187,7 +7187,7 @@ type CreateOutputSystemByPackOutputDlS3 struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -7213,7 +7213,7 @@ type CreateOutputSystemByPackOutputDlS3 struct {
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
+	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -7504,7 +7504,7 @@ func (c *CreateOutputSystemByPackOutputDlS3) GetWriteHighWaterMark() *float64 {
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputSystemByPackOutputDlS3) GetOnBackpressure() *components.BackpressureBehaviorOptions1 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
@@ -7602,7 +7602,7 @@ func (c *CreateOutputSystemByPackOutputDlS3) GetAwsSecret() *string {
 	return c.AwsSecret
 }
 
-func (c *CreateOutputSystemByPackOutputDlS3) GetCompress() *components.CompressionOptions2 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
@@ -8620,14 +8620,14 @@ type CreateOutputSystemByPackOutputCriblSearchEngine struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool                                                    `json:"loadBalanced,omitzero"`
-	TLS          *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	LoadBalanced *bool                                               `json:"loadBalanced,omitzero"`
+	TLS          *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
 	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// Codec to use to compress the data before sending
-	Compression *components.CompressionOptions1 `json:"compression,omitzero"`
+	Compression *components.CompressionOptionsGzipNone `json:"compression,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -8655,8 +8655,8 @@ type CreateOutputSystemByPackOutputCriblSearchEngine struct {
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
-	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
-	AuthTokens []components.ItemsTypeAuthTokens1 `json:"authTokens,omitzero"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
+	AuthTokens []components.ItemsTypeAuthTokensTokenSecret `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
@@ -8756,7 +8756,7 @@ func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetLoadBalanced() *boo
 	return c.LoadBalanced
 }
 
-func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
@@ -8777,7 +8777,7 @@ func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetExcludeFields() []s
 	return c.ExcludeFields
 }
 
-func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetCompression() *components.CompressionOptions1 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetCompression() *components.CompressionOptionsGzipNone {
 	if c == nil {
 		return nil
 	}
@@ -8875,7 +8875,7 @@ func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetResponseHonorRetryA
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetAuthTokens() []components.ItemsTypeAuthTokens1 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetAuthTokens() []components.ItemsTypeAuthTokensTokenSecret {
 	if c == nil {
 		return nil
 	}
@@ -9072,14 +9072,14 @@ type CreateOutputSystemByPackOutputCriblHTTP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool                                                    `json:"loadBalanced,omitzero"`
-	TLS          *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	LoadBalanced *bool                                               `json:"loadBalanced,omitzero"`
+	TLS          *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
 	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// Codec to use to compress the data before sending
-	Compression *components.CompressionOptions1 `json:"compression,omitzero"`
+	Compression *components.CompressionOptionsGzipNone `json:"compression,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -9108,7 +9108,7 @@ type CreateOutputSystemByPackOutputCriblHTTP struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
-	AuthTokens []components.ItemsTypeAuthTokens1 `json:"authTokens,omitzero"`
+	AuthTokens []components.ItemsTypeAuthTokensTokenSecret `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                                 `json:"description,omitzero"`
@@ -9208,7 +9208,7 @@ func (c *CreateOutputSystemByPackOutputCriblHTTP) GetLoadBalanced() *bool {
 	return c.LoadBalanced
 }
 
-func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
@@ -9229,7 +9229,7 @@ func (c *CreateOutputSystemByPackOutputCriblHTTP) GetExcludeFields() []string {
 	return c.ExcludeFields
 }
 
-func (c *CreateOutputSystemByPackOutputCriblHTTP) GetCompression() *components.CompressionOptions1 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetCompression() *components.CompressionOptionsGzipNone {
 	if c == nil {
 		return nil
 	}
@@ -9327,7 +9327,7 @@ func (c *CreateOutputSystemByPackOutputCriblHTTP) GetResponseHonorRetryAfterHead
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputSystemByPackOutputCriblHTTP) GetAuthTokens() []components.ItemsTypeAuthTokens1 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetAuthTokens() []components.ItemsTypeAuthTokensTokenSecret {
 	if c == nil {
 		return nil
 	}
@@ -9526,12 +9526,12 @@ type CreateOutputSystemByPackOutputCriblTCP struct {
 	// Use load-balanced destinations
 	LoadBalanced *bool `json:"loadBalanced,omitzero"`
 	// Codec to use to compress the data before sending
-	Compression *components.CompressionOptions1 `json:"compression,omitzero"`
+	Compression *components.CompressionOptionsGzipNone `json:"compression,omitzero"`
 	// Use to troubleshoot issues with sending data
 	LogFailedRequests *bool `json:"logFailedRequests,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string                                                  `json:"throttleRatePerSec,omitzero"`
-	TLS                *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	ThrottleRatePerSec *string                                             `json:"throttleRatePerSec,omitzero"`
+	TLS                *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
@@ -9646,7 +9646,7 @@ func (c *CreateOutputSystemByPackOutputCriblTCP) GetLoadBalanced() *bool {
 	return c.LoadBalanced
 }
 
-func (c *CreateOutputSystemByPackOutputCriblTCP) GetCompression() *components.CompressionOptions1 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetCompression() *components.CompressionOptionsGzipNone {
 	if c == nil {
 		return nil
 	}
@@ -9667,7 +9667,7 @@ func (c *CreateOutputSystemByPackOutputCriblTCP) GetThrottleRatePerSec() *string
 	return c.ThrottleRatePerSec
 }
 
-func (c *CreateOutputSystemByPackOutputCriblTCP) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
@@ -10018,7 +10018,7 @@ type CreateOutputSystemByPackOutputDataset struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType *components.AuthenticationMethodOptionsAPI `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -10252,7 +10252,7 @@ func (c *CreateOutputSystemByPackOutputDataset) GetOnBackpressure() *components.
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputDataset) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (c *CreateOutputSystemByPackOutputDataset) GetAuthType() *components.AuthenticationMethodOptionsAPI {
 	if c == nil {
 		return nil
 	}
@@ -10433,15 +10433,15 @@ type CreateOutputSystemByPackOutputServiceNow struct {
 	TokenSecret   string  `json:"tokenSecret"`
 	AuthTokenName *string `json:"authTokenName,omitzero"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion components.OtlpVersionOptions1 `json:"otlpVersion"`
+	OtlpVersion components.OtlpVersionOptions131 `json:"otlpVersion"`
 	// Maximum size, in KB, of the request body
 	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Select a transport option for OpenTelemetry
 	Protocol components.ProtocolOptions `json:"protocol"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *components.CompressionOptions4 `json:"compress,omitzero"`
+	Compress *components.CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *components.CompressionOptions5 `json:"httpCompress,omitzero"`
+	HTTPCompress *components.CompressionOptionsMessages `json:"httpCompress,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -10481,8 +10481,8 @@ type CreateOutputSystemByPackOutputServiceNow struct {
 	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                                  `json:"responseHonorRetryAfterHeader,omitzero"`
-	TLS                           *components.TLSSettingsClientSideType2 `json:"tls,omitzero"`
+	ResponseHonorRetryAfterHeader *bool                                         `json:"responseHonorRetryAfterHeader,omitzero"`
+	TLS                           *components.TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -10580,9 +10580,9 @@ func (c *CreateOutputSystemByPackOutputServiceNow) GetAuthTokenName() *string {
 	return c.AuthTokenName
 }
 
-func (c *CreateOutputSystemByPackOutputServiceNow) GetOtlpVersion() components.OtlpVersionOptions1 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetOtlpVersion() components.OtlpVersionOptions131 {
 	if c == nil {
-		return components.OtlpVersionOptions1("")
+		return components.OtlpVersionOptions131("")
 	}
 	return c.OtlpVersion
 }
@@ -10601,14 +10601,14 @@ func (c *CreateOutputSystemByPackOutputServiceNow) GetProtocol() components.Prot
 	return c.Protocol
 }
 
-func (c *CreateOutputSystemByPackOutputServiceNow) GetCompress() *components.CompressionOptions4 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetCompress() *components.CompressionOptionsDeflateGzip {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputSystemByPackOutputServiceNow) GetHTTPCompress() *components.CompressionOptions5 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetHTTPCompress() *components.CompressionOptionsMessages {
 	if c == nil {
 		return nil
 	}
@@ -10755,7 +10755,7 @@ func (c *CreateOutputSystemByPackOutputServiceNow) GetResponseHonorRetryAfterHea
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputSystemByPackOutputServiceNow) GetTLS() *components.TLSSettingsClientSideType2 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetTLS() *components.TLSSettingsClientSideTypeExtended {
 	if c == nil {
 		return nil
 	}
@@ -10920,9 +10920,9 @@ type CreateOutputSystemByPackOutputOpenTelemetry struct {
 	// The version of OTLP Protobuf definitions to use when structuring data to send
 	OtlpVersion *CreateOutputSystemByPackOTLPVersion `json:"otlpVersion,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *components.CompressionOptions4 `json:"compress,omitzero"`
+	Compress *components.CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *components.CompressionOptions5 `json:"httpCompress,omitzero"`
+	HTTPCompress *components.CompressionOptionsMessages `json:"httpCompress,omitzero"`
 	// OpenTelemetry authentication type
 	AuthType *components.AuthenticationTypeOptions `json:"authType,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -10974,8 +10974,8 @@ type CreateOutputSystemByPackOutputOpenTelemetry struct {
 	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                                  `json:"responseHonorRetryAfterHeader,omitzero"`
-	TLS                           *components.TLSSettingsClientSideType2 `json:"tls,omitzero"`
+	ResponseHonorRetryAfterHeader *bool                                         `json:"responseHonorRetryAfterHeader,omitzero"`
+	TLS                           *components.TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -11073,14 +11073,14 @@ func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOtlpVersion() *CreateOu
 	return c.OtlpVersion
 }
 
-func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetCompress() *components.CompressionOptions4 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetCompress() *components.CompressionOptionsDeflateGzip {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetHTTPCompress() *components.CompressionOptions5 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetHTTPCompress() *components.CompressionOptionsMessages {
 	if c == nil {
 		return nil
 	}
@@ -11276,7 +11276,7 @@ func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetResponseHonorRetryAfter
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTLS() *components.TLSSettingsClientSideType2 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTLS() *components.TLSSettingsClientSideTypeExtended {
 	if c == nil {
 		return nil
 	}
@@ -11430,8 +11430,8 @@ type CreateOutputSystemByPackOutputRing struct {
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
 	DestPath *string `json:"destPath,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
-	Description    *string                                  `json:"description,omitzero"`
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
+	Description    *string                                          `json:"description,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputRing) MarshalJSON() ([]byte, error) {
@@ -11529,7 +11529,7 @@ func (c *CreateOutputSystemByPackOutputRing) GetDestPath() *string {
 	return c.DestPath
 }
 
-func (c *CreateOutputSystemByPackOutputRing) GetOnBackpressure() *components.BackpressureBehaviorOptions1 {
+func (c *CreateOutputSystemByPackOutputRing) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
@@ -12033,8 +12033,8 @@ type CreateOutputSystemByPackOutputLoki struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *components.MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels   []components.ItemsTypeContentConfigItemsRequestParams `json:"labels,omitzero"`
-	AuthType *components.AuthenticationTypeOptionsPrometheusAuth1  `json:"authType,omitzero"`
+	Labels   []components.ItemsTypeContentConfigItemsRequestParams                     `json:"labels,omitzero"`
+	AuthType *components.AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret `json:"authType,omitzero"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
@@ -12185,7 +12185,7 @@ func (c *CreateOutputSystemByPackOutputLoki) GetLabels() []components.ItemsTypeC
 	return c.Labels
 }
 
-func (c *CreateOutputSystemByPackOutputLoki) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuth1 {
+func (c *CreateOutputSystemByPackOutputLoki) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret {
 	if c == nil {
 		return nil
 	}
@@ -13587,7 +13587,7 @@ type CreateOutputSystemByPackOutputDatadog struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType *components.AuthenticationMethodOptionsAPI `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -13854,7 +13854,7 @@ func (c *CreateOutputSystemByPackOutputDatadog) GetOnBackpressure() *components.
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputDatadog) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetAuthType() *components.AuthenticationMethodOptionsAPI {
 	if c == nil {
 		return nil
 	}
@@ -14656,7 +14656,7 @@ type CreateOutputSystemByPackOutputSqs struct {
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing SQS requests
-	SignatureVersion *components.SignatureVersionOptions3 `json:"signatureVersion,omitzero"`
+	SignatureVersion *components.SignatureVersionOptionsSqs `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -14836,7 +14836,7 @@ func (c *CreateOutputSystemByPackOutputSqs) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CreateOutputSystemByPackOutputSqs) GetSignatureVersion() *components.SignatureVersionOptions3 {
+func (c *CreateOutputSystemByPackOutputSqs) GetSignatureVersion() *components.SignatureVersionOptionsSqs {
 	if c == nil {
 		return nil
 	}
@@ -16605,11 +16605,11 @@ type CreateOutputSystemByPackOutputMinio struct {
 	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
 	DestPath *string `json:"destPath,omitzero"`
 	// Signature version to use for signing MinIO requests
-	SignatureVersion *components.SignatureVersionOptions5 `json:"signatureVersion,omitzero"`
+	SignatureVersion *components.SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *components.StorageClassOptions2 `json:"storageClass,omitzero"`
+	StorageClass *components.StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
 	// Server-side encryption for uploaded objects
 	ServerSideEncryption *components.ServerSideEncryptionOptions `json:"serverSideEncryption,omitzero"`
 	// Reuse connections between requests, which can improve performance
@@ -16637,7 +16637,7 @@ type CreateOutputSystemByPackOutputMinio struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -16657,7 +16657,7 @@ type CreateOutputSystemByPackOutputMinio struct {
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
+	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -16809,7 +16809,7 @@ func (c *CreateOutputSystemByPackOutputMinio) GetDestPath() *string {
 	return c.DestPath
 }
 
-func (c *CreateOutputSystemByPackOutputMinio) GetSignatureVersion() *components.SignatureVersionOptions5 {
+func (c *CreateOutputSystemByPackOutputMinio) GetSignatureVersion() *components.SignatureVersionOptionsMinIo {
 	if c == nil {
 		return nil
 	}
@@ -16823,7 +16823,7 @@ func (c *CreateOutputSystemByPackOutputMinio) GetObjectACL() *components.ObjectA
 	return c.ObjectACL
 }
 
-func (c *CreateOutputSystemByPackOutputMinio) GetStorageClass() *components.StorageClassOptions2 {
+func (c *CreateOutputSystemByPackOutputMinio) GetStorageClass() *components.StorageClassOptionsReducedredundancyStandard {
 	if c == nil {
 		return nil
 	}
@@ -16921,7 +16921,7 @@ func (c *CreateOutputSystemByPackOutputMinio) GetWriteHighWaterMark() *float64 {
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputSystemByPackOutputMinio) GetOnBackpressure() *components.BackpressureBehaviorOptions1 {
+func (c *CreateOutputSystemByPackOutputMinio) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
@@ -16998,7 +16998,7 @@ func (c *CreateOutputSystemByPackOutputMinio) GetAwsSecret() *string {
 	return c.AwsSecret
 }
 
-func (c *CreateOutputSystemByPackOutputMinio) GetCompress() *components.CompressionOptions2 {
+func (c *CreateOutputSystemByPackOutputMinio) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}

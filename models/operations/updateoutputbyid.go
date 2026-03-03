@@ -314,7 +314,7 @@ func (u *UpdateOutputByIDRequest) GetOutputCloudflareR2() *components.OutputClou
 
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
+	// the updated Destination object
 	CountedOutput *components.CountedOutput
 }
 

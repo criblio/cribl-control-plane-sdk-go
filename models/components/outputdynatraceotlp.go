@@ -110,11 +110,11 @@ type OutputDynatraceOtlp struct {
 	// The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion OtlpVersionOptions1 `json:"otlpVersion"`
+	OtlpVersion OtlpVersionOptions131 `json:"otlpVersion"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *CompressionOptions4 `json:"compress,omitzero"`
+	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptions5 `json:"httpCompress,omitzero"`
+	HTTPCompress *CompressionOptionsMessages `json:"httpCompress,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -252,21 +252,21 @@ func (o *OutputDynatraceOtlp) GetEndpoint() string {
 	return o.Endpoint
 }
 
-func (o *OutputDynatraceOtlp) GetOtlpVersion() OtlpVersionOptions1 {
+func (o *OutputDynatraceOtlp) GetOtlpVersion() OtlpVersionOptions131 {
 	if o == nil {
-		return OtlpVersionOptions1("")
+		return OtlpVersionOptions131("")
 	}
 	return o.OtlpVersion
 }
 
-func (o *OutputDynatraceOtlp) GetCompress() *CompressionOptions4 {
+func (o *OutputDynatraceOtlp) GetCompress() *CompressionOptionsDeflateGzip {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputDynatraceOtlp) GetHTTPCompress() *CompressionOptions5 {
+func (o *OutputDynatraceOtlp) GetHTTPCompress() *CompressionOptionsMessages {
 	if o == nil {
 		return nil
 	}

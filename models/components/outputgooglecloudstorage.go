@@ -76,7 +76,7 @@ type OutputGoogleCloudStorage struct {
 	// Google Cloud Storage service endpoint
 	Endpoint string `json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion        *SignatureVersionOptions4                     `json:"signatureVersion,omitzero"`
+	SignatureVersion        *SignatureVersionOptionsGoogle                `json:"signatureVersion,omitzero"`
 	AwsAuthenticationMethod *OutputGoogleCloudStorageAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
@@ -85,9 +85,9 @@ type OutputGoogleCloudStorage struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions1 `json:"objectACL,omitzero"`
+	ObjectACL *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptions1 `json:"storageClass,omitzero"`
+	StorageClass *StorageClassOptionsArchiveColdline `json:"storageClass,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -117,7 +117,7 @@ type OutputGoogleCloudStorage struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -127,7 +127,7 @@ type OutputGoogleCloudStorage struct {
 	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
 	Description          *string            `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `json:"compress,omitzero"`
+	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -248,7 +248,7 @@ func (o *OutputGoogleCloudStorage) GetEndpoint() string {
 	return o.Endpoint
 }
 
-func (o *OutputGoogleCloudStorage) GetSignatureVersion() *SignatureVersionOptions4 {
+func (o *OutputGoogleCloudStorage) GetSignatureVersion() *SignatureVersionOptionsGoogle {
 	if o == nil {
 		return nil
 	}
@@ -283,14 +283,14 @@ func (o *OutputGoogleCloudStorage) GetVerifyPermissions() *bool {
 	return o.VerifyPermissions
 }
 
-func (o *OutputGoogleCloudStorage) GetObjectACL() *ObjectACLOptions1 {
+func (o *OutputGoogleCloudStorage) GetObjectACL() *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputGoogleCloudStorage) GetStorageClass() *StorageClassOptions1 {
+func (o *OutputGoogleCloudStorage) GetStorageClass() *StorageClassOptionsArchiveColdline {
 	if o == nil {
 		return nil
 	}
@@ -395,7 +395,7 @@ func (o *OutputGoogleCloudStorage) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputGoogleCloudStorage) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputGoogleCloudStorage) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}
@@ -437,7 +437,7 @@ func (o *OutputGoogleCloudStorage) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputGoogleCloudStorage) GetCompress() *CompressionOptions2 {
+func (o *OutputGoogleCloudStorage) GetCompress() *CompressionOptionsHTTP {
 	if o == nil {
 		return nil
 	}

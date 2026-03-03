@@ -41,6 +41,7 @@ const (
 	PipelineFunctionConfTypeLimit                     PipelineFunctionConfType = "limit"
 	PipelineFunctionConfTypeLocalSearchDatatypeParser PipelineFunctionConfType = "local_search_datatype_parser"
 	PipelineFunctionConfTypeLocalSearchRulesetRunner  PipelineFunctionConfType = "local_search_ruleset_runner"
+	PipelineFunctionConfTypeLocalSearchTransformer    PipelineFunctionConfType = "local_search_transformer"
 	PipelineFunctionConfTypeLookup                    PipelineFunctionConfType = "lookup"
 	PipelineFunctionConfTypeMask                      PipelineFunctionConfType = "mask"
 	PipelineFunctionConfTypeMvExpand                  PipelineFunctionConfType = "mv_expand"
@@ -110,6 +111,7 @@ type PipelineFunctionConf struct {
 	PipelineFunctionLimit                     *PipelineFunctionLimit                     `queryParam:"inline" union:"member"`
 	PipelineFunctionLocalSearchDatatypeParser *PipelineFunctionLocalSearchDatatypeParser `queryParam:"inline" union:"member"`
 	PipelineFunctionLocalSearchRulesetRunner  *PipelineFunctionLocalSearchRulesetRunner  `queryParam:"inline" union:"member"`
+	PipelineFunctionLocalSearchTransformer    *PipelineFunctionLocalSearchTransformer    `queryParam:"inline" union:"member"`
 	PipelineFunctionLookup                    *PipelineFunctionLookup                    `queryParam:"inline" union:"member"`
 	PipelineFunctionMask                      *PipelineFunctionMask                      `queryParam:"inline" union:"member"`
 	PipelineFunctionMvExpand                  *PipelineFunctionMvExpand                  `queryParam:"inline" union:"member"`
@@ -496,6 +498,18 @@ func CreatePipelineFunctionConfLocalSearchRulesetRunner(localSearchRulesetRunner
 	return PipelineFunctionConf{
 		PipelineFunctionLocalSearchRulesetRunner: &localSearchRulesetRunner,
 		Type:                                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfLocalSearchTransformer(localSearchTransformer PipelineFunctionLocalSearchTransformer) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeLocalSearchTransformer
+
+	typStr := PipelineFunctionLocalSearchTransformerID(typ)
+	localSearchTransformer.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionLocalSearchTransformer: &localSearchTransformer,
+		Type:                                   typ,
 	}
 }
 
@@ -1226,6 +1240,15 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 		u.PipelineFunctionLocalSearchRulesetRunner = pipelineFunctionLocalSearchRulesetRunner
 		u.Type = PipelineFunctionConfTypeLocalSearchRulesetRunner
 		return nil
+	case "local_search_transformer":
+		pipelineFunctionLocalSearchTransformer := new(PipelineFunctionLocalSearchTransformer)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionLocalSearchTransformer, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_transformer) type PipelineFunctionLocalSearchTransformer within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionLocalSearchTransformer = pipelineFunctionLocalSearchTransformer
+		u.Type = PipelineFunctionConfTypeLocalSearchTransformer
+		return nil
 	case "lookup":
 		pipelineFunctionLookup := new(PipelineFunctionLookup)
 		if err := utils.UnmarshalJSON(data, &pipelineFunctionLookup, "", true, nil); err != nil {
@@ -1673,6 +1696,10 @@ func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
 
 	if u.PipelineFunctionLocalSearchRulesetRunner != nil {
 		return utils.MarshalJSON(u.PipelineFunctionLocalSearchRulesetRunner, "", true)
+	}
+
+	if u.PipelineFunctionLocalSearchTransformer != nil {
+		return utils.MarshalJSON(u.PipelineFunctionLocalSearchTransformer, "", true)
 	}
 
 	if u.PipelineFunctionLookup != nil {

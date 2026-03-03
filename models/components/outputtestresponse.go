@@ -7,11 +7,16 @@ import (
 )
 
 type OutputTestResponse struct {
-	Details       map[string]any `json:"details,omitzero"`
-	Error         *string        `json:"error,omitzero"`
-	OutputID      string         `json:"outputId"`
-	Success       bool           `json:"success"`
-	SuccessDetail *string        `json:"successDetail,omitzero"`
+	// Additional details about the Destination test, such as per-event results and transport-level information.
+	Details map[string]any `json:"details,omitzero"`
+	// Error message that describes a failed Destination test.
+	Error *string `json:"error,omitzero"`
+	// The <code>id</code> of the Destination that was tested.
+	OutputID string `json:"outputId"`
+	// If <code>true</code>, the Destination test succeeded. Otherwise, <code>false</code>.
+	Success bool `json:"success"`
+	// Human-readable description for a successful Destination test result.
+	SuccessDetail *string `json:"successDetail,omitzero"`
 }
 
 func (o OutputTestResponse) MarshalJSON() ([]byte, error) {

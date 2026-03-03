@@ -7,11 +7,9 @@ import (
 )
 
 type PipelineGroups struct {
-	Name string `json:"name"`
-	// Short description of this group
+	Name        string  `json:"name"`
 	Description *string `json:"description,omitzero"`
-	// Whether this group is disabled
-	Disabled *bool `json:"disabled,omitzero"`
+	Disabled    *bool   `json:"disabled,omitzero"`
 }
 
 func (p *PipelineGroups) GetName() string {

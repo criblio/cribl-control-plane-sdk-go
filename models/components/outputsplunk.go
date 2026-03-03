@@ -68,8 +68,8 @@ type OutputSplunk struct {
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                      `json:"writeTimeout,omitzero"`
-	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	WriteTimeout *float64                                 `json:"writeTimeout,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
 	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitzero"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
@@ -213,7 +213,7 @@ func (o *OutputSplunk) GetWriteTimeout() *float64 {
 	return o.WriteTimeout
 }
 
-func (o *OutputSplunk) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputSplunk) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if o == nil {
 		return nil
 	}

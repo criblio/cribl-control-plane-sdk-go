@@ -319,7 +319,7 @@ type OutputAzureDataExplorer struct {
 	// Format of the output data
 	Format *DataFormatOptions `json:"format,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress CompressionOptions2 `json:"compress"`
+	Compress CompressionOptionsHTTP `json:"compress"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -621,9 +621,9 @@ func (o *OutputAzureDataExplorer) GetFormat() *DataFormatOptions {
 	return o.Format
 }
 
-func (o *OutputAzureDataExplorer) GetCompress() CompressionOptions2 {
+func (o *OutputAzureDataExplorer) GetCompress() CompressionOptionsHTTP {
 	if o == nil {
-		return CompressionOptions2("")
+		return CompressionOptionsHTTP("")
 	}
 	return o.Compress
 }

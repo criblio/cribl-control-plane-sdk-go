@@ -182,9 +182,9 @@ type OutputElastic struct {
 	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                         `json:"responseHonorRetryAfterHeader,omitzero"`
-	ExtraParams                   []ItemsTypeSaslSaslExtensions `json:"extraParams,omitzero"`
-	Auth                          *AuthType                     `json:"auth,omitzero"`
+	ResponseHonorRetryAfterHeader *bool                              `json:"responseHonorRetryAfterHeader,omitzero"`
+	ExtraParams                   []ItemsTypeSaslSaslExtensions      `json:"extraParams,omitzero"`
+	Auth                          *AuthTypeAuthTypeCredentialsSecret `json:"auth,omitzero"`
 	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
 	ElasticVersion *ElasticVersion `json:"elasticVersion,omitzero"`
 	// Optional Elasticsearch destination pipeline
@@ -406,7 +406,7 @@ func (o *OutputElastic) GetExtraParams() []ItemsTypeSaslSaslExtensions {
 	return o.ExtraParams
 }
 
-func (o *OutputElastic) GetAuth() *AuthType {
+func (o *OutputElastic) GetAuth() *AuthTypeAuthTypeCredentialsSecret {
 	if o == nil {
 		return nil
 	}

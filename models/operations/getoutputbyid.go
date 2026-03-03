@@ -21,7 +21,7 @@ func (g *GetOutputByIDRequest) GetID() string {
 
 type GetOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
+	// a Destination object
 	CountedOutput *components.CountedOutput
 }
 

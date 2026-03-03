@@ -40,7 +40,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.List(ctx)
+    res, err := s.Destinations.List(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -52,10 +52,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                                                                                        | Type                                                                                                                                                             | Required                                                                                                                                                         | Description                                                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                            | :heavy_check_mark:                                                                                                                                               | The context to use for the request.                                                                                                                              |
+| `type_`                                                                                                                                                          | [*components.DestinationType](../../models/components/destinationtype.md)                                                                                        | :heavy_minus_sign:                                                                                                                                               | Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
+| `opts`                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                         | :heavy_minus_sign:                                                                                                                                               | The options for this request.                                                                                                                                    |
 
 ### Response
 
@@ -153,7 +154,7 @@ func main() {
             OauthType: operations.CreateOutputOauthTypeAuthenticationMethodClientSecret,
             ClientSecret: criblcontrolplanesdkgo.Pointer("client-secret"),
             Format: components.DataFormatOptionsJSON.ToPointer(),
-            Compress: components.CompressionOptions2Gzip,
+            Compress: components.CompressionOptionsHTTPGzip,
         },
     ))
     if err != nil {
@@ -574,7 +575,7 @@ func main() {
             },
             Streamtags: []string{},
             LoadBalanced: criblcontrolplanesdkgo.Pointer(false),
-            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
+            TLS: &components.TLSSettingsClientSideTypeCaPathCertPath{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
             TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60),
@@ -583,7 +584,7 @@ func main() {
                 "__metadata",
                 "__winEvent",
             },
-            Compression: components.CompressionOptions1Gzip.ToPointer(),
+            Compression: components.CompressionOptionsGzipNoneGzip.ToPointer(),
             Concurrency: criblcontrolplanesdkgo.Pointer[float64](5),
             MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096),
             MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0),
@@ -780,11 +781,11 @@ func main() {
             ID: "databricks-output",
             Type: operations.CreateOutputTypeDatabricksDatabricks,
             WorkspaceID: "your-workspace-id",
-            Scope: "my-scope",
+            Scope: "all-apis",
             ClientID: "your-client-id",
-            Catalog: "my-catalog",
-            Schema: "my-schema",
-            EventsVolumeName: "my-volume",
+            Catalog: "main",
+            Schema: "external",
+            EventsVolumeName: "events",
             ClientTextSecret: "your-client-secret",
         },
     ))
@@ -1031,7 +1032,7 @@ func main() {
             Type: operations.CreateOutputTypeDynatraceOtlpDynatraceOtlp,
             Protocol: operations.CreateOutputProtocolDynatraceOtlpHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             EndpointType: operations.CreateOutputEndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
@@ -2372,7 +2373,7 @@ func main() {
             Type: operations.CreateOutputTypeServiceNowServiceNow,
             Endpoint: "ingest.lightstep.com:443",
             TokenSecret: "your-token-secret",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             Protocol: components.ProtocolOptionsHTTP,
         },
     ))
@@ -3128,7 +3129,7 @@ func main() {
 
 ## Update
 
-Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
+Update the specified Destination.<br/><br/>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
 
 ### Example Usage: OutputCreateExamplesAzureBlob
 
@@ -3209,7 +3210,7 @@ func main() {
             OauthType: components.OutputAzureDataExplorerAuthenticationMethodClientSecret,
             ClientSecret: criblcontrolplanesdkgo.Pointer("client-secret"),
             Format: components.DataFormatOptionsJSON.ToPointer(),
-            Compress: components.CompressionOptions2Gzip,
+            Compress: components.CompressionOptionsHTTPGzip,
         },
     ))
     if err != nil {
@@ -3620,7 +3621,7 @@ func main() {
             },
             Streamtags: []string{},
             LoadBalanced: criblcontrolplanesdkgo.Pointer(false),
-            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
+            TLS: &components.TLSSettingsClientSideTypeCaPathCertPath{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
             TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60),
@@ -3629,7 +3630,7 @@ func main() {
                 "__metadata",
                 "__winEvent",
             },
-            Compression: components.CompressionOptions1Gzip.ToPointer(),
+            Compression: components.CompressionOptionsGzipNoneGzip.ToPointer(),
             Concurrency: criblcontrolplanesdkgo.Pointer[float64](5),
             MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096),
             MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0),
@@ -3823,11 +3824,11 @@ func main() {
             ID: criblcontrolplanesdkgo.Pointer("databricks-output"),
             Type: components.OutputDatabricksTypeDatabricks,
             WorkspaceID: "your-workspace-id",
-            Scope: "my-scope",
+            Scope: "all-apis",
             ClientID: "your-client-id",
-            Catalog: "my-catalog",
-            Schema: "my-schema",
-            EventsVolumeName: "my-volume",
+            Catalog: "main",
+            Schema: "external",
+            EventsVolumeName: "events",
             ClientTextSecret: "your-client-secret",
         },
     ))
@@ -4068,7 +4069,7 @@ func main() {
             Type: components.OutputDynatraceOtlpTypeDynatraceOtlp,
             Protocol: components.OutputDynatraceOtlpProtocolHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             EndpointType: components.EndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
@@ -5377,7 +5378,7 @@ func main() {
             Type: components.OutputServiceNowTypeServiceNow,
             Endpoint: "ingest.lightstep.com:443",
             TokenSecret: "your-token-secret",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             Protocol: components.ProtocolOptionsHTTP,
         },
     ))
