@@ -6,6 +6,60 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+type ExecutorSpecificSettings struct {
+}
+
+func (e ExecutorSpecificSettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExecutorSpecificSettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type Executor struct {
+	// The type of executor to run
+	Type string `json:"type"`
+	// Determines whether or not to write task results to disk
+	StoreTaskResults *bool                     `json:"storeTaskResults,omitzero"`
+	Conf             *ExecutorSpecificSettings `json:"conf,omitzero"`
+}
+
+func (e Executor) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *Executor) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *Executor) GetType() string {
+	if e == nil {
+		return ""
+	}
+	return e.Type
+}
+
+func (e *Executor) GetStoreTaskResults() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.StoreTaskResults
+}
+
+func (e *Executor) GetConf() *ExecutorSpecificSettings {
+	if e == nil {
+		return nil
+	}
+	return e.Conf
+}
+
 type RunnableJobExecutorRun struct {
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
@@ -74,9 +128,9 @@ type RunnableJobExecutor struct {
 	// Configuration for a scheduled job
 	Schedule *ScheduleTypeRunnableJobCollection `json:"schedule,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string                        `json:"streamtags,omitzero"`
-	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
-	Run        RunnableJobExecutorRun          `json:"run"`
+	Streamtags []string               `json:"streamtags,omitzero"`
+	Executor   Executor               `json:"executor"`
+	Run        RunnableJobExecutorRun `json:"run"`
 }
 
 func (r RunnableJobExecutor) MarshalJSON() ([]byte, error) {
@@ -160,9 +214,9 @@ func (r *RunnableJobExecutor) GetStreamtags() []string {
 	return r.Streamtags
 }
 
-func (r *RunnableJobExecutor) GetExecutor() ExecutorTypeRunnableJobExecutor {
+func (r *RunnableJobExecutor) GetExecutor() Executor {
 	if r == nil {
-		return ExecutorTypeRunnableJobExecutor{}
+		return Executor{}
 	}
 	return r.Executor
 }

@@ -11,7 +11,7 @@ type UpdateInputByIDRequest struct {
 	// The <code>id</code> of the Source to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Input object
-	Input components.Input2 `request:"mediaType=application/json"`
+	Input components.InputUnion2 `request:"mediaType=application/json"`
 }
 
 func (u *UpdateInputByIDRequest) GetID() string {
@@ -21,9 +21,9 @@ func (u *UpdateInputByIDRequest) GetID() string {
 	return u.ID
 }
 
-func (u *UpdateInputByIDRequest) GetInput() components.Input2 {
+func (u *UpdateInputByIDRequest) GetInput() components.InputUnion2 {
 	if u == nil {
-		return components.Input2{}
+		return components.InputUnion2{}
 	}
 	return u.Input
 }

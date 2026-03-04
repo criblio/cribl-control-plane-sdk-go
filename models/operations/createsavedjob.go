@@ -10,8 +10,8 @@ import (
 type CreateSavedJobRequest struct {
 	// The <code>id</code> of the Pack to create the Collector in.
 	CriblPack *string `queryParam:"style=form,explode=true,name=criblPack"`
-	// SavedJob object
-	SavedJob components.SavedJob `request:"mediaType=application/json"`
+	// SavedJobCreateUpdate object
+	SavedJobCreateUpdate components.SavedJobCreateUpdate `request:"mediaType=application/json"`
 }
 
 func (c *CreateSavedJobRequest) GetCriblPack() *string {
@@ -21,11 +21,11 @@ func (c *CreateSavedJobRequest) GetCriblPack() *string {
 	return c.CriblPack
 }
 
-func (c *CreateSavedJobRequest) GetSavedJob() components.SavedJob {
+func (c *CreateSavedJobRequest) GetSavedJobCreateUpdate() components.SavedJobCreateUpdate {
 	if c == nil {
-		return components.SavedJob{}
+		return components.SavedJobCreateUpdate{}
 	}
-	return c.SavedJob
+	return c.SavedJobCreateUpdate
 }
 
 type CreateSavedJobResponse struct {

@@ -69,7 +69,7 @@ type CreateOutputSystemByPackOutputNewrelicEvents struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -82,8 +82,10 @@ type CreateOutputSystemByPackOutputNewrelicEvents struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions              `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsNewrelicEvents `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                           `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsNewrelicEvents `json:"pqControls,omitzero"`
 	// New Relic API key. Can be overridden using __newRelic_apiKey field.
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
@@ -368,6 +370,13 @@ func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetPqOnBackpressure() *co
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetPqControls() *CreateOutputSystemByPackPqControlsNewrelicEvents {
 	if c == nil {
 		return nil
@@ -572,7 +581,7 @@ type CreateOutputSystemByPackOutputNewrelic struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -585,8 +594,10 @@ type CreateOutputSystemByPackOutputNewrelic struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsNewrelic `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsNewrelic `json:"pqControls,omitzero"`
 	// New Relic API key. Can be overridden using __newRelic_apiKey field.
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
@@ -883,6 +894,13 @@ func (c *CreateOutputSystemByPackOutputNewrelic) GetPqOnBackpressure() *componen
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputNewrelic) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputNewrelic) GetPqControls() *CreateOutputSystemByPackPqControlsNewrelic {
 	if c == nil {
 		return nil
@@ -1021,7 +1039,7 @@ type CreateOutputSystemByPackOutputElasticCloud struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -1034,8 +1052,10 @@ type CreateOutputSystemByPackOutputElasticCloud struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions            `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsElasticCloud `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                         `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsElasticCloud `json:"pqControls,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputElasticCloud) MarshalJSON() ([]byte, error) {
@@ -1308,6 +1328,13 @@ func (c *CreateOutputSystemByPackOutputElasticCloud) GetPqOnBackpressure() *comp
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputElasticCloud) GetPqControls() *CreateOutputSystemByPackPqControlsElasticCloud {
 	if c == nil {
 		return nil
@@ -1522,7 +1549,7 @@ type CreateOutputSystemByPackOutputElastic struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -1535,8 +1562,10 @@ type CreateOutputSystemByPackOutputElastic struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions       `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsElastic `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsElastic `json:"pqControls,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -1881,6 +1910,13 @@ func (c *CreateOutputSystemByPackOutputElastic) GetPqOnBackpressure() *component
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputElastic) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputElastic) GetPqControls() *CreateOutputSystemByPackPqControlsElastic {
 	if c == nil {
 		return nil
@@ -2015,7 +2051,7 @@ type CreateOutputSystemByPackOutputMsk struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -2028,8 +2064,10 @@ type CreateOutputSystemByPackOutputMsk struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions   `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsMsk `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsMsk `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -2412,6 +2450,13 @@ func (c *CreateOutputSystemByPackOutputMsk) GetPqOnBackpressure() *components.Qu
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputMsk) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputMsk) GetPqControls() *CreateOutputSystemByPackPqControlsMsk {
 	if c == nil {
 		return nil
@@ -2559,7 +2604,7 @@ type CreateOutputSystemByPackOutputConfluentCloud struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -2572,8 +2617,10 @@ type CreateOutputSystemByPackOutputConfluentCloud struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions              `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsConfluentCloud `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                           `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsConfluentCloud `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 }
@@ -2862,6 +2909,13 @@ func (c *CreateOutputSystemByPackOutputConfluentCloud) GetPqOnBackpressure() *co
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputConfluentCloud) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputConfluentCloud) GetPqControls() *CreateOutputSystemByPackPqControlsConfluentCloud {
 	if c == nil {
 		return nil
@@ -2974,7 +3028,7 @@ type CreateOutputSystemByPackOutputKafka struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -2987,8 +3041,10 @@ type CreateOutputSystemByPackOutputKafka struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions     `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsKafka `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                  `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsKafka `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 }
@@ -3275,6 +3331,13 @@ func (c *CreateOutputSystemByPackOutputKafka) GetPqOnBackpressure() *components.
 		return nil
 	}
 	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputKafka) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
 }
 
 func (c *CreateOutputSystemByPackOutputKafka) GetPqControls() *CreateOutputSystemByPackPqControlsKafka {
@@ -3751,7 +3814,7 @@ type CreateOutputSystemByPackOutputGooglePubsub struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -3764,8 +3827,10 @@ type CreateOutputSystemByPackOutputGooglePubsub struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions            `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsGooglePubsub `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                         `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsGooglePubsub `json:"pqControls,omitzero"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
 	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -4000,6 +4065,13 @@ func (c *CreateOutputSystemByPackOutputGooglePubsub) GetPqOnBackpressure() *comp
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputGooglePubsub) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputGooglePubsub) GetPqControls() *CreateOutputSystemByPackPqControlsGooglePubsub {
 	if c == nil {
 		return nil
@@ -4230,7 +4302,7 @@ type CreateOutputSystemByPackOutputGoogleCloudLogging struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -4243,8 +4315,10 @@ type CreateOutputSystemByPackOutputGoogleCloudLogging struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions                  `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsGoogleCloudLogging `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                               `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsGoogleCloudLogging `json:"pqControls,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
@@ -4732,6 +4806,13 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetPqOnBackpressure()
 		return nil
 	}
 	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
 }
 
 func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetPqControls() *CreateOutputSystemByPackPqControlsGoogleCloudLogging {
@@ -5576,7 +5657,7 @@ type CreateOutputSystemByPackOutputGoogleChronicle struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -5589,8 +5670,10 @@ type CreateOutputSystemByPackOutputGoogleChronicle struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions               `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsGoogleChronicle `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                            `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsGoogleChronicle `json:"pqControls,omitzero"`
 	// Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
 	TemplateAPIVersion *string `json:"__template_apiVersion,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -5946,6 +6029,13 @@ func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetPqOnBackpressure() *c
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetPqControls() *CreateOutputSystemByPackPqControlsGoogleChronicle {
 	if c == nil {
 		return nil
@@ -6065,7 +6155,7 @@ type CreateOutputSystemByPackOutputAzureEventhub struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -6078,8 +6168,10 @@ type CreateOutputSystemByPackOutputAzureEventhub struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions             `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsAzureEventhub `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                          `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsAzureEventhub `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 }
@@ -6340,6 +6432,13 @@ func (c *CreateOutputSystemByPackOutputAzureEventhub) GetPqOnBackpressure() *com
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputAzureEventhub) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputAzureEventhub) GetPqControls() *CreateOutputSystemByPackPqControlsAzureEventhub {
 	if c == nil {
 		return nil
@@ -6445,7 +6544,7 @@ type CreateOutputSystemByPackOutputHoneycomb struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -6458,8 +6557,10 @@ type CreateOutputSystemByPackOutputHoneycomb struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions         `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsHoneycomb `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsHoneycomb `json:"pqControls,omitzero"`
 	// Team API key where the dataset belongs
 	Team *string `json:"team,omitzero"`
 	// Select or create a stored text secret
@@ -6715,6 +6816,13 @@ func (c *CreateOutputSystemByPackOutputHoneycomb) GetPqOnBackpressure() *compone
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputHoneycomb) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputHoneycomb) GetPqControls() *CreateOutputSystemByPackPqControlsHoneycomb {
 	if c == nil {
 		return nil
@@ -6859,7 +6967,7 @@ type CreateOutputSystemByPackOutputKinesis struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -6872,8 +6980,10 @@ type CreateOutputSystemByPackOutputKinesis struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions       `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsKinesis `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsKinesis `json:"pqControls,omitzero"`
 	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
 	TemplateStreamName *string `json:"__template_streamName,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -7172,6 +7282,13 @@ func (c *CreateOutputSystemByPackOutputKinesis) GetPqOnBackpressure() *component
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputKinesis) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputKinesis) GetPqControls() *CreateOutputSystemByPackPqControlsKinesis {
 	if c == nil {
 		return nil
@@ -7338,7 +7455,7 @@ type CreateOutputSystemByPackOutputAzureLogs struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -7351,8 +7468,10 @@ type CreateOutputSystemByPackOutputAzureLogs struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions         `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsAzureLogs `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsAzureLogs `json:"pqControls,omitzero"`
 	// Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
 	WorkspaceID *string `json:"workspaceId,omitzero"`
 	// Azure Log Analytics Workspace Primary or Secondary Shared Key. See Azure Dashboard Workspace > Advanced settings.
@@ -7626,6 +7745,13 @@ func (c *CreateOutputSystemByPackOutputAzureLogs) GetPqOnBackpressure() *compone
 		return nil
 	}
 	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputAzureLogs) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
 }
 
 func (c *CreateOutputSystemByPackOutputAzureLogs) GetPqControls() *CreateOutputSystemByPackPqControlsAzureLogs {
@@ -8090,7 +8216,7 @@ type CreateOutputSystemByPackOutputAzureDataExplorer struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -8103,8 +8229,10 @@ type CreateOutputSystemByPackOutputAzureDataExplorer struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions                 `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsAzureDataExplorer `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                              `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsAzureDataExplorer `json:"pqControls,omitzero"`
 	// Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
 	TemplateClusterURL *string `json:"__template_clusterUrl,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
@@ -8715,6 +8843,13 @@ func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetPqOnBackpressure() 
 		return nil
 	}
 	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
 }
 
 func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetPqControls() *CreateOutputSystemByPackPqControlsAzureDataExplorer {
@@ -10603,7 +10738,7 @@ type CreateOutputSystemByPackOutputSignalfx struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -10616,8 +10751,10 @@ type CreateOutputSystemByPackOutputSignalfx struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsSignalfx `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSignalfx `json:"pqControls,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputSignalfx) MarshalJSON() ([]byte, error) {
@@ -10883,6 +11020,13 @@ func (c *CreateOutputSystemByPackOutputSignalfx) GetPqOnBackpressure() *componen
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputSignalfx) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputSignalfx) GetPqControls() *CreateOutputSystemByPackPqControlsSignalfx {
 	if c == nil {
 		return nil
@@ -10985,7 +11129,7 @@ type CreateOutputSystemByPackOutputWavefront struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -10998,8 +11142,10 @@ type CreateOutputSystemByPackOutputWavefront struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions         `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsWavefront `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsWavefront `json:"pqControls,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputWavefront) MarshalJSON() ([]byte, error) {
@@ -11265,6 +11411,13 @@ func (c *CreateOutputSystemByPackOutputWavefront) GetPqOnBackpressure() *compone
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputWavefront) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputWavefront) GetPqControls() *CreateOutputSystemByPackPqControlsWavefront {
 	if c == nil {
 		return nil
@@ -11363,7 +11516,7 @@ type CreateOutputSystemByPackOutputTcpjson struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -11376,8 +11529,10 @@ type CreateOutputSystemByPackOutputTcpjson struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions       `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsTcpjson `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsTcpjson `json:"pqControls,omitzero"`
 	// Optional authentication token to include as part of the connection header
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
@@ -11644,6 +11799,13 @@ func (c *CreateOutputSystemByPackOutputTcpjson) GetPqOnBackpressure() *component
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputTcpjson) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputTcpjson) GetPqControls() *CreateOutputSystemByPackPqControlsTcpjson {
 	if c == nil {
 		return nil
@@ -11778,7 +11940,7 @@ type CreateOutputSystemByPackOutputWizHec struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -11791,8 +11953,10 @@ type CreateOutputSystemByPackOutputWizHec struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsWizHec `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsWizHec `json:"pqControls,omitzero"`
 	// Wiz Defend Auth token
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
@@ -12089,6 +12253,13 @@ func (c *CreateOutputSystemByPackOutputWizHec) GetPqOnBackpressure() *components
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputWizHec) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputWizHec) GetPqControls() *CreateOutputSystemByPackPqControlsWizHec {
 	if c == nil {
 		return nil
@@ -12283,7 +12454,7 @@ type CreateOutputSystemByPackOutputSplunkHec struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -12296,8 +12467,10 @@ type CreateOutputSystemByPackOutputSplunkHec struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions         `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsSplunkHec `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSplunkHec `json:"pqControls,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -12628,6 +12801,13 @@ func (c *CreateOutputSystemByPackOutputSplunkHec) GetPqOnBackpressure() *compone
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputSplunkHec) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputSplunkHec) GetPqControls() *CreateOutputSystemByPackPqControlsSplunkHec {
 	if c == nil {
 		return nil
@@ -12867,7 +13047,7 @@ type CreateOutputSystemByPackOutputSplunkLb struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -12880,8 +13060,10 @@ type CreateOutputSystemByPackOutputSplunkLb struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsSplunkLb `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSplunkLb `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
@@ -13165,6 +13347,13 @@ func (c *CreateOutputSystemByPackOutputSplunkLb) GetPqOnBackpressure() *componen
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputSplunkLb) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputSplunkLb) GetPqControls() *CreateOutputSystemByPackPqControlsSplunkLb {
 	if c == nil {
 		return nil
@@ -13271,7 +13460,7 @@ type CreateOutputSystemByPackOutputSplunk struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -13284,8 +13473,10 @@ type CreateOutputSystemByPackOutputSplunk struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsSplunk `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSplunk `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
@@ -13529,6 +13720,13 @@ func (c *CreateOutputSystemByPackOutputSplunk) GetPqOnBackpressure() *components
 		return nil
 	}
 	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputSplunk) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
 }
 
 func (c *CreateOutputSystemByPackOutputSplunk) GetPqControls() *CreateOutputSystemByPackPqControlsSplunk {
@@ -13824,7 +14022,7 @@ type CreateOutputSystemByPackOutputSyslog struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -13837,8 +14035,10 @@ type CreateOutputSystemByPackOutputSyslog struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsSyslog `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSyslog `json:"pqControls,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -14143,6 +14343,13 @@ func (c *CreateOutputSystemByPackOutputSyslog) GetPqOnBackpressure() *components
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputSyslog) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputSyslog) GetPqControls() *CreateOutputSystemByPackPqControlsSyslog {
 	if c == nil {
 		return nil
@@ -14443,7 +14650,7 @@ type CreateOutputSystemByPackOutputSentinel struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -14456,8 +14663,10 @@ type CreateOutputSystemByPackOutputSentinel struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsSentinel `json:"pqControls,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSentinel `json:"pqControls,omitzero"`
 	// URL to send events to. Can be overwritten by an event's __url field.
 	URL *string `json:"url,omitzero"`
 	// Immutable ID for the Data Collection Rule (DCR)
@@ -14838,6 +15047,13 @@ func (c *CreateOutputSystemByPackOutputSentinel) GetPqOnBackpressure() *componen
 	return c.PqOnBackpressure
 }
 
+func (c *CreateOutputSystemByPackOutputSentinel) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
 func (c *CreateOutputSystemByPackOutputSentinel) GetPqControls() *CreateOutputSystemByPackPqControlsSentinel {
 	if c == nil {
 		return nil
@@ -15212,7 +15428,7 @@ type CreateOutputSystemByPackOutputWebhook struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -15225,10 +15441,12 @@ type CreateOutputSystemByPackOutputWebhook struct {
 	// Codec to use to compress the persisted data
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions       `json:"pqOnBackpressure,omitzero"`
-	PqControls       *CreateOutputSystemByPackPqControlsWebhook `json:"pqControls,omitzero"`
-	Username         *string                                    `json:"username,omitzero"`
-	Password         *string                                    `json:"password,omitzero"`
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsWebhook `json:"pqControls,omitzero"`
+	Username             *string                                    `json:"username,omitzero"`
+	Password             *string                                    `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -15606,6 +15824,13 @@ func (c *CreateOutputSystemByPackOutputWebhook) GetPqOnBackpressure() *component
 		return nil
 	}
 	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputWebhook) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
 }
 
 func (c *CreateOutputSystemByPackOutputWebhook) GetPqControls() *CreateOutputSystemByPackPqControlsWebhook {

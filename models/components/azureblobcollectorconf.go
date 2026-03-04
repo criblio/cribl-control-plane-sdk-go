@@ -100,6 +100,10 @@ type AzureBlobAuthTypeClientCert struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
 }
 
 func (a AzureBlobAuthTypeClientCert) MarshalJSON() ([]byte, error) {
@@ -232,6 +236,20 @@ func (a *AzureBlobAuthTypeClientCert) GetParquetChunkDownloadTimeout() *float64 
 	return a.ParquetChunkDownloadTimeout
 }
 
+func (a *AzureBlobAuthTypeClientCert) GetTemplateContainerName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateContainerName
+}
+
+func (a *AzureBlobAuthTypeClientCert) GetTemplatePath() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePath
+}
+
 // AzureBlobAuthTypeClientSecretAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
 type AzureBlobAuthTypeClientSecretAuthenticationMethod string
 
@@ -324,6 +342,10 @@ type AzureBlobAuthTypeClientSecret struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
 }
 
 func (a AzureBlobAuthTypeClientSecret) MarshalJSON() ([]byte, error) {
@@ -456,6 +478,20 @@ func (a *AzureBlobAuthTypeClientSecret) GetParquetChunkDownloadTimeout() *float6
 	return a.ParquetChunkDownloadTimeout
 }
 
+func (a *AzureBlobAuthTypeClientSecret) GetTemplateContainerName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateContainerName
+}
+
+func (a *AzureBlobAuthTypeClientSecret) GetTemplatePath() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePath
+}
+
 // AzureBlobAuthTypeSecretAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
 type AzureBlobAuthTypeSecretAuthenticationMethod string
 
@@ -538,6 +574,10 @@ type AzureBlobAuthTypeSecret struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
 }
 
 func (a AzureBlobAuthTypeSecret) MarshalJSON() ([]byte, error) {
@@ -635,6 +675,20 @@ func (a *AzureBlobAuthTypeSecret) GetParquetChunkDownloadTimeout() *float64 {
 	return a.ParquetChunkDownloadTimeout
 }
 
+func (a *AzureBlobAuthTypeSecret) GetTemplateContainerName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateContainerName
+}
+
+func (a *AzureBlobAuthTypeSecret) GetTemplatePath() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePath
+}
+
 // AzureBlobAuthTypeManualAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
 type AzureBlobAuthTypeManualAuthenticationMethod string
 
@@ -717,6 +771,10 @@ type AzureBlobAuthTypeManual struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
 }
 
 func (a AzureBlobAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -812,6 +870,20 @@ func (a *AzureBlobAuthTypeManual) GetParquetChunkDownloadTimeout() *float64 {
 		return nil
 	}
 	return a.ParquetChunkDownloadTimeout
+}
+
+func (a *AzureBlobAuthTypeManual) GetTemplateContainerName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateContainerName
+}
+
+func (a *AzureBlobAuthTypeManual) GetTemplatePath() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePath
 }
 
 type AzureBlobCollectorConfType string
