@@ -6,12 +6,11 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type SavedJobCreateUpdate struct {
+type SavedJobRequest struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Worker Group ID to run the job in. When empty, uses the default group.
-	GroupID *string `json:"groupId,omitzero"`
-	ID      string  `json:"id"`
+	// Unique ID for this Job.
+	ID string `json:"id"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution.
@@ -23,67 +22,60 @@ type SavedJobCreateUpdate struct {
 	Type string `json:"type"`
 }
 
-func (s SavedJobCreateUpdate) MarshalJSON() ([]byte, error) {
+func (s SavedJobRequest) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *SavedJobCreateUpdate) UnmarshalJSON(data []byte) error {
+func (s *SavedJobRequest) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SavedJobCreateUpdate) GetEnvironment() *string {
+func (s *SavedJobRequest) GetEnvironment() *string {
 	if s == nil {
 		return nil
 	}
 	return s.Environment
 }
 
-func (s *SavedJobCreateUpdate) GetGroupID() *string {
-	if s == nil {
-		return nil
-	}
-	return s.GroupID
-}
-
-func (s *SavedJobCreateUpdate) GetID() string {
+func (s *SavedJobRequest) GetID() string {
 	if s == nil {
 		return ""
 	}
 	return s.ID
 }
 
-func (s *SavedJobCreateUpdate) GetIgnoreGroupJobsLimit() *bool {
+func (s *SavedJobRequest) GetIgnoreGroupJobsLimit() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.IgnoreGroupJobsLimit
 }
 
-func (s *SavedJobCreateUpdate) GetResumeOnBoot() *bool {
+func (s *SavedJobRequest) GetResumeOnBoot() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.ResumeOnBoot
 }
 
-func (s *SavedJobCreateUpdate) GetSchedule() *ScheduleOpts {
+func (s *SavedJobRequest) GetSchedule() *ScheduleOpts {
 	if s == nil {
 		return nil
 	}
 	return s.Schedule
 }
 
-func (s *SavedJobCreateUpdate) GetTTL() *string {
+func (s *SavedJobRequest) GetTTL() *string {
 	if s == nil {
 		return nil
 	}
 	return s.TTL
 }
 
-func (s *SavedJobCreateUpdate) GetType() string {
+func (s *SavedJobRequest) GetType() string {
 	if s == nil {
 		return ""
 	}

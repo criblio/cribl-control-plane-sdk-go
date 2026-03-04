@@ -9,13 +9,15 @@ import (
 
 type RunSettings struct {
 	// Maximum number of times a task can be rescheduled.
-	MaxTaskReschedule *float64   `json:"maxTaskReschedule,omitzero"`
-	Now               *time.Time `json:"now,omitzero"`
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
+	// Reference timestamp for the run. Used for scheduled execution time and relative time expressions.
+	Now *time.Time `json:"now,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors.
-	RescheduleDroppedTasks *bool          `json:"rescheduleDroppedTasks,omitzero"`
-	TaskHeartbeatPeriod    *float64       `json:"taskHeartbeatPeriod,omitzero"`
-	Type                   *RunType       `json:"type,omitzero"`
-	AdditionalProperties   map[string]any `additionalProperties:"true" json:"-"`
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
+	// Interval in seconds at which running tasks report heartbeats to the Leader. Used to detect stalled or dead tasks.
+	TaskHeartbeatPeriod  *float64       `json:"taskHeartbeatPeriod,omitzero"`
+	Type                 *RunType       `json:"type,omitzero"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 
 func (r RunSettings) MarshalJSON() ([]byte, error) {

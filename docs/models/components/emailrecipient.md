@@ -3,8 +3,8 @@
 
 ## Fields
 
-| Field                            | Type                             | Required                         | Description                      |
-| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `To`                             | *string*                         | :heavy_check_mark:               | Recipients' email addresses      |
-| `Cc`                             | **string*                        | :heavy_minus_sign:               | Cc: Recipients' email addresses  |
-| `Bcc`                            | **string*                        | :heavy_minus_sign:               | Bcc: Recipients' email addresses |
+| Field                      | Type                       | Required                   | Description                |
+| -------------------------- | -------------------------- | -------------------------- | -------------------------- |
+| `Bcc`                      | **string*                  | :heavy_minus_sign:         | Bcc email addresses.       |
+| `Cc`                       | **string*                  | :heavy_minus_sign:         | Cc email addresses.        |
+| `To`                       | *string*                   | :heavy_check_mark:         | Recipient email addresses. |
