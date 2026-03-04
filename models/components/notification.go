@@ -38,11 +38,12 @@ type Notification struct {
 	Group *string `json:"group,omitzero"`
 	ID    string  `json:"id"`
 	// Metadata fields.
-	Metadata []any             `json:"metadata,omitzero"`
+	Metadata []MetadataItem    `json:"metadata,omitzero"`
 	Mode     *NotificationMode `json:"mode,omitzero"`
 	// Target configuration.
-	TargetConfigs []NotificationTargetConfigUnion `json:"targetConfigs,omitzero"`
-	TargetDetails []NotificationTargetDetails     `json:"targetDetails,omitzero"`
+	TargetConfigs []NotificationTargetConfig `json:"targetConfigs,omitzero"`
+	// Target details.
+	TargetDetails []NotificationTargetDetails `json:"targetDetails,omitzero"`
 	// Notification targets.
 	Targets []string `json:"targets"`
 	// Template and target pairs for routing.
@@ -95,7 +96,7 @@ func (n *Notification) GetID() string {
 	return n.ID
 }
 
-func (n *Notification) GetMetadata() []any {
+func (n *Notification) GetMetadata() []MetadataItem {
 	if n == nil {
 		return nil
 	}
@@ -109,7 +110,7 @@ func (n *Notification) GetMode() *NotificationMode {
 	return n.Mode
 }
 
-func (n *Notification) GetTargetConfigs() []NotificationTargetConfigUnion {
+func (n *Notification) GetTargetConfigs() []NotificationTargetConfig {
 	if n == nil {
 		return nil
 	}

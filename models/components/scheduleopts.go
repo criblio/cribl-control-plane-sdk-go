@@ -16,7 +16,7 @@ type ScheduleOpts struct {
 	RunBuffer *float64 `json:"runBuffer,omitzero"`
 	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits.
 	Skippable *bool `json:"skippable,omitzero"`
-	// IANA timezone for the cron schedule (e.g., America/New_York, UTC).
+	// IANA timezone for the cron schedule.
 	Tz *string `json:"tz,omitzero"`
 }
 

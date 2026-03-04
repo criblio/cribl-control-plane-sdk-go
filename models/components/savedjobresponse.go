@@ -6,12 +6,11 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type SavedJob struct {
+type SavedJobResponse struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Worker Group ID to run the job in. When empty, uses the default group.
-	GroupID *string `json:"groupId,omitzero"`
-	ID      string  `json:"id"`
+	// Unique ID for this Job.
+	ID string `json:"id"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Notification targets.
@@ -23,94 +22,79 @@ type SavedJob struct {
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `json:"ttl,omitzero"`
 	// Job type: collection, executor, or scheduledSearch.
-	Type                 string         `json:"type"`
-	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
+	Type string `json:"type"`
 }
 
-func (s SavedJob) MarshalJSON() ([]byte, error) {
+func (s SavedJobResponse) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *SavedJob) UnmarshalJSON(data []byte) error {
+func (s *SavedJobResponse) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SavedJob) GetEnvironment() *string {
+func (s *SavedJobResponse) GetEnvironment() *string {
 	if s == nil {
 		return nil
 	}
 	return s.Environment
 }
 
-func (s *SavedJob) GetGroupID() *string {
-	if s == nil {
-		return nil
-	}
-	return s.GroupID
-}
-
-func (s *SavedJob) GetID() string {
+func (s *SavedJobResponse) GetID() string {
 	if s == nil {
 		return ""
 	}
 	return s.ID
 }
 
-func (s *SavedJob) GetIgnoreGroupJobsLimit() *bool {
+func (s *SavedJobResponse) GetIgnoreGroupJobsLimit() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.IgnoreGroupJobsLimit
 }
 
-func (s *SavedJob) GetNotifications() []Notification {
+func (s *SavedJobResponse) GetNotifications() []Notification {
 	if s == nil {
 		return nil
 	}
 	return s.Notifications
 }
 
-func (s *SavedJob) GetResumeOnBoot() *bool {
+func (s *SavedJobResponse) GetResumeOnBoot() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.ResumeOnBoot
 }
 
-func (s *SavedJob) GetSavedState() map[string]CollectionStateEntry {
+func (s *SavedJobResponse) GetSavedState() map[string]CollectionStateEntry {
 	if s == nil {
 		return nil
 	}
 	return s.SavedState
 }
 
-func (s *SavedJob) GetSchedule() *ScheduleOpts {
+func (s *SavedJobResponse) GetSchedule() *ScheduleOpts {
 	if s == nil {
 		return nil
 	}
 	return s.Schedule
 }
 
-func (s *SavedJob) GetTTL() *string {
+func (s *SavedJobResponse) GetTTL() *string {
 	if s == nil {
 		return nil
 	}
 	return s.TTL
 }
 
-func (s *SavedJob) GetType() string {
+func (s *SavedJobResponse) GetType() string {
 	if s == nil {
 		return ""
 	}
 	return s.Type
-}
-
-func (s *SavedJob) GetAdditionalProperties() map[string]any {
-	if s == nil {
-		return nil
-	}
-	return s.AdditionalProperties
 }

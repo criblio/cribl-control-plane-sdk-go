@@ -3,7 +3,9 @@
 package components
 
 type NotificationTargetDetails struct {
-	ID   string `json:"id"`
+	// ID of the notification target.
+	ID string `json:"id"`
+	// Target type.
 	Type string `json:"type"`
 }
 

@@ -34,12 +34,7 @@ func newCollectors(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration
 
 // Create a Collector
 // Create a new Collector.
-func (s *Collectors) Create(ctx context.Context, savedJobCreateUpdate components.SavedJobCreateUpdate, criblPack *string, opts ...operations.Option) (*operations.CreateSavedJobResponse, error) {
-	request := operations.CreateSavedJobRequest{
-		CriblPack:            criblPack,
-		SavedJobCreateUpdate: savedJobCreateUpdate,
-	}
-
+func (s *Collectors) Create(ctx context.Context, request components.SavedJobRequest, opts ...operations.Option) (*operations.CreateSavedJobResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -72,7 +67,7 @@ func (s *Collectors) Create(ctx context.Context, savedJobCreateUpdate components
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SavedJobCreateUpdate", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -96,10 +91,6 @@ func (s *Collectors) Create(ctx context.Context, savedJobCreateUpdate components
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -223,12 +214,12 @@ func (s *Collectors) Create(ctx context.Context, savedJobCreateUpdate components
 				return nil, err
 			}
 
-			var out components.CountedSavedJob
+			var out components.CountedSavedJobResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedSavedJob = &out
+			res.CountedSavedJobResponse = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -289,11 +280,9 @@ func (s *Collectors) Create(ctx context.Context, savedJobCreateUpdate components
 
 // List all Collectors
 // Get a list of all Collectors.
-func (s *Collectors) List(ctx context.Context, collectorType *string, criblPack *string, groupID *string, opts ...operations.Option) (*operations.GetSavedJobResponse, error) {
+func (s *Collectors) List(ctx context.Context, collectorType *string, opts ...operations.Option) (*operations.GetSavedJobResponse, error) {
 	request := operations.GetSavedJobRequest{
 		CollectorType: collectorType,
-		CriblPack:     criblPack,
-		GroupID:       groupID,
 	}
 
 	o := operations.Options{}
@@ -472,12 +461,12 @@ func (s *Collectors) List(ctx context.Context, collectorType *string, criblPack 
 				return nil, err
 			}
 
-			var out components.CountedSavedJob
+			var out components.CountedSavedJobResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedSavedJob = &out
+			res.CountedSavedJobResponse = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -538,11 +527,9 @@ func (s *Collectors) List(ctx context.Context, collectorType *string, criblPack 
 
 // Delete a Collector
 // Delete the specified Collector.
-func (s *Collectors) Delete(ctx context.Context, id string, criblPack *string, groupID *string, opts ...operations.Option) (*operations.DeleteSavedJobByIDResponse, error) {
+func (s *Collectors) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteSavedJobByIDResponse, error) {
 	request := operations.DeleteSavedJobByIDRequest{
-		ID:        id,
-		CriblPack: criblPack,
-		GroupID:   groupID,
+		ID: id,
 	}
 
 	o := operations.Options{}
@@ -595,10 +582,6 @@ func (s *Collectors) Delete(ctx context.Context, id string, criblPack *string, g
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -721,12 +704,12 @@ func (s *Collectors) Delete(ctx context.Context, id string, criblPack *string, g
 				return nil, err
 			}
 
-			var out components.CountedSavedJob
+			var out components.CountedSavedJobResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedSavedJob = &out
+			res.CountedSavedJobResponse = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -787,10 +770,9 @@ func (s *Collectors) Delete(ctx context.Context, id string, criblPack *string, g
 
 // Get a Collector
 // Get the specified Collector.
-func (s *Collectors) Get(ctx context.Context, id string, criblPack *string, opts ...operations.Option) (*operations.GetSavedJobByIDResponse, error) {
+func (s *Collectors) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetSavedJobByIDResponse, error) {
 	request := operations.GetSavedJobByIDRequest{
-		ID:        id,
-		CriblPack: criblPack,
+		ID: id,
 	}
 
 	o := operations.Options{}
@@ -843,10 +825,6 @@ func (s *Collectors) Get(ctx context.Context, id string, criblPack *string, opts
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -969,12 +947,12 @@ func (s *Collectors) Get(ctx context.Context, id string, criblPack *string, opts
 				return nil, err
 			}
 
-			var out components.CountedSavedJob
+			var out components.CountedSavedJobResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedSavedJob = &out
+			res.CountedSavedJobResponse = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1035,11 +1013,10 @@ func (s *Collectors) Get(ctx context.Context, id string, criblPack *string, opts
 
 // Update a Collector
 // Update the specified Collector.<br><br>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br><br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
-func (s *Collectors) Update(ctx context.Context, id string, savedJobCreateUpdate components.SavedJobCreateUpdate, criblPack *string, opts ...operations.Option) (*operations.UpdateSavedJobByIDResponse, error) {
+func (s *Collectors) Update(ctx context.Context, id string, savedJobRequest components.SavedJobRequest, opts ...operations.Option) (*operations.UpdateSavedJobByIDResponse, error) {
 	request := operations.UpdateSavedJobByIDRequest{
-		ID:                   id,
-		CriblPack:            criblPack,
-		SavedJobCreateUpdate: savedJobCreateUpdate,
+		ID:              id,
+		SavedJobRequest: savedJobRequest,
 	}
 
 	o := operations.Options{}
@@ -1074,7 +1051,7 @@ func (s *Collectors) Update(ctx context.Context, id string, savedJobCreateUpdate
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SavedJobCreateUpdate", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SavedJobRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -1098,10 +1075,6 @@ func (s *Collectors) Update(ctx context.Context, id string, savedJobCreateUpdate
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -1225,12 +1198,12 @@ func (s *Collectors) Update(ctx context.Context, id string, savedJobCreateUpdate
 				return nil, err
 			}
 
-			var out components.CountedSavedJob
+			var out components.CountedSavedJobResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedSavedJob = &out
+			res.CountedSavedJobResponse = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

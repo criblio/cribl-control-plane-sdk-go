@@ -40,7 +40,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
         ID: "azure-blob-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */8 * * *"),
@@ -57,11 +57,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -90,7 +90,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
         ID: "cribl-lake-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
@@ -107,11 +107,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -140,7 +140,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
         ID: "database-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 2 * * *"),
@@ -157,11 +157,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -190,7 +190,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
         ID: "filesystem-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
@@ -207,11 +207,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -240,7 +240,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
         ID: "gcs-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */12 * * *"),
@@ -257,11 +257,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -290,7 +290,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
         ID: "rest-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */4 * * *"),
@@ -307,11 +307,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -340,7 +340,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
         ID: "s3-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */6 * * *"),
@@ -357,11 +357,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -390,7 +390,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
         ID: "script-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */3 * * *"),
@@ -407,11 +407,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -440,7 +440,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
         ID: "splunk-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */1 * * *"),
@@ -457,11 +457,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -469,12 +469,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
-| `savedJobCreateUpdate`                                                             | [components.SavedJobCreateUpdate](../../models/components/savedjobcreateupdate.md) | :heavy_check_mark:                                                                 | SavedJobCreateUpdate object                                                        |
-| `criblPack`                                                                        | **string*                                                                          | :heavy_minus_sign:                                                                 | The <code>id</code> of the Pack to create the Collector in.                        |
-| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
+| `request`                                                                | [components.SavedJobRequest](../../models/components/savedjobrequest.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
+| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
 
 ### Response
 
@@ -515,11 +514,11 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.List(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"))
+    res, err := s.Collectors.List(ctx, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -531,8 +530,6 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `collectorType`                                          | **string*                                                | :heavy_minus_sign:                                       | Filter by collector type                                 |
-| `criblPack`                                              | **string*                                                | :heavy_minus_sign:                                       | Pack ID                                                  |
-| `groupID`                                                | **string*                                                | :heavy_minus_sign:                                       | Worker group ID                                          |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -574,11 +571,11 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Delete(ctx, "<id>", criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"))
+    res, err := s.Collectors.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -586,13 +583,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
-| `id`                                                                           | *string*                                                                       | :heavy_check_mark:                                                             | The <code>id</code> of the Collector to delete.                                |
-| `criblPack`                                                                    | **string*                                                                      | :heavy_minus_sign:                                                             | The <code>id</code> of the Pack that includes the Collector to delete.         |
-| `groupID`                                                                      | **string*                                                                      | :heavy_minus_sign:                                                             | The <code>id</code> of the Worker Group that includes the Collector to delete. |
-| `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Collector to delete.          |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
@@ -633,11 +628,11 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Get(ctx, "<id>", criblcontrolplanesdkgo.Pointer("<value>"))
+    res, err := s.Collectors.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -645,12 +640,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `ctx`                                                               | [context.Context](https://pkg.go.dev/context#Context)               | :heavy_check_mark:                                                  | The context to use for the request.                                 |
-| `id`                                                                | *string*                                                            | :heavy_check_mark:                                                  | The <code>id</code> of the Collector to get.                        |
-| `criblPack`                                                         | **string*                                                           | :heavy_minus_sign:                                                  | The <code>id</code> of the Pack that includes the Collector to get. |
-| `opts`                                                              | [][operations.Option](../../models/operations/option.md)            | :heavy_minus_sign:                                                  | The options for this request.                                       |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Collector to get.             |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
@@ -691,7 +685,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
         ID: "azure-blob-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */8 * * *"),
@@ -708,11 +702,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -741,7 +735,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
         ID: "cribl-lake-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
@@ -758,11 +752,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -791,7 +785,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
         ID: "database-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 2 * * *"),
@@ -808,11 +802,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -841,7 +835,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
         ID: "filesystem-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
@@ -858,11 +852,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -891,7 +885,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
         ID: "gcs-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */12 * * *"),
@@ -908,11 +902,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -941,7 +935,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
         ID: "rest-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */4 * * *"),
@@ -958,11 +952,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -991,7 +985,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
         ID: "s3-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */6 * * *"),
@@ -1008,11 +1002,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1041,7 +1035,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
         ID: "script-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */3 * * *"),
@@ -1058,11 +1052,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1091,7 +1085,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
         ID: "splunk-collector",
         Schedule: &components.ScheduleOpts{
             CronSchedule: criblcontrolplanesdkgo.Pointer("0 */1 * * *"),
@@ -1108,11 +1102,11 @@ func main() {
             Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
         Type: "collection",
-    }, criblcontrolplanesdkgo.Pointer("<value>"))
+    })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1120,13 +1114,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
-| `id`                                                                               | *string*                                                                           | :heavy_check_mark:                                                                 | The <code>id</code> of the Collector to update.                                    |
-| `savedJobCreateUpdate`                                                             | [components.SavedJobCreateUpdate](../../models/components/savedjobcreateupdate.md) | :heavy_check_mark:                                                                 | SavedJobCreateUpdate object                                                        |
-| `criblPack`                                                                        | **string*                                                                          | :heavy_minus_sign:                                                                 | The <code>id</code> of the Pack that includes the Collector to update.             |
-| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
+| `id`                                                                     | *string*                                                                 | :heavy_check_mark:                                                       | The <code>id</code> of the Collector to update.                          |
+| `savedJobRequest`                                                        | [components.SavedJobRequest](../../models/components/savedjobrequest.md) | :heavy_check_mark:                                                       | SavedJobRequest object                                                   |
+| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
 
 ### Response
 

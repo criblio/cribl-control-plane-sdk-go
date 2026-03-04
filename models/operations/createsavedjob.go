@@ -7,31 +7,10 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type CreateSavedJobRequest struct {
-	// The <code>id</code> of the Pack to create the Collector in.
-	CriblPack *string `queryParam:"style=form,explode=true,name=criblPack"`
-	// SavedJobCreateUpdate object
-	SavedJobCreateUpdate components.SavedJobCreateUpdate `request:"mediaType=application/json"`
-}
-
-func (c *CreateSavedJobRequest) GetCriblPack() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CriblPack
-}
-
-func (c *CreateSavedJobRequest) GetSavedJobCreateUpdate() components.SavedJobCreateUpdate {
-	if c == nil {
-		return components.SavedJobCreateUpdate{}
-	}
-	return c.SavedJobCreateUpdate
-}
-
 type CreateSavedJobResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of SavedJob objects
-	CountedSavedJob *components.CountedSavedJob
+	// a list of SavedJobResponse objects
+	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 
 func (c CreateSavedJobResponse) MarshalJSON() ([]byte, error) {
@@ -52,9 +31,9 @@ func (c *CreateSavedJobResponse) GetHTTPMeta() components.HTTPMetadata {
 	return c.HTTPMeta
 }
 
-func (c *CreateSavedJobResponse) GetCountedSavedJob() *components.CountedSavedJob {
+func (c *CreateSavedJobResponse) GetCountedSavedJobResponse() *components.CountedSavedJobResponse {
 	if c == nil {
 		return nil
 	}
-	return c.CountedSavedJob
+	return c.CountedSavedJobResponse
 }

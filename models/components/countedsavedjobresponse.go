@@ -6,31 +6,31 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type CountedSavedJob struct {
+type CountedSavedJobResponse struct {
 	// number of items present in the items array
-	Count *int64     `json:"count,omitzero"`
-	Items []SavedJob `json:"items,omitzero"`
+	Count *int64             `json:"count,omitzero"`
+	Items []SavedJobResponse `json:"items,omitzero"`
 }
 
-func (c CountedSavedJob) MarshalJSON() ([]byte, error) {
+func (c CountedSavedJobResponse) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CountedSavedJob) UnmarshalJSON(data []byte) error {
+func (c *CountedSavedJobResponse) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CountedSavedJob) GetCount() *int64 {
+func (c *CountedSavedJobResponse) GetCount() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.Count
 }
 
-func (c *CountedSavedJob) GetItems() []SavedJob {
+func (c *CountedSavedJobResponse) GetItems() []SavedJobResponse {
 	if c == nil {
 		return nil
 	}
