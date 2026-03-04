@@ -88,7 +88,7 @@ type OutputAzureEventhub struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *AuthenticationType1       `json:"sasl,omitzero"`
+	Sasl *AuthenticationTypeUse     `json:"sasl,omitzero"`
 	TLS  *TLSSettingsClientSideType `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
@@ -278,7 +278,7 @@ func (o *OutputAzureEventhub) GetReauthenticationThreshold() *float64 {
 	return o.ReauthenticationThreshold
 }
 
-func (o *OutputAzureEventhub) GetSasl() *AuthenticationType1 {
+func (o *OutputAzureEventhub) GetSasl() *AuthenticationTypeUse {
 	if o == nil {
 		return nil
 	}

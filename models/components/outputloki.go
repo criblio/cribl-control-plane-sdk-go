@@ -64,8 +64,8 @@ type OutputLoki struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels   []ItemsTypeContentConfigItemsRequestParams `json:"labels,omitzero"`
-	AuthType *AuthenticationTypeOptionsPrometheusAuth1  `json:"authType,omitzero"`
+	Labels   []ItemsTypeContentConfigItemsRequestParams                     `json:"labels,omitzero"`
+	AuthType *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret `json:"authType,omitzero"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
@@ -218,7 +218,7 @@ func (o *OutputLoki) GetLabels() []ItemsTypeContentConfigItemsRequestParams {
 	return o.Labels
 }
 
-func (o *OutputLoki) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth1 {
+func (o *OutputLoki) GetAuthType() *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret {
 	if o == nil {
 		return nil
 	}

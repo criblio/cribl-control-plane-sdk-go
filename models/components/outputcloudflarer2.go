@@ -83,9 +83,9 @@ type OutputCloudflareR2 struct {
 	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
 	DestPath *string `json:"destPath,omitzero"`
 	// Signature version to use for signing MinIO requests
-	SignatureVersion *SignatureVersionOptions5 `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptions2 `json:"storageClass,omitzero"`
+	StorageClass *StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
 	// Server-side encryption for uploaded objects
 	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitzero"`
 	// Reuse connections between requests, which can improve performance
@@ -113,7 +113,7 @@ type OutputCloudflareR2 struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -131,7 +131,7 @@ type OutputCloudflareR2 struct {
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `json:"compress,omitzero"`
+	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -272,14 +272,14 @@ func (o *OutputCloudflareR2) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputCloudflareR2) GetSignatureVersion() *SignatureVersionOptions5 {
+func (o *OutputCloudflareR2) GetSignatureVersion() *SignatureVersionOptionsMinIo {
 	if o == nil {
 		return nil
 	}
 	return o.SignatureVersion
 }
 
-func (o *OutputCloudflareR2) GetStorageClass() *StorageClassOptions2 {
+func (o *OutputCloudflareR2) GetStorageClass() *StorageClassOptionsReducedredundancyStandard {
 	if o == nil {
 		return nil
 	}
@@ -377,7 +377,7 @@ func (o *OutputCloudflareR2) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputCloudflareR2) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputCloudflareR2) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}
@@ -447,7 +447,7 @@ func (o *OutputCloudflareR2) GetAwsSecret() *string {
 	return o.AwsSecret
 }
 
-func (o *OutputCloudflareR2) GetCompress() *CompressionOptions2 {
+func (o *OutputCloudflareR2) GetCompress() *CompressionOptionsHTTP {
 	if o == nil {
 		return nil
 	}

@@ -72,7 +72,7 @@ type OutputDatabricks struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -98,7 +98,7 @@ type OutputDatabricks struct {
 	TimeoutSec  *int64  `json:"timeoutSec,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `json:"compress,omitzero"`
+	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -286,7 +286,7 @@ func (o *OutputDatabricks) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputDatabricks) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputDatabricks) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}
@@ -384,7 +384,7 @@ func (o *OutputDatabricks) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputDatabricks) GetCompress() *CompressionOptions2 {
+func (o *OutputDatabricks) GetCompress() *CompressionOptionsHTTP {
 	if o == nil {
 		return nil
 	}

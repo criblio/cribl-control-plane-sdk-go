@@ -219,9 +219,9 @@ type OutputLocalSearchStorage struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the database instance. Example: http://localhost:8123/
-	URL      string                      `json:"url"`
-	AuthType *AuthenticationTypeOptions1 `json:"authType,omitzero"`
-	Database string                      `json:"database"`
+	URL      string                                           `json:"url"`
+	AuthType *AuthenticationTypeOptionsBasicCredentialsSecret `json:"authType,omitzero"`
+	Database string                                           `json:"database"`
 	// Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data. Defaults to JSON Compact.
@@ -229,8 +229,8 @@ type OutputLocalSearchStorage struct {
 	// How event fields are mapped to columns.
 	MappingType *OutputLocalSearchStorageMappingType `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a table immediately.
-	AsyncInserts *bool                       `json:"asyncInserts,omitzero"`
-	TLS          *TLSSettingsClientSideType1 `json:"tls,omitzero"`
+	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -370,7 +370,7 @@ func (o *OutputLocalSearchStorage) GetURL() string {
 	return o.URL
 }
 
-func (o *OutputLocalSearchStorage) GetAuthType() *AuthenticationTypeOptions1 {
+func (o *OutputLocalSearchStorage) GetAuthType() *AuthenticationTypeOptionsBasicCredentialsSecret {
 	if o == nil {
 		return nil
 	}
@@ -412,7 +412,7 @@ func (o *OutputLocalSearchStorage) GetAsyncInserts() *bool {
 	return o.AsyncInserts
 }
 
-func (o *OutputLocalSearchStorage) GetTLS() *TLSSettingsClientSideType1 {
+func (o *OutputLocalSearchStorage) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if o == nil {
 		return nil
 	}

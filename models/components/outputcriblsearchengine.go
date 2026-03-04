@@ -58,14 +58,14 @@ type OutputCriblSearchEngine struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool                                         `json:"loadBalanced,omitzero"`
-	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	LoadBalanced *bool                                    `json:"loadBalanced,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
 	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// Codec to use to compress the data before sending
-	Compression *CompressionOptions1 `json:"compression,omitzero"`
+	Compression *CompressionOptionsGzipNone `json:"compression,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -94,7 +94,7 @@ type OutputCriblSearchEngine struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
-	AuthTokens []ItemsTypeAuthTokens1 `json:"authTokens,omitzero"`
+	AuthTokens []ItemsTypeAuthTokensTokenSecret `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
@@ -196,7 +196,7 @@ func (o *OutputCriblSearchEngine) GetLoadBalanced() *bool {
 	return o.LoadBalanced
 }
 
-func (o *OutputCriblSearchEngine) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputCriblSearchEngine) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if o == nil {
 		return nil
 	}
@@ -217,7 +217,7 @@ func (o *OutputCriblSearchEngine) GetExcludeFields() []string {
 	return o.ExcludeFields
 }
 
-func (o *OutputCriblSearchEngine) GetCompression() *CompressionOptions1 {
+func (o *OutputCriblSearchEngine) GetCompression() *CompressionOptionsGzipNone {
 	if o == nil {
 		return nil
 	}
@@ -315,7 +315,7 @@ func (o *OutputCriblSearchEngine) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputCriblSearchEngine) GetAuthTokens() []ItemsTypeAuthTokens1 {
+func (o *OutputCriblSearchEngine) GetAuthTokens() []ItemsTypeAuthTokensTokenSecret {
 	if o == nil {
 		return nil
 	}

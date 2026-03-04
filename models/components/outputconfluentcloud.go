@@ -58,23 +58,23 @@ type OutputConfluentCloud struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
-	Brokers []string                                      `json:"brokers"`
-	TLS     *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	Brokers []string                                 `json:"brokers"`
+	TLS     *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *AcknowledgmentsOptions1 `json:"ack,omitzero"`
+	Ack *AcknowledgmentsOptionsAllLeader `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *RecordDataFormatOptions1 `json:"format,omitzero"`
+	Format *RecordDataFormatOptionsJSONProtobuf `json:"format,omitzero"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *CompressionOptions3 `json:"compression,omitzero"`
+	Compression *CompressionOptionsGzipLz4 `json:"compression,omitzero"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
 	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                `json:"flushPeriodSec,omitzero"`
-	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitzero"`
+	FlushPeriodSec      *float64                                                    `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -187,7 +187,7 @@ func (o *OutputConfluentCloud) GetBrokers() []string {
 	return o.Brokers
 }
 
-func (o *OutputConfluentCloud) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputConfluentCloud) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if o == nil {
 		return nil
 	}
@@ -201,21 +201,21 @@ func (o *OutputConfluentCloud) GetTopic() string {
 	return o.Topic
 }
 
-func (o *OutputConfluentCloud) GetAck() *AcknowledgmentsOptions1 {
+func (o *OutputConfluentCloud) GetAck() *AcknowledgmentsOptionsAllLeader {
 	if o == nil {
 		return nil
 	}
 	return o.Ack
 }
 
-func (o *OutputConfluentCloud) GetFormat() *RecordDataFormatOptions1 {
+func (o *OutputConfluentCloud) GetFormat() *RecordDataFormatOptionsJSONProtobuf {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputConfluentCloud) GetCompression() *CompressionOptions3 {
+func (o *OutputConfluentCloud) GetCompression() *CompressionOptionsGzipLz4 {
 	if o == nil {
 		return nil
 	}
@@ -243,7 +243,7 @@ func (o *OutputConfluentCloud) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputConfluentCloud) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType1 {
+func (o *OutputConfluentCloud) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout {
 	if o == nil {
 		return nil
 	}

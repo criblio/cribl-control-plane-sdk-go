@@ -137,9 +137,9 @@ type TLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
 	CertPath *string `json:"certPath,omitzero"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                                         `json:"caPath,omitzero"`
-	MinVersion *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitzero"`
-	MaxVersion *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
+	CaPath     *string                      `json:"caPath,omitzero"`
+	MinVersion *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
+	MaxVersion *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
 }
 
 func (t TLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -216,14 +216,14 @@ func (t *TLSSettingsServerSide) GetCaPath() *string {
 	return t.CaPath
 }
 
-func (t *TLSSettingsServerSide) GetMinVersion() *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
+func (t *TLSSettingsServerSide) GetMinVersion() *MinimumTLSVersionOptionsTLS {
 	if t == nil {
 		return nil
 	}
 	return t.MinVersion
 }
 
-func (t *TLSSettingsServerSide) GetMaxVersion() *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
+func (t *TLSSettingsServerSide) GetMaxVersion() *MaximumTLSVersionOptionsTLS {
 	if t == nil {
 		return nil
 	}

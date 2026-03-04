@@ -485,8 +485,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
@@ -1105,8 +1105,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
@@ -1454,8 +1454,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
