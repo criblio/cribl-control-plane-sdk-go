@@ -110,11 +110,11 @@ type OutputDynatraceOtlp struct {
 	// The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion OtlpVersionOptions131 `json:"otlpVersion"`
+	OtlpVersion OtlpVersionOptions1 `json:"otlpVersion"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
+	Compress *CompressionOptions4 `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptionsMessages `json:"httpCompress,omitzero"`
+	HTTPCompress *CompressionOptions5 `json:"httpCompress,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -168,7 +168,7 @@ type OutputDynatraceOtlp struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -181,10 +181,8 @@ type OutputDynatraceOtlp struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputDynatraceOtlpPqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputDynatraceOtlpPqControls `json:"pqControls,omitzero"`
 }
 
 func (o OutputDynatraceOtlp) MarshalJSON() ([]byte, error) {
@@ -254,21 +252,21 @@ func (o *OutputDynatraceOtlp) GetEndpoint() string {
 	return o.Endpoint
 }
 
-func (o *OutputDynatraceOtlp) GetOtlpVersion() OtlpVersionOptions131 {
+func (o *OutputDynatraceOtlp) GetOtlpVersion() OtlpVersionOptions1 {
 	if o == nil {
-		return OtlpVersionOptions131("")
+		return OtlpVersionOptions1("")
 	}
 	return o.OtlpVersion
 }
 
-func (o *OutputDynatraceOtlp) GetCompress() *CompressionOptionsDeflateGzip {
+func (o *OutputDynatraceOtlp) GetCompress() *CompressionOptions4 {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputDynatraceOtlp) GetHTTPCompress() *CompressionOptionsMessages {
+func (o *OutputDynatraceOtlp) GetHTTPCompress() *CompressionOptions5 {
 	if o == nil {
 		return nil
 	}
@@ -511,13 +509,6 @@ func (o *OutputDynatraceOtlp) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputDynatraceOtlp) GetPqMaxBufferSizeBytes() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSizeBytes
 }
 
 func (o *OutputDynatraceOtlp) GetPqControls() *OutputDynatraceOtlpPqControls {

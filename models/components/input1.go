@@ -30,6 +30,7 @@ const (
 	Input1TypeOffice365Mgmt        Input1Type = "office365_mgmt"
 	Input1TypeOffice365Service     Input1Type = "office365_service"
 	Input1TypeOffice365MsgTrace    Input1Type = "office365_msg_trace"
+	Input1TypeMicrosoftGraph       Input1Type = "microsoft_graph"
 	Input1TypeEventhub             Input1Type = "eventhub"
 	Input1TypeExec                 Input1Type = "exec"
 	Input1TypeFirehose             Input1Type = "firehose"
@@ -95,6 +96,7 @@ type Input1 struct {
 	InputOffice365Mgmt        *InputOffice365Mgmt        `queryParam:"inline" union:"member"`
 	InputOffice365Service     *InputOffice365Service     `queryParam:"inline" union:"member"`
 	InputOffice365MsgTrace    *InputOffice365MsgTrace    `queryParam:"inline" union:"member"`
+	InputMicrosoftGraph       *InputMicrosoftGraph       `queryParam:"inline" union:"member"`
 	InputEventhub             *InputEventhub             `queryParam:"inline" union:"member"`
 	InputExec                 *InputExec                 `queryParam:"inline" union:"member"`
 	InputFirehose             *InputFirehose             `queryParam:"inline" union:"member"`
@@ -353,6 +355,18 @@ func CreateInput1Office365MsgTrace(office365MsgTrace InputOffice365MsgTrace) Inp
 	return Input1{
 		InputOffice365MsgTrace: &office365MsgTrace,
 		Type:                   typ,
+	}
+}
+
+func CreateInput1MicrosoftGraph(microsoftGraph InputMicrosoftGraph) Input1 {
+	typ := Input1TypeMicrosoftGraph
+
+	typStr := InputMicrosoftGraphType(typ)
+	microsoftGraph.Type = typStr
+
+	return Input1{
+		InputMicrosoftGraph: &microsoftGraph,
+		Type:                typ,
 	}
 }
 
@@ -1065,6 +1079,15 @@ func (u *Input1) UnmarshalJSON(data []byte) error {
 		u.InputOffice365MsgTrace = inputOffice365MsgTrace
 		u.Type = Input1TypeOffice365MsgTrace
 		return nil
+	case "microsoft_graph":
+		inputMicrosoftGraph := new(InputMicrosoftGraph)
+		if err := utils.UnmarshalJSON(data, &inputMicrosoftGraph, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == microsoft_graph) type InputMicrosoftGraph within Input1: %w", string(data), err)
+		}
+
+		u.InputMicrosoftGraph = inputMicrosoftGraph
+		u.Type = Input1TypeMicrosoftGraph
+		return nil
 	case "eventhub":
 		inputEventhub := new(InputEventhub)
 		if err := utils.UnmarshalJSON(data, &inputEventhub, "", true, nil); err != nil {
@@ -1531,6 +1554,10 @@ func (u Input1) MarshalJSON() ([]byte, error) {
 
 	if u.InputOffice365MsgTrace != nil {
 		return utils.MarshalJSON(u.InputOffice365MsgTrace, "", true)
+	}
+
+	if u.InputMicrosoftGraph != nil {
+		return utils.MarshalJSON(u.InputMicrosoftGraph, "", true)
 	}
 
 	if u.InputEventhub != nil {

@@ -52,11 +52,11 @@ type OutputExabeam struct {
 	// Google Cloud Storage service endpoint
 	Endpoint string `json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion *SignatureVersionOptionsGoogle `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptions4 `json:"signatureVersion,omitzero"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol `json:"objectACL,omitzero"`
+	ObjectACL *ObjectACLOptions1 `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptionsArchiveColdline `json:"storageClass,omitzero"`
+	StorageClass *StorageClassOptions1 `json:"storageClass,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -72,7 +72,7 @@ type OutputExabeam struct {
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -188,21 +188,21 @@ func (o *OutputExabeam) GetEndpoint() string {
 	return o.Endpoint
 }
 
-func (o *OutputExabeam) GetSignatureVersion() *SignatureVersionOptionsGoogle {
+func (o *OutputExabeam) GetSignatureVersion() *SignatureVersionOptions4 {
 	if o == nil {
 		return nil
 	}
 	return o.SignatureVersion
 }
 
-func (o *OutputExabeam) GetObjectACL() *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol {
+func (o *OutputExabeam) GetObjectACL() *ObjectACLOptions1 {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputExabeam) GetStorageClass() *StorageClassOptionsArchiveColdline {
+func (o *OutputExabeam) GetStorageClass() *StorageClassOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -258,7 +258,7 @@ func (o *OutputExabeam) GetMaxOpenFiles() *float64 {
 	return o.MaxOpenFiles
 }
 
-func (o *OutputExabeam) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
+func (o *OutputExabeam) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}

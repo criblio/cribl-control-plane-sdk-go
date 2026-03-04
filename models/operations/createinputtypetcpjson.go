@@ -139,9 +139,9 @@ type CreateInputTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
 	CertPath *string `json:"certPath,omitzero"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                                 `json:"caPath,omitzero"`
-	MinVersion *components.MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
-	MaxVersion *components.MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
+	CaPath     *string                                                    `json:"caPath,omitzero"`
+	MinVersion *components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitzero"`
+	MaxVersion *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
 }
 
 func (c CreateInputTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -218,14 +218,14 @@ func (c *CreateInputTLSSettingsServerSide) GetCaPath() *string {
 	return c.CaPath
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetMinVersion() *components.MinimumTLSVersionOptionsTLS {
+func (c *CreateInputTLSSettingsServerSide) GetMinVersion() *components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
 	if c == nil {
 		return nil
 	}
 	return c.MinVersion
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetMaxVersion() *components.MaximumTLSVersionOptionsTLS {
+func (c *CreateInputTLSSettingsServerSide) GetMaxVersion() *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
 	if c == nil {
 		return nil
 	}
@@ -2805,8 +2805,8 @@ type CreateInputInputWiz struct {
 	Metadata   []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	RetryRules *components.RetryRulesType     `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                             `json:"description,omitzero"`
+	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
+	Description *string                                  `json:"description,omitzero"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -2984,7 +2984,7 @@ func (c *CreateInputInputWiz) GetRetryRules() *components.RetryRulesType {
 	return c.RetryRules
 }
 
-func (c *CreateInputInputWiz) GetAuthType() *components.AuthenticationMethodOptionsManualSecret {
+func (c *CreateInputInputWiz) GetAuthType() *components.AuthenticationMethodOptions1 {
 	if c == nil {
 		return nil
 	}
@@ -3820,9 +3820,9 @@ type CreateInputMTLSSettings struct {
 	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
 	CaPath string `json:"caPath"`
 	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string                                 `json:"commonNameRegex,omitzero"`
-	MinVersion      *components.MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
-	MaxVersion      *components.MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
+	CommonNameRegex *string                                                    `json:"commonNameRegex,omitzero"`
+	MinVersion      *components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitzero"`
+	MaxVersion      *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
 	// Enable OCSP check of certificate
 	OcspCheck *bool `json:"ocspCheck,omitzero"`
 	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
@@ -3903,14 +3903,14 @@ func (c *CreateInputMTLSSettings) GetCommonNameRegex() *string {
 	return c.CommonNameRegex
 }
 
-func (c *CreateInputMTLSSettings) GetMinVersion() *components.MinimumTLSVersionOptionsTLS {
+func (c *CreateInputMTLSSettings) GetMinVersion() *components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
 	if c == nil {
 		return nil
 	}
 	return c.MinVersion
 }
 
-func (c *CreateInputMTLSSettings) GetMaxVersion() *components.MaximumTLSVersionOptionsTLS {
+func (c *CreateInputMTLSSettings) GetMaxVersion() *components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
 	if c == nil {
 		return nil
 	}
@@ -6438,7 +6438,7 @@ type CreateInputInputSqs struct {
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing SQS requests
-	SignatureVersion *components.SignatureVersionOptionsSqs `json:"signatureVersion,omitzero"`
+	SignatureVersion *components.SignatureVersionOptions3 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -6618,7 +6618,7 @@ func (c *CreateInputInputSqs) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CreateInputInputSqs) GetSignatureVersion() *components.SignatureVersionOptionsSqs {
+func (c *CreateInputInputSqs) GetSignatureVersion() *components.SignatureVersionOptions3 {
 	if c == nil {
 		return nil
 	}
@@ -9285,7 +9285,7 @@ type CreateInputInputKinesis struct {
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *components.SignatureVersionOptionsKinesis `json:"signatureVersion,omitzero"`
+	SignatureVersion *components.SignatureVersionOptions2 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -9487,7 +9487,7 @@ func (c *CreateInputInputKinesis) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CreateInputInputKinesis) GetSignatureVersion() *components.SignatureVersionOptionsKinesis {
+func (c *CreateInputInputKinesis) GetSignatureVersion() *components.SignatureVersionOptions2 {
 	if c == nil {
 		return nil
 	}

@@ -249,8 +249,8 @@ type InputWiz struct {
 	Metadata   []ItemsTypeMetadata `json:"metadata,omitzero"`
 	RetryRules *RetryRulesType     `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -428,7 +428,7 @@ func (i *InputWiz) GetRetryRules() *RetryRulesType {
 	return i.RetryRules
 }
 
-func (i *InputWiz) GetAuthType() *AuthenticationMethodOptionsManualSecret {
+func (i *InputWiz) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}

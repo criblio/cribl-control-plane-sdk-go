@@ -92,7 +92,7 @@ type OutputKinesis struct {
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *SignatureVersionOptionsKinesis `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptions2 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -131,7 +131,7 @@ type OutputKinesis struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -145,9 +145,7 @@ type OutputKinesis struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                  `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputKinesisPqControls `json:"pqControls,omitzero"`
+	PqControls       *OutputKinesisPqControls  `json:"pqControls,omitzero"`
 	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
 	TemplateStreamName *string `json:"__template_streamName,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -250,7 +248,7 @@ func (o *OutputKinesis) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputKinesis) GetSignatureVersion() *SignatureVersionOptionsKinesis {
+func (o *OutputKinesis) GetSignatureVersion() *SignatureVersionOptions2 {
 	if o == nil {
 		return nil
 	}
@@ -444,13 +442,6 @@ func (o *OutputKinesis) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputKinesis) GetPqMaxBufferSizeBytes() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSizeBytes
 }
 
 func (o *OutputKinesis) GetPqControls() *OutputKinesisPqControls {

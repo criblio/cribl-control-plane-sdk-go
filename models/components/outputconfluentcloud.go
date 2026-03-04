@@ -58,23 +58,23 @@ type OutputConfluentCloud struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
-	Brokers []string                                 `json:"brokers"`
-	TLS     *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	Brokers []string                                      `json:"brokers"`
+	TLS     *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *AcknowledgmentsOptionsAllLeader `json:"ack,omitzero"`
+	Ack *AcknowledgmentsOptions1 `json:"ack,omitzero"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *RecordDataFormatOptionsJSONProtobuf `json:"format,omitzero"`
+	Format *RecordDataFormatOptions1 `json:"format,omitzero"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *CompressionOptionsGzipLz4 `json:"compression,omitzero"`
+	Compression *CompressionOptions3 `json:"compression,omitzero"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
 	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                                    `json:"flushPeriodSec,omitzero"`
-	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout `json:"kafkaSchemaRegistry,omitzero"`
+	FlushPeriodSec      *float64                                `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -106,7 +106,7 @@ type OutputConfluentCloud struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -119,10 +119,8 @@ type OutputConfluentCloud struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputConfluentCloudPqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions       `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputConfluentCloudPqControls `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 }
@@ -187,7 +185,7 @@ func (o *OutputConfluentCloud) GetBrokers() []string {
 	return o.Brokers
 }
 
-func (o *OutputConfluentCloud) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
+func (o *OutputConfluentCloud) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if o == nil {
 		return nil
 	}
@@ -201,21 +199,21 @@ func (o *OutputConfluentCloud) GetTopic() string {
 	return o.Topic
 }
 
-func (o *OutputConfluentCloud) GetAck() *AcknowledgmentsOptionsAllLeader {
+func (o *OutputConfluentCloud) GetAck() *AcknowledgmentsOptions1 {
 	if o == nil {
 		return nil
 	}
 	return o.Ack
 }
 
-func (o *OutputConfluentCloud) GetFormat() *RecordDataFormatOptionsJSONProtobuf {
+func (o *OutputConfluentCloud) GetFormat() *RecordDataFormatOptions1 {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputConfluentCloud) GetCompression() *CompressionOptionsGzipLz4 {
+func (o *OutputConfluentCloud) GetCompression() *CompressionOptions3 {
 	if o == nil {
 		return nil
 	}
@@ -243,7 +241,7 @@ func (o *OutputConfluentCloud) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputConfluentCloud) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout {
+func (o *OutputConfluentCloud) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType1 {
 	if o == nil {
 		return nil
 	}
@@ -409,13 +407,6 @@ func (o *OutputConfluentCloud) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputConfluentCloud) GetPqMaxBufferSizeBytes() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSizeBytes
 }
 
 func (o *OutputConfluentCloud) GetPqControls() *OutputConfluentCloudPqControls {

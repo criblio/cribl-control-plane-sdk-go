@@ -226,7 +226,7 @@ type InputEdgePrometheus struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -503,7 +503,7 @@ func (i *InputEdgePrometheus) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputEdgePrometheus) GetSignatureVersion() *SignatureVersionOptionsV2V4 {
+func (i *InputEdgePrometheus) GetSignatureVersion() *SignatureVersionOptions1 {
 	if i == nil {
 		return nil
 	}

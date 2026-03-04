@@ -97,7 +97,7 @@ type OutputDlS3 struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -123,7 +123,7 @@ type OutputDlS3 struct {
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
+	Compress *CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -414,7 +414,7 @@ func (o *OutputDlS3) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputDlS3) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
+func (o *OutputDlS3) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -512,7 +512,7 @@ func (o *OutputDlS3) GetAwsSecret() *string {
 	return o.AwsSecret
 }
 
-func (o *OutputDlS3) GetCompress() *CompressionOptionsHTTP {
+func (o *OutputDlS3) GetCompress() *CompressionOptions2 {
 	if o == nil {
 		return nil
 	}

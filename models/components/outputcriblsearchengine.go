@@ -58,14 +58,14 @@ type OutputCriblSearchEngine struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool                                    `json:"loadBalanced,omitzero"`
-	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	LoadBalanced *bool                                         `json:"loadBalanced,omitzero"`
+	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
 	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// Codec to use to compress the data before sending
-	Compression *CompressionOptionsGzipNone `json:"compression,omitzero"`
+	Compression *CompressionOptions1 `json:"compression,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -94,7 +94,7 @@ type OutputCriblSearchEngine struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
-	AuthTokens []ItemsTypeAuthTokensTokenSecret `json:"authTokens,omitzero"`
+	AuthTokens []ItemsTypeAuthTokens1 `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
@@ -115,7 +115,7 @@ type OutputCriblSearchEngine struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -128,10 +128,8 @@ type OutputCriblSearchEngine struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                            `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputCriblSearchEnginePqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions          `json:"pqOnBackpressure,omitzero"`
+	PqControls       *OutputCriblSearchEnginePqControls `json:"pqControls,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -196,7 +194,7 @@ func (o *OutputCriblSearchEngine) GetLoadBalanced() *bool {
 	return o.LoadBalanced
 }
 
-func (o *OutputCriblSearchEngine) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
+func (o *OutputCriblSearchEngine) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if o == nil {
 		return nil
 	}
@@ -217,7 +215,7 @@ func (o *OutputCriblSearchEngine) GetExcludeFields() []string {
 	return o.ExcludeFields
 }
 
-func (o *OutputCriblSearchEngine) GetCompression() *CompressionOptionsGzipNone {
+func (o *OutputCriblSearchEngine) GetCompression() *CompressionOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -315,7 +313,7 @@ func (o *OutputCriblSearchEngine) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputCriblSearchEngine) GetAuthTokens() []ItemsTypeAuthTokensTokenSecret {
+func (o *OutputCriblSearchEngine) GetAuthTokens() []ItemsTypeAuthTokens1 {
 	if o == nil {
 		return nil
 	}
@@ -446,13 +444,6 @@ func (o *OutputCriblSearchEngine) GetPqOnBackpressure() *QueueFullBehaviorOption
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputCriblSearchEngine) GetPqMaxBufferSizeBytes() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSizeBytes
 }
 
 func (o *OutputCriblSearchEngine) GetPqControls() *OutputCriblSearchEnginePqControls {

@@ -64,8 +64,8 @@ type OutputLoki struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels   []ItemsTypeContentConfigItemsRequestParams                     `json:"labels,omitzero"`
-	AuthType *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret `json:"authType,omitzero"`
+	Labels   []ItemsTypeContentConfigItemsRequestParams `json:"labels,omitzero"`
+	AuthType *AuthenticationTypeOptionsPrometheusAuth1  `json:"authType,omitzero"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
@@ -118,7 +118,7 @@ type OutputLoki struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -132,9 +132,7 @@ type OutputLoki struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string               `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputLokiPqControls `json:"pqControls,omitzero"`
+	PqControls       *OutputLokiPqControls     `json:"pqControls,omitzero"`
 }
 
 func (o OutputLoki) MarshalJSON() ([]byte, error) {
@@ -218,7 +216,7 @@ func (o *OutputLoki) GetLabels() []ItemsTypeContentConfigItemsRequestParams {
 	return o.Labels
 }
 
-func (o *OutputLoki) GetAuthType() *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret {
+func (o *OutputLoki) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth1 {
 	if o == nil {
 		return nil
 	}
@@ -454,13 +452,6 @@ func (o *OutputLoki) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputLoki) GetPqMaxBufferSizeBytes() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSizeBytes
 }
 
 func (o *OutputLoki) GetPqControls() *OutputLokiPqControls {
