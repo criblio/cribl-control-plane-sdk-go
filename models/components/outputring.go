@@ -78,8 +78,8 @@ type OutputRing struct {
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
 	DestPath *string `json:"destPath,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
-	Description    *string                       `json:"description,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
+	Description    *string                               `json:"description,omitzero"`
 }
 
 func (o OutputRing) MarshalJSON() ([]byte, error) {
@@ -177,7 +177,7 @@ func (o *OutputRing) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputRing) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputRing) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}

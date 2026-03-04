@@ -84,8 +84,8 @@ type OutputElasticCloud struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Extra parameters to use in HTTP requests
-	ExtraParams []ItemsTypeSaslSaslExtensions `json:"extraParams,omitzero"`
-	Auth        *AuthType                     `json:"auth,omitzero"`
+	ExtraParams []ItemsTypeSaslSaslExtensions      `json:"extraParams,omitzero"`
+	Auth        *AuthTypeAuthTypeCredentialsSecret `json:"auth,omitzero"`
 	// Optional Elastic Cloud Destination pipeline
 	ElasticPipeline *string `json:"elasticPipeline,omitzero"`
 	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
@@ -267,7 +267,7 @@ func (o *OutputElasticCloud) GetExtraParams() []ItemsTypeSaslSaslExtensions {
 	return o.ExtraParams
 }
 
-func (o *OutputElasticCloud) GetAuth() *AuthType {
+func (o *OutputElasticCloud) GetAuth() *AuthTypeAuthTypeCredentialsSecret {
 	if o == nil {
 		return nil
 	}

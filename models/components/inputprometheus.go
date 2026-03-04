@@ -178,7 +178,7 @@ type InputPrometheus struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Use Assume Role credentials to access EC2
@@ -486,7 +486,7 @@ func (i *InputPrometheus) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputPrometheus) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputPrometheus) GetSignatureVersion() *SignatureVersionOptionsV2V4 {
 	if i == nil {
 		return nil
 	}

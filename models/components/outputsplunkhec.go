@@ -103,8 +103,8 @@ type OutputSplunkHec struct {
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
 	NextQueue *string `json:"nextQueue,omitzero"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-	TCPRouting *string                     `json:"tcpRouting,omitzero"`
-	TLS        *TLSSettingsClientSideType1 `json:"tls,omitzero"`
+	TCPRouting *string                                          `json:"tcpRouting,omitzero"`
+	TLS        *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -255,7 +255,7 @@ func (o *OutputSplunkHec) GetTCPRouting() *string {
 	return o.TCPRouting
 }
 
-func (o *OutputSplunkHec) GetTLS() *TLSSettingsClientSideType1 {
+func (o *OutputSplunkHec) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if o == nil {
 		return nil
 	}

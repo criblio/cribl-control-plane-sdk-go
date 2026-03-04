@@ -153,7 +153,7 @@ func main() {
             OauthType: operations.CreateOutputSystemByPackOauthTypeAuthenticationMethodClientSecret,
             ClientSecret: criblcontrolplanesdkgo.Pointer("client-secret"),
             Format: components.DataFormatOptionsJSON.ToPointer(),
-            Compress: components.CompressionOptions2Gzip,
+            Compress: components.CompressionOptionsHTTPGzip,
         },
     ))
     if err != nil {
@@ -574,7 +574,7 @@ func main() {
             },
             Streamtags: []string{},
             LoadBalanced: criblcontrolplanesdkgo.Pointer(false),
-            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
+            TLS: &components.TLSSettingsClientSideTypeCaPathCertPath{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
             TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60),
@@ -583,7 +583,7 @@ func main() {
                 "__metadata",
                 "__winEvent",
             },
-            Compression: components.CompressionOptions1Gzip.ToPointer(),
+            Compression: components.CompressionOptionsGzipNoneGzip.ToPointer(),
             Concurrency: criblcontrolplanesdkgo.Pointer[float64](5),
             MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096),
             MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0),
@@ -1031,7 +1031,7 @@ func main() {
             Type: operations.CreateOutputSystemByPackTypeDynatraceOtlpDynatraceOtlp,
             Protocol: operations.CreateOutputSystemByPackProtocolDynatraceOtlpHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             EndpointType: operations.CreateOutputSystemByPackEndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
@@ -2372,7 +2372,7 @@ func main() {
             Type: operations.CreateOutputSystemByPackTypeServiceNowServiceNow,
             Endpoint: "ingest.lightstep.com:443",
             TokenSecret: "your-token-secret",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             Protocol: components.ProtocolOptionsHTTP,
         },
     ))
@@ -3211,7 +3211,7 @@ func main() {
             OauthType: components.OutputAzureDataExplorerAuthenticationMethodClientSecret,
             ClientSecret: criblcontrolplanesdkgo.Pointer("client-secret"),
             Format: components.DataFormatOptionsJSON.ToPointer(),
-            Compress: components.CompressionOptions2Gzip,
+            Compress: components.CompressionOptionsHTTPGzip,
         },
     ))
     if err != nil {
@@ -3622,7 +3622,7 @@ func main() {
             },
             Streamtags: []string{},
             LoadBalanced: criblcontrolplanesdkgo.Pointer(false),
-            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
+            TLS: &components.TLSSettingsClientSideTypeCaPathCertPath{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
             TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60),
@@ -3631,7 +3631,7 @@ func main() {
                 "__metadata",
                 "__winEvent",
             },
-            Compression: components.CompressionOptions1Gzip.ToPointer(),
+            Compression: components.CompressionOptionsGzipNoneGzip.ToPointer(),
             Concurrency: criblcontrolplanesdkgo.Pointer[float64](5),
             MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096),
             MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0),
@@ -4070,7 +4070,7 @@ func main() {
             Type: components.OutputDynatraceOtlpTypeDynatraceOtlp,
             Protocol: components.OutputDynatraceOtlpProtocolHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             EndpointType: components.EndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
@@ -5379,7 +5379,7 @@ func main() {
             Type: components.OutputServiceNowTypeServiceNow,
             Endpoint: "ingest.lightstep.com:443",
             TokenSecret: "your-token-secret",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             Protocol: components.ProtocolOptionsHTTP,
         },
     ))

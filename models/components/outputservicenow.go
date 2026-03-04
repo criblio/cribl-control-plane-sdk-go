@@ -63,15 +63,15 @@ type OutputServiceNow struct {
 	TokenSecret   string  `json:"tokenSecret"`
 	AuthTokenName *string `json:"authTokenName,omitzero"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion OtlpVersionOptions1 `json:"otlpVersion"`
+	OtlpVersion OtlpVersionOptions131 `json:"otlpVersion"`
 	// Maximum size, in KB, of the request body
 	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Select a transport option for OpenTelemetry
 	Protocol ProtocolOptions `json:"protocol"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *CompressionOptions4 `json:"compress,omitzero"`
+	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptions5 `json:"httpCompress,omitzero"`
+	HTTPCompress *CompressionOptionsMessages `json:"httpCompress,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -111,8 +111,8 @@ type OutputServiceNow struct {
 	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                       `json:"responseHonorRetryAfterHeader,omitzero"`
-	TLS                           *TLSSettingsClientSideType2 `json:"tls,omitzero"`
+	ResponseHonorRetryAfterHeader *bool                              `json:"responseHonorRetryAfterHeader,omitzero"`
+	TLS                           *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -212,9 +212,9 @@ func (o *OutputServiceNow) GetAuthTokenName() *string {
 	return o.AuthTokenName
 }
 
-func (o *OutputServiceNow) GetOtlpVersion() OtlpVersionOptions1 {
+func (o *OutputServiceNow) GetOtlpVersion() OtlpVersionOptions131 {
 	if o == nil {
-		return OtlpVersionOptions1("")
+		return OtlpVersionOptions131("")
 	}
 	return o.OtlpVersion
 }
@@ -233,14 +233,14 @@ func (o *OutputServiceNow) GetProtocol() ProtocolOptions {
 	return o.Protocol
 }
 
-func (o *OutputServiceNow) GetCompress() *CompressionOptions4 {
+func (o *OutputServiceNow) GetCompress() *CompressionOptionsDeflateGzip {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputServiceNow) GetHTTPCompress() *CompressionOptions5 {
+func (o *OutputServiceNow) GetHTTPCompress() *CompressionOptionsMessages {
 	if o == nil {
 		return nil
 	}
@@ -387,7 +387,7 @@ func (o *OutputServiceNow) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputServiceNow) GetTLS() *TLSSettingsClientSideType2 {
+func (o *OutputServiceNow) GetTLS() *TLSSettingsClientSideTypeExtended {
 	if o == nil {
 		return nil
 	}

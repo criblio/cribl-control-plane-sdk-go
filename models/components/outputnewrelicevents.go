@@ -95,9 +95,9 @@ type OutputNewrelicEvents struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions2 `json:"authType,omitzero"`
-	Description *string                       `json:"description,omitzero"`
-	CustomURL   *string                       `json:"customUrl,omitzero"`
+	AuthType    *AuthenticationMethodOptionsAPI `json:"authType,omitzero"`
+	Description *string                         `json:"description,omitzero"`
+	CustomURL   *string                         `json:"customUrl,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -314,7 +314,7 @@ func (o *OutputNewrelicEvents) GetOnBackpressure() *BackpressureBehaviorOptions 
 	return o.OnBackpressure
 }
 
-func (o *OutputNewrelicEvents) GetAuthType() *AuthenticationMethodOptions2 {
+func (o *OutputNewrelicEvents) GetAuthType() *AuthenticationMethodOptionsAPI {
 	if o == nil {
 		return nil
 	}

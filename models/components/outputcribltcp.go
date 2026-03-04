@@ -60,12 +60,12 @@ type OutputCriblTCP struct {
 	// Use load-balanced destinations
 	LoadBalanced *bool `json:"loadBalanced,omitzero"`
 	// Codec to use to compress the data before sending
-	Compression *CompressionOptions1 `json:"compression,omitzero"`
+	Compression *CompressionOptionsGzipNone `json:"compression,omitzero"`
 	// Use to troubleshoot issues with sending data
 	LogFailedRequests *bool `json:"logFailedRequests,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string                                       `json:"throttleRatePerSec,omitzero"`
-	TLS                *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	ThrottleRatePerSec *string                                  `json:"throttleRatePerSec,omitzero"`
+	TLS                *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
@@ -182,7 +182,7 @@ func (o *OutputCriblTCP) GetLoadBalanced() *bool {
 	return o.LoadBalanced
 }
 
-func (o *OutputCriblTCP) GetCompression() *CompressionOptions1 {
+func (o *OutputCriblTCP) GetCompression() *CompressionOptionsGzipNone {
 	if o == nil {
 		return nil
 	}
@@ -203,7 +203,7 @@ func (o *OutputCriblTCP) GetThrottleRatePerSec() *string {
 	return o.ThrottleRatePerSec
 }
 
-func (o *OutputCriblTCP) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputCriblTCP) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if o == nil {
 		return nil
 	}

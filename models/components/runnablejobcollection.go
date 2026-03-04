@@ -294,9 +294,9 @@ type RunnableJobCollection struct {
 	// If enabled, tasks are created and run by the same Worker Node
 	WorkerAffinity *bool `json:"workerAffinity,omitzero"`
 	// Collector configuration
-	Collector Collector                                    `json:"collector"`
-	Input     *TypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
-	Run       RunnableJobCollectionRun                     `json:"run"`
+	Collector Collector                                                         `json:"collector"`
+	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	Run       RunnableJobCollectionRun                                          `json:"run"`
 }
 
 func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -434,7 +434,7 @@ func (r *RunnableJobCollection) GetCollectorSplunk() *CollectorSplunk {
 	return r.GetCollector().CollectorSplunk
 }
 
-func (r *RunnableJobCollection) GetInput() *TypeCollectionWithBreakerRulesetsConstraint {
+func (r *RunnableJobCollection) GetInput() *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint {
 	if r == nil {
 		return nil
 	}
