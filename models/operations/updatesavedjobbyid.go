@@ -12,8 +12,8 @@ type UpdateSavedJobByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// The <code>id</code> of the Pack that includes the Collector to update.
 	CriblPack *string `queryParam:"style=form,explode=true,name=criblPack"`
-	// SavedJob object
-	SavedJob components.SavedJob `request:"mediaType=application/json"`
+	// SavedJobCreateUpdate object
+	SavedJobCreateUpdate components.SavedJobCreateUpdate `request:"mediaType=application/json"`
 }
 
 func (u *UpdateSavedJobByIDRequest) GetID() string {
@@ -30,11 +30,11 @@ func (u *UpdateSavedJobByIDRequest) GetCriblPack() *string {
 	return u.CriblPack
 }
 
-func (u *UpdateSavedJobByIDRequest) GetSavedJob() components.SavedJob {
+func (u *UpdateSavedJobByIDRequest) GetSavedJobCreateUpdate() components.SavedJobCreateUpdate {
 	if u == nil {
-		return components.SavedJob{}
+		return components.SavedJobCreateUpdate{}
 	}
-	return u.SavedJob
+	return u.SavedJobCreateUpdate
 }
 
 type UpdateSavedJobByIDResponse struct {

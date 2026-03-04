@@ -2783,7 +2783,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Appscope(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Appscope(
         components.InputAppscope{
             ID: criblcontrolplanesdkgo.Pointer("appscope-source"),
             Type: components.InputAppscopeTypeAppscope,
@@ -2825,7 +2825,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2AzureBlob(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2AzureBlob(
         components.InputAzureBlob{
             ID: criblcontrolplanesdkgo.Pointer("azure-blob-source"),
             Type: components.InputAzureBlobTypeAzureBlob,
@@ -2866,7 +2866,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2CloudflareHec(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2CloudflareHec(
         components.InputCloudflareHec{
             ID: criblcontrolplanesdkgo.Pointer("cloudflare-hec-source"),
             Type: components.InputCloudflareHecTypeCloudflareHec,
@@ -2909,7 +2909,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Collection(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Collection(
         components.InputCollection{
             ID: criblcontrolplanesdkgo.Pointer("collection-source"),
             Type: components.InputCollectionTypeCollection,
@@ -2949,7 +2949,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2ConfluentCloud(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2ConfluentCloud(
         components.InputConfluentCloud{
             ID: criblcontrolplanesdkgo.Pointer("confluent-cloud-source"),
             Type: components.InputConfluentCloudTypeConfluentCloud,
@@ -2995,7 +2995,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2CriblHTTP(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2CriblHTTP(
         components.InputCriblHTTP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-http-source"),
             Type: components.InputCriblHTTPTypeCriblHTTP,
@@ -3037,7 +3037,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2CriblLakeHTTP(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2CriblLakeHTTP(
         components.InputCriblLakeHTTP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-lake-http-source"),
             Type: components.InputCriblLakeHTTPTypeCriblLakeHTTP,
@@ -3079,7 +3079,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2CriblTCP(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2CriblTCP(
         components.InputCriblTCP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-source"),
             Type: components.InputCriblTCPTypeCriblTCP,
@@ -3121,7 +3121,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Crowdstrike(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Crowdstrike(
         components.InputCrowdstrike{
             ID: criblcontrolplanesdkgo.Pointer("crowdstrike-source"),
             Type: components.InputCrowdstrikeTypeCrowdstrike,
@@ -3163,7 +3163,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2DatadogAgent(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2DatadogAgent(
         components.InputDatadogAgent{
             ID: criblcontrolplanesdkgo.Pointer("datadog-agent-source"),
             Type: components.InputDatadogAgentTypeDatadogAgent,
@@ -3205,7 +3205,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Datagen(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Datagen(
         components.InputDatagen{
             ID: criblcontrolplanesdkgo.Pointer("datagen-source"),
             Type: components.InputDatagenTypeDatagen,
@@ -3251,7 +3251,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2EdgePrometheus(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2EdgePrometheus(
         components.InputEdgePrometheus{
             ID: criblcontrolplanesdkgo.Pointer("edge-prometheus-source"),
             Type: components.InputEdgePrometheusTypeEdgePrometheus,
@@ -3298,7 +3298,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Elastic(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Elastic(
         components.InputElastic{
             ID: criblcontrolplanesdkgo.Pointer("elastic-source"),
             Type: components.InputElasticTypeElastic,
@@ -3341,7 +3341,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Eventhub(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Eventhub(
         components.InputEventhub{
             ID: criblcontrolplanesdkgo.Pointer("eventhub-source"),
             Type: components.InputEventhubTypeEventhub,
@@ -3387,7 +3387,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Exec(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Exec(
         components.InputExec{
             ID: criblcontrolplanesdkgo.Pointer("exec-source"),
             Type: components.InputExecTypeExec,
@@ -3429,7 +3429,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2File(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2File(
         components.InputFile{
             ID: criblcontrolplanesdkgo.Pointer("file-source"),
             Type: components.InputFileTypeFile,
@@ -3470,7 +3470,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Firehose(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Firehose(
         components.InputFirehose{
             ID: criblcontrolplanesdkgo.Pointer("firehose-source"),
             Type: components.InputFirehoseTypeFirehose,
@@ -3512,7 +3512,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2GooglePubsub(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2GooglePubsub(
         components.InputGooglePubsub{
             ID: criblcontrolplanesdkgo.Pointer("google-pubsub-source"),
             Type: components.InputGooglePubsubTypeGooglePubsub,
@@ -3554,7 +3554,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Grafana(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Grafana(
         components.CreateInputGrafanaInputGrafanaGrafana1(
             components.InputGrafanaGrafana1{
                 ID: criblcontrolplanesdkgo.Pointer("grafana-source"),
@@ -3599,7 +3599,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2HTTP(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2HTTP(
         components.InputHTTP{
             ID: criblcontrolplanesdkgo.Pointer("http-source"),
             Type: components.InputHTTPTypeHTTP,
@@ -3641,7 +3641,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2HTTPRaw(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2HTTPRaw(
         components.InputHTTPRaw{
             ID: criblcontrolplanesdkgo.Pointer("http-raw-source"),
             Type: components.InputHTTPRawTypeHTTPRaw,
@@ -3683,7 +3683,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2JournalFiles(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2JournalFiles(
         components.InputJournalFiles{
             ID: criblcontrolplanesdkgo.Pointer("journal-files-source"),
             Type: components.InputJournalFilesTypeJournalFiles,
@@ -3727,7 +3727,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Kafka(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Kafka(
         components.InputKafka{
             ID: criblcontrolplanesdkgo.Pointer("kafka-source"),
             Type: components.InputKafkaTypeKafka,
@@ -3773,7 +3773,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Kinesis(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Kinesis(
         components.InputKinesis{
             ID: criblcontrolplanesdkgo.Pointer("kinesis-source"),
             Type: components.InputKinesisTypeKinesis,
@@ -3815,7 +3815,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2KubeEvents(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2KubeEvents(
         components.InputKubeEvents{
             ID: criblcontrolplanesdkgo.Pointer("kube-events-source"),
             Type: components.InputKubeEventsTypeKubeEvents,
@@ -3855,7 +3855,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2KubeLogs(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2KubeLogs(
         components.InputKubeLogs{
             ID: criblcontrolplanesdkgo.Pointer("kube-logs-source"),
             Type: components.InputKubeLogsTypeKubeLogs,
@@ -3895,7 +3895,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2KubeMetrics(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2KubeMetrics(
         components.InputKubeMetrics{
             ID: criblcontrolplanesdkgo.Pointer("kube-metrics-source"),
             Type: components.InputKubeMetricsTypeKubeMetrics,
@@ -3935,7 +3935,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Loki(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Loki(
         components.InputLoki{
             ID: criblcontrolplanesdkgo.Pointer("loki-source"),
             Type: components.InputLokiTypeLoki,
@@ -3978,7 +3978,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Metrics(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Metrics(
         components.InputMetrics{
             ID: criblcontrolplanesdkgo.Pointer("metrics-source"),
             Type: components.InputMetricsTypeMetrics,
@@ -4020,7 +4020,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2ModelDrivenTelemetry(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2ModelDrivenTelemetry(
         components.InputModelDrivenTelemetry{
             ID: criblcontrolplanesdkgo.Pointer("mdt-source"),
             Type: components.InputModelDrivenTelemetryTypeModelDrivenTelemetry,
@@ -4062,7 +4062,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Msk(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Msk(
         components.InputMsk{
             ID: criblcontrolplanesdkgo.Pointer("msk-source"),
             Type: components.InputMskTypeMsk,
@@ -4110,7 +4110,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Netflow(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Netflow(
         components.InputNetflow{
             ID: criblcontrolplanesdkgo.Pointer("netflow-source"),
             Type: components.InputNetflowTypeNetflow,
@@ -4152,7 +4152,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Office365Mgmt(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Office365Mgmt(
         components.InputOffice365Mgmt{
             ID: criblcontrolplanesdkgo.Pointer("office365-mgmt-source"),
             Type: components.InputOffice365MgmtTypeOffice365Mgmt,
@@ -4195,7 +4195,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Office365MsgTrace(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Office365MsgTrace(
         components.InputOffice365MsgTrace{
             ID: criblcontrolplanesdkgo.Pointer("office365-msg-trace-source"),
             Type: components.InputOffice365MsgTraceTypeOffice365MsgTrace,
@@ -4237,7 +4237,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Office365Service(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Office365Service(
         components.InputOffice365Service{
             ID: criblcontrolplanesdkgo.Pointer("office365-service-source"),
             Type: components.InputOffice365ServiceTypeOffice365Service,
@@ -4279,7 +4279,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Openai(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Openai(
         components.InputOpenaiInput{
             ID: criblcontrolplanesdkgo.Pointer("openai-source"),
             Type: components.InputOpenaiTypeOpenai,
@@ -4343,7 +4343,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2OpenTelemetry(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2OpenTelemetry(
         components.InputOpenTelemetry{
             ID: criblcontrolplanesdkgo.Pointer("otel-source"),
             Type: components.InputOpenTelemetryTypeOpenTelemetry,
@@ -4385,7 +4385,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Prometheus(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Prometheus(
         components.InputPrometheus{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-source"),
             Type: components.InputPrometheusTypePrometheus,
@@ -4431,7 +4431,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2PrometheusRw(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2PrometheusRw(
         components.InputPrometheusRw{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-rw-source"),
             Type: components.InputPrometheusRwTypePrometheusRw,
@@ -4474,7 +4474,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2RawUDP(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2RawUDP(
         components.InputRawUDP{
             ID: criblcontrolplanesdkgo.Pointer("raw-udp-source"),
             Type: components.InputRawUDPTypeRawUDP,
@@ -4516,7 +4516,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2S3(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2S3(
         components.InputS3{
             ID: criblcontrolplanesdkgo.Pointer("s3-source"),
             Type: components.InputS3TypeS3,
@@ -4558,7 +4558,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2S3Inventory(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2S3Inventory(
         components.InputS3Inventory{
             ID: criblcontrolplanesdkgo.Pointer("s3-inventory-source"),
             Type: components.InputS3InventoryTypeS3Inventory,
@@ -4600,7 +4600,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2SecurityLake(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2SecurityLake(
         components.InputSecurityLake{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-source"),
             Type: components.InputSecurityLakeTypeSecurityLake,
@@ -4642,7 +4642,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Snmp(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Snmp(
         components.InputSnmp{
             ID: criblcontrolplanesdkgo.Pointer("snmp-source"),
             Type: components.InputSnmpTypeSnmp,
@@ -4684,7 +4684,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Splunk(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Splunk(
         components.InputSplunk{
             ID: criblcontrolplanesdkgo.Pointer("splunk-source"),
             Type: components.InputSplunkTypeSplunk,
@@ -4726,7 +4726,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2SplunkHec(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2SplunkHec(
         components.InputSplunkHec{
             ID: criblcontrolplanesdkgo.Pointer("splunk-hec-source"),
             Type: components.InputSplunkHecTypeSplunkHec,
@@ -4769,7 +4769,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2SplunkSearch(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2SplunkSearch(
         components.InputSplunkSearch{
             ID: criblcontrolplanesdkgo.Pointer("splunk-search-source"),
             Type: components.InputSplunkSearchTypeSplunkSearch,
@@ -4814,7 +4814,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Sqs(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Sqs(
         components.InputSqs{
             ID: criblcontrolplanesdkgo.Pointer("sqs-source"),
             Type: components.InputSqsTypeSqs,
@@ -4857,7 +4857,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Syslog(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Syslog(
         components.CreateInputSyslogInputSyslogSyslog1(
             components.InputSyslogSyslog1{
                 ID: criblcontrolplanesdkgo.Pointer("syslog-source"),
@@ -4901,7 +4901,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2SystemMetrics(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2SystemMetrics(
         components.InputSystemMetrics{
             ID: criblcontrolplanesdkgo.Pointer("system-metrics-source"),
             Type: components.InputSystemMetricsTypeSystemMetrics,
@@ -4941,7 +4941,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2SystemState(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2SystemState(
         components.InputSystemState{
             ID: criblcontrolplanesdkgo.Pointer("system-state-source"),
             Type: components.InputSystemStateTypeSystemState,
@@ -4981,7 +4981,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2TCP(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2TCP(
         components.InputTCP{
             ID: criblcontrolplanesdkgo.Pointer("tcp-source"),
             Type: components.InputTCPTypeTCP,
@@ -5023,7 +5023,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Tcpjson(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Tcpjson(
         components.InputTcpjson{
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-source"),
             Type: components.InputTcpjsonTypeTcpjson,
@@ -5065,7 +5065,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Wef(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Wef(
         components.InputWef{
             ID: criblcontrolplanesdkgo.Pointer("wef-source"),
             Type: components.InputWefTypeWef,
@@ -5116,7 +5116,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2WinEventLogs(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2WinEventLogs(
         components.InputWinEventLogs{
             ID: criblcontrolplanesdkgo.Pointer("win-event-logs-source"),
             Type: components.InputWinEventLogsTypeWinEventLogs,
@@ -5160,7 +5160,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2WindowsMetrics(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2WindowsMetrics(
         components.InputWindowsMetrics{
             ID: criblcontrolplanesdkgo.Pointer("windows-metrics-source"),
             Type: components.InputWindowsMetricsTypeWindowsMetrics,
@@ -5200,7 +5200,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Wiz(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Wiz(
         components.InputWiz{
             ID: criblcontrolplanesdkgo.Pointer("wiz-source"),
             Type: components.InputWizTypeWiz,
@@ -5244,7 +5244,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2WizWebhook(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2WizWebhook(
         components.InputWizWebhook{
             ID: criblcontrolplanesdkgo.Pointer("wiz-webhook-source"),
             Type: components.InputWizWebhookTypeWizWebhook,
@@ -5286,7 +5286,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2ZscalerHec(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2ZscalerHec(
         components.InputZscalerHec{
             ID: criblcontrolplanesdkgo.Pointer("zscaler-hec-source"),
             Type: components.InputZscalerHecTypeZscalerHec,
@@ -5329,7 +5329,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Cribl(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Cribl(
         components.InputCribl{
             ID: criblcontrolplanesdkgo.Pointer("cribl-source"),
             Type: components.InputCriblTypeCribl,
@@ -5369,7 +5369,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2Criblmetrics(
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInputUnion2Criblmetrics(
         components.InputCriblmetrics{
             ID: criblcontrolplanesdkgo.Pointer("cribl-metrics-source"),
             Type: components.InputCriblmetricsTypeCriblmetrics,
@@ -5388,13 +5388,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Source to update.             |
-| `pack`                                                   | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to update.               |
-| `input`                                                  | [components.Input2](../../models/components/input2.md)   | :heavy_check_mark:                                       | Input object                                             |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                        | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |
+| `id`                                                             | *string*                                                         | :heavy_check_mark:                                               | The <code>id</code> of the Source to update.                     |
+| `pack`                                                           | *string*                                                         | :heavy_check_mark:                                               | The <code>id</code> of the Pack to update.                       |
+| `input`                                                          | [components.InputUnion2](../../models/components/inputunion2.md) | :heavy_check_mark:                                               | Input object                                                     |
+| `opts`                                                           | [][operations.Option](../../models/operations/option.md)         | :heavy_minus_sign:                                               | The options for this request.                                    |
 
 ### Response
 

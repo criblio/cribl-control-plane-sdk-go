@@ -3,122 +3,114 @@
 package components
 
 import (
-	"errors"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type SavedJobType string
-
-const (
-	SavedJobTypeSavedJobCollection      SavedJobType = "SavedJobCollection"
-	SavedJobTypeSavedJobExecutor        SavedJobType = "SavedJobExecutor"
-	SavedJobTypeSavedJobScheduledSearch SavedJobType = "SavedJobScheduledSearch"
-)
-
 type SavedJob struct {
-	SavedJobCollection      *SavedJobCollection      `queryParam:"inline" union:"member"`
-	SavedJobExecutor        *SavedJobExecutor        `queryParam:"inline" union:"member"`
-	SavedJobScheduledSearch *SavedJobScheduledSearch `queryParam:"inline" union:"member"`
-
-	Type SavedJobType
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Worker Group ID to run the job in. When empty, uses the default group.
+	GroupID *string `json:"groupId,omitzero"`
+	ID      string  `json:"id"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// Notification targets.
+	Notifications []Notification `json:"notifications,omitzero"`
+	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution.
+	ResumeOnBoot *bool                           `json:"resumeOnBoot,omitzero"`
+	SavedState   map[string]CollectionStateEntry `json:"savedState,omitzero"`
+	Schedule     *ScheduleOpts                   `json:"schedule,omitzero"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// Job type: collection, executor, or scheduledSearch.
+	Type                 string         `json:"type"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 
-func CreateSavedJobSavedJobCollection(savedJobCollection SavedJobCollection) SavedJob {
-	typ := SavedJobTypeSavedJobCollection
-
-	return SavedJob{
-		SavedJobCollection: &savedJobCollection,
-		Type:               typ,
-	}
+func (s SavedJob) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func CreateSavedJobSavedJobExecutor(savedJobExecutor SavedJobExecutor) SavedJob {
-	typ := SavedJobTypeSavedJobExecutor
-
-	return SavedJob{
-		SavedJobExecutor: &savedJobExecutor,
-		Type:             typ,
+func (s *SavedJob) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
 	}
+	return nil
 }
 
-func CreateSavedJobSavedJobScheduledSearch(savedJobScheduledSearch SavedJobScheduledSearch) SavedJob {
-	typ := SavedJobTypeSavedJobScheduledSearch
-
-	return SavedJob{
-		SavedJobScheduledSearch: &savedJobScheduledSearch,
-		Type:                    typ,
-	}
-}
-
-func (u *SavedJob) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var savedJobCollection SavedJobCollection = SavedJobCollection{}
-	if err := utils.UnmarshalJSON(data, &savedJobCollection, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SavedJobTypeSavedJobCollection,
-			Value: &savedJobCollection,
-		})
-	}
-
-	var savedJobExecutor SavedJobExecutor = SavedJobExecutor{}
-	if err := utils.UnmarshalJSON(data, &savedJobExecutor, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SavedJobTypeSavedJobExecutor,
-			Value: &savedJobExecutor,
-		})
-	}
-
-	var savedJobScheduledSearch SavedJobScheduledSearch = SavedJobScheduledSearch{}
-	if err := utils.UnmarshalJSON(data, &savedJobScheduledSearch, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SavedJobTypeSavedJobScheduledSearch,
-			Value: &savedJobScheduledSearch,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SavedJob", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SavedJob", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(SavedJobType)
-	switch best.Type {
-	case SavedJobTypeSavedJobCollection:
-		u.SavedJobCollection = best.Value.(*SavedJobCollection)
-		return nil
-	case SavedJobTypeSavedJobExecutor:
-		u.SavedJobExecutor = best.Value.(*SavedJobExecutor)
-		return nil
-	case SavedJobTypeSavedJobScheduledSearch:
-		u.SavedJobScheduledSearch = best.Value.(*SavedJobScheduledSearch)
+func (s *SavedJob) GetEnvironment() *string {
+	if s == nil {
 		return nil
 	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SavedJob", string(data))
+	return s.Environment
 }
 
-func (u SavedJob) MarshalJSON() ([]byte, error) {
-	if u.SavedJobCollection != nil {
-		return utils.MarshalJSON(u.SavedJobCollection, "", true)
+func (s *SavedJob) GetGroupID() *string {
+	if s == nil {
+		return nil
 	}
+	return s.GroupID
+}
 
-	if u.SavedJobExecutor != nil {
-		return utils.MarshalJSON(u.SavedJobExecutor, "", true)
+func (s *SavedJob) GetID() string {
+	if s == nil {
+		return ""
 	}
+	return s.ID
+}
 
-	if u.SavedJobScheduledSearch != nil {
-		return utils.MarshalJSON(u.SavedJobScheduledSearch, "", true)
+func (s *SavedJob) GetIgnoreGroupJobsLimit() *bool {
+	if s == nil {
+		return nil
 	}
+	return s.IgnoreGroupJobsLimit
+}
 
-	return nil, errors.New("could not marshal union type SavedJob: all fields are null")
+func (s *SavedJob) GetNotifications() []Notification {
+	if s == nil {
+		return nil
+	}
+	return s.Notifications
+}
+
+func (s *SavedJob) GetResumeOnBoot() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ResumeOnBoot
+}
+
+func (s *SavedJob) GetSavedState() map[string]CollectionStateEntry {
+	if s == nil {
+		return nil
+	}
+	return s.SavedState
+}
+
+func (s *SavedJob) GetSchedule() *ScheduleOpts {
+	if s == nil {
+		return nil
+	}
+	return s.Schedule
+}
+
+func (s *SavedJob) GetTTL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TTL
+}
+
+func (s *SavedJob) GetType() string {
+	if s == nil {
+		return ""
+	}
+	return s.Type
+}
+
+func (s *SavedJob) GetAdditionalProperties() map[string]any {
+	if s == nil {
+		return nil
+	}
+	return s.AdditionalProperties
 }

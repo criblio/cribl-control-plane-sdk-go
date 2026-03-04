@@ -40,54 +40,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobExecutor(
-        components.SavedJobExecutor{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("which um whenever pro chase video uh-huh atop baritone yum"),
-            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](7324.19),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6945.52),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+        ID: "azure-blob-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */8 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-                "<value 3>",
-            },
-            Executor: components.ExecutorTypeRunnableJobExecutor{
-                Type: "<value>",
-                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
-                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
-            },
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -120,48 +90,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
-        components.SavedJobScheduledSearch{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("cautiously annual worth before cleaner parsnip nimble onset once burgeon"),
-            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+        ID: "cribl-lake-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            SavedQueryID: "<id>",
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -194,53 +140,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobExecutor(
-        components.SavedJobExecutor{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("pomelo outside offensively ew"),
-            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+        ID: "database-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 2 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Executor: components.ExecutorTypeRunnableJobExecutor{
-                Type: "<value>",
-                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
-                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
-            },
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -273,53 +190,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobExecutor(
-        components.SavedJobExecutor{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("pomelo outside offensively ew"),
-            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+        ID: "filesystem-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Executor: components.ExecutorTypeRunnableJobExecutor{
-                Type: "<value>",
-                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
-                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
-            },
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -352,48 +240,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
-        components.SavedJobScheduledSearch{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("cautiously annual worth before cleaner parsnip nimble onset once burgeon"),
-            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+        ID: "gcs-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */12 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            SavedQueryID: "<id>",
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -426,91 +290,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobCollection(
-        components.SavedJobCollection{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("pomelo outside offensively ew"),
-            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+        ID: "rest-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */4 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            WorkerAffinity: criblcontrolplanesdkgo.Pointer(false),
-            Collector: components.CreateCollectorDatabase(
-                components.CollectorDatabase{
-                    Type: components.CollectorDatabaseTypeDatabase,
-                    Conf: components.DatabaseCollectorConf{
-                        ConnectionID: "<id>",
-                        Query: "<value>",
-                        QueryValidationEnabled: criblcontrolplanesdkgo.Pointer(true),
-                        DefaultBreakers: components.HiddenDefaultBreakersOptionsDatabaseCollectorConfCribl.ToPointer(),
-                        Scheduling: &components.DatabaseCollectorConfScheduling{
-                            StateTracking: &components.DatabaseCollectorConfStateTracking{
-                                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                            },
-                        },
-                    },
-                    Destructive: criblcontrolplanesdkgo.Pointer(true),
-                    Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
-                },
-            ),
-            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
-                BreakerRulesets: []string{
-                    "<value 1>",
-                },
-                StaleChannelFlushMs: criblcontrolplanesdkgo.Pointer[float64](10000),
-                SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
-                Preprocess: &components.PreprocessType{
-                    Disabled: true,
-                    Command: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Args: []string{
-                        "<value 1>",
-                    },
-                },
-                ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
-                        Name: "<value>",
-                        Value: "<value>",
-                    },
-                },
-                Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-                Output: criblcontrolplanesdkgo.Pointer("<value>"),
-            },
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -543,49 +340,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
-        components.SavedJobScheduledSearch{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("pomelo outside offensively ew"),
-            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+        ID: "s3-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */6 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            SavedQueryID: "<id>",
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -618,48 +390,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
-        components.SavedJobScheduledSearch{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("cautiously annual worth before cleaner parsnip nimble onset once burgeon"),
-            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+        ID: "script-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */3 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            SavedQueryID: "<id>",
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -692,48 +440,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
-        components.SavedJobScheduledSearch{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("cautiously annual worth before cleaner parsnip nimble onset once burgeon"),
-            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Create(ctx, components.SavedJobCreateUpdate{
+        ID: "splunk-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */1 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            SavedQueryID: "<id>",
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -745,12 +469,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `ctx`                                                       | [context.Context](https://pkg.go.dev/context#Context)       | :heavy_check_mark:                                          | The context to use for the request.                         |
-| `savedJob`                                                  | [components.SavedJob](../../models/components/savedjob.md)  | :heavy_check_mark:                                          | SavedJob object                                             |
-| `criblPack`                                                 | **string*                                                   | :heavy_minus_sign:                                          | The <code>id</code> of the Pack to create the Collector in. |
-| `opts`                                                      | [][operations.Option](../../models/operations/option.md)    | :heavy_minus_sign:                                          | The options for this request.                               |
+| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
+| `savedJobCreateUpdate`                                                             | [components.SavedJobCreateUpdate](../../models/components/savedjobcreateupdate.md) | :heavy_check_mark:                                                                 | SavedJobCreateUpdate object                                                        |
+| `criblPack`                                                                        | **string*                                                                          | :heavy_minus_sign:                                                                 | The <code>id</code> of the Pack to create the Collector in.                        |
+| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
 
 ### Response
 
@@ -967,53 +691,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
-        components.SavedJobExecutor{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("wee supposing blaring spectate dark"),
-            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(false),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4891.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](5936.75),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+        ID: "azure-blob-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */8 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Executor: components.ExecutorTypeRunnableJobExecutor{
-                Type: "<value>",
-                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
-                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
-            },
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -1046,49 +741,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
-        components.SavedJobScheduledSearch{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
-            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+        ID: "cribl-lake-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            SavedQueryID: "<id>",
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -1121,49 +791,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
-        components.SavedJobScheduledSearch{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
-            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+        ID: "database-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 2 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            SavedQueryID: "<id>",
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -1196,53 +841,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
-        components.SavedJobExecutor{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("wee supposing blaring spectate dark"),
-            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(false),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4891.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](5936.75),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+        ID: "filesystem-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Executor: components.ExecutorTypeRunnableJobExecutor{
-                Type: "<value>",
-                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
-                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
-            },
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -1275,49 +891,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
-        components.SavedJobScheduledSearch{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("horde before huzzah apud ha even murky favorite"),
-            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(false),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](6033.18),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6852.51),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+        ID: "gcs-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */12 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            SavedQueryID: "<id>",
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -1350,94 +941,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
-        components.SavedJobCollection{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
-            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+        ID: "rest-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */4 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            WorkerAffinity: criblcontrolplanesdkgo.Pointer(false),
-            Collector: components.CreateCollectorDatabase(
-                components.CollectorDatabase{
-                    Type: components.CollectorDatabaseTypeDatabase,
-                    Conf: components.DatabaseCollectorConf{
-                        ConnectionID: "<id>",
-                        Query: "<value>",
-                        QueryValidationEnabled: criblcontrolplanesdkgo.Pointer(true),
-                        DefaultBreakers: components.HiddenDefaultBreakersOptionsDatabaseCollectorConfCribl.ToPointer(),
-                        Scheduling: &components.DatabaseCollectorConfScheduling{
-                            StateTracking: &components.DatabaseCollectorConfStateTracking{
-                                Enabled: criblcontrolplanesdkgo.Pointer(false),
-                            },
-                        },
-                    },
-                    Destructive: criblcontrolplanesdkgo.Pointer(true),
-                    Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
-                },
-            ),
-            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
-                BreakerRulesets: []string{
-                    "<value 1>",
-                    "<value 2>",
-                    "<value 3>",
-                },
-                StaleChannelFlushMs: criblcontrolplanesdkgo.Pointer[float64](10000),
-                SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
-                Preprocess: &components.PreprocessType{
-                    Disabled: true,
-                    Command: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Args: []string{
-                        "<value 1>",
-                        "<value 2>",
-                    },
-                },
-                ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
-                        Name: "<value>",
-                        Value: "<value>",
-                    },
-                },
-                Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-                Output: criblcontrolplanesdkgo.Pointer("<value>"),
-            },
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -1470,49 +991,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
-        components.SavedJobScheduledSearch{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
-            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+        ID: "s3-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */6 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            SavedQueryID: "<id>",
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -1545,53 +1041,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
-        components.SavedJobExecutor{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("wee supposing blaring spectate dark"),
-            Type: components.JobTypeOptionsRunnableJobCollectionExecutor,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(false),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4891.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](5936.75),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+        ID: "script-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */3 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Executor: components.ExecutorTypeRunnableJobExecutor{
-                Type: "<value>",
-                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
-                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
-            },
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -1624,53 +1091,24 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
-        components.SavedJobExecutor{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
-            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
-            TTL: criblcontrolplanesdkgo.Pointer("4h"),
-            IgnoreGroupJobsLimit: criblcontrolplanesdkgo.Pointer(false),
-            RemoveFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
-                Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Skippable: criblcontrolplanesdkgo.Pointer(true),
-                ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
-                CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
-                MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
-                    RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
-                    MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
-                    LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
-                    Mode: "list",
-                    TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
-                    TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
-                    Expression: criblcontrolplanesdkgo.Pointer("true"),
-                    MinTaskSize: criblcontrolplanesdkgo.Pointer("1MB"),
-                    MaxTaskSize: criblcontrolplanesdkgo.Pointer("10MB"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobCreateUpdate{
+        ID: "splunk-collector",
+        Schedule: &components.ScheduleOpts{
+            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */1 * * *"),
+            Enabled: true,
+            Run: components.RunSettings{
+                AdditionalProperties: map[string]any{
+                    "mode": "run",
+                    "timeRangeType": "relative",
+                    "earliest": -300,
+                    "expression": "true",
+                    "logLevel": "info",
                 },
             },
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Executor: components.ExecutorTypeRunnableJobExecutor{
-                Type: "<value>",
-                StoreTaskResults: criblcontrolplanesdkgo.Pointer(true),
-                Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
-            },
+            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+        Type: "collection",
+    }, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -1682,13 +1120,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `ctx`                                                                  | [context.Context](https://pkg.go.dev/context#Context)                  | :heavy_check_mark:                                                     | The context to use for the request.                                    |
-| `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Collector to update.                        |
-| `savedJob`                                                             | [components.SavedJob](../../models/components/savedjob.md)             | :heavy_check_mark:                                                     | SavedJob object                                                        |
-| `criblPack`                                                            | **string*                                                              | :heavy_minus_sign:                                                     | The <code>id</code> of the Pack that includes the Collector to update. |
-| `opts`                                                                 | [][operations.Option](../../models/operations/option.md)               | :heavy_minus_sign:                                                     | The options for this request.                                          |
+| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
+| `id`                                                                               | *string*                                                                           | :heavy_check_mark:                                                                 | The <code>id</code> of the Collector to update.                                    |
+| `savedJobCreateUpdate`                                                             | [components.SavedJobCreateUpdate](../../models/components/savedjobcreateupdate.md) | :heavy_check_mark:                                                                 | SavedJobCreateUpdate object                                                        |
+| `criblPack`                                                                        | **string*                                                                          | :heavy_minus_sign:                                                                 | The <code>id</code> of the Pack that includes the Collector to update.             |
+| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
 
 ### Response
 

@@ -34,10 +34,10 @@ func newCollectors(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration
 
 // Create a Collector
 // Create a new Collector.
-func (s *Collectors) Create(ctx context.Context, savedJob components.SavedJob, criblPack *string, opts ...operations.Option) (*operations.CreateSavedJobResponse, error) {
+func (s *Collectors) Create(ctx context.Context, savedJobCreateUpdate components.SavedJobCreateUpdate, criblPack *string, opts ...operations.Option) (*operations.CreateSavedJobResponse, error) {
 	request := operations.CreateSavedJobRequest{
-		CriblPack: criblPack,
-		SavedJob:  savedJob,
+		CriblPack:            criblPack,
+		SavedJobCreateUpdate: savedJobCreateUpdate,
 	}
 
 	o := operations.Options{}
@@ -72,7 +72,7 @@ func (s *Collectors) Create(ctx context.Context, savedJob components.SavedJob, c
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SavedJob", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SavedJobCreateUpdate", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -1035,11 +1035,11 @@ func (s *Collectors) Get(ctx context.Context, id string, criblPack *string, opts
 
 // Update a Collector
 // Update the specified Collector.<br><br>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br><br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
-func (s *Collectors) Update(ctx context.Context, id string, savedJob components.SavedJob, criblPack *string, opts ...operations.Option) (*operations.UpdateSavedJobByIDResponse, error) {
+func (s *Collectors) Update(ctx context.Context, id string, savedJobCreateUpdate components.SavedJobCreateUpdate, criblPack *string, opts ...operations.Option) (*operations.UpdateSavedJobByIDResponse, error) {
 	request := operations.UpdateSavedJobByIDRequest{
-		ID:        id,
-		CriblPack: criblPack,
-		SavedJob:  savedJob,
+		ID:                   id,
+		CriblPack:            criblPack,
+		SavedJobCreateUpdate: savedJobCreateUpdate,
 	}
 
 	o := operations.Options{}
@@ -1074,7 +1074,7 @@ func (s *Collectors) Update(ctx context.Context, id string, savedJob components.
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SavedJob", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SavedJobCreateUpdate", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
