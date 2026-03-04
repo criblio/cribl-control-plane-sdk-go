@@ -10,8 +10,8 @@ import (
 type UpdateSavedJobByIDRequest struct {
 	// The <code>id</code> of the Collector to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// SavedJobRequest object
-	SavedJobRequest components.SavedJobRequest `request:"mediaType=application/json"`
+	// SavedJob object
+	SavedJob components.SavedJob `request:"mediaType=application/json"`
 }
 
 func (u *UpdateSavedJobByIDRequest) GetID() string {
@@ -21,11 +21,11 @@ func (u *UpdateSavedJobByIDRequest) GetID() string {
 	return u.ID
 }
 
-func (u *UpdateSavedJobByIDRequest) GetSavedJobRequest() components.SavedJobRequest {
+func (u *UpdateSavedJobByIDRequest) GetSavedJob() components.SavedJob {
 	if u == nil {
-		return components.SavedJobRequest{}
+		return components.SavedJob{}
 	}
-	return u.SavedJobRequest
+	return u.SavedJob
 }
 
 type UpdateSavedJobByIDResponse struct {

@@ -190,38 +190,6 @@ func (c *Condition) GetValue() Value {
 	return c.Value
 }
 
-type FunctionConfSchemaNotificationPoliciesTemplateTargetPair struct {
-	// ID of the notification template to use
-	TemplateID string `json:"templateId"`
-	// ID of the notification target (output)
-	TargetID string `json:"targetId"`
-}
-
-func (f FunctionConfSchemaNotificationPoliciesTemplateTargetPair) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionConfSchemaNotificationPoliciesTemplateTargetPair) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionConfSchemaNotificationPoliciesTemplateTargetPair) GetTemplateID() string {
-	if f == nil {
-		return ""
-	}
-	return f.TemplateID
-}
-
-func (f *FunctionConfSchemaNotificationPoliciesTemplateTargetPair) GetTargetID() string {
-	if f == nil {
-		return ""
-	}
-	return f.TargetID
-}
-
 type Policy struct {
 	// Unique identifier for this policy
 	ID string `json:"id"`
@@ -234,7 +202,7 @@ type Policy struct {
 	// List of conditions. If ANY condition matches (OR), the policy applies. Each condition is a list of tags that must ALL match (AND).
 	Conditions [][]Condition `json:"conditions,omitzero"`
 	// List of targets to route to and the templates to use
-	TemplateTargetPairs []FunctionConfSchemaNotificationPoliciesTemplateTargetPair `json:"templateTargetPairs"`
+	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs"`
 	// If true, stop evaluating further policies after this one matches
 	Final *bool `json:"final,omitzero"`
 	// Evaluation order of this policy (lower numbers evaluated first)
@@ -287,9 +255,9 @@ func (p *Policy) GetConditions() [][]Condition {
 	return p.Conditions
 }
 
-func (p *Policy) GetTemplateTargetPairs() []FunctionConfSchemaNotificationPoliciesTemplateTargetPair {
+func (p *Policy) GetTemplateTargetPairs() []ItemsTypePoliciesItemsTemplateTargetPairs {
 	if p == nil {
-		return []FunctionConfSchemaNotificationPoliciesTemplateTargetPair{}
+		return []ItemsTypePoliciesItemsTemplateTargetPairs{}
 	}
 	return p.TemplateTargetPairs
 }

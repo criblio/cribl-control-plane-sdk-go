@@ -34,7 +34,7 @@ func newCollectors(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration
 
 // Create a Collector
 // Create a new Collector.
-func (s *Collectors) Create(ctx context.Context, request components.SavedJobRequest, opts ...operations.Option) (*operations.CreateSavedJobResponse, error) {
+func (s *Collectors) Create(ctx context.Context, request components.SavedJob, opts ...operations.Option) (*operations.CreateSavedJobResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -1013,10 +1013,10 @@ func (s *Collectors) Get(ctx context.Context, id string, opts ...operations.Opti
 
 // Update a Collector
 // Update the specified Collector.<br><br>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br><br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
-func (s *Collectors) Update(ctx context.Context, id string, savedJobRequest components.SavedJobRequest, opts ...operations.Option) (*operations.UpdateSavedJobByIDResponse, error) {
+func (s *Collectors) Update(ctx context.Context, id string, savedJob components.SavedJob, opts ...operations.Option) (*operations.UpdateSavedJobByIDResponse, error) {
 	request := operations.UpdateSavedJobByIDRequest{
-		ID:              id,
-		SavedJobRequest: savedJobRequest,
+		ID:       id,
+		SavedJob: savedJob,
 	}
 
 	o := operations.Options{}
@@ -1051,7 +1051,7 @@ func (s *Collectors) Update(ctx context.Context, id string, savedJobRequest comp
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SavedJobRequest", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SavedJob", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}

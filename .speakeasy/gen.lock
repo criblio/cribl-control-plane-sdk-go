@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 30ad533c4528361f010a6a4d4ff92e99
-  docVersion: 4.18.0-alpha.1772638947915-0082c105
-  speakeasyVersion: 1.741.1
-  generationVersion: 2.849.2
-  releaseVersion: 0.6.0-rc.38
-  configChecksum: e8ee82ecbcaccdd2006d797963463cd6
+  docChecksum: 43d973ba29bef3148a8b3e03f11733e8
+  docVersion: 4.18.0-alpha.1772645483046-e0f357e6
+  speakeasyVersion: 1.741.2
+  generationVersion: 2.849.3
+  releaseVersion: 0.6.0-rc.39
+  configChecksum: 8edc57c6774ce4c445291122082c70b8
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: a16d34b3-657b-475b-957c-edde5951cfc1
-  pristine_commit_hash: c16a6266014dbc0dd8e946fe2e72db791ac697d5
-  pristine_tree_hash: 63639f287709885c273999413fccfa927bd95096
+  generation_id: 70614937-cdda-450d-8e44-e70799a4ee79
+  pristine_commit_hash: 6fa74df5d5e28fbbc730e4227207bc7e84115921
+  pristine_tree_hash: 980c4f5ed6ecf6cd5b41a4ba4058a09e168ae169
 features:
   go:
     additionalDependencies: 0.1.0
@@ -81,8 +81,8 @@ trackedFiles:
     pristine_git_object: 3e0613f2f90638306a82d9de5848e71a0f7b016e
   collectors.go:
     id: 7e88ffe1ef22
-    last_write_checksum: sha1:aad4946dc858dbb0d4209378446c1d4046f8e1e5
-    pristine_git_object: 058041e1bc4acab973bf4d66cb14d0f3c41c6adc
+    last_write_checksum: sha1:312915654601597409a1b5387c9e02910adc215c
+    pristine_git_object: 8d1d10040e303796bb8330a01d31d9fb9da47203
   commits.go:
     id: 1b6436244ce7
     last_write_checksum: sha1:3993d4f4c6cfe534adaa98d8a7c037ada0a6da4c
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:b76f50407ad5bfed6b2e2944cf4bcfc56bf28a88
-    pristine_git_object: c5a7a63f354f2cb784280f9ef5d4587162dbccf2
+    last_write_checksum: sha1:5ae4f9dfa175a186f274d9e2214eb34c7c5d7911
+    pristine_git_object: 309139415df82fe6318d8d5b7012e0e066befc99
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -439,10 +439,6 @@ trackedFiles:
     id: 38a02abe4717
     last_write_checksum: sha1:cf5319e0b31698b91995ed421b45a54af8033502
     pristine_git_object: 3f6d9271be2f61356a629c7e56667b933db66eca
-  docs/models/components/collectionstateentry.md:
-    id: 6c4ebf3f7c54
-    last_write_checksum: sha1:06ef7d70c83bf5418a24e4cf2ac0715d8633cf22
-    pristine_git_object: 13a7eadf70bdb8b9714c41047c5e8238a0f9265b
   docs/models/components/collector.md:
     id: 039dcf369765
     last_write_checksum: sha1:81a0092846f00358f7c831316ea90f807644e54a
@@ -575,6 +571,18 @@ trackedFiles:
     id: cc913f06df0d
     last_write_checksum: sha1:d78e292d26cee73c0edeebcf95a1125f1bde7c9a
     pristine_git_object: 1a8598cdc1527cad958d64c2663b29a81da1e78b
+  docs/models/components/conditionspecificconfigs1.md:
+    id: a16b881f8fa7
+    last_write_checksum: sha1:b96819d43d3671ca92fc0e30e1ccdd0505d41dd0
+    pristine_git_object: 11acb9574d5761f9a8bdcf76dc60a662d4047161
+  docs/models/components/conditionspecificconfigs2.md:
+    id: c6d3d079bc7a
+    last_write_checksum: sha1:97eb2af6e5702354f9149ac23fa942049b9bc2ad
+    pristine_git_object: 6dbf71c98b5b13449b8697c9f366bcd4db1fe3e1
+  docs/models/components/conditionspecificconfigs3.md:
+    id: d3da9964de63
+    last_write_checksum: sha1:fb3fcbef9aa25eebb1eb0e6c22bc8c1ad79893de
+    pristine_git_object: 22d0b378b085f721cddfcf83ec3e5b38948fea00
   docs/models/components/config.md:
     id: 7d7a400dba8b
     last_write_checksum: sha1:1836b13f4a9f315ab5a7dc2703071c4037d4a1c2
@@ -585,8 +593,8 @@ trackedFiles:
     pristine_git_object: 2991631ab65f54e2a90085c6e74490239171168d
   docs/models/components/configgroupcloud.md:
     id: 83a052971175
-    last_write_checksum: sha1:5e437a813d96584f671f31f4b43a42927000bbe9
-    pristine_git_object: 09ecc60c91549d9e8ca4fd847189c42c14332ac5
+    last_write_checksum: sha1:d9078a7bef797229c64945dbd641f464cf2d443e
+    pristine_git_object: 93a0d52725b19fb0bcafc551de361d7de2910f22
   docs/models/components/configgrouplookups.md:
     id: 64ff21665e8e
     last_write_checksum: sha1:35d8a459436d46c637eb4ec926ca486d3137775f
@@ -685,8 +693,8 @@ trackedFiles:
     pristine_git_object: a83a7017abc2e72bd5dbfea4e6bb536e50a23d85
   docs/models/components/countedinput.md:
     id: 74a4b3b8c392
-    last_write_checksum: sha1:e5cb164bade3c73bd65bc13512b0366fcd79f95d
-    pristine_git_object: b02555dbb0fa19bd8c2393fda116ed94e9099f6c
+    last_write_checksum: sha1:c85ad3641cbd84ce03de45db7e8be3f7a5106e35
+    pristine_git_object: e2012578d1c41d149eca4dfd6591fa5d404db05d
   docs/models/components/countedinputsplunkhec.md:
     id: f9af6bf2e0ec
     last_write_checksum: sha1:c88e2347790cf1e3b08d74f1871b5e94334d4efb
@@ -947,10 +955,18 @@ trackedFiles:
     id: f474b89ef6a4
     last_write_checksum: sha1:ab4479c0bf9550a51bd6864a1c13ff0bce60cffb
     pristine_git_object: 6074d341bb9ada3f3eed8e3818eab0a806017d7e
-  docs/models/components/emailrecipient.md:
-    id: 9ea777de3599
-    last_write_checksum: sha1:709640edf977a9830e9ec6742b3a2abbb955e76e
-    pristine_git_object: 61f5f84ab2e5e4e7a075f6b8bfc0ca58042c30d6
+  docs/models/components/emailrecipient1.md:
+    id: c85ffc8e8173
+    last_write_checksum: sha1:99ca621eff17c54f5878ae3c04eb9aea21fab0ac
+    pristine_git_object: 3a0839b595397fd62d89adf2643ba1da4d5018dc
+  docs/models/components/emailrecipient2.md:
+    id: 30bf115005aa
+    last_write_checksum: sha1:1e6320817c624f18a4f9403f02046cb5c2efb2dd
+    pristine_git_object: 8419815649611520aaf24ad18ccfbe99f09be503
+  docs/models/components/emailrecipient3.md:
+    id: a37f59eb1171
+    last_write_checksum: sha1:d744345a51d6b8ec0d860cb73fc61629f36ab788
+    pristine_git_object: ab0990bffb633e00e6e49d9453c770109b6da278
   docs/models/components/endpoint.md:
     id: 95fd49dc2537
     last_write_checksum: sha1:7c98d97cb3a7a639af3107cbf7bd0eece39d29df
@@ -1091,14 +1107,14 @@ trackedFiles:
     id: a5b16eba539a
     last_write_checksum: sha1:6f194ff12efc2c57a6050b55083954ec66e62406
     pristine_git_object: 2aa75ef6885a154fbc49bebf868020ebdff5282b
-  docs/models/components/executor.md:
-    id: 66caf328b366
-    last_write_checksum: sha1:f18c9a0959150480105edb7562b07af7a592fbbd
-    pristine_git_object: f25364bb710c0a488cd2851edc5cfd54425e16b7
-  docs/models/components/executorspecificsettings.md:
-    id: ed2bbfcdad48
-    last_write_checksum: sha1:618ef4aee26e98f918113a3e866eb4b8f312dba0
-    pristine_git_object: 40d8abfe39e4a00e1782f9278a4f4994254f141f
+  docs/models/components/executorspecificsettingstyperunnablejobexecutorexecutor.md:
+    id: 137f8339b0a7
+    last_write_checksum: sha1:c985023500ff18bfc962338b66760b416fa99ad2
+    pristine_git_object: af8f7030168e5738943a449a6137c595ae7b64f2
+  docs/models/components/executortyperunnablejobexecutor.md:
+    id: 8493009eb501
+    last_write_checksum: sha1:f0393b7e59f808fda98996a802a927f7b7709594
+    pristine_git_object: 088ee2d4f8b5f10a7d5562a12a93a2f77feb310e
   docs/models/components/extension.md:
     id: b7ef000fe6f8
     last_write_checksum: sha1:48ed849de34b2cbb9c3733deb6d7c4d87b1c787e
@@ -1299,10 +1315,6 @@ trackedFiles:
     id: 662ed9d31210
     last_write_checksum: sha1:6f7aae9d889dfce1faf1c9f1d06e1d845850f845
     pristine_git_object: 26be6b794a392410abbd40cc6b220bac865aecbd
-  docs/models/components/functionconfschemanotificationpoliciestemplatetargetpair.md:
-    id: f15d65300d05
-    last_write_checksum: sha1:ba219d0a8b58e88a114358e89ec8a19df8bdd3da
-    pristine_git_object: 1094bec17f9881d4ded8a35ea43398579db51602
   docs/models/components/functionconfschemanumerify.md:
     id: 978a5bb11c7c
     last_write_checksum: sha1:9516b9c4b8cd79a47c3d314a5384cf3e5904ac08
@@ -3023,6 +3035,14 @@ trackedFiles:
     id: 3750e2da8698
     last_write_checksum: sha1:de41d8219d5973e41db7a30577ed751ebc13335f
     pristine_git_object: 5d863a95b644b624baa7549d9c3dba59e6fcbf7d
+  docs/models/components/input1.md:
+    id: 7bbd5c61c2e4
+    last_write_checksum: sha1:b6e2de7dfcfaaaf420870c3831009ba1a09ce359
+    pristine_git_object: 717b7365c7c9f7e5d6210c38792064479150ac00
+  docs/models/components/input2.md:
+    id: 62b5c5d54e65
+    last_write_checksum: sha1:872c0ee83f9af41e5f3675f43aec079ae6dbcbb1
+    pristine_git_object: 206b84a3e023c1fa18d2cb48711ab140a419543d
   docs/models/components/inputappscope.md:
     id: 267c2b29e24e
     last_write_checksum: sha1:a9a0fef6c367f41b137db55c34323471dc0c3755
@@ -3691,14 +3711,6 @@ trackedFiles:
     id: b2f36738f970
     last_write_checksum: sha1:4ff47963e71f9e03baddf5bbcb8327a801497921
     pristine_git_object: 7f7212381b312eeae710b1668a7116a489bddfac
-  docs/models/components/inputunion1.md:
-    id: 4e74743f354a
-    last_write_checksum: sha1:2bdb33c35e50e1abd9f000e962374321cf828a3f
-    pristine_git_object: c9cfe917373e325d9c0d501a91f7fe8b87f328d9
-  docs/models/components/inputunion2.md:
-    id: 4bd6ed434eee
-    last_write_checksum: sha1:39c58e04d9fe976794b4dd4b76551257ab866f2a
-    pristine_git_object: dd67801446bcd062dd68eb00d0ce873f6f83bfbb
   docs/models/components/inputwef.md:
     id: a1bfa9ed7865
     last_write_checksum: sha1:0430f7f9f136a1bd8cfb47c696451bf874118ecd
@@ -3887,6 +3899,10 @@ trackedFiles:
     id: 4d08ca07d0c5
     last_write_checksum: sha1:0d24e77a60561d997343ecd25bbe0d0e0efdeef6
     pristine_git_object: a27ac45bd138824d1ce73dc3c4fa5ba0b3a1bd1e
+  docs/models/components/itemstypepoliciesitemstemplatetargetpairs.md:
+    id: b59910c7075b
+    last_write_checksum: sha1:109e2101728989cb544ef43e46db6702554fef12
+    pristine_git_object: 6b5b5cd655bf6c4437d5889e6f037e4dd694e6cb
   docs/models/components/itemstypeprocesssets.md:
     id: 4ccd1fe5dd3f
     last_write_checksum: sha1:da0e6a4c921df175e7a62887ac6a3bb763a6dff7
@@ -4103,10 +4119,6 @@ trackedFiles:
     id: 8b890afe0bf8
     last_write_checksum: sha1:5da93c4b083c6dd788b2f8b250ee4889dba98c77
     pristine_git_object: 7508e203e5a61a3af82f10d0a2c098a5f0c05d3f
-  docs/models/components/metadataitem.md:
-    id: 7e4e9cf7db57
-    last_write_checksum: sha1:31f4e9dc9ebecd5501dfdc467c98ffed5eecf19d
-    pristine_git_object: 9ff19b7b6bd16caadf7c9ac2635a3ff7de841f7c
   docs/models/components/metadatum.md:
     id: 750fecb91094
     last_write_checksum: sha1:9eaa93f5eed3575a0a11376a2ab52727d995efe3
@@ -4183,30 +4195,46 @@ trackedFiles:
     id: 345d8168e160
     last_write_checksum: sha1:9c81109d2e42001221b58ab1128594df5ed495a6
     pristine_git_object: 741b19e06f28b89161788b4395f49441b7bfec62
-  docs/models/components/notification.md:
-    id: 9ebeda57b843
-    last_write_checksum: sha1:4b1285344077cf0801cde48f1165d9eb9d780e6d
-    pristine_git_object: 220cee67ef2067ad40aa543e76a8d76ccd00d8ec
-  docs/models/components/notificationmode.md:
-    id: 8c40033d1566
-    last_write_checksum: sha1:f375d179f23ec7b9048114defac2fa8c2d4d590d
-    pristine_git_object: 9dae76df648d80db1e7192d2c06085c96cd87ee8
-  docs/models/components/notificationsmtptargetconfig.md:
-    id: 8e92cea03bc2
-    last_write_checksum: sha1:216f3d0da068e361ce45ef0fb282954f727d6b92
-    pristine_git_object: 4e482968120ccf3dd34b5a827ceb06464b44613f
-  docs/models/components/notificationtargetconfig.md:
-    id: 55decdebfdfe
-    last_write_checksum: sha1:e8d4f5627361f6821188416233c15358f7379781
-    pristine_git_object: dd8a5300e63caa0c26a3fa8b2b53614b6fc1ce67
-  docs/models/components/notificationtargetdetails.md:
-    id: ac9db933f409
-    last_write_checksum: sha1:905fbbc08d858f9eaa40b9cae62f08d21193a09b
-    pristine_git_object: 2ef56f70ac8b627320805c6eabb78153ca539c06
-  docs/models/components/notificationtemplatetargetpair.md:
-    id: 7140370dbc25
-    last_write_checksum: sha1:4469e3ced4a63ee655692ffa28cfe31d15c4b3c2
-    pristine_git_object: f9696bf6256e6bcdbdcac5262080ac351fadb318
+  docs/models/components/notification1.md:
+    id: 0520f9d37640
+    last_write_checksum: sha1:b4184c51367c1442829c4c34f3b08cdea14ba525
+    pristine_git_object: 2167089299a22dc3a9b0647cbdc5240c0455155b
+  docs/models/components/notification2.md:
+    id: 2bca0818fe20
+    last_write_checksum: sha1:5cf36fa976db05551a7279662b679488c5f6f44f
+    pristine_git_object: 03eb4a77ec1e989c0e6b7ba4c882c0d3869fed0e
+  docs/models/components/notification3.md:
+    id: b22a544c0205
+    last_write_checksum: sha1:e96b1f6a3c956094145669a14112e843da81f1f6
+    pristine_git_object: 3999f96f31de7d4f98e69151c8b82b32ef731034
+  docs/models/components/notificationconfigforsmtptarget1.md:
+    id: 90a02fde9510
+    last_write_checksum: sha1:e3011aa6f85bffd87d29c2f32e8153e13f72ac52
+    pristine_git_object: c71b4bfc9069579e01628736e48d901e878a9302
+  docs/models/components/notificationconfigforsmtptarget2.md:
+    id: "355725646667"
+    last_write_checksum: sha1:dceb5643aebbdd2644757dc90da9177dcad442dd
+    pristine_git_object: 80a057209d58da3d470f7179ade9f604589f1127
+  docs/models/components/notificationconfigforsmtptarget3.md:
+    id: 4f22635127e4
+    last_write_checksum: sha1:b78946648167d22c2dc1f5ae36659ada0c2fecfd
+    pristine_git_object: 8b88b5e7c1c61edf8feea4c09e8a2a397a0ec5c1
+  docs/models/components/notificationmode1.md:
+    id: b810fe2b4fa5
+    last_write_checksum: sha1:e611e2dbfee66df04b038277522bef29c5d27ebd
+    pristine_git_object: a44eec5deb1b411ab90ee661151e974b928d289e
+  docs/models/components/notificationmode2.md:
+    id: a1783503b9d6
+    last_write_checksum: sha1:4fc8c5ee3a5af14341806d71bd0abfda278a7e32
+    pristine_git_object: e8ee426aaf9225706f2ff5d511cee8c02a92b887
+  docs/models/components/notificationmode3.md:
+    id: 02c906c6f5bf
+    last_write_checksum: sha1:b71901e2ef79929652132a99cd6579b444312a6b
+    pristine_git_object: b84d5253888efc48dda7f0006c20c942cffc03ff
+  docs/models/components/notificationunion.md:
+    id: 10479a207728
+    last_write_checksum: sha1:74136b3dff1d6ab2dd2a7d764a28773b8c18fc35
+    pristine_git_object: 336485b25eed0aca19544fd084eba83681af4ee3
   docs/models/components/notifyconfiguration.md:
     id: 1bc72e2db79e
     last_write_checksum: sha1:89796453522a2919726a20eeda5146d1bffc7084
@@ -4525,8 +4553,8 @@ trackedFiles:
     pristine_git_object: 8b917b0da80a921d50a64883e2f81a3c532f9c74
   docs/models/components/outputdefault.md:
     id: 9e1fc954a95b
-    last_write_checksum: sha1:c69e638a8fdd67c48fb1e0a39b0f31252855768b
-    pristine_git_object: 5ce627d772ee3101568f4a15df46485d43e2423e
+    last_write_checksum: sha1:f544fa2ccf006dec9275c3843265d0fc184be3e5
+    pristine_git_object: f74998ef6df0d27ca5d4b23112f2477f397d11c5
   docs/models/components/outputdefaulttype.md:
     id: 3b3d40a03fad
     last_write_checksum: sha1:c319c2fcbcb2be54996a7b6eb34963e0c5f449d0
@@ -6025,8 +6053,8 @@ trackedFiles:
     pristine_git_object: dcc701fa6536e9d342fabf41c21bb27062d1f4ef
   docs/models/components/policy.md:
     id: 66c097e1389b
-    last_write_checksum: sha1:f3bd336cec400e1015c50350ab327b7f9ea4684b
-    pristine_git_object: 9254ed576347115343b793191c68f4248e32420a
+    last_write_checksum: sha1:87beb8d14873c5d22572999a1ee75f22b9e88d7a
+    pristine_git_object: 4c7596b932c9b3ae8bc46b8c99d2c6ee88eebc37
   docs/models/components/pqtype.md:
     id: 7c6eb8848f60
     last_write_checksum: sha1:56019b3c1b0b1087864fe4cc684ae0e247d0b3e2
@@ -10273,12 +10301,8 @@ trackedFiles:
     pristine_git_object: 10b14e117a8645c99d39b4d2408c8869d5b52133
   docs/models/components/runnablejobcollection.md:
     id: cc12f88fdcdb
-    last_write_checksum: sha1:8fa0be5296b949388a52e99492348c22d01eb630
-    pristine_git_object: 06df0ad810dec3b3895df2e48201bea7727094f1
-  docs/models/components/runnablejobcollectioninput.md:
-    id: d9228f9d80c3
-    last_write_checksum: sha1:1baa09b8a37706898346cb45dc0839ef35058040
-    pristine_git_object: 7357e07ca803d0e363509f42c44e1811da609acc
+    last_write_checksum: sha1:18c2b0086251bdd3c2dcaf436d3a4dd07b3bbc4b
+    pristine_git_object: d353480099db897ef26098d297a3c4b91fc647eb
   docs/models/components/runnablejobcollectionmode.md:
     id: b0475cf45733
     last_write_checksum: sha1:52029b316d328b1534aaca0281050bf29cbf41fb
@@ -10287,14 +10311,18 @@ trackedFiles:
     id: 325747bc4e80
     last_write_checksum: sha1:59a29ed4d6f614d2d96e291a45cbdfa659a384e1
     pristine_git_object: de47d7eb6dca5a6cdaccd2ba54f7adf6526519e6
-  docs/models/components/runnablejobcollectiontype.md:
-    id: 36e3567436dd
-    last_write_checksum: sha1:1631daf592094d152e34d1d07f2cbb138f47d8fa
-    pristine_git_object: b0e49b03bc440583bc7f04d174f33e5905baf7fa
+  docs/models/components/runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.md:
+    id: 597410665fdb
+    last_write_checksum: sha1:f23363c309029b1b5b3d2ef4acf9ffc85e57615f
+    pristine_git_object: 3ace1eccad013c860fbf57a8f7f254734181aaab
+  docs/models/components/runnablejobcollectiontypecollectionwithbreakerrulesetsconstrainttype.md:
+    id: 9e859891b875
+    last_write_checksum: sha1:f869027266a728154102a0e674f1ca1cb3fad969
+    pristine_git_object: 9c7d779c5db4fef4797a5962df56bd000426aea8
   docs/models/components/runnablejobexecutor.md:
     id: 264c068e0157
-    last_write_checksum: sha1:25319736aa21ff1717801bca143e83c8d2c6e610
-    pristine_git_object: 110baf3d79ad4b8caec5e245b64e37bed976798c
+    last_write_checksum: sha1:c11d6306d1f0668f789b0bba84de1b525950a795
+    pristine_git_object: 6f372477f3329a4baace1042738753ac8be577da
   docs/models/components/runnablejobexecutorrun.md:
     id: e163596935b4
     last_write_checksum: sha1:4286e845762a3eb4b8276521e22ec31209715d94
@@ -10303,10 +10331,6 @@ trackedFiles:
     id: 80a756cc9c4f
     last_write_checksum: sha1:75e5350f2e6250ab9b5a9f55cc74aee9d7d61061
     pristine_git_object: 78c1f11ddb74a3ca9dbc45c3cba7c789d9c5a400
-  docs/models/components/runsettings.md:
-    id: 4f7dbca51a8d
-    last_write_checksum: sha1:f1aea975fe967390f526160815a0996827fa7768
-    pristine_git_object: a33a9968b94f67d9784bb21f617e403cbab16607
   docs/models/components/runsettingstyperunnablejobcollectionschedule.md:
     id: 6e72671b9d1c
     last_write_checksum: sha1:2f0b86eb94c842bae17227dd6fd2dd32702e951b
@@ -10315,10 +10339,14 @@ trackedFiles:
     id: f359f8dfb881
     last_write_checksum: sha1:bd3f3f14ece6d0cd73daa25b64c0e212c46f183b
     pristine_git_object: 5360ab9d920beafb9a432e4271fe5e6505683f93
-  docs/models/components/runtype.md:
-    id: 775a0c637247
-    last_write_checksum: sha1:ec392ff210db39b7510727aa3bda1efdfa4965fe
-    pristine_git_object: 83d4256bf26c37ea460648bd557f181f0eb07e6a
+  docs/models/components/runsettingstypesavedjobresponsecollectionschedule.md:
+    id: 2b3753d5f69f
+    last_write_checksum: sha1:489ac9ee56f8f9bf3e715719f343ff46af0c46f9
+    pristine_git_object: ba4bff481c721f505c2342ec48c83a23fd4af062
+  docs/models/components/runsettingstypesavedjobresponsecollectionscheduletype.md:
+    id: 60a701bab62b
+    last_write_checksum: sha1:b8a90621a41201ce1d320d0122c8678a89a47cbd
+    pristine_git_object: eb2f0adbc4bef39ea7941e7d855e930adf98d867
   docs/models/components/s3awsauthenticationmethodauto.md:
     id: f58e4e916c3a
     last_write_checksum: sha1:ebbb3455017b81235a428c6766d10ab55e0f6761
@@ -10399,22 +10427,54 @@ trackedFiles:
     id: 7782e6d23106
     last_write_checksum: sha1:d12842fa080844bf9e7526ae27b2f13e46412707
     pristine_git_object: f282cb6cda61bd90477a8f291527938328ed45f0
-  docs/models/components/savedjobrequest.md:
-    id: 3d02f971cc94
-    last_write_checksum: sha1:116b08eecd29b9593a121641cde27bead8924aa1
-    pristine_git_object: 57c46619e9202225769475a8a3f8c3ecec340408
+  docs/models/components/savedjob.md:
+    id: 31f700348806
+    last_write_checksum: sha1:5b65798e9c5a57f77c6e06ee2186660d3204a95c
+    pristine_git_object: 8dda8dd8726fb20caa827600d28963f8ab378d90
+  docs/models/components/savedjobcollection.md:
+    id: f14f317083c1
+    last_write_checksum: sha1:4b6f92568ec255bf414b93fe9361ba5c8e5b4bb8
+    pristine_git_object: 90e0374e5cbeebf204c74323f6af3a596de24a05
+  docs/models/components/savedjobexecutor.md:
+    id: 44f28e4df352
+    last_write_checksum: sha1:e6f38519135b6e7d2a1ff55e55268a580ea7c02a
+    pristine_git_object: f97431ead59ef3ea0ac07182e5cc794e5e4021a1
   docs/models/components/savedjobresponse.md:
     id: af9c5d9a9b0b
-    last_write_checksum: sha1:7f1a7c46bd65ab83eb836bad4681b923e879bbff
-    pristine_git_object: d2143fc759b81d08ba98ea62f5876bddcfb35153
+    last_write_checksum: sha1:a8370a3626e49aa5ae5ddcee67407f633caa27ac
+    pristine_git_object: 763cce22a00df7d47b16ec7f64e9e14a6cec119d
+  docs/models/components/savedjobresponsecollection.md:
+    id: ae3eedbb4f6d
+    last_write_checksum: sha1:d363da2e870ba65dd4de00a04b649aba8882f204
+    pristine_git_object: 701dfd9bea10b2dd75f9307477fbbb5863efd143
+  docs/models/components/savedjobresponsecollectionsavedstate.md:
+    id: e98c32f96947
+    last_write_checksum: sha1:f32a5fc757ae37af6cd1f24e275fd89aafdbbd21
+    pristine_git_object: 80c10db58b74ebe761f559f797656a8211e755aa
+  docs/models/components/savedjobresponseexecutor.md:
+    id: f527e8feef8d
+    last_write_checksum: sha1:ec9a7bc4cfb92ea5729fc7f84b10840f082adfab
+    pristine_git_object: 58ff383ef6e5073ec68d8b26263952fff9ec3618
+  docs/models/components/savedjobresponseexecutorsavedstate.md:
+    id: c906c1ce7d1c
+    last_write_checksum: sha1:8e38167ba45e3e1b26305a313b10b7ad8b556802
+    pristine_git_object: 7d09b1fc32354f0cff28198b5910b0adff7e1d6d
+  docs/models/components/savedjobresponsescheduledsearch.md:
+    id: 44daa236d462
+    last_write_checksum: sha1:8e677cda67a9126b9cfa0d95a0302d274f330143
+    pristine_git_object: 2cc2900ff2d8ba5f6d02947635172e7fd025f517
+  docs/models/components/savedjobresponsescheduledsearchsavedstate.md:
+    id: ab777696eb21
+    last_write_checksum: sha1:95a002ce9f58fe7d2926872bc73e039772ae10c0
+    pristine_git_object: bccb1ab33d7017ffe4bb9f7b26e6dcb568fa4f4f
+  docs/models/components/savedjobscheduledsearch.md:
+    id: 879cfd1b9766
+    last_write_checksum: sha1:b3ef237bc05460ae62cfdc61ce1c63bd37895cc0
+    pristine_git_object: 0e860389dd01143c8aa6fa183801663eed3380fc
   docs/models/components/scanmode.md:
     id: 4e2aac307086
     last_write_checksum: sha1:3f253b578b1a577220f9eaadaa1851751a8c262b
     pristine_git_object: 926f24e08fabe20b4449f3aae45e08e4b0553a10
-  docs/models/components/scheduleopts.md:
-    id: cbc2187de1c9
-    last_write_checksum: sha1:b2529421457a647cc4c099497ee9a3997b74c57f
-    pristine_git_object: 7eea40b994998957b504d4bf3a557bd0860f350f
   docs/models/components/scheduletype.md:
     id: 9ca0a89bb49f
     last_write_checksum: sha1:1409d4b00c568fea167a107f9ae1ae4918d21895
@@ -10423,6 +10483,10 @@ trackedFiles:
     id: 32e9f50a2695
     last_write_checksum: sha1:e95ae9ffa3148fc5f72508472a745bbd6c2da2bb
     pristine_git_object: 01eb2f7efbf426a73da8a565908f091559bb3849
+  docs/models/components/scheduletypesavedjobresponsecollection.md:
+    id: 553cc6c783b4
+    last_write_checksum: sha1:35a0488420df9580f95c130335d35f6723c58058
+    pristine_git_object: 329f43fd140f1f80ce2f47e2b735dd7eb0157fff
   docs/models/components/schemeclientoauth.md:
     id: 1c9a23cb59f0
     last_write_checksum: sha1:6adfe603e70ac34ca0a5a427135e654906d8c5ad
@@ -10855,6 +10919,30 @@ trackedFiles:
     id: 6b01d6776a4e
     last_write_checksum: sha1:379a64f8ce959001db3a2ea738e511ef079a4061
     pristine_git_object: be6b43fd781094fb2744c5872d3f4c76ca938434
+  docs/models/components/targetconfig1.md:
+    id: 0f62982ea523
+    last_write_checksum: sha1:d01121b91f6ad5a8917d4ac2d1e9f2ded1359a17
+    pristine_git_object: a115b4f38ac11ef3486a2831421a6f347fb3078c
+  docs/models/components/targetconfig2.md:
+    id: 002241f6a1bd
+    last_write_checksum: sha1:dd0681146617c870a1ebb2f4a9ee7ffd31b861de
+    pristine_git_object: 15c0cd12d91b4a52c4b48d78283273c863f01847
+  docs/models/components/targetconfig3.md:
+    id: 159ac931ea21
+    last_write_checksum: sha1:83468fb283d3a2871ac16453e4402b71da302014
+    pristine_git_object: 8e21810aaf9460e228b503a280b2e5454631f83b
+  docs/models/components/targetconfigunion1.md:
+    id: bc9f3847072e
+    last_write_checksum: sha1:a9c77bda62339a46e012ef8415fb3eeb8d131f73
+    pristine_git_object: 92b050c3f8151677626020894b29210598a85906
+  docs/models/components/targetconfigunion2.md:
+    id: f18580999ff4
+    last_write_checksum: sha1:61b72536f7784cf2f41220ffe81180bc91b582fa
+    pristine_git_object: 55ec6c8674fca11cefb0bf54e81b25ecc0b721e6
+  docs/models/components/targetconfigunion3.md:
+    id: 2bef85e3fd5f
+    last_write_checksum: sha1:ce760a4f95c9a66b964b60e8bf93fb8d3e28482d
+    pristine_git_object: 0457d9d88b53999dd12bed90b5e8466c3627bbda
   docs/models/components/targetcontext.md:
     id: f774fe793a18
     last_write_checksum: sha1:dedc5c8f24fd5dfb9b112ccd43f4037dc6f34062
@@ -13273,8 +13361,8 @@ trackedFiles:
     pristine_git_object: 20b0bf5b2f4923ee899110e2768c9134f14ae780
   docs/models/operations/createoutputoutputdefault.md:
     id: ed68aa019c22
-    last_write_checksum: sha1:b7d8e6550a28e64db88ce351cf77cca2479752d1
-    pristine_git_object: 99bb1d0c6aeee395695be9dacad616a339f917ce
+    last_write_checksum: sha1:c2ffbd9e0fa1a8103254e477e284f6acbc4861d2
+    pristine_git_object: 03cd9a4df4f1a411b5020b043f22b077bbe43d3a
   docs/models/operations/createoutputoutputdevnull.md:
     id: 3c7c24c0674a
     last_write_checksum: sha1:42f19dda2fe706a080ba25d3c75c7f1136f3687e
@@ -14077,8 +14165,8 @@ trackedFiles:
     pristine_git_object: 903d01fa3e68de053e571b5eb8d78735c8914924
   docs/models/operations/createoutputsystembypackoutputdefault.md:
     id: bd2de6eb8d2e
-    last_write_checksum: sha1:b656ed475caa15c1ede5b7f3fea4b145e91a0226
-    pristine_git_object: 14edc69dc00d086a0cabf15eafd067ec03d5644e
+    last_write_checksum: sha1:cbf1f81d8968a654230ad5f7165a8f2d73dac1f5
+    pristine_git_object: 5149b2a6049aa15987328d51716aba400778eaba
   docs/models/operations/createoutputsystembypackoutputdevnull.md:
     id: 11186fb67caf
     last_write_checksum: sha1:3f22867eb4bf626002465639cde9212b3147f795
@@ -15897,8 +15985,8 @@ trackedFiles:
     pristine_git_object: 8d29578bdf51e36cef4b59f22ce257784ec0a3d2
   docs/models/operations/updateinputbyidrequest.md:
     id: ce88025623d0
-    last_write_checksum: sha1:b1ba205416cff9ec5444dde4e5cec4dd03478f99
-    pristine_git_object: b1eefcd6ec5e00fc80d2992708ce555abd8be15f
+    last_write_checksum: sha1:b07bc26b4ed94b2e37e802eca64ee398508efa8d
+    pristine_git_object: b7a053ea1481d51ae0141fa71f6767fb92afca70
   docs/models/operations/updateinputbyidresponse.md:
     id: 58464d5caa04
     last_write_checksum: sha1:853aa869b42585cf845791df017d725b7d971efc
@@ -15913,8 +16001,8 @@ trackedFiles:
     pristine_git_object: 62bdbfd3f04fcb44a1fbf630e990b5bc16a1b84d
   docs/models/operations/updateinputsystembypackandidrequest.md:
     id: a81da249d2d6
-    last_write_checksum: sha1:08e18ec7a16ec4579a33d08ca3619f1a9756cec5
-    pristine_git_object: 0fb94fd44b263ca07cf86b2548c899bdfb07bd00
+    last_write_checksum: sha1:284fd269d947dd51bbecae00e37054fe17f2077d
+    pristine_git_object: 0fb2e835137bc8a19fbbb425630eff197b3daebc
   docs/models/operations/updateinputsystembypackandidresponse.md:
     id: 2fc74a8d2855
     last_write_checksum: sha1:d10a46abe7f920004b66e9df711ee9584f02326c
@@ -16001,8 +16089,8 @@ trackedFiles:
     pristine_git_object: 1b0f0299c2c2df3536d24517dad129246a5b2fa3
   docs/models/operations/updatesavedjobbyidrequest.md:
     id: f124cd469e7a
-    last_write_checksum: sha1:55cf43ccc9a6101f3d74d83fbf3e36f8e281a94d
-    pristine_git_object: 676f453836b4d2cf5a5736d05e5d06dcbac9b2ee
+    last_write_checksum: sha1:86187c76631f06d881f22c77b655f368c0c226a1
+    pristine_git_object: 3b3ec52b33c8d5063450221de14ae116fec272ea
   docs/models/operations/updatesavedjobbyidresponse.md:
     id: 688afed2c786
     last_write_checksum: sha1:6e0e5f693189ff074d71c05717d528a72311ea36
@@ -16025,8 +16113,8 @@ trackedFiles:
     pristine_git_object: 9d107eb25f71cc2397de900288f7b828c6527886
   docs/sdks/collectors/README.md:
     id: b8ecaf222c71
-    last_write_checksum: sha1:2369ee7a0bff81b5bb121e71266c173260ef2cb1
-    pristine_git_object: 4dbbd70cc924921828cdd402564735ce48b4323a
+    last_write_checksum: sha1:4a6aec3e6562058eb935f29a1881253b2c5e550f
+    pristine_git_object: 196e4150a620ca3303dc4b0dc4b679ce477e41e0
   docs/sdks/commits/README.md:
     id: ae81a8318c17
     last_write_checksum: sha1:8f4e02b8bb04506127e532fe1aef1b3e0c1e338b
@@ -16117,8 +16205,8 @@ trackedFiles:
     pristine_git_object: aaae6e13c9b4f4ebfbfcfe3a4d0b3f468502122f
   docs/sdks/packssources/README.md:
     id: 91cf5c639969
-    last_write_checksum: sha1:ef81b533bf9d751f2f050a2643fb0e29fba9b273
-    pristine_git_object: ac45c0c9ef68951f348644f411ff191fc9feffde
+    last_write_checksum: sha1:6df3174fde711c4aad47834050be389ce2ec1144
+    pristine_git_object: ad48a843874dd3922dcaaf128ee97aa718658824
   docs/sdks/packssourcespq/README.md:
     id: cbbc4cefed4b
     last_write_checksum: sha1:65e66659a00227d4cdbd132f75589cb5693a27bd
@@ -16145,8 +16233,8 @@ trackedFiles:
     pristine_git_object: deaabe1fb35614b11ed0f25009be730f1beb3de5
   docs/sdks/sources/README.md:
     id: c1396b2a57d9
-    last_write_checksum: sha1:f6bbe9b999f0af1070d08050ce7c777ec41cf260
-    pristine_git_object: 2a7e59897f224a21d5ff57837c76afca61d13bf7
+    last_write_checksum: sha1:4f09fd5fe4f891a159d7df12dceaeb5092b75065
+    pristine_git_object: 91187622988f65c389b2f2e786984403a0782d80
   docs/sdks/sourcespq/README.md:
     id: 08e24f4817a2
     last_write_checksum: sha1:30470e0ad6c4b6b2d7b8e16bef8e725ea0e99b82
@@ -16451,10 +16539,6 @@ trackedFiles:
     id: 3dddbf19f0ee
     last_write_checksum: sha1:d63540875a0f12bb571315d8bcf2a0f44bf166fb
     pristine_git_object: c45dfa8fb4e027e60bebff43fab28af4d2c17827
-  models/components/collectionstateentry.go:
-    id: c5fb7202fa75
-    last_write_checksum: sha1:bf2c76a88301dcc99d2623d0f87e462ba8642c18
-    pristine_git_object: fbfdadf0d78eee8a01eb7137d73b69d5deb9f39d
   models/components/collector.go:
     id: 310ae6516317
     last_write_checksum: sha1:26dabcd2374a19ed808c843074194090beae1805
@@ -16621,8 +16705,8 @@ trackedFiles:
     pristine_git_object: fde87fc9a4aba048a25f0b63fbced36021695d27
   models/components/countedinput.go:
     id: 422fd49b9912
-    last_write_checksum: sha1:198fcea6b4644cb6824ef35c1083d011d30872b7
-    pristine_git_object: c58f9c304c295c1fa2997b2a694e51fc0c6510d3
+    last_write_checksum: sha1:f680365277ba909fe27e06aa31a07a2ad24dfbd9
+    pristine_git_object: 33d9ab959a7c0a6ba0d1cc8f12971ae8d22d3e37
   models/components/countedinputsplunkhec.go:
     id: e68f3d33b61a
     last_write_checksum: sha1:2c6c82153ac737d706c16d7f2856f9c84d954173
@@ -16811,10 +16895,6 @@ trackedFiles:
     id: 951cf37866e3
     last_write_checksum: sha1:2371d7767ae0f69b5052e0f99eb8ea612686a9cf
     pristine_git_object: 87c16ee68f730de0931c5281a6d3f28cbd579ecc
-  models/components/emailrecipient.go:
-    id: 201520f4c0b5
-    last_write_checksum: sha1:6cce6c667d8b7f87b14d475661d896de1ec23ed9
-    pristine_git_object: dc114f1325bad3ea9693a7fe5ee27a5ceda309b0
   models/components/errortypestatus.go:
     id: e0a03d57fcfc
     last_write_checksum: sha1:bffd7fcd9c6e7638b3116f505a6362aa83db11d3
@@ -16835,6 +16915,14 @@ trackedFiles:
     id: 8f059f197dea
     last_write_checksum: sha1:312995a5e7952ddd4cf80fe0257bbed0c299a58c
     pristine_git_object: f07d1810eda193262eb1ac3cd9d698048c6107fe
+  models/components/executorspecificsettingstyperunnablejobexecutorexecutor.go:
+    id: 62962e5ea345
+    last_write_checksum: sha1:32db8cdf5bf162bde9c2ce6166e31e0263063e9d
+    pristine_git_object: e6e36a4f676be54e255aeb0b396b1b5fa26af769
+  models/components/executortyperunnablejobexecutor.go:
+    id: 73547271743b
+    last_write_checksum: sha1:19417ff844dfebaa3808f144f497ce8ff065da20
+    pristine_git_object: ea3f2fbb31c2b12f8626746fdea480d7f1518592
   models/components/failedrequestloggingmodeoptions.go:
     id: 2cc36a7ed2f1
     last_write_checksum: sha1:88ecbcb5db6860a54e1b62a77e43201d275141e6
@@ -16949,8 +17037,8 @@ trackedFiles:
     pristine_git_object: 2cd7eb1c4b0182c28bcd3e829a28fe6d426ffc5c
   models/components/functionconfschemanotificationpolicies.go:
     id: 7b74af985c41
-    last_write_checksum: sha1:e5405bb987cb24cea06a6c3e32011bd58c1bb333
-    pristine_git_object: e92189c1301db4d8ab980dbbe8b0216f1282d401
+    last_write_checksum: sha1:d7ce2fc5dcaf3a1e16a492982bcc001f9c6e455b
+    pristine_git_object: 9e31186a04207d4052ba02cbdcf9cf9ae7b02938
   models/components/functionconfschemanumerify.go:
     id: 584e25829874
     last_write_checksum: sha1:1ac819d7187c4cc72feff5ddaef894beebccfd13
@@ -17351,6 +17439,14 @@ trackedFiles:
     id: 790bad4a7abb
     last_write_checksum: sha1:01a20fcff33179809ff9920ee431c7adabbd98f1
     pristine_git_object: 148ec47fb2dea6c188ec68eb3532d93169608168
+  models/components/input1.go:
+    id: a9345a52be34
+    last_write_checksum: sha1:48693ac2081ede5b77b2cf77354b54916f3c0395
+    pristine_git_object: 64fe51d9379450d9d65445239fd09a7a10f46968
+  models/components/input2.go:
+    id: 92dc98403979
+    last_write_checksum: sha1:0a62708eeb4e45aa4c847de439b33a8a998b828e
+    pristine_git_object: 86f2ac6ca8bbe39c2e7865178e9b019ac420ed7d
   models/components/inputappscope.go:
     id: 1df360e12f22
     last_write_checksum: sha1:a1a0073d4ec44905c65e79eac735260e96e92de9
@@ -17575,14 +17671,6 @@ trackedFiles:
     id: c733c4bcfe04
     last_write_checksum: sha1:6e898ad9f7dbffa160f61faa125af9b22c55ec5c
     pristine_git_object: b84bcfde89d32eed885652356444cc46637c6b5b
-  models/components/inputunion1.go:
-    id: 83b5d36f6911
-    last_write_checksum: sha1:5fccde3bdbd68c0147844b669861fffc335a6b53
-    pristine_git_object: 721248254732582f4ddcb16becb49fbe23a73667
-  models/components/inputunion2.go:
-    id: 0c5a88a0402a
-    last_write_checksum: sha1:4527633f2d56666a57cc35da591aff914b57891a
-    pristine_git_object: aac49a52bc279db2a0b4f816eacac5b2cefa715b
   models/components/inputwef.go:
     id: 96149c7d61a2
     last_write_checksum: sha1:2a28de5ca4b404ab1a20d513722887e9f0e9d923
@@ -17667,6 +17755,10 @@ trackedFiles:
     id: 6857ac197814
     last_write_checksum: sha1:d89c47e15c49532d1be34c6de1027a1200aa30ec
     pristine_git_object: 3474a91364fee01e2d944e9828aaa682afd280b0
+  models/components/itemstypepoliciesitemstemplatetargetpairs.go:
+    id: 5aeee8f49165
+    last_write_checksum: sha1:75b155355ef2bd8f6265a7e5b508592fcc4b19c5
+    pristine_git_object: 2ac5708674f7f85b31ebba23583369e3657362d2
   models/components/itemstypeprocesssets.go:
     id: fa67ff6c9b4e
     last_write_checksum: sha1:deac68c18def6476b3fd2190d679c8c0efca07b0
@@ -17779,10 +17871,6 @@ trackedFiles:
     id: 854b0f6ad221
     last_write_checksum: sha1:017fd0001f1f6dad1540f762935ec17289eb16f2
     pristine_git_object: 696cfdf6babb1a60ff4d6097bfa123ae818eff5d
-  models/components/metadataitem.go:
-    id: 5b3674cb699a
-    last_write_checksum: sha1:aa52d3daa832dfe576994dd5843a08b1bec28a46
-    pristine_git_object: c5cc2429c0185dd64c01f4075a07653b0dd781de
   models/components/methodoptions.go:
     id: febe9f831f3b
     last_write_checksum: sha1:65550d3c6af6f896ea20e2167ecb1f0dbe9b6cc4
@@ -17847,26 +17935,10 @@ trackedFiles:
     id: b8863e244a85
     last_write_checksum: sha1:eb32476c020dc69b4391f287c19da7306f7c3451
     pristine_git_object: dd2dc3dadb9cf22ff1e99c3c8f0345450356f888
-  models/components/notification.go:
-    id: 54ae9574f5af
-    last_write_checksum: sha1:603549e15ca89ea11644d1dd4a1fe3fd8f669731
-    pristine_git_object: 2b58f8f079e5fe3915d987b4d4c14aa2945d7207
-  models/components/notificationmode.go:
-    id: 0ffa7385988e
-    last_write_checksum: sha1:051db3d35c83e6cbaeb07490c05cfba6de84e09c
-    pristine_git_object: c3f3edf534ab6cfb9555e4b5f12dd033e5a69326
-  models/components/notificationsmtptargetconfig.go:
-    id: 80741ed0bf27
-    last_write_checksum: sha1:f514071f19a40735b1b779d6519293eb7bbb4b90
-    pristine_git_object: ce2ee66ae30f7c80cf103acdaf3cdf5349d3b513
-  models/components/notificationtargetconfig.go:
-    id: 5f82e6f27a27
-    last_write_checksum: sha1:6c0c0c112fa4c1426f2d1333d9fd9f08d3be4e92
-    pristine_git_object: df72a8eac5a87ba546a1540329f5ef740bffd198
-  models/components/notificationtargetdetails.go:
-    id: ae29add1d55f
-    last_write_checksum: sha1:004312b28ded81c2fd8a2b2dd3d5727246e6fb6f
-    pristine_git_object: e0d73dab7fa38d91b9c05f3d0e3316cde5259af2
+  models/components/notificationunion.go:
+    id: 32bb7d18c3cb
+    last_write_checksum: sha1:a95947a0ef32917c5b177e8b6ecbb9f2a749f58a
+    pristine_git_object: 7763aeab04c63e3c17a6358f0c001b433b99f566
   models/components/objectacloptions.go:
     id: 7b156faa9572
     last_write_checksum: sha1:25404ce654f69344e5b582c0801b2fa7707ddb66
@@ -18657,28 +18729,28 @@ trackedFiles:
     pristine_git_object: 6b17e09327c01cbf31483321dcd0cd6e38f60cfe
   models/components/runnablejobcollection.go:
     id: 5ef292ec87c0
-    last_write_checksum: sha1:00a5deb2ee1857ecc9993d7d5073f3ef84791d57
-    pristine_git_object: 9530d54897f416fd09e77e0b91768d971fea686f
+    last_write_checksum: sha1:20e61a0ec0ec23700cad81dd014ebcf7a01761a9
+    pristine_git_object: 5973d4d4dddf9f6013db6a249bbac367fd9b8d04
+  models/components/runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.go:
+    id: 21a9f64c7807
+    last_write_checksum: sha1:ac404c329f40f00ed2b8ff494fff5f0fca3f4159
+    pristine_git_object: e2c89a9ad93286179c511730ef94d2311eaee848
   models/components/runnablejobexecutor.go:
     id: 6ec2fa45e13c
-    last_write_checksum: sha1:b3e7f113b4afeaecf0854b964581b00564af37a7
-    pristine_git_object: 89653d1e0780fb835c27c048cd2b818b9f501308
+    last_write_checksum: sha1:01f2f58342303f5ec2e9931c004d45c0db276cb3
+    pristine_git_object: e2e011b47d2c03faab5ab53abc1679da6318af5e
   models/components/runnablejobscheduledsearch.go:
     id: 09913849e80e
     last_write_checksum: sha1:e0dadfca6dbbe262b14b20b745b6a655668eb633
     pristine_git_object: 46b433ad8842b8218778c9738da1d47f24c80e57
-  models/components/runsettings.go:
-    id: d236c2a1cf75
-    last_write_checksum: sha1:b546833d7bf00b6f9372344523200de35e4a8f5e
-    pristine_git_object: 23bb67ce772e26ca4885fa2cc241a75929a2d7bf
   models/components/runsettingstyperunnablejobcollectionschedule.go:
     id: 4eb3fc959e52
     last_write_checksum: sha1:1ab970a8199edb169652a2f45506b0311ef99dfb
     pristine_git_object: c1b06ef0f3daa82b5c448197c20d6783e55b1a87
-  models/components/runtype.go:
-    id: 4d82e9d5bb20
-    last_write_checksum: sha1:11674d44fb072c063b131f8fdb78de31ef154090
-    pristine_git_object: bfc1d923cfbb2b40cc8dc93f2e78c91fb3f304a5
+  models/components/runsettingstypesavedjobresponsecollectionschedule.go:
+    id: 73f2d9ae6b12
+    last_write_checksum: sha1:116213051b398108337b14ed0e4bc4e74942e3a6
+    pristine_git_object: 2b98ffb0e01f2e9b5b63cb149231cd362c90714b
   models/components/s3collectorconf.go:
     id: d149d8552420
     last_write_checksum: sha1:97cd5af53edef133b4b3a7491489615acc371906
@@ -18691,22 +18763,34 @@ trackedFiles:
     id: 6f30e051c854
     last_write_checksum: sha1:8e1733139785dbc04cb38092865af6d5539b8345
     pristine_git_object: a057dfb08c4b71ba42210c2c1a235e031e983445
-  models/components/savedjobrequest.go:
-    id: a664f0358675
-    last_write_checksum: sha1:6ca51f2ac20082e995771cf44494988ace965b89
-    pristine_git_object: 51097da0f956c06786f1249ab9d677c44c9342f3
+  models/components/savedjob.go:
+    id: 036f0a2074f1
+    last_write_checksum: sha1:2cb9f3dcaab32f247c6263da8d2794cdcd609b56
+    pristine_git_object: 1248d6bababb89b25eace03656eb2ba18a536686
+  models/components/savedjobcollection.go:
+    id: 1daec847005b
+    last_write_checksum: sha1:bcc205eaa467ba3a47367d953ec45319bc4e13fe
+    pristine_git_object: 3ac4e808467f4769477184c73f4a963b37c85cb6
+  models/components/savedjobexecutor.go:
+    id: 6fa12dc53065
+    last_write_checksum: sha1:34d8a97ce9764c218bfd03f711120d093e0da21c
+    pristine_git_object: 6580a2aa1845cedc46e9c78b4a4c4d69e553048a
   models/components/savedjobresponse.go:
     id: 2ccfcb68ded8
-    last_write_checksum: sha1:8c06ae5dfa036130c1634aea88f15863637ed1a0
-    pristine_git_object: 8e12d74827eeb0d2b76dd64e56c69bae2bf89e7d
-  models/components/scheduleopts.go:
-    id: 055b74f75550
-    last_write_checksum: sha1:1df0b9e18e81768c6ebb2092d56ec0d4a64180d7
-    pristine_git_object: 2f41055948dd2c7ae32da725e87e8db734352e8d
+    last_write_checksum: sha1:bc0b264546108f05e884cc4fff4e53543c3974e4
+    pristine_git_object: 133185fa01ffdf3507da638b3db8205b10a7783e
+  models/components/savedjobscheduledsearch.go:
+    id: e395c90f5ab2
+    last_write_checksum: sha1:ef2bfc46a06853c9e1f7ec0eb60785f241852fe0
+    pristine_git_object: e2233f38f2258999d294a3f126a41e993e80fe92
   models/components/scheduletyperunnablejobcollection.go:
     id: 39b837dde4d9
     last_write_checksum: sha1:596914e293ca043ce96195c62ebad329be9cfd0b
     pristine_git_object: cb473b20cd34000f6e424ca34d936df35ccc51d5
+  models/components/scheduletypesavedjobresponsecollection.go:
+    id: e6eec5d0111c
+    last_write_checksum: sha1:dedb8cb14267cea41785a1688ca444092a2dad2a
+    pristine_git_object: 8edb254392b377184d84302eb08bbb22fc88da2b
   models/components/schemeclientoauth.go:
     id: 3291eda160f4
     last_write_checksum: sha1:f23a47231d4358b37d4dc7dc092b17ea182d80b8
@@ -19337,16 +19421,16 @@ trackedFiles:
     pristine_git_object: 652b2a03425eccadd314c603fdc47b479cfd16ae
   models/operations/updateinputbyid.go:
     id: 1047873a4f41
-    last_write_checksum: sha1:7eca2ad548d9001264cb0732e330ab8b5cb2b3c3
-    pristine_git_object: b1681c9ae31a670d488e316a437ece412c7d520d
+    last_write_checksum: sha1:4f38b2a45c8b39ee798a3e16187ed2dcf47c7b87
+    pristine_git_object: 93a214dcd05e1ddeea83bf6105b0b6378f463376
   models/operations/updateinputhectokenbyidandtoken.go:
     id: c06931a1fdce
     last_write_checksum: sha1:f8d7121c085f40e62214e266d32d441082f1e96a
     pristine_git_object: 1f91c088b14112a73a1e7a83ef7d60e0ce685f3f
   models/operations/updateinputsystembypackandid.go:
     id: 5eb5dcdb2713
-    last_write_checksum: sha1:c6c8dacc60ece94d78ee36932d2c4941a7d82a20
-    pristine_git_object: 6b8e7017dcd96b8ab43245f9f31b92bf03fb93e0
+    last_write_checksum: sha1:2b66dd2d071dda5790a0c599d0b6db172960d70f
+    pristine_git_object: 8f7c9078a47c5b29318eb57ea9ddbc7ffbe8c3ca
   models/operations/updateinputsystemhectokenbypackandidandtoken.go:
     id: 2994d68034ae
     last_write_checksum: sha1:65cda2948a71148cb95a6dccb655d4cb6f624fa2
@@ -19389,8 +19473,8 @@ trackedFiles:
     pristine_git_object: 35444b91af0c3baf5ae1f411a297025b2ee8a61f
   models/operations/updatesavedjobbyid.go:
     id: "609885898802"
-    last_write_checksum: sha1:7e3f70a062186e8206096b07657e8b4939686193
-    pristine_git_object: 379a484e7c69db1b01639ed241551b1156e5b6ee
+    last_write_checksum: sha1:35d1dea67375259cb17e250a51f1af1df077df70
+    pristine_git_object: 3388e1b6bf7bcad6560cae1da52bbf1524d6a501
   models/operations/updatesystemsettingsconf.go:
     id: f9fba4a1fd22
     last_write_checksum: sha1:d33068f04d20f901830c360dd75db0856bc14704
@@ -19441,8 +19525,8 @@ trackedFiles:
     pristine_git_object: 6bff37a57f4bbefb62cb56a19be3e94b33c37dae
   packssources.go:
     id: 6e4ebbce3739
-    last_write_checksum: sha1:6af0be347abaf95134f1832c82e600d298bc1640
-    pristine_git_object: 0e5180fcb026a7d564b0fc801611a2b7172b7c28
+    last_write_checksum: sha1:66bc7e26e72a5eebef1fbc6c08772eaa287dd30e
+    pristine_git_object: a1efa193cdee55c0eed8972defa7dd8eed799414
   packssourcespq.go:
     id: 178ab70deffc
     last_write_checksum: sha1:d75ee16de7bacfd11b0414f4cd04940e54e70bec
@@ -19473,8 +19557,8 @@ trackedFiles:
     pristine_git_object: 600277ad964a9fe8517cc54eba451ae2d3a49f50
   sources.go:
     id: 4d2231a4f6a8
-    last_write_checksum: sha1:0b7f800e965e947147dd060147dfbc01c66de706
-    pristine_git_object: f74972e4267dacbaa0102eceadf16993b00752f2
+    last_write_checksum: sha1:6d33773d423928f1ab5efed7912fb88cd91e11be
+    pristine_git_object: f36aceac4ba6578215e305ef8470abdcee39b268
   sourcespq.go:
     id: 43f96350a980
     last_write_checksum: sha1:810fae8acfdeb80685d3d9a47447beaf2021db83
@@ -23930,10 +24014,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "rest-collector", "schedule": {"cronSchedule": "0 */4 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "collector": {"type": "database", "conf": {"connectionId": "<id>", "query": "<value>"}}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesS3:
@@ -23941,10 +24025,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "s3-collector", "schedule": {"cronSchedule": "0 */6 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "collector": {"type": "database", "conf": {"connectionId": "<id>", "query": "<value>"}}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesFilesystem:
@@ -23952,10 +24036,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "filesystem-collector", "schedule": {"cronSchedule": "0 */2 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "savedQueryId": "<id>"}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesAzureBlob:
@@ -23963,10 +24047,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "azure-blob-collector", "schedule": {"cronSchedule": "0 */8 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "executor": {"type": "<value>"}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesGoogleCloudStorage:
@@ -23974,10 +24058,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "gcs-collector", "schedule": {"cronSchedule": "0 */12 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "executor": {"type": "<value>"}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesDatabase:
@@ -23985,10 +24069,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "database-collector", "schedule": {"cronSchedule": "0 2 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "executor": {"type": "<value>"}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesSplunk:
@@ -23996,10 +24080,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "splunk-collector", "schedule": {"cronSchedule": "0 */1 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "collector": {"type": "database", "conf": {"connectionId": "<id>", "query": "<value>"}}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesScript:
@@ -24007,10 +24091,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "script-collector", "schedule": {"cronSchedule": "0 */3 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "savedQueryId": "<id>"}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesCriblLake:
@@ -24018,10 +24102,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "cribl-lake-collector", "schedule": {"cronSchedule": "0 */2 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "collector": {"type": "database", "conf": {"connectionId": "<id>", "query": "<value>"}}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     speakeasy-default-create-saved-job:
@@ -24029,10 +24113,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "executor"}
+        application/json: {"type": "collection", "executor": {"type": "<value>"}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
   getSavedJob:
@@ -24044,7 +24128,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {"key": "<value>"}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": ["<value 1>", "<value 2>", "<value 3>"]}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
   deleteSavedJobById:
@@ -24057,7 +24141,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": ["<value 1>"]}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
   getSavedJobById:
@@ -24069,7 +24153,7 @@ examples:
           criblPack: "<value>"
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {"key": "<value>", "key1": "<value>"}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": ["<value 1>"]}], "schedule": {"enabled": true, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
   updateSavedJobById:
@@ -24080,10 +24164,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "rest-collector", "schedule": {"cronSchedule": "0 */4 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "collector": {"type": "database", "conf": {"connectionId": "<id>", "query": "<value>"}}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesS3:
@@ -24093,10 +24177,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "s3-collector", "schedule": {"cronSchedule": "0 */6 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "savedQueryId": "<id>"}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesFilesystem:
@@ -24106,10 +24190,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "filesystem-collector", "schedule": {"cronSchedule": "0 */2 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "savedQueryId": "<id>"}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesAzureBlob:
@@ -24119,10 +24203,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "azure-blob-collector", "schedule": {"cronSchedule": "0 */8 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "savedQueryId": "<id>"}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesGoogleCloudStorage:
@@ -24132,10 +24216,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "gcs-collector", "schedule": {"cronSchedule": "0 */12 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "executor": {"type": "<value>"}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesDatabase:
@@ -24145,10 +24229,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "database-collector", "schedule": {"cronSchedule": "0 2 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "collector": {"type": "database", "conf": {"connectionId": "<id>", "query": "<value>"}}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesSplunk:
@@ -24158,10 +24242,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "splunk-collector", "schedule": {"cronSchedule": "0 */1 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "collector": {"type": "database", "conf": {"connectionId": "<id>", "query": "<value>"}}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesScript:
@@ -24171,10 +24255,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "script-collector", "schedule": {"cronSchedule": "0 */3 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "savedQueryId": "<id>"}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     CollectorExamplesCriblLake:
@@ -24184,10 +24268,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "cribl-lake-collector", "schedule": {"cronSchedule": "0 */2 * * *", "enabled": true, "run": {"mode": "run", "timeRangeType": "relative", "earliest": -300, "expression": "true", "logLevel": "info"}, "tz": "UTC"}, "type": "collection"}
+        application/json: {"type": "collection", "savedQueryId": "<id>"}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
     speakeasy-default-update-saved-job-by-id:
@@ -24197,10 +24281,10 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "scheduledSearch"}
+        application/json: {"type": "collection", "executor": {"type": "<value>"}}
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "notifications": [{"condition": "<value>", "conf": {}, "id": "<id>", "targetDetails": [{"id": "<id>", "type": "smtp"}], "targets": []}], "schedule": {"enabled": false, "run": {}, "tz": "UTC"}, "type": "<value>"}]}
+          application/json: {}
         "500":
           application/json: {}
   getFunctionsById:
@@ -30124,7 +30208,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`: \n  *  `request.CriblPack` **Removed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

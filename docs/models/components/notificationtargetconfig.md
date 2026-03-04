@@ -1,9 +1,0 @@
-# NotificationTargetConfig
-
-
-## Fields
-
-| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `Conf`                                                                                              | [*components.NotificationSMTPTargetConfig](../../models/components/notificationsmtptargetconfig.md) | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |
-| `ID`                                                                                                | *string*                                                                                            | :heavy_check_mark:                                                                                  | ID of the notification target.                                                                      |
