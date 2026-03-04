@@ -131,11 +131,11 @@ type InputOffice365Mgmt struct {
 	// Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []InputOffice365MgmtContentConfig `json:"contentConfig,omitzero"`
 	// Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
-	IngestionLag *float64                         `json:"ingestionLag,omitzero"`
-	RetryRules   *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	IngestionLag *float64         `json:"ingestionLag,omitzero"`
+	RetryRules   *RetryRulesType1 `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -322,14 +322,14 @@ func (i *InputOffice365Mgmt) GetIngestionLag() *float64 {
 	return i.IngestionLag
 }
 
-func (i *InputOffice365Mgmt) GetRetryRules() *RetryRulesTypeCodesEnableHeader {
+func (i *InputOffice365Mgmt) GetRetryRules() *RetryRulesType1 {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365Mgmt) GetAuthType() *AuthenticationMethodOptionsManualSecret {
+func (i *InputOffice365Mgmt) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}

@@ -60,11 +60,11 @@ type OutputMinio struct {
 	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
 	DestPath *string `json:"destPath,omitzero"`
 	// Signature version to use for signing MinIO requests
-	SignatureVersion *SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptions5 `json:"signatureVersion,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
+	StorageClass *StorageClassOptions2 `json:"storageClass,omitzero"`
 	// Server-side encryption for uploaded objects
 	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitzero"`
 	// Reuse connections between requests, which can improve performance
@@ -92,7 +92,7 @@ type OutputMinio struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -112,7 +112,7 @@ type OutputMinio struct {
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
+	Compress *CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -264,7 +264,7 @@ func (o *OutputMinio) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputMinio) GetSignatureVersion() *SignatureVersionOptionsMinIo {
+func (o *OutputMinio) GetSignatureVersion() *SignatureVersionOptions5 {
 	if o == nil {
 		return nil
 	}
@@ -278,7 +278,7 @@ func (o *OutputMinio) GetObjectACL() *ObjectACLOptions {
 	return o.ObjectACL
 }
 
-func (o *OutputMinio) GetStorageClass() *StorageClassOptionsReducedredundancyStandard {
+func (o *OutputMinio) GetStorageClass() *StorageClassOptions2 {
 	if o == nil {
 		return nil
 	}
@@ -376,7 +376,7 @@ func (o *OutputMinio) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputMinio) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
+func (o *OutputMinio) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -453,7 +453,7 @@ func (o *OutputMinio) GetAwsSecret() *string {
 	return o.AwsSecret
 }
 
-func (o *OutputMinio) GetCompress() *CompressionOptionsHTTP {
+func (o *OutputMinio) GetCompress() *CompressionOptions2 {
 	if o == nil {
 		return nil
 	}

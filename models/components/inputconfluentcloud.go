@@ -50,8 +50,8 @@ type InputConfluentCloud struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
-	Brokers []string                                 `json:"brokers"`
-	TLS     *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	Brokers []string                                      `json:"brokers"`
+	TLS     *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
@@ -194,7 +194,7 @@ func (i *InputConfluentCloud) GetBrokers() []string {
 	return i.Brokers
 }
 
-func (i *InputConfluentCloud) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
+func (i *InputConfluentCloud) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if i == nil {
 		return nil
 	}

@@ -8,28 +8,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type SavedJobResponseScheduledSearchSavedState struct {
-	Data map[string]any `json:"data"`
-}
-
-func (s SavedJobResponseScheduledSearchSavedState) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobResponseScheduledSearchSavedState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedJobResponseScheduledSearchSavedState) GetData() map[string]any {
-	if s == nil {
-		return map[string]any{}
-	}
-	return s.Data
-}
-
 type SavedJobResponseScheduledSearch struct {
 	// Unique ID for this Job
 	ID          *string                             `json:"id,omitzero"`
@@ -52,7 +30,7 @@ type SavedJobResponseScheduledSearch struct {
 	// Identifies which search query to run
 	SavedQueryID string `json:"savedQueryId"`
 	// Runtime collection state.
-	SavedState map[string]SavedJobResponseScheduledSearchSavedState `json:"savedState,omitzero"`
+	SavedState map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
 	Notifications []NotificationUnion `json:"notifications,omitzero"`
 }
@@ -145,7 +123,7 @@ func (s *SavedJobResponseScheduledSearch) GetSavedQueryID() string {
 	return s.SavedQueryID
 }
 
-func (s *SavedJobResponseScheduledSearch) GetSavedState() map[string]SavedJobResponseScheduledSearchSavedState {
+func (s *SavedJobResponseScheduledSearch) GetSavedState() map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState {
 	if s == nil {
 		return nil
 	}
@@ -157,28 +135,6 @@ func (s *SavedJobResponseScheduledSearch) GetNotifications() []NotificationUnion
 		return nil
 	}
 	return s.Notifications
-}
-
-type SavedJobResponseExecutorSavedState struct {
-	Data map[string]any `json:"data"`
-}
-
-func (s SavedJobResponseExecutorSavedState) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobResponseExecutorSavedState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedJobResponseExecutorSavedState) GetData() map[string]any {
-	if s == nil {
-		return map[string]any{}
-	}
-	return s.Data
 }
 
 type SavedJobResponseExecutor struct {
@@ -202,7 +158,7 @@ type SavedJobResponseExecutor struct {
 	Streamtags []string                        `json:"streamtags,omitzero"`
 	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
 	// Runtime collection state.
-	SavedState map[string]SavedJobResponseExecutorSavedState `json:"savedState,omitzero"`
+	SavedState map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
 	Notifications []NotificationUnion `json:"notifications,omitzero"`
 }
@@ -295,7 +251,7 @@ func (s *SavedJobResponseExecutor) GetExecutor() ExecutorTypeRunnableJobExecutor
 	return s.Executor
 }
 
-func (s *SavedJobResponseExecutor) GetSavedState() map[string]SavedJobResponseExecutorSavedState {
+func (s *SavedJobResponseExecutor) GetSavedState() map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState {
 	if s == nil {
 		return nil
 	}
@@ -307,28 +263,6 @@ func (s *SavedJobResponseExecutor) GetNotifications() []NotificationUnion {
 		return nil
 	}
 	return s.Notifications
-}
-
-type SavedJobResponseCollectionSavedState struct {
-	Data map[string]any `json:"data"`
-}
-
-func (s SavedJobResponseCollectionSavedState) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobResponseCollectionSavedState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedJobResponseCollectionSavedState) GetData() map[string]any {
-	if s == nil {
-		return map[string]any{}
-	}
-	return s.Data
 }
 
 type SavedJobResponseCollection struct {
@@ -353,10 +287,10 @@ type SavedJobResponseCollection struct {
 	// If enabled, tasks are created and run by the same Worker Node
 	WorkerAffinity *bool `json:"workerAffinity,omitzero"`
 	// Collector configuration
-	Collector Collector                                                         `json:"collector"`
-	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	Collector Collector                                    `json:"collector"`
+	Input     *TypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
 	// Runtime collection state.
-	SavedState map[string]SavedJobResponseCollectionSavedState `json:"savedState,omitzero"`
+	SavedState map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
 	Notifications []NotificationUnion `json:"notifications,omitzero"`
 }
@@ -496,14 +430,14 @@ func (s *SavedJobResponseCollection) GetCollectorSplunk() *CollectorSplunk {
 	return s.GetCollector().CollectorSplunk
 }
 
-func (s *SavedJobResponseCollection) GetInput() *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint {
+func (s *SavedJobResponseCollection) GetInput() *TypeCollectionWithBreakerRulesetsConstraint {
 	if s == nil {
 		return nil
 	}
 	return s.Input
 }
 
-func (s *SavedJobResponseCollection) GetSavedState() map[string]SavedJobResponseCollectionSavedState {
+func (s *SavedJobResponseCollection) GetSavedState() map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState {
 	if s == nil {
 		return nil
 	}

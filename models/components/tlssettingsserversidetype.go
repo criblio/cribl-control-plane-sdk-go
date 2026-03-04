@@ -23,9 +23,9 @@ type TLSSettingsServerSideType struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitzero"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                      `json:"caPath,omitzero"`
-	MinVersion *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
-	MaxVersion *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
+	CaPath     *string                                         `json:"caPath,omitzero"`
+	MinVersion *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitzero"`
+	MaxVersion *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
 }
 
 func (t TLSSettingsServerSideType) MarshalJSON() ([]byte, error) {
@@ -102,14 +102,14 @@ func (t *TLSSettingsServerSideType) GetCaPath() *string {
 	return t.CaPath
 }
 
-func (t *TLSSettingsServerSideType) GetMinVersion() *MinimumTLSVersionOptionsTLS {
+func (t *TLSSettingsServerSideType) GetMinVersion() *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
 	if t == nil {
 		return nil
 	}
 	return t.MinVersion
 }
 
-func (t *TLSSettingsServerSideType) GetMaxVersion() *MaximumTLSVersionOptionsTLS {
+func (t *TLSSettingsServerSideType) GetMaxVersion() *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
 	if t == nil {
 		return nil
 	}

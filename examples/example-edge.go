@@ -125,7 +125,7 @@ func main() {
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
 		StagePath:      "/tmp/cribl-s3-stage",
-		Compress:       components.CompressionOptionsHTTPGzip.ToPointer(),
+		Compress:       components.CompressionOptions2Gzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}
 

@@ -108,7 +108,7 @@ type OutputAzureBlob struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -120,7 +120,7 @@ type OutputAzureBlob struct {
 	StorageClass         *BlobAccessTier              `json:"storageClass,omitzero"`
 	Description          *string                      `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
+	Compress *CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -354,7 +354,7 @@ func (o *OutputAzureBlob) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputAzureBlob) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
+func (o *OutputAzureBlob) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -410,7 +410,7 @@ func (o *OutputAzureBlob) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputAzureBlob) GetCompress() *CompressionOptionsHTTP {
+func (o *OutputAzureBlob) GetCompress() *CompressionOptions2 {
 	if o == nil {
 		return nil
 	}

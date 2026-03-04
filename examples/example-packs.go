@@ -129,7 +129,7 @@ func main() {
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
-		Compress:       components.CompressionOptionsHTTPGzip.ToPointer(),
+		Compress:       components.CompressionOptions2Gzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}
 

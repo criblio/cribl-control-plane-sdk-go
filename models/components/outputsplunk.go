@@ -68,8 +68,8 @@ type OutputSplunk struct {
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                 `json:"writeTimeout,omitzero"`
-	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	WriteTimeout *float64                                      `json:"writeTimeout,omitzero"`
+	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
 	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitzero"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
@@ -93,7 +93,7 @@ type OutputSplunk struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -107,9 +107,7 @@ type OutputSplunk struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                 `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputSplunkPqControls `json:"pqControls,omitzero"`
+	PqControls       *OutputSplunkPqControls   `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
@@ -215,7 +213,7 @@ func (o *OutputSplunk) GetWriteTimeout() *float64 {
 	return o.WriteTimeout
 }
 
-func (o *OutputSplunk) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
+func (o *OutputSplunk) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if o == nil {
 		return nil
 	}
@@ -353,13 +351,6 @@ func (o *OutputSplunk) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputSplunk) GetPqMaxBufferSizeBytes() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSizeBytes
 }
 
 func (o *OutputSplunk) GetPqControls() *OutputSplunkPqControls {
