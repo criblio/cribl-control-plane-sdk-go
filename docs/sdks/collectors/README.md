@@ -40,24 +40,14 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
-        ID: "azure-blob-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */8 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
             },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -90,24 +80,20 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
-        ID: "cribl-lake-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                    },
                 },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+            ),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -140,24 +126,14 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
-        ID: "database-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 2 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
             },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -190,24 +166,12 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
-        ID: "filesystem-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            SavedQueryID: "<id>",
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -240,24 +204,14 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
-        ID: "gcs-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */12 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
             },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -290,24 +244,20 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
-        ID: "rest-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */4 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                    },
                 },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+            ),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -340,24 +290,20 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
-        ID: "s3-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */6 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                    },
                 },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+            ),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -390,24 +336,12 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
-        ID: "script-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */3 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            SavedQueryID: "<id>",
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -440,24 +374,20 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Create(ctx, components.SavedJobRequest{
-        ID: "splunk-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */1 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                    },
                 },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+            ),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -469,11 +399,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
-| `request`                                                                | [components.SavedJobRequest](../../models/components/savedjobrequest.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
-| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
+| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
+| `request`                                                  | [components.SavedJob](../../models/components/savedjob.md) | :heavy_check_mark:                                         | The request object to use for the request.                 |
+| `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
 
 ### Response
 
@@ -685,24 +615,12 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
-        ID: "azure-blob-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */8 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            SavedQueryID: "<id>",
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -735,24 +653,12 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
-        ID: "cribl-lake-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            SavedQueryID: "<id>",
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -785,24 +691,20 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
-        ID: "database-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 2 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                    },
                 },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+            ),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -835,24 +737,12 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
-        ID: "filesystem-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */2 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            SavedQueryID: "<id>",
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -885,24 +775,14 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
-        ID: "gcs-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */12 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
             },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -935,24 +815,20 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
-        ID: "rest-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */4 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                    },
                 },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+            ),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -985,24 +861,12 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
-        ID: "s3-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */6 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            SavedQueryID: "<id>",
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -1035,24 +899,12 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
-        ID: "script-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */3 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
-                },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            SavedQueryID: "<id>",
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -1085,24 +937,20 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Update(ctx, "<id>", components.SavedJobRequest{
-        ID: "splunk-collector",
-        Schedule: &components.ScheduleOpts{
-            CronSchedule: criblcontrolplanesdkgo.Pointer("0 */1 * * *"),
-            Enabled: true,
-            Run: components.RunSettings{
-                AdditionalProperties: map[string]any{
-                    "mode": "run",
-                    "timeRangeType": "relative",
-                    "earliest": -300,
-                    "expression": "true",
-                    "logLevel": "info",
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                    },
                 },
-            },
-            Tz: criblcontrolplanesdkgo.Pointer("UTC"),
+            ),
         },
-        Type: "collection",
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -1114,12 +962,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
-| `id`                                                                     | *string*                                                                 | :heavy_check_mark:                                                       | The <code>id</code> of the Collector to update.                          |
-| `savedJobRequest`                                                        | [components.SavedJobRequest](../../models/components/savedjobrequest.md) | :heavy_check_mark:                                                       | SavedJobRequest object                                                   |
-| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
+| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
+| `id`                                                       | *string*                                                   | :heavy_check_mark:                                         | The <code>id</code> of the Collector to update.            |
+| `savedJob`                                                 | [components.SavedJob](../../models/components/savedjob.md) | :heavy_check_mark:                                         | SavedJob object                                            |
+| `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
 
 ### Response
 

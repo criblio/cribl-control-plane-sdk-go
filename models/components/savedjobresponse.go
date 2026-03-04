@@ -3,98 +3,631 @@
 package components
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type SavedJobResponse struct {
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitzero"`
-	// Unique ID for this Job.
-	ID string `json:"id"`
-	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
-	// Notification targets.
-	Notifications []Notification `json:"notifications,omitzero"`
-	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution.
-	ResumeOnBoot *bool                           `json:"resumeOnBoot,omitzero"`
-	SavedState   map[string]CollectionStateEntry `json:"savedState,omitzero"`
-	Schedule     *ScheduleOpts                   `json:"schedule,omitzero"`
-	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitzero"`
-	// Job type: collection, executor, or scheduledSearch.
-	Type string `json:"type"`
+type SavedJobResponseScheduledSearchSavedState struct {
+	Data map[string]any `json:"data"`
 }
 
-func (s SavedJobResponse) MarshalJSON() ([]byte, error) {
+func (s SavedJobResponseScheduledSearchSavedState) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *SavedJobResponse) UnmarshalJSON(data []byte) error {
+func (s *SavedJobResponseScheduledSearchSavedState) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SavedJobResponse) GetEnvironment() *string {
+func (s *SavedJobResponseScheduledSearchSavedState) GetData() map[string]any {
 	if s == nil {
-		return nil
+		return map[string]any{}
 	}
-	return s.Environment
+	return s.Data
 }
 
-func (s *SavedJobResponse) GetID() string {
+type SavedJobResponseScheduledSearch struct {
+	// Unique ID for this Job
+	ID          *string                             `json:"id,omitzero"`
+	Description *string                             `json:"description,omitzero"`
+	Type        JobTypeOptionsRunnableJobCollection `json:"type"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
+	RemoveFields []string `json:"removeFields,omitzero"`
+	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution
+	ResumeOnBoot *bool `json:"resumeOnBoot,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Configuration for a scheduled job
+	Schedule *ScheduleTypeSavedJobResponseCollection `json:"schedule,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Identifies which search query to run
+	SavedQueryID string `json:"savedQueryId"`
+	// Runtime collection state.
+	SavedState map[string]SavedJobResponseScheduledSearchSavedState `json:"savedState,omitzero"`
+	// Notification targets.
+	Notifications []NotificationUnion `json:"notifications,omitzero"`
+}
+
+func (s SavedJobResponseScheduledSearch) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobResponseScheduledSearch) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SavedJobResponseScheduledSearch) GetID() *string {
 	if s == nil {
-		return ""
+		return nil
 	}
 	return s.ID
 }
 
-func (s *SavedJobResponse) GetIgnoreGroupJobsLimit() *bool {
+func (s *SavedJobResponseScheduledSearch) GetDescription() *string {
 	if s == nil {
 		return nil
 	}
-	return s.IgnoreGroupJobsLimit
+	return s.Description
 }
 
-func (s *SavedJobResponse) GetNotifications() []Notification {
+func (s *SavedJobResponseScheduledSearch) GetType() JobTypeOptionsRunnableJobCollection {
 	if s == nil {
-		return nil
+		return JobTypeOptionsRunnableJobCollection("")
 	}
-	return s.Notifications
+	return s.Type
 }
 
-func (s *SavedJobResponse) GetResumeOnBoot() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.ResumeOnBoot
-}
-
-func (s *SavedJobResponse) GetSavedState() map[string]CollectionStateEntry {
-	if s == nil {
-		return nil
-	}
-	return s.SavedState
-}
-
-func (s *SavedJobResponse) GetSchedule() *ScheduleOpts {
-	if s == nil {
-		return nil
-	}
-	return s.Schedule
-}
-
-func (s *SavedJobResponse) GetTTL() *string {
+func (s *SavedJobResponseScheduledSearch) GetTTL() *string {
 	if s == nil {
 		return nil
 	}
 	return s.TTL
 }
 
-func (s *SavedJobResponse) GetType() string {
+func (s *SavedJobResponseScheduledSearch) GetIgnoreGroupJobsLimit() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.IgnoreGroupJobsLimit
+}
+
+func (s *SavedJobResponseScheduledSearch) GetRemoveFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.RemoveFields
+}
+
+func (s *SavedJobResponseScheduledSearch) GetResumeOnBoot() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ResumeOnBoot
+}
+
+func (s *SavedJobResponseScheduledSearch) GetEnvironment() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Environment
+}
+
+func (s *SavedJobResponseScheduledSearch) GetSchedule() *ScheduleTypeSavedJobResponseCollection {
+	if s == nil {
+		return nil
+	}
+	return s.Schedule
+}
+
+func (s *SavedJobResponseScheduledSearch) GetStreamtags() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Streamtags
+}
+
+func (s *SavedJobResponseScheduledSearch) GetSavedQueryID() string {
 	if s == nil {
 		return ""
 	}
+	return s.SavedQueryID
+}
+
+func (s *SavedJobResponseScheduledSearch) GetSavedState() map[string]SavedJobResponseScheduledSearchSavedState {
+	if s == nil {
+		return nil
+	}
+	return s.SavedState
+}
+
+func (s *SavedJobResponseScheduledSearch) GetNotifications() []NotificationUnion {
+	if s == nil {
+		return nil
+	}
+	return s.Notifications
+}
+
+type SavedJobResponseExecutorSavedState struct {
+	Data map[string]any `json:"data"`
+}
+
+func (s SavedJobResponseExecutorSavedState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobResponseExecutorSavedState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SavedJobResponseExecutorSavedState) GetData() map[string]any {
+	if s == nil {
+		return map[string]any{}
+	}
+	return s.Data
+}
+
+type SavedJobResponseExecutor struct {
+	// Unique ID for this Job
+	ID          *string                             `json:"id,omitzero"`
+	Description *string                             `json:"description,omitzero"`
+	Type        JobTypeOptionsRunnableJobCollection `json:"type"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
+	RemoveFields []string `json:"removeFields,omitzero"`
+	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution
+	ResumeOnBoot *bool `json:"resumeOnBoot,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Configuration for a scheduled job
+	Schedule *ScheduleTypeSavedJobResponseCollection `json:"schedule,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string                        `json:"streamtags,omitzero"`
+	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
+	// Runtime collection state.
+	SavedState map[string]SavedJobResponseExecutorSavedState `json:"savedState,omitzero"`
+	// Notification targets.
+	Notifications []NotificationUnion `json:"notifications,omitzero"`
+}
+
+func (s SavedJobResponseExecutor) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobResponseExecutor) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SavedJobResponseExecutor) GetID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.ID
+}
+
+func (s *SavedJobResponseExecutor) GetDescription() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Description
+}
+
+func (s *SavedJobResponseExecutor) GetType() JobTypeOptionsRunnableJobCollection {
+	if s == nil {
+		return JobTypeOptionsRunnableJobCollection("")
+	}
 	return s.Type
+}
+
+func (s *SavedJobResponseExecutor) GetTTL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TTL
+}
+
+func (s *SavedJobResponseExecutor) GetIgnoreGroupJobsLimit() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.IgnoreGroupJobsLimit
+}
+
+func (s *SavedJobResponseExecutor) GetRemoveFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.RemoveFields
+}
+
+func (s *SavedJobResponseExecutor) GetResumeOnBoot() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ResumeOnBoot
+}
+
+func (s *SavedJobResponseExecutor) GetEnvironment() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Environment
+}
+
+func (s *SavedJobResponseExecutor) GetSchedule() *ScheduleTypeSavedJobResponseCollection {
+	if s == nil {
+		return nil
+	}
+	return s.Schedule
+}
+
+func (s *SavedJobResponseExecutor) GetStreamtags() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Streamtags
+}
+
+func (s *SavedJobResponseExecutor) GetExecutor() ExecutorTypeRunnableJobExecutor {
+	if s == nil {
+		return ExecutorTypeRunnableJobExecutor{}
+	}
+	return s.Executor
+}
+
+func (s *SavedJobResponseExecutor) GetSavedState() map[string]SavedJobResponseExecutorSavedState {
+	if s == nil {
+		return nil
+	}
+	return s.SavedState
+}
+
+func (s *SavedJobResponseExecutor) GetNotifications() []NotificationUnion {
+	if s == nil {
+		return nil
+	}
+	return s.Notifications
+}
+
+type SavedJobResponseCollectionSavedState struct {
+	Data map[string]any `json:"data"`
+}
+
+func (s SavedJobResponseCollectionSavedState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobResponseCollectionSavedState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SavedJobResponseCollectionSavedState) GetData() map[string]any {
+	if s == nil {
+		return map[string]any{}
+	}
+	return s.Data
+}
+
+type SavedJobResponseCollection struct {
+	// Unique ID for this Job
+	ID          *string                             `json:"id,omitzero"`
+	Description *string                             `json:"description,omitzero"`
+	Type        JobTypeOptionsRunnableJobCollection `json:"type"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
+	RemoveFields []string `json:"removeFields,omitzero"`
+	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution
+	ResumeOnBoot *bool `json:"resumeOnBoot,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Configuration for a scheduled job
+	Schedule *ScheduleTypeSavedJobResponseCollection `json:"schedule,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// If enabled, tasks are created and run by the same Worker Node
+	WorkerAffinity *bool `json:"workerAffinity,omitzero"`
+	// Collector configuration
+	Collector Collector                                                         `json:"collector"`
+	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	// Runtime collection state.
+	SavedState map[string]SavedJobResponseCollectionSavedState `json:"savedState,omitzero"`
+	// Notification targets.
+	Notifications []NotificationUnion `json:"notifications,omitzero"`
+}
+
+func (s SavedJobResponseCollection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobResponseCollection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SavedJobResponseCollection) GetID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.ID
+}
+
+func (s *SavedJobResponseCollection) GetDescription() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Description
+}
+
+func (s *SavedJobResponseCollection) GetType() JobTypeOptionsRunnableJobCollection {
+	if s == nil {
+		return JobTypeOptionsRunnableJobCollection("")
+	}
+	return s.Type
+}
+
+func (s *SavedJobResponseCollection) GetTTL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TTL
+}
+
+func (s *SavedJobResponseCollection) GetIgnoreGroupJobsLimit() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.IgnoreGroupJobsLimit
+}
+
+func (s *SavedJobResponseCollection) GetRemoveFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.RemoveFields
+}
+
+func (s *SavedJobResponseCollection) GetResumeOnBoot() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ResumeOnBoot
+}
+
+func (s *SavedJobResponseCollection) GetEnvironment() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Environment
+}
+
+func (s *SavedJobResponseCollection) GetSchedule() *ScheduleTypeSavedJobResponseCollection {
+	if s == nil {
+		return nil
+	}
+	return s.Schedule
+}
+
+func (s *SavedJobResponseCollection) GetStreamtags() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Streamtags
+}
+
+func (s *SavedJobResponseCollection) GetWorkerAffinity() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.WorkerAffinity
+}
+
+func (s *SavedJobResponseCollection) GetCollector() Collector {
+	if s == nil {
+		return Collector{}
+	}
+	return s.Collector
+}
+
+func (s *SavedJobResponseCollection) GetCollectorAzureBlob() *CollectorAzureBlob {
+	return s.GetCollector().CollectorAzureBlob
+}
+
+func (s *SavedJobResponseCollection) GetCollectorCriblLake() *CollectorCriblLake {
+	return s.GetCollector().CollectorCriblLake
+}
+
+func (s *SavedJobResponseCollection) GetCollectorDatabase() *CollectorDatabase {
+	return s.GetCollector().CollectorDatabase
+}
+
+func (s *SavedJobResponseCollection) GetCollectorFilesystem() *CollectorFilesystem {
+	return s.GetCollector().CollectorFilesystem
+}
+
+func (s *SavedJobResponseCollection) GetCollectorGoogleCloudStorage() *CollectorGoogleCloudStorage {
+	return s.GetCollector().CollectorGoogleCloudStorage
+}
+
+func (s *SavedJobResponseCollection) GetCollectorHealthCheck() *CollectorHealthCheck {
+	return s.GetCollector().CollectorHealthCheck
+}
+
+func (s *SavedJobResponseCollection) GetCollectorRest() *CollectorRest {
+	return s.GetCollector().CollectorRest
+}
+
+func (s *SavedJobResponseCollection) GetCollectorS3() *CollectorS3 {
+	return s.GetCollector().CollectorS3
+}
+
+func (s *SavedJobResponseCollection) GetCollectorScript() *CollectorScript {
+	return s.GetCollector().CollectorScript
+}
+
+func (s *SavedJobResponseCollection) GetCollectorSplunk() *CollectorSplunk {
+	return s.GetCollector().CollectorSplunk
+}
+
+func (s *SavedJobResponseCollection) GetInput() *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint {
+	if s == nil {
+		return nil
+	}
+	return s.Input
+}
+
+func (s *SavedJobResponseCollection) GetSavedState() map[string]SavedJobResponseCollectionSavedState {
+	if s == nil {
+		return nil
+	}
+	return s.SavedState
+}
+
+func (s *SavedJobResponseCollection) GetNotifications() []NotificationUnion {
+	if s == nil {
+		return nil
+	}
+	return s.Notifications
+}
+
+type SavedJobResponseType string
+
+const (
+	SavedJobResponseTypeSavedJobResponseCollection      SavedJobResponseType = "SavedJobResponseCollection"
+	SavedJobResponseTypeSavedJobResponseExecutor        SavedJobResponseType = "SavedJobResponseExecutor"
+	SavedJobResponseTypeSavedJobResponseScheduledSearch SavedJobResponseType = "SavedJobResponseScheduledSearch"
+)
+
+type SavedJobResponse struct {
+	SavedJobResponseCollection      *SavedJobResponseCollection      `queryParam:"inline" union:"member"`
+	SavedJobResponseExecutor        *SavedJobResponseExecutor        `queryParam:"inline" union:"member"`
+	SavedJobResponseScheduledSearch *SavedJobResponseScheduledSearch `queryParam:"inline" union:"member"`
+
+	Type SavedJobResponseType
+}
+
+func CreateSavedJobResponseSavedJobResponseCollection(savedJobResponseCollection SavedJobResponseCollection) SavedJobResponse {
+	typ := SavedJobResponseTypeSavedJobResponseCollection
+
+	return SavedJobResponse{
+		SavedJobResponseCollection: &savedJobResponseCollection,
+		Type:                       typ,
+	}
+}
+
+func CreateSavedJobResponseSavedJobResponseExecutor(savedJobResponseExecutor SavedJobResponseExecutor) SavedJobResponse {
+	typ := SavedJobResponseTypeSavedJobResponseExecutor
+
+	return SavedJobResponse{
+		SavedJobResponseExecutor: &savedJobResponseExecutor,
+		Type:                     typ,
+	}
+}
+
+func CreateSavedJobResponseSavedJobResponseScheduledSearch(savedJobResponseScheduledSearch SavedJobResponseScheduledSearch) SavedJobResponse {
+	typ := SavedJobResponseTypeSavedJobResponseScheduledSearch
+
+	return SavedJobResponse{
+		SavedJobResponseScheduledSearch: &savedJobResponseScheduledSearch,
+		Type:                            typ,
+	}
+}
+
+func (u *SavedJobResponse) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var savedJobResponseCollection SavedJobResponseCollection = SavedJobResponseCollection{}
+	if err := utils.UnmarshalJSON(data, &savedJobResponseCollection, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SavedJobResponseTypeSavedJobResponseCollection,
+			Value: &savedJobResponseCollection,
+		})
+	}
+
+	var savedJobResponseExecutor SavedJobResponseExecutor = SavedJobResponseExecutor{}
+	if err := utils.UnmarshalJSON(data, &savedJobResponseExecutor, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SavedJobResponseTypeSavedJobResponseExecutor,
+			Value: &savedJobResponseExecutor,
+		})
+	}
+
+	var savedJobResponseScheduledSearch SavedJobResponseScheduledSearch = SavedJobResponseScheduledSearch{}
+	if err := utils.UnmarshalJSON(data, &savedJobResponseScheduledSearch, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SavedJobResponseTypeSavedJobResponseScheduledSearch,
+			Value: &savedJobResponseScheduledSearch,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SavedJobResponse", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SavedJobResponse", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(SavedJobResponseType)
+	switch best.Type {
+	case SavedJobResponseTypeSavedJobResponseCollection:
+		u.SavedJobResponseCollection = best.Value.(*SavedJobResponseCollection)
+		return nil
+	case SavedJobResponseTypeSavedJobResponseExecutor:
+		u.SavedJobResponseExecutor = best.Value.(*SavedJobResponseExecutor)
+		return nil
+	case SavedJobResponseTypeSavedJobResponseScheduledSearch:
+		u.SavedJobResponseScheduledSearch = best.Value.(*SavedJobResponseScheduledSearch)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SavedJobResponse", string(data))
+}
+
+func (u SavedJobResponse) MarshalJSON() ([]byte, error) {
+	if u.SavedJobResponseCollection != nil {
+		return utils.MarshalJSON(u.SavedJobResponseCollection, "", true)
+	}
+
+	if u.SavedJobResponseExecutor != nil {
+		return utils.MarshalJSON(u.SavedJobResponseExecutor, "", true)
+	}
+
+	if u.SavedJobResponseScheduledSearch != nil {
+		return utils.MarshalJSON(u.SavedJobResponseScheduledSearch, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type SavedJobResponse: all fields are null")
 }

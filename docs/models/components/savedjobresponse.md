@@ -1,16 +1,37 @@
 # SavedJobResponse
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                    | Type                                                                                                                                                                                     | Required                                                                                                                                                                                 | Description                                                                                                                                                                              |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Environment`                                                                                                                                                                            | **string*                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                       | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                     |
-| `ID`                                                                                                                                                                                     | *string*                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                       | Unique ID for this Job.                                                                                                                                                                  |
-| `IgnoreGroupJobsLimit`                                                                                                                                                                   | **bool*                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                       | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live. |
-| `Notifications`                                                                                                                                                                          | [][components.Notification](../../models/components/notification.md)                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                       | Notification targets.                                                                                                                                                                    |
-| `ResumeOnBoot`                                                                                                                                                                           | **bool*                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                       | Resume the ad hoc job if a failure condition causes Stream to restart during job execution.                                                                                              |
-| `SavedState`                                                                                                                                                                             | map[string][components.CollectionStateEntry](../../models/components/collectionstateentry.md)                                                                                            | :heavy_minus_sign:                                                                                                                                                                       | N/A                                                                                                                                                                                      |
-| `Schedule`                                                                                                                                                                               | [*components.ScheduleOpts](../../models/components/scheduleopts.md)                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                       | N/A                                                                                                                                                                                      |
-| `TTL`                                                                                                                                                                                    | **string*                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                       | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                          |
-| `Type`                                                                                                                                                                                   | *string*                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                       | Job type: collection, executor, or scheduledSearch.                                                                                                                                      |
+### SavedJobResponseCollection
+
+```go
+savedJobResponse := components.CreateSavedJobResponseSavedJobResponseCollection(components.SavedJobResponseCollection{/* values here */})
+```
+
+### SavedJobResponseExecutor
+
+```go
+savedJobResponse := components.CreateSavedJobResponseSavedJobResponseExecutor(components.SavedJobResponseExecutor{/* values here */})
+```
+
+### SavedJobResponseScheduledSearch
+
+```go
+savedJobResponse := components.CreateSavedJobResponseSavedJobResponseScheduledSearch(components.SavedJobResponseScheduledSearch{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch savedJobResponse.Type {
+	case components.SavedJobResponseTypeSavedJobResponseCollection:
+		// savedJobResponse.SavedJobResponseCollection is populated
+	case components.SavedJobResponseTypeSavedJobResponseExecutor:
+		// savedJobResponse.SavedJobResponseExecutor is populated
+	case components.SavedJobResponseTypeSavedJobResponseScheduledSearch:
+		// savedJobResponse.SavedJobResponseScheduledSearch is populated
+}
+```

@@ -6,120 +6,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type RunnableJobCollectionType string
-
-const (
-	RunnableJobCollectionTypeCollection RunnableJobCollectionType = "collection"
-)
-
-func (e RunnableJobCollectionType) ToPointer() *RunnableJobCollectionType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RunnableJobCollectionType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "collection":
-			return true
-		}
-	}
-	return false
-}
-
-type RunnableJobCollectionInput struct {
-	Type *RunnableJobCollectionType `json:"type,omitzero"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
-	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-	SendToRoutes *bool           `json:"sendToRoutes,omitzero"`
-	Preprocess   *PreprocessType `json:"preprocess,omitzero"`
-	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
-	// Pipeline to process results
-	Pipeline *string `json:"pipeline,omitzero"`
-	// Destination to send results to
-	Output *string `json:"output,omitzero"`
-}
-
-func (r RunnableJobCollectionInput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RunnableJobCollectionInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RunnableJobCollectionInput) GetType() *RunnableJobCollectionType {
-	if r == nil {
-		return nil
-	}
-	return r.Type
-}
-
-func (r *RunnableJobCollectionInput) GetBreakerRulesets() []string {
-	if r == nil {
-		return nil
-	}
-	return r.BreakerRulesets
-}
-
-func (r *RunnableJobCollectionInput) GetStaleChannelFlushMs() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.StaleChannelFlushMs
-}
-
-func (r *RunnableJobCollectionInput) GetSendToRoutes() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.SendToRoutes
-}
-
-func (r *RunnableJobCollectionInput) GetPreprocess() *PreprocessType {
-	if r == nil {
-		return nil
-	}
-	return r.Preprocess
-}
-
-func (r *RunnableJobCollectionInput) GetThrottleRatePerSec() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ThrottleRatePerSec
-}
-
-func (r *RunnableJobCollectionInput) GetMetadata() []ItemsTypeMetadata {
-	if r == nil {
-		return nil
-	}
-	return r.Metadata
-}
-
-func (r *RunnableJobCollectionInput) GetPipeline() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Pipeline
-}
-
-func (r *RunnableJobCollectionInput) GetOutput() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Output
-}
-
 // RunnableJobCollectionMode - Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
 type RunnableJobCollectionMode string
 
@@ -408,9 +294,9 @@ type RunnableJobCollection struct {
 	// If enabled, tasks are created and run by the same Worker Node
 	WorkerAffinity *bool `json:"workerAffinity,omitzero"`
 	// Collector configuration
-	Collector Collector                   `json:"collector"`
-	Input     *RunnableJobCollectionInput `json:"input,omitzero"`
-	Run       RunnableJobCollectionRun    `json:"run"`
+	Collector Collector                                                         `json:"collector"`
+	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	Run       RunnableJobCollectionRun                                          `json:"run"`
 }
 
 func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -548,7 +434,7 @@ func (r *RunnableJobCollection) GetCollectorSplunk() *CollectorSplunk {
 	return r.GetCollector().CollectorSplunk
 }
 
-func (r *RunnableJobCollection) GetInput() *RunnableJobCollectionInput {
+func (r *RunnableJobCollection) GetInput() *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint {
 	if r == nil {
 		return nil
 	}
