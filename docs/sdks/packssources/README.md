@@ -1337,6 +1337,49 @@ func main() {
     }
 }
 ```
+### Example Usage: InputCreateExamplesMicrosoftGraph
+
+<!-- UsageSnippet language="go" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesMicrosoftGraph" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Sources.Create(ctx, "<value>", operations.CreateCreateInputSystemByPackRequestBodyMicrosoftGraph(
+        operations.CreateInputSystemByPackInputMicrosoftGraph{
+            ID: "microsoft-graph-source",
+            Type: operations.CreateInputSystemByPackTypeMicrosoftGraphMicrosoftGraph,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            URL: "https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces",
+            Interval: 15,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesModelDrivenTelemetry
 
 <!-- UsageSnippet language="go" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesModelDrivenTelemetry" -->
@@ -3986,6 +4029,48 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
             UDPPort: criblcontrolplanesdkgo.Pointer[float64](8125),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesMicrosoftGraph
+
+<!-- UsageSnippet language="go" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesMicrosoftGraph" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2MicrosoftGraph(
+        components.InputMicrosoftGraph{
+            ID: criblcontrolplanesdkgo.Pointer("microsoft-graph-source"),
+            Type: components.InputMicrosoftGraphTypeMicrosoftGraph,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            URL: "https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces",
+            Interval: 15,
         },
     ))
     if err != nil {

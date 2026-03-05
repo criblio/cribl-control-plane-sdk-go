@@ -100,6 +100,10 @@ func (u *UpdateInputByIDRequest) GetInputOffice365MsgTrace() *components.InputOf
 	return u.GetInput().InputOffice365MsgTrace
 }
 
+func (u *UpdateInputByIDRequest) GetInputMicrosoftGraph() *components.InputMicrosoftGraph {
+	return u.GetInput().InputMicrosoftGraph
+}
+
 func (u *UpdateInputByIDRequest) GetInputEventhub() *components.InputEventhub {
 	return u.GetInput().InputEventhub
 }

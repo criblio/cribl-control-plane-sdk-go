@@ -113,6 +113,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyOffice365MsgTrace(operations.CreateInputSystemByPackInputOffice365MsgTrace{/* values here */})
 ```
 
+### CreateInputSystemByPackInputMicrosoftGraph
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyMicrosoftGraph(operations.CreateInputSystemByPackInputMicrosoftGraph{/* values here */})
+```
+
 ### CreateInputSystemByPackInputEventhub
 
 ```go
@@ -413,6 +419,8 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOffice365Service is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeOffice365MsgTrace:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOffice365MsgTrace is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeMicrosoftGraph:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputMicrosoftGraph is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeEventhub:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputEventhub is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeExec:

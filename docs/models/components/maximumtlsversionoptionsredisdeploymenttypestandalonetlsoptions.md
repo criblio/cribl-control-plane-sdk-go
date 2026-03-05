@@ -2,6 +2,19 @@
 
 Maximum TLS version to use when connecting
 
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.MaximumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptionsTlSv1
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.MaximumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions("custom_value")
+```
+
 
 ## Values
 
