@@ -109,6 +109,10 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputOffice365MsgTrace() *compo
 	return u.GetInput().InputOffice365MsgTrace
 }
 
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputMicrosoftGraph() *components.InputMicrosoftGraph {
+	return u.GetInput().InputMicrosoftGraph
+}
+
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputEventhub() *components.InputEventhub {
 	return u.GetInput().InputEventhub
 }

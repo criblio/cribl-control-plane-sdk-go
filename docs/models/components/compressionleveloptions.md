@@ -2,6 +2,19 @@
 
 Compression level to apply before moving files to final destination
 
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.CompressionLevelOptionsBestSpeed
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.CompressionLevelOptions("custom_value")
+```
+
 
 ## Values
 
