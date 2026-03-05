@@ -2,6 +2,19 @@
 
 Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
 
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+)
+
+value := operations.CreateOutputFacilityZero
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.CreateOutputFacility(999)
+```
+
 
 ## Values
 

@@ -3261,6 +3261,8 @@ type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue struct {
 	SafeHeaders []string                                                           `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -3524,6 +3526,13 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetScheduling(
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 // RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -6780,6 +6789,8 @@ type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse struct {
 	SafeHeaders []string                                                            `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -7050,6 +7061,13 @@ func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetScheduling
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 type RestAuthenticationLoginSecretType string

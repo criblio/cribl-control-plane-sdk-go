@@ -59,6 +59,8 @@ type RestCollectMethodPost struct {
 	SafeHeaders []string                         `json:"safeHeaders,omitzero"`
 	RetryRules  *RestCollectMethodPostRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestCollectMethodPostScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestCollectMethodPost) MarshalJSON() ([]byte, error) {
@@ -280,6 +282,13 @@ func (r *RestCollectMethodPost) GetScheduling() *RestCollectMethodPostScheduling
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestCollectMethodPost) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 type RestCollectMethodGetCollectMethod string
@@ -3522,6 +3531,8 @@ type RestCollectMethodGet struct {
 	SafeHeaders []string                        `json:"safeHeaders,omitzero"`
 	RetryRules  *RestCollectMethodGetRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestCollectMethodGetScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestCollectMethodGet) MarshalJSON() ([]byte, error) {
@@ -3743,6 +3754,13 @@ func (r *RestCollectMethodGet) GetScheduling() *RestCollectMethodGetScheduling {
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestCollectMethodGet) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 type RestCollectorConfType string

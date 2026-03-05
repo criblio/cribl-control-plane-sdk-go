@@ -3250,6 +3250,8 @@ type RestAuthenticationHmac struct {
 	SafeHeaders []string                          `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationHmacRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationHmacScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestAuthenticationHmac) MarshalJSON() ([]byte, error) {
@@ -3471,6 +3473,13 @@ func (r *RestAuthenticationHmac) GetScheduling() *RestAuthenticationHmacScheduli
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationHmac) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 // RestAuthenticationGoogleOauthSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -6718,6 +6727,8 @@ type RestAuthenticationGoogleOauthSecret struct {
 	SafeHeaders []string                                       `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationGoogleOauthSecretRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationGoogleOauthSecretScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestAuthenticationGoogleOauthSecret) MarshalJSON() ([]byte, error) {
@@ -6953,6 +6964,13 @@ func (r *RestAuthenticationGoogleOauthSecret) GetScheduling() *RestAuthenticatio
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 // RestAuthenticationGoogleOauthAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.

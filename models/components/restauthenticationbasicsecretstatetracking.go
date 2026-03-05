@@ -2161,6 +2161,8 @@ type RestAuthenticationLoginGetAuthTokenFromHeaderTrue struct {
 	SafeHeaders []string                                                     `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrue) MarshalJSON() ([]byte, error) {
@@ -2431,6 +2433,13 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetScheduling() *Res
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 // RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -5687,6 +5696,8 @@ type RestAuthenticationLoginGetAuthTokenFromHeaderFalse struct {
 	SafeHeaders []string                                                      `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalse) MarshalJSON() ([]byte, error) {
@@ -5964,6 +5975,13 @@ func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetScheduling() *Re
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 type RestAuthenticationLoginType string
