@@ -109,6 +109,18 @@ type S3AwsAuthenticationMethodSecret struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodSecret) MarshalJSON() ([]byte, error) {
@@ -269,6 +281,48 @@ func (s *S3AwsAuthenticationMethodSecret) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateAwsAuthenticationMethod() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAwsAuthenticationMethod
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
+}
+
 // S3AwsAuthenticationMethodManualPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3AwsAuthenticationMethodManualPartitioningScheme string
 
@@ -371,6 +425,18 @@ type S3AwsAuthenticationMethodManual struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodManual) MarshalJSON() ([]byte, error) {
@@ -538,6 +604,48 @@ func (s *S3AwsAuthenticationMethodManual) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3AwsAuthenticationMethodManual) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3AwsAuthenticationMethodManual) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3AwsAuthenticationMethodManual) GetTemplateAwsAuthenticationMethod() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAwsAuthenticationMethod
+}
+
+func (s *S3AwsAuthenticationMethodManual) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3AwsAuthenticationMethodManual) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3AwsAuthenticationMethodManual) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
+}
+
 // S3AwsAuthenticationMethodAutoPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3AwsAuthenticationMethodAutoPartitioningScheme string
 
@@ -636,6 +744,18 @@ type S3AwsAuthenticationMethodAuto struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodAuto) MarshalJSON() ([]byte, error) {
@@ -789,6 +909,48 @@ func (s *S3AwsAuthenticationMethodAuto) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateAwsAuthenticationMethod() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAwsAuthenticationMethod
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
+}
+
 // S3PartitioningSchemeNonePartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3PartitioningSchemeNonePartitioningScheme string
 
@@ -889,6 +1051,18 @@ type S3PartitioningSchemeNone struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3PartitioningSchemeNone) MarshalJSON() ([]byte, error) {
@@ -1049,6 +1223,48 @@ func (s *S3PartitioningSchemeNone) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3PartitioningSchemeNone) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3PartitioningSchemeNone) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3PartitioningSchemeNone) GetTemplateAwsAuthenticationMethod() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAwsAuthenticationMethod
+}
+
+func (s *S3PartitioningSchemeNone) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3PartitioningSchemeNone) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3PartitioningSchemeNone) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
+}
+
 // S3PartitioningSchemeDdssPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3PartitioningSchemeDdssPartitioningScheme string
 
@@ -1147,6 +1363,18 @@ type S3PartitioningSchemeDdss struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3PartitioningSchemeDdss) MarshalJSON() ([]byte, error) {
@@ -1298,6 +1526,48 @@ func (s *S3PartitioningSchemeDdss) GetDisableTimeFilter() *bool {
 		return nil
 	}
 	return s.DisableTimeFilter
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateAwsAuthenticationMethod() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAwsAuthenticationMethod
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
 }
 
 type S3CollectorConfType string

@@ -60,6 +60,8 @@ type RestAuthenticationBasicSecret struct {
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationBasicSecretRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationBasicSecretScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
@@ -281,6 +283,13 @@ func (r *RestAuthenticationBasicSecret) GetScheduling() *RestAuthenticationBasic
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationBasicSecret) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 // RestAuthenticationBasicAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -3524,6 +3533,8 @@ type RestAuthenticationBasic struct {
 	SafeHeaders []string                           `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationBasicRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationBasicScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestAuthenticationBasic) MarshalJSON() ([]byte, error) {
@@ -3752,6 +3763,13 @@ func (r *RestAuthenticationBasic) GetScheduling() *RestAuthenticationBasicSchedu
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationBasic) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 // RestAuthenticationNoneAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -6993,6 +7011,8 @@ type RestAuthenticationNone struct {
 	SafeHeaders []string                          `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationNoneScheduling `json:"__scheduling,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestAuthenticationNone) MarshalJSON() ([]byte, error) {
@@ -7207,6 +7227,13 @@ func (r *RestAuthenticationNone) GetScheduling() *RestAuthenticationNoneScheduli
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationNone) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 type RestCollectMethodOtherCollectMethod string
