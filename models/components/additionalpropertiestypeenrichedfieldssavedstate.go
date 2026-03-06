@@ -6,22 +6,22 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState struct {
+type AdditionalPropertiesTypeEnrichedFieldsSavedState struct {
 	Data map[string]any `json:"data"`
 }
 
-func (a AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState) MarshalJSON() ([]byte, error) {
+func (a AdditionalPropertiesTypeEnrichedFieldsSavedState) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(a, "", false)
 }
 
-func (a *AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState) UnmarshalJSON(data []byte) error {
+func (a *AdditionalPropertiesTypeEnrichedFieldsSavedState) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState) GetData() map[string]any {
+func (a *AdditionalPropertiesTypeEnrichedFieldsSavedState) GetData() map[string]any {
 	if a == nil {
 		return map[string]any{}
 	}

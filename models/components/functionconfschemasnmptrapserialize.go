@@ -293,6 +293,7 @@ func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error
 type SnmpTrapSerializeV3UserAuthProtocolNone struct {
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
 	Name         *string                              `json:"name,omitzero"`
+	AuthKey      *string                              `json:"authKey,omitzero"`
 	PrivProtocol *string                              `json:"privProtocol,omitzero"`
 }
 
@@ -319,6 +320,13 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetName() *string {
 		return nil
 	}
 	return s.Name
+}
+
+func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetAuthKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AuthKey
 }
 
 func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetPrivProtocol() *string {

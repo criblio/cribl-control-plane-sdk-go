@@ -30,7 +30,7 @@ type SavedJobResponseScheduledSearch struct {
 	// Identifies which search query to run
 	SavedQueryID string `json:"savedQueryId"`
 	// Runtime collection state.
-	SavedState map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState `json:"savedState,omitzero"`
+	SavedState map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
 	Notifications []NotificationUnion `json:"notifications,omitzero"`
 }
@@ -123,7 +123,7 @@ func (s *SavedJobResponseScheduledSearch) GetSavedQueryID() string {
 	return s.SavedQueryID
 }
 
-func (s *SavedJobResponseScheduledSearch) GetSavedState() map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState {
+func (s *SavedJobResponseScheduledSearch) GetSavedState() map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState {
 	if s == nil {
 		return nil
 	}
@@ -158,7 +158,7 @@ type SavedJobResponseExecutor struct {
 	Streamtags []string                        `json:"streamtags,omitzero"`
 	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
 	// Runtime collection state.
-	SavedState map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState `json:"savedState,omitzero"`
+	SavedState map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
 	Notifications []NotificationUnion `json:"notifications,omitzero"`
 }
@@ -251,7 +251,7 @@ func (s *SavedJobResponseExecutor) GetExecutor() ExecutorTypeRunnableJobExecutor
 	return s.Executor
 }
 
-func (s *SavedJobResponseExecutor) GetSavedState() map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState {
+func (s *SavedJobResponseExecutor) GetSavedState() map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState {
 	if s == nil {
 		return nil
 	}
@@ -290,7 +290,7 @@ type SavedJobResponseCollection struct {
 	Collector Collector                                    `json:"collector"`
 	Input     *TypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
 	// Runtime collection state.
-	SavedState map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState `json:"savedState,omitzero"`
+	SavedState map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
 	Notifications []NotificationUnion `json:"notifications,omitzero"`
 }
@@ -437,7 +437,7 @@ func (s *SavedJobResponseCollection) GetInput() *TypeCollectionWithBreakerRulese
 	return s.Input
 }
 
-func (s *SavedJobResponseCollection) GetSavedState() map[string]AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState {
+func (s *SavedJobResponseCollection) GetSavedState() map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState {
 	if s == nil {
 		return nil
 	}

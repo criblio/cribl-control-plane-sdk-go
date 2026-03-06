@@ -105,7 +105,7 @@ func (s *SplunkAuthenticationTokenSecretCollectRequestHeader) GetValue() string 
 type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -203,6 +203,8 @@ type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic struct {
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset error (ECONNRESET) error occurs
 	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -265,9 +267,30 @@ func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic) GetRetryConn
 	return s.RetryConnectReset
 }
 
+func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
 type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
+	// Retry request when a connection reset error (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -286,6 +309,55 @@ func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) GetType() Retr
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
+}
+
+func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) GetInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Interval
+}
+
+func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) GetLimit() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Limit
+}
+
+func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
+func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) GetCodes() []float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Codes
+}
+
+func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) GetEnableHeader() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.EnableHeader
+}
+
+func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) GetRetryConnectTimeout() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectTimeout
+}
+
+func (s *SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone) GetRetryConnectReset() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectReset
 }
 
 type SplunkAuthenticationTokenSecretRetryRulesType string
@@ -704,7 +776,7 @@ func (s *SplunkAuthenticationTokenCollectRequestHeader) GetValue() string {
 type SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -802,6 +874,8 @@ type SplunkAuthenticationTokenSplunkRetryRulesTypeStatic struct {
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset error (ECONNRESET) error occurs
 	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -864,9 +938,30 @@ func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeStatic) GetRetryConnectRes
 	return s.RetryConnectReset
 }
 
+func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeStatic) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
 type SplunkAuthenticationTokenSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
+	// Retry request when a connection reset error (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -885,6 +980,55 @@ func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeNone) GetType() RetryTypeO
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
+}
+
+func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeNone) GetInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Interval
+}
+
+func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeNone) GetLimit() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Limit
+}
+
+func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeNone) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
+func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeNone) GetCodes() []float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Codes
+}
+
+func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeNone) GetEnableHeader() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.EnableHeader
+}
+
+func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeNone) GetRetryConnectTimeout() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectTimeout
+}
+
+func (s *SplunkAuthenticationTokenSplunkRetryRulesTypeNone) GetRetryConnectReset() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectReset
 }
 
 type SplunkAuthenticationTokenRetryRulesType string
@@ -1302,7 +1446,7 @@ func (s *SplunkAuthenticationBasicSecretCollectRequestHeader) GetValue() string 
 type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -1400,6 +1544,8 @@ type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic struct {
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset error (ECONNRESET) error occurs
 	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -1462,9 +1608,30 @@ func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic) GetRetryConn
 	return s.RetryConnectReset
 }
 
+func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
 type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
+	// Retry request when a connection reset error (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -1483,6 +1650,55 @@ func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) GetType() Retr
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
+}
+
+func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) GetInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Interval
+}
+
+func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) GetLimit() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Limit
+}
+
+func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
+func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) GetCodes() []float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Codes
+}
+
+func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) GetEnableHeader() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.EnableHeader
+}
+
+func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) GetRetryConnectTimeout() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectTimeout
+}
+
+func (s *SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone) GetRetryConnectReset() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectReset
 }
 
 type SplunkAuthenticationBasicSecretRetryRulesType string
@@ -1901,7 +2117,7 @@ func (s *SplunkAuthenticationBasicCollectRequestHeader) GetValue() string {
 type SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -1999,6 +2215,8 @@ type SplunkAuthenticationBasicSplunkRetryRulesTypeStatic struct {
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset error (ECONNRESET) error occurs
 	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -2061,9 +2279,30 @@ func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeStatic) GetRetryConnectRes
 	return s.RetryConnectReset
 }
 
+func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeStatic) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
 type SplunkAuthenticationBasicSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
+	// Retry request when a connection reset error (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -2082,6 +2321,55 @@ func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeNone) GetType() RetryTypeO
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
+}
+
+func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeNone) GetInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Interval
+}
+
+func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeNone) GetLimit() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Limit
+}
+
+func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeNone) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
+func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeNone) GetCodes() []float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Codes
+}
+
+func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeNone) GetEnableHeader() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.EnableHeader
+}
+
+func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeNone) GetRetryConnectTimeout() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectTimeout
+}
+
+func (s *SplunkAuthenticationBasicSplunkRetryRulesTypeNone) GetRetryConnectReset() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectReset
 }
 
 type SplunkAuthenticationBasicRetryRulesType string
@@ -2509,7 +2797,7 @@ func (s *SplunkAuthenticationNoneCollectRequestHeader) GetValue() string {
 type SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -2607,6 +2895,8 @@ type SplunkAuthenticationNoneSplunkRetryRulesTypeStatic struct {
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset error (ECONNRESET) error occurs
 	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (s SplunkAuthenticationNoneSplunkRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -2669,9 +2959,30 @@ func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeStatic) GetRetryConnectRese
 	return s.RetryConnectReset
 }
 
+func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeStatic) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
 type SplunkAuthenticationNoneSplunkRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `json:"interval,omitzero"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `json:"limit,omitzero"`
+	// Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `json:"enableHeader,omitzero"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
+	// Retry request when a connection reset error (ECONNRESET) error occurs
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
 }
 
 func (s SplunkAuthenticationNoneSplunkRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -2690,6 +3001,55 @@ func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeNone) GetType() RetryTypeOp
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
+}
+
+func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeNone) GetInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Interval
+}
+
+func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeNone) GetLimit() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Limit
+}
+
+func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeNone) GetMultiplier() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Multiplier
+}
+
+func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeNone) GetCodes() []float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Codes
+}
+
+func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeNone) GetEnableHeader() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.EnableHeader
+}
+
+func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeNone) GetRetryConnectTimeout() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectTimeout
+}
+
+func (s *SplunkAuthenticationNoneSplunkRetryRulesTypeNone) GetRetryConnectReset() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RetryConnectReset
 }
 
 type SplunkAuthenticationNoneRetryRulesType string
