@@ -2588,6 +2588,415 @@ func (c *CreateInputSystemByPackInputEventhub) GetDescription() *string {
 	return c.Description
 }
 
+type CreateInputSystemByPackTypeMicrosoftGraph string
+
+const (
+	CreateInputSystemByPackTypeMicrosoftGraphMicrosoftGraph CreateInputSystemByPackTypeMicrosoftGraph = "microsoft_graph"
+)
+
+func (e CreateInputSystemByPackTypeMicrosoftGraph) ToPointer() *CreateInputSystemByPackTypeMicrosoftGraph {
+	return &e
+}
+func (e *CreateInputSystemByPackTypeMicrosoftGraph) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "microsoft_graph":
+		*e = CreateInputSystemByPackTypeMicrosoftGraph(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeMicrosoftGraph: %v", v)
+	}
+}
+
+type CreateInputSystemByPackInputMicrosoftGraph struct {
+	// Unique ID for this input
+	ID       string                                    `json:"id"`
+	Type     CreateInputSystemByPackTypeMicrosoftGraph `json:"type"`
+	Disabled *bool                                     `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	// Microsoft Graph API endpoint URL. (ex. https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces)
+	URL string `json:"url"`
+	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+	Interval int64 `json:"interval"`
+	// Backward offset for the search range's head. (E.g.: -3h@h) Microsoft Graph data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+	StartDate *string `json:"startDate,omitzero"`
+	// Backward offset for the search range's tail. (E.g.: -2h@h) Microsoft Graph data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+	EndDate *string `json:"endDate,omitzero"`
+	// HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+	Timeout *float64 `json:"timeout,omitzero"`
+	// Disables time filtering of events when a date range is specified.
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Select authentication method.
+	AuthType *components.AuthenticationMethodOptionsManualOauth `json:"authType,omitzero"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
+	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// Fields to add to events from this input
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Reschedule tasks that failed with non-fatal errors
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
+	// Maximum number of times a task can be rescheduled
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
+	// Log Level (verbosity) for collection runtime behavior.
+	LogLevel    *components.LogLevelOptions                 `json:"logLevel,omitzero"`
+	RetryRules  *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	Description *string                                     `json:"description,omitzero"`
+	// Username to run Microsoft Graph API call.
+	Username *string `json:"username,omitzero"`
+	// Password to run Microsoft Graph API call.
+	Password *string `json:"password,omitzero"`
+	// Select or create a secret that references your credentials.
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// client_secret to pass in the OAuth request parameter.
+	ClientSecret *string `json:"clientSecret,omitzero"`
+	// Directory ID (tenant identifier) in Azure Active Directory.
+	TenantID *string `json:"tenantId,omitzero"`
+	// client_id to pass in the OAuth request parameter.
+	ClientID *string `json:"clientId,omitzero"`
+	// Resource to pass in the OAuth request parameter.
+	Resource *string `json:"resource,omitzero"`
+	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
+	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
+	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+	TextSecret  *string                     `json:"textSecret,omitzero"`
+	CertOptions *components.CertOptionsType `json:"certOptions,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+	TemplateResource *string `json:"__template_resource,omitzero"`
+}
+
+func (c CreateInputSystemByPackInputMicrosoftGraph) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetType() CreateInputSystemByPackTypeMicrosoftGraph {
+	if c == nil {
+		return CreateInputSystemByPackTypeMicrosoftGraph("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.URL
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetInterval() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.Interval
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetStartDate() *string {
+	if c == nil {
+		return nil
+	}
+	return c.StartDate
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetEndDate() *string {
+	if c == nil {
+		return nil
+	}
+	return c.EndDate
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Timeout
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetDisableTimeFilter() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableTimeFilter
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetAuthType() *components.AuthenticationMethodOptionsManualOauth {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetKeepAliveTime() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.KeepAliveTime
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetJobTimeout() *string {
+	if c == nil {
+		return nil
+	}
+	return c.JobTimeout
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetMaxMissedKeepAlives() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxMissedKeepAlives
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTTL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TTL
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetIgnoreGroupJobsLimit() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IgnoreGroupJobsLimit
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetRescheduleDroppedTasks() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RescheduleDroppedTasks
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetMaxTaskReschedule() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxTaskReschedule
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetLogLevel() *components.LogLevelOptions {
+	if c == nil {
+		return nil
+	}
+	return c.LogLevel
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetRetryRules() *components.RetryRulesTypeCodesEnableHeader {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetCredentialsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetClientSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecret
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TenantID
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientID
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetResource() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Resource
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetPlanType() *components.SubscriptionPlanOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PlanType
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetCertOptions() *components.CertOptionsType {
+	if c == nil {
+		return nil
+	}
+	return c.CertOptions
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateURL
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTenantID
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateClientID
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateResource() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateResource
+}
+
 type CreateInputSystemByPackTypeOffice365MsgTrace string
 
 const (
@@ -2611,108 +3020,6 @@ func (e *CreateInputSystemByPackTypeOffice365MsgTrace) UnmarshalJSON(data []byte
 	}
 }
 
-// CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace - Select authentication method.
-type CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace string
-
-const (
-	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceManual      CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "manual"
-	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceSecret      CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "secret"
-	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceOauth       CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "oauth"
-	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceOauthSecret CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "oauthSecret"
-	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceOauthCert   CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "oauthCert"
-)
-
-func (e CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace) ToPointer() *CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret", "oauth", "oauthSecret", "oauthCert":
-			return true
-		}
-	}
-	return false
-}
-
-// CreateInputSystemByPackLogLevelOffice365MsgTrace - Log Level (verbosity) for collection runtime behavior.
-type CreateInputSystemByPackLogLevelOffice365MsgTrace string
-
-const (
-	CreateInputSystemByPackLogLevelOffice365MsgTraceError CreateInputSystemByPackLogLevelOffice365MsgTrace = "error"
-	CreateInputSystemByPackLogLevelOffice365MsgTraceWarn  CreateInputSystemByPackLogLevelOffice365MsgTrace = "warn"
-	CreateInputSystemByPackLogLevelOffice365MsgTraceInfo  CreateInputSystemByPackLogLevelOffice365MsgTrace = "info"
-	CreateInputSystemByPackLogLevelOffice365MsgTraceDebug CreateInputSystemByPackLogLevelOffice365MsgTrace = "debug"
-	CreateInputSystemByPackLogLevelOffice365MsgTraceSilly CreateInputSystemByPackLogLevelOffice365MsgTrace = "silly"
-)
-
-func (e CreateInputSystemByPackLogLevelOffice365MsgTrace) ToPointer() *CreateInputSystemByPackLogLevelOffice365MsgTrace {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSystemByPackLogLevelOffice365MsgTrace) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "warn", "info", "debug", "silly":
-			return true
-		}
-	}
-	return false
-}
-
-type CreateInputSystemByPackCertOptions struct {
-	// The name of the predefined certificate.
-	CertificateName *string `json:"certificateName,omitzero"`
-	// Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
-	PrivKeyPath string `json:"privKeyPath"`
-	// Passphrase to use to decrypt the private key.
-	Passphrase *string `json:"passphrase,omitzero"`
-	// Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
-	CertPath string `json:"certPath"`
-}
-
-func (c CreateInputSystemByPackCertOptions) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateInputSystemByPackCertOptions) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateInputSystemByPackCertOptions) GetCertificateName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CertificateName
-}
-
-func (c *CreateInputSystemByPackCertOptions) GetPrivKeyPath() string {
-	if c == nil {
-		return ""
-	}
-	return c.PrivKeyPath
-}
-
-func (c *CreateInputSystemByPackCertOptions) GetPassphrase() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Passphrase
-}
-
-func (c *CreateInputSystemByPackCertOptions) GetCertPath() string {
-	if c == nil {
-		return ""
-	}
-	return c.CertPath
-}
-
 type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Unique ID for this input
 	ID       string                                       `json:"id"`
@@ -2734,7 +3041,7 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// URL to use when retrieving report data.
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
-	Interval float64 `json:"interval"`
+	Interval int64 `json:"interval"`
 	// Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
 	StartDate *string `json:"startDate,omitzero"`
 	// Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
@@ -2744,17 +3051,11 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace `json:"authType,omitzero"`
-	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
-	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
-	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel *CreateInputSystemByPackLogLevelOffice365MsgTrace `json:"logLevel,omitzero"`
-	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitzero"`
+	AuthType *components.AuthenticationMethodOptionsManualOauth `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
 	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
+	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
 	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
@@ -2762,7 +3063,13 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata              `json:"metadata,omitzero"`
+	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Reschedule tasks that failed with non-fatal errors
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
+	// Maximum number of times a task can be rescheduled
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
+	// Log Level (verbosity) for collection runtime behavior.
+	LogLevel    *components.LogLevelOptions                 `json:"logLevel,omitzero"`
 	RetryRules  *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	Description *string                                     `json:"description,omitzero"`
 	// Username to run Message Trace API call.
@@ -2782,8 +3089,8 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
 	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
-	TextSecret  *string                             `json:"textSecret,omitzero"`
-	CertOptions *CreateInputSystemByPackCertOptions `json:"certOptions,omitzero"`
+	TextSecret  *string                     `json:"textSecret,omitzero"`
+	CertOptions *components.CertOptionsType `json:"certOptions,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -2882,9 +3189,9 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetURL() string {
 	return c.URL
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetInterval() float64 {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetInterval() int64 {
 	if c == nil {
-		return 0.0
+		return 0
 	}
 	return c.Interval
 }
@@ -2917,39 +3224,11 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetDisableTimeFilter() *
 	return c.DisableTimeFilter
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetAuthType() *CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetAuthType() *components.AuthenticationMethodOptionsManualOauth {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
-}
-
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetRescheduleDroppedTasks() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RescheduleDroppedTasks
-}
-
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetMaxTaskReschedule() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxTaskReschedule
-}
-
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetLogLevel() *CreateInputSystemByPackLogLevelOffice365MsgTrace {
-	if c == nil {
-		return nil
-	}
-	return c.LogLevel
-}
-
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetJobTimeout() *string {
-	if c == nil {
-		return nil
-	}
-	return c.JobTimeout
 }
 
 func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetKeepAliveTime() *float64 {
@@ -2957,6 +3236,13 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetKeepAliveTime() *floa
 		return nil
 	}
 	return c.KeepAliveTime
+}
+
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetJobTimeout() *string {
+	if c == nil {
+		return nil
+	}
+	return c.JobTimeout
 }
 
 func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetMaxMissedKeepAlives() *float64 {
@@ -2985,6 +3271,27 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetMetadata() []componen
 		return nil
 	}
 	return c.Metadata
+}
+
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetRescheduleDroppedTasks() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RescheduleDroppedTasks
+}
+
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetMaxTaskReschedule() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxTaskReschedule
+}
+
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetLogLevel() *components.LogLevelOptions {
+	if c == nil {
+		return nil
+	}
+	return c.LogLevel
 }
 
 func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetRetryRules() *components.RetryRulesTypeCodesEnableHeader {
@@ -3064,7 +3371,7 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetTextSecret() *string 
 	return c.TextSecret
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetCertOptions() *CreateInputSystemByPackCertOptions {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetCertOptions() *components.CertOptionsType {
 	if c == nil {
 		return nil
 	}
@@ -10767,6 +11074,7 @@ const (
 	CreateInputSystemByPackRequestBodyTypeOffice365Mgmt        CreateInputSystemByPackRequestBodyType = "office365_mgmt"
 	CreateInputSystemByPackRequestBodyTypeOffice365Service     CreateInputSystemByPackRequestBodyType = "office365_service"
 	CreateInputSystemByPackRequestBodyTypeOffice365MsgTrace    CreateInputSystemByPackRequestBodyType = "office365_msg_trace"
+	CreateInputSystemByPackRequestBodyTypeMicrosoftGraph       CreateInputSystemByPackRequestBodyType = "microsoft_graph"
 	CreateInputSystemByPackRequestBodyTypeEventhub             CreateInputSystemByPackRequestBodyType = "eventhub"
 	CreateInputSystemByPackRequestBodyTypeExec                 CreateInputSystemByPackRequestBodyType = "exec"
 	CreateInputSystemByPackRequestBodyTypeFirehose             CreateInputSystemByPackRequestBodyType = "firehose"
@@ -10832,6 +11140,7 @@ type CreateInputSystemByPackRequestBody struct {
 	CreateInputSystemByPackInputOffice365Mgmt        *CreateInputSystemByPackInputOffice365Mgmt        `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputOffice365Service     *CreateInputSystemByPackInputOffice365Service     `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputOffice365MsgTrace    *CreateInputSystemByPackInputOffice365MsgTrace    `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputMicrosoftGraph       *CreateInputSystemByPackInputMicrosoftGraph       `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputEventhub             *CreateInputSystemByPackInputEventhub             `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputExec                 *CreateInputSystemByPackInputExec                 `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputFirehose             *CreateInputSystemByPackInputFirehose             `queryParam:"inline" union:"member"`
@@ -11088,6 +11397,18 @@ func CreateCreateInputSystemByPackRequestBodyOffice365MsgTrace(office365MsgTrace
 
 	return CreateInputSystemByPackRequestBody{
 		CreateInputSystemByPackInputOffice365MsgTrace: &office365MsgTrace,
+		Type: typ,
+	}
+}
+
+func CreateCreateInputSystemByPackRequestBodyMicrosoftGraph(microsoftGraph CreateInputSystemByPackInputMicrosoftGraph) CreateInputSystemByPackRequestBody {
+	typ := CreateInputSystemByPackRequestBodyTypeMicrosoftGraph
+
+	typStr := CreateInputSystemByPackTypeMicrosoftGraph(typ)
+	microsoftGraph.Type = typStr
+
+	return CreateInputSystemByPackRequestBody{
+		CreateInputSystemByPackInputMicrosoftGraph: &microsoftGraph,
 		Type: typ,
 	}
 }
@@ -11779,6 +12100,15 @@ func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateInputSystemByPackInputOffice365MsgTrace = createInputSystemByPackInputOffice365MsgTrace
 		u.Type = CreateInputSystemByPackRequestBodyTypeOffice365MsgTrace
 		return nil
+	case "microsoft_graph":
+		createInputSystemByPackInputMicrosoftGraph := new(CreateInputSystemByPackInputMicrosoftGraph)
+		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputMicrosoftGraph, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == microsoft_graph) type CreateInputSystemByPackInputMicrosoftGraph within CreateInputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateInputSystemByPackInputMicrosoftGraph = createInputSystemByPackInputMicrosoftGraph
+		u.Type = CreateInputSystemByPackRequestBodyTypeMicrosoftGraph
+		return nil
 	case "eventhub":
 		createInputSystemByPackInputEventhub := new(CreateInputSystemByPackInputEventhub)
 		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputEventhub, "", true, nil); err != nil {
@@ -12244,6 +12574,10 @@ func (u CreateInputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputOffice365MsgTrace, "", true)
 	}
 
+	if u.CreateInputSystemByPackInputMicrosoftGraph != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputMicrosoftGraph, "", true)
+	}
+
 	if u.CreateInputSystemByPackInputEventhub != nil {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputEventhub, "", true)
 	}
@@ -12510,6 +12844,10 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyOffice365Service() *Creat
 
 func (c *CreateInputSystemByPackRequest) GetRequestBodyOffice365MsgTrace() *CreateInputSystemByPackInputOffice365MsgTrace {
 	return c.GetRequestBody().CreateInputSystemByPackInputOffice365MsgTrace
+}
+
+func (c *CreateInputSystemByPackRequest) GetRequestBodyMicrosoftGraph() *CreateInputSystemByPackInputMicrosoftGraph {
+	return c.GetRequestBody().CreateInputSystemByPackInputMicrosoftGraph
 }
 
 func (c *CreateInputSystemByPackRequest) GetRequestBodyEventhub() *CreateInputSystemByPackInputEventhub {

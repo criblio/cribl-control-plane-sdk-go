@@ -111,6 +111,12 @@ input1 := components.CreateInput1Office365Service(components.InputOffice365Servi
 input1 := components.CreateInput1Office365MsgTrace(components.InputOffice365MsgTrace{/* values here */})
 ```
 
+### InputMicrosoftGraph
+
+```go
+input1 := components.CreateInput1MicrosoftGraph(components.InputMicrosoftGraph{/* values here */})
+```
+
 ### InputEventhub
 
 ```go
@@ -411,6 +417,8 @@ switch input1.Type {
 		// input1.InputOffice365Service is populated
 	case components.Input1TypeOffice365MsgTrace:
 		// input1.InputOffice365MsgTrace is populated
+	case components.Input1TypeMicrosoftGraph:
+		// input1.InputMicrosoftGraph is populated
 	case components.Input1TypeEventhub:
 		// input1.InputEventhub is populated
 	case components.Input1TypeExec:

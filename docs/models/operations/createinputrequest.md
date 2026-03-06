@@ -113,6 +113,12 @@ createInputRequest := operations.CreateCreateInputRequestOffice365Service(operat
 createInputRequest := operations.CreateCreateInputRequestOffice365MsgTrace(operations.CreateInputInputOffice365MsgTrace{/* values here */})
 ```
 
+### CreateInputInputMicrosoftGraph
+
+```go
+createInputRequest := operations.CreateCreateInputRequestMicrosoftGraph(operations.CreateInputInputMicrosoftGraph{/* values here */})
+```
+
 ### CreateInputInputEventhub
 
 ```go
@@ -413,6 +419,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputOffice365Service is populated
 	case operations.CreateInputRequestTypeOffice365MsgTrace:
 		// createInputRequest.CreateInputInputOffice365MsgTrace is populated
+	case operations.CreateInputRequestTypeMicrosoftGraph:
+		// createInputRequest.CreateInputInputMicrosoftGraph is populated
 	case operations.CreateInputRequestTypeEventhub:
 		// createInputRequest.CreateInputInputEventhub is populated
 	case operations.CreateInputRequestTypeExec:

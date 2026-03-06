@@ -113,8 +113,6 @@ type S3AwsAuthenticationMethodSecret struct {
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
@@ -295,13 +293,6 @@ func (s *S3AwsAuthenticationMethodSecret) GetTemplateRegion() *string {
 	return s.TemplateRegion
 }
 
-func (s *S3AwsAuthenticationMethodSecret) GetTemplateAwsAuthenticationMethod() *string {
-	if s == nil {
-		return nil
-	}
-	return s.TemplateAwsAuthenticationMethod
-}
-
 func (s *S3AwsAuthenticationMethodSecret) GetTemplateEndpoint() *string {
 	if s == nil {
 		return nil
@@ -429,8 +420,6 @@ type S3AwsAuthenticationMethodManual struct {
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
@@ -618,13 +607,6 @@ func (s *S3AwsAuthenticationMethodManual) GetTemplateRegion() *string {
 	return s.TemplateRegion
 }
 
-func (s *S3AwsAuthenticationMethodManual) GetTemplateAwsAuthenticationMethod() *string {
-	if s == nil {
-		return nil
-	}
-	return s.TemplateAwsAuthenticationMethod
-}
-
 func (s *S3AwsAuthenticationMethodManual) GetTemplateEndpoint() *string {
 	if s == nil {
 		return nil
@@ -748,8 +730,6 @@ type S3AwsAuthenticationMethodAuto struct {
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
@@ -923,13 +903,6 @@ func (s *S3AwsAuthenticationMethodAuto) GetTemplateRegion() *string {
 	return s.TemplateRegion
 }
 
-func (s *S3AwsAuthenticationMethodAuto) GetTemplateAwsAuthenticationMethod() *string {
-	if s == nil {
-		return nil
-	}
-	return s.TemplateAwsAuthenticationMethod
-}
-
 func (s *S3AwsAuthenticationMethodAuto) GetTemplateEndpoint() *string {
 	if s == nil {
 		return nil
@@ -1055,8 +1028,6 @@ type S3PartitioningSchemeNone struct {
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
@@ -1237,13 +1208,6 @@ func (s *S3PartitioningSchemeNone) GetTemplateRegion() *string {
 	return s.TemplateRegion
 }
 
-func (s *S3PartitioningSchemeNone) GetTemplateAwsAuthenticationMethod() *string {
-	if s == nil {
-		return nil
-	}
-	return s.TemplateAwsAuthenticationMethod
-}
-
 func (s *S3PartitioningSchemeNone) GetTemplateEndpoint() *string {
 	if s == nil {
 		return nil
@@ -1367,8 +1331,6 @@ type S3PartitioningSchemeDdss struct {
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-	TemplateAwsAuthenticationMethod *string `json:"__template_awsAuthenticationMethod,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
@@ -1540,13 +1502,6 @@ func (s *S3PartitioningSchemeDdss) GetTemplateRegion() *string {
 		return nil
 	}
 	return s.TemplateRegion
-}
-
-func (s *S3PartitioningSchemeDdss) GetTemplateAwsAuthenticationMethod() *string {
-	if s == nil {
-		return nil
-	}
-	return s.TemplateAwsAuthenticationMethod
 }
 
 func (s *S3PartitioningSchemeDdss) GetTemplateEndpoint() *string {
