@@ -31,7 +31,7 @@ func (s SniSettings1) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SniSettings1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"disableSNIRouting"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -78,17 +78,43 @@ func CreateSniSettingsUnionSniSettings2(sniSettings2 SniSettings2) SniSettingsUn
 
 func (u *SniSettingsUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var sniSettings1 SniSettings1 = SniSettings1{}
 	if err := utils.UnmarshalJSON(data, &sniSettings1, "", true, nil); err == nil {
-		u.SniSettings1 = &sniSettings1
-		u.Type = SniSettingsUnionTypeSniSettings1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SniSettingsUnionTypeSniSettings1,
+			Value: &sniSettings1,
+		})
 	}
 
 	var sniSettings2 SniSettings2 = SniSettings2{}
 	if err := utils.UnmarshalJSON(data, &sniSettings2, "", true, nil); err == nil {
-		u.SniSettings2 = &sniSettings2
-		u.Type = SniSettingsUnionTypeSniSettings2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SniSettingsUnionTypeSniSettings2,
+			Value: &sniSettings2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SniSettingsUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SniSettingsUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(SniSettingsUnionType)
+	switch best.Type {
+	case SniSettingsUnionTypeSniSettings1:
+		u.SniSettings1 = best.Value.(*SniSettings1)
+		return nil
+	case SniSettingsUnionTypeSniSettings2:
+		u.SniSettings2 = best.Value.(*SniSettings2)
 		return nil
 	}
 

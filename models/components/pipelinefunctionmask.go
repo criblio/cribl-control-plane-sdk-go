@@ -38,7 +38,7 @@ type PipelineFunctionMaskRule struct {
 	// A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
 	ReplaceExpr string `json:"replaceExpr"`
 	// Set to No to disable the evaluation of an individual rule
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 }
 
 func (p PipelineFunctionMaskRule) MarshalJSON() ([]byte, error) {
@@ -46,7 +46,7 @@ func (p PipelineFunctionMaskRule) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMaskRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"matchRegex", "replaceExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -76,11 +76,11 @@ func (p *PipelineFunctionMaskRule) GetDisabled() *bool {
 type PipelineFunctionMaskConf struct {
 	Rules []PipelineFunctionMaskRule `json:"rules"`
 	// Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 	// Depth to which the Mask Function will search for fields to mask
-	Depth *int64 `json:"depth,omitempty"`
+	Depth *int64 `json:"depth,omitzero"`
 	// Fields to evaluate if one or more masking rules are matched
-	Flags []ItemsTypeAdd `json:"flags,omitempty"`
+	Flags []ItemsTypeAdd `json:"flags,omitzero"`
 }
 
 func (p PipelineFunctionMaskConf) MarshalJSON() ([]byte, error) {
@@ -88,7 +88,7 @@ func (p PipelineFunctionMaskConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMaskConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"rules"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -124,18 +124,18 @@ func (p *PipelineFunctionMaskConf) GetFlags() []ItemsTypeAdd {
 
 type PipelineFunctionMask struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionMaskID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
+	Final *bool                    `json:"final,omitzero"`
 	Conf  PipelineFunctionMaskConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionMask) MarshalJSON() ([]byte, error) {
@@ -143,7 +143,7 @@ func (p PipelineFunctionMask) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionMask) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

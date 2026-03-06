@@ -41,6 +41,7 @@ const (
 	PipelineFunctionConfTypeLimit                     PipelineFunctionConfType = "limit"
 	PipelineFunctionConfTypeLocalSearchDatatypeParser PipelineFunctionConfType = "local_search_datatype_parser"
 	PipelineFunctionConfTypeLocalSearchRulesetRunner  PipelineFunctionConfType = "local_search_ruleset_runner"
+	PipelineFunctionConfTypeLocalSearchTransformer    PipelineFunctionConfType = "local_search_transformer"
 	PipelineFunctionConfTypeLookup                    PipelineFunctionConfType = "lookup"
 	PipelineFunctionConfTypeMask                      PipelineFunctionConfType = "mask"
 	PipelineFunctionConfTypeMvExpand                  PipelineFunctionConfType = "mv_expand"
@@ -77,6 +78,7 @@ const (
 	PipelineFunctionConfTypeUnroll                    PipelineFunctionConfType = "unroll"
 	PipelineFunctionConfTypeWindow                    PipelineFunctionConfType = "window"
 	PipelineFunctionConfTypeXMLUnroll                 PipelineFunctionConfType = "xml_unroll"
+	PipelineFunctionConfTypeUnknown                   PipelineFunctionConfType = "UNKNOWN"
 )
 
 type PipelineFunctionConf struct {
@@ -109,6 +111,7 @@ type PipelineFunctionConf struct {
 	PipelineFunctionLimit                     *PipelineFunctionLimit                     `queryParam:"inline" union:"member"`
 	PipelineFunctionLocalSearchDatatypeParser *PipelineFunctionLocalSearchDatatypeParser `queryParam:"inline" union:"member"`
 	PipelineFunctionLocalSearchRulesetRunner  *PipelineFunctionLocalSearchRulesetRunner  `queryParam:"inline" union:"member"`
+	PipelineFunctionLocalSearchTransformer    *PipelineFunctionLocalSearchTransformer    `queryParam:"inline" union:"member"`
 	PipelineFunctionLookup                    *PipelineFunctionLookup                    `queryParam:"inline" union:"member"`
 	PipelineFunctionMask                      *PipelineFunctionMask                      `queryParam:"inline" union:"member"`
 	PipelineFunctionMvExpand                  *PipelineFunctionMvExpand                  `queryParam:"inline" union:"member"`
@@ -145,6 +148,7 @@ type PipelineFunctionConf struct {
 	PipelineFunctionUnroll                    *PipelineFunctionUnroll                    `queryParam:"inline" union:"member"`
 	PipelineFunctionWindow                    *PipelineFunctionWindow                    `queryParam:"inline" union:"member"`
 	PipelineFunctionXMLUnroll                 *PipelineFunctionXMLUnroll                 `queryParam:"inline" union:"member"`
+	UnknownRaw                                json.RawMessage                            `json:"-" union:"unknown"`
 
 	Type PipelineFunctionConfType
 }
@@ -494,6 +498,18 @@ func CreatePipelineFunctionConfLocalSearchRulesetRunner(localSearchRulesetRunner
 	return PipelineFunctionConf{
 		PipelineFunctionLocalSearchRulesetRunner: &localSearchRulesetRunner,
 		Type:                                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfLocalSearchTransformer(localSearchTransformer PipelineFunctionLocalSearchTransformer) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeLocalSearchTransformer
+
+	typStr := PipelineFunctionLocalSearchTransformerID(typ)
+	localSearchTransformer.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionLocalSearchTransformer: &localSearchTransformer,
+		Type:                                   typ,
 	}
 }
 
@@ -929,6 +945,21 @@ func CreatePipelineFunctionConfXMLUnroll(xmlUnroll PipelineFunctionXMLUnroll) Pi
 	}
 }
 
+func CreatePipelineFunctionConfUnknown(raw json.RawMessage) PipelineFunctionConf {
+	return PipelineFunctionConf{
+		UnknownRaw: raw,
+		Type:       PipelineFunctionConfTypeUnknown,
+	}
+}
+
+func (u PipelineFunctionConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PipelineFunctionConf) IsUnknown() bool {
+	return u.Type == PipelineFunctionConfTypeUnknown
+}
+
 func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -937,7 +968,14 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionConfTypeUnknown
+		return nil
 	}
 
 	switch dis.ID {
@@ -1201,6 +1239,15 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 
 		u.PipelineFunctionLocalSearchRulesetRunner = pipelineFunctionLocalSearchRulesetRunner
 		u.Type = PipelineFunctionConfTypeLocalSearchRulesetRunner
+		return nil
+	case "local_search_transformer":
+		pipelineFunctionLocalSearchTransformer := new(PipelineFunctionLocalSearchTransformer)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionLocalSearchTransformer, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_transformer) type PipelineFunctionLocalSearchTransformer within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionLocalSearchTransformer = pipelineFunctionLocalSearchTransformer
+		u.Type = PipelineFunctionConfTypeLocalSearchTransformer
 		return nil
 	case "lookup":
 		pipelineFunctionLookup := new(PipelineFunctionLookup)
@@ -1526,9 +1573,12 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 		u.PipelineFunctionXMLUnroll = pipelineFunctionXMLUnroll
 		u.Type = PipelineFunctionConfTypeXMLUnroll
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PipelineFunctionConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionConf", string(data))
 }
 
 func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
@@ -1646,6 +1696,10 @@ func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
 
 	if u.PipelineFunctionLocalSearchRulesetRunner != nil {
 		return utils.MarshalJSON(u.PipelineFunctionLocalSearchRulesetRunner, "", true)
+	}
+
+	if u.PipelineFunctionLocalSearchTransformer != nil {
+		return utils.MarshalJSON(u.PipelineFunctionLocalSearchTransformer, "", true)
 	}
 
 	if u.PipelineFunctionLookup != nil {
@@ -1792,5 +1846,8 @@ func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.PipelineFunctionXMLUnroll, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type PipelineFunctionConf: all fields are null")
 }

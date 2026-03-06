@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -11,6 +12,17 @@ type CreateAuthLoginResponse struct {
 	// Authentication token
 	AuthToken *components.AuthToken
 	Headers   map[string][]string
+}
+
+func (c CreateAuthLoginResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateAuthLoginResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CreateAuthLoginResponse) GetHTTPMeta() components.HTTPMetadata {

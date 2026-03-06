@@ -5,10 +5,10 @@ package components
 type NodeUpgradeState int64
 
 const (
-	NodeUpgradeStateZero  NodeUpgradeState = 0
-	NodeUpgradeStateOne   NodeUpgradeState = 1
-	NodeUpgradeStateTwo   NodeUpgradeState = 2
-	NodeUpgradeStateThree NodeUpgradeState = 3
+	NodeUpgradeStateActive  NodeUpgradeState = 0
+	NodeUpgradeStateCurrent NodeUpgradeState = 1
+	NodeUpgradeStateFailed  NodeUpgradeState = 2
+	NodeUpgradeStateSkipped NodeUpgradeState = 3
 )
 
 func (e NodeUpgradeState) ToPointer() *NodeUpgradeState {

@@ -27,3 +27,21 @@ restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP := components.CreateR
 restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP := components.CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPOther(components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP.Type {
+	case components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeGet:
+		// restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypePost:
+		// restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	case components.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeOther:
+		// restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP.RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther is populated
+	default:
+		// Unknown type - use restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```

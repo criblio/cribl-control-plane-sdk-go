@@ -1,0 +1,29 @@
+# EventBreakerExistingOrNewNewRuleTypeJSONArray
+
+
+## Supported Types
+
+### EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue
+
+```go
+eventBreakerExistingOrNewNewRuleTypeJSONArray := components.CreateEventBreakerExistingOrNewNewRuleTypeJSONArrayEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue(components.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue{/* values here */})
+```
+
+### EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse
+
+```go
+eventBreakerExistingOrNewNewRuleTypeJSONArray := components.CreateEventBreakerExistingOrNewNewRuleTypeJSONArrayEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse(components.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch eventBreakerExistingOrNewNewRuleTypeJSONArray.Type {
+	case components.EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue:
+		// eventBreakerExistingOrNewNewRuleTypeJSONArray.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue is populated
+	case components.EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse:
+		// eventBreakerExistingOrNewNewRuleTypeJSONArray.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse is populated
+}
+```

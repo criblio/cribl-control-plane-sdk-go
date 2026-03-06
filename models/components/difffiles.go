@@ -14,7 +14,7 @@ type Block struct {
 	Lines         []DiffLine `json:"lines"`
 	NewStartLine  float64    `json:"newStartLine"`
 	OldStartLine  float64    `json:"oldStartLine"`
-	OldStartLine2 *float64   `json:"oldStartLine2,omitempty"`
+	OldStartLine2 *float64   `json:"oldStartLine2,omitzero"`
 }
 
 func (b *Block) GetHeader() string {
@@ -86,17 +86,43 @@ func CreateChecksumBeforeArrayOfStr(arrayOfStr []string) ChecksumBefore {
 
 func (u *ChecksumBefore) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		u.Str = &str
-		u.Type = ChecksumBeforeTypeStr
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChecksumBeforeTypeStr,
+			Value: &str,
+		})
 	}
 
 	var arrayOfStr []string = []string{}
 	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
-		u.ArrayOfStr = arrayOfStr
-		u.Type = ChecksumBeforeTypeArrayOfStr
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChecksumBeforeTypeArrayOfStr,
+			Value: arrayOfStr,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(ChecksumBeforeType)
+	switch best.Type {
+	case ChecksumBeforeTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case ChecksumBeforeTypeArrayOfStr:
+		u.ArrayOfStr = best.Value.([]string)
 		return nil
 	}
 
@@ -149,17 +175,43 @@ func CreateOldModeArrayOfStr(arrayOfStr []string) OldMode {
 
 func (u *OldMode) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		u.Str = &str
-		u.Type = OldModeTypeStr
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OldModeTypeStr,
+			Value: &str,
+		})
 	}
 
 	var arrayOfStr []string = []string{}
 	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
-		u.ArrayOfStr = arrayOfStr
-		u.Type = OldModeTypeArrayOfStr
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OldModeTypeArrayOfStr,
+			Value: arrayOfStr,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(OldModeType)
+	switch best.Type {
+	case OldModeTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case OldModeTypeArrayOfStr:
+		u.ArrayOfStr = best.Value.([]string)
 		return nil
 	}
 
@@ -181,27 +233,27 @@ func (u OldMode) MarshalJSON() ([]byte, error) {
 type DiffFiles struct {
 	AddedLines          float64         `json:"addedLines"`
 	Blocks              []Block         `json:"blocks"`
-	ChangedPercentage   *float64        `json:"changedPercentage,omitempty"`
-	ChecksumAfter       *string         `json:"checksumAfter,omitempty"`
-	ChecksumBefore      *ChecksumBefore `json:"checksumBefore,omitempty"`
-	DeletedFileMode     *string         `json:"deletedFileMode,omitempty"`
+	ChangedPercentage   *float64        `json:"changedPercentage,omitzero"`
+	ChecksumAfter       *string         `json:"checksumAfter,omitzero"`
+	ChecksumBefore      *ChecksumBefore `json:"checksumBefore,omitzero"`
+	DeletedFileMode     *string         `json:"deletedFileMode,omitzero"`
 	DeletedLines        float64         `json:"deletedLines"`
-	IsBinary            *bool           `json:"isBinary,omitempty"`
+	IsBinary            *bool           `json:"isBinary,omitzero"`
 	IsCombined          bool            `json:"isCombined"`
-	IsCopy              *bool           `json:"isCopy,omitempty"`
-	IsDeleted           *bool           `json:"isDeleted,omitempty"`
+	IsCopy              *bool           `json:"isCopy,omitzero"`
+	IsDeleted           *bool           `json:"isDeleted,omitzero"`
 	IsGitDiff           bool            `json:"isGitDiff"`
-	IsNew               *bool           `json:"isNew,omitempty"`
-	IsRename            *bool           `json:"isRename,omitempty"`
-	IsTooBig            *bool           `json:"isTooBig,omitempty"`
+	IsNew               *bool           `json:"isNew,omitzero"`
+	IsRename            *bool           `json:"isRename,omitzero"`
+	IsTooBig            *bool           `json:"isTooBig,omitzero"`
 	Language            string          `json:"language"`
-	Mode                *string         `json:"mode,omitempty"`
-	NewFileMode         *string         `json:"newFileMode,omitempty"`
-	NewMode             *string         `json:"newMode,omitempty"`
+	Mode                *string         `json:"mode,omitzero"`
+	NewFileMode         *string         `json:"newFileMode,omitzero"`
+	NewMode             *string         `json:"newMode,omitzero"`
 	NewName             string          `json:"newName"`
-	OldMode             *OldMode        `json:"oldMode,omitempty"`
+	OldMode             *OldMode        `json:"oldMode,omitzero"`
 	OldName             string          `json:"oldName"`
-	UnchangedPercentage *float64        `json:"unchangedPercentage,omitempty"`
+	UnchangedPercentage *float64        `json:"unchangedPercentage,omitzero"`
 }
 
 func (d *DiffFiles) GetAddedLines() float64 {

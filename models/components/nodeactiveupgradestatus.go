@@ -5,9 +5,9 @@ package components
 type NodeActiveUpgradeStatus int64
 
 const (
-	NodeActiveUpgradeStatusZero NodeActiveUpgradeStatus = 0
-	NodeActiveUpgradeStatusOne  NodeActiveUpgradeStatus = 1
-	NodeActiveUpgradeStatusTwo  NodeActiveUpgradeStatus = 2
+	NodeActiveUpgradeStatusPending   NodeActiveUpgradeStatus = 0
+	NodeActiveUpgradeStatusQueued    NodeActiveUpgradeStatus = 1
+	NodeActiveUpgradeStatusUpgrading NodeActiveUpgradeStatus = 2
 )
 
 func (e NodeActiveUpgradeStatus) ToPointer() *NodeActiveUpgradeStatus {

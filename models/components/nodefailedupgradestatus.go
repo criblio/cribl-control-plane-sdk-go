@@ -5,8 +5,8 @@ package components
 type NodeFailedUpgradeStatus int64
 
 const (
-	NodeFailedUpgradeStatusZero NodeFailedUpgradeStatus = 0
-	NodeFailedUpgradeStatusOne  NodeFailedUpgradeStatus = 1
+	NodeFailedUpgradeStatusUpgradeErrorOnNode          NodeFailedUpgradeStatus = 0
+	NodeFailedUpgradeStatusUpgradeInstallationRollback NodeFailedUpgradeStatus = 1
 )
 
 func (e NodeFailedUpgradeStatus) ToPointer() *NodeFailedUpgradeStatus {

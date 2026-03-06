@@ -27,3 +27,21 @@ healthCheckAuthenticationOauthDiscovery := components.CreateHealthCheckAuthentic
 healthCheckAuthenticationOauthDiscovery := components.CreateHealthCheckAuthenticationOauthDiscoveryNone(components.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch healthCheckAuthenticationOauthDiscovery.Type {
+	case components.HealthCheckAuthenticationOauthDiscoveryTypeHTTP:
+		// healthCheckAuthenticationOauthDiscovery.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTP is populated
+	case components.HealthCheckAuthenticationOauthDiscoveryTypeJSON:
+		// healthCheckAuthenticationOauthDiscovery.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON is populated
+	case components.HealthCheckAuthenticationOauthDiscoveryTypeList:
+		// healthCheckAuthenticationOauthDiscovery.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList is populated
+	case components.HealthCheckAuthenticationOauthDiscoveryTypeNone:
+		// healthCheckAuthenticationOauthDiscovery.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone is populated
+	default:
+		// Unknown type - use healthCheckAuthenticationOauthDiscovery.GetUnknownRaw() for raw JSON
+}
+```

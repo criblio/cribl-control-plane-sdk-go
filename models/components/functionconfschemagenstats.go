@@ -7,7 +7,7 @@ import (
 )
 
 type FunctionConfSchemaGenStats struct {
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 }
 
 func (f FunctionConfSchemaGenStats) MarshalJSON() ([]byte, error) {

@@ -3,21 +3,13 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetVersionFilesRequest struct {
-	// The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// The Git commit hash to use as the starting point for the request.
 	Commit *string `queryParam:"style=form,explode=true,name=commit"`
-}
-
-func (g *GetVersionFilesRequest) GetGroupID() *string {
-	if g == nil {
-		return nil
-	}
-	return g.GroupID
 }
 
 func (g *GetVersionFilesRequest) GetCommit() *string {
@@ -31,6 +23,17 @@ type GetVersionFilesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitFilesResponse objects
 	CountedGitFilesResponse *components.CountedGitFilesResponse
+}
+
+func (g GetVersionFilesResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetVersionFilesResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GetVersionFilesResponse) GetHTTPMeta() components.HTTPMetadata {

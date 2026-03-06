@@ -15,12 +15,14 @@ const (
 	DiffLineTypeDelete  DiffLineType = "delete"
 	DiffLineTypeInsert  DiffLineType = "insert"
 	DiffLineTypeContext DiffLineType = "context"
+	DiffLineTypeUnknown DiffLineType = "UNKNOWN"
 )
 
 type DiffLine struct {
 	DiffLineDelete  *DiffLineDelete  `queryParam:"inline" union:"member"`
 	DiffLineInsert  *DiffLineInsert  `queryParam:"inline" union:"member"`
 	DiffLineContext *DiffLineContext `queryParam:"inline" union:"member"`
+	UnknownRaw      json.RawMessage  `json:"-" union:"unknown"`
 
 	Type DiffLineType
 }
@@ -61,6 +63,21 @@ func CreateDiffLineContext(contextT DiffLineContext) DiffLine {
 	}
 }
 
+func CreateDiffLineUnknown(raw json.RawMessage) DiffLine {
+	return DiffLine{
+		UnknownRaw: raw,
+		Type:       DiffLineTypeUnknown,
+	}
+}
+
+func (u DiffLine) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u DiffLine) IsUnknown() bool {
+	return u.Type == DiffLineTypeUnknown
+}
+
 func (u *DiffLine) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -69,7 +86,14 @@ func (u *DiffLine) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = DiffLineTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = DiffLineTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -100,9 +124,12 @@ func (u *DiffLine) UnmarshalJSON(data []byte) error {
 		u.DiffLineContext = diffLineContext
 		u.Type = DiffLineTypeContext
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = DiffLineTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for DiffLine", string(data))
 }
 
 func (u DiffLine) MarshalJSON() ([]byte, error) {
@@ -118,5 +145,8 @@ func (u DiffLine) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.DiffLineContext, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type DiffLine: all fields are null")
 }

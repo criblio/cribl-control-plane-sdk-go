@@ -38,7 +38,7 @@ type TemplateDefinition struct {
 	// Handlebars template string
 	Content string `json:"content"`
 	// Optional description of what this template is used for
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// Type categorization for the template (e.g., Universal, Email, Slack)
 	Type string `json:"type"`
 }
@@ -48,7 +48,7 @@ func (t TemplateDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TemplateDefinition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"id", "content", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -86,11 +86,11 @@ type PipelineFunctionHandlebarsConf struct {
 	// Array of template definitions. Uses event.__template_id to select template at runtime.
 	Templates []TemplateDefinition `json:"templates"`
 	// Field name to store the rendered template result. Defaults to _raw.
-	TargetField *string `json:"targetField,omitempty"`
+	TargetField *string `json:"targetField,omitzero"`
 	// Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
-	ParseJSON *bool `json:"parseJson,omitempty"`
+	ParseJSON *bool `json:"parseJson,omitzero"`
 	// Remove the target field if the rendered result is empty or null.
-	RemoveOnNull *bool `json:"removeOnNull,omitempty"`
+	RemoveOnNull *bool `json:"removeOnNull,omitzero"`
 }
 
 func (p PipelineFunctionHandlebarsConf) MarshalJSON() ([]byte, error) {
@@ -98,7 +98,7 @@ func (p PipelineFunctionHandlebarsConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionHandlebarsConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"templates"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -134,18 +134,18 @@ func (p *PipelineFunctionHandlebarsConf) GetRemoveOnNull() *bool {
 
 type PipelineFunctionHandlebars struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionHandlebarsID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                          `json:"final,omitempty"`
+	Final *bool                          `json:"final,omitzero"`
 	Conf  PipelineFunctionHandlebarsConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionHandlebars) MarshalJSON() ([]byte, error) {
@@ -153,7 +153,7 @@ func (p PipelineFunctionHandlebars) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionHandlebars) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

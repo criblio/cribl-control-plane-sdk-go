@@ -36,7 +36,7 @@ type PipelineFunctionPackConf struct {
 	// List of fields to keep, everything else will be packed
 	UnpackedFields []string `json:"unpackedFields"`
 	// Name of the (packed) target field
-	Target *string `json:"target,omitempty"`
+	Target *string `json:"target,omitzero"`
 }
 
 func (p PipelineFunctionPackConf) MarshalJSON() ([]byte, error) {
@@ -44,7 +44,7 @@ func (p PipelineFunctionPackConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionPackConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"unpackedFields"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -66,18 +66,18 @@ func (p *PipelineFunctionPackConf) GetTarget() *string {
 
 type PipelineFunctionPack struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionPackID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
+	Final *bool                    `json:"final,omitzero"`
 	Conf  PipelineFunctionPackConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionPack) MarshalJSON() ([]byte, error) {
@@ -85,7 +85,7 @@ func (p PipelineFunctionPack) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionPack) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -44,7 +44,7 @@ func (a AdditionalField) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AdditionalField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"extraInField", "extraOutField"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -83,12 +83,12 @@ type PipelineFunctionGeoipConf struct {
 	// Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
 	File string `json:"file"`
 	// Field name in which to find an IP to look up. Can be nested.
-	InField *string `json:"inField,omitempty"`
+	InField *string `json:"inField,omitzero"`
 	// Field name in which to store the GeoIP lookup results
-	OutField         *string           `json:"outField,omitempty"`
-	AdditionalFields []AdditionalField `json:"additionalFields,omitempty"`
+	OutField         *string           `json:"outField,omitzero"`
+	AdditionalFields []AdditionalField `json:"additionalFields,omitzero"`
 	// Search-specific mappings for granular control over event enrichment
-	OutFieldMappings *OutputFieldMappings `json:"outFieldMappings,omitempty"`
+	OutFieldMappings *OutputFieldMappings `json:"outFieldMappings,omitzero"`
 }
 
 func (p PipelineFunctionGeoipConf) MarshalJSON() ([]byte, error) {
@@ -96,7 +96,7 @@ func (p PipelineFunctionGeoipConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionGeoipConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"file"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -139,18 +139,18 @@ func (p *PipelineFunctionGeoipConf) GetOutFieldMappings() *OutputFieldMappings {
 
 type PipelineFunctionGeoip struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionGeoipID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                     `json:"final,omitempty"`
+	Final *bool                     `json:"final,omitzero"`
 	Conf  PipelineFunctionGeoipConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionGeoip) MarshalJSON() ([]byte, error) {
@@ -158,7 +158,7 @@ func (p PipelineFunctionGeoip) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionGeoip) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

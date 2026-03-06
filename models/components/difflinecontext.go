@@ -43,7 +43,7 @@ func (d DiffLineContext) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DiffLineContext) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"type", "newNumber", "oldNumber", "content"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil

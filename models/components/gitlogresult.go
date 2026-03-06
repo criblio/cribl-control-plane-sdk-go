@@ -3,13 +3,13 @@
 package components
 
 type GitLogResult struct {
-	AuthorEmail *string `json:"author_email,omitempty"`
-	AuthorName  *string `json:"author_name,omitempty"`
-	Body        *string `json:"body,omitempty"`
-	Date        *string `json:"date,omitempty"`
-	Hash        *string `json:"hash,omitempty"`
-	Message     *string `json:"message,omitempty"`
-	Refs        *string `json:"refs,omitempty"`
+	AuthorEmail *string `json:"author_email,omitzero"`
+	AuthorName  *string `json:"author_name,omitzero"`
+	Body        *string `json:"body,omitzero"`
+	Date        *string `json:"date,omitzero"`
+	Hash        *string `json:"hash,omitzero"`
+	Message     *string `json:"message,omitzero"`
+	Refs        *string `json:"refs,omitzero"`
 }
 
 func (g *GitLogResult) GetAuthorEmail() *string {

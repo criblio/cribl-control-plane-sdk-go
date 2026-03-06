@@ -2,22 +2,37 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type SystemSettingsConf struct {
 	API                  APITypeSystemSettingsConf         `json:"api"`
 	Backups              BackupsSettingsUnion              `json:"backups"`
-	CustomLogo           *CustomLogoTypeSystemSettingsConf `json:"customLogo,omitempty"`
+	CustomLogo           *CustomLogoTypeSystemSettingsConf `json:"customLogo,omitzero"`
 	Pii                  PiiSettingsUnion                  `json:"pii"`
 	Proxy                ProxyTypeSystemSettingsConf       `json:"proxy"`
 	Rollback             RollbackSettingsUnion             `json:"rollback"`
 	Shutdown             ShutdownTypeSystemSettingsConf    `json:"shutdown"`
 	Sni                  SniSettingsUnion                  `json:"sni"`
-	Sockets              *SocketsTypeSystemSettingsConf    `json:"sockets,omitempty"`
-	Support              *SupportTypeSystemSettingsConf    `json:"support,omitempty"`
+	Sockets              *SocketsTypeSystemSettingsConf    `json:"sockets,omitzero"`
+	Support              *SupportTypeSystemSettingsConf    `json:"support,omitzero"`
 	System               SystemTypeSystemSettingsConf      `json:"system"`
 	TLS                  TLSSettingsUnion                  `json:"tls"`
 	UpgradeGroupSettings UpgradeGroupSettingsUnion         `json:"upgradeGroupSettings"`
 	UpgradeSettings      UpgradeSettings                   `json:"upgradeSettings"`
 	Workers              WorkersTypeSystemSettingsConf     `json:"workers"`
+}
+
+func (s SystemSettingsConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SystemSettingsConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *SystemSettingsConf) GetAPI() APITypeSystemSettingsConf {

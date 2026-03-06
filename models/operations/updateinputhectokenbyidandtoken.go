@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -40,6 +41,17 @@ type UpdateInputHecTokenByIDAndTokenResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of InputSplunkHec objects
 	CountedInputSplunkHec *components.CountedInputSplunkHec
+}
+
+func (u UpdateInputHecTokenByIDAndTokenResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateInputHecTokenByIDAndTokenResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateInputHecTokenByIDAndTokenResponse) GetHTTPMeta() components.HTTPMetadata {

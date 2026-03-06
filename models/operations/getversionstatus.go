@@ -3,25 +3,25 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
-
-type GetVersionStatusRequest struct {
-	// The <code>id</code> of the Worker Group or Edge Fleet to get the status for.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
-}
-
-func (g *GetVersionStatusRequest) GetGroupID() *string {
-	if g == nil {
-		return nil
-	}
-	return g.GroupID
-}
 
 type GetVersionStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitStatusResult objects
 	CountedGitStatusResult *components.CountedGitStatusResult
+}
+
+func (g GetVersionStatusResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetVersionStatusResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GetVersionStatusResponse) GetHTTPMeta() components.HTTPMetadata {

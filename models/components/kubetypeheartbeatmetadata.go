@@ -2,13 +2,28 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type KubeTypeHeartbeatMetadata struct {
 	Enabled   bool                            `json:"enabled"`
 	Namespace string                          `json:"namespace"`
 	Node      string                          `json:"node"`
-	Owner     *OwnerTypeHeartbeatMetadataKube `json:"owner,omitempty"`
+	Owner     *OwnerTypeHeartbeatMetadataKube `json:"owner,omitzero"`
 	Pod       string                          `json:"pod"`
 	Source    string                          `json:"source"`
+}
+
+func (k KubeTypeHeartbeatMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(k, "", false)
+}
+
+func (k *KubeTypeHeartbeatMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &k, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (k *KubeTypeHeartbeatMetadata) GetEnabled() bool {

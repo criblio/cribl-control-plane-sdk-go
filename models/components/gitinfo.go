@@ -63,17 +63,43 @@ func CreateRemoteRemoteEnum(remoteEnum RemoteEnum) Remote {
 
 func (u *Remote) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		u.Str = &str
-		u.Type = RemoteTypeStr
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RemoteTypeStr,
+			Value: &str,
+		})
 	}
 
 	var remoteEnum RemoteEnum = RemoteEnum("")
 	if err := utils.UnmarshalJSON(data, &remoteEnum, "", true, nil); err == nil {
-		u.RemoteEnum = &remoteEnum
-		u.Type = RemoteTypeRemoteEnum
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RemoteTypeRemoteEnum,
+			Value: &remoteEnum,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Remote", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Remote", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RemoteType)
+	switch best.Type {
+	case RemoteTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case RemoteTypeRemoteEnum:
+		u.RemoteEnum = best.Value.(*RemoteEnum)
 		return nil
 	}
 

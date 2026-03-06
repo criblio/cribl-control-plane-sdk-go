@@ -21,3 +21,19 @@ healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP := components
 healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPPostWithBody(components.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP.Type {
+	case components.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypeGet:
+		// healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypePost:
+		// healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	default:
+		// Unknown type - use healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```

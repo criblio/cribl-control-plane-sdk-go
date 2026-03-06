@@ -1,13 +1,13 @@
 /**
  * On-Prem Authentication Example
  *
- * This example demonstrates how to configure authentication for an on-prem 
- * Cribl instance using username and password credentials.
+ * This example demonstrates the authentication process for an on-prem Cribl
+ * instance using username and password credentials.
  *
- * 1. Create an SDK client with username and password credentials using the 
- * BearerAuth security scheme.
- * 2. Automatically handle token exchange and refresh using a callback function.
- * 3. Validate the connection by listing all git branches.
+ * 1. Authenticate with your username and password to obtain a Bearer token.
+ * 2. Create an SDK client that uses the Bearer token for API calls.
+ * 3. Validate the connection by checking the server health status and listing
+ * all git branches.
  *
  * Prerequisites: Replace the placeholder values for ONPREM_SERVER_URL
  * ONPREM_USERNAME, and ONPREM_PASSWORD with your server URL and credentials.

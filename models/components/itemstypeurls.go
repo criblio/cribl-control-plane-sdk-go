@@ -10,7 +10,9 @@ type ItemsTypeUrls struct {
 	// URL of a Cribl Worker to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `json:"weight,omitempty"`
+	Weight *float64 `json:"weight,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
 func (i ItemsTypeUrls) MarshalJSON() ([]byte, error) {
@@ -18,7 +20,7 @@ func (i ItemsTypeUrls) MarshalJSON() ([]byte, error) {
 }
 
 func (i *ItemsTypeUrls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -36,4 +38,11 @@ func (i *ItemsTypeUrls) GetWeight() *float64 {
 		return nil
 	}
 	return i.Weight
+}
+
+func (i *ItemsTypeUrls) GetTemplateURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateURL
 }

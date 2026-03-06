@@ -8,7 +8,7 @@ import (
 
 type ProcessType struct {
 	// Configure sets to collect process metrics
-	Sets []ItemsTypeProcessSets `json:"sets,omitempty"`
+	Sets []ItemsTypeProcessSets `json:"sets,omitzero"`
 }
 
 func (p ProcessType) MarshalJSON() ([]byte, error) {

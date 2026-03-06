@@ -2,10 +2,25 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type GitFilesResponse struct {
-	CommitMessage map[string]any `json:"commitMessage,omitempty"`
+	CommitMessage map[string]any `json:"commitMessage,omitzero"`
 	Count         float64        `json:"count"`
 	Items         []GitFile      `json:"items"`
+}
+
+func (g GitFilesResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GitFilesResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GitFilesResponse) GetCommitMessage() map[string]any {

@@ -3,8 +3,16 @@
 package components
 
 type OutpostNodeInfo struct {
-	GUID string `json:"guid"`
-	Host string `json:"host"`
+	Groupname *string `json:"groupname,omitzero"`
+	GUID      string  `json:"guid"`
+	Host      string  `json:"host"`
+}
+
+func (o *OutpostNodeInfo) GetGroupname() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Groupname
 }
 
 func (o *OutpostNodeInfo) GetGUID() string {

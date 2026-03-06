@@ -33,10 +33,9 @@ func newFiles(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 
 // Count - Get a count of files that changed since a commit
 // Get a count of the files that changed since a commit. Default is the latest commit (HEAD).
-func (s *Files) Count(ctx context.Context, groupID *string, commit *string, opts ...operations.Option) (*operations.GetVersionCountResponse, error) {
+func (s *Files) Count(ctx context.Context, commit *string, opts ...operations.Option) (*operations.GetVersionCountResponse, error) {
 	request := operations.GetVersionCountRequest{
-		GroupID: groupID,
-		Commit:  commit,
+		Commit: commit,
 	}
 
 	o := operations.Options{}
@@ -281,10 +280,9 @@ func (s *Files) Count(ctx context.Context, groupID *string, commit *string, opts
 
 // List - Get the names and statuses of files that changed since a commit
 // Get the names and statuses of files that changed since a commit. Default is the latest commit (HEAD).
-func (s *Files) List(ctx context.Context, groupID *string, commit *string, opts ...operations.Option) (*operations.GetVersionFilesResponse, error) {
+func (s *Files) List(ctx context.Context, commit *string, opts ...operations.Option) (*operations.GetVersionFilesResponse, error) {
 	request := operations.GetVersionFilesRequest{
-		GroupID: groupID,
-		Commit:  commit,
+		Commit: commit,
 	}
 
 	o := operations.Options{}

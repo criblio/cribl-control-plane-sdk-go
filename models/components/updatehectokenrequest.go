@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type UpdateHecTokenRequest struct {
-	AllowedIndexesAtToken []string                 `json:"allowedIndexesAtToken,omitempty"`
-	Description           *string                  `json:"description,omitempty"`
-	Enabled               *bool                    `json:"enabled,omitempty"`
-	Metadata              []EventBreakerRuleFields `json:"metadata,omitempty"`
+	AllowedIndexesAtToken []string                 `json:"allowedIndexesAtToken,omitzero"`
+	Description           *string                  `json:"description,omitzero"`
+	Enabled               *bool                    `json:"enabled,omitzero"`
+	Metadata              []EventBreakerRuleFields `json:"metadata,omitzero"`
+}
+
+func (u UpdateHecTokenRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateHecTokenRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateHecTokenRequest) GetAllowedIndexesAtToken() []string {

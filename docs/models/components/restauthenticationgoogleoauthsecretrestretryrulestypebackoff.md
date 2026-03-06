@@ -1,16 +1,29 @@
 # RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                          | Type                                                                                                                                           | Required                                                                                                                                       | Description                                                                                                                                    |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Type`                                                                                                                                         | [components.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../../models/components/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                                             | The algorithm to use when performing HTTP retries                                                                                              |
-| `Interval`                                                                                                                                     | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Limit`                                                                                                                                        | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Multiplier`                                                                                                                                   | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `MaxIntervalMs`                                                                                                                                | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `Codes`                                                                                                                                        | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `EnableHeader`                                                                                                                                 | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `RetryConnectTimeout`                                                                                                                          | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
-| `RetryConnectReset`                                                                                                                            | *any*                                                                                                                                          | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
+### RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse
+
+```go
+restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff := components.CreateRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse(components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue
+
+```go
+restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff := components.CreateRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue(components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff.Type {
+	case components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffTypeRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse:
+		// restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse is populated
+	case components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffTypeRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue:
+		// restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue is populated
+}
+```
