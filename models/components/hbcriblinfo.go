@@ -2,12 +2,16 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type Config struct {
-	FeaturesRev     *string  `json:"featuresRev,omitempty"`
-	HbPeriodSeconds *float64 `json:"hbPeriodSeconds,omitempty"`
-	LogStreamEnv    *string  `json:"logStreamEnv,omitempty"`
-	PolicyRev       *string  `json:"policyRev,omitempty"`
-	Version         *string  `json:"version,omitempty"`
+	FeaturesRev     *string  `json:"featuresRev,omitzero"`
+	HbPeriodSeconds *float64 `json:"hbPeriodSeconds,omitzero"`
+	LogStreamEnv    *string  `json:"logStreamEnv,omitzero"`
+	PolicyRev       *string  `json:"policyRev,omitzero"`
+	Version         *string  `json:"version,omitzero"`
 }
 
 func (c *Config) GetFeaturesRev() *string {
@@ -47,20 +51,31 @@ func (c *Config) GetVersion() *string {
 
 type HBCriblInfo struct {
 	Config            Config                            `json:"config"`
-	DeploymentID      *string                           `json:"deploymentId,omitempty"`
-	DisableSNIRouting *bool                             `json:"disableSNIRouting,omitempty"`
+	DeploymentID      *string                           `json:"deploymentId,omitzero"`
+	DisableSNIRouting *bool                             `json:"disableSNIRouting,omitzero"`
 	DistMode          ModeOptionsInstanceSettingsSchema `json:"distMode"`
-	EdgeNodes         *float64                          `json:"edgeNodes,omitempty"`
+	EdgeNodes         *float64                          `json:"edgeNodes,omitzero"`
 	Group             string                            `json:"group"`
 	GUID              string                            `json:"guid"`
-	InstallType       *string                           `json:"installType,omitempty"`
-	LookupVersions    map[string]map[string]string      `json:"lookupVersions,omitempty"`
-	Master            *HBLeaderInfo                     `json:"master,omitempty"`
-	Pid               *float64                          `json:"pid,omitempty"`
-	SocksEnabled      *bool                             `json:"socksEnabled,omitempty"`
+	InstallType       *string                           `json:"installType,omitzero"`
+	LookupVersions    map[string]map[string]string      `json:"lookupVersions,omitzero"`
+	Master            *HBLeaderInfo                     `json:"master,omitzero"`
+	Pid               *float64                          `json:"pid,omitzero"`
+	SocksEnabled      *bool                             `json:"socksEnabled,omitzero"`
 	StartTime         float64                           `json:"startTime"`
 	Tags              []string                          `json:"tags"`
-	Version           *string                           `json:"version,omitempty"`
+	Version           *string                           `json:"version,omitzero"`
+}
+
+func (h HBCriblInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HBCriblInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (h *HBCriblInfo) GetConfig() Config {

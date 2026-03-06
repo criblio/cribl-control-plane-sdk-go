@@ -7,10 +7,10 @@ import (
 )
 
 type TagsTypePackInstallInfo struct {
-	DataType   []string `json:"dataType,omitempty"`
-	Domain     []string `json:"domain,omitempty"`
-	Streamtags []string `json:"streamtags,omitempty"`
-	Technology []string `json:"technology,omitempty"`
+	DataType   []string `json:"dataType,omitzero"`
+	Domain     []string `json:"domain,omitzero"`
+	Streamtags []string `json:"streamtags,omitzero"`
+	Technology []string `json:"technology,omitzero"`
 }
 
 func (t TagsTypePackInstallInfo) MarshalJSON() ([]byte, error) {

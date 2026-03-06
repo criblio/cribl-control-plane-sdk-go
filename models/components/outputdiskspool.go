@@ -33,27 +33,27 @@ func (e *OutputDiskSpoolType) UnmarshalJSON(data []byte) error {
 
 type OutputDiskSpool struct {
 	// Unique ID for this output
-	ID   *string             `json:"id,omitempty"`
+	ID   *string             `json:"id,omitzero"`
 	Type OutputDiskSpoolType `json:"type"`
 	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitempty"`
+	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Time period for grouping spooled events. Default is 10m.
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// Maximum disk space that can be consumed before older buckets are deleted. Examples: 420MB, 4GB. Default is 1GB.
-	MaxDataSize *string `json:"maxDataSize,omitempty"`
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data before older buckets are deleted. Examples: 2h, 4d. Default is 24h.
-	MaxDataTime *string `json:"maxDataTime,omitempty"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
 	// Data compression format. Default is gzip.
-	Compress *CompressionOptionsPersistence `json:"compress,omitempty"`
+	Compress *CompressionOptionsPersistence `json:"compress,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized within the time-buckets. If blank, the event's __partition property is used and otherwise, events go directly into the time-bucket directory.
-	PartitionExpr *string `json:"partitionExpr,omitempty"`
-	Description   *string `json:"description,omitempty"`
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
+	Description   *string `json:"description,omitzero"`
 }
 
 func (o OutputDiskSpool) MarshalJSON() ([]byte, error) {
@@ -61,7 +61,7 @@ func (o OutputDiskSpool) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDiskSpool) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil

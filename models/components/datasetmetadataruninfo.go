@@ -3,10 +3,10 @@
 package components
 
 type DatasetMetadataRunInfo struct {
-	EarliestScannedTime *float64 `json:"earliestScannedTime,omitempty"`
-	FinishedAt          *float64 `json:"finishedAt,omitempty"`
-	LatestScannedTime   *float64 `json:"latestScannedTime,omitempty"`
-	ObjectCount         *float64 `json:"objectCount,omitempty"`
+	EarliestScannedTime *float64 `json:"earliestScannedTime,omitzero"`
+	FinishedAt          *float64 `json:"finishedAt,omitzero"`
+	LatestScannedTime   *float64 `json:"latestScannedTime,omitzero"`
+	ObjectCount         *float64 `json:"objectCount,omitzero"`
 }
 
 func (d *DatasetMetadataRunInfo) GetEarliestScannedTime() *float64 {

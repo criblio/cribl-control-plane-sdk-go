@@ -6,12 +6,16 @@ package components
 type AuthenticationTypeOptions string
 
 const (
-	AuthenticationTypeOptionsNone              AuthenticationTypeOptions = "none"
-	AuthenticationTypeOptionsBasic             AuthenticationTypeOptions = "basic"
+	// AuthenticationTypeOptionsNone None
+	AuthenticationTypeOptionsNone AuthenticationTypeOptions = "none"
+	// AuthenticationTypeOptionsBasic Basic
+	AuthenticationTypeOptionsBasic AuthenticationTypeOptions = "basic"
+	// AuthenticationTypeOptionsCredentialsSecret Basic (credentials secret)
 	AuthenticationTypeOptionsCredentialsSecret AuthenticationTypeOptions = "credentialsSecret"
-	AuthenticationTypeOptionsToken             AuthenticationTypeOptions = "token"
-	AuthenticationTypeOptionsTextSecret        AuthenticationTypeOptions = "textSecret"
-	AuthenticationTypeOptionsOauth             AuthenticationTypeOptions = "oauth"
+	// AuthenticationTypeOptionsToken Token
+	AuthenticationTypeOptionsToken AuthenticationTypeOptions = "token"
+	// AuthenticationTypeOptionsTextSecret Token (text secret)
+	AuthenticationTypeOptionsTextSecret AuthenticationTypeOptions = "textSecret"
 )
 
 func (e AuthenticationTypeOptions) ToPointer() *AuthenticationTypeOptions {
@@ -22,7 +26,7 @@ func (e AuthenticationTypeOptions) ToPointer() *AuthenticationTypeOptions {
 func (e *AuthenticationTypeOptions) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
 			return true
 		}
 	}

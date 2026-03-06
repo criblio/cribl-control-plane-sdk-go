@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type UpgradeSettings struct {
-	AutomaticUpgradeCheckPeriod *string              `json:"automaticUpgradeCheckPeriod,omitempty"`
-	DisableAutomaticUpgrade     *bool                `json:"disableAutomaticUpgrade,omitempty"`
-	EnableLegacyEdgeUpgrade     *bool                `json:"enableLegacyEdgeUpgrade,omitempty"`
-	PackageUrls                 []UpgradePackageUrls `json:"packageUrls,omitempty"`
-	UpgradeSource               *string              `json:"upgradeSource,omitempty"`
+	AutomaticUpgradeCheckPeriod *string              `json:"automaticUpgradeCheckPeriod,omitzero"`
+	DisableAutomaticUpgrade     *bool                `json:"disableAutomaticUpgrade,omitzero"`
+	EnableLegacyEdgeUpgrade     *bool                `json:"enableLegacyEdgeUpgrade,omitzero"`
+	PackageUrls                 []UpgradePackageUrls `json:"packageUrls,omitzero"`
+	UpgradeSource               *string              `json:"upgradeSource,omitzero"`
+}
+
+func (u UpgradeSettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpgradeSettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpgradeSettings) GetAutomaticUpgradeCheckPeriod() *string {

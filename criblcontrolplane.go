@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.16.1-20904e45 and generator version 2.799.0
+// Generated from OpenAPI doc version 4.17.0-66cb0fb5 and generator version 2.849.3
 
 import (
 	"context"
@@ -41,38 +41,64 @@ func Float64(f float64) *float64 { return &f }
 // Pointer provides a helper function to return a pointer to a type
 func Pointer[T any](v T) *T { return &v }
 
-// CriblControlPlane - Cribl API Reference: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
+// CriblControlPlane - Cribl API Reference: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources.
+// Base URL contexts for reference:
+// - Leader context: /api/v1
+// - Worker Group or Edge Fleet context: /api/v1/m/{groupName}
+// - Host (Worker or Edge Node) context: /api/v1/w/{nodeId}
+// - Search context: /api/v1/m/default_search
+//
+// https://docs.cribl.io - See our complementary product documentation
 type CriblControlPlane struct {
-	SDKVersion   string
-	LakeDatasets *LakeDatasets
-	// Actions related to Collectors
-	Collectors *Collectors
+	SDKVersion          string
+	DatabaseConnections *DatabaseConnections
+	// Actions related to functions
+	Functions *Functions
 	// Actions related to Sources
 	Sources *Sources
+	// Actions related to Packs
+	Packs *Packs
 	// Actions related to Destinations
 	Destinations *Destinations
 	// Actions related to Pipelines
 	Pipelines *Pipelines
 	// Actions related to Routes
 	Routes *Routes
-	Auth   *Auth
-	// Actions related to REST server health
-	Health *Health
-	// Actions related to Packs
-	Packs    *Packs
-	System   *System
-	Versions *Versions
-	// Actions related to functions
-	Functions *Functions
-	Nodes     *Nodes
+	// Actions related to Collectors
+	Collectors *Collectors
 	// Actions related to Groups
-	Groups *Groups
+	Groups       *Groups
+	LakeDatasets *LakeDatasets
+	Auth         *Auth
+	System       *System
+	Nodes        *Nodes
+	// Actions related to REST server health
+	Health   *Health
+	Versions *Versions
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
 type SDKOption func(*CriblControlPlane)
+
+// WithServerURL allows providing an alternative server URL
+func WithServerURL(serverURL string) SDKOption {
+	return func(sdk *CriblControlPlane) {
+		sdk.sdkConfiguration.ServerURL = serverURL
+	}
+}
+
+// WithTemplatedServerURL allows the overriding of the default server URL with a templated URL populated with the provided parameters
+func WithTemplatedServerURL(serverURL string, params map[string]string) SDKOption {
+	return func(sdk *CriblControlPlane) {
+		if params != nil {
+			serverURL = utils.ReplaceParameters(serverURL, params)
+		}
+
+		sdk.sdkConfiguration.ServerURL = serverURL
+	}
+}
 
 // WithClient allows the overriding of the default HTTP client used by the SDK
 func WithClient(client HTTPClient) SDKOption {
@@ -113,9 +139,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.5.2",
+		SDKVersion: "0.6.0-rc.42",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.5.2 2.799.0 4.16.1-20904e45 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.6.0-rc.42 2.849.3 4.17.0-66cb0fb5 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -139,20 +165,21 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
-	sdk.LakeDatasets = newLakeDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Collectors = newCollectors(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.DatabaseConnections = newDatabaseConnections(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Functions = newFunctions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Sources = newSources(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Packs = newPacks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Destinations = newDestinations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Pipelines = newPipelines(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Routes = newRoutes(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Health = newHealth(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Packs = newPacks(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.System = newSystem(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Versions = newVersions(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Functions = newFunctions(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Nodes = newNodes(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Collectors = newCollectors(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Groups = newGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.LakeDatasets = newLakeDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.System = newSystem(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Nodes = newNodes(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Health = newHealth(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Versions = newVersions(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

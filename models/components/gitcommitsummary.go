@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type Author struct {
 	Email string `json:"email"`
 	Name  string `json:"name"`
@@ -49,11 +53,22 @@ func (s *Summary) GetInsertions() float64 {
 }
 
 type GitCommitSummary struct {
-	Author  *Author                    `json:"author,omitempty"`
+	Author  *Author                    `json:"author,omitzero"`
 	Branch  string                     `json:"branch"`
 	Commit  string                     `json:"commit"`
-	Files   *FilesTypeGitCommitSummary `json:"files,omitempty"`
+	Files   *FilesTypeGitCommitSummary `json:"files,omitzero"`
 	Summary Summary                    `json:"summary"`
+}
+
+func (g GitCommitSummary) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GitCommitSummary) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GitCommitSummary) GetAuthor() *Author {

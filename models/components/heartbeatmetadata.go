@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type HeartbeatMetadata struct {
-	Aws    *AwsTypeHeartbeatMetadata    `json:"aws,omitempty"`
-	Azure  *AzureTypeHeartbeatMetadata  `json:"azure,omitempty"`
-	HostOs *HostOsTypeHeartbeatMetadata `json:"hostOs,omitempty"`
-	Kube   *KubeTypeHeartbeatMetadata   `json:"kube,omitempty"`
-	Os     *HostOsTypeHeartbeatMetadata `json:"os,omitempty"`
+	Aws    *AwsTypeHeartbeatMetadata    `json:"aws,omitzero"`
+	Azure  *AzureTypeHeartbeatMetadata  `json:"azure,omitzero"`
+	HostOs *HostOsTypeHeartbeatMetadata `json:"hostOs,omitzero"`
+	Kube   *KubeTypeHeartbeatMetadata   `json:"kube,omitzero"`
+	Os     *HostOsTypeHeartbeatMetadata `json:"os,omitzero"`
+}
+
+func (h HeartbeatMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HeartbeatMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (h *HeartbeatMetadata) GetAws() *AwsTypeHeartbeatMetadata {

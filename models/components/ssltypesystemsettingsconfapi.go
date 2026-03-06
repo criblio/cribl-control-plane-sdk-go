@@ -3,7 +3,7 @@
 package components
 
 type SslTypeSystemSettingsConfAPI struct {
-	CaPath      *string `json:"caPath,omitempty"`
+	CaPath      *string `json:"caPath,omitzero"`
 	CertPath    string  `json:"certPath"`
 	Disabled    bool    `json:"disabled"`
 	Passphrase  string  `json:"passphrase"`

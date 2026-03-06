@@ -31,179 +31,85 @@ func (e *InputOffice365MsgTraceType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// InputOffice365MsgTraceAuthenticationMethod - Select authentication method.
-type InputOffice365MsgTraceAuthenticationMethod string
-
-const (
-	InputOffice365MsgTraceAuthenticationMethodManual      InputOffice365MsgTraceAuthenticationMethod = "manual"
-	InputOffice365MsgTraceAuthenticationMethodSecret      InputOffice365MsgTraceAuthenticationMethod = "secret"
-	InputOffice365MsgTraceAuthenticationMethodOauth       InputOffice365MsgTraceAuthenticationMethod = "oauth"
-	InputOffice365MsgTraceAuthenticationMethodOauthSecret InputOffice365MsgTraceAuthenticationMethod = "oauthSecret"
-	InputOffice365MsgTraceAuthenticationMethodOauthCert   InputOffice365MsgTraceAuthenticationMethod = "oauthCert"
-)
-
-func (e InputOffice365MsgTraceAuthenticationMethod) ToPointer() *InputOffice365MsgTraceAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputOffice365MsgTraceAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret", "oauth", "oauthSecret", "oauthCert":
-			return true
-		}
-	}
-	return false
-}
-
-// InputOffice365MsgTraceLogLevel - Log Level (verbosity) for collection runtime behavior.
-type InputOffice365MsgTraceLogLevel string
-
-const (
-	InputOffice365MsgTraceLogLevelError InputOffice365MsgTraceLogLevel = "error"
-	InputOffice365MsgTraceLogLevelWarn  InputOffice365MsgTraceLogLevel = "warn"
-	InputOffice365MsgTraceLogLevelInfo  InputOffice365MsgTraceLogLevel = "info"
-	InputOffice365MsgTraceLogLevelDebug InputOffice365MsgTraceLogLevel = "debug"
-	InputOffice365MsgTraceLogLevelSilly InputOffice365MsgTraceLogLevel = "silly"
-)
-
-func (e InputOffice365MsgTraceLogLevel) ToPointer() *InputOffice365MsgTraceLogLevel {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputOffice365MsgTraceLogLevel) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "warn", "info", "debug", "silly":
-			return true
-		}
-	}
-	return false
-}
-
-type CertOptions struct {
-	// The name of the predefined certificate.
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
-	PrivKeyPath string `json:"privKeyPath"`
-	// Passphrase to use to decrypt the private key.
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
-	CertPath string `json:"certPath"`
-}
-
-func (c CertOptions) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CertOptions) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"privKeyPath", "certPath"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CertOptions) GetCertificateName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CertificateName
-}
-
-func (c *CertOptions) GetPrivKeyPath() string {
-	if c == nil {
-		return ""
-	}
-	return c.PrivKeyPath
-}
-
-func (c *CertOptions) GetPassphrase() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Passphrase
-}
-
-func (c *CertOptions) GetCertPath() string {
-	if c == nil {
-		return ""
-	}
-	return c.CertPath
-}
-
 type InputOffice365MsgTrace struct {
 	// Unique ID for this input
-	ID       *string                    `json:"id,omitempty"`
+	ID       *string                    `json:"id,omitzero"`
 	Type     InputOffice365MsgTraceType `json:"type"`
-	Disabled *bool                      `json:"disabled,omitempty"`
+	Disabled *bool                      `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
+	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
+	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
 	// URL to use when retrieving report data.
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
-	Interval float64 `json:"interval"`
+	Interval int64 `json:"interval"`
 	// Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
-	StartDate *string `json:"startDate,omitempty"`
+	StartDate *string `json:"startDate,omitzero"`
 	// Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
-	EndDate *string `json:"endDate,omitempty"`
+	EndDate *string `json:"endDate,omitzero"`
 	// HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
-	Timeout *float64 `json:"timeout,omitempty"`
+	Timeout *float64 `json:"timeout,omitzero"`
 	// Disables time filtering of events when a date range is specified.
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *InputOffice365MsgTraceAuthenticationMethod `json:"authType,omitempty"`
-	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitempty"`
-	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
-	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel *InputOffice365MsgTraceLogLevel `json:"logLevel,omitempty"`
-	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitempty"`
+	AuthType *AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
+	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `json:"ttl,omitempty"`
+	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	RetryRules  *RetryRulesType1                `json:"retryRules,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Reschedule tasks that failed with non-fatal errors
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
+	// Maximum number of times a task can be rescheduled
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
+	// Log Level (verbosity) for collection runtime behavior.
+	LogLevel    *LogLevelOptions `json:"logLevel,omitzero"`
+	RetryRules  *RetryRulesType1 `json:"retryRules,omitzero"`
+	Description *string          `json:"description,omitzero"`
 	// Username to run Message Trace API call.
-	Username *string `json:"username,omitempty"`
+	Username *string `json:"username,omitzero"`
 	// Password to run Message Trace API call.
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials.
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string `json:"tenantId,omitzero"`
 	// client_id to pass in the OAuth request parameter.
-	ClientID *string `json:"clientId,omitempty"`
+	ClientID *string `json:"clientId,omitzero"`
 	// Resource to pass in the OAuth request parameter.
-	Resource *string `json:"resource,omitempty"`
+	Resource *string `json:"resource,omitzero"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *SubscriptionPlanOptions `json:"planType,omitempty"`
+	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
-	TextSecret  *string      `json:"textSecret,omitempty"`
-	CertOptions *CertOptions `json:"certOptions,omitempty"`
+	TextSecret  *string          `json:"textSecret,omitzero"`
+	CertOptions *CertOptionsType `json:"certOptions,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+	TemplateResource *string `json:"__template_resource,omitzero"`
 }
 
 func (i InputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
@@ -211,7 +117,7 @@ func (i InputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "url", "interval"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -294,9 +200,9 @@ func (i *InputOffice365MsgTrace) GetURL() string {
 	return i.URL
 }
 
-func (i *InputOffice365MsgTrace) GetInterval() float64 {
+func (i *InputOffice365MsgTrace) GetInterval() int64 {
 	if i == nil {
-		return 0.0
+		return 0
 	}
 	return i.Interval
 }
@@ -329,39 +235,11 @@ func (i *InputOffice365MsgTrace) GetDisableTimeFilter() *bool {
 	return i.DisableTimeFilter
 }
 
-func (i *InputOffice365MsgTrace) GetAuthType() *InputOffice365MsgTraceAuthenticationMethod {
+func (i *InputOffice365MsgTrace) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
-}
-
-func (i *InputOffice365MsgTrace) GetRescheduleDroppedTasks() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RescheduleDroppedTasks
-}
-
-func (i *InputOffice365MsgTrace) GetMaxTaskReschedule() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxTaskReschedule
-}
-
-func (i *InputOffice365MsgTrace) GetLogLevel() *InputOffice365MsgTraceLogLevel {
-	if i == nil {
-		return nil
-	}
-	return i.LogLevel
-}
-
-func (i *InputOffice365MsgTrace) GetJobTimeout() *string {
-	if i == nil {
-		return nil
-	}
-	return i.JobTimeout
 }
 
 func (i *InputOffice365MsgTrace) GetKeepAliveTime() *float64 {
@@ -369,6 +247,13 @@ func (i *InputOffice365MsgTrace) GetKeepAliveTime() *float64 {
 		return nil
 	}
 	return i.KeepAliveTime
+}
+
+func (i *InputOffice365MsgTrace) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
 }
 
 func (i *InputOffice365MsgTrace) GetMaxMissedKeepAlives() *float64 {
@@ -392,11 +277,32 @@ func (i *InputOffice365MsgTrace) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365MsgTrace) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365MsgTrace) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
+}
+
+func (i *InputOffice365MsgTrace) GetRescheduleDroppedTasks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RescheduleDroppedTasks
+}
+
+func (i *InputOffice365MsgTrace) GetMaxTaskReschedule() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxTaskReschedule
+}
+
+func (i *InputOffice365MsgTrace) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
 }
 
 func (i *InputOffice365MsgTrace) GetRetryRules() *RetryRulesType1 {
@@ -476,9 +382,37 @@ func (i *InputOffice365MsgTrace) GetTextSecret() *string {
 	return i.TextSecret
 }
 
-func (i *InputOffice365MsgTrace) GetCertOptions() *CertOptions {
+func (i *InputOffice365MsgTrace) GetCertOptions() *CertOptionsType {
 	if i == nil {
 		return nil
 	}
 	return i.CertOptions
+}
+
+func (i *InputOffice365MsgTrace) GetTemplateURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateURL
+}
+
+func (i *InputOffice365MsgTrace) GetTemplateTenantID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTenantID
+}
+
+func (i *InputOffice365MsgTrace) GetTemplateClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateClientID
+}
+
+func (i *InputOffice365MsgTrace) GetTemplateResource() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateResource
 }

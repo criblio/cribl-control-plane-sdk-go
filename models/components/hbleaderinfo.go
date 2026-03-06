@@ -5,8 +5,8 @@ package components
 type HBLeaderInfo struct {
 	Host       string  `json:"host"`
 	Port       float64 `json:"port"`
-	Servername *string `json:"servername,omitempty"`
-	TLS        *bool   `json:"tls,omitempty"`
+	Servername *string `json:"servername,omitzero"`
+	TLS        *bool   `json:"tls,omitzero"`
 }
 
 func (h *HBLeaderInfo) GetHost() string {

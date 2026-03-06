@@ -27,3 +27,21 @@ restAuthenticationOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAut
 restAuthenticationOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPOther(components.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationOauthRestDiscoveryDiscoverTypeHTTP.Type {
+	case components.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeGet:
+		// restAuthenticationOauthRestDiscoveryDiscoverTypeHTTP.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypePost:
+		// restAuthenticationOauthRestDiscoveryDiscoverTypeHTTP.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// restAuthenticationOauthRestDiscoveryDiscoverTypeHTTP.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	case components.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPTypeOther:
+		// restAuthenticationOauthRestDiscoveryDiscoverTypeHTTP.RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther is populated
+	default:
+		// Unknown type - use restAuthenticationOauthRestDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```

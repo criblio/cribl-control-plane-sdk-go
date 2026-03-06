@@ -2,10 +2,25 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type GitTypeConfigGroup struct {
-	Commit       *string  `json:"commit,omitempty"`
-	LocalChanges *float64 `json:"localChanges,omitempty"`
-	Log          []Commit `json:"log,omitempty"`
+	Commit       *string  `json:"commit,omitzero"`
+	LocalChanges *float64 `json:"localChanges,omitzero"`
+	Log          []Commit `json:"log,omitzero"`
+}
+
+func (g GitTypeConfigGroup) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GitTypeConfigGroup) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GitTypeConfigGroup) GetCommit() *string {

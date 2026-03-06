@@ -3,9 +3,9 @@
 package components
 
 type NodeUpgradeStatus struct {
-	Active    *NodeActiveUpgradeStatus  `json:"active,omitempty"`
-	Failed    *NodeFailedUpgradeStatus  `json:"failed,omitempty"`
-	Skipped   *NodeSkippedUpgradeStatus `json:"skipped,omitempty"`
+	Active    *NodeActiveUpgradeStatus  `json:"active,omitzero"`
+	Failed    *NodeFailedUpgradeStatus  `json:"failed,omitzero"`
+	Skipped   *NodeSkippedUpgradeStatus `json:"skipped,omitzero"`
 	State     NodeUpgradeState          `json:"state"`
 	Timestamp float64                   `json:"timestamp"`
 }

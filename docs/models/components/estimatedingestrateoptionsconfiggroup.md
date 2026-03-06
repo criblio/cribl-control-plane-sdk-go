@@ -1,6 +1,19 @@
 # EstimatedIngestRateOptionsConfigGroup
 
-Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+Estimated ingest rate for Cloud Groups, in GB/sec.
+
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.EstimatedIngestRateOptionsConfigGroupRate12MbPerSec
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.EstimatedIngestRateOptionsConfigGroup(999)
+```
 
 
 ## Values

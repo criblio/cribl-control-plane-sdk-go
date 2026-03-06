@@ -45,7 +45,7 @@ func (g GoogleCloudStorageAuthTypeSecretExtractor) MarshalJSON() ([]byte, error)
 }
 
 func (g *GoogleCloudStorageAuthTypeSecretExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -67,29 +67,29 @@ func (g *GoogleCloudStorageAuthTypeSecretExtractor) GetExpression() string {
 
 type GoogleCloudStorageAuthTypeSecret struct {
 	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
-	AuthType *GoogleCloudStorageAuthTypeSecretAuthenticationMethod `json:"authType,omitempty"`
+	AuthType *GoogleCloudStorageAuthTypeSecretAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret that references your credentials
 	TextSecret string `json:"textSecret"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitzero"`
 	// Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
 	Bucket string `json:"bucket"`
 	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []GoogleCloudStorageAuthTypeSecretExtractor `json:"extractors,omitempty"`
+	Extractors []GoogleCloudStorageAuthTypeSecretExtractor `json:"extractors,omitzero"`
 	// Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Used to disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Recurse through subdirectories
-	Recurse *bool `json:"recurse,omitempty"`
+	Recurse *bool `json:"recurse,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeSecret) MarshalJSON() ([]byte, error) {
@@ -97,7 +97,7 @@ func (g GoogleCloudStorageAuthTypeSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GoogleCloudStorageAuthTypeSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"textSecret", "bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -223,7 +223,7 @@ func (g GoogleCloudStorageAuthTypeManualExtractor) MarshalJSON() ([]byte, error)
 }
 
 func (g *GoogleCloudStorageAuthTypeManualExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -245,29 +245,29 @@ func (g *GoogleCloudStorageAuthTypeManualExtractor) GetExpression() string {
 
 type GoogleCloudStorageAuthTypeManual struct {
 	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
-	AuthType *GoogleCloudStorageAuthTypeManualAuthenticationMethod `json:"authType,omitempty"`
+	AuthType *GoogleCloudStorageAuthTypeManualAuthenticationMethod `json:"authType,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials string `json:"serviceAccountCredentials"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitzero"`
 	// Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
 	Bucket string `json:"bucket"`
 	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []GoogleCloudStorageAuthTypeManualExtractor `json:"extractors,omitempty"`
+	Extractors []GoogleCloudStorageAuthTypeManualExtractor `json:"extractors,omitzero"`
 	// Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Used to disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Recurse through subdirectories
-	Recurse *bool `json:"recurse,omitempty"`
+	Recurse *bool `json:"recurse,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -275,7 +275,7 @@ func (g GoogleCloudStorageAuthTypeManual) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GoogleCloudStorageAuthTypeManual) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"serviceAccountCredentials", "bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -401,7 +401,7 @@ func (g GoogleCloudStorageAuthTypeAutoExtractor) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GoogleCloudStorageAuthTypeAutoExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"key", "expression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -423,27 +423,27 @@ func (g *GoogleCloudStorageAuthTypeAutoExtractor) GetExpression() string {
 
 type GoogleCloudStorageAuthTypeAuto struct {
 	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
-	AuthType *GoogleCloudStorageAuthTypeAutoAuthenticationMethod `json:"authType,omitempty"`
+	AuthType *GoogleCloudStorageAuthTypeAutoAuthenticationMethod `json:"authType,omitzero"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitzero"`
 	// Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
 	Bucket string `json:"bucket"`
 	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []GoogleCloudStorageAuthTypeAutoExtractor `json:"extractors,omitempty"`
+	Extractors []GoogleCloudStorageAuthTypeAutoExtractor `json:"extractors,omitzero"`
 	// Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitzero"`
 	// Used to disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Recurse through subdirectories
-	Recurse *bool `json:"recurse,omitempty"`
+	Recurse *bool `json:"recurse,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeAuto) MarshalJSON() ([]byte, error) {
@@ -451,7 +451,7 @@ func (g GoogleCloudStorageAuthTypeAuto) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GoogleCloudStorageAuthTypeAuto) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"bucket"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -537,15 +537,17 @@ func (g *GoogleCloudStorageAuthTypeAuto) GetParquetChunkDownloadTimeout() *float
 type GoogleCloudStorageCollectorConfType string
 
 const (
-	GoogleCloudStorageCollectorConfTypeAuto   GoogleCloudStorageCollectorConfType = "auto"
-	GoogleCloudStorageCollectorConfTypeManual GoogleCloudStorageCollectorConfType = "manual"
-	GoogleCloudStorageCollectorConfTypeSecret GoogleCloudStorageCollectorConfType = "secret"
+	GoogleCloudStorageCollectorConfTypeAuto    GoogleCloudStorageCollectorConfType = "auto"
+	GoogleCloudStorageCollectorConfTypeManual  GoogleCloudStorageCollectorConfType = "manual"
+	GoogleCloudStorageCollectorConfTypeSecret  GoogleCloudStorageCollectorConfType = "secret"
+	GoogleCloudStorageCollectorConfTypeUnknown GoogleCloudStorageCollectorConfType = "UNKNOWN"
 )
 
 type GoogleCloudStorageCollectorConf struct {
 	GoogleCloudStorageAuthTypeAuto   *GoogleCloudStorageAuthTypeAuto   `queryParam:"inline" union:"member"`
 	GoogleCloudStorageAuthTypeManual *GoogleCloudStorageAuthTypeManual `queryParam:"inline" union:"member"`
 	GoogleCloudStorageAuthTypeSecret *GoogleCloudStorageAuthTypeSecret `queryParam:"inline" union:"member"`
+	UnknownRaw                       json.RawMessage                   `json:"-" union:"unknown"`
 
 	Type GoogleCloudStorageCollectorConfType
 }
@@ -586,6 +588,21 @@ func CreateGoogleCloudStorageCollectorConfSecret(secret GoogleCloudStorageAuthTy
 	}
 }
 
+func CreateGoogleCloudStorageCollectorConfUnknown(raw json.RawMessage) GoogleCloudStorageCollectorConf {
+	return GoogleCloudStorageCollectorConf{
+		UnknownRaw: raw,
+		Type:       GoogleCloudStorageCollectorConfTypeUnknown,
+	}
+}
+
+func (u GoogleCloudStorageCollectorConf) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u GoogleCloudStorageCollectorConf) IsUnknown() bool {
+	return u.Type == GoogleCloudStorageCollectorConfTypeUnknown
+}
+
 func (u *GoogleCloudStorageCollectorConf) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -594,7 +611,14 @@ func (u *GoogleCloudStorageCollectorConf) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = GoogleCloudStorageCollectorConfTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = GoogleCloudStorageCollectorConfTypeUnknown
+		return nil
 	}
 
 	switch dis.AuthType {
@@ -625,9 +649,12 @@ func (u *GoogleCloudStorageCollectorConf) UnmarshalJSON(data []byte) error {
 		u.GoogleCloudStorageAuthTypeSecret = googleCloudStorageAuthTypeSecret
 		u.Type = GoogleCloudStorageCollectorConfTypeSecret
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = GoogleCloudStorageCollectorConfTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GoogleCloudStorageCollectorConf", string(data))
 }
 
 func (u GoogleCloudStorageCollectorConf) MarshalJSON() ([]byte, error) {
@@ -643,5 +670,8 @@ func (u GoogleCloudStorageCollectorConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.GoogleCloudStorageAuthTypeSecret, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type GoogleCloudStorageCollectorConf: all fields are null")
 }

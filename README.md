@@ -24,6 +24,8 @@ Complementary API reference documentation is available at https://docs.cribl.io/
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
+  * [Json Streaming](#json-streaming)
+  * [Pagination](#pagination)
   * [Custom HTTP Client](#custom-http-client)
 
 <!-- End Table of Contents [toc] -->
@@ -244,6 +246,13 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Get](docs/sdks/collectors/README.md#get) - Get a Collector
 * [Update](docs/sdks/collectors/README.md#update) - Update a Collector
 
+### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
+
+* [Create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+* [Delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
+* [Get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
+* [Update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
+
 ### [Destinations](docs/sdks/destinations/README.md)
 
 * [List](docs/sdks/destinations/README.md#list) - List all Destinations
@@ -252,15 +261,20 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Update](docs/sdks/destinations/README.md#update) - Update a Destination
 * [Delete](docs/sdks/destinations/README.md#delete) - Delete a Destination
 
-#### [Destinations.Pq](docs/sdks/pq/README.md)
+#### [Destinations.Pq](docs/sdks/destinationspq/README.md)
 
-* [Clear](docs/sdks/pq/README.md#clear) - Clear the persistent queue for a Destination
-* [Get](docs/sdks/pq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
+* [Clear](docs/sdks/destinationspq/README.md#clear) - Clear the persistent queue for a Destination
+* [Get](docs/sdks/destinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
 
 #### [Destinations.Samples](docs/sdks/samples/README.md)
 
 * [Get](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 * [Create](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
+
+#### [Destinations.Statuses](docs/sdks/destinationsstatuses/README.md)
+
+* [Get](docs/sdks/destinationsstatuses/README.md#get) - Get the status of a Destination
+* [List](docs/sdks/destinationsstatuses/README.md#list) - List the status of all Destinations
 
 ### [Functions](docs/sdks/functions/README.md)
 
@@ -294,20 +308,22 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [LakeDatasets](docs/sdks/lakedatasets/README.md)
 
-* [Create](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset
-* [List](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets
-* [Delete](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset
-* [Get](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset
-* [Update](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset
+* [Create](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
+* [List](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets (Cribl.Cloud only)
+* [Delete](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset (Cribl.Cloud only)
+* [Get](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset (Cribl.Cloud only)
+* [Update](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset (Cribl.Cloud only)
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [List](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes
-* [Count](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes
+* [Count](docs/sdks/nodes/README.md#count) - Get a count of Worker or Edge Nodes
+* [Get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
+* [List](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
+* [Restart](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
+* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment for a specific product
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -318,19 +334,80 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Get](docs/sdks/packs/README.md#get) - Get a Pack
 * [Update](docs/sdks/packs/README.md#update) - Upgrade a Pack
 
+#### [Packs.Destinations](docs/sdks/packsdestinations/README.md)
+
+* [List](docs/sdks/packsdestinations/README.md#list) - List all Destinations within a Pack
+* [Create](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
+* [Get](docs/sdks/packsdestinations/README.md#get) - Get a Destination within a Pack
+* [Update](docs/sdks/packsdestinations/README.md#update) - Update a Destination within a Pack
+* [Delete](docs/sdks/packsdestinations/README.md#delete) - Delete a Destination within a Pack
+
+##### [Packs.Destinations.Pq](docs/sdks/packsdestinationspq/README.md)
+
+* [Clear](docs/sdks/packsdestinationspq/README.md#clear) - Clear the persistent queue for a Destination within a Pack
+* [Get](docs/sdks/packsdestinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination within a Pack
+
+##### [Packs.Destinations.Samples](docs/sdks/packssamples/README.md)
+
+* [Get](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
+* [Create](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
+
+##### [Packs.Destinations.Statuses](docs/sdks/packsdestinationsstatuses/README.md)
+
+* [Get](docs/sdks/packsdestinationsstatuses/README.md#get) - Get the status of a Destination within a Pack
+* [List](docs/sdks/packsdestinationsstatuses/README.md#list) - List the status of all Destinations within a Pack
+
+#### [Packs.Pipelines](docs/sdks/packspipelines/README.md)
+
+* [Create](docs/sdks/packspipelines/README.md#create) - Create a Pipeline within a Pack
+* [List](docs/sdks/packspipelines/README.md#list) - List all Pipelines within a Pack
+* [Delete](docs/sdks/packspipelines/README.md#delete) - Delete a Pipeline within a Pack
+* [Get](docs/sdks/packspipelines/README.md#get) - Get a Pipeline within a Pack
+* [Update](docs/sdks/packspipelines/README.md#update) - Update a Pipeline within a Pack
+
+#### [Packs.Routes](docs/sdks/packsroutes/README.md)
+
+* [Get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
+* [Update](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+* [List](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
+* [Append](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
+
+#### [Packs.Sources](docs/sdks/packssources/README.md)
+
+* [List](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
+* [Create](docs/sdks/packssources/README.md#create) - Create a Source within a Pack
+* [Get](docs/sdks/packssources/README.md#get) - Get a Source within a Pack
+* [Update](docs/sdks/packssources/README.md#update) - Update a Source within a Pack
+* [Delete](docs/sdks/packssources/README.md#delete) - Delete a Source within a Pack
+
+##### [Packs.Sources.HecTokens](docs/sdks/packshectokens/README.md)
+
+* [Create](docs/sdks/packshectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source within a Pack
+* [Update](docs/sdks/packshectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source within a Pack
+
+##### [Packs.Sources.Pq](docs/sdks/packssourcespq/README.md)
+
+* [Clear](docs/sdks/packssourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
+* [Get](docs/sdks/packssourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
+
+##### [Packs.Sources.Statuses](docs/sdks/packssourcesstatuses/README.md)
+
+* [Get](docs/sdks/packssourcesstatuses/README.md#get) - Get the status of a Source within a Pack
+* [List](docs/sdks/packssourcesstatuses/README.md#list) - List the status of all Sources within a Pack
+
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
-* [List](docs/sdks/pipelines/README.md#list) - List all Pipelines
 * [Create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
+* [List](docs/sdks/pipelines/README.md#list) - List all Pipelines
+* [Delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 * [Get](docs/sdks/pipelines/README.md#get) - Get a Pipeline
 * [Update](docs/sdks/pipelines/README.md#update) - Update a Pipeline
-* [Delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 
 ### [Routes](docs/sdks/routes/README.md)
 
-* [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Get](docs/sdks/routes/README.md#get) - Get a Routing table
 * [Update](docs/sdks/routes/README.md#update) - Update a Route
+* [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
@@ -346,7 +423,25 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 
-### [System.Settings.Cribl](docs/sdks/cribl/README.md)
+#### [Sources.Pq](docs/sdks/sourcespq/README.md)
+
+* [Clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source
+* [Get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source
+
+#### [Sources.Statuses](docs/sdks/sourcesstatuses/README.md)
+
+* [Get](docs/sdks/sourcesstatuses/README.md#get) - Get the status of a Source
+* [List](docs/sdks/sourcesstatuses/README.md#list) - List the status of all Sources
+
+### [System.Captures](docs/sdks/captures/README.md)
+
+* [Create](docs/sdks/captures/README.md#create) - Capture live incoming data
+
+### [System.Settings](docs/sdks/settings/README.md)
+
+* [Restart](docs/sdks/settings/README.md#restart) - Restart the Cribl server
+
+#### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
 * [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
 * [Update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
@@ -375,9 +470,9 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [Get](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
 
-### [Versions.Statuses](docs/sdks/statuses/README.md)
+### [Versions.Statuses](docs/sdks/versionsstatuses/README.md)
 
-* [Get](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
+* [Get](docs/sdks/versionsstatuses/README.md#get) - Get the status of the current working tree
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -584,6 +679,114 @@ func main() {
 
 ```
 <!-- No Error Handling [errors] -->
+
+<!-- Start Json Streaming [jsonl] -->
+## Json Streaming
+
+Json Streaming ([jsonl][jsonl-format] / [x-ndjson][x-ndjson]) content type can be used to stream content from certain operations. These operations expose the stream that can be consumed using a `for` loop in Go. The loop will terminate when the server no longer has any events to send and closes the underlying connection.
+
+Here's an example of consuming a JSONL stream:
+
+```go
+package main
+
+import (
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := criblcontrolplanesdkgo.New(
+		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
+	)
+
+	res, err := s.System.Captures.Create(ctx, components.CaptureParams{
+		Duration:  5,
+		Filter:    "sourcetype===\"pan:traffic\"",
+		Level:     components.CaptureLevelBeforePreProcessingPipeline,
+		MaxEvents: 100,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.CapturedEvent != nil {
+		for res.CapturedEvent.Next() {
+			event, _ := res.CapturedEvent.Value()
+			log.Print(event)
+			// Handle the event
+		}
+	}
+}
+
+```
+
+[jsonl-format]: https://jsonlines.org/
+[x-ndjson]: https://github.com/ndjson/ndjson-spec
+<!-- End Json Streaming [jsonl] -->
+
+<!-- Start Pagination [pagination] -->
+## Pagination
+
+Some of the endpoints in this SDK support pagination. To use pagination, you make your SDK calls as usual, but the
+returned response object will have a `Next` method that can be called to pull down the next group of results. If the
+return value of `Next` is `nil`, then there are no more pages to be fetched.
+
+Here's an example of one such pagination call:
+```go
+package main
+
+import (
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := criblcontrolplanesdkgo.New(
+		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
+	)
+
+	res, err := s.Nodes.List(ctx, operations.GetProductsWorkersByProductRequest{
+		Product: components.ProductsBaseStream,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.CountedMasterWorkerEntry != nil {
+		for {
+			// handle items
+
+			res, err = res.Next()
+
+			if err != nil {
+				// handle error
+			}
+
+			if res == nil {
+				break
+			}
+		}
+	}
+}
+
+```
+<!-- End Pagination [pagination] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client

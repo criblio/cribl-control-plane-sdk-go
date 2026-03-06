@@ -37,11 +37,11 @@ func (e *GaugeUpdate) IsExact() bool {
 
 type FunctionConfSchemaRollupMetrics struct {
 	// List of dimensions across which to perform rollups. Supports wildcards. Defaults to all original dimensions.
-	Dimensions []string `json:"dimensions,omitempty"`
+	Dimensions []string `json:"dimensions,omitzero"`
 	// The time span of the rollup window. Must be a valid time string (such as 10s).
-	TimeWindow *string `json:"timeWindow,omitempty"`
+	TimeWindow *string `json:"timeWindow,omitzero"`
 	// The operation to use when rolling up gauge metrics. Defaults to last.
-	GaugeRollup *GaugeUpdate `json:"gaugeRollup,omitempty"`
+	GaugeRollup *GaugeUpdate `json:"gaugeRollup,omitzero"`
 }
 
 func (f FunctionConfSchemaRollupMetrics) MarshalJSON() ([]byte, error) {

@@ -6,12 +6,12 @@ package components
 type AcknowledgmentsOptions1 int64
 
 const (
-	// AcknowledgmentsOptions1One Leader
-	AcknowledgmentsOptions1One AcknowledgmentsOptions1 = 1
-	// AcknowledgmentsOptions1Zero None
-	AcknowledgmentsOptions1Zero AcknowledgmentsOptions1 = 0
-	// AcknowledgmentsOptions1Minus1 All
-	AcknowledgmentsOptions1Minus1 AcknowledgmentsOptions1 = -1
+	// AcknowledgmentsOptions1Leader Leader
+	AcknowledgmentsOptions1Leader AcknowledgmentsOptions1 = 1
+	// AcknowledgmentsOptions1None None
+	AcknowledgmentsOptions1None AcknowledgmentsOptions1 = 0
+	// AcknowledgmentsOptions1All All
+	AcknowledgmentsOptions1All AcknowledgmentsOptions1 = -1
 )
 
 func (e AcknowledgmentsOptions1) ToPointer() *AcknowledgmentsOptions1 {

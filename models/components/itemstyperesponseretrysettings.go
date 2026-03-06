@@ -10,11 +10,11 @@ type ItemsTypeResponseRetrySettings struct {
 	// The HTTP response status code that will trigger retries
 	HTTPStatus float64 `json:"httpStatus"`
 	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
+	InitialBackoff *float64 `json:"initialBackoff,omitzero"`
 	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `json:"backoffRate,omitempty"`
+	BackoffRate *float64 `json:"backoffRate,omitzero"`
 	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `json:"maxBackoff,omitempty"`
+	MaxBackoff *float64 `json:"maxBackoff,omitzero"`
 }
 
 func (i ItemsTypeResponseRetrySettings) MarshalJSON() ([]byte, error) {
@@ -22,7 +22,7 @@ func (i ItemsTypeResponseRetrySettings) MarshalJSON() ([]byte, error) {
 }
 
 func (i *ItemsTypeResponseRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"httpStatus"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

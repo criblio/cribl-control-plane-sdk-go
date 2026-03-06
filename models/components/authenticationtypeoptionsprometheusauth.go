@@ -6,12 +6,16 @@ package components
 type AuthenticationTypeOptionsPrometheusAuth string
 
 const (
-	AuthenticationTypeOptionsPrometheusAuthNone              AuthenticationTypeOptionsPrometheusAuth = "none"
-	AuthenticationTypeOptionsPrometheusAuthBasic             AuthenticationTypeOptionsPrometheusAuth = "basic"
+	// AuthenticationTypeOptionsPrometheusAuthNone None
+	AuthenticationTypeOptionsPrometheusAuthNone AuthenticationTypeOptionsPrometheusAuth = "none"
+	// AuthenticationTypeOptionsPrometheusAuthBasic Basic
+	AuthenticationTypeOptionsPrometheusAuthBasic AuthenticationTypeOptionsPrometheusAuth = "basic"
+	// AuthenticationTypeOptionsPrometheusAuthCredentialsSecret Basic (credentials secret)
 	AuthenticationTypeOptionsPrometheusAuthCredentialsSecret AuthenticationTypeOptionsPrometheusAuth = "credentialsSecret"
-	AuthenticationTypeOptionsPrometheusAuthToken             AuthenticationTypeOptionsPrometheusAuth = "token"
-	AuthenticationTypeOptionsPrometheusAuthTextSecret        AuthenticationTypeOptionsPrometheusAuth = "textSecret"
-	AuthenticationTypeOptionsPrometheusAuthOauth             AuthenticationTypeOptionsPrometheusAuth = "oauth"
+	// AuthenticationTypeOptionsPrometheusAuthToken Token
+	AuthenticationTypeOptionsPrometheusAuthToken AuthenticationTypeOptionsPrometheusAuth = "token"
+	// AuthenticationTypeOptionsPrometheusAuthTextSecret Token (text secret)
+	AuthenticationTypeOptionsPrometheusAuthTextSecret AuthenticationTypeOptionsPrometheusAuth = "textSecret"
 )
 
 func (e AuthenticationTypeOptionsPrometheusAuth) ToPointer() *AuthenticationTypeOptionsPrometheusAuth {
@@ -22,7 +26,7 @@ func (e AuthenticationTypeOptionsPrometheusAuth) ToPointer() *AuthenticationType
 func (e *AuthenticationTypeOptionsPrometheusAuth) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
 			return true
 		}
 	}
