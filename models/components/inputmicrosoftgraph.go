@@ -8,34 +8,34 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputOffice365MsgTraceType string
+type InputMicrosoftGraphType string
 
 const (
-	InputOffice365MsgTraceTypeOffice365MsgTrace InputOffice365MsgTraceType = "office365_msg_trace"
+	InputMicrosoftGraphTypeMicrosoftGraph InputMicrosoftGraphType = "microsoft_graph"
 )
 
-func (e InputOffice365MsgTraceType) ToPointer() *InputOffice365MsgTraceType {
+func (e InputMicrosoftGraphType) ToPointer() *InputMicrosoftGraphType {
 	return &e
 }
-func (e *InputOffice365MsgTraceType) UnmarshalJSON(data []byte) error {
+func (e *InputMicrosoftGraphType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
-	case "office365_msg_trace":
-		*e = InputOffice365MsgTraceType(v)
+	case "microsoft_graph":
+		*e = InputMicrosoftGraphType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputOffice365MsgTraceType: %v", v)
+		return fmt.Errorf("invalid value for InputMicrosoftGraphType: %v", v)
 	}
 }
 
-type InputOffice365MsgTrace struct {
+type InputMicrosoftGraph struct {
 	// Unique ID for this input
-	ID       *string                    `json:"id,omitzero"`
-	Type     InputOffice365MsgTraceType `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID       *string                 `json:"id,omitzero"`
+	Type     InputMicrosoftGraphType `json:"type"`
+	Disabled *bool                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -49,13 +49,13 @@ type InputOffice365MsgTrace struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
-	// URL to use when retrieving report data.
+	// Microsoft Graph API endpoint URL. (ex. https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces)
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
 	Interval int64 `json:"interval"`
-	// Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+	// Backward offset for the search range's head. (E.g.: -3h@h) Microsoft Graph data is delayed; this parameter (with Date range end) compensates for delay and gaps.
 	StartDate *string `json:"startDate,omitzero"`
-	// Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+	// Backward offset for the search range's tail. (E.g.: -2h@h) Microsoft Graph data is delayed; this parameter (with Date range start) compensates for delay and gaps.
 	EndDate *string `json:"endDate,omitzero"`
 	// HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
 	Timeout *float64 `json:"timeout,omitzero"`
@@ -83,9 +83,9 @@ type InputOffice365MsgTrace struct {
 	LogLevel    *LogLevelOptions                 `json:"logLevel,omitzero"`
 	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	Description *string                          `json:"description,omitzero"`
-	// Username to run Message Trace API call.
+	// Username to run Microsoft Graph API call.
 	Username *string `json:"username,omitzero"`
-	// Password to run Message Trace API call.
+	// Password to run Microsoft Graph API call.
 	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials.
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
@@ -112,305 +112,305 @@ type InputOffice365MsgTrace struct {
 	TemplateResource *string `json:"__template_resource,omitzero"`
 }
 
-func (i InputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
+func (i InputMicrosoftGraph) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
+func (i *InputMicrosoftGraph) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365MsgTrace) GetID() *string {
+func (i *InputMicrosoftGraph) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputOffice365MsgTrace) GetType() InputOffice365MsgTraceType {
+func (i *InputMicrosoftGraph) GetType() InputMicrosoftGraphType {
 	if i == nil {
-		return InputOffice365MsgTraceType("")
+		return InputMicrosoftGraphType("")
 	}
 	return i.Type
 }
 
-func (i *InputOffice365MsgTrace) GetDisabled() *bool {
+func (i *InputMicrosoftGraph) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputOffice365MsgTrace) GetPipeline() *string {
+func (i *InputMicrosoftGraph) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputOffice365MsgTrace) GetSendToRoutes() *bool {
+func (i *InputMicrosoftGraph) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOffice365MsgTrace) GetEnvironment() *string {
+func (i *InputMicrosoftGraph) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputOffice365MsgTrace) GetPqEnabled() *bool {
+func (i *InputMicrosoftGraph) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOffice365MsgTrace) GetStreamtags() []string {
+func (i *InputMicrosoftGraph) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputOffice365MsgTrace) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputMicrosoftGraph) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOffice365MsgTrace) GetPq() *PqType {
+func (i *InputMicrosoftGraph) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOffice365MsgTrace) GetURL() string {
+func (i *InputMicrosoftGraph) GetURL() string {
 	if i == nil {
 		return ""
 	}
 	return i.URL
 }
 
-func (i *InputOffice365MsgTrace) GetInterval() int64 {
+func (i *InputMicrosoftGraph) GetInterval() int64 {
 	if i == nil {
 		return 0
 	}
 	return i.Interval
 }
 
-func (i *InputOffice365MsgTrace) GetStartDate() *string {
+func (i *InputMicrosoftGraph) GetStartDate() *string {
 	if i == nil {
 		return nil
 	}
 	return i.StartDate
 }
 
-func (i *InputOffice365MsgTrace) GetEndDate() *string {
+func (i *InputMicrosoftGraph) GetEndDate() *string {
 	if i == nil {
 		return nil
 	}
 	return i.EndDate
 }
 
-func (i *InputOffice365MsgTrace) GetTimeout() *float64 {
+func (i *InputMicrosoftGraph) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputOffice365MsgTrace) GetDisableTimeFilter() *bool {
+func (i *InputMicrosoftGraph) GetDisableTimeFilter() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableTimeFilter
 }
 
-func (i *InputOffice365MsgTrace) GetAuthType() *AuthenticationMethodOptionsManualOauth {
+func (i *InputMicrosoftGraph) GetAuthType() *AuthenticationMethodOptionsManualOauth {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOffice365MsgTrace) GetKeepAliveTime() *float64 {
+func (i *InputMicrosoftGraph) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputOffice365MsgTrace) GetJobTimeout() *string {
+func (i *InputMicrosoftGraph) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputOffice365MsgTrace) GetMaxMissedKeepAlives() *float64 {
+func (i *InputMicrosoftGraph) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365MsgTrace) GetTTL() *string {
+func (i *InputMicrosoftGraph) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputOffice365MsgTrace) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputMicrosoftGraph) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365MsgTrace) GetMetadata() []ItemsTypeMetadata {
+func (i *InputMicrosoftGraph) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOffice365MsgTrace) GetRescheduleDroppedTasks() *bool {
+func (i *InputMicrosoftGraph) GetRescheduleDroppedTasks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RescheduleDroppedTasks
 }
 
-func (i *InputOffice365MsgTrace) GetMaxTaskReschedule() *float64 {
+func (i *InputMicrosoftGraph) GetMaxTaskReschedule() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxTaskReschedule
 }
 
-func (i *InputOffice365MsgTrace) GetLogLevel() *LogLevelOptions {
+func (i *InputMicrosoftGraph) GetLogLevel() *LogLevelOptions {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputOffice365MsgTrace) GetRetryRules() *RetryRulesTypeCodesEnableHeader {
+func (i *InputMicrosoftGraph) GetRetryRules() *RetryRulesTypeCodesEnableHeader {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365MsgTrace) GetDescription() *string {
+func (i *InputMicrosoftGraph) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOffice365MsgTrace) GetUsername() *string {
+func (i *InputMicrosoftGraph) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputOffice365MsgTrace) GetPassword() *string {
+func (i *InputMicrosoftGraph) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputOffice365MsgTrace) GetCredentialsSecret() *string {
+func (i *InputMicrosoftGraph) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputOffice365MsgTrace) GetClientSecret() *string {
+func (i *InputMicrosoftGraph) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputOffice365MsgTrace) GetTenantID() *string {
+func (i *InputMicrosoftGraph) GetTenantID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TenantID
 }
 
-func (i *InputOffice365MsgTrace) GetClientID() *string {
+func (i *InputMicrosoftGraph) GetClientID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientID
 }
 
-func (i *InputOffice365MsgTrace) GetResource() *string {
+func (i *InputMicrosoftGraph) GetResource() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Resource
 }
 
-func (i *InputOffice365MsgTrace) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputMicrosoftGraph) GetPlanType() *SubscriptionPlanOptions {
 	if i == nil {
 		return nil
 	}
 	return i.PlanType
 }
 
-func (i *InputOffice365MsgTrace) GetTextSecret() *string {
+func (i *InputMicrosoftGraph) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputOffice365MsgTrace) GetCertOptions() *CertOptionsType {
+func (i *InputMicrosoftGraph) GetCertOptions() *CertOptionsType {
 	if i == nil {
 		return nil
 	}
 	return i.CertOptions
 }
 
-func (i *InputOffice365MsgTrace) GetTemplateURL() *string {
+func (i *InputMicrosoftGraph) GetTemplateURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateURL
 }
 
-func (i *InputOffice365MsgTrace) GetTemplateTenantID() *string {
+func (i *InputMicrosoftGraph) GetTemplateTenantID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateTenantID
 }
 
-func (i *InputOffice365MsgTrace) GetTemplateClientID() *string {
+func (i *InputMicrosoftGraph) GetTemplateClientID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateClientID
 }
 
-func (i *InputOffice365MsgTrace) GetTemplateResource() *string {
+func (i *InputMicrosoftGraph) GetTemplateResource() *string {
 	if i == nil {
 		return nil
 	}
