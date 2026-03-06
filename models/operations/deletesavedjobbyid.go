@@ -10,10 +10,6 @@ import (
 type DeleteSavedJobByIDRequest struct {
 	// The <code>id</code> of the Collector to delete.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack that includes the Collector to delete.
-	CriblPack *string `queryParam:"style=form,explode=true,name=criblPack"`
-	// The <code>id</code> of the Worker Group that includes the Collector to delete.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 }
 
 func (d *DeleteSavedJobByIDRequest) GetID() string {
@@ -23,24 +19,10 @@ func (d *DeleteSavedJobByIDRequest) GetID() string {
 	return d.ID
 }
 
-func (d *DeleteSavedJobByIDRequest) GetCriblPack() *string {
-	if d == nil {
-		return nil
-	}
-	return d.CriblPack
-}
-
-func (d *DeleteSavedJobByIDRequest) GetGroupID() *string {
-	if d == nil {
-		return nil
-	}
-	return d.GroupID
-}
-
 type DeleteSavedJobByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of SavedJob objects
-	CountedSavedJob *components.CountedSavedJob
+	// a list of SavedJobResponse objects
+	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 
 func (d DeleteSavedJobByIDResponse) MarshalJSON() ([]byte, error) {
@@ -61,9 +43,9 @@ func (d *DeleteSavedJobByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return d.HTTPMeta
 }
 
-func (d *DeleteSavedJobByIDResponse) GetCountedSavedJob() *components.CountedSavedJob {
+func (d *DeleteSavedJobByIDResponse) GetCountedSavedJobResponse() *components.CountedSavedJobResponse {
 	if d == nil {
 		return nil
 	}
-	return d.CountedSavedJob
+	return d.CountedSavedJobResponse
 }

@@ -6,8 +6,8 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// ScheduleTypeSavedJobCollection - Configuration for a scheduled job
-type ScheduleTypeSavedJobCollection struct {
+// ScheduleTypeSavedJobResponseCollection - Configuration for a scheduled job
+type ScheduleTypeSavedJobResponseCollection struct {
 	// Enable to configure scheduling for this Collector
 	Enabled *bool `json:"enabled,omitzero"`
 	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
@@ -17,57 +17,57 @@ type ScheduleTypeSavedJobCollection struct {
 	// A cron schedule on which to run this job
 	CronSchedule *string `json:"cronSchedule,omitzero"`
 	// The maximum number of instances of this scheduled job that may be running at any time
-	MaxConcurrentRuns *float64                                   `json:"maxConcurrentRuns,omitzero"`
-	Run               *RunSettingsTypeSavedJobCollectionSchedule `json:"run,omitzero"`
+	MaxConcurrentRuns *float64                                           `json:"maxConcurrentRuns,omitzero"`
+	Run               *RunSettingsTypeSavedJobResponseCollectionSchedule `json:"run,omitzero"`
 }
 
-func (s ScheduleTypeSavedJobCollection) MarshalJSON() ([]byte, error) {
+func (s ScheduleTypeSavedJobResponseCollection) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *ScheduleTypeSavedJobCollection) UnmarshalJSON(data []byte) error {
+func (s *ScheduleTypeSavedJobResponseCollection) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *ScheduleTypeSavedJobCollection) GetEnabled() *bool {
+func (s *ScheduleTypeSavedJobResponseCollection) GetEnabled() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.Enabled
 }
 
-func (s *ScheduleTypeSavedJobCollection) GetSkippable() *bool {
+func (s *ScheduleTypeSavedJobResponseCollection) GetSkippable() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.Skippable
 }
 
-func (s *ScheduleTypeSavedJobCollection) GetResumeMissed() *bool {
+func (s *ScheduleTypeSavedJobResponseCollection) GetResumeMissed() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.ResumeMissed
 }
 
-func (s *ScheduleTypeSavedJobCollection) GetCronSchedule() *string {
+func (s *ScheduleTypeSavedJobResponseCollection) GetCronSchedule() *string {
 	if s == nil {
 		return nil
 	}
 	return s.CronSchedule
 }
 
-func (s *ScheduleTypeSavedJobCollection) GetMaxConcurrentRuns() *float64 {
+func (s *ScheduleTypeSavedJobResponseCollection) GetMaxConcurrentRuns() *float64 {
 	if s == nil {
 		return nil
 	}
 	return s.MaxConcurrentRuns
 }
 
-func (s *ScheduleTypeSavedJobCollection) GetRun() *RunSettingsTypeSavedJobCollectionSchedule {
+func (s *ScheduleTypeSavedJobResponseCollection) GetRun() *RunSettingsTypeSavedJobResponseCollectionSchedule {
 	if s == nil {
 		return nil
 	}

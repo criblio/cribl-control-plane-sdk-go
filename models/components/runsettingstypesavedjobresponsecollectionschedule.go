@@ -6,18 +6,18 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type RunSettingsTypeSavedJobCollectionScheduleType string
+type RunSettingsTypeSavedJobResponseCollectionScheduleType string
 
 const (
-	RunSettingsTypeSavedJobCollectionScheduleTypeCollection RunSettingsTypeSavedJobCollectionScheduleType = "collection"
+	RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection RunSettingsTypeSavedJobResponseCollectionScheduleType = "collection"
 )
 
-func (e RunSettingsTypeSavedJobCollectionScheduleType) ToPointer() *RunSettingsTypeSavedJobCollectionScheduleType {
+func (e RunSettingsTypeSavedJobResponseCollectionScheduleType) ToPointer() *RunSettingsTypeSavedJobResponseCollectionScheduleType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RunSettingsTypeSavedJobCollectionScheduleType) IsExact() bool {
+func (e *RunSettingsTypeSavedJobResponseCollectionScheduleType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "collection":
@@ -27,8 +27,8 @@ func (e *RunSettingsTypeSavedJobCollectionScheduleType) IsExact() bool {
 	return false
 }
 
-type RunSettingsTypeSavedJobCollectionSchedule struct {
-	Type *RunSettingsTypeSavedJobCollectionScheduleType `json:"type,omitzero"`
+type RunSettingsTypeSavedJobResponseCollectionSchedule struct {
+	Type *RunSettingsTypeSavedJobResponseCollectionScheduleType `json:"type,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
 	// Maximum number of times a task can be rescheduled
@@ -60,109 +60,109 @@ type RunSettingsTypeSavedJobCollectionSchedule struct {
 	MaxTaskSize *string `json:"maxTaskSize,omitzero"`
 }
 
-func (r RunSettingsTypeSavedJobCollectionSchedule) MarshalJSON() ([]byte, error) {
+func (r RunSettingsTypeSavedJobResponseCollectionSchedule) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) UnmarshalJSON(data []byte) error {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetType() *RunSettingsTypeSavedJobCollectionScheduleType {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetType() *RunSettingsTypeSavedJobResponseCollectionScheduleType {
 	if r == nil {
 		return nil
 	}
 	return r.Type
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetRescheduleDroppedTasks() *bool {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetRescheduleDroppedTasks() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RescheduleDroppedTasks
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetMaxTaskReschedule() *float64 {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetMaxTaskReschedule() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxTaskReschedule
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetLogLevel() *LogLevelOptionsRunnableJobCollectionScheduleRun {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetLogLevel() *LogLevelOptionsRunnableJobCollectionScheduleRun {
 	if r == nil {
 		return nil
 	}
 	return r.LogLevel
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetJobTimeout() *string {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetJobTimeout() *string {
 	if r == nil {
 		return nil
 	}
 	return r.JobTimeout
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetMode() string {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetMode() string {
 	if r == nil {
 		return ""
 	}
 	return r.Mode
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetTimeRangeType() *string {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetTimeRangeType() *string {
 	if r == nil {
 		return nil
 	}
 	return r.TimeRangeType
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetEarliest() *float64 {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetEarliest() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Earliest
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetLatest() *float64 {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetLatest() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Latest
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetTimestampTimezone() any {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetTimestampTimezone() any {
 	if r == nil {
 		return nil
 	}
 	return r.TimestampTimezone
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetTimeWarning() *MetricsStore {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetTimeWarning() *MetricsStore {
 	if r == nil {
 		return nil
 	}
 	return r.TimeWarning
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetExpression() *string {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetExpression() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Expression
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetMinTaskSize() *string {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetMinTaskSize() *string {
 	if r == nil {
 		return nil
 	}
 	return r.MinTaskSize
 }
 
-func (r *RunSettingsTypeSavedJobCollectionSchedule) GetMaxTaskSize() *string {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetMaxTaskSize() *string {
 	if r == nil {
 		return nil
 	}
