@@ -1,12 +1,47 @@
 # PipelineFunctionRedisConf
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                 | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `Commands`                                                                                                                            | [][components.Command](../../models/components/command.md)                                                                            | :heavy_check_mark:                                                                                                                    | N/A                                                                                                                                   |
-| `DeploymentType`                                                                                                                      | [*components.DeploymentType](../../models/components/deploymenttype.md)                                                               | :heavy_minus_sign:                                                                                                                    | How the Redis server is configured. Defaults to Standalone                                                                            |
-| `AuthType`                                                                                                                            | [*components.PipelineFunctionRedisAuthenticationMethod](../../models/components/pipelinefunctionredisauthenticationmethod.md)         | :heavy_minus_sign:                                                                                                                    | N/A                                                                                                                                   |
-| `MaxBlockSecs`                                                                                                                        | **float64*                                                                                                                            | :heavy_minus_sign:                                                                                                                    | Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.             |
-| `EnableClientSideCaching`                                                                                                             | **bool*                                                                                                                               | :heavy_minus_sign:                                                                                                                    | Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache. |
+### RedisAuthTypeNone
+
+```go
+pipelineFunctionRedisConf := components.CreatePipelineFunctionRedisConfNone(components.RedisAuthTypeNone{/* values here */})
+```
+
+### RedisAuthTypeManual
+
+```go
+pipelineFunctionRedisConf := components.CreatePipelineFunctionRedisConfManual(components.RedisAuthTypeManual{/* values here */})
+```
+
+### RedisAuthTypeCredentialsSecret
+
+```go
+pipelineFunctionRedisConf := components.CreatePipelineFunctionRedisConfCredentialsSecret(components.RedisAuthTypeCredentialsSecret{/* values here */})
+```
+
+### RedisAuthTypeTextSecret
+
+```go
+pipelineFunctionRedisConf := components.CreatePipelineFunctionRedisConfTextSecret(components.RedisAuthTypeTextSecret{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch pipelineFunctionRedisConf.Type {
+	case components.PipelineFunctionRedisConfTypeNone:
+		// pipelineFunctionRedisConf.RedisAuthTypeNone is populated
+	case components.PipelineFunctionRedisConfTypeManual:
+		// pipelineFunctionRedisConf.RedisAuthTypeManual is populated
+	case components.PipelineFunctionRedisConfTypeCredentialsSecret:
+		// pipelineFunctionRedisConf.RedisAuthTypeCredentialsSecret is populated
+	case components.PipelineFunctionRedisConfTypeTextSecret:
+		// pipelineFunctionRedisConf.RedisAuthTypeTextSecret is populated
+	default:
+		// Unknown type - use pipelineFunctionRedisConf.GetUnknownRaw() for raw JSON
+}
+```

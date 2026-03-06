@@ -2,7 +2,7 @@
 
 package components
 
-type Groups struct {
+type DistributedSummaryGroups struct {
 	Count         float64 `json:"count"`
 	Destinations  float64 `json:"destinations"`
 	Packs         float64 `json:"packs"`
@@ -12,53 +12,53 @@ type Groups struct {
 	Sources       float64 `json:"sources"`
 }
 
-func (g *Groups) GetCount() float64 {
-	if g == nil {
+func (d *DistributedSummaryGroups) GetCount() float64 {
+	if d == nil {
 		return 0.0
 	}
-	return g.Count
+	return d.Count
 }
 
-func (g *Groups) GetDestinations() float64 {
-	if g == nil {
+func (d *DistributedSummaryGroups) GetDestinations() float64 {
+	if d == nil {
 		return 0.0
 	}
-	return g.Destinations
+	return d.Destinations
 }
 
-func (g *Groups) GetPacks() float64 {
-	if g == nil {
+func (d *DistributedSummaryGroups) GetPacks() float64 {
+	if d == nil {
 		return 0.0
 	}
-	return g.Packs
+	return d.Packs
 }
 
-func (g *Groups) GetPipelines() float64 {
-	if g == nil {
+func (d *DistributedSummaryGroups) GetPipelines() float64 {
+	if d == nil {
 		return 0.0
 	}
-	return g.Pipelines
+	return d.Pipelines
 }
 
-func (g *Groups) GetQuickConnects() float64 {
-	if g == nil {
+func (d *DistributedSummaryGroups) GetQuickConnects() float64 {
+	if d == nil {
 		return 0.0
 	}
-	return g.QuickConnects
+	return d.QuickConnects
 }
 
-func (g *Groups) GetRoutes() float64 {
-	if g == nil {
+func (d *DistributedSummaryGroups) GetRoutes() float64 {
+	if d == nil {
 		return 0.0
 	}
-	return g.Routes
+	return d.Routes
 }
 
-func (g *Groups) GetSources() float64 {
-	if g == nil {
+func (d *DistributedSummaryGroups) GetSources() float64 {
+	if d == nil {
 		return 0.0
 	}
-	return g.Sources
+	return d.Sources
 }
 
 type DistributedSummaryWorkers struct {
@@ -121,13 +121,13 @@ func (d *DistributedSummaryWorkers) GetUnhealthy() float64 {
 }
 
 type DistributedSummary struct {
-	Groups  Groups                    `json:"groups"`
+	Groups  DistributedSummaryGroups  `json:"groups"`
 	Workers DistributedSummaryWorkers `json:"workers"`
 }
 
-func (d *DistributedSummary) GetGroups() Groups {
+func (d *DistributedSummary) GetGroups() DistributedSummaryGroups {
 	if d == nil {
-		return Groups{}
+		return DistributedSummaryGroups{}
 	}
 	return d.Groups
 }

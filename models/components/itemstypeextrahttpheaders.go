@@ -7,7 +7,7 @@ import (
 )
 
 type ItemsTypeExtraHTTPHeaders struct {
-	Name  *string `json:"name,omitempty"`
+	Name  *string `json:"name,omitzero"`
 	Value string  `json:"value"`
 }
 
@@ -16,7 +16,7 @@ func (i ItemsTypeExtraHTTPHeaders) MarshalJSON() ([]byte, error) {
 }
 
 func (i *ItemsTypeExtraHTTPHeaders) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil

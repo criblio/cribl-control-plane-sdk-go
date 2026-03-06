@@ -21,3 +21,19 @@ restAuthenticationOauthRetryRules := components.CreateRestAuthenticationOauthRet
 restAuthenticationOauthRetryRules := components.CreateRestAuthenticationOauthRetryRulesBackoff(components.RestAuthenticationOauthRestRetryRulesTypeBackoff{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationOauthRetryRules.Type {
+	case components.RestAuthenticationOauthRetryRulesTypeNone:
+		// restAuthenticationOauthRetryRules.RestAuthenticationOauthRestRetryRulesTypeNone is populated
+	case components.RestAuthenticationOauthRetryRulesTypeStatic:
+		// restAuthenticationOauthRetryRules.RestAuthenticationOauthRestRetryRulesTypeStatic is populated
+	case components.RestAuthenticationOauthRetryRulesTypeBackoff:
+		// restAuthenticationOauthRetryRules.RestAuthenticationOauthRestRetryRulesTypeBackoff is populated
+	default:
+		// Unknown type - use restAuthenticationOauthRetryRules.GetUnknownRaw() for raw JSON
+}
+```

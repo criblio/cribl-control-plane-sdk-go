@@ -23,10 +23,10 @@ func (u *UpgradeGroupSettings2) UnmarshalJSON(data []byte) error {
 }
 
 type UpgradeGroupSettings1 struct {
-	IsRolling  *bool    `json:"isRolling,omitempty"`
-	Quantity   *float64 `json:"quantity,omitempty"`
-	RetryCount *float64 `json:"retryCount,omitempty"`
-	RetryDelay *float64 `json:"retryDelay,omitempty"`
+	IsRolling  *bool    `json:"isRolling,omitzero"`
+	Quantity   *float64 `json:"quantity,omitzero"`
+	RetryCount *float64 `json:"retryCount,omitzero"`
+	RetryDelay *float64 `json:"retryDelay,omitzero"`
 }
 
 func (u UpgradeGroupSettings1) MarshalJSON() ([]byte, error) {
@@ -102,17 +102,43 @@ func CreateUpgradeGroupSettingsUnionUpgradeGroupSettings2(upgradeGroupSettings2 
 
 func (u *UpgradeGroupSettingsUnion) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var upgradeGroupSettings1 UpgradeGroupSettings1 = UpgradeGroupSettings1{}
 	if err := utils.UnmarshalJSON(data, &upgradeGroupSettings1, "", true, nil); err == nil {
-		u.UpgradeGroupSettings1 = &upgradeGroupSettings1
-		u.Type = UpgradeGroupSettingsUnionTypeUpgradeGroupSettings1
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  UpgradeGroupSettingsUnionTypeUpgradeGroupSettings1,
+			Value: &upgradeGroupSettings1,
+		})
 	}
 
 	var upgradeGroupSettings2 UpgradeGroupSettings2 = UpgradeGroupSettings2{}
 	if err := utils.UnmarshalJSON(data, &upgradeGroupSettings2, "", true, nil); err == nil {
-		u.UpgradeGroupSettings2 = &upgradeGroupSettings2
-		u.Type = UpgradeGroupSettingsUnionTypeUpgradeGroupSettings2
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  UpgradeGroupSettingsUnionTypeUpgradeGroupSettings2,
+			Value: &upgradeGroupSettings2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for UpgradeGroupSettingsUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for UpgradeGroupSettingsUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(UpgradeGroupSettingsUnionType)
+	switch best.Type {
+	case UpgradeGroupSettingsUnionTypeUpgradeGroupSettings1:
+		u.UpgradeGroupSettings1 = best.Value.(*UpgradeGroupSettings1)
+		return nil
+	case UpgradeGroupSettingsUnionTypeUpgradeGroupSettings2:
+		u.UpgradeGroupSettings2 = best.Value.(*UpgradeGroupSettings2)
 		return nil
 	}
 

@@ -9,32 +9,32 @@ import (
 // AuthenticationType - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type AuthenticationType struct {
 	Disabled bool    `json:"disabled"`
-	Username *string `json:"username,omitempty"`
-	Password *string `json:"password,omitempty"`
+	Username *string `json:"username,omitzero"`
+	Password *string `json:"password,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType *AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
+	AuthType *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string                   `json:"credentialsSecret,omitempty"`
-	Mechanism         *SaslMechanismOptionsSasl `json:"mechanism,omitempty"`
+	CredentialsSecret *string                   `json:"credentialsSecret,omitzero"`
+	Mechanism         *SaslMechanismOptionsSasl `json:"mechanism,omitzero"`
 	// Location of keytab file for authentication principal
-	KeytabLocation *string `json:"keytabLocation,omitempty"`
+	KeytabLocation *string `json:"keytabLocation,omitzero"`
 	// Authentication principal, such as `kafka_user@example.com`
-	Principal *string `json:"principal,omitempty"`
+	Principal *string `json:"principal,omitzero"`
 	// Kerberos service class for Kafka brokers, such as `kafka`
-	BrokerServiceClass *string `json:"brokerServiceClass,omitempty"`
+	BrokerServiceClass *string `json:"brokerServiceClass,omitzero"`
 	// Enable OAuth authentication
-	OauthEnabled *bool `json:"oauthEnabled,omitempty"`
+	OauthEnabled *bool `json:"oauthEnabled,omitzero"`
 	// URL of the token endpoint to use for OAuth authentication
-	TokenURL *string `json:"tokenUrl,omitempty"`
+	TokenURL *string `json:"tokenUrl,omitzero"`
 	// Client ID to use for OAuth authentication
-	ClientID        *string `json:"clientId,omitempty"`
-	OauthSecretType *string `json:"oauthSecretType,omitempty"`
+	ClientID        *string `json:"clientId,omitzero"`
+	OauthSecretType *string `json:"oauthSecretType,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// Additional fields to send to the token endpoint, such as scope or audience
-	OauthParams []ItemsTypeSaslOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeSaslOauthParams `json:"oauthParams,omitzero"`
 	// Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
-	SaslExtensions []ItemsTypeSaslSaslExtensions `json:"saslExtensions,omitempty"`
+	SaslExtensions []ItemsTypeSaslSaslExtensions `json:"saslExtensions,omitzero"`
 }
 
 func (a AuthenticationType) MarshalJSON() ([]byte, error) {
@@ -42,7 +42,7 @@ func (a AuthenticationType) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthenticationType) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"disabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil

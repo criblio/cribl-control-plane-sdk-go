@@ -4,8 +4,8 @@ package components
 
 type CustomLogoTypeSystemSettingsConf struct {
 	Enabled         bool    `json:"enabled"`
-	LogoDescription *string `json:"logoDescription,omitempty"`
-	LogoImage       *string `json:"logoImage,omitempty"`
+	LogoDescription *string `json:"logoDescription,omitzero"`
+	LogoImage       *string `json:"logoImage,omitzero"`
 }
 
 func (c *CustomLogoTypeSystemSettingsConf) GetEnabled() bool {

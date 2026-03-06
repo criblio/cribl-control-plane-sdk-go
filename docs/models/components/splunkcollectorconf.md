@@ -33,15 +33,23 @@ splunkCollectorConf := components.CreateSplunkCollectorConfToken(components.Splu
 splunkCollectorConf := components.CreateSplunkCollectorConfTokenSecret(components.SplunkAuthenticationTokenSecret{/* values here */})
 ```
 
-### SplunkAuthenticationLogin
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
 
 ```go
-splunkCollectorConf := components.CreateSplunkCollectorConfLogin(components.SplunkAuthenticationLogin{/* values here */})
+switch splunkCollectorConf.Type {
+	case components.SplunkCollectorConfTypeNone:
+		// splunkCollectorConf.SplunkAuthenticationNone is populated
+	case components.SplunkCollectorConfTypeBasic:
+		// splunkCollectorConf.SplunkAuthenticationBasic is populated
+	case components.SplunkCollectorConfTypeBasicSecret:
+		// splunkCollectorConf.SplunkAuthenticationBasicSecret is populated
+	case components.SplunkCollectorConfTypeToken:
+		// splunkCollectorConf.SplunkAuthenticationToken is populated
+	case components.SplunkCollectorConfTypeTokenSecret:
+		// splunkCollectorConf.SplunkAuthenticationTokenSecret is populated
+	default:
+		// Unknown type - use splunkCollectorConf.GetUnknownRaw() for raw JSON
+}
 ```
-
-### SplunkAuthenticationLoginSecret
-
-```go
-splunkCollectorConf := components.CreateSplunkCollectorConfLoginSecret(components.SplunkAuthenticationLoginSecret{/* values here */})
-```
-

@@ -4,15 +4,15 @@
 
 ### Available Operations
 
-* [Create](#create) - Create a Lake Dataset
-* [List](#list) - List all Lake Datasets
-* [Delete](#delete) - Delete a Lake Dataset
-* [Get](#get) - Get a Lake Dataset
-* [Update](#update) - Update a Lake Dataset
+* [Create](#create) - Create a Lake Dataset (Cribl.Cloud only)
+* [List](#list) - List all Lake Datasets (Cribl.Cloud only)
+* [Delete](#delete) - Delete a Lake Dataset (Cribl.Cloud only)
+* [Get](#get) - Get a Lake Dataset (Cribl.Cloud only)
+* [Update](#update) - Update a Lake Dataset (Cribl.Cloud only)
 
 ## Create
 
-Create a new Lake Dataset in the specified Lake.
+Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
@@ -39,55 +39,7 @@ func main() {
     )
 
     res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
-        AcceleratedFields: []string{
-            "<value 1>",
-            "<value 2>",
-        },
-        BucketName: criblcontrolplanesdkgo.Pointer("<value>"),
-        CacheConnection: &components.CacheConnection{
-            AcceleratedFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            BackfillStatus: components.CacheConnectionBackfillStatusPending.ToPointer(),
-            CacheRef: "<value>",
-            CreatedAt: 7795.06,
-            LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
-            MigrationQueryID: criblcontrolplanesdkgo.Pointer("<id>"),
-            RetentionInDays: 1466.58,
-        },
-        DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
-        Description: criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-        Format: components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
-        HTTPDAUsed: criblcontrolplanesdkgo.Pointer(true),
         ID: "<id>",
-        Metrics: &components.LakeDatasetMetrics{
-            CurrentSizeBytes: 6170.04,
-            MetricsDate: "<value>",
-        },
-        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](456.37),
-        SearchConfig: &components.LakeDatasetSearchConfig{
-            Datatypes: []string{
-                "<value 1>",
-            },
-            Metadata: &components.DatasetMetadata{
-                Earliest: "<value>",
-                EnableAcceleration: true,
-                FieldList: []string{
-                    "<value 1>",
-                    "<value 2>",
-                },
-                LatestRunInfo: &components.DatasetMetadataRunInfo{
-                    EarliestScannedTime: criblcontrolplanesdkgo.Pointer[float64](4334.7),
-                    FinishedAt: criblcontrolplanesdkgo.Pointer[float64](6811.22),
-                    LatestScannedTime: criblcontrolplanesdkgo.Pointer[float64](5303.3),
-                    ObjectCount: criblcontrolplanesdkgo.Pointer[float64](9489.04),
-                },
-                ScanMode: components.ScanModeDetailed,
-            },
-        },
-        StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-        ViewName: criblcontrolplanesdkgo.Pointer("<value>"),
     })
     if err != nil {
         log.Fatal(err)
@@ -120,7 +72,7 @@ func main() {
 
 ## List
 
-Get a list of all Lake Datasets in the specified Lake.
+Get a list of all Lake Datasets in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
@@ -186,7 +138,7 @@ func main() {
 
 ## Delete
 
-Delete the specified Lake Dataset in the specified Lake
+Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
@@ -244,7 +196,7 @@ func main() {
 
 ## Get
 
-Get the specified Lake Dataset in the specified Lake.
+Get the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
@@ -302,7 +254,7 @@ func main() {
 
 ## Update
 
-Update the specified Lake Dataset in the specified Lake.
+Update the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 
 ### Example Usage
 
@@ -328,58 +280,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
-        AcceleratedFields: []string{
-            "<value 1>",
-            "<value 2>",
-        },
-        BucketName: criblcontrolplanesdkgo.Pointer("<value>"),
-        CacheConnection: &components.CacheConnection{
-            AcceleratedFields: []string{
-                "<value 1>",
-                "<value 2>",
-                "<value 3>",
-            },
-            BackfillStatus: components.CacheConnectionBackfillStatusIncomplete.ToPointer(),
-            CacheRef: "<value>",
-            CreatedAt: 267.92,
-            LakehouseConnectionType: components.LakehouseConnectionTypeZeroPoint.ToPointer(),
-            MigrationQueryID: criblcontrolplanesdkgo.Pointer("<id>"),
-            RetentionInDays: 3769.62,
-        },
-        DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](836.59),
-        Description: criblcontrolplanesdkgo.Pointer("highlight phew ponder but winding"),
-        Format: components.FormatOptionsCriblLakeDatasetJSON.ToPointer(),
-        HTTPDAUsed: criblcontrolplanesdkgo.Pointer(true),
-        ID: criblcontrolplanesdkgo.Pointer("<id>"),
-        Metrics: &components.LakeDatasetMetrics{
-            CurrentSizeBytes: 6237.74,
-            MetricsDate: "<value>",
-        },
-        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](602.09),
-        SearchConfig: &components.LakeDatasetSearchConfig{
-            Datatypes: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Metadata: &components.DatasetMetadata{
-                Earliest: "<value>",
-                EnableAcceleration: false,
-                FieldList: []string{
-                    "<value 1>",
-                },
-                LatestRunInfo: &components.DatasetMetadataRunInfo{
-                    EarliestScannedTime: criblcontrolplanesdkgo.Pointer[float64](7659.78),
-                    FinishedAt: criblcontrolplanesdkgo.Pointer[float64](6404.38),
-                    LatestScannedTime: criblcontrolplanesdkgo.Pointer[float64](4426.77),
-                    ObjectCount: criblcontrolplanesdkgo.Pointer[float64](8849.28),
-                },
-                ScanMode: components.ScanModeDetailed,
-            },
-        },
-        StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-        ViewName: criblcontrolplanesdkgo.Pointer("<value>"),
-    })
+    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{})
     if err != nil {
         log.Fatal(err)
     }

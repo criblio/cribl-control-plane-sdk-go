@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -10,6 +11,17 @@ type GetVersionBranchResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of BranchInfo objects
 	CountedBranchInfo *components.CountedBranchInfo
+}
+
+func (g GetVersionBranchResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetVersionBranchResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GetVersionBranchResponse) GetHTTPMeta() components.HTTPMetadata {

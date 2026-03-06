@@ -3,13 +3,37 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
+
+type ListOutputRequest struct {
+	// Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
+	Type *components.DestinationType `queryParam:"style=form,explode=true,name=type"`
+}
+
+func (l *ListOutputRequest) GetType() *components.DestinationType {
+	if l == nil {
+		return nil
+	}
+	return l.Type
+}
 
 type ListOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects
 	CountedOutput *components.CountedOutput
+}
+
+func (l ListOutputResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListOutputResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (l *ListOutputResponse) GetHTTPMeta() components.HTTPMetadata {

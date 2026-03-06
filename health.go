@@ -64,7 +64,7 @@ func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operation
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "getHealth",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   nil,
 	}
 

@@ -4,13 +4,13 @@ package components
 
 type WorkersTypeSystemSettingsConf struct {
 	Count                  float64  `json:"count"`
-	EnableHeapSnapshots    *bool    `json:"enableHeapSnapshots,omitempty"`
-	LoadThrottlePerc       *float64 `json:"loadThrottlePerc,omitempty"`
+	EnableHeapSnapshots    *bool    `json:"enableHeapSnapshots,omitzero"`
+	LoadThrottlePerc       *float64 `json:"loadThrottlePerc,omitzero"`
 	Memory                 float64  `json:"memory"`
 	Minimum                float64  `json:"minimum"`
-	StartupMaxConns        *float64 `json:"startupMaxConns,omitempty"`
-	StartupThrottleTimeout *float64 `json:"startupThrottleTimeout,omitempty"`
-	V8SingleThread         *bool    `json:"v8SingleThread,omitempty"`
+	StartupMaxConns        *float64 `json:"startupMaxConns,omitzero"`
+	StartupThrottleTimeout *float64 `json:"startupThrottleTimeout,omitzero"`
+	V8SingleThread         *bool    `json:"v8SingleThread,omitzero"`
 }
 
 func (w *WorkersTypeSystemSettingsConf) GetCount() float64 {

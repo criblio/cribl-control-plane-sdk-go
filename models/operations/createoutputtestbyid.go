@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -29,8 +30,19 @@ func (c *CreateOutputTestByIDRequest) GetOutputTestRequest() components.OutputTe
 
 type CreateOutputTestByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of OutputTestResponse objects
+	// Destination test result
 	CountedOutputTestResponse *components.CountedOutputTestResponse
+}
+
+func (c CreateOutputTestByIDResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputTestByIDResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CreateOutputTestByIDResponse) GetHTTPMeta() components.HTTPMetadata {

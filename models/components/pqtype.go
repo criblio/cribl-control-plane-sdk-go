@@ -22,20 +22,20 @@ func (p *PqTypePqControls) UnmarshalJSON(data []byte) error {
 
 type PqType struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *ModeOptionsPq `json:"mode,omitempty"`
+	Mode *ModeOptionsPq `json:"mode,omitzero"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
 	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `json:"commitFrequency,omitempty"`
+	CommitFrequency *float64 `json:"commitFrequency,omitzero"`
 	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `json:"maxFileSize,omitempty"`
+	MaxFileSize *string `json:"maxFileSize,omitzero"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `json:"maxSize,omitempty"`
+	MaxSize *string `json:"maxSize,omitzero"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"path,omitzero"`
 	// Codec to use to compress the persisted data
-	Compress   *CompressionOptionsPq `json:"compress,omitempty"`
-	PqControls *PqTypePqControls     `json:"pqControls,omitempty"`
+	Compress   *CompressionOptionsPq `json:"compress,omitzero"`
+	PqControls *PqTypePqControls     `json:"pqControls,omitzero"`
 }
 
 func (p PqType) MarshalJSON() ([]byte, error) {

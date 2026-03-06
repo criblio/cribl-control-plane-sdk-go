@@ -20,61 +20,19 @@ func main() {
 		}),
 	)
 
-	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
-		AcceleratedFields: []string{
-			"<value 1>",
-			"<value 2>",
-		},
-		BucketName: criblcontrolplanesdkgo.Pointer("<value>"),
-		CacheConnection: &components.CacheConnection{
-			AcceleratedFields: []string{
-				"<value 1>",
-				"<value 2>",
-			},
-			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
-			CacheRef:                "<value>",
-			CreatedAt:               7795.06,
-			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
-			MigrationQueryID:        criblcontrolplanesdkgo.Pointer("<id>"),
-			RetentionInDays:         1466.58,
-		},
-		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
-		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
-		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
-		ID:                "<id>",
-		Metrics: &components.LakeDatasetMetrics{
-			CurrentSizeBytes: 6170.04,
-			MetricsDate:      "<value>",
-		},
-		RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](456.37),
-		SearchConfig: &components.LakeDatasetSearchConfig{
-			Datatypes: []string{
-				"<value 1>",
-			},
-			Metadata: &components.DatasetMetadata{
-				Earliest:           "<value>",
-				EnableAcceleration: true,
-				FieldList: []string{
-					"<value 1>",
-					"<value 2>",
-				},
-				LatestRunInfo: &components.DatasetMetadataRunInfo{
-					EarliestScannedTime: criblcontrolplanesdkgo.Pointer[float64](4334.7),
-					FinishedAt:          criblcontrolplanesdkgo.Pointer[float64](6811.22),
-					LatestScannedTime:   criblcontrolplanesdkgo.Pointer[float64](5303.3),
-					ObjectCount:         criblcontrolplanesdkgo.Pointer[float64](9489.04),
-				},
-				ScanMode: components.ScanModeDetailed,
-			},
-		},
-		StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-		ViewName:          criblcontrolplanesdkgo.Pointer("<value>"),
+	res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
+		AuthType:          "connectionString",
+		ConnectionString:  criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
+		ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
+		DatabaseType:      components.DatabaseConnectionTypeMysql,
+		Description:       "Production MySQL database for customer data",
+		ID:                "mysql-prod-db",
+		Tags:              criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedCriblLakeDataset != nil {
+	if res.CountedDatabaseConnectionConfig != nil {
 		// handle response
 	}
 }

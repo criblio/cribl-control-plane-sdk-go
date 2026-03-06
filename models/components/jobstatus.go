@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 // State of the Job
 type State int64
 
@@ -34,9 +38,20 @@ func (e *State) IsExact() bool {
 }
 
 type JobStatus struct {
-	Reason map[string]any `json:"reason,omitempty"`
+	Reason map[string]any `json:"reason,omitzero"`
 	// State of the Job
 	State State `json:"state"`
+}
+
+func (j JobStatus) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(j, "", false)
+}
+
+func (j *JobStatus) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &j, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (j *JobStatus) GetReason() map[string]any {

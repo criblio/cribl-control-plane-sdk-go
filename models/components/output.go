@@ -73,6 +73,7 @@ const (
 	OutputTypeCriblLake              OutputType = "cribl_lake"
 	OutputTypeDiskSpool              OutputType = "disk_spool"
 	OutputTypeClickHouse             OutputType = "click_house"
+	OutputTypeLocalSearchStorage     OutputType = "local_search_storage"
 	OutputTypeXsiam                  OutputType = "xsiam"
 	OutputTypeNetflow                OutputType = "netflow"
 	OutputTypeDynatraceHTTP          OutputType = "dynatrace_http"
@@ -82,6 +83,7 @@ const (
 	OutputTypeDatabricks             OutputType = "databricks"
 	OutputTypeMicrosoftFabric        OutputType = "microsoft_fabric"
 	OutputTypeCloudflareR2           OutputType = "cloudflare_r2"
+	OutputTypeUnknown                OutputType = "UNKNOWN"
 )
 
 type Output struct {
@@ -146,6 +148,7 @@ type Output struct {
 	OutputCriblLake              *OutputCriblLake              `queryParam:"inline" union:"member"`
 	OutputDiskSpool              *OutputDiskSpool              `queryParam:"inline" union:"member"`
 	OutputClickHouse             *OutputClickHouse             `queryParam:"inline" union:"member"`
+	OutputLocalSearchStorage     *OutputLocalSearchStorage     `queryParam:"inline" union:"member"`
 	OutputXsiam                  *OutputXsiam                  `queryParam:"inline" union:"member"`
 	OutputNetflow                *OutputNetflow                `queryParam:"inline" union:"member"`
 	OutputDynatraceHTTP          *OutputDynatraceHTTP          `queryParam:"inline" union:"member"`
@@ -155,6 +158,7 @@ type Output struct {
 	OutputDatabricks             *OutputDatabricks             `queryParam:"inline" union:"member"`
 	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline" union:"member"`
 	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
+	UnknownRaw                   json.RawMessage               `json:"-" union:"unknown"`
 
 	Type OutputType
 }
@@ -888,6 +892,18 @@ func CreateOutputClickHouse(clickHouse OutputClickHouse) Output {
 	}
 }
 
+func CreateOutputLocalSearchStorage(localSearchStorage OutputLocalSearchStorage) Output {
+	typ := OutputTypeLocalSearchStorage
+
+	typStr := OutputLocalSearchStorageType(typ)
+	localSearchStorage.Type = typStr
+
+	return Output{
+		OutputLocalSearchStorage: &localSearchStorage,
+		Type:                     typ,
+	}
+}
+
 func CreateOutputXsiam(xsiam OutputXsiam) Output {
 	typ := OutputTypeXsiam
 
@@ -996,6 +1012,21 @@ func CreateOutputCloudflareR2(cloudflareR2 OutputCloudflareR2) Output {
 	}
 }
 
+func CreateOutputUnknown(raw json.RawMessage) Output {
+	return Output{
+		UnknownRaw: raw,
+		Type:       OutputTypeUnknown,
+	}
+}
+
+func (u Output) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u Output) IsUnknown() bool {
+	return u.Type == OutputTypeUnknown
+}
+
 func (u *Output) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1004,7 +1035,14 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OutputTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OutputTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -1557,6 +1595,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputClickHouse = outputClickHouse
 		u.Type = OutputTypeClickHouse
 		return nil
+	case "local_search_storage":
+		outputLocalSearchStorage := new(OutputLocalSearchStorage)
+		if err := utils.UnmarshalJSON(data, &outputLocalSearchStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == local_search_storage) type OutputLocalSearchStorage within Output: %w", string(data), err)
+		}
+
+		u.OutputLocalSearchStorage = outputLocalSearchStorage
+		u.Type = OutputTypeLocalSearchStorage
+		return nil
 	case "xsiam":
 		outputXsiam := new(OutputXsiam)
 		if err := utils.UnmarshalJSON(data, &outputXsiam, "", true, nil); err != nil {
@@ -1638,9 +1685,12 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputCloudflareR2 = outputCloudflareR2
 		u.Type = OutputTypeCloudflareR2
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OutputTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Output", string(data))
 }
 
 func (u Output) MarshalJSON() ([]byte, error) {
@@ -1888,6 +1938,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputClickHouse, "", true)
 	}
 
+	if u.OutputLocalSearchStorage != nil {
+		return utils.MarshalJSON(u.OutputLocalSearchStorage, "", true)
+	}
+
 	if u.OutputXsiam != nil {
 		return utils.MarshalJSON(u.OutputXsiam, "", true)
 	}
@@ -1924,5 +1978,8 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputCloudflareR2, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type Output: all fields are null")
 }

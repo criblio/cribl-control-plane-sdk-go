@@ -21,3 +21,19 @@ restCollectMethodOtherRetryRules := components.CreateRestCollectMethodOtherRetry
 restCollectMethodOtherRetryRules := components.CreateRestCollectMethodOtherRetryRulesBackoff(components.RestCollectMethodOtherRestRetryRulesTypeBackoff{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restCollectMethodOtherRetryRules.Type {
+	case components.RestCollectMethodOtherRetryRulesTypeNone:
+		// restCollectMethodOtherRetryRules.RestCollectMethodOtherRestRetryRulesTypeNone is populated
+	case components.RestCollectMethodOtherRetryRulesTypeStatic:
+		// restCollectMethodOtherRetryRules.RestCollectMethodOtherRestRetryRulesTypeStatic is populated
+	case components.RestCollectMethodOtherRetryRulesTypeBackoff:
+		// restCollectMethodOtherRetryRules.RestCollectMethodOtherRestRetryRulesTypeBackoff is populated
+	default:
+		// Unknown type - use restCollectMethodOtherRetryRules.GetUnknownRaw() for raw JSON
+}
+```

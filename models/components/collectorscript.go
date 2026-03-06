@@ -38,9 +38,9 @@ type CollectorScript struct {
 	Type CollectorScriptType `json:"type"`
 	Conf ScriptCollectorConf `json:"conf"`
 	// Delete any files collected (where applicable)
-	Destructive *bool `json:"destructive,omitempty"`
+	Destructive *bool `json:"destructive,omitzero"`
 	// Character encoding to use when parsing ingested data.
-	Encoding *string `json:"encoding,omitempty"`
+	Encoding *string `json:"encoding,omitzero"`
 }
 
 func (c CollectorScript) MarshalJSON() ([]byte, error) {
@@ -48,7 +48,7 @@ func (c CollectorScript) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorScript) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil

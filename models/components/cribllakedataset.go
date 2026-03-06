@@ -2,20 +2,35 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type CriblLakeDataset struct {
-	AcceleratedFields     []string                       `json:"acceleratedFields,omitempty"`
-	BucketName            *string                        `json:"bucketName,omitempty"`
-	CacheConnection       *CacheConnection               `json:"cacheConnection,omitempty"`
-	DeletionStartedAt     *float64                       `json:"deletionStartedAt,omitempty"`
-	Description           *string                        `json:"description,omitempty"`
-	Format                *FormatOptionsCriblLakeDataset `json:"format,omitempty"`
-	HTTPDAUsed            *bool                          `json:"httpDAUsed,omitempty"`
-	ID                    string                         `json:"id"`
-	Metrics               *LakeDatasetMetrics            `json:"metrics,omitempty"`
-	RetentionPeriodInDays *float64                       `json:"retentionPeriodInDays,omitempty"`
-	SearchConfig          *LakeDatasetSearchConfig       `json:"searchConfig,omitempty"`
-	StorageLocationID     *string                        `json:"storageLocationId,omitempty"`
-	ViewName              *string                        `json:"viewName,omitempty"`
+	AcceleratedFields     []string                 `json:"acceleratedFields,omitzero"`
+	BucketName            *string                  `json:"bucketName,omitzero"`
+	CacheConnection       *CacheConnection         `json:"cacheConnection,omitzero"`
+	DeletionStartedAt     *float64                 `json:"deletionStartedAt,omitzero"`
+	Description           *string                  `json:"description,omitzero"`
+	Format                *FormatOptions           `json:"format,omitzero"`
+	HTTPDAUsed            *bool                    `json:"httpDAUsed,omitzero"`
+	ID                    string                   `json:"id"`
+	Metrics               *LakeDatasetMetrics      `json:"metrics,omitzero"`
+	RetentionPeriodInDays *float64                 `json:"retentionPeriodInDays,omitzero"`
+	SearchConfig          *LakeDatasetSearchConfig `json:"searchConfig,omitzero"`
+	StorageLocationID     *string                  `json:"storageLocationId,omitzero"`
+	ViewName              *string                  `json:"viewName,omitzero"`
+}
+
+func (c CriblLakeDataset) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CriblLakeDataset) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CriblLakeDataset) GetAcceleratedFields() []string {
@@ -53,7 +68,7 @@ func (c *CriblLakeDataset) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CriblLakeDataset) GetFormat() *FormatOptionsCriblLakeDataset {
+func (c *CriblLakeDataset) GetFormat() *FormatOptions {
 	if c == nil {
 		return nil
 	}

@@ -32,41 +32,18 @@ func (e *PipelineFunctionRegexExtractID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionRegexExtractRegexList struct {
-	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex string `json:"regex"`
-}
-
-func (p PipelineFunctionRegexExtractRegexList) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionRegexExtractRegexList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"regex"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionRegexExtractRegexList) GetRegex() string {
-	if p == nil {
-		return ""
-	}
-	return p.Regex
-}
-
 type PipelineFunctionRegexExtractConf struct {
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     string                                  `json:"regex"`
-	RegexList []PipelineFunctionRegexExtractRegexList `json:"regexList,omitempty"`
+	Regex     string                             `json:"regex"`
+	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitzero"`
 	// Field on which to perform regex field extraction
-	Source *string `json:"source,omitempty"`
+	Source *string `json:"source,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
-	Iterations *float64 `json:"iterations,omitempty"`
+	Iterations *float64 `json:"iterations,omitzero"`
 	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
-	FieldNameExpression *string `json:"fieldNameExpression,omitempty"`
+	FieldNameExpression *string `json:"fieldNameExpression,omitzero"`
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
-	Overwrite *bool `json:"overwrite,omitempty"`
+	Overwrite *bool `json:"overwrite,omitzero"`
 }
 
 func (p PipelineFunctionRegexExtractConf) MarshalJSON() ([]byte, error) {
@@ -74,7 +51,7 @@ func (p PipelineFunctionRegexExtractConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionRegexExtractConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"regex"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -87,7 +64,7 @@ func (p *PipelineFunctionRegexExtractConf) GetRegex() string {
 	return p.Regex
 }
 
-func (p *PipelineFunctionRegexExtractConf) GetRegexList() []PipelineFunctionRegexExtractRegexList {
+func (p *PipelineFunctionRegexExtractConf) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
 	if p == nil {
 		return nil
 	}
@@ -124,18 +101,18 @@ func (p *PipelineFunctionRegexExtractConf) GetOverwrite() *bool {
 
 type PipelineFunctionRegexExtract struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `json:"filter,omitempty"`
+	Filter *string `json:"filter,omitzero"`
 	// Function ID
 	ID PipelineFunctionRegexExtractID `json:"id"`
 	// Simple description of this step
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"disabled,omitzero"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                            `json:"final,omitempty"`
+	Final *bool                            `json:"final,omitzero"`
 	Conf  PipelineFunctionRegexExtractConf `json:"conf"`
 	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	GroupID *string `json:"groupId,omitzero"`
 }
 
 func (p PipelineFunctionRegexExtract) MarshalJSON() ([]byte, error) {
@@ -143,7 +120,7 @@ func (p PipelineFunctionRegexExtract) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionRegexExtract) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil

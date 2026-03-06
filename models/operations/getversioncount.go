@@ -3,21 +3,13 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetVersionCountRequest struct {
-	// The <code>id</code> of the Worker Group or Edge Fleet to get the count for.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// The Git commit hash to use as the starting point for the count.
 	Commit *string `queryParam:"style=form,explode=true,name=commit"`
-}
-
-func (g *GetVersionCountRequest) GetGroupID() *string {
-	if g == nil {
-		return nil
-	}
-	return g.GroupID
 }
 
 func (g *GetVersionCountRequest) GetCommit() *string {
@@ -31,6 +23,17 @@ type GetVersionCountResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitCountResult objects
 	CountedGitCountResult *components.CountedGitCountResult
+}
+
+func (g GetVersionCountResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetVersionCountResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GetVersionCountResponse) GetHTTPMeta() components.HTTPMetadata {

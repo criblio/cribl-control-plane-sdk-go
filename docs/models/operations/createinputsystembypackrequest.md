@@ -1,0 +1,9 @@
+# CreateInputSystemByPackRequest
+
+
+## Fields
+
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `Pack`                                                                                                         | *string*                                                                                                       | :heavy_check_mark:                                                                                             | The <code>id</code> of the Pack to create.                                                                     |
+| `RequestBody`                                                                                                  | [operations.CreateInputSystemByPackRequestBody](../../models/operations/createinputsystembypackrequestbody.md) | :heavy_check_mark:                                                                                             | Input object                                                                                                   |

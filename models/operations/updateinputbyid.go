@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -10,7 +11,7 @@ type UpdateInputByIDRequest struct {
 	// The <code>id</code> of the Source to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Input object
-	Input components.Input `request:"mediaType=application/json"`
+	Input components.Input2 `request:"mediaType=application/json"`
 }
 
 func (u *UpdateInputByIDRequest) GetID() string {
@@ -20,9 +21,9 @@ func (u *UpdateInputByIDRequest) GetID() string {
 	return u.ID
 }
 
-func (u *UpdateInputByIDRequest) GetInput() components.Input {
+func (u *UpdateInputByIDRequest) GetInput() components.Input2 {
 	if u == nil {
-		return components.Input{}
+		return components.Input2{}
 	}
 	return u.Input
 }
@@ -97,6 +98,10 @@ func (u *UpdateInputByIDRequest) GetInputOffice365Service() *components.InputOff
 
 func (u *UpdateInputByIDRequest) GetInputOffice365MsgTrace() *components.InputOffice365MsgTrace {
 	return u.GetInput().InputOffice365MsgTrace
+}
+
+func (u *UpdateInputByIDRequest) GetInputMicrosoftGraph() *components.InputMicrosoftGraph {
+	return u.GetInput().InputMicrosoftGraph
 }
 
 func (u *UpdateInputByIDRequest) GetInputEventhub() *components.InputEventhub {
@@ -247,6 +252,10 @@ func (u *UpdateInputByIDRequest) GetInputWiz() *components.InputWiz {
 	return u.GetInput().InputWiz
 }
 
+func (u *UpdateInputByIDRequest) GetInputOpenai() *components.InputOpenaiInput {
+	return u.GetInput().InputOpenaiInput
+}
+
 func (u *UpdateInputByIDRequest) GetInputWizWebhook() *components.InputWizWebhook {
 	return u.GetInput().InputWizWebhook
 }
@@ -271,6 +280,17 @@ type UpdateInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
 	CountedInput *components.CountedInput
+}
+
+func (u UpdateInputByIDResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateInputByIDResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {

@@ -3,24 +3,16 @@
 package operations
 
 import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetVersionRequest struct {
-	// The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for.
-	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// Maximum number of commits to return in the response for this request.
-	Count *float64 `queryParam:"style=form,explode=true,name=count"`
+	Count *int64 `queryParam:"style=form,explode=true,name=count"`
 }
 
-func (g *GetVersionRequest) GetGroupID() *string {
-	if g == nil {
-		return nil
-	}
-	return g.GroupID
-}
-
-func (g *GetVersionRequest) GetCount() *float64 {
+func (g *GetVersionRequest) GetCount() *int64 {
 	if g == nil {
 		return nil
 	}
@@ -31,6 +23,17 @@ type GetVersionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitLogResult objects
 	CountedGitLogResult *components.CountedGitLogResult
+}
+
+func (g GetVersionResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetVersionResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GetVersionResponse) GetHTTPMeta() components.HTTPMetadata {

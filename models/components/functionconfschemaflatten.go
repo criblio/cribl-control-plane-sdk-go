@@ -8,13 +8,13 @@ import (
 
 type FunctionConfSchemaFlatten struct {
 	// List of top-level fields to include for flattening. Supports * wildcards, except when used on internal fields. Defaults to empty array, which means all fields.
-	Fields []string `json:"fields,omitempty"`
+	Fields []string `json:"fields,omitzero"`
 	// Prefix string for flattened field names. Defaults to empty.
-	Prefix *string `json:"prefix,omitempty"`
+	Prefix *string `json:"prefix,omitzero"`
 	// Number representing the nested levels to consider for flattening. Defaults to 5. Minimum should be 1.
-	Depth *float64 `json:"depth,omitempty"`
+	Depth *float64 `json:"depth,omitzero"`
 	// Delimiter to be used for flattening. Defaults to underscore.
-	Delimiter *string `json:"delimiter,omitempty"`
+	Delimiter *string `json:"delimiter,omitzero"`
 }
 
 func (f FunctionConfSchemaFlatten) MarshalJSON() ([]byte, error) {

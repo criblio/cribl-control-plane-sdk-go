@@ -63,7 +63,7 @@ func (s *Tokens) Get(ctx context.Context, request components.LoginInfo, opts ...
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "createAuthLogin",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   nil,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)

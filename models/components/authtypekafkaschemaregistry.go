@@ -10,7 +10,7 @@ import (
 type AuthTypeKafkaSchemaRegistry struct {
 	Disabled bool `json:"disabled"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 }
 
 func (a AuthTypeKafkaSchemaRegistry) MarshalJSON() ([]byte, error) {
@@ -18,7 +18,7 @@ func (a AuthTypeKafkaSchemaRegistry) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthTypeKafkaSchemaRegistry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"disabled"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil

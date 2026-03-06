@@ -97,7 +97,7 @@ func main() {
 	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := AUTH_TOKEN
 	sendToRoutes := true
-	tcpJSONSource := operations.InputTcpjson{
+	tcpJSONSource := operations.CreateInputInputTcpjson{
 		ID:           "my-tcp-json",
 		Type:         operations.CreateInputTypeTcpjsonTcpjson,
 		Host:         "0.0.0.0",
@@ -119,10 +119,11 @@ func main() {
 	region := AWS_REGION
 	secretKey := AWS_SECRET_KEY
 	apiKey := AWS_API_KEY
-	s3Destination := operations.OutputS3{
+	s3Destination := operations.CreateOutputOutputS3{
 		ID:             "my-s3-destination",
 		Type:           operations.CreateOutputTypeS3S3,
 		Bucket:         AWS_BUCKET_NAME,
+		StagePath:      "/tmp/cribl_stage",
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
@@ -178,25 +179,28 @@ func main() {
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route
-		newRoute := components.RoutesRoute{
-			Final:                  criblcontrolplanesdkgo.Bool(false),
-			ID:                     criblcontrolplanesdkgo.String("my-route"),
+		output := "my-s3-destination"
+		newRoute := components.RouteConf{
+			Final:                  false,
+			ID:                     "my-route",
 			Name:                   "my-route",
 			Pipeline:               "my-pipeline",
-			Output:                 "my-s3-destination",
+			Output:                 &output,
 			EnableOutputExpression: criblcontrolplanesdkgo.Bool(true), // Allow custom output destinations
 			Filter:                 criblcontrolplanesdkgo.String("__inputId=='tcpjson:my-tcp-json'"),
 			Description:            criblcontrolplanesdkgo.String("This is my new route"),
 		}
 
 		// Add new route to existing Routes
-		updatedRoutes := append([]components.RoutesRoute{newRoute}, existingRoutes.Routes...)
+		updatedRoutes := append([]components.RouteConf{newRoute}, existingRoutes.Routes...)
 
 		// Update Routes configuration
-		if existingRoutes.ID != nil {
-			_, err = client.Routes.Update(ctx, *existingRoutes.ID, components.Routes{
-				ID:     existingRoutes.ID,
-				Routes: updatedRoutes,
+		if existingRoutes.ID != "" {
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
+				ID:      existingRoutes.ID,
+				Routes:  updatedRoutes,
+				Comments: existingRoutes.Comments,
+				Groups:  existingRoutes.Groups,
 			}, operations.WithServerURL(packURL))
 
 			if err != nil {
