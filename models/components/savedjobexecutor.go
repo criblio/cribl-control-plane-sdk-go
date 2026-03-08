@@ -22,7 +22,7 @@ type SavedJobExecutor struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Configuration for a scheduled job
-	Schedule *ScheduleTypeSavedJobCollection `json:"schedule,omitzero"`
+	Schedule *ScheduleTypeSavedJobResponseCollection `json:"schedule,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string                        `json:"streamtags,omitzero"`
 	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
@@ -95,7 +95,7 @@ func (s *SavedJobExecutor) GetEnvironment() *string {
 	return s.Environment
 }
 
-func (s *SavedJobExecutor) GetSchedule() *ScheduleTypeSavedJobCollection {
+func (s *SavedJobExecutor) GetSchedule() *ScheduleTypeSavedJobResponseCollection {
 	if s == nil {
 		return nil
 	}

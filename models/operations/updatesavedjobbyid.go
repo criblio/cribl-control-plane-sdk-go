@@ -10,8 +10,6 @@ import (
 type UpdateSavedJobByIDRequest struct {
 	// The <code>id</code> of the Collector to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack that includes the Collector to update.
-	CriblPack *string `queryParam:"style=form,explode=true,name=criblPack"`
 	// SavedJob object
 	SavedJob components.SavedJob `request:"mediaType=application/json"`
 }
@@ -23,13 +21,6 @@ func (u *UpdateSavedJobByIDRequest) GetID() string {
 	return u.ID
 }
 
-func (u *UpdateSavedJobByIDRequest) GetCriblPack() *string {
-	if u == nil {
-		return nil
-	}
-	return u.CriblPack
-}
-
 func (u *UpdateSavedJobByIDRequest) GetSavedJob() components.SavedJob {
 	if u == nil {
 		return components.SavedJob{}
@@ -39,8 +30,8 @@ func (u *UpdateSavedJobByIDRequest) GetSavedJob() components.SavedJob {
 
 type UpdateSavedJobByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of SavedJob objects
-	CountedSavedJob *components.CountedSavedJob
+	// a list of SavedJobResponse objects
+	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 
 func (u UpdateSavedJobByIDResponse) MarshalJSON() ([]byte, error) {
@@ -61,9 +52,9 @@ func (u *UpdateSavedJobByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return u.HTTPMeta
 }
 
-func (u *UpdateSavedJobByIDResponse) GetCountedSavedJob() *components.CountedSavedJob {
+func (u *UpdateSavedJobByIDResponse) GetCountedSavedJobResponse() *components.CountedSavedJobResponse {
 	if u == nil {
 		return nil
 	}
-	return u.CountedSavedJob
+	return u.CountedSavedJobResponse
 }
