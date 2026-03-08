@@ -53,14 +53,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -87,11 +87,11 @@ func main() {
                 Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -132,14 +132,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -161,11 +161,11 @@ func main() {
             },
             SavedQueryID: "<id>",
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -207,14 +207,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -240,11 +240,11 @@ func main() {
                 Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -286,14 +286,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -319,11 +319,11 @@ func main() {
                 Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -364,14 +364,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -393,11 +393,11 @@ func main() {
             },
             SavedQueryID: "<id>",
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -439,14 +439,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -510,11 +510,11 @@ func main() {
                 Output: criblcontrolplanesdkgo.Pointer("<value>"),
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -556,14 +556,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -585,11 +585,11 @@ func main() {
             },
             SavedQueryID: "<id>",
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -630,14 +630,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -659,11 +659,11 @@ func main() {
             },
             SavedQueryID: "<id>",
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -704,14 +704,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -733,11 +733,11 @@ func main() {
             },
             SavedQueryID: "<id>",
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -745,12 +745,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `ctx`                                                       | [context.Context](https://pkg.go.dev/context#Context)       | :heavy_check_mark:                                          | The context to use for the request.                         |
-| `savedJob`                                                  | [components.SavedJob](../../models/components/savedjob.md)  | :heavy_check_mark:                                          | SavedJob object                                             |
-| `criblPack`                                                 | **string*                                                   | :heavy_minus_sign:                                          | The <code>id</code> of the Pack to create the Collector in. |
-| `opts`                                                      | [][operations.Option](../../models/operations/option.md)    | :heavy_minus_sign:                                          | The options for this request.                               |
+| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
+| `request`                                                  | [components.SavedJob](../../models/components/savedjob.md) | :heavy_check_mark:                                         | The request object to use for the request.                 |
+| `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
 
 ### Response
 
@@ -791,11 +790,11 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.List(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"))
+    res, err := s.Collectors.List(ctx, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -807,8 +806,6 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `collectorType`                                          | **string*                                                | :heavy_minus_sign:                                       | Filter by collector type                                 |
-| `criblPack`                                              | **string*                                                | :heavy_minus_sign:                                       | Pack ID                                                  |
-| `groupID`                                                | **string*                                                | :heavy_minus_sign:                                       | Worker group ID                                          |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -850,11 +847,11 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Delete(ctx, "<id>", criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"))
+    res, err := s.Collectors.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -862,13 +859,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
-| `id`                                                                           | *string*                                                                       | :heavy_check_mark:                                                             | The <code>id</code> of the Collector to delete.                                |
-| `criblPack`                                                                    | **string*                                                                      | :heavy_minus_sign:                                                             | The <code>id</code> of the Pack that includes the Collector to delete.         |
-| `groupID`                                                                      | **string*                                                                      | :heavy_minus_sign:                                                             | The <code>id</code> of the Worker Group that includes the Collector to delete. |
-| `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Collector to delete.          |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
@@ -909,11 +904,11 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.Get(ctx, "<id>", criblcontrolplanesdkgo.Pointer("<value>"))
+    res, err := s.Collectors.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -921,12 +916,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `ctx`                                                               | [context.Context](https://pkg.go.dev/context#Context)               | :heavy_check_mark:                                                  | The context to use for the request.                                 |
-| `id`                                                                | *string*                                                            | :heavy_check_mark:                                                  | The <code>id</code> of the Collector to get.                        |
-| `criblPack`                                                         | **string*                                                           | :heavy_minus_sign:                                                  | The <code>id</code> of the Pack that includes the Collector to get. |
-| `opts`                                                              | [][operations.Option](../../models/operations/option.md)            | :heavy_minus_sign:                                                  | The options for this request.                                       |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Collector to get.             |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
@@ -980,14 +974,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(false),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -1013,11 +1007,11 @@ func main() {
                 Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1059,14 +1053,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -1133,11 +1127,11 @@ func main() {
                 Output: criblcontrolplanesdkgo.Pointer("<value>"),
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1179,14 +1173,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -1208,11 +1202,11 @@ func main() {
             },
             SavedQueryID: "<id>",
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1254,14 +1248,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(false),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -1287,11 +1281,11 @@ func main() {
                 Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1333,14 +1327,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(false),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -1362,11 +1356,11 @@ func main() {
             },
             SavedQueryID: "<id>",
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1408,14 +1402,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -1482,11 +1476,11 @@ func main() {
                 Output: criblcontrolplanesdkgo.Pointer("<value>"),
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1528,14 +1522,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -1557,11 +1551,11 @@ func main() {
             },
             SavedQueryID: "<id>",
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1603,14 +1597,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(false),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -1636,11 +1630,11 @@ func main() {
                 Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1682,14 +1676,14 @@ func main() {
             },
             ResumeOnBoot: criblcontrolplanesdkgo.Pointer(false),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.ScheduleTypeSavedJobResponseCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                 Skippable: criblcontrolplanesdkgo.Pointer(true),
                 ResumeMissed: criblcontrolplanesdkgo.Pointer(false),
                 CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
                 MaxConcurrentRuns: criblcontrolplanesdkgo.Pointer[float64](1),
-                Run: &components.RunSettingsTypeSavedJobCollectionSchedule{
-                    Type: components.RunSettingsTypeSavedJobCollectionScheduleTypeCollection.ToPointer(),
+                Run: &components.RunSettingsTypeSavedJobResponseCollectionSchedule{
+                    Type: components.RunSettingsTypeSavedJobResponseCollectionScheduleTypeCollection.ToPointer(),
                     RescheduleDroppedTasks: criblcontrolplanesdkgo.Pointer(true),
                     MaxTaskReschedule: criblcontrolplanesdkgo.Pointer[float64](1),
                     LogLevel: components.LogLevelOptionsRunnableJobCollectionScheduleRunInfo.ToPointer(),
@@ -1715,11 +1709,11 @@ func main() {
                 Conf: &components.ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor{},
             },
         },
-    ), criblcontrolplanesdkgo.Pointer("<value>"))
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSavedJob != nil {
+    if res.CountedSavedJobResponse != nil {
         // handle response
     }
 }
@@ -1727,13 +1721,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `ctx`                                                                  | [context.Context](https://pkg.go.dev/context#Context)                  | :heavy_check_mark:                                                     | The context to use for the request.                                    |
-| `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Collector to update.                        |
-| `savedJob`                                                             | [components.SavedJob](../../models/components/savedjob.md)             | :heavy_check_mark:                                                     | SavedJob object                                                        |
-| `criblPack`                                                            | **string*                                                              | :heavy_minus_sign:                                                     | The <code>id</code> of the Pack that includes the Collector to update. |
-| `opts`                                                                 | [][operations.Option](../../models/operations/option.md)               | :heavy_minus_sign:                                                     | The options for this request.                                          |
+| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
+| `id`                                                       | *string*                                                   | :heavy_check_mark:                                         | The <code>id</code> of the Collector to update.            |
+| `savedJob`                                                 | [components.SavedJob](../../models/components/savedjob.md) | :heavy_check_mark:                                         | SavedJob object                                            |
+| `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
 
 ### Response
 
