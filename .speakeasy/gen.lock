@@ -5,14 +5,14 @@ management:
   docVersion: 4.18.0-alpha.1772924584949-0a0dc495
   speakeasyVersion: 1.748.0
   generationVersion: 2.852.1
-  releaseVersion: 0.6.0-beta.62
-  configChecksum: 3e64a12d78e80b2d4d3f45b128df2c05
+  releaseVersion: 0.6.0-beta.63
+  configChecksum: f66e7ae8103ddb879662c9c115e89936
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: f51265f1-c1a0-4230-9547-35a0f3abf714
-  pristine_commit_hash: e211842ff7325ed77215cb2f195b3392584cf07e
-  pristine_tree_hash: a89e5da883c070f17ca18f7fc57eb66680e4ed14
+  generation_id: 2eefc6f4-ce8a-4648-ab29-76385796996d
+  pristine_commit_hash: 2b5e675e59624c9c1e799bc116884d6e12faf294
+  pristine_tree_hash: 1939475eedd26569e7f0478de1bb9330d11174e3
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: 7199390c07213d3f83eec2945d86b0748278af34
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:ac236b12c89cfcf8f677b6182fabbad5860989f1
-    pristine_git_object: 755093081b616d2b2694bb077a6acb50764c6fc5
+    last_write_checksum: sha1:d998edc684977eda784aeb2156d20643828b7992
+    pristine_git_object: e915a4b31904a5e52be9d3b25f7a5551c075e0f0
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -30052,7 +30052,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`: \n  *  `request.CriblPack` **Removed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.CriblPack` **Removed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
