@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:3494bce49be210b2a887127e83733f75fb76bc7f07361f0456d2fb26ad641e5e
         sourceBlobDigest: sha256:752785c43db155192cf48a4cb2ed03ecef595b8b9f9c9132036ba75eb81b64d8
         codeSamplesNamespace: cribl-api-reference-go-code-samples
-        codeSamplesRevisionDigest: sha256:4405b717522e699be2c3b17275443c9b40fa7bd557ba24205ff9a5399f8d34b4
+        codeSamplesRevisionDigest: sha256:66f448ba7e7ad49d20132a6c096daece7ff4ec23172d6f7e5fd4a0b4e2913277
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: 1.748.0
