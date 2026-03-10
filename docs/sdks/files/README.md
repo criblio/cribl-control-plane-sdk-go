@@ -50,7 +50,7 @@ func main() {
 | Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
 | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 | `ctx`                                                           | [context.Context](https://pkg.go.dev/context#Context)           | :heavy_check_mark:                                              | The context to use for the request.                             |
-| `commit`                                                        | **string*                                                       | :heavy_minus_sign:                                              | The Git commit hash to use as the starting point for the count. |
+| `commit`                                                        | `*string`                                                       | :heavy_minus_sign:                                              | The Git commit hash to use as the starting point for the count. |
 | `opts`                                                          | [][operations.Option](../../models/operations/option.md)        | :heavy_minus_sign:                                              | The options for this request.                                   |
 
 ### Response
@@ -107,7 +107,7 @@ func main() {
 | Parameter                                                         | Type                                                              | Required                                                          | Description                                                       |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
 | `ctx`                                                             | [context.Context](https://pkg.go.dev/context#Context)             | :heavy_check_mark:                                                | The context to use for the request.                               |
-| `commit`                                                          | **string*                                                         | :heavy_minus_sign:                                                | The Git commit hash to use as the starting point for the request. |
+| `commit`                                                          | `*string`                                                         | :heavy_minus_sign:                                                | The Git commit hash to use as the starting point for the request. |
 | `opts`                                                            | [][operations.Option](../../models/operations/option.md)          | :heavy_minus_sign:                                                | The options for this request.                                     |
 
 ### Response

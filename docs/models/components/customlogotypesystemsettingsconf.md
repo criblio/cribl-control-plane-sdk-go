@@ -5,6 +5,6 @@
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `Enabled`          | *bool*             | :heavy_check_mark: | N/A                |
-| `LogoDescription`  | **string*          | :heavy_minus_sign: | N/A                |
-| `LogoImage`        | **string*          | :heavy_minus_sign: | N/A                |
+| `Enabled`          | `bool`             | :heavy_check_mark: | N/A                |
+| `LogoDescription`  | `*string`          | :heavy_minus_sign: | N/A                |
+| `LogoImage`        | `*string`          | :heavy_minus_sign: | N/A                |
