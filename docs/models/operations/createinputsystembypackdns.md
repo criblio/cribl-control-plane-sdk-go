@@ -7,4 +7,4 @@ Creates events for DNS resolvers and search entries
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `Enable`           | **bool*            | :heavy_minus_sign: | N/A                |
+| `Enable`           | `*bool`            | :heavy_minus_sign: | N/A                |
