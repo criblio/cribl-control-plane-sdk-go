@@ -120,6 +120,8 @@ func (u OsUnion) MarshalJSON() ([]byte, error) {
 }
 
 type NodeProvidedInfo struct {
+	APIPort        *float64                     `json:"apiPort,omitzero"`
+	APIScheme      *APIScheme                   `json:"apiScheme,omitzero"`
 	Architecture   string                       `json:"architecture"`
 	Aws            *AwsTypeHeartbeatMetadata    `json:"aws,omitzero"`
 	Azure          *AzureTypeHeartbeatMetadata  `json:"azure,omitzero"`
@@ -130,6 +132,7 @@ type NodeProvidedInfo struct {
 	FreeDiskSpace  *float64                     `json:"freeDiskSpace,omitzero"`
 	HostOs         *HostOsTypeHeartbeatMetadata `json:"hostOs,omitzero"`
 	Hostname       string                       `json:"hostname"`
+	IsCaptain      *bool                        `json:"isCaptain,omitzero"`
 	IsSaasWorker   *bool                        `json:"isSaasWorker,omitzero"`
 	Kube           *KubeTypeHeartbeatMetadata   `json:"kube,omitzero"`
 	LocalTime      *float64                     `json:"localTime,omitzero"`
@@ -152,6 +155,20 @@ func (n *NodeProvidedInfo) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (n *NodeProvidedInfo) GetAPIPort() *float64 {
+	if n == nil {
+		return nil
+	}
+	return n.APIPort
+}
+
+func (n *NodeProvidedInfo) GetAPIScheme() *APIScheme {
+	if n == nil {
+		return nil
+	}
+	return n.APIScheme
 }
 
 func (n *NodeProvidedInfo) GetArchitecture() string {
@@ -222,6 +239,13 @@ func (n *NodeProvidedInfo) GetHostname() string {
 		return ""
 	}
 	return n.Hostname
+}
+
+func (n *NodeProvidedInfo) GetIsCaptain() *bool {
+	if n == nil {
+		return nil
+	}
+	return n.IsCaptain
 }
 
 func (n *NodeProvidedInfo) GetIsSaasWorker() *bool {

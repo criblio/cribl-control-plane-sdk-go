@@ -21,8 +21,8 @@ func (g *GetInputPqByIDRequest) GetID() string {
 
 type GetInputPqByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of any objects
-	CountedObject *components.CountedObject
+	// information about the latest job to clear the PQ for the Source
+	CountedJobInfo *components.CountedJobInfo
 }
 
 func (g GetInputPqByIDResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +43,9 @@ func (g *GetInputPqByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputPqByIDResponse) GetCountedObject() *components.CountedObject {
+func (g *GetInputPqByIDResponse) GetCountedJobInfo() *components.CountedJobInfo {
 	if g == nil {
 		return nil
 	}
-	return g.CountedObject
+	return g.CountedJobInfo
 }
