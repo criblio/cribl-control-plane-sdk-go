@@ -10,7 +10,7 @@ import (
 type UpdateInputSystemHecTokenByPackAndIDAndTokenRequest struct {
 	// The <code>id</code> of the Splunk HEC Source.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the HEC token to update.
+	// The HEC token value to update.
 	Token string `pathParam:"style=simple,explode=false,name=token"`
 	// The <code>id</code> of the Pack to update.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
@@ -48,7 +48,7 @@ func (u *UpdateInputSystemHecTokenByPackAndIDAndTokenRequest) GetUpdateHecTokenR
 
 type UpdateInputSystemHecTokenByPackAndIDAndTokenResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of InputSplunkHec objects
+	// the updated HEC token
 	CountedInputSplunkHec *components.CountedInputSplunkHec
 }
 

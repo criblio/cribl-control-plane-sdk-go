@@ -287,7 +287,7 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputCloudflareHec() *component
 
 type UpdateInputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// the updated Source object
 	CountedInput *components.CountedInput
 }
 

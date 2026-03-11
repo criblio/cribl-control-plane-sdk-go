@@ -12755,7 +12755,7 @@ func (u CreateInputRequest) MarshalJSON() ([]byte, error) {
 
 type CreateInputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// the created Source object
 	CountedInput *components.CountedInput
 }
 

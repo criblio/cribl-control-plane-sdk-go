@@ -7,10 +7,14 @@ import (
 )
 
 type UpdateHecTokenRequest struct {
-	AllowedIndexesAtToken []string                 `json:"allowedIndexesAtToken,omitzero"`
-	Description           *string                  `json:"description,omitzero"`
-	Enabled               *bool                    `json:"enabled,omitzero"`
-	Metadata              []EventBreakerRuleFields `json:"metadata,omitzero"`
+	// List of index names that the HEC token is allowed to write to.
+	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
+	// Brief description for the HEC token.
+	Description *string `json:"description,omitzero"`
+	// If <code>true</code>, the HEC token is enabled. Otherwise, <code>false</code>.
+	Enabled *bool `json:"enabled,omitzero"`
+	// Array of key-value pairs to associate with the HEC token for tagging, categorization, or providing additional context. Each item in the array is an object with a <code>name</code> and a <code>value</code>.
+	Metadata []EventBreakerRuleFields `json:"metadata,omitzero"`
 }
 
 func (u UpdateHecTokenRequest) MarshalJSON() ([]byte, error) {

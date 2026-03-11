@@ -13024,7 +13024,7 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyCloudflareHec() *CreateIn
 
 type CreateInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// the created Source object
 	CountedInput *components.CountedInput
 }
 

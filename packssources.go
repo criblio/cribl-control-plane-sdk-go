@@ -39,8 +39,9 @@ func newPacksSources(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigurati
 
 // List all Sources within a Pack
 // Get a list of all Sources within the specified Pack.
-func (s *PacksSources) List(ctx context.Context, pack string, opts ...operations.Option) (*operations.GetInputSystemByPackResponse, error) {
+func (s *PacksSources) List(ctx context.Context, pack string, type_ []string, opts ...operations.Option) (*operations.GetInputSystemByPackResponse, error) {
 	request := operations.GetInputSystemByPackRequest{
+		Type: type_,
 		Pack: pack,
 	}
 
@@ -94,6 +95,10 @@ func (s *PacksSources) List(ctx context.Context, pack string, opts ...operations
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -776,7 +781,7 @@ func (s *PacksSources) Get(ctx context.Context, id string, pack string, opts ...
 }
 
 // Update a Source within a Pack
-// Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
+// Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
 func (s *PacksSources) Update(ctx context.Context, id string, pack string, input components.Input2, opts ...operations.Option) (*operations.UpdateInputSystemByPackAndIDResponse, error) {
 	request := operations.UpdateInputSystemByPackAndIDRequest{
 		ID:    id,
