@@ -7,4 +7,4 @@ Creates events based on entries collected from the hosts file
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `Enable`           | **bool*            | :heavy_minus_sign: | N/A                |
+| `Enable`           | `*bool`            | :heavy_minus_sign: | N/A                |
