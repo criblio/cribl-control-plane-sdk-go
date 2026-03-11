@@ -29910,7 +29910,67 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Nodes.Summaries.Get()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Nodes.Count()`: \n  *  `request.Product` **Added** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Nodes.List()`: \n  *  `request.Request.Product` **Added** (Breaking ⚠️)\n  *  `response.Items[]` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Statuses.Get()`:  `request.GroupId` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Versions.Commits.Files.List()`:  `request.GroupId` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Versions.Commits.Files.Count()`:  `request.GroupId` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Versions.Commits.Undo()`: \n  *  `request.GroupId` **Removed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Versions.Commits.Get()`:  `request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Versions.Commits.Revert()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Audit.Files.Renamed[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Versions.Commits.List()`:  `request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Versions.Commits.Diff()`:  `request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Versions.Commits.Create()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Files.Renamed[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody[].TargetContext` **Added**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Update()`: \n  *  `request.Routes` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.List()`: \n  *  `request.Type` **Added**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Delete()`: **Added**\n* `CriblControlPlane.DatabaseConnections.Create()`: **Added**\n* `CriblControlPlane.System.Captures.Create()`: **Added**\n* `CriblControlPlane.System.Settings.Restart()`: **Added**\n* `CriblControlPlane.Nodes.Get()`: **Added**\n* `CriblControlPlane.Nodes.Restart()`: **Added**\n* `CriblControlPlane.LakeDatasets.Create()`: \n  *  `request.CriblLakeDataset.SearchConfig` **Changed**\n  *  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.List()`:  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.Delete()`:  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.Get()`:  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.Update()`: \n  *  `request.CriblLakeDatasetUpdate.SearchConfig` **Changed**\n  *  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.Destinations.Statuses.Get()`: **Added**\n* `CriblControlPlane.Packs.Routes.Append()`: **Added**\n* `CriblControlPlane.Packs.Routes.List()`: **Added**\n* `CriblControlPlane.Packs.Routes.Update()`: **Added**\n* `CriblControlPlane.Packs.Routes.Get()`: **Added**\n* `CriblControlPlane.Packs.Pipelines.Update()`: **Added**\n* `CriblControlPlane.Packs.Pipelines.Get()`: **Added**\n* `CriblControlPlane.Packs.Pipelines.Delete()`: **Added**\n* `CriblControlPlane.Packs.Pipelines.List()`: **Added**\n* `CriblControlPlane.Packs.Pipelines.Create()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Statuses.List()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Statuses.Get()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Samples.Create()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Samples.Get()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Pq.Clear()`: **Added**\n* `CriblControlPlane.Destinations.Statuses.List()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Update()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Get()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Create()`: **Added**\n* `CriblControlPlane.Packs.Destinations.List()`: **Added**\n* `CriblControlPlane.Packs.Sources.Statuses.List()`: **Added**\n* `CriblControlPlane.Packs.Sources.Statuses.Get()`: **Added**\n* `CriblControlPlane.Packs.Sources.Pq.Get()`: **Added**\n* `CriblControlPlane.Packs.Sources.Pq.Clear()`: **Added**\n* `CriblControlPlane.Packs.Sources.HecTokens.Update()`: **Added**\n* `CriblControlPlane.Packs.Sources.HecTokens.Create()`: **Added**\n* `CriblControlPlane.Packs.Install()`:  `response.Items[].Collectors` **Added**\n* `CriblControlPlane.Packs.List()`:  `response.Items[].Collectors` **Added**\n* `CriblControlPlane.Packs.Get()`:  `response.Items[].Collectors` **Added**\n* `CriblControlPlane.Packs.Update()`:  `response.Items[].Collectors` **Added**\n* `CriblControlPlane.Packs.Sources.Delete()`: **Added**\n* `CriblControlPlane.Packs.Sources.Update()`: **Added**\n* `CriblControlPlane.Packs.Sources.Get()`: **Added**\n* `CriblControlPlane.Packs.Sources.Create()`: **Added**\n* `CriblControlPlane.Packs.Sources.List()`: **Added**\n* `CriblControlPlane.Sources.Statuses.List()`: **Added**\n* `CriblControlPlane.Sources.Statuses.Get()`: **Added**\n* `CriblControlPlane.Sources.Pq.Get()`: **Added**\n* `CriblControlPlane.Sources.Pq.Clear()`: **Added**\n* `CriblControlPlane.Functions.Get()`:  `response.Items[].union(local_search_transformer)` **Added**\n* `CriblControlPlane.Functions.List()`:  `response.Items[].union(local_search_transformer)` **Added**\n* `CriblControlPlane.DatabaseConnections.Update()`: **Added**\n* `CriblControlPlane.DatabaseConnections.Get()`: **Added**\n* `CriblControlPlane.DatabaseConnections.Delete()`: **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes
+
+  This version of the SDK is generated for Cribl version 4.17.0.
+
+  ### Added new endpoints
+
+  * Database Connections:
+  * `CriblControlPlane.DatabaseConnections.Create()`
+  * `CriblControlPlane.DatabaseConnections.Get()`
+  * `CriblControlPlane.DatabaseConnections.Update()`
+  * `CriblControlPlane.DatabaseConnections.Delete()`
+  * System:
+  * `CriblControlPlane.System.Captures.Create()`
+  * `CriblControlPlane.System.Settings.Restart()`
+  * Nodes:
+  * `CriblControlPlane.Nodes.Get()`
+  * `CriblControlPlane.Nodes.Restart()`
+  * Destinations:
+  * `CriblControlPlane.Destinations.Statuses.Get()`
+  * `CriblControlPlane.Destinations.Statuses.List()`
+  * Packs - Destinations:
+  * `CriblControlPlane.Packs.Destinations.Delete()`
+  * `CriblControlPlane.Packs.Destinations.Create()`
+  * `CriblControlPlane.Packs.Destinations.Get()`
+  * `CriblControlPlane.Packs.Destinations.List()`
+  * `CriblControlPlane.Packs.Destinations.Update()`
+  * `CriblControlPlane.Packs.Destinations.Statuses.List()`
+  * `CriblControlPlane.Packs.Destinations.Statuses.Get()`
+  * `CriblControlPlane.Packs.Destinations.Samples.Create()`
+  * `CriblControlPlane.Packs.Destinations.Samples.Get()`
+  * `CriblControlPlane.Packs.Destinations.Pq.Get()`
+  * `CriblControlPlane.Packs.Destinations.Pq.Clear()`
+  * Packs - Routes:
+  * `CriblControlPlane.Packs.Routes.Append()`
+  * `CriblControlPlane.Packs.Routes.List()`
+  * `CriblControlPlane.Packs.Routes.Update()`
+  * `CriblControlPlane.Packs.Routes.Get()`
+  * Packs - Pipelines:
+  * `CriblControlPlane.Packs.Pipelines.Create()`
+  * `CriblControlPlane.Packs.Pipelines.List()`
+  * `CriblControlPlane.Packs.Pipelines.Get()`
+  * `CriblControlPlane.Packs.Pipelines.Update()`
+  * `CriblControlPlane.Packs.Pipelines.Delete()`
+  * Packs - Sources:
+  * `CriblControlPlane.Packs.Sources.List()`
+  * `CriblControlPlane.Packs.Sources.Create()`
+  * `CriblControlPlane.Packs.Sources.Get()`
+  * `CriblControlPlane.Packs.Sources.Update()`
+  * `CriblControlPlane.Packs.Sources.Delete()`
+  * `CriblControlPlane.Packs.Sources.Statuses.List()`
+  * `CriblControlPlane.Packs.Sources.Statuses.Get()`
+  * `CriblControlPlane.Packs.Sources.Pq.Get()`
+  * `CriblControlPlane.Packs.Sources.Pq.Clear()`
+  * `CriblControlPlane.Packs.Sources.HecTokens.Create()`
+  * `CriblControlPlane.Packs.Sources.HecTokens.Update()`
+  * Sources:
+  * `CriblControlPlane.Sources.Statuses.List()`
+  * `CriblControlPlane.Sources.Statuses.Get()`
+  * `CriblControlPlane.Sources.Pq.Get()`
+  * `CriblControlPlane.Sources.Pq.Clear()`
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
