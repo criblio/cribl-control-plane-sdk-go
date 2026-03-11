@@ -50,7 +50,7 @@ func main() {
 | Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
 | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | `ctx`                                                       | [context.Context](https://pkg.go.dev/context#Context)       | :heavy_check_mark:                                          | The context to use for the request.                         |
-| `id`                                                        | *string*                                                    | :heavy_check_mark:                                          | The <code>id</code> of the Destination to clear the PQ for. |
+| `id`                                                        | `string`                                                    | :heavy_check_mark:                                          | The <code>id</code> of the Destination to clear the PQ for. |
 | `opts`                                                      | [][operations.Option](../../models/operations/option.md)    | :heavy_minus_sign:                                          | The options for this request.                               |
 
 ### Response
@@ -107,7 +107,7 @@ func main() {
 | Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `ctx`                                                                 | [context.Context](https://pkg.go.dev/context#Context)                 | :heavy_check_mark:                                                    | The context to use for the request.                                   |
-| `id`                                                                  | *string*                                                              | :heavy_check_mark:                                                    | The <code>id</code> of the Destination to get PQ job information for. |
+| `id`                                                                  | `string`                                                              | :heavy_check_mark:                                                    | The <code>id</code> of the Destination to get PQ job information for. |
 | `opts`                                                                | [][operations.Option](../../models/operations/option.md)              | :heavy_minus_sign:                                                    | The options for this request.                                         |
 
 ### Response
