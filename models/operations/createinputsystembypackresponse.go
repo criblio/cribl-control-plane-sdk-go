@@ -4948,6 +4948,8 @@ type CreateInputSystemByPackInputPrometheus struct {
 	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
+	TemplateDiscoveryType *string `json:"__template_discoveryType,omitzero"`
 	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
 	TemplateLogLevel *string `json:"__template_logLevel,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
@@ -4960,6 +4962,10 @@ type CreateInputSystemByPackInputPrometheus struct {
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputPrometheus) MarshalJSON() ([]byte, error) {
@@ -5302,6 +5308,13 @@ func (c *CreateInputSystemByPackInputPrometheus) GetCredentialsSecret() *string 
 	return c.CredentialsSecret
 }
 
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateDiscoveryType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDiscoveryType
+}
+
 func (c *CreateInputSystemByPackInputPrometheus) GetTemplateLogLevel() *string {
 	if c == nil {
 		return nil
@@ -5342,6 +5355,20 @@ func (c *CreateInputSystemByPackInputPrometheus) GetTemplateAssumeRoleExternalID
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateUsername
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplatePassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePassword
 }
 
 type CreateInputSystemByPackTypePrometheusRw string
@@ -5433,6 +5460,8 @@ type CreateInputSystemByPackInputPrometheusRw struct {
 	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
 	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputPrometheusRw) MarshalJSON() ([]byte, error) {
@@ -5696,6 +5725,13 @@ func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplatePrometheusAPI() *s
 		return nil
 	}
 	return c.TemplatePrometheusAPI
+}
+
+func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplateUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateUsername
 }
 
 type CreateInputSystemByPackTypeLoki string

@@ -9,6 +9,8 @@ import (
 type CriblLakeCollectorConf struct {
 	// Lake dataset to collect data from.
 	Dataset string `json:"dataset"`
+	// Binds 'dataset' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dataset' at runtime.
+	TemplateDataset *string `json:"__template_dataset,omitzero"`
 }
 
 func (c CriblLakeCollectorConf) MarshalJSON() ([]byte, error) {
@@ -27,4 +29,11 @@ func (c *CriblLakeCollectorConf) GetDataset() string {
 		return ""
 	}
 	return c.Dataset
+}
+
+func (c *CriblLakeCollectorConf) GetTemplateDataset() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDataset
 }

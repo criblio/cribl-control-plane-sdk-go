@@ -49,6 +49,8 @@ type FilesystemCollectorConf struct {
 	Recurse *bool `json:"recurse,omitzero"`
 	// Maximum number of metadata files to batch before recording as results
 	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
 }
 
 func (f FilesystemCollectorConf) MarshalJSON() ([]byte, error) {
@@ -95,4 +97,11 @@ func (f *FilesystemCollectorConf) GetMaxBatchSize() *float64 {
 		return nil
 	}
 	return f.MaxBatchSize
+}
+
+func (f *FilesystemCollectorConf) GetTemplatePath() *string {
+	if f == nil {
+		return nil
+	}
+	return f.TemplatePath
 }
