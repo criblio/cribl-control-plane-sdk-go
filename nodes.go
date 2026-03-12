@@ -739,18 +739,11 @@ func (s *Nodes) List(ctx context.Context, request operations.GetProductsWorkersB
 			return nil, nil
 		}
 		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
 
 		return s.List(
 			ctx,
-			operations.GetProductsWorkersByProductRequest{
-				Product:   request.Product,
-				FilterExp: request.FilterExp,
-				SortExp:   request.SortExp,
-				Filter:    request.Filter,
-				Sort:      request.Sort,
-				Limit:     request.Limit,
-				Offset:    &nOS,
-			},
+			request,
 			opts...,
 		)
 	}

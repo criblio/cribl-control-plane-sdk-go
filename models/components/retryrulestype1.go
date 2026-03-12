@@ -91,3 +91,6 @@ func (r *RetryRulesType1) GetRetryConnectReset() *bool {
 	}
 	return r.RetryConnectReset
 }
+
+// #region class-body-retryrulestype1
+// #endregion class-body-retryrulestype1

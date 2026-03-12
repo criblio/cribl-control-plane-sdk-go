@@ -63,6 +63,9 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetName(
 	return s.Name
 }
 
+// #region class-body-snmptrapserializev3userauthprotocolnotnoneprivprotocolnotnone
+// #endregion class-body-snmptrapserializev3userauthprotocolnotnoneprivprotocolnotnone
+
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone struct {
 	PrivProtocol *string                              `json:"privProtocol,omitzero"`
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
@@ -108,6 +111,9 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetName() s
 	}
 	return s.Name
 }
+
+// #region class-body-snmptrapserializev3userauthprotocolnotnoneprivprotocolnone
+// #endregion class-body-snmptrapserializev3userauthprotocolnotnoneprivprotocolnone
 
 type SnmpTrapSerializeV3UserAuthProtocolNotNoneType string
 
@@ -293,7 +299,6 @@ func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error
 type SnmpTrapSerializeV3UserAuthProtocolNone struct {
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
 	Name         *string                              `json:"name,omitzero"`
-	AuthKey      *string                              `json:"authKey,omitzero"`
 	PrivProtocol *string                              `json:"privProtocol,omitzero"`
 }
 
@@ -322,19 +327,15 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetName() *string {
 	return s.Name
 }
 
-func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetAuthKey() *string {
-	if s == nil {
-		return nil
-	}
-	return s.AuthKey
-}
-
 func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetPrivProtocol() *string {
 	if s == nil {
 		return nil
 	}
 	return s.PrivProtocol
 }
+
+// #region class-body-snmptrapserializev3userauthprotocolnone
+// #endregion class-body-snmptrapserializev3userauthprotocolnone
 
 type V3UserType string
 

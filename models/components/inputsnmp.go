@@ -85,6 +85,9 @@ func (i *InputSnmpV3User) GetPrivKey() *string {
 	return i.PrivKey
 }
 
+// #region class-body-inputsnmpv3user
+// #endregion class-body-inputsnmpv3user
+
 // SNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 type SNMPv3Authentication struct {
 	V3AuthEnabled bool `json:"v3AuthEnabled"`
@@ -125,6 +128,9 @@ func (s *SNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 	}
 	return s.V3Users
 }
+
+// #region class-body-snmpv3authentication
+// #endregion class-body-snmpv3authentication
 
 type InputSnmp struct {
 	// Unique ID for this input

@@ -5,4 +5,4 @@
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `Branch`           | *string*           | :heavy_check_mark: | N/A                |
+| `Branch`           | `string`           | :heavy_check_mark: | N/A                |
