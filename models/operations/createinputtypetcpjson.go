@@ -5911,6 +5911,9 @@ func (c *CreateInputInputSyslogSyslog2) GetTemplateTCPPort() *string {
 	return c.TemplateTCPPort
 }
 
+// #region class-body-createinputinputsyslogsyslog2
+// #endregion class-body-createinputinputsyslogsyslog2
+
 type CreateInputInputSyslogType1 string
 
 const (
@@ -6266,6 +6269,9 @@ func (c *CreateInputInputSyslogSyslog1) GetTemplateTCPPort() *string {
 	}
 	return c.TemplateTCPPort
 }
+
+// #region class-body-createinputinputsyslogsyslog1
+// #endregion class-body-createinputinputsyslogsyslog1
 
 type CreateInputInputSyslogUnionType string
 
@@ -7465,6 +7471,9 @@ func (c *CreateInputV3User) GetPrivKey() *string {
 	return c.PrivKey
 }
 
+// #region class-body-createinputv3user
+// #endregion class-body-createinputv3user
+
 // CreateInputSNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 type CreateInputSNMPv3Authentication struct {
 	V3AuthEnabled bool `json:"v3AuthEnabled"`
@@ -7505,6 +7514,9 @@ func (c *CreateInputSNMPv3Authentication) GetV3Users() []CreateInputV3User {
 	}
 	return c.V3Users
 }
+
+// #region class-body-createinputsnmpv3authentication
+// #endregion class-body-createinputsnmpv3authentication
 
 type CreateInputInputSnmp struct {
 	// Unique ID for this input
@@ -8237,6 +8249,9 @@ func (c *CreateInputInputS3Inventory) GetTemplateAwsAPIKey() *string {
 	return c.TemplateAwsAPIKey
 }
 
+// #region class-body-createinputinputs3inventory
+// #endregion class-body-createinputinputs3inventory
+
 type CreateInputTypeS3 string
 
 const (
@@ -8742,6 +8757,9 @@ func (c *CreateInputInputS3) GetTemplateAwsAPIKey() *string {
 	}
 	return c.TemplateAwsAPIKey
 }
+
+// #region class-body-createinputinputs3
+// #endregion class-body-createinputinputs3
 
 type CreateInputTypeMetrics string
 

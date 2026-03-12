@@ -66,11 +66,7 @@ func scanJsonL(data []byte, atEOF bool) (advance int, token []byte, err error) {
 }
 
 func (js *JsonLStream[T]) Next() bool {
-	if !js.scanner.Scan() {
-		return false
-	}
-
-	return true
+	return js.scanner.Scan()
 }
 
 func (js *JsonLStream[T]) Value() (T, error) {

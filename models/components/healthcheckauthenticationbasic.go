@@ -962,7 +962,7 @@ func (h *HealthCheckAuthenticationOauthSecretCollectRequestHeader) GetValue() st
 type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -1038,8 +1038,6 @@ type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic struct 
 	Codes []float64 `json:"codes,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
 	EnableHeader *bool `json:"enableHeader,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -1088,26 +1086,9 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic) Ge
 	return h.EnableHeader
 }
 
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitzero"`
-	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -1126,41 +1107,6 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone) GetT
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone) GetInterval() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone) GetLimit() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone) GetCodes() []float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone) GetEnableHeader() *bool {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckAuthenticationOauthSecretRetryRulesType string
@@ -2480,7 +2426,7 @@ func (h *HealthCheckAuthenticationOauthCollectRequestHeader) GetValue() string {
 type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -2556,8 +2502,6 @@ type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic struct {
 	Codes []float64 `json:"codes,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
 	EnableHeader *bool `json:"enableHeader,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -2606,26 +2550,9 @@ func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic) GetEnabl
 	return h.EnableHeader
 }
 
-func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitzero"`
-	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -2644,41 +2571,6 @@ func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone) GetType() 
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone) GetInterval() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone) GetLimit() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone) GetCodes() []float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone) GetEnableHeader() *bool {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckAuthenticationOauthRetryRulesType string
@@ -3998,7 +3890,7 @@ func (h *HealthCheckAuthenticationLoginSecretCollectRequestHeader) GetValue() st
 type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -4074,8 +3966,6 @@ type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic struct 
 	Codes []float64 `json:"codes,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
 	EnableHeader *bool `json:"enableHeader,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -4124,26 +4014,9 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic) Ge
 	return h.EnableHeader
 }
 
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitzero"`
-	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -4162,41 +4035,6 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone) GetT
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone) GetInterval() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone) GetLimit() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone) GetCodes() []float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone) GetEnableHeader() *bool {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckAuthenticationLoginSecretRetryRulesType string
@@ -5507,7 +5345,7 @@ func (h *HealthCheckAuthenticationLoginCollectRequestHeader) GetValue() string {
 type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -5583,8 +5421,6 @@ type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic struct {
 	Codes []float64 `json:"codes,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
 	EnableHeader *bool `json:"enableHeader,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -5633,26 +5469,9 @@ func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic) GetEnabl
 	return h.EnableHeader
 }
 
-func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitzero"`
-	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -5671,41 +5490,6 @@ func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone) GetType() 
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone) GetInterval() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone) GetLimit() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone) GetCodes() []float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone) GetEnableHeader() *bool {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckAuthenticationLoginRetryRulesType string
@@ -7025,7 +6809,7 @@ func (h *HealthCheckAuthenticationBasicSecretCollectRequestHeader) GetValue() st
 type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -7101,8 +6885,6 @@ type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic struct 
 	Codes []float64 `json:"codes,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
 	EnableHeader *bool `json:"enableHeader,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -7151,26 +6933,9 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic) Ge
 	return h.EnableHeader
 }
 
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitzero"`
-	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -7189,41 +6954,6 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone) GetT
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone) GetInterval() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone) GetLimit() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone) GetCodes() []float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone) GetEnableHeader() *bool {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckAuthenticationBasicSecretRetryRulesType string
@@ -8489,7 +8219,7 @@ func (h *HealthCheckAuthenticationBasicCollectRequestHeader) GetValue() string {
 type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
 	Interval *float64 `json:"interval,omitzero"`
 	// The maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
@@ -8565,8 +8295,6 @@ type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic struct {
 	Codes []float64 `json:"codes,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
 	EnableHeader *bool `json:"enableHeader,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -8615,26 +8343,9 @@ func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic) GetEnabl
 	return h.EnableHeader
 }
 
-func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
 type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone struct {
 	// The algorithm to use when performing HTTP retries
 	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitzero"`
-	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitzero"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `json:"multiplier,omitzero"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
@@ -8653,41 +8364,6 @@ func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone) GetType() 
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
-}
-
-func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone) GetInterval() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Interval
-}
-
-func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone) GetLimit() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Limit
-}
-
-func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone) GetMultiplier() *float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Multiplier
-}
-
-func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone) GetCodes() []float64 {
-	if h == nil {
-		return nil
-	}
-	return h.Codes
-}
-
-func (h *HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone) GetEnableHeader() *bool {
-	if h == nil {
-		return nil
-	}
-	return h.EnableHeader
 }
 
 type HealthCheckAuthenticationBasicRetryRulesType string

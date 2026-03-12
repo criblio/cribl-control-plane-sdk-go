@@ -5,4 +5,4 @@
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `Source`           | *string*           | :heavy_check_mark: | N/A                |
+| `Source`           | `string`           | :heavy_check_mark: | N/A                |
