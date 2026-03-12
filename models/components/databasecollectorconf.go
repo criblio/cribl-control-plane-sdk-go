@@ -60,6 +60,8 @@ type DatabaseCollectorConf struct {
 	QueryValidationEnabled *bool                                              `json:"queryValidationEnabled,omitzero"`
 	DefaultBreakers        *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
 	Scheduling             *DatabaseCollectorConfScheduling                   `json:"__scheduling,omitzero"`
+	// Binds 'query' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'query' at runtime.
+	TemplateQuery *string `json:"__template_query,omitzero"`
 }
 
 func (d DatabaseCollectorConf) MarshalJSON() ([]byte, error) {
@@ -106,4 +108,11 @@ func (d *DatabaseCollectorConf) GetScheduling() *DatabaseCollectorConfScheduling
 		return nil
 	}
 	return d.Scheduling
+}
+
+func (d *DatabaseCollectorConf) GetTemplateQuery() *string {
+	if d == nil {
+		return nil
+	}
+	return d.TemplateQuery
 }

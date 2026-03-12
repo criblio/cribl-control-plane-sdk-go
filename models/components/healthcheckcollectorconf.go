@@ -1271,6 +1271,8 @@ type HealthCheckAuthenticationNone struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationNone) MarshalJSON() ([]byte, error) {
@@ -1408,6 +1410,13 @@ func (h *HealthCheckAuthenticationNone) GetRetryRulesBackoff() *HealthCheckAuthe
 		return v.HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationNone) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckCollectMethodPostWithBodyHealthCheckMethod - Health check HTTP method.
@@ -2674,6 +2683,8 @@ type HealthCheckCollectMethodPostWithBody struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodPostWithBodyRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -2818,6 +2829,13 @@ func (h *HealthCheckCollectMethodPostWithBody) GetRetryRulesBackoff() *HealthChe
 		return v.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckCollectMethodPostWithBody) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckCollectMethodPostHealthCheckMethod - Health check HTTP method.
@@ -4084,6 +4102,8 @@ type HealthCheckCollectMethodPost struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodPostRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPost) MarshalJSON() ([]byte, error) {
@@ -4228,6 +4248,13 @@ func (h *HealthCheckCollectMethodPost) GetRetryRulesBackoff() *HealthCheckCollec
 		return v.HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckCollectMethodPost) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckCollectMethodGetHealthCheckMethod - Health check HTTP method.
@@ -5526,6 +5553,8 @@ type HealthCheckCollectMethodGet struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                               `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodGetRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckCollectMethodGet) MarshalJSON() ([]byte, error) {
@@ -5670,6 +5699,13 @@ func (h *HealthCheckCollectMethodGet) GetRetryRulesBackoff() *HealthCheckCollect
 		return v.HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckCollectMethodGet) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 type HealthCheckCollectorConfType string

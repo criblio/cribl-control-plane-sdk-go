@@ -1285,6 +1285,8 @@ type HealthCheckAuthenticationOauthSecret struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationOauthSecretRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauthSecret) MarshalJSON() ([]byte, error) {
@@ -1471,6 +1473,13 @@ func (h *HealthCheckAuthenticationOauthSecret) GetRetryRulesBackoff() *HealthChe
 		return v.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationOauthAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -2749,6 +2758,8 @@ type HealthCheckAuthenticationOauth struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationOauthRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauth) MarshalJSON() ([]byte, error) {
@@ -2935,6 +2946,13 @@ func (h *HealthCheckAuthenticationOauth) GetRetryRulesBackoff() *HealthCheckAuth
 		return v.HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationOauth) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationLoginSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -4211,6 +4229,8 @@ type HealthCheckAuthenticationLoginSecret struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationLoginSecretRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
@@ -4390,6 +4410,13 @@ func (h *HealthCheckAuthenticationLoginSecret) GetRetryRulesBackoff() *HealthChe
 		return v.HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationLoginAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -5668,6 +5695,8 @@ type HealthCheckAuthenticationLogin struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationLoginRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLogin) MarshalJSON() ([]byte, error) {
@@ -5854,6 +5883,13 @@ func (h *HealthCheckAuthenticationLogin) GetRetryRulesBackoff() *HealthCheckAuth
 		return v.HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationLogin) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationBasicSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -7120,6 +7156,8 @@ type HealthCheckAuthenticationBasicSecret struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationBasicSecretRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
@@ -7264,6 +7302,13 @@ func (h *HealthCheckAuthenticationBasicSecret) GetRetryRulesBackoff() *HealthChe
 		return v.HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationBasicAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -8532,6 +8577,8 @@ type HealthCheckAuthenticationBasic struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationBasicRetryRules `json:"retryRules,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasic) MarshalJSON() ([]byte, error) {
@@ -8683,4 +8730,11 @@ func (h *HealthCheckAuthenticationBasic) GetRetryRulesBackoff() *HealthCheckAuth
 		return v.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationBasic) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }

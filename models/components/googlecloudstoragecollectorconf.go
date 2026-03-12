@@ -90,6 +90,12 @@ type GoogleCloudStorageAuthTypeSecret struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeSecret) MarshalJSON() ([]byte, error) {
@@ -187,6 +193,27 @@ func (g *GoogleCloudStorageAuthTypeSecret) GetParquetChunkDownloadTimeout() *flo
 	return g.ParquetChunkDownloadTimeout
 }
 
+func (g *GoogleCloudStorageAuthTypeSecret) GetTemplateBucket() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateBucket
+}
+
+func (g *GoogleCloudStorageAuthTypeSecret) GetTemplatePath() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplatePath
+}
+
+func (g *GoogleCloudStorageAuthTypeSecret) GetTemplateEndpoint() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateEndpoint
+}
+
 // GoogleCloudStorageAuthTypeManualAuthenticationMethod - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
 type GoogleCloudStorageAuthTypeManualAuthenticationMethod string
 
@@ -268,6 +295,12 @@ type GoogleCloudStorageAuthTypeManual struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -365,6 +398,27 @@ func (g *GoogleCloudStorageAuthTypeManual) GetParquetChunkDownloadTimeout() *flo
 	return g.ParquetChunkDownloadTimeout
 }
 
+func (g *GoogleCloudStorageAuthTypeManual) GetTemplateBucket() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateBucket
+}
+
+func (g *GoogleCloudStorageAuthTypeManual) GetTemplatePath() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplatePath
+}
+
+func (g *GoogleCloudStorageAuthTypeManual) GetTemplateEndpoint() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateEndpoint
+}
+
 // GoogleCloudStorageAuthTypeAutoAuthenticationMethod - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
 type GoogleCloudStorageAuthTypeAutoAuthenticationMethod string
 
@@ -444,6 +498,12 @@ type GoogleCloudStorageAuthTypeAuto struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeAuto) MarshalJSON() ([]byte, error) {
@@ -532,6 +592,27 @@ func (g *GoogleCloudStorageAuthTypeAuto) GetParquetChunkDownloadTimeout() *float
 		return nil
 	}
 	return g.ParquetChunkDownloadTimeout
+}
+
+func (g *GoogleCloudStorageAuthTypeAuto) GetTemplateBucket() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateBucket
+}
+
+func (g *GoogleCloudStorageAuthTypeAuto) GetTemplatePath() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplatePath
+}
+
+func (g *GoogleCloudStorageAuthTypeAuto) GetTemplateEndpoint() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateEndpoint
 }
 
 type GoogleCloudStorageCollectorConfType string
