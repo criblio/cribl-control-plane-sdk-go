@@ -5955,6 +5955,29 @@ func (e *CreateOutputTypeCriblLake) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type CreateOutputAwsAuthenticationMethod string
+
+const (
+	CreateOutputAwsAuthenticationMethodAuto    CreateOutputAwsAuthenticationMethod = "auto"
+	CreateOutputAwsAuthenticationMethodAutoRPC CreateOutputAwsAuthenticationMethod = "auto_rpc"
+	CreateOutputAwsAuthenticationMethodManual  CreateOutputAwsAuthenticationMethod = "manual"
+)
+
+func (e CreateOutputAwsAuthenticationMethod) ToPointer() *CreateOutputAwsAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateOutputAwsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "auto_rpc", "manual":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateOutputOutputCriblLake struct {
 	// Unique ID for this output
 	ID   string                    `json:"id"`
@@ -6032,9 +6055,9 @@ type CreateOutputOutputCriblLake struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                                   `json:"maxClosingFilesToBackpressure,omitzero"`
-	AwsAuthenticationMethod       *components.AwsAuthenticationMethodOptions `json:"awsAuthenticationMethod,omitzero"`
-	Format                        *components.FormatOptions                  `json:"format,omitzero"`
+	MaxClosingFilesToBackpressure *float64                             `json:"maxClosingFilesToBackpressure,omitzero"`
+	AwsAuthenticationMethod       *CreateOutputAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	Format                        *components.FormatOptions            `json:"format,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	Description            *string  `json:"description,omitzero"`
@@ -6351,7 +6374,7 @@ func (c *CreateOutputOutputCriblLake) GetMaxClosingFilesToBackpressure() *float6
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputCriblLake) GetAwsAuthenticationMethod() *components.AwsAuthenticationMethodOptions {
+func (c *CreateOutputOutputCriblLake) GetAwsAuthenticationMethod() *CreateOutputAwsAuthenticationMethod {
 	if c == nil {
 		return nil
 	}
@@ -18142,18 +18165,4 @@ func (e *CreateOutputTypeNewrelicEvents) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for CreateOutputTypeNewrelicEvents: %v", v)
 	}
-}
-
-type CreateOutputPqControlsNewrelicEvents struct {
-}
-
-func (c CreateOutputPqControlsNewrelicEvents) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputPqControlsNewrelicEvents) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
 }

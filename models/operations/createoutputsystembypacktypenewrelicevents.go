@@ -5955,6 +5955,29 @@ func (e *CreateOutputSystemByPackTypeCriblLake) UnmarshalJSON(data []byte) error
 	}
 }
 
+type CreateOutputSystemByPackAwsAuthenticationMethod string
+
+const (
+	CreateOutputSystemByPackAwsAuthenticationMethodAuto    CreateOutputSystemByPackAwsAuthenticationMethod = "auto"
+	CreateOutputSystemByPackAwsAuthenticationMethodAutoRPC CreateOutputSystemByPackAwsAuthenticationMethod = "auto_rpc"
+	CreateOutputSystemByPackAwsAuthenticationMethodManual  CreateOutputSystemByPackAwsAuthenticationMethod = "manual"
+)
+
+func (e CreateOutputSystemByPackAwsAuthenticationMethod) ToPointer() *CreateOutputSystemByPackAwsAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateOutputSystemByPackAwsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "auto_rpc", "manual":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateOutputSystemByPackOutputCriblLake struct {
 	// Unique ID for this output
 	ID   string                                `json:"id"`
@@ -6032,9 +6055,9 @@ type CreateOutputSystemByPackOutputCriblLake struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                                   `json:"maxClosingFilesToBackpressure,omitzero"`
-	AwsAuthenticationMethod       *components.AwsAuthenticationMethodOptions `json:"awsAuthenticationMethod,omitzero"`
-	Format                        *components.FormatOptions                  `json:"format,omitzero"`
+	MaxClosingFilesToBackpressure *float64                                         `json:"maxClosingFilesToBackpressure,omitzero"`
+	AwsAuthenticationMethod       *CreateOutputSystemByPackAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	Format                        *components.FormatOptions                        `json:"format,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	Description            *string  `json:"description,omitzero"`
@@ -6351,7 +6374,7 @@ func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxClosingFilesToBackpressu
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputCriblLake) GetAwsAuthenticationMethod() *components.AwsAuthenticationMethodOptions {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetAwsAuthenticationMethod() *CreateOutputSystemByPackAwsAuthenticationMethod {
 	if c == nil {
 		return nil
 	}
@@ -18142,18 +18165,4 @@ func (e *CreateOutputSystemByPackTypeNewrelicEvents) UnmarshalJSON(data []byte) 
 	default:
 		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeNewrelicEvents: %v", v)
 	}
-}
-
-type CreateOutputSystemByPackPqControlsNewrelicEvents struct {
-}
-
-func (c CreateOutputSystemByPackPqControlsNewrelicEvents) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputSystemByPackPqControlsNewrelicEvents) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
 }
