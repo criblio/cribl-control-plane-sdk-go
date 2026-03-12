@@ -40,7 +40,7 @@ go:
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIError
   enableCustomCodeRegions: false
-  enableSkipDeserialization: false
+  enableSkipDeserialization: true
   envVarPrefix: CRIBLCONTROLPLANE
   flattenGlobalSecurity: true
   forwardCompatibleEnumsByDefault: true
