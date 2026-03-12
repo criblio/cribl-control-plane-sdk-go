@@ -10,6 +10,20 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateOutputPqControlsNewrelicEvents struct {
+}
+
+func (c CreateOutputPqControlsNewrelicEvents) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputPqControlsNewrelicEvents) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type CreateOutputOutputNewrelicEvents struct {
 	// Unique ID for this output
 	ID   string                         `json:"id"`
