@@ -39,6 +39,8 @@ go:
   baseErrorName: CriblControlPlaneError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIError
+  enableCustomCodeRegions: false
+  enableSkipDeserialization: true
   envVarPrefix: CRIBLCONTROLPLANE
   flattenGlobalSecurity: true
   forwardCompatibleEnumsByDefault: true
