@@ -72,6 +72,9 @@ func (e *EmailRecipient3) GetBcc() *string {
 	return e.Bcc
 }
 
+// #region class-body-emailrecipient3
+// #endregion class-body-emailrecipient3
+
 type NotificationConfigForSMTPTarget3 struct {
 	// Email subject
 	Subject *string `json:"subject,omitzero"`
@@ -112,6 +115,9 @@ func (n *NotificationConfigForSMTPTarget3) GetEmailRecipient() *EmailRecipient3 
 	return n.EmailRecipient
 }
 
+// #region class-body-notificationconfigforsmtptarget3
+// #endregion class-body-notificationconfigforsmtptarget3
+
 type TargetConfig3 struct {
 	Conf *NotificationConfigForSMTPTarget3 `json:"conf,omitzero"`
 	ID   string                            `json:"id"`
@@ -141,6 +147,9 @@ func (t *TargetConfig3) GetID() string {
 	}
 	return t.ID
 }
+
+// #region class-body-targetconfig3
+// #endregion class-body-targetconfig3
 
 type TargetConfigUnion3Type string
 
@@ -218,6 +227,9 @@ func (c *ConditionSpecificConfigs3) UnmarshalJSON(data []byte) error {
 	}
 	return nil
 }
+
+// #region class-body-conditionspecificconfigs3
+// #endregion class-body-conditionspecificconfigs3
 
 type Notification3 struct {
 	// Notification mode: direct or policy-based
@@ -309,6 +321,9 @@ func (n *Notification3) GetTemplateTargetPairs() []ItemsTypePoliciesItemsTemplat
 	return n.TemplateTargetPairs
 }
 
+// #region class-body-notification3
+// #endregion class-body-notification3
+
 // NotificationMode2 - Notification mode: direct or policy-based
 type NotificationMode2 string
 
@@ -373,6 +388,9 @@ func (e *EmailRecipient2) GetBcc() *string {
 	return e.Bcc
 }
 
+// #region class-body-emailrecipient2
+// #endregion class-body-emailrecipient2
+
 type NotificationConfigForSMTPTarget2 struct {
 	// Email subject
 	Subject *string `json:"subject,omitzero"`
@@ -413,6 +431,9 @@ func (n *NotificationConfigForSMTPTarget2) GetEmailRecipient() *EmailRecipient2 
 	return n.EmailRecipient
 }
 
+// #region class-body-notificationconfigforsmtptarget2
+// #endregion class-body-notificationconfigforsmtptarget2
+
 type TargetConfig2 struct {
 	Conf *NotificationConfigForSMTPTarget2 `json:"conf,omitzero"`
 	ID   string                            `json:"id"`
@@ -442,6 +463,9 @@ func (t *TargetConfig2) GetID() string {
 	}
 	return t.ID
 }
+
+// #region class-body-targetconfig2
+// #endregion class-body-targetconfig2
 
 type TargetConfigUnion2Type string
 
@@ -519,6 +543,9 @@ func (c *ConditionSpecificConfigs2) UnmarshalJSON(data []byte) error {
 	}
 	return nil
 }
+
+// #region class-body-conditionspecificconfigs2
+// #endregion class-body-conditionspecificconfigs2
 
 type Notification2 struct {
 	// Notification mode: direct or policy-based
@@ -610,6 +637,9 @@ func (n *Notification2) GetMetadata() []ItemsTypeMetadata {
 	return n.Metadata
 }
 
+// #region class-body-notification2
+// #endregion class-body-notification2
+
 // NotificationMode1 - Notification mode: direct or policy-based
 type NotificationMode1 string
 
@@ -674,6 +704,9 @@ func (e *EmailRecipient1) GetBcc() *string {
 	return e.Bcc
 }
 
+// #region class-body-emailrecipient1
+// #endregion class-body-emailrecipient1
+
 type NotificationConfigForSMTPTarget1 struct {
 	// Email subject
 	Subject *string `json:"subject,omitzero"`
@@ -714,6 +747,9 @@ func (n *NotificationConfigForSMTPTarget1) GetEmailRecipient() *EmailRecipient1 
 	return n.EmailRecipient
 }
 
+// #region class-body-notificationconfigforsmtptarget1
+// #endregion class-body-notificationconfigforsmtptarget1
+
 type TargetConfig1 struct {
 	Conf *NotificationConfigForSMTPTarget1 `json:"conf,omitzero"`
 	ID   string                            `json:"id"`
@@ -743,6 +779,9 @@ func (t *TargetConfig1) GetID() string {
 	}
 	return t.ID
 }
+
+// #region class-body-targetconfig1
+// #endregion class-body-targetconfig1
 
 type TargetConfigUnion1Type string
 
@@ -820,6 +859,9 @@ func (c *ConditionSpecificConfigs1) UnmarshalJSON(data []byte) error {
 	}
 	return nil
 }
+
+// #region class-body-conditionspecificconfigs1
+// #endregion class-body-conditionspecificconfigs1
 
 type Notification1 struct {
 	// Notification mode: direct or policy-based
@@ -910,6 +952,9 @@ func (n *Notification1) GetMetadata() []ItemsTypeMetadata {
 	}
 	return n.Metadata
 }
+
+// #region class-body-notification1
+// #endregion class-body-notification1
 
 type NotificationUnionType string
 

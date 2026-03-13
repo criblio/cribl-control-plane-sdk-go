@@ -22,6 +22,9 @@ func (r *RollbackSettings2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// #region class-body-rollbacksettings2
+// #endregion class-body-rollbacksettings2
+
 type RollbackSettings1 struct {
 	RollbackEnabled bool     `json:"rollbackEnabled"`
 	RollbackRetries *float64 `json:"rollbackRetries,omitzero"`
@@ -59,6 +62,9 @@ func (r *RollbackSettings1) GetRollbackTimeout() *float64 {
 	}
 	return r.RollbackTimeout
 }
+
+// #region class-body-rollbacksettings1
+// #endregion class-body-rollbacksettings1
 
 type RollbackSettingsUnionType string
 
