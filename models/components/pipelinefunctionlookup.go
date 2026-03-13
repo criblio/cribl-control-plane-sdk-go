@@ -4,7 +4,6 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
@@ -33,24 +32,24 @@ func (e *PipelineFunctionLookupID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// LookupDbLookupFalseMatchModeExactMatchMode - Specifies the matching method based on the format and logic used in the lookup file
-type LookupDbLookupFalseMatchModeExactMatchMode string
+// MatchMode - Specifies the matching method based on the format and logic used in the lookup file
+type MatchMode string
 
 const (
-	// LookupDbLookupFalseMatchModeExactMatchModeExact Exact
-	LookupDbLookupFalseMatchModeExactMatchModeExact LookupDbLookupFalseMatchModeExactMatchMode = "exact"
-	// LookupDbLookupFalseMatchModeExactMatchModeCidr CIDR
-	LookupDbLookupFalseMatchModeExactMatchModeCidr LookupDbLookupFalseMatchModeExactMatchMode = "cidr"
-	// LookupDbLookupFalseMatchModeExactMatchModeRegex Regex
-	LookupDbLookupFalseMatchModeExactMatchModeRegex LookupDbLookupFalseMatchModeExactMatchMode = "regex"
+	// MatchModeExact Exact
+	MatchModeExact MatchMode = "exact"
+	// MatchModeCidr CIDR
+	MatchModeCidr MatchMode = "cidr"
+	// MatchModeRegex Regex
+	MatchModeRegex MatchMode = "regex"
 )
 
-func (e LookupDbLookupFalseMatchModeExactMatchMode) ToPointer() *LookupDbLookupFalseMatchModeExactMatchMode {
+func (e MatchMode) ToPointer() *MatchMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LookupDbLookupFalseMatchModeExactMatchMode) IsExact() bool {
+func (e *MatchMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "exact", "cidr", "regex":
@@ -60,225 +59,63 @@ func (e *LookupDbLookupFalseMatchModeExactMatchMode) IsExact() bool {
 	return false
 }
 
-type LookupDbLookupFalseMatchModeExactInField struct {
-	// Field name as it appears in events
-	EventField string `json:"eventField"`
-	// Optional: The field name as it appears in the lookup file. Defaults to event field name
-	LookupField *string `json:"lookupField,omitzero"`
-}
-
-func (l LookupDbLookupFalseMatchModeExactInField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupFalseMatchModeExactInField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupFalseMatchModeExactInField) GetEventField() string {
-	if l == nil {
-		return ""
-	}
-	return l.EventField
-}
-
-func (l *LookupDbLookupFalseMatchModeExactInField) GetLookupField() *string {
-	if l == nil {
-		return nil
-	}
-	return l.LookupField
-}
-
-type LookupDbLookupFalseMatchModeExactOutField struct {
-	// The field name as it appears in the lookup file
-	LookupField string `json:"lookupField"`
-	// Optional: Field name to add to event. Defaults to lookup field name.
-	EventField *string `json:"eventField,omitzero"`
-	// Optional: Value to assign if lookup entry is not found
-	DefaultValue *string `json:"defaultValue,omitzero"`
-}
-
-func (l LookupDbLookupFalseMatchModeExactOutField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupFalseMatchModeExactOutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupFalseMatchModeExactOutField) GetLookupField() string {
-	if l == nil {
-		return ""
-	}
-	return l.LookupField
-}
-
-func (l *LookupDbLookupFalseMatchModeExactOutField) GetEventField() *string {
-	if l == nil {
-		return nil
-	}
-	return l.EventField
-}
-
-func (l *LookupDbLookupFalseMatchModeExactOutField) GetDefaultValue() *string {
-	if l == nil {
-		return nil
-	}
-	return l.DefaultValue
-}
-
-type LookupDbLookupFalseMatchModeExact struct {
-	// Specifies the matching method based on the format and logic used in the lookup file
-	MatchMode *LookupDbLookupFalseMatchModeExactMatchMode `json:"matchMode,omitzero"`
-	// Whether to ignore case when performing lookups using Match Mode: Exact
-	IgnoreCase *bool `json:"ignoreCase,omitzero"`
-	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup *bool `json:"dbLookup,omitzero"`
-	// Checks the lookup file periodically for changes and reloads it if modified. Set to -1 to disable reloading (default). Useful for lookups not managed by Stream or not updated by an external process. [Learn more](https://docs.cribl.io/stream/lookup-function/#advanced-settings)
-	ReloadPeriodSec *float64 `json:"reloadPeriodSec,omitzero"`
-	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
-	File string `json:"file"`
-	// Fields that should be used to key into the lookup table
-	InFields []LookupDbLookupFalseMatchModeExactInField `json:"inFields,omitzero"`
-	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []LookupDbLookupFalseMatchModeExactOutField `json:"outFields,omitzero"`
-	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `json:"addToEvent,omitzero"`
-}
-
-func (l LookupDbLookupFalseMatchModeExact) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupFalseMatchModeExact) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupFalseMatchModeExact) GetMatchMode() *LookupDbLookupFalseMatchModeExactMatchMode {
-	if l == nil {
-		return nil
-	}
-	return l.MatchMode
-}
-
-func (l *LookupDbLookupFalseMatchModeExact) GetIgnoreCase() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.IgnoreCase
-}
-
-func (l *LookupDbLookupFalseMatchModeExact) GetDbLookup() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.DbLookup
-}
-
-func (l *LookupDbLookupFalseMatchModeExact) GetReloadPeriodSec() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.ReloadPeriodSec
-}
-
-func (l *LookupDbLookupFalseMatchModeExact) GetFile() string {
-	if l == nil {
-		return ""
-	}
-	return l.File
-}
-
-func (l *LookupDbLookupFalseMatchModeExact) GetInFields() []LookupDbLookupFalseMatchModeExactInField {
-	if l == nil {
-		return nil
-	}
-	return l.InFields
-}
-
-func (l *LookupDbLookupFalseMatchModeExact) GetOutFields() []LookupDbLookupFalseMatchModeExactOutField {
-	if l == nil {
-		return nil
-	}
-	return l.OutFields
-}
-
-func (l *LookupDbLookupFalseMatchModeExact) GetAddToEvent() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.AddToEvent
-}
-
-// LookupDbLookupFalseMatchModeRegexMatchMode - Specifies the matching method based on the format and logic used in the lookup file
-type LookupDbLookupFalseMatchModeRegexMatchMode string
+// MatchType - Further defines how to handle multiple matches: return the first match, the most specific match, or all matches
+type MatchType string
 
 const (
-	// LookupDbLookupFalseMatchModeRegexMatchModeExact Exact
-	LookupDbLookupFalseMatchModeRegexMatchModeExact LookupDbLookupFalseMatchModeRegexMatchMode = "exact"
-	// LookupDbLookupFalseMatchModeRegexMatchModeCidr CIDR
-	LookupDbLookupFalseMatchModeRegexMatchModeCidr LookupDbLookupFalseMatchModeRegexMatchMode = "cidr"
-	// LookupDbLookupFalseMatchModeRegexMatchModeRegex Regex
-	LookupDbLookupFalseMatchModeRegexMatchModeRegex LookupDbLookupFalseMatchModeRegexMatchMode = "regex"
+	MatchTypeFirst    MatchType = "first"
+	MatchTypeSpecific MatchType = "specific"
+	MatchTypeAll      MatchType = "all"
 )
 
-func (e LookupDbLookupFalseMatchModeRegexMatchMode) ToPointer() *LookupDbLookupFalseMatchModeRegexMatchMode {
+func (e MatchType) ToPointer() *MatchType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LookupDbLookupFalseMatchModeRegexMatchMode) IsExact() bool {
+func (e *MatchType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "exact", "cidr", "regex":
+		case "first", "specific", "all":
 			return true
 		}
 	}
 	return false
 }
 
-type LookupDbLookupFalseMatchModeRegexInField struct {
+type InField struct {
 	// Field name as it appears in events
 	EventField string `json:"eventField"`
 	// Optional: The field name as it appears in the lookup file. Defaults to event field name
 	LookupField *string `json:"lookupField,omitzero"`
 }
 
-func (l LookupDbLookupFalseMatchModeRegexInField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
+func (i InField) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (l *LookupDbLookupFalseMatchModeRegexInField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+func (i *InField) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *LookupDbLookupFalseMatchModeRegexInField) GetEventField() string {
-	if l == nil {
+func (i *InField) GetEventField() string {
+	if i == nil {
 		return ""
 	}
-	return l.EventField
+	return i.EventField
 }
 
-func (l *LookupDbLookupFalseMatchModeRegexInField) GetLookupField() *string {
-	if l == nil {
+func (i *InField) GetLookupField() *string {
+	if i == nil {
 		return nil
 	}
-	return l.LookupField
+	return i.LookupField
 }
 
-type LookupDbLookupFalseMatchModeRegexOutField struct {
+type OutField struct {
 	// The field name as it appears in the lookup file
 	LookupField string `json:"lookupField"`
 	// Optional: Field name to add to event. Defaults to lookup field name.
@@ -287,680 +124,131 @@ type LookupDbLookupFalseMatchModeRegexOutField struct {
 	DefaultValue *string `json:"defaultValue,omitzero"`
 }
 
-func (l LookupDbLookupFalseMatchModeRegexOutField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
+func (o OutField) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (l *LookupDbLookupFalseMatchModeRegexOutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+func (o *OutField) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *LookupDbLookupFalseMatchModeRegexOutField) GetLookupField() string {
-	if l == nil {
+func (o *OutField) GetLookupField() string {
+	if o == nil {
 		return ""
 	}
-	return l.LookupField
+	return o.LookupField
 }
 
-func (l *LookupDbLookupFalseMatchModeRegexOutField) GetEventField() *string {
-	if l == nil {
+func (o *OutField) GetEventField() *string {
+	if o == nil {
 		return nil
 	}
-	return l.EventField
+	return o.EventField
 }
 
-func (l *LookupDbLookupFalseMatchModeRegexOutField) GetDefaultValue() *string {
-	if l == nil {
+func (o *OutField) GetDefaultValue() *string {
+	if o == nil {
 		return nil
 	}
-	return l.DefaultValue
+	return o.DefaultValue
 }
-
-type LookupDbLookupFalseMatchModeRegex struct {
-	// Specifies the matching method based on the format and logic used in the lookup file
-	MatchMode *LookupDbLookupFalseMatchModeRegexMatchMode `json:"matchMode,omitzero"`
-	// Further defines how to handle multiple matches: return the first match, the most specific match, or all matches
-	MatchType *MatchTypeOptionsLookupDbLookupFalseMatchModeCidr `json:"matchType,omitzero"`
-	// Whether to ignore case when performing lookups using Match Mode: Regex.
-	IgnoreCase *bool `json:"ignoreCase,omitzero"`
-	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup *bool `json:"dbLookup,omitzero"`
-	// Checks the lookup file periodically for changes and reloads it if modified. Set to -1 to disable reloading (default). Useful for lookups not managed by Stream or not updated by an external process. [Learn more](https://docs.cribl.io/stream/lookup-function/#advanced-settings)
-	ReloadPeriodSec *float64 `json:"reloadPeriodSec,omitzero"`
-	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
-	File string `json:"file"`
-	// Fields that should be used to key into the lookup table
-	InFields []LookupDbLookupFalseMatchModeRegexInField `json:"inFields,omitzero"`
-	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []LookupDbLookupFalseMatchModeRegexOutField `json:"outFields,omitzero"`
-	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `json:"addToEvent,omitzero"`
-}
-
-func (l LookupDbLookupFalseMatchModeRegex) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) GetMatchMode() *LookupDbLookupFalseMatchModeRegexMatchMode {
-	if l == nil {
-		return nil
-	}
-	return l.MatchMode
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) GetMatchType() *MatchTypeOptionsLookupDbLookupFalseMatchModeCidr {
-	if l == nil {
-		return nil
-	}
-	return l.MatchType
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) GetIgnoreCase() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.IgnoreCase
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) GetDbLookup() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.DbLookup
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) GetReloadPeriodSec() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.ReloadPeriodSec
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) GetFile() string {
-	if l == nil {
-		return ""
-	}
-	return l.File
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) GetInFields() []LookupDbLookupFalseMatchModeRegexInField {
-	if l == nil {
-		return nil
-	}
-	return l.InFields
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) GetOutFields() []LookupDbLookupFalseMatchModeRegexOutField {
-	if l == nil {
-		return nil
-	}
-	return l.OutFields
-}
-
-func (l *LookupDbLookupFalseMatchModeRegex) GetAddToEvent() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.AddToEvent
-}
-
-// LookupDbLookupFalseMatchModeCidrMatchMode - Specifies the matching method based on the format and logic used in the lookup file
-type LookupDbLookupFalseMatchModeCidrMatchMode string
-
-const (
-	// LookupDbLookupFalseMatchModeCidrMatchModeExact Exact
-	LookupDbLookupFalseMatchModeCidrMatchModeExact LookupDbLookupFalseMatchModeCidrMatchMode = "exact"
-	// LookupDbLookupFalseMatchModeCidrMatchModeCidr CIDR
-	LookupDbLookupFalseMatchModeCidrMatchModeCidr LookupDbLookupFalseMatchModeCidrMatchMode = "cidr"
-	// LookupDbLookupFalseMatchModeCidrMatchModeRegex Regex
-	LookupDbLookupFalseMatchModeCidrMatchModeRegex LookupDbLookupFalseMatchModeCidrMatchMode = "regex"
-)
-
-func (e LookupDbLookupFalseMatchModeCidrMatchMode) ToPointer() *LookupDbLookupFalseMatchModeCidrMatchMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LookupDbLookupFalseMatchModeCidrMatchMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "exact", "cidr", "regex":
-			return true
-		}
-	}
-	return false
-}
-
-type LookupDbLookupFalseMatchModeCidrInField struct {
-	// Field name as it appears in events
-	EventField string `json:"eventField"`
-	// Optional: The field name as it appears in the lookup file. Defaults to event field name
-	LookupField *string `json:"lookupField,omitzero"`
-}
-
-func (l LookupDbLookupFalseMatchModeCidrInField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupFalseMatchModeCidrInField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupFalseMatchModeCidrInField) GetEventField() string {
-	if l == nil {
-		return ""
-	}
-	return l.EventField
-}
-
-func (l *LookupDbLookupFalseMatchModeCidrInField) GetLookupField() *string {
-	if l == nil {
-		return nil
-	}
-	return l.LookupField
-}
-
-type LookupDbLookupFalseMatchModeCidrOutField struct {
-	// The field name as it appears in the lookup file
-	LookupField string `json:"lookupField"`
-	// Optional: Field name to add to event. Defaults to lookup field name.
-	EventField *string `json:"eventField,omitzero"`
-	// Optional: Value to assign if lookup entry is not found
-	DefaultValue *string `json:"defaultValue,omitzero"`
-}
-
-func (l LookupDbLookupFalseMatchModeCidrOutField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupFalseMatchModeCidrOutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupFalseMatchModeCidrOutField) GetLookupField() string {
-	if l == nil {
-		return ""
-	}
-	return l.LookupField
-}
-
-func (l *LookupDbLookupFalseMatchModeCidrOutField) GetEventField() *string {
-	if l == nil {
-		return nil
-	}
-	return l.EventField
-}
-
-func (l *LookupDbLookupFalseMatchModeCidrOutField) GetDefaultValue() *string {
-	if l == nil {
-		return nil
-	}
-	return l.DefaultValue
-}
-
-type LookupDbLookupFalseMatchModeCidr struct {
-	// Specifies the matching method based on the format and logic used in the lookup file
-	MatchMode *LookupDbLookupFalseMatchModeCidrMatchMode `json:"matchMode,omitzero"`
-	// Further defines how to handle multiple matches: return the first match, the most specific match, or all matches
-	MatchType *MatchTypeOptionsLookupDbLookupFalseMatchModeCidr `json:"matchType,omitzero"`
-	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup *bool `json:"dbLookup,omitzero"`
-	// Checks the lookup file periodically for changes and reloads it if modified. Set to -1 to disable reloading (default). Useful for lookups not managed by Stream or not updated by an external process. [Learn more](https://docs.cribl.io/stream/lookup-function/#advanced-settings)
-	ReloadPeriodSec *float64 `json:"reloadPeriodSec,omitzero"`
-	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
-	File string `json:"file"`
-	// Fields that should be used to key into the lookup table
-	InFields []LookupDbLookupFalseMatchModeCidrInField `json:"inFields,omitzero"`
-	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []LookupDbLookupFalseMatchModeCidrOutField `json:"outFields,omitzero"`
-	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `json:"addToEvent,omitzero"`
-}
-
-func (l LookupDbLookupFalseMatchModeCidr) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupFalseMatchModeCidr) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupFalseMatchModeCidr) GetMatchMode() *LookupDbLookupFalseMatchModeCidrMatchMode {
-	if l == nil {
-		return nil
-	}
-	return l.MatchMode
-}
-
-func (l *LookupDbLookupFalseMatchModeCidr) GetMatchType() *MatchTypeOptionsLookupDbLookupFalseMatchModeCidr {
-	if l == nil {
-		return nil
-	}
-	return l.MatchType
-}
-
-func (l *LookupDbLookupFalseMatchModeCidr) GetDbLookup() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.DbLookup
-}
-
-func (l *LookupDbLookupFalseMatchModeCidr) GetReloadPeriodSec() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.ReloadPeriodSec
-}
-
-func (l *LookupDbLookupFalseMatchModeCidr) GetFile() string {
-	if l == nil {
-		return ""
-	}
-	return l.File
-}
-
-func (l *LookupDbLookupFalseMatchModeCidr) GetInFields() []LookupDbLookupFalseMatchModeCidrInField {
-	if l == nil {
-		return nil
-	}
-	return l.InFields
-}
-
-func (l *LookupDbLookupFalseMatchModeCidr) GetOutFields() []LookupDbLookupFalseMatchModeCidrOutField {
-	if l == nil {
-		return nil
-	}
-	return l.OutFields
-}
-
-func (l *LookupDbLookupFalseMatchModeCidr) GetAddToEvent() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.AddToEvent
-}
-
-type LookupDbLookupFalseType string
-
-const (
-	LookupDbLookupFalseTypeCidr    LookupDbLookupFalseType = "cidr"
-	LookupDbLookupFalseTypeRegex   LookupDbLookupFalseType = "regex"
-	LookupDbLookupFalseTypeExact   LookupDbLookupFalseType = "exact"
-	LookupDbLookupFalseTypeUnknown LookupDbLookupFalseType = "UNKNOWN"
-)
-
-type LookupDbLookupFalse struct {
-	LookupDbLookupFalseMatchModeCidr  *LookupDbLookupFalseMatchModeCidr  `queryParam:"inline" union:"member"`
-	LookupDbLookupFalseMatchModeRegex *LookupDbLookupFalseMatchModeRegex `queryParam:"inline" union:"member"`
-	LookupDbLookupFalseMatchModeExact *LookupDbLookupFalseMatchModeExact `queryParam:"inline" union:"member"`
-	UnknownRaw                        json.RawMessage                    `json:"-" union:"unknown"`
-
-	Type LookupDbLookupFalseType
-}
-
-func CreateLookupDbLookupFalseCidr(cidr LookupDbLookupFalseMatchModeCidr) LookupDbLookupFalse {
-	typ := LookupDbLookupFalseTypeCidr
-
-	typStr := LookupDbLookupFalseMatchModeCidrMatchMode(typ)
-	cidr.MatchMode = &typStr
-
-	return LookupDbLookupFalse{
-		LookupDbLookupFalseMatchModeCidr: &cidr,
-		Type:                             typ,
-	}
-}
-
-func CreateLookupDbLookupFalseRegex(regex LookupDbLookupFalseMatchModeRegex) LookupDbLookupFalse {
-	typ := LookupDbLookupFalseTypeRegex
-
-	typStr := LookupDbLookupFalseMatchModeRegexMatchMode(typ)
-	regex.MatchMode = &typStr
-
-	return LookupDbLookupFalse{
-		LookupDbLookupFalseMatchModeRegex: &regex,
-		Type:                              typ,
-	}
-}
-
-func CreateLookupDbLookupFalseExact(exact LookupDbLookupFalseMatchModeExact) LookupDbLookupFalse {
-	typ := LookupDbLookupFalseTypeExact
-
-	typStr := LookupDbLookupFalseMatchModeExactMatchMode(typ)
-	exact.MatchMode = &typStr
-
-	return LookupDbLookupFalse{
-		LookupDbLookupFalseMatchModeExact: &exact,
-		Type:                              typ,
-	}
-}
-
-func CreateLookupDbLookupFalseUnknown(raw json.RawMessage) LookupDbLookupFalse {
-	return LookupDbLookupFalse{
-		UnknownRaw: raw,
-		Type:       LookupDbLookupFalseTypeUnknown,
-	}
-}
-
-func (u LookupDbLookupFalse) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u LookupDbLookupFalse) IsUnknown() bool {
-	return u.Type == LookupDbLookupFalseTypeUnknown
-}
-
-func (u *LookupDbLookupFalse) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		MatchMode string `json:"matchMode"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = LookupDbLookupFalseTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = LookupDbLookupFalseTypeUnknown
-		return nil
-	}
-
-	switch dis.MatchMode {
-	case "cidr":
-		lookupDbLookupFalseMatchModeCidr := new(LookupDbLookupFalseMatchModeCidr)
-		if err := utils.UnmarshalJSON(data, &lookupDbLookupFalseMatchModeCidr, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (MatchMode == cidr) type LookupDbLookupFalseMatchModeCidr within LookupDbLookupFalse: %w", string(data), err)
-		}
-
-		u.LookupDbLookupFalseMatchModeCidr = lookupDbLookupFalseMatchModeCidr
-		u.Type = LookupDbLookupFalseTypeCidr
-		return nil
-	case "regex":
-		lookupDbLookupFalseMatchModeRegex := new(LookupDbLookupFalseMatchModeRegex)
-		if err := utils.UnmarshalJSON(data, &lookupDbLookupFalseMatchModeRegex, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (MatchMode == regex) type LookupDbLookupFalseMatchModeRegex within LookupDbLookupFalse: %w", string(data), err)
-		}
-
-		u.LookupDbLookupFalseMatchModeRegex = lookupDbLookupFalseMatchModeRegex
-		u.Type = LookupDbLookupFalseTypeRegex
-		return nil
-	case "exact":
-		lookupDbLookupFalseMatchModeExact := new(LookupDbLookupFalseMatchModeExact)
-		if err := utils.UnmarshalJSON(data, &lookupDbLookupFalseMatchModeExact, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (MatchMode == exact) type LookupDbLookupFalseMatchModeExact within LookupDbLookupFalse: %w", string(data), err)
-		}
-
-		u.LookupDbLookupFalseMatchModeExact = lookupDbLookupFalseMatchModeExact
-		u.Type = LookupDbLookupFalseTypeExact
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = LookupDbLookupFalseTypeUnknown
-		return nil
-	}
-
-}
-
-func (u LookupDbLookupFalse) MarshalJSON() ([]byte, error) {
-	if u.LookupDbLookupFalseMatchModeCidr != nil {
-		return utils.MarshalJSON(u.LookupDbLookupFalseMatchModeCidr, "", true)
-	}
-
-	if u.LookupDbLookupFalseMatchModeRegex != nil {
-		return utils.MarshalJSON(u.LookupDbLookupFalseMatchModeRegex, "", true)
-	}
-
-	if u.LookupDbLookupFalseMatchModeExact != nil {
-		return utils.MarshalJSON(u.LookupDbLookupFalseMatchModeExact, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type LookupDbLookupFalse: all fields are null")
-}
-
-type LookupDbLookupTrueInField struct {
-	// Field name as it appears in events
-	EventField string `json:"eventField"`
-	// Optional: The field name as it appears in the lookup file. Defaults to event field name
-	LookupField *string `json:"lookupField,omitzero"`
-}
-
-func (l LookupDbLookupTrueInField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupTrueInField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupTrueInField) GetEventField() string {
-	if l == nil {
-		return ""
-	}
-	return l.EventField
-}
-
-func (l *LookupDbLookupTrueInField) GetLookupField() *string {
-	if l == nil {
-		return nil
-	}
-	return l.LookupField
-}
-
-type LookupDbLookupTrueOutField struct {
-	// The field name as it appears in the lookup file
-	LookupField string `json:"lookupField"`
-	// Optional: Field name to add to event. Defaults to lookup field name.
-	EventField *string `json:"eventField,omitzero"`
-	// Optional: Value to assign if lookup entry is not found
-	DefaultValue *string `json:"defaultValue,omitzero"`
-}
-
-func (l LookupDbLookupTrueOutField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupTrueOutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupTrueOutField) GetLookupField() string {
-	if l == nil {
-		return ""
-	}
-	return l.LookupField
-}
-
-func (l *LookupDbLookupTrueOutField) GetEventField() *string {
-	if l == nil {
-		return nil
-	}
-	return l.EventField
-}
-
-func (l *LookupDbLookupTrueOutField) GetDefaultValue() *string {
-	if l == nil {
-		return nil
-	}
-	return l.DefaultValue
-}
-
-type LookupDbLookupTrue struct {
-	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup *bool `json:"dbLookup,omitzero"`
-	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
-	File string `json:"file"`
-	// Fields that should be used to key into the lookup table
-	InFields []LookupDbLookupTrueInField `json:"inFields,omitzero"`
-	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []LookupDbLookupTrueOutField `json:"outFields,omitzero"`
-	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `json:"addToEvent,omitzero"`
-}
-
-func (l LookupDbLookupTrue) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LookupDbLookupTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LookupDbLookupTrue) GetDbLookup() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.DbLookup
-}
-
-func (l *LookupDbLookupTrue) GetFile() string {
-	if l == nil {
-		return ""
-	}
-	return l.File
-}
-
-func (l *LookupDbLookupTrue) GetInFields() []LookupDbLookupTrueInField {
-	if l == nil {
-		return nil
-	}
-	return l.InFields
-}
-
-func (l *LookupDbLookupTrue) GetOutFields() []LookupDbLookupTrueOutField {
-	if l == nil {
-		return nil
-	}
-	return l.OutFields
-}
-
-func (l *LookupDbLookupTrue) GetAddToEvent() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.AddToEvent
-}
-
-type PipelineFunctionLookupConfType string
-
-const (
-	PipelineFunctionLookupConfTypeLookupDbLookupTrue  PipelineFunctionLookupConfType = "LookupDbLookupTrue"
-	PipelineFunctionLookupConfTypeLookupDbLookupFalse PipelineFunctionLookupConfType = "LookupDbLookupFalse"
-)
 
 type PipelineFunctionLookupConf struct {
-	LookupDbLookupTrue  *LookupDbLookupTrue  `queryParam:"inline" union:"member"`
-	LookupDbLookupFalse *LookupDbLookupFalse `queryParam:"inline" union:"member"`
-
-	Type PipelineFunctionLookupConfType
+	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
+	File string `json:"file"`
+	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
+	DbLookup *bool `json:"dbLookup,omitzero"`
+	// Specifies the matching method based on the format and logic used in the lookup file
+	MatchMode *MatchMode `json:"matchMode,omitzero"`
+	// Further defines how to handle multiple matches: return the first match, the most specific match, or all matches
+	MatchType *MatchType `json:"matchType,omitzero"`
+	// Checks the lookup file periodically for changes and reloads it if modified. Set to -1 to disable reloading (default). Useful for lookups not managed by Stream or not updated by an external process. [Learn more](https://docs.cribl.io/stream/lookup-function/#advanced-settings)
+	ReloadPeriodSec *float64 `json:"reloadPeriodSec,omitzero"`
+	// Fields that should be used to key into the lookup table
+	InFields []InField `json:"inFields,omitzero"`
+	// Fields to add to events after matching lookup. Defaults to all if not specified.
+	OutFields []OutField `json:"outFields,omitzero"`
+	// Add the looked-up values to _raw, as key=value pairs
+	AddToEvent *bool `json:"addToEvent,omitzero"`
+	// Whether to ignore case when performing lookups using Match Mode: Regex.
+	IgnoreCase *bool `json:"ignoreCase,omitzero"`
 }
 
-func CreatePipelineFunctionLookupConfLookupDbLookupTrue(lookupDbLookupTrue LookupDbLookupTrue) PipelineFunctionLookupConf {
-	typ := PipelineFunctionLookupConfTypeLookupDbLookupTrue
-
-	return PipelineFunctionLookupConf{
-		LookupDbLookupTrue: &lookupDbLookupTrue,
-		Type:               typ,
-	}
+func (p PipelineFunctionLookupConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
 }
 
-func CreatePipelineFunctionLookupConfLookupDbLookupFalse(lookupDbLookupFalse LookupDbLookupFalse) PipelineFunctionLookupConf {
-	typ := PipelineFunctionLookupConfTypeLookupDbLookupFalse
-
-	return PipelineFunctionLookupConf{
-		LookupDbLookupFalse: &lookupDbLookupFalse,
-		Type:                typ,
+func (p *PipelineFunctionLookupConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
 	}
+	return nil
 }
 
-func (u *PipelineFunctionLookupConf) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var lookupDbLookupTrue LookupDbLookupTrue = LookupDbLookupTrue{}
-	if err := utils.UnmarshalJSON(data, &lookupDbLookupTrue, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  PipelineFunctionLookupConfTypeLookupDbLookupTrue,
-			Value: &lookupDbLookupTrue,
-		})
+func (p *PipelineFunctionLookupConf) GetFile() string {
+	if p == nil {
+		return ""
 	}
+	return p.File
+}
 
-	var lookupDbLookupFalse LookupDbLookupFalse = LookupDbLookupFalse{}
-	if err := utils.UnmarshalJSON(data, &lookupDbLookupFalse, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  PipelineFunctionLookupConfTypeLookupDbLookupFalse,
-			Value: &lookupDbLookupFalse,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionLookupConf", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionLookupConf", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(PipelineFunctionLookupConfType)
-	switch best.Type {
-	case PipelineFunctionLookupConfTypeLookupDbLookupTrue:
-		u.LookupDbLookupTrue = best.Value.(*LookupDbLookupTrue)
-		return nil
-	case PipelineFunctionLookupConfTypeLookupDbLookupFalse:
-		u.LookupDbLookupFalse = best.Value.(*LookupDbLookupFalse)
+func (p *PipelineFunctionLookupConf) GetDbLookup() *bool {
+	if p == nil {
 		return nil
 	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionLookupConf", string(data))
+	return p.DbLookup
 }
 
-func (u PipelineFunctionLookupConf) MarshalJSON() ([]byte, error) {
-	if u.LookupDbLookupTrue != nil {
-		return utils.MarshalJSON(u.LookupDbLookupTrue, "", true)
+func (p *PipelineFunctionLookupConf) GetMatchMode() *MatchMode {
+	if p == nil {
+		return nil
 	}
+	return p.MatchMode
+}
 
-	if u.LookupDbLookupFalse != nil {
-		return utils.MarshalJSON(u.LookupDbLookupFalse, "", true)
+func (p *PipelineFunctionLookupConf) GetMatchType() *MatchType {
+	if p == nil {
+		return nil
 	}
+	return p.MatchType
+}
 
-	return nil, errors.New("could not marshal union type PipelineFunctionLookupConf: all fields are null")
+func (p *PipelineFunctionLookupConf) GetReloadPeriodSec() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.ReloadPeriodSec
+}
+
+func (p *PipelineFunctionLookupConf) GetInFields() []InField {
+	if p == nil {
+		return nil
+	}
+	return p.InFields
+}
+
+func (p *PipelineFunctionLookupConf) GetOutFields() []OutField {
+	if p == nil {
+		return nil
+	}
+	return p.OutFields
+}
+
+func (p *PipelineFunctionLookupConf) GetAddToEvent() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AddToEvent
+}
+
+func (p *PipelineFunctionLookupConf) GetIgnoreCase() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreCase
 }
 
 type PipelineFunctionLookup struct {

@@ -715,24 +715,24 @@ func (r *RedisAuthTypeNone) GetEnableClientSideCaching() *bool {
 	return r.EnableClientSideCaching
 }
 
-// RedisDeploymentTypeSentinelTLSFalseDeploymentType - How the Redis server is configured. Defaults to Standalone
-type RedisDeploymentTypeSentinelTLSFalseDeploymentType string
+// RedisDeploymentTypeSentinelDeploymentType - How the Redis server is configured. Defaults to Standalone
+type RedisDeploymentTypeSentinelDeploymentType string
 
 const (
-	// RedisDeploymentTypeSentinelTLSFalseDeploymentTypeStandalone Standalone
-	RedisDeploymentTypeSentinelTLSFalseDeploymentTypeStandalone RedisDeploymentTypeSentinelTLSFalseDeploymentType = "standalone"
-	// RedisDeploymentTypeSentinelTLSFalseDeploymentTypeCluster Cluster
-	RedisDeploymentTypeSentinelTLSFalseDeploymentTypeCluster RedisDeploymentTypeSentinelTLSFalseDeploymentType = "cluster"
-	// RedisDeploymentTypeSentinelTLSFalseDeploymentTypeSentinel Sentinel
-	RedisDeploymentTypeSentinelTLSFalseDeploymentTypeSentinel RedisDeploymentTypeSentinelTLSFalseDeploymentType = "sentinel"
+	// RedisDeploymentTypeSentinelDeploymentTypeStandalone Standalone
+	RedisDeploymentTypeSentinelDeploymentTypeStandalone RedisDeploymentTypeSentinelDeploymentType = "standalone"
+	// RedisDeploymentTypeSentinelDeploymentTypeCluster Cluster
+	RedisDeploymentTypeSentinelDeploymentTypeCluster RedisDeploymentTypeSentinelDeploymentType = "cluster"
+	// RedisDeploymentTypeSentinelDeploymentTypeSentinel Sentinel
+	RedisDeploymentTypeSentinelDeploymentTypeSentinel RedisDeploymentTypeSentinelDeploymentType = "sentinel"
 )
 
-func (e RedisDeploymentTypeSentinelTLSFalseDeploymentType) ToPointer() *RedisDeploymentTypeSentinelTLSFalseDeploymentType {
+func (e RedisDeploymentTypeSentinelDeploymentType) ToPointer() *RedisDeploymentTypeSentinelDeploymentType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeSentinelTLSFalseDeploymentType) IsExact() bool {
+func (e *RedisDeploymentTypeSentinelDeploymentType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "standalone", "cluster", "sentinel":
@@ -742,39 +742,39 @@ func (e *RedisDeploymentTypeSentinelTLSFalseDeploymentType) IsExact() bool {
 	return false
 }
 
-type RedisDeploymentTypeSentinelTLSFalseRootNode struct {
+type RedisDeploymentTypeSentinelRootNode struct {
 	// Hostname of sentinel node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
 	Host string `json:"host"`
 	// Port of sentinel node
 	Port float64 `json:"port"`
 }
 
-func (r RedisDeploymentTypeSentinelTLSFalseRootNode) MarshalJSON() ([]byte, error) {
+func (r RedisDeploymentTypeSentinelRootNode) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RedisDeploymentTypeSentinelTLSFalseRootNode) UnmarshalJSON(data []byte) error {
+func (r *RedisDeploymentTypeSentinelRootNode) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RedisDeploymentTypeSentinelTLSFalseRootNode) GetHost() string {
+func (r *RedisDeploymentTypeSentinelRootNode) GetHost() string {
 	if r == nil {
 		return ""
 	}
 	return r.Host
 }
 
-func (r *RedisDeploymentTypeSentinelTLSFalseRootNode) GetPort() float64 {
+func (r *RedisDeploymentTypeSentinelRootNode) GetPort() float64 {
 	if r == nil {
 		return 0.0
 	}
 	return r.Port
 }
 
-type RedisDeploymentTypeSentinelTLSFalseCommand struct {
+type RedisDeploymentTypeSentinelCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
 	OutField *string `json:"outField,omitzero"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
@@ -785,64 +785,64 @@ type RedisDeploymentTypeSentinelTLSFalseCommand struct {
 	ArgsExpr *string `json:"argsExpr,omitzero"`
 }
 
-func (r RedisDeploymentTypeSentinelTLSFalseCommand) MarshalJSON() ([]byte, error) {
+func (r RedisDeploymentTypeSentinelCommand) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RedisDeploymentTypeSentinelTLSFalseCommand) UnmarshalJSON(data []byte) error {
+func (r *RedisDeploymentTypeSentinelCommand) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RedisDeploymentTypeSentinelTLSFalseCommand) GetOutField() *string {
+func (r *RedisDeploymentTypeSentinelCommand) GetOutField() *string {
 	if r == nil {
 		return nil
 	}
 	return r.OutField
 }
 
-func (r *RedisDeploymentTypeSentinelTLSFalseCommand) GetCommand() string {
+func (r *RedisDeploymentTypeSentinelCommand) GetCommand() string {
 	if r == nil {
 		return ""
 	}
 	return r.Command
 }
 
-func (r *RedisDeploymentTypeSentinelTLSFalseCommand) GetKeyExpr() string {
+func (r *RedisDeploymentTypeSentinelCommand) GetKeyExpr() string {
 	if r == nil {
 		return ""
 	}
 	return r.KeyExpr
 }
 
-func (r *RedisDeploymentTypeSentinelTLSFalseCommand) GetArgsExpr() *string {
+func (r *RedisDeploymentTypeSentinelCommand) GetArgsExpr() *string {
 	if r == nil {
 		return nil
 	}
 	return r.ArgsExpr
 }
 
-type RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod string
+type RedisDeploymentTypeSentinelAuthenticationMethod string
 
 const (
-	// RedisDeploymentTypeSentinelTLSFalseAuthenticationMethodNone None
-	RedisDeploymentTypeSentinelTLSFalseAuthenticationMethodNone RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod = "none"
-	// RedisDeploymentTypeSentinelTLSFalseAuthenticationMethodManual Manual
-	RedisDeploymentTypeSentinelTLSFalseAuthenticationMethodManual RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod = "manual"
-	// RedisDeploymentTypeSentinelTLSFalseAuthenticationMethodCredentialsSecret User Secret
-	RedisDeploymentTypeSentinelTLSFalseAuthenticationMethodCredentialsSecret RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod = "credentialsSecret"
-	// RedisDeploymentTypeSentinelTLSFalseAuthenticationMethodTextSecret Admin Secret
-	RedisDeploymentTypeSentinelTLSFalseAuthenticationMethodTextSecret RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod = "textSecret"
+	// RedisDeploymentTypeSentinelAuthenticationMethodNone None
+	RedisDeploymentTypeSentinelAuthenticationMethodNone RedisDeploymentTypeSentinelAuthenticationMethod = "none"
+	// RedisDeploymentTypeSentinelAuthenticationMethodManual Manual
+	RedisDeploymentTypeSentinelAuthenticationMethodManual RedisDeploymentTypeSentinelAuthenticationMethod = "manual"
+	// RedisDeploymentTypeSentinelAuthenticationMethodCredentialsSecret User Secret
+	RedisDeploymentTypeSentinelAuthenticationMethodCredentialsSecret RedisDeploymentTypeSentinelAuthenticationMethod = "credentialsSecret"
+	// RedisDeploymentTypeSentinelAuthenticationMethodTextSecret Admin Secret
+	RedisDeploymentTypeSentinelAuthenticationMethodTextSecret RedisDeploymentTypeSentinelAuthenticationMethod = "textSecret"
 )
 
-func (e RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod) ToPointer() *RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod {
+func (e RedisDeploymentTypeSentinelAuthenticationMethod) ToPointer() *RedisDeploymentTypeSentinelAuthenticationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod) IsExact() bool {
+func (e *RedisDeploymentTypeSentinelAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "manual", "credentialsSecret", "textSecret":
@@ -851,998 +851,352 @@ func (e *RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod) IsExact() bool
 	}
 	return false
 }
-
-type RedisDeploymentTypeSentinelTLSFalse struct {
-	// Use TLS for connections to this cluster
-	TLS *bool `json:"tls,omitzero"`
-	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisDeploymentTypeSentinelTLSFalseDeploymentType `json:"deploymentType,omitzero"`
-	MasterName     string                                             `json:"masterName"`
-	// List of sentinels to be used
-	RootNodes []RedisDeploymentTypeSentinelTLSFalseRootNode            `json:"rootNodes,omitzero"`
-	Commands  []RedisDeploymentTypeSentinelTLSFalseCommand             `json:"commands"`
-	AuthType  *RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod `json:"authType,omitzero"`
-	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
-	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
-}
-
-func (r RedisDeploymentTypeSentinelTLSFalse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeSentinelTLSFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeSentinelTLSFalse) GetTLS() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.TLS
-}
-
-func (r *RedisDeploymentTypeSentinelTLSFalse) GetDeploymentType() *RedisDeploymentTypeSentinelTLSFalseDeploymentType {
-	if r == nil {
-		return nil
-	}
-	return r.DeploymentType
-}
-
-func (r *RedisDeploymentTypeSentinelTLSFalse) GetMasterName() string {
-	if r == nil {
-		return ""
-	}
-	return r.MasterName
-}
-
-func (r *RedisDeploymentTypeSentinelTLSFalse) GetRootNodes() []RedisDeploymentTypeSentinelTLSFalseRootNode {
-	if r == nil {
-		return nil
-	}
-	return r.RootNodes
-}
-
-func (r *RedisDeploymentTypeSentinelTLSFalse) GetCommands() []RedisDeploymentTypeSentinelTLSFalseCommand {
-	if r == nil {
-		return []RedisDeploymentTypeSentinelTLSFalseCommand{}
-	}
-	return r.Commands
-}
-
-func (r *RedisDeploymentTypeSentinelTLSFalse) GetAuthType() *RedisDeploymentTypeSentinelTLSFalseAuthenticationMethod {
-	if r == nil {
-		return nil
-	}
-	return r.AuthType
-}
-
-func (r *RedisDeploymentTypeSentinelTLSFalse) GetMaxBlockSecs() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxBlockSecs
-}
-
-func (r *RedisDeploymentTypeSentinelTLSFalse) GetEnableClientSideCaching() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableClientSideCaching
-}
-
-// RedisDeploymentTypeSentinelTLSTrueDeploymentType - How the Redis server is configured. Defaults to Standalone
-type RedisDeploymentTypeSentinelTLSTrueDeploymentType string
-
-const (
-	// RedisDeploymentTypeSentinelTLSTrueDeploymentTypeStandalone Standalone
-	RedisDeploymentTypeSentinelTLSTrueDeploymentTypeStandalone RedisDeploymentTypeSentinelTLSTrueDeploymentType = "standalone"
-	// RedisDeploymentTypeSentinelTLSTrueDeploymentTypeCluster Cluster
-	RedisDeploymentTypeSentinelTLSTrueDeploymentTypeCluster RedisDeploymentTypeSentinelTLSTrueDeploymentType = "cluster"
-	// RedisDeploymentTypeSentinelTLSTrueDeploymentTypeSentinel Sentinel
-	RedisDeploymentTypeSentinelTLSTrueDeploymentTypeSentinel RedisDeploymentTypeSentinelTLSTrueDeploymentType = "sentinel"
-)
-
-func (e RedisDeploymentTypeSentinelTLSTrueDeploymentType) ToPointer() *RedisDeploymentTypeSentinelTLSTrueDeploymentType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeSentinelTLSTrueDeploymentType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "standalone", "cluster", "sentinel":
-			return true
-		}
-	}
-	return false
-}
-
-type RedisDeploymentTypeSentinelTLSTrueRootNode struct {
-	// Hostname of sentinel node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-	Host string `json:"host"`
-	// Port of sentinel node
-	Port float64 `json:"port"`
-}
-
-func (r RedisDeploymentTypeSentinelTLSTrueRootNode) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrueRootNode) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrueRootNode) GetHost() string {
-	if r == nil {
-		return ""
-	}
-	return r.Host
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrueRootNode) GetPort() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Port
-}
-
-type RedisDeploymentTypeSentinelTLSTrueCommand struct {
-	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitzero"`
-	// Redis command to perform. For a complete list visit: https://redis.io/commands
-	Command string `json:"command"`
-	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
-	KeyExpr string `json:"keyExpr"`
-	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitzero"`
-}
-
-func (r RedisDeploymentTypeSentinelTLSTrueCommand) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrueCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrueCommand) GetOutField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OutField
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrueCommand) GetCommand() string {
-	if r == nil {
-		return ""
-	}
-	return r.Command
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrueCommand) GetKeyExpr() string {
-	if r == nil {
-		return ""
-	}
-	return r.KeyExpr
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrueCommand) GetArgsExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ArgsExpr
-}
-
-type RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod string
-
-const (
-	// RedisDeploymentTypeSentinelTLSTrueAuthenticationMethodNone None
-	RedisDeploymentTypeSentinelTLSTrueAuthenticationMethodNone RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod = "none"
-	// RedisDeploymentTypeSentinelTLSTrueAuthenticationMethodManual Manual
-	RedisDeploymentTypeSentinelTLSTrueAuthenticationMethodManual RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod = "manual"
-	// RedisDeploymentTypeSentinelTLSTrueAuthenticationMethodCredentialsSecret User Secret
-	RedisDeploymentTypeSentinelTLSTrueAuthenticationMethodCredentialsSecret RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod = "credentialsSecret"
-	// RedisDeploymentTypeSentinelTLSTrueAuthenticationMethodTextSecret Admin Secret
-	RedisDeploymentTypeSentinelTLSTrueAuthenticationMethodTextSecret RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod = "textSecret"
-)
-
-func (e RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod) ToPointer() *RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "manual", "credentialsSecret", "textSecret":
-			return true
-		}
-	}
-	return false
-}
-
-type RedisDeploymentTypeSentinelTLSTrue struct {
-	// Use TLS for connections to this cluster
-	TLS        *bool                                            `json:"tls,omitzero"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeClusterTLSTrue `json:"tlsOptions,omitzero"`
-	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisDeploymentTypeSentinelTLSTrueDeploymentType `json:"deploymentType,omitzero"`
-	MasterName     string                                            `json:"masterName"`
-	// List of sentinels to be used
-	RootNodes []RedisDeploymentTypeSentinelTLSTrueRootNode            `json:"rootNodes,omitzero"`
-	Commands  []RedisDeploymentTypeSentinelTLSTrueCommand             `json:"commands"`
-	AuthType  *RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod `json:"authType,omitzero"`
-	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
-	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
-}
-
-func (r RedisDeploymentTypeSentinelTLSTrue) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) GetTLS() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.TLS
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeClusterTLSTrue {
-	if r == nil {
-		return nil
-	}
-	return r.TLSOptions
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) GetDeploymentType() *RedisDeploymentTypeSentinelTLSTrueDeploymentType {
-	if r == nil {
-		return nil
-	}
-	return r.DeploymentType
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) GetMasterName() string {
-	if r == nil {
-		return ""
-	}
-	return r.MasterName
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) GetRootNodes() []RedisDeploymentTypeSentinelTLSTrueRootNode {
-	if r == nil {
-		return nil
-	}
-	return r.RootNodes
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) GetCommands() []RedisDeploymentTypeSentinelTLSTrueCommand {
-	if r == nil {
-		return []RedisDeploymentTypeSentinelTLSTrueCommand{}
-	}
-	return r.Commands
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) GetAuthType() *RedisDeploymentTypeSentinelTLSTrueAuthenticationMethod {
-	if r == nil {
-		return nil
-	}
-	return r.AuthType
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) GetMaxBlockSecs() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxBlockSecs
-}
-
-func (r *RedisDeploymentTypeSentinelTLSTrue) GetEnableClientSideCaching() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableClientSideCaching
-}
-
-type RedisDeploymentTypeSentinelType string
-
-const (
-	RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSTrue  RedisDeploymentTypeSentinelType = "RedisDeploymentTypeSentinelTlsTrue"
-	RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSFalse RedisDeploymentTypeSentinelType = "RedisDeploymentTypeSentinelTlsFalse"
-)
 
 type RedisDeploymentTypeSentinel struct {
-	RedisDeploymentTypeSentinelTLSTrue  *RedisDeploymentTypeSentinelTLSTrue  `queryParam:"inline" union:"member"`
-	RedisDeploymentTypeSentinelTLSFalse *RedisDeploymentTypeSentinelTLSFalse `queryParam:"inline" union:"member"`
-
-	Type RedisDeploymentTypeSentinelType
-}
-
-func CreateRedisDeploymentTypeSentinelRedisDeploymentTypeSentinelTLSTrue(redisDeploymentTypeSentinelTLSTrue RedisDeploymentTypeSentinelTLSTrue) RedisDeploymentTypeSentinel {
-	typ := RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSTrue
-
-	return RedisDeploymentTypeSentinel{
-		RedisDeploymentTypeSentinelTLSTrue: &redisDeploymentTypeSentinelTLSTrue,
-		Type:                               typ,
-	}
-}
-
-func CreateRedisDeploymentTypeSentinelRedisDeploymentTypeSentinelTLSFalse(redisDeploymentTypeSentinelTLSFalse RedisDeploymentTypeSentinelTLSFalse) RedisDeploymentTypeSentinel {
-	typ := RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSFalse
-
-	return RedisDeploymentTypeSentinel{
-		RedisDeploymentTypeSentinelTLSFalse: &redisDeploymentTypeSentinelTLSFalse,
-		Type:                                typ,
-	}
-}
-
-func (u *RedisDeploymentTypeSentinel) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var redisDeploymentTypeSentinelTLSTrue RedisDeploymentTypeSentinelTLSTrue = RedisDeploymentTypeSentinelTLSTrue{}
-	if err := utils.UnmarshalJSON(data, &redisDeploymentTypeSentinelTLSTrue, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSTrue,
-			Value: &redisDeploymentTypeSentinelTLSTrue,
-		})
-	}
-
-	var redisDeploymentTypeSentinelTLSFalse RedisDeploymentTypeSentinelTLSFalse = RedisDeploymentTypeSentinelTLSFalse{}
-	if err := utils.UnmarshalJSON(data, &redisDeploymentTypeSentinelTLSFalse, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSFalse,
-			Value: &redisDeploymentTypeSentinelTLSFalse,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeSentinel", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeSentinel", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(RedisDeploymentTypeSentinelType)
-	switch best.Type {
-	case RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSTrue:
-		u.RedisDeploymentTypeSentinelTLSTrue = best.Value.(*RedisDeploymentTypeSentinelTLSTrue)
-		return nil
-	case RedisDeploymentTypeSentinelTypeRedisDeploymentTypeSentinelTLSFalse:
-		u.RedisDeploymentTypeSentinelTLSFalse = best.Value.(*RedisDeploymentTypeSentinelTLSFalse)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeSentinel", string(data))
-}
-
-func (u RedisDeploymentTypeSentinel) MarshalJSON() ([]byte, error) {
-	if u.RedisDeploymentTypeSentinelTLSTrue != nil {
-		return utils.MarshalJSON(u.RedisDeploymentTypeSentinelTLSTrue, "", true)
-	}
-
-	if u.RedisDeploymentTypeSentinelTLSFalse != nil {
-		return utils.MarshalJSON(u.RedisDeploymentTypeSentinelTLSFalse, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type RedisDeploymentTypeSentinel: all fields are null")
-}
-
-// RedisDeploymentTypeClusterTLSFalseDeploymentType - How the Redis server is configured. Defaults to Standalone
-type RedisDeploymentTypeClusterTLSFalseDeploymentType string
-
-const (
-	// RedisDeploymentTypeClusterTLSFalseDeploymentTypeStandalone Standalone
-	RedisDeploymentTypeClusterTLSFalseDeploymentTypeStandalone RedisDeploymentTypeClusterTLSFalseDeploymentType = "standalone"
-	// RedisDeploymentTypeClusterTLSFalseDeploymentTypeCluster Cluster
-	RedisDeploymentTypeClusterTLSFalseDeploymentTypeCluster RedisDeploymentTypeClusterTLSFalseDeploymentType = "cluster"
-	// RedisDeploymentTypeClusterTLSFalseDeploymentTypeSentinel Sentinel
-	RedisDeploymentTypeClusterTLSFalseDeploymentTypeSentinel RedisDeploymentTypeClusterTLSFalseDeploymentType = "sentinel"
-)
-
-func (e RedisDeploymentTypeClusterTLSFalseDeploymentType) ToPointer() *RedisDeploymentTypeClusterTLSFalseDeploymentType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeClusterTLSFalseDeploymentType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "standalone", "cluster", "sentinel":
-			return true
-		}
-	}
-	return false
-}
-
-type RedisDeploymentTypeClusterTLSFalseRootNode struct {
-	// Hostname of cluster node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-	Host string `json:"host"`
-	// Port of cluster node
-	Port float64 `json:"port"`
-}
-
-func (r RedisDeploymentTypeClusterTLSFalseRootNode) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalseRootNode) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalseRootNode) GetHost() string {
-	if r == nil {
-		return ""
-	}
-	return r.Host
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalseRootNode) GetPort() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Port
-}
-
-// RedisDeploymentTypeClusterTLSFalseScaleReads - Which nodes read commands should be sent to
-type RedisDeploymentTypeClusterTLSFalseScaleReads string
-
-const (
-	// RedisDeploymentTypeClusterTLSFalseScaleReadsMaster Masters
-	RedisDeploymentTypeClusterTLSFalseScaleReadsMaster RedisDeploymentTypeClusterTLSFalseScaleReads = "master"
-	// RedisDeploymentTypeClusterTLSFalseScaleReadsReplica Replicas
-	RedisDeploymentTypeClusterTLSFalseScaleReadsReplica RedisDeploymentTypeClusterTLSFalseScaleReads = "replica"
-	// RedisDeploymentTypeClusterTLSFalseScaleReadsAll Masters and Replicas
-	RedisDeploymentTypeClusterTLSFalseScaleReadsAll RedisDeploymentTypeClusterTLSFalseScaleReads = "all"
-)
-
-func (e RedisDeploymentTypeClusterTLSFalseScaleReads) ToPointer() *RedisDeploymentTypeClusterTLSFalseScaleReads {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeClusterTLSFalseScaleReads) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "master", "replica", "all":
-			return true
-		}
-	}
-	return false
-}
-
-type RedisDeploymentTypeClusterTLSFalseCommand struct {
-	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitzero"`
-	// Redis command to perform. For a complete list visit: https://redis.io/commands
-	Command string `json:"command"`
-	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
-	KeyExpr string `json:"keyExpr"`
-	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitzero"`
-}
-
-func (r RedisDeploymentTypeClusterTLSFalseCommand) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalseCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalseCommand) GetOutField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OutField
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalseCommand) GetCommand() string {
-	if r == nil {
-		return ""
-	}
-	return r.Command
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalseCommand) GetKeyExpr() string {
-	if r == nil {
-		return ""
-	}
-	return r.KeyExpr
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalseCommand) GetArgsExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ArgsExpr
-}
-
-type RedisDeploymentTypeClusterTLSFalseAuthenticationMethod string
-
-const (
-	// RedisDeploymentTypeClusterTLSFalseAuthenticationMethodNone None
-	RedisDeploymentTypeClusterTLSFalseAuthenticationMethodNone RedisDeploymentTypeClusterTLSFalseAuthenticationMethod = "none"
-	// RedisDeploymentTypeClusterTLSFalseAuthenticationMethodManual Manual
-	RedisDeploymentTypeClusterTLSFalseAuthenticationMethodManual RedisDeploymentTypeClusterTLSFalseAuthenticationMethod = "manual"
-	// RedisDeploymentTypeClusterTLSFalseAuthenticationMethodCredentialsSecret User Secret
-	RedisDeploymentTypeClusterTLSFalseAuthenticationMethodCredentialsSecret RedisDeploymentTypeClusterTLSFalseAuthenticationMethod = "credentialsSecret"
-	// RedisDeploymentTypeClusterTLSFalseAuthenticationMethodTextSecret Admin Secret
-	RedisDeploymentTypeClusterTLSFalseAuthenticationMethodTextSecret RedisDeploymentTypeClusterTLSFalseAuthenticationMethod = "textSecret"
-)
-
-func (e RedisDeploymentTypeClusterTLSFalseAuthenticationMethod) ToPointer() *RedisDeploymentTypeClusterTLSFalseAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeClusterTLSFalseAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "manual", "credentialsSecret", "textSecret":
-			return true
-		}
-	}
-	return false
-}
-
-type RedisDeploymentTypeClusterTLSFalse struct {
-	// Use TLS for connections to this cluster
-	TLS *bool `json:"tls,omitzero"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisDeploymentTypeClusterTLSFalseDeploymentType `json:"deploymentType,omitzero"`
-	// Root nodes to which the cluster connection should be initiated
-	RootNodes []RedisDeploymentTypeClusterTLSFalseRootNode `json:"rootNodes,omitzero"`
-	// Which nodes read commands should be sent to
-	ScaleReads *RedisDeploymentTypeClusterTLSFalseScaleReads           `json:"scaleReads,omitzero"`
-	Commands   []RedisDeploymentTypeClusterTLSFalseCommand             `json:"commands"`
-	AuthType   *RedisDeploymentTypeClusterTLSFalseAuthenticationMethod `json:"authType,omitzero"`
+	DeploymentType *RedisDeploymentTypeSentinelDeploymentType `json:"deploymentType,omitzero"`
+	MasterName     string                                     `json:"masterName"`
+	// List of sentinels to be used
+	RootNodes []RedisDeploymentTypeSentinelRootNode `json:"rootNodes,omitzero"`
+	// Use TLS for connections to this cluster
+	TLS        *bool                                            `json:"tls,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeCluster        `json:"tlsOptions,omitzero"`
+	Commands   []RedisDeploymentTypeSentinelCommand             `json:"commands"`
+	AuthType   *RedisDeploymentTypeSentinelAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
-func (r RedisDeploymentTypeClusterTLSFalse) MarshalJSON() ([]byte, error) {
+func (r RedisDeploymentTypeSentinel) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RedisDeploymentTypeClusterTLSFalse) UnmarshalJSON(data []byte) error {
+func (r *RedisDeploymentTypeSentinel) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RedisDeploymentTypeClusterTLSFalse) GetTLS() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.TLS
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalse) GetDeploymentType() *RedisDeploymentTypeClusterTLSFalseDeploymentType {
+func (r *RedisDeploymentTypeSentinel) GetDeploymentType() *RedisDeploymentTypeSentinelDeploymentType {
 	if r == nil {
 		return nil
 	}
 	return r.DeploymentType
 }
 
-func (r *RedisDeploymentTypeClusterTLSFalse) GetRootNodes() []RedisDeploymentTypeClusterTLSFalseRootNode {
+func (r *RedisDeploymentTypeSentinel) GetMasterName() string {
+	if r == nil {
+		return ""
+	}
+	return r.MasterName
+}
+
+func (r *RedisDeploymentTypeSentinel) GetRootNodes() []RedisDeploymentTypeSentinelRootNode {
 	if r == nil {
 		return nil
 	}
 	return r.RootNodes
 }
 
-func (r *RedisDeploymentTypeClusterTLSFalse) GetScaleReads() *RedisDeploymentTypeClusterTLSFalseScaleReads {
-	if r == nil {
-		return nil
-	}
-	return r.ScaleReads
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalse) GetCommands() []RedisDeploymentTypeClusterTLSFalseCommand {
-	if r == nil {
-		return []RedisDeploymentTypeClusterTLSFalseCommand{}
-	}
-	return r.Commands
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalse) GetAuthType() *RedisDeploymentTypeClusterTLSFalseAuthenticationMethod {
-	if r == nil {
-		return nil
-	}
-	return r.AuthType
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalse) GetMaxBlockSecs() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxBlockSecs
-}
-
-func (r *RedisDeploymentTypeClusterTLSFalse) GetEnableClientSideCaching() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableClientSideCaching
-}
-
-// RedisDeploymentTypeClusterTLSTrueDeploymentType - How the Redis server is configured. Defaults to Standalone
-type RedisDeploymentTypeClusterTLSTrueDeploymentType string
-
-const (
-	// RedisDeploymentTypeClusterTLSTrueDeploymentTypeStandalone Standalone
-	RedisDeploymentTypeClusterTLSTrueDeploymentTypeStandalone RedisDeploymentTypeClusterTLSTrueDeploymentType = "standalone"
-	// RedisDeploymentTypeClusterTLSTrueDeploymentTypeCluster Cluster
-	RedisDeploymentTypeClusterTLSTrueDeploymentTypeCluster RedisDeploymentTypeClusterTLSTrueDeploymentType = "cluster"
-	// RedisDeploymentTypeClusterTLSTrueDeploymentTypeSentinel Sentinel
-	RedisDeploymentTypeClusterTLSTrueDeploymentTypeSentinel RedisDeploymentTypeClusterTLSTrueDeploymentType = "sentinel"
-)
-
-func (e RedisDeploymentTypeClusterTLSTrueDeploymentType) ToPointer() *RedisDeploymentTypeClusterTLSTrueDeploymentType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeClusterTLSTrueDeploymentType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "standalone", "cluster", "sentinel":
-			return true
-		}
-	}
-	return false
-}
-
-type RedisDeploymentTypeClusterTLSTrueRootNode struct {
-	// Hostname of cluster node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-	Host string `json:"host"`
-	// Port of cluster node
-	Port float64 `json:"port"`
-}
-
-func (r RedisDeploymentTypeClusterTLSTrueRootNode) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrueRootNode) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrueRootNode) GetHost() string {
-	if r == nil {
-		return ""
-	}
-	return r.Host
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrueRootNode) GetPort() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Port
-}
-
-// RedisDeploymentTypeClusterTLSTrueScaleReads - Which nodes read commands should be sent to
-type RedisDeploymentTypeClusterTLSTrueScaleReads string
-
-const (
-	// RedisDeploymentTypeClusterTLSTrueScaleReadsMaster Masters
-	RedisDeploymentTypeClusterTLSTrueScaleReadsMaster RedisDeploymentTypeClusterTLSTrueScaleReads = "master"
-	// RedisDeploymentTypeClusterTLSTrueScaleReadsReplica Replicas
-	RedisDeploymentTypeClusterTLSTrueScaleReadsReplica RedisDeploymentTypeClusterTLSTrueScaleReads = "replica"
-	// RedisDeploymentTypeClusterTLSTrueScaleReadsAll Masters and Replicas
-	RedisDeploymentTypeClusterTLSTrueScaleReadsAll RedisDeploymentTypeClusterTLSTrueScaleReads = "all"
-)
-
-func (e RedisDeploymentTypeClusterTLSTrueScaleReads) ToPointer() *RedisDeploymentTypeClusterTLSTrueScaleReads {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeClusterTLSTrueScaleReads) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "master", "replica", "all":
-			return true
-		}
-	}
-	return false
-}
-
-type RedisDeploymentTypeClusterTLSTrueCommand struct {
-	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitzero"`
-	// Redis command to perform. For a complete list visit: https://redis.io/commands
-	Command string `json:"command"`
-	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
-	KeyExpr string `json:"keyExpr"`
-	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitzero"`
-}
-
-func (r RedisDeploymentTypeClusterTLSTrueCommand) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrueCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrueCommand) GetOutField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OutField
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrueCommand) GetCommand() string {
-	if r == nil {
-		return ""
-	}
-	return r.Command
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrueCommand) GetKeyExpr() string {
-	if r == nil {
-		return ""
-	}
-	return r.KeyExpr
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrueCommand) GetArgsExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ArgsExpr
-}
-
-type RedisDeploymentTypeClusterTLSTrueAuthenticationMethod string
-
-const (
-	// RedisDeploymentTypeClusterTLSTrueAuthenticationMethodNone None
-	RedisDeploymentTypeClusterTLSTrueAuthenticationMethodNone RedisDeploymentTypeClusterTLSTrueAuthenticationMethod = "none"
-	// RedisDeploymentTypeClusterTLSTrueAuthenticationMethodManual Manual
-	RedisDeploymentTypeClusterTLSTrueAuthenticationMethodManual RedisDeploymentTypeClusterTLSTrueAuthenticationMethod = "manual"
-	// RedisDeploymentTypeClusterTLSTrueAuthenticationMethodCredentialsSecret User Secret
-	RedisDeploymentTypeClusterTLSTrueAuthenticationMethodCredentialsSecret RedisDeploymentTypeClusterTLSTrueAuthenticationMethod = "credentialsSecret"
-	// RedisDeploymentTypeClusterTLSTrueAuthenticationMethodTextSecret Admin Secret
-	RedisDeploymentTypeClusterTLSTrueAuthenticationMethodTextSecret RedisDeploymentTypeClusterTLSTrueAuthenticationMethod = "textSecret"
-)
-
-func (e RedisDeploymentTypeClusterTLSTrueAuthenticationMethod) ToPointer() *RedisDeploymentTypeClusterTLSTrueAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RedisDeploymentTypeClusterTLSTrueAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "manual", "credentialsSecret", "textSecret":
-			return true
-		}
-	}
-	return false
-}
-
-type RedisDeploymentTypeClusterTLSTrue struct {
-	// Use TLS for connections to this cluster
-	TLS        *bool                                            `json:"tls,omitzero"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeClusterTLSTrue `json:"tlsOptions,omitzero"`
-	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *RedisDeploymentTypeClusterTLSTrueDeploymentType `json:"deploymentType,omitzero"`
-	// Root nodes to which the cluster connection should be initiated
-	RootNodes []RedisDeploymentTypeClusterTLSTrueRootNode `json:"rootNodes,omitzero"`
-	// Which nodes read commands should be sent to
-	ScaleReads *RedisDeploymentTypeClusterTLSTrueScaleReads           `json:"scaleReads,omitzero"`
-	Commands   []RedisDeploymentTypeClusterTLSTrueCommand             `json:"commands"`
-	AuthType   *RedisDeploymentTypeClusterTLSTrueAuthenticationMethod `json:"authType,omitzero"`
-	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
-	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
-}
-
-func (r RedisDeploymentTypeClusterTLSTrue) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrue) GetTLS() *bool {
+func (r *RedisDeploymentTypeSentinel) GetTLS() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.TLS
 }
 
-func (r *RedisDeploymentTypeClusterTLSTrue) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeClusterTLSTrue {
+func (r *RedisDeploymentTypeSentinel) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeCluster {
 	if r == nil {
 		return nil
 	}
 	return r.TLSOptions
 }
 
-func (r *RedisDeploymentTypeClusterTLSTrue) GetDeploymentType() *RedisDeploymentTypeClusterTLSTrueDeploymentType {
+func (r *RedisDeploymentTypeSentinel) GetCommands() []RedisDeploymentTypeSentinelCommand {
 	if r == nil {
-		return nil
-	}
-	return r.DeploymentType
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrue) GetRootNodes() []RedisDeploymentTypeClusterTLSTrueRootNode {
-	if r == nil {
-		return nil
-	}
-	return r.RootNodes
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrue) GetScaleReads() *RedisDeploymentTypeClusterTLSTrueScaleReads {
-	if r == nil {
-		return nil
-	}
-	return r.ScaleReads
-}
-
-func (r *RedisDeploymentTypeClusterTLSTrue) GetCommands() []RedisDeploymentTypeClusterTLSTrueCommand {
-	if r == nil {
-		return []RedisDeploymentTypeClusterTLSTrueCommand{}
+		return []RedisDeploymentTypeSentinelCommand{}
 	}
 	return r.Commands
 }
 
-func (r *RedisDeploymentTypeClusterTLSTrue) GetAuthType() *RedisDeploymentTypeClusterTLSTrueAuthenticationMethod {
+func (r *RedisDeploymentTypeSentinel) GetAuthType() *RedisDeploymentTypeSentinelAuthenticationMethod {
 	if r == nil {
 		return nil
 	}
 	return r.AuthType
 }
 
-func (r *RedisDeploymentTypeClusterTLSTrue) GetMaxBlockSecs() *float64 {
+func (r *RedisDeploymentTypeSentinel) GetMaxBlockSecs() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.MaxBlockSecs
 }
 
-func (r *RedisDeploymentTypeClusterTLSTrue) GetEnableClientSideCaching() *bool {
+func (r *RedisDeploymentTypeSentinel) GetEnableClientSideCaching() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.EnableClientSideCaching
 }
 
-type RedisDeploymentTypeClusterType string
+// RedisDeploymentTypeClusterDeploymentType - How the Redis server is configured. Defaults to Standalone
+type RedisDeploymentTypeClusterDeploymentType string
 
 const (
-	RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSTrue  RedisDeploymentTypeClusterType = "RedisDeploymentTypeClusterTlsTrue"
-	RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSFalse RedisDeploymentTypeClusterType = "RedisDeploymentTypeClusterTlsFalse"
+	// RedisDeploymentTypeClusterDeploymentTypeStandalone Standalone
+	RedisDeploymentTypeClusterDeploymentTypeStandalone RedisDeploymentTypeClusterDeploymentType = "standalone"
+	// RedisDeploymentTypeClusterDeploymentTypeCluster Cluster
+	RedisDeploymentTypeClusterDeploymentTypeCluster RedisDeploymentTypeClusterDeploymentType = "cluster"
+	// RedisDeploymentTypeClusterDeploymentTypeSentinel Sentinel
+	RedisDeploymentTypeClusterDeploymentTypeSentinel RedisDeploymentTypeClusterDeploymentType = "sentinel"
 )
 
+func (e RedisDeploymentTypeClusterDeploymentType) ToPointer() *RedisDeploymentTypeClusterDeploymentType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RedisDeploymentTypeClusterDeploymentType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "standalone", "cluster", "sentinel":
+			return true
+		}
+	}
+	return false
+}
+
+type RedisDeploymentTypeClusterRootNode struct {
+	// Hostname of cluster node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Host string `json:"host"`
+	// Port of cluster node
+	Port float64 `json:"port"`
+}
+
+func (r RedisDeploymentTypeClusterRootNode) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RedisDeploymentTypeClusterRootNode) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RedisDeploymentTypeClusterRootNode) GetHost() string {
+	if r == nil {
+		return ""
+	}
+	return r.Host
+}
+
+func (r *RedisDeploymentTypeClusterRootNode) GetPort() float64 {
+	if r == nil {
+		return 0.0
+	}
+	return r.Port
+}
+
+// ScaleReads - Which nodes read commands should be sent to
+type ScaleReads string
+
+const (
+	// ScaleReadsMaster Masters
+	ScaleReadsMaster ScaleReads = "master"
+	// ScaleReadsReplica Replicas
+	ScaleReadsReplica ScaleReads = "replica"
+	// ScaleReadsAll Masters and Replicas
+	ScaleReadsAll ScaleReads = "all"
+)
+
+func (e ScaleReads) ToPointer() *ScaleReads {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ScaleReads) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "master", "replica", "all":
+			return true
+		}
+	}
+	return false
+}
+
+type RedisDeploymentTypeClusterCommand struct {
+	// Name of the field in which to store the returned value. Leave blank to discard returned value.
+	OutField *string `json:"outField,omitzero"`
+	// Redis command to perform. For a complete list visit: https://redis.io/commands
+	Command string `json:"command"`
+	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
+	KeyExpr string `json:"keyExpr"`
+	// A JavaScript expression to compute arguments to the operation. Can return an array.
+	ArgsExpr *string `json:"argsExpr,omitzero"`
+}
+
+func (r RedisDeploymentTypeClusterCommand) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RedisDeploymentTypeClusterCommand) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RedisDeploymentTypeClusterCommand) GetOutField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.OutField
+}
+
+func (r *RedisDeploymentTypeClusterCommand) GetCommand() string {
+	if r == nil {
+		return ""
+	}
+	return r.Command
+}
+
+func (r *RedisDeploymentTypeClusterCommand) GetKeyExpr() string {
+	if r == nil {
+		return ""
+	}
+	return r.KeyExpr
+}
+
+func (r *RedisDeploymentTypeClusterCommand) GetArgsExpr() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ArgsExpr
+}
+
+type RedisDeploymentTypeClusterAuthenticationMethod string
+
+const (
+	// RedisDeploymentTypeClusterAuthenticationMethodNone None
+	RedisDeploymentTypeClusterAuthenticationMethodNone RedisDeploymentTypeClusterAuthenticationMethod = "none"
+	// RedisDeploymentTypeClusterAuthenticationMethodManual Manual
+	RedisDeploymentTypeClusterAuthenticationMethodManual RedisDeploymentTypeClusterAuthenticationMethod = "manual"
+	// RedisDeploymentTypeClusterAuthenticationMethodCredentialsSecret User Secret
+	RedisDeploymentTypeClusterAuthenticationMethodCredentialsSecret RedisDeploymentTypeClusterAuthenticationMethod = "credentialsSecret"
+	// RedisDeploymentTypeClusterAuthenticationMethodTextSecret Admin Secret
+	RedisDeploymentTypeClusterAuthenticationMethodTextSecret RedisDeploymentTypeClusterAuthenticationMethod = "textSecret"
+)
+
+func (e RedisDeploymentTypeClusterAuthenticationMethod) ToPointer() *RedisDeploymentTypeClusterAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RedisDeploymentTypeClusterAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "manual", "credentialsSecret", "textSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type RedisDeploymentTypeCluster struct {
-	RedisDeploymentTypeClusterTLSTrue  *RedisDeploymentTypeClusterTLSTrue  `queryParam:"inline" union:"member"`
-	RedisDeploymentTypeClusterTLSFalse *RedisDeploymentTypeClusterTLSFalse `queryParam:"inline" union:"member"`
-
-	Type RedisDeploymentTypeClusterType
+	// How the Redis server is configured. Defaults to Standalone
+	DeploymentType *RedisDeploymentTypeClusterDeploymentType `json:"deploymentType,omitzero"`
+	// Root nodes to which the cluster connection should be initiated
+	RootNodes []RedisDeploymentTypeClusterRootNode `json:"rootNodes,omitzero"`
+	// Use TLS for connections to this cluster
+	TLS *bool `json:"tls,omitzero"`
+	// Which nodes read commands should be sent to
+	ScaleReads *ScaleReads                                     `json:"scaleReads,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeCluster       `json:"tlsOptions,omitzero"`
+	Commands   []RedisDeploymentTypeClusterCommand             `json:"commands"`
+	AuthType   *RedisDeploymentTypeClusterAuthenticationMethod `json:"authType,omitzero"`
+	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
+	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
+	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 }
 
-func CreateRedisDeploymentTypeClusterRedisDeploymentTypeClusterTLSTrue(redisDeploymentTypeClusterTLSTrue RedisDeploymentTypeClusterTLSTrue) RedisDeploymentTypeCluster {
-	typ := RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSTrue
-
-	return RedisDeploymentTypeCluster{
-		RedisDeploymentTypeClusterTLSTrue: &redisDeploymentTypeClusterTLSTrue,
-		Type:                              typ,
-	}
+func (r RedisDeploymentTypeCluster) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
 }
 
-func CreateRedisDeploymentTypeClusterRedisDeploymentTypeClusterTLSFalse(redisDeploymentTypeClusterTLSFalse RedisDeploymentTypeClusterTLSFalse) RedisDeploymentTypeCluster {
-	typ := RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSFalse
-
-	return RedisDeploymentTypeCluster{
-		RedisDeploymentTypeClusterTLSFalse: &redisDeploymentTypeClusterTLSFalse,
-		Type:                               typ,
+func (r *RedisDeploymentTypeCluster) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
 	}
+	return nil
 }
 
-func (u *RedisDeploymentTypeCluster) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var redisDeploymentTypeClusterTLSTrue RedisDeploymentTypeClusterTLSTrue = RedisDeploymentTypeClusterTLSTrue{}
-	if err := utils.UnmarshalJSON(data, &redisDeploymentTypeClusterTLSTrue, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSTrue,
-			Value: &redisDeploymentTypeClusterTLSTrue,
-		})
-	}
-
-	var redisDeploymentTypeClusterTLSFalse RedisDeploymentTypeClusterTLSFalse = RedisDeploymentTypeClusterTLSFalse{}
-	if err := utils.UnmarshalJSON(data, &redisDeploymentTypeClusterTLSFalse, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSFalse,
-			Value: &redisDeploymentTypeClusterTLSFalse,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeCluster", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeCluster", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(RedisDeploymentTypeClusterType)
-	switch best.Type {
-	case RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSTrue:
-		u.RedisDeploymentTypeClusterTLSTrue = best.Value.(*RedisDeploymentTypeClusterTLSTrue)
-		return nil
-	case RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSFalse:
-		u.RedisDeploymentTypeClusterTLSFalse = best.Value.(*RedisDeploymentTypeClusterTLSFalse)
+func (r *RedisDeploymentTypeCluster) GetDeploymentType() *RedisDeploymentTypeClusterDeploymentType {
+	if r == nil {
 		return nil
 	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RedisDeploymentTypeCluster", string(data))
+	return r.DeploymentType
 }
 
-func (u RedisDeploymentTypeCluster) MarshalJSON() ([]byte, error) {
-	if u.RedisDeploymentTypeClusterTLSTrue != nil {
-		return utils.MarshalJSON(u.RedisDeploymentTypeClusterTLSTrue, "", true)
+func (r *RedisDeploymentTypeCluster) GetRootNodes() []RedisDeploymentTypeClusterRootNode {
+	if r == nil {
+		return nil
 	}
+	return r.RootNodes
+}
 
-	if u.RedisDeploymentTypeClusterTLSFalse != nil {
-		return utils.MarshalJSON(u.RedisDeploymentTypeClusterTLSFalse, "", true)
+func (r *RedisDeploymentTypeCluster) GetTLS() *bool {
+	if r == nil {
+		return nil
 	}
+	return r.TLS
+}
 
-	return nil, errors.New("could not marshal union type RedisDeploymentTypeCluster: all fields are null")
+func (r *RedisDeploymentTypeCluster) GetScaleReads() *ScaleReads {
+	if r == nil {
+		return nil
+	}
+	return r.ScaleReads
+}
+
+func (r *RedisDeploymentTypeCluster) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.TLSOptions
+}
+
+func (r *RedisDeploymentTypeCluster) GetCommands() []RedisDeploymentTypeClusterCommand {
+	if r == nil {
+		return []RedisDeploymentTypeClusterCommand{}
+	}
+	return r.Commands
+}
+
+func (r *RedisDeploymentTypeCluster) GetAuthType() *RedisDeploymentTypeClusterAuthenticationMethod {
+	if r == nil {
+		return nil
+	}
+	return r.AuthType
+}
+
+func (r *RedisDeploymentTypeCluster) GetMaxBlockSecs() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.MaxBlockSecs
+}
+
+func (r *RedisDeploymentTypeCluster) GetEnableClientSideCaching() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableClientSideCaching
 }
 
 // RedisDeploymentTypeStandaloneDeploymentType - How the Redis server is configured. Defaults to Standalone
