@@ -46,6 +46,7 @@ func (s *Nodes) Count(ctx context.Context, product components.ProductsBase, filt
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -213,17 +214,19 @@ func (s *Nodes) Count(ctx context.Context, product components.ProductsBase, filt
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedNumber
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedNumber
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedNumber = &out
+				res.CountedNumber = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -298,6 +301,7 @@ func (s *Nodes) Get(ctx context.Context, product components.ProductsBase, id str
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -461,17 +465,19 @@ func (s *Nodes) Get(ctx context.Context, product components.ProductsBase, id str
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedMasterWorkerEntry
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedMasterWorkerEntry
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedMasterWorkerEntry = &out
+				res.CountedMasterWorkerEntry = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -539,6 +545,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetProductsWorkersB
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -739,18 +746,11 @@ func (s *Nodes) List(ctx context.Context, request operations.GetProductsWorkersB
 			return nil, nil
 		}
 		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
 
 		return s.List(
 			ctx,
-			operations.GetProductsWorkersByProductRequest{
-				Product:   request.Product,
-				FilterExp: request.FilterExp,
-				SortExp:   request.SortExp,
-				Filter:    request.Filter,
-				Sort:      request.Sort,
-				Limit:     request.Limit,
-				Offset:    &nOS,
-			},
+			request,
 			opts...,
 		)
 	}
@@ -759,17 +759,19 @@ func (s *Nodes) List(ctx context.Context, request operations.GetProductsWorkersB
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedMasterWorkerEntry
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedMasterWorkerEntry
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedMasterWorkerEntry = &out
+				res.CountedMasterWorkerEntry = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -844,6 +846,7 @@ func (s *Nodes) Restart(ctx context.Context, product components.ProductsBase, re
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -1014,17 +1017,19 @@ func (s *Nodes) Restart(ctx context.Context, product components.ProductsBase, re
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedRestartResponse
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedRestartResponse
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedRestartResponse = &out
+				res.CountedRestartResponse = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

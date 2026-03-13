@@ -10092,6 +10092,9 @@ func (c *CreateOutputSystemByPackOutputS3) GetTemplateAwsAPIKey() *string {
 	return c.TemplateAwsAPIKey
 }
 
+// #region class-body-createoutputsystembypackoutputs3
+// #endregion class-body-createoutputsystembypackoutputs3
+
 type CreateOutputSystemByPackTypeFilesystem string
 
 const (

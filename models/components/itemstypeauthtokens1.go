@@ -44,3 +44,6 @@ func (i *ItemsTypeAuthTokens1) GetDescription() *string {
 	}
 	return i.Description
 }
+
+// #region class-body-itemstypeauthtokens1
+// #endregion class-body-itemstypeauthtokens1

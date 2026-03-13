@@ -39,6 +39,7 @@ func (s *Collectors) Create(ctx context.Context, request components.SavedJob, op
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -209,17 +210,19 @@ func (s *Collectors) Create(ctx context.Context, request components.SavedJob, op
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedSavedJobResponse
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedSavedJobResponse
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedSavedJobResponse = &out
+				res.CountedSavedJobResponse = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -289,6 +292,7 @@ func (s *Collectors) List(ctx context.Context, collectorType *string, opts ...op
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -456,17 +460,19 @@ func (s *Collectors) List(ctx context.Context, collectorType *string, opts ...op
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedSavedJobResponse
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedSavedJobResponse
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedSavedJobResponse = &out
+				res.CountedSavedJobResponse = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -536,6 +542,7 @@ func (s *Collectors) Delete(ctx context.Context, id string, opts ...operations.O
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -699,17 +706,19 @@ func (s *Collectors) Delete(ctx context.Context, id string, opts ...operations.O
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedSavedJobResponse
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedSavedJobResponse
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedSavedJobResponse = &out
+				res.CountedSavedJobResponse = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -779,6 +788,7 @@ func (s *Collectors) Get(ctx context.Context, id string, opts ...operations.Opti
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -942,17 +952,19 @@ func (s *Collectors) Get(ctx context.Context, id string, opts ...operations.Opti
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedSavedJobResponse
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedSavedJobResponse
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedSavedJobResponse = &out
+				res.CountedSavedJobResponse = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1023,6 +1035,7 @@ func (s *Collectors) Update(ctx context.Context, id string, savedJob components.
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -1193,17 +1206,19 @@ func (s *Collectors) Update(ctx context.Context, id string, savedJob components.
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedSavedJobResponse
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedSavedJobResponse
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedSavedJobResponse = &out
+				res.CountedSavedJobResponse = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

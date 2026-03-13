@@ -167,3 +167,6 @@ func (a *AuthenticationType1) GetScope() *string {
 	}
 	return a.Scope
 }
+
+// #region class-body-authenticationtype1
+// #endregion class-body-authenticationtype1

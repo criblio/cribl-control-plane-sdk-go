@@ -97,3 +97,6 @@ func (t *TLSSettingsClientSideType1) GetMaxVersion() *MaximumTLSVersionOptionsKa
 	}
 	return t.MaxVersion
 }
+
+// #region class-body-tlssettingsclientsidetype1
+// #endregion class-body-tlssettingsclientsidetype1

@@ -22,6 +22,9 @@ func (u *UpgradeGroupSettings2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// #region class-body-upgradegroupsettings2
+// #endregion class-body-upgradegroupsettings2
+
 type UpgradeGroupSettings1 struct {
 	IsRolling  *bool    `json:"isRolling,omitzero"`
 	Quantity   *float64 `json:"quantity,omitzero"`
@@ -67,6 +70,9 @@ func (u *UpgradeGroupSettings1) GetRetryDelay() *float64 {
 	}
 	return u.RetryDelay
 }
+
+// #region class-body-upgradegroupsettings1
+// #endregion class-body-upgradegroupsettings1
 
 type UpgradeGroupSettingsUnionType string
 

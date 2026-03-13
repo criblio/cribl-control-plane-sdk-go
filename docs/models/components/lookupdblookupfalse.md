@@ -9,6 +9,12 @@
 lookupDbLookupFalse := components.CreateLookupDbLookupFalseCidr(components.LookupDbLookupFalseMatchModeCidr{/* values here */})
 ```
 
+### LookupDbLookupFalseMatchModeRegex
+
+```go
+lookupDbLookupFalse := components.CreateLookupDbLookupFalseRegex(components.LookupDbLookupFalseMatchModeRegex{/* values here */})
+```
+
 ### LookupDbLookupFalseMatchModeExact
 
 ```go
@@ -23,6 +29,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch lookupDbLookupFalse.Type {
 	case components.LookupDbLookupFalseTypeCidr:
 		// lookupDbLookupFalse.LookupDbLookupFalseMatchModeCidr is populated
+	case components.LookupDbLookupFalseTypeRegex:
+		// lookupDbLookupFalse.LookupDbLookupFalseMatchModeRegex is populated
 	case components.LookupDbLookupFalseTypeExact:
 		// lookupDbLookupFalse.LookupDbLookupFalseMatchModeExact is populated
 	default:
