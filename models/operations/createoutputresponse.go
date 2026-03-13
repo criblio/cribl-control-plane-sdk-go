@@ -10213,6 +10213,9 @@ func (c *CreateOutputOutputS3) GetTemplateAwsAPIKey() *string {
 	return c.TemplateAwsAPIKey
 }
 
+// #region class-body-createoutputoutputs3
+// #endregion class-body-createoutputoutputs3
+
 type CreateOutputTypeFilesystem string
 
 const (

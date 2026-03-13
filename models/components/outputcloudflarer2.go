@@ -579,3 +579,6 @@ func (o *OutputCloudflareR2) GetTemplateFormat() *string {
 	}
 	return o.TemplateFormat
 }
+
+// #region class-body-outputcloudflarer2
+// #endregion class-body-outputcloudflarer2

@@ -66,6 +66,9 @@ func (s *S3AwsAuthenticationMethodSecretExtractor) GetExpression() string {
 	return s.Expression
 }
 
+// #region class-body-s3awsauthenticationmethodsecretextractor
+// #endregion class-body-s3awsauthenticationmethodsecretextractor
+
 type S3AwsAuthenticationMethodSecret struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
@@ -314,6 +317,9 @@ func (s *S3AwsAuthenticationMethodSecret) GetTemplateAssumeRoleExternalID() *str
 	return s.TemplateAssumeRoleExternalID
 }
 
+// #region class-body-s3awsauthenticationmethodsecret
+// #endregion class-body-s3awsauthenticationmethodsecret
+
 // S3AwsAuthenticationMethodManualPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3AwsAuthenticationMethodManualPartitioningScheme string
 
@@ -370,6 +376,9 @@ func (s *S3AwsAuthenticationMethodManualExtractor) GetExpression() string {
 	}
 	return s.Expression
 }
+
+// #region class-body-s3awsauthenticationmethodmanualextractor
+// #endregion class-body-s3awsauthenticationmethodmanualextractor
 
 type S3AwsAuthenticationMethodManual struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
@@ -628,6 +637,9 @@ func (s *S3AwsAuthenticationMethodManual) GetTemplateAssumeRoleExternalID() *str
 	return s.TemplateAssumeRoleExternalID
 }
 
+// #region class-body-s3awsauthenticationmethodmanual
+// #endregion class-body-s3awsauthenticationmethodmanual
+
 // S3AwsAuthenticationMethodAutoPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3AwsAuthenticationMethodAutoPartitioningScheme string
 
@@ -684,6 +696,9 @@ func (s *S3AwsAuthenticationMethodAutoExtractor) GetExpression() string {
 	}
 	return s.Expression
 }
+
+// #region class-body-s3awsauthenticationmethodautoextractor
+// #endregion class-body-s3awsauthenticationmethodautoextractor
 
 type S3AwsAuthenticationMethodAuto struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
@@ -924,6 +939,9 @@ func (s *S3AwsAuthenticationMethodAuto) GetTemplateAssumeRoleExternalID() *strin
 	return s.TemplateAssumeRoleExternalID
 }
 
+// #region class-body-s3awsauthenticationmethodauto
+// #endregion class-body-s3awsauthenticationmethodauto
+
 // S3PartitioningSchemeNonePartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3PartitioningSchemeNonePartitioningScheme string
 
@@ -980,6 +998,9 @@ func (s *S3PartitioningSchemeNoneExtractor) GetExpression() string {
 	}
 	return s.Expression
 }
+
+// #region class-body-s3partitioningschemenoneextractor
+// #endregion class-body-s3partitioningschemenoneextractor
 
 type S3PartitioningSchemeNone struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
@@ -1229,6 +1250,9 @@ func (s *S3PartitioningSchemeNone) GetTemplateAssumeRoleExternalID() *string {
 	return s.TemplateAssumeRoleExternalID
 }
 
+// #region class-body-s3partitioningschemenone
+// #endregion class-body-s3partitioningschemenone
+
 // S3PartitioningSchemeDdssPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3PartitioningSchemeDdssPartitioningScheme string
 
@@ -1285,6 +1309,9 @@ func (s *S3PartitioningSchemeDdssExtractor) GetExpression() string {
 	}
 	return s.Expression
 }
+
+// #region class-body-s3partitioningschemeddssextractor
+// #endregion class-body-s3partitioningschemeddssextractor
 
 type S3PartitioningSchemeDdss struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
@@ -1524,6 +1551,9 @@ func (s *S3PartitioningSchemeDdss) GetTemplateAssumeRoleExternalID() *string {
 	}
 	return s.TemplateAssumeRoleExternalID
 }
+
+// #region class-body-s3partitioningschemeddss
+// #endregion class-body-s3partitioningschemeddss
 
 type S3CollectorConfType string
 

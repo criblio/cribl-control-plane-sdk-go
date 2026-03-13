@@ -5911,6 +5911,9 @@ func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTemplateTCPPort() *string
 	return c.TemplateTCPPort
 }
 
+// #region class-body-createinputsystembypackinputsyslogsyslog2
+// #endregion class-body-createinputsystembypackinputsyslogsyslog2
+
 type CreateInputSystemByPackInputSyslogType1 string
 
 const (
@@ -6266,6 +6269,9 @@ func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTemplateTCPPort() *string
 	}
 	return c.TemplateTCPPort
 }
+
+// #region class-body-createinputsystembypackinputsyslogsyslog1
+// #endregion class-body-createinputsystembypackinputsyslogsyslog1
 
 type CreateInputSystemByPackInputSyslogUnionType string
 
@@ -7465,6 +7471,9 @@ func (c *CreateInputSystemByPackV3User) GetPrivKey() *string {
 	return c.PrivKey
 }
 
+// #region class-body-createinputsystembypackv3user
+// #endregion class-body-createinputsystembypackv3user
+
 // CreateInputSystemByPackSNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 type CreateInputSystemByPackSNMPv3Authentication struct {
 	V3AuthEnabled bool `json:"v3AuthEnabled"`
@@ -7505,6 +7514,9 @@ func (c *CreateInputSystemByPackSNMPv3Authentication) GetV3Users() []CreateInput
 	}
 	return c.V3Users
 }
+
+// #region class-body-createinputsystembypacksnmpv3authentication
+// #endregion class-body-createinputsystembypacksnmpv3authentication
 
 type CreateInputSystemByPackInputSnmp struct {
 	// Unique ID for this input
@@ -8237,6 +8249,9 @@ func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateAwsAPIKey() *string
 	return c.TemplateAwsAPIKey
 }
 
+// #region class-body-createinputsystembypackinputs3inventory
+// #endregion class-body-createinputsystembypackinputs3inventory
+
 type CreateInputSystemByPackTypeS3 string
 
 const (
@@ -8742,6 +8757,9 @@ func (c *CreateInputSystemByPackInputS3) GetTemplateAwsAPIKey() *string {
 	}
 	return c.TemplateAwsAPIKey
 }
+
+// #region class-body-createinputsystembypackinputs3
+// #endregion class-body-createinputsystembypackinputs3
 
 type CreateInputSystemByPackTypeMetrics string
 

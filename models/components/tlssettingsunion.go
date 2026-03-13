@@ -22,6 +22,9 @@ func (t *TLSSettings2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// #region class-body-tlssettings2
+// #endregion class-body-tlssettings2
+
 type TLSSettings1 struct {
 	DefaultCipherList  string `json:"defaultCipherList"`
 	DefaultEcdhCurve   string `json:"defaultEcdhCurve"`
@@ -75,6 +78,9 @@ func (t *TLSSettings1) GetRejectUnauthorized() bool {
 	}
 	return t.RejectUnauthorized
 }
+
+// #region class-body-tlssettings1
+// #endregion class-body-tlssettings1
 
 type TLSSettingsUnionType string
 

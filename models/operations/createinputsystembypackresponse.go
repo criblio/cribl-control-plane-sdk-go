@@ -3406,6 +3406,9 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetTemplateResource() *s
 	return c.TemplateResource
 }
 
+// #region class-body-createinputsystembypackinputoffice365msgtrace
+// #endregion class-body-createinputsystembypackinputoffice365msgtrace
+
 type CreateInputSystemByPackTypeOffice365Service string
 
 const (
@@ -3485,6 +3488,9 @@ func (c *CreateInputSystemByPackContentConfigOffice365Service) GetEnabled() *boo
 	}
 	return c.Enabled
 }
+
+// #region class-body-createinputsystembypackcontentconfigoffice365service
+// #endregion class-body-createinputsystembypackcontentconfigoffice365service
 
 type CreateInputSystemByPackInputOffice365Service struct {
 	// Unique ID for this input
@@ -3756,6 +3762,9 @@ func (c *CreateInputSystemByPackInputOffice365Service) GetTemplateClientSecret()
 	return c.TemplateClientSecret
 }
 
+// #region class-body-createinputsystembypackinputoffice365service
+// #endregion class-body-createinputsystembypackinputoffice365service
+
 type CreateInputSystemByPackTypeOffice365Mgmt string
 
 const (
@@ -3835,6 +3844,9 @@ func (c *CreateInputSystemByPackContentConfigOffice365Mgmt) GetEnabled() *bool {
 	}
 	return c.Enabled
 }
+
+// #region class-body-createinputsystembypackcontentconfigoffice365mgmt
+// #endregion class-body-createinputsystembypackcontentconfigoffice365mgmt
 
 type CreateInputSystemByPackInputOffice365Mgmt struct {
 	// Unique ID for this input
@@ -4132,6 +4144,9 @@ func (c *CreateInputSystemByPackInputOffice365Mgmt) GetTemplateClientSecret() *s
 	}
 	return c.TemplateClientSecret
 }
+
+// #region class-body-createinputsystembypackinputoffice365mgmt
+// #endregion class-body-createinputsystembypackinputoffice365mgmt
 
 type CreateInputSystemByPackTypeEdgePrometheus string
 
@@ -6168,6 +6183,9 @@ func (c *CreateInputSystemByPackPrometheusAuth2) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+// #region class-body-createinputsystembypackprometheusauth2
+// #endregion class-body-createinputsystembypackprometheusauth2
+
 type CreateInputSystemByPackLokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
@@ -6233,6 +6251,9 @@ func (c *CreateInputSystemByPackLokiAuth2) GetTextSecret() *string {
 	}
 	return c.TextSecret
 }
+
+// #region class-body-createinputsystembypacklokiauth2
+// #endregion class-body-createinputsystembypacklokiauth2
 
 type CreateInputSystemByPackInputGrafanaGrafana2 struct {
 	// Unique ID for this input
@@ -6529,6 +6550,9 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplatePort() *string 
 	return c.TemplatePort
 }
 
+// #region class-body-createinputsystembypackinputgrafanagrafana2
+// #endregion class-body-createinputsystembypackinputgrafanagrafana2
+
 type CreateInputSystemByPackInputGrafanaType1 string
 
 const (
@@ -6618,6 +6642,9 @@ func (c *CreateInputSystemByPackPrometheusAuth1) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+// #region class-body-createinputsystembypackprometheusauth1
+// #endregion class-body-createinputsystembypackprometheusauth1
+
 type CreateInputSystemByPackLokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
@@ -6683,6 +6710,9 @@ func (c *CreateInputSystemByPackLokiAuth1) GetTextSecret() *string {
 	}
 	return c.TextSecret
 }
+
+// #region class-body-createinputsystembypacklokiauth1
+// #endregion class-body-createinputsystembypacklokiauth1
 
 type CreateInputSystemByPackInputGrafanaGrafana1 struct {
 	// Unique ID for this input
@@ -6978,6 +7008,9 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetTemplatePort() *string 
 	}
 	return c.TemplatePort
 }
+
+// #region class-body-createinputsystembypackinputgrafanagrafana1
+// #endregion class-body-createinputsystembypackinputgrafanagrafana1
 
 type CreateInputSystemByPackInputGrafanaUnionType string
 

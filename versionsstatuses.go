@@ -38,6 +38,7 @@ func (s *VersionsStatuses) Get(ctx context.Context, opts ...operations.Option) (
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {
@@ -201,17 +202,19 @@ func (s *VersionsStatuses) Get(ctx context.Context, opts ...operations.Option) (
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
 
-			var out components.CountedGitStatusResult
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
+				var out components.CountedGitStatusResult
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
 
-			res.CountedGitStatusResult = &out
+				res.CountedGitStatusResult = &out
+			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

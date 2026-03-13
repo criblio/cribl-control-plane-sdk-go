@@ -679,3 +679,6 @@ func (o *OutputS3) GetTemplateAwsAPIKey() *string {
 	}
 	return o.TemplateAwsAPIKey
 }
+
+// #region class-body-outputs3
+// #endregion class-body-outputs3
