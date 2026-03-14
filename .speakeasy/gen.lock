@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 20edc7fe6bc10ff462a0344933892232
-  docVersion: 4.17.1-alpha.1773389979547-61c086f4
+  docChecksum: d628391f8f6e67c596de964629eda160
+  docVersion: 4.17.1-alpha.1773443034117-eed37cfb
   speakeasyVersion: 1.753.0
   generationVersion: 2.862.0
-  releaseVersion: 0.7.0-alpha.4
-  configChecksum: f4468c9d6560d3418677b439a19191ff
+  releaseVersion: 0.7.0-alpha.5
+  configChecksum: 3a2ecfcfcda712a6cdd3044c3c42766c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: bbec0c14-5b61-4f34-a9df-980a726df7f6
-  pristine_commit_hash: 289f8541ba69c3fc0bef6052873c01e86c14085b
-  pristine_tree_hash: c3f2399a2f4b014efe86b5086052708733f64e9b
+  generation_id: 3b998844-a8d9-4f8c-bfa0-9333ef10e08a
+  pristine_commit_hash: 7ba40233c5d4e51d54f75f82b9d1ecedd33fa353
+  pristine_tree_hash: d92673ec5b6cd0be4e2a49a78e881b6552231fbb
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: b7f5948a58b932c7bfe411533ebee678285e4d32
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:3dd32e2d0cb488a52d5ed1662b03f91bb63e3bb1
-    pristine_git_object: 514199dc8ac24c293c0691fd8a4cf8d6b96a25f7
+    last_write_checksum: sha1:a3e08c6deeae7d23c8b0dafa28cf4a3263d665c4
+    pristine_git_object: 289fec3baad14ad19de59c764f387bec84708702
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:e05a182b5a8d789d74e48e6f6c5f6af545c66d22
@@ -3325,8 +3325,8 @@ trackedFiles:
     pristine_git_object: c8607aa6cd85f31bba6721a5b70b68d038c937aa
   docs/models/components/inputmicrosoftgraph.md:
     id: d240a8f17e27
-    last_write_checksum: sha1:799f9da1b7b9157209e2fc2ecf448ac4963adeba
-    pristine_git_object: 344495d82ee66d945a47b0ef661390cc19836bca
+    last_write_checksum: sha1:db56e8fcc0e010aad57d0727d67db4ed0712210a
+    pristine_git_object: 3aac37bddbe75a701b36acda2e6fa0f269277ace
   docs/models/components/inputmicrosoftgraphtype.md:
     id: 3c755a15861d
     last_write_checksum: sha1:99c394314d354c2687353c25dceb87fa146a78d1
@@ -3357,32 +3357,32 @@ trackedFiles:
     pristine_git_object: 42dc750c8c15dedfccfb754e5e483c77440ffce1
   docs/models/components/inputoffice365mgmt.md:
     id: b4bda455f292
-    last_write_checksum: sha1:eaf1b7494f8453a459a33153146e7c14ed00e6a6
-    pristine_git_object: 640243809b144ff73e4ea46afd5c21bb782fa5df
+    last_write_checksum: sha1:f6d5457f6041c34573248bfb848f5a652b56b5e3
+    pristine_git_object: b7bad6ff00a0e90dc1bd9a59f7ed008e50b0b110
   docs/models/components/inputoffice365mgmtcontentconfig.md:
     id: 7b57e80fe453
-    last_write_checksum: sha1:a7c64d63d749cd30ad2db17582c01d9f10f74475
-    pristine_git_object: f8ef5a250417232c5c3bb1f87919e92b5bb9add6
+    last_write_checksum: sha1:e102e84e9612876a73d2655ea49a3b6a64a371e9
+    pristine_git_object: be414b477056ca1e087740846009cd040b8fc84c
   docs/models/components/inputoffice365mgmttype.md:
     id: 56f7d88e5ca8
     last_write_checksum: sha1:753c114414078d43161eadf55bc24a66d14799eb
     pristine_git_object: 61e376be1075a487e4457479bdff4301cc7c1541
   docs/models/components/inputoffice365msgtrace.md:
     id: d3ca6860ca3a
-    last_write_checksum: sha1:653555efed35213cba7ebbc7c921997dc8b95946
-    pristine_git_object: f49810264482d6d4219056aaf42596f97e6c5280
+    last_write_checksum: sha1:b15b8cc285ef3df914154e138b593ea7626e95d8
+    pristine_git_object: b122c57dcb93b14065cedcc1de6893ce194e558b
   docs/models/components/inputoffice365msgtracetype.md:
     id: cbf47ae8cf5a
     last_write_checksum: sha1:76ccee1e910f3c4ddddbe8069d85a5088f249663
     pristine_git_object: 9eab2a0d2b2ed22482d7042a8220a225a78c33fe
   docs/models/components/inputoffice365service.md:
     id: 9475079b1e69
-    last_write_checksum: sha1:7db9ac78b4a3dd548d6f1b6fc12fa53f81c83a6b
-    pristine_git_object: 0f5a18a7cf2279bf0b3c73d75465ecdaadfeb683
+    last_write_checksum: sha1:c6d0228eb95625972d01b31ead709c1ba7547495
+    pristine_git_object: c9bef1d347ad0ff1c93943cedbdd57aa9a235300
   docs/models/components/inputoffice365servicecontentconfig.md:
     id: 6b98ac7bbf64
-    last_write_checksum: sha1:563ba1d82e9340bdc7ea542815f7944f6715fdbd
-    pristine_git_object: cea4ba85e2d9039d2e39be5d378484b6dd7ce498
+    last_write_checksum: sha1:4dfb99228162c9dc4ead3f8b167166ac560fd95f
+    pristine_git_object: 7afc9f0aacd1257bb1e4cd94d938c44e36a4e172
   docs/models/components/inputoffice365servicetype.md:
     id: 38c78f11ab68
     last_write_checksum: sha1:4d12ccb90f6a6029ec1c77208b1494e32c4f39c0
@@ -9113,8 +9113,8 @@ trackedFiles:
     pristine_git_object: e03fca71d32bd4ed6bf5534db4e76badd0ea07e7
   docs/models/components/subscriptionplanoptions.md:
     id: 6b478e736abe
-    last_write_checksum: sha1:d9a9cc355785fe3032c1f67e181d62435ddc438b
-    pristine_git_object: ca730ed3ed93588cb36787735e49c5211d231901
+    last_write_checksum: sha1:9ad594c3aa2882a51c8568b3c9c73d6f6e0d50f9
+    pristine_git_object: 2c9f1bd83aeaa4e7814fd1df7a13a4819db87056
   docs/models/components/summary.md:
     id: 85b6568bfcc1
     last_write_checksum: sha1:02d4463a600b1b35aca262cff23d8b77f1e231be
@@ -9445,12 +9445,12 @@ trackedFiles:
     pristine_git_object: 74744c0935e51f5381736a4149e0d20f498e0760
   docs/models/operations/createinputcontentconfigoffice365mgmt.md:
     id: 4e57f480c808
-    last_write_checksum: sha1:27346ab7edc5a42bde524757cbc44ad1ddb7d0aa
-    pristine_git_object: 134a473374fad0d377eb9dc7f1773ae1a1cbc43d
+    last_write_checksum: sha1:93061d88cd5463a2c835d2900e18a66f0de85e0e
+    pristine_git_object: ace045e99580657e3bc86d4815e2333e9ed101ed
   docs/models/operations/createinputcontentconfigoffice365service.md:
     id: e0c787129344
-    last_write_checksum: sha1:5c423ad3b199195b225cb7e110c96cffd29e0d81
-    pristine_git_object: 45780d6cc9e656ab91791b963f758872b379a570
+    last_write_checksum: sha1:b53d0b74b9f9da109fb975f8d4e5e11e39895ad2
+    pristine_git_object: 672947cc7a6af4e83d0eb618ff6427ad2d40f6f3
   docs/models/operations/createinputcontentconfigwiz.md:
     id: ea61af128011
     last_write_checksum: sha1:284a977612560773fa516f74e0b067eb75f1998d
@@ -9725,8 +9725,8 @@ trackedFiles:
     pristine_git_object: 601df4df20c47f58c66063dbb48e9c31d7e628ab
   docs/models/operations/createinputinputmicrosoftgraph.md:
     id: afc36c44556a
-    last_write_checksum: sha1:ba8b1a25aebeb4e2ca4b21ca6ed4e1638316a328
-    pristine_git_object: 0650d441f3959936a9303995a34034d74f49729e
+    last_write_checksum: sha1:f216ebf689cef169ea71b9afa8c703383747cd98
+    pristine_git_object: 8b5b781eb870b37a9eb9b41f77805831c81b831a
   docs/models/operations/createinputinputmodeldriventelemetry.md:
     id: 86a5f183722e
     last_write_checksum: sha1:72aa3c23e735d00ab601fe834f46240ee5389915
@@ -9741,16 +9741,16 @@ trackedFiles:
     pristine_git_object: 959f3834662226d1b51a514f37a035170f69f585
   docs/models/operations/createinputinputoffice365mgmt.md:
     id: d01a41d079d5
-    last_write_checksum: sha1:aad53edb6f1fe93467e6be321cd689bb00f54fd8
-    pristine_git_object: 10fdc1d5813224dba931e69259d11b73b329d016
+    last_write_checksum: sha1:3e484e8d2e1352056940325bae6decce19845dd3
+    pristine_git_object: 6c07c4f363f8be740d2c79a108dafa173292b17e
   docs/models/operations/createinputinputoffice365msgtrace.md:
     id: 45d9934d59ea
-    last_write_checksum: sha1:3ffeb4a6a2fca397cad3111ae65ee45f4672f8b8
-    pristine_git_object: 01f26e05164e7d8bbb46de5fecfe310a8d5055bf
+    last_write_checksum: sha1:781ebb834297318621efa60919ad9783c557dbb4
+    pristine_git_object: 64800becb9e060ae92db7b921fb0263a03bd40b9
   docs/models/operations/createinputinputoffice365service.md:
     id: 828210aec494
-    last_write_checksum: sha1:b9e16d0ad0ff6bf8dee8eabfb20e61efba4afcc7
-    pristine_git_object: 5c53dc079c11dfaa5b42e517ccbbe4bbef89817d
+    last_write_checksum: sha1:80a1c3735c5aaf99b5de262f4038c5aac41ecdde
+    pristine_git_object: e9efa6e4bc3583e93034fc63e990e72b55d64bed
   docs/models/operations/createinputinputopenai.md:
     id: d9b28971015f
     last_write_checksum: sha1:6fd083be7cb1997cf028920db4e351db3cd6d0d0
@@ -10149,12 +10149,12 @@ trackedFiles:
     pristine_git_object: 05ff9e48ee88cd7717a0bfdbf1037f45a3f2cde8
   docs/models/operations/createinputsystembypackcontentconfigoffice365mgmt.md:
     id: 612f7b5dd09d
-    last_write_checksum: sha1:e1abc3e23f91382ce8a038ba6f9952894d59c971
-    pristine_git_object: 9607bea7c39169bbda5e3e5707af3c7682c43f1f
+    last_write_checksum: sha1:fa160ae55aa8928c1e6d89876459eb47a8a52b4c
+    pristine_git_object: 04ed77cedf732628d21f35f257b04a1f286b3d15
   docs/models/operations/createinputsystembypackcontentconfigoffice365service.md:
     id: f636562c77e1
-    last_write_checksum: sha1:cbae96e334559b40ff5c78b4c08381474198543b
-    pristine_git_object: eec5bf179825e1be9a041562e0f2bd382fa9e9da
+    last_write_checksum: sha1:df8cd7fbfb91508dddec3fb506033e9e2a9eade0
+    pristine_git_object: 1e14f965fa19cfa2c2b8e5a1d1a5cc2d6b71fb69
   docs/models/operations/createinputsystembypackcontentconfigwiz.md:
     id: 4ef80074077b
     last_write_checksum: sha1:6435854b70e44962df0dd6e6432044e393f9a359
@@ -10421,8 +10421,8 @@ trackedFiles:
     pristine_git_object: 5b47bf07e126dce9be5b443e75062a86d71b4c91
   docs/models/operations/createinputsystembypackinputmicrosoftgraph.md:
     id: 2de2293af014
-    last_write_checksum: sha1:8947d75d659440e3f691600201517fe832821da4
-    pristine_git_object: 5da96db9cd2c0b84f9c5c8c15ca2bc12e1f3d1f9
+    last_write_checksum: sha1:6d27433168b1249014e4828611a8d2003fabd184
+    pristine_git_object: 734c9c6e46ec34371dfa4c1c2163e8bed27026f5
   docs/models/operations/createinputsystembypackinputmodeldriventelemetry.md:
     id: 688a00c7a55b
     last_write_checksum: sha1:78c9c5a2d4841013d3a3df924adbbae30cdcf221
@@ -10437,16 +10437,16 @@ trackedFiles:
     pristine_git_object: fe7c150ceebcae01dba8af0d9ad329a043bd09de
   docs/models/operations/createinputsystembypackinputoffice365mgmt.md:
     id: d01764f60237
-    last_write_checksum: sha1:f941e50ac89b4e4faa784f77de31d0f20075eab4
-    pristine_git_object: 119aac565f80a227b574cd35a2742673557c0278
+    last_write_checksum: sha1:a320aae804dafb486a43c51c9fc4d71e6c13352d
+    pristine_git_object: 7bd41b5bccdd61a348aeaf82c95a858cfab00317
   docs/models/operations/createinputsystembypackinputoffice365msgtrace.md:
     id: bc646a8869b7
-    last_write_checksum: sha1:5eafc5689f5ca9db7340c076a06a79afe2d91915
-    pristine_git_object: 3252549ec631ff722106719e4700c1cf596a820c
+    last_write_checksum: sha1:671618bb1a4016d8505bddb9559dc138f11df75a
+    pristine_git_object: 45efcb53777c3c60d14d5982dd40e6119f00ac96
   docs/models/operations/createinputsystembypackinputoffice365service.md:
     id: e36ef58dd115
-    last_write_checksum: sha1:43def21cc2388dc0b158558bb8979018e530f00a
-    pristine_git_object: 44f5f4d4bf1e875e713bc4dfa71270ca808c007a
+    last_write_checksum: sha1:2d3f41ddb256912220f6ecb1c4f39f1c0db9a741
+    pristine_git_object: c79f9e7cefd5ac91ec538453cf40b74d4fdce496
   docs/models/operations/createinputsystembypackinputopenai.md:
     id: d6a28e2c4a46
     last_write_checksum: sha1:5a023746efa0f27b434ced5c55a973bbb2935189
@@ -15817,8 +15817,8 @@ trackedFiles:
     pristine_git_object: 1fcbd139a51f91e83148cfb4600fcc60510f415e
   models/components/inputmicrosoftgraph.go:
     id: 65fcc4ab2054
-    last_write_checksum: sha1:53ceac7a5d102d7d34573e2337fce89ac012c6d4
-    pristine_git_object: 500d4afee21dc68bbce9dbbf0436933abaa32b5b
+    last_write_checksum: sha1:1c270bc265065d3098571332a1b2dc2da2e36c25
+    pristine_git_object: 7a23cfe78cf05f633b87e9b4b8fd5ee7c98c1e69
   models/components/inputmodeldriventelemetry.go:
     id: db637b837bd6
     last_write_checksum: sha1:f1f1e863fe1d2c5c3171206e63c69df794468298
@@ -15833,16 +15833,16 @@ trackedFiles:
     pristine_git_object: ab2e2e085c49e31a6a60be46e2a1322a333b1ce9
   models/components/inputoffice365mgmt.go:
     id: 5acddba55c66
-    last_write_checksum: sha1:4f9863e8f64c5813297d32c1cedbe139cb9cfb3f
-    pristine_git_object: 95775019bce4b4e670cba9568c79e69b31104da7
+    last_write_checksum: sha1:80c01d7a693c96591b9b8bb94719241e0a6f2730
+    pristine_git_object: 9e4f4bee06999b412d59b6accc71c9d2b6bacb86
   models/components/inputoffice365msgtrace.go:
     id: e9613d05e1f0
-    last_write_checksum: sha1:0f71aba639af2c0b8d85c6d065e2ae483263a9b8
-    pristine_git_object: ff783151d93572598dd121c3034aa81e53b31399
+    last_write_checksum: sha1:9e0f3984ab7cf4189d7f10e01878b56d3cd45e26
+    pristine_git_object: c6adc7ec95cc1f201d24bd2ebf6ac92f41174fa6
   models/components/inputoffice365service.go:
     id: b5e0ae026c58
-    last_write_checksum: sha1:e268d768418a8823d8eef6773d29ab0408ab1300
-    pristine_git_object: 93d658e2d4cd9f7f68647ebbc331823b819f4c61
+    last_write_checksum: sha1:dd9638f63966415f1a811e467d4f7e778d2c3ec3
+    pristine_git_object: 0e8ee2e2116b845f7f8b61c096e546a98408962b
   models/components/inputopenai.go:
     id: 14e5243984a0
     last_write_checksum: sha1:29efb91ee85548476fdca02d04453475769e7052
@@ -17113,8 +17113,8 @@ trackedFiles:
     pristine_git_object: d255d9d4f0c038a5fb2a4229af0bf71b6aacdd8d
   models/components/subscriptionplanoptions.go:
     id: ee1004854c7e
-    last_write_checksum: sha1:6303e6cfe6c84570db074d1936762219c9f20960
-    pristine_git_object: f0e5f1973385701b8ba7699314b6c296340a2d05
+    last_write_checksum: sha1:d7c113fd0d0f2a45b3f11a4482efadfbca5e6156
+    pristine_git_object: 216eb8eecae332852d16fe20056a8284d1da4235
   models/components/supporttypesystemsettingsconf.go:
     id: f2ccf65d6cf4
     last_write_checksum: sha1:4b4df3c0f6092f02572abd68ab3a3263709edc2d
@@ -17253,12 +17253,12 @@ trackedFiles:
     pristine_git_object: 14107d7b9839ebbbeba238584f79d424997f518d
   models/operations/createinputresponse.go:
     id: 4a65919a7957
-    last_write_checksum: sha1:dea1167d0becf144e22ecac8616b9735e555b2d9
-    pristine_git_object: d8fbb94d7d44ee2fe55b7b7fda5a88e000381c2c
+    last_write_checksum: sha1:c440d69fa0f662d9f678d87b0568feccc6914c04
+    pristine_git_object: 30862d1e2541f9f65ea9547e571973bdcf6d2f28
   models/operations/createinputsystembypackresponse.go:
     id: 7f6c1101c884
-    last_write_checksum: sha1:b91f81c08b6fe78f31e9856d2c344dac107bce98
-    pristine_git_object: 6a920203099dbdda9467812dc1b0f01011fa06a8
+    last_write_checksum: sha1:2d0bc293a47540b97c2a1ed583d9cf5682124ea6
+    pristine_git_object: d146e27844267bf0d52cfcf1509e8e5c18562cad
   models/operations/createinputsystembypacktypetcpjson.go:
     id: 66c636180142
     last_write_checksum: sha1:783b2d3c6e926022332f07ff35c5d2f222d70d63

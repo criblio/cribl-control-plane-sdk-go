@@ -2,17 +2,17 @@
 
 package components
 
-// SubscriptionPlanOptions - Office 365 subscription plan for your organization, typically Office 365 Enterprise
+// SubscriptionPlanOptions - Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 type SubscriptionPlanOptions string
 
 const (
-	// SubscriptionPlanOptionsEnterpriseGcc Office 365 Enterprise
+	// SubscriptionPlanOptionsEnterpriseGcc Microsoft 365 Enterprise
 	SubscriptionPlanOptionsEnterpriseGcc SubscriptionPlanOptions = "enterprise_gcc"
-	// SubscriptionPlanOptionsGcc Office 365 GCC
+	// SubscriptionPlanOptionsGcc Microsoft 365 GCC
 	SubscriptionPlanOptionsGcc SubscriptionPlanOptions = "gcc"
-	// SubscriptionPlanOptionsGccHigh Office 365 GCC High
+	// SubscriptionPlanOptionsGccHigh Microsoft 365 GCC High
 	SubscriptionPlanOptionsGccHigh SubscriptionPlanOptions = "gcc_high"
-	// SubscriptionPlanOptionsDod Office 365 DoD
+	// SubscriptionPlanOptionsDod Microsoft 365 DoD
 	SubscriptionPlanOptionsDod SubscriptionPlanOptions = "dod"
 )
 
