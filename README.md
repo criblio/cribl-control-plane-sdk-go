@@ -747,7 +747,6 @@ import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -762,19 +761,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.Nodes.List(ctx, operations.GetProductsWorkersByProductRequest{
-		Product:   components.ProductsBaseStream,
-		FilterExp: criblcontrolplanesdkgo.Pointer("<value>"),
-		SortExp:   criblcontrolplanesdkgo.Pointer("<value>"),
-		Filter:    criblcontrolplanesdkgo.Pointer("<value>"),
-		Sort:      criblcontrolplanesdkgo.Pointer("<value>"),
-		Limit:     criblcontrolplanesdkgo.Pointer[int64](881129),
-		Offset:    criblcontrolplanesdkgo.Pointer[int64](990978),
-	})
+	res, err := s.Sources.Statuses.List(ctx, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedMasterWorkerEntry != nil {
+	if res.CountedInputStatus != nil {
 		for {
 			// handle items
 
