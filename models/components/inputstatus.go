@@ -2,6 +2,7 @@
 
 package components
 
+// InputStatus - Status of the Source, aggregated across all Worker Processes.
 type InputStatus struct {
 	// Unique identifier of the Source or Destination.
 	ID string `json:"id"`

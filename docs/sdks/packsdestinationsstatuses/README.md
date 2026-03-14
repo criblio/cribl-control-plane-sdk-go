@@ -69,7 +69,7 @@ func main() {
 
 ## List
 
-List status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
+List status information and optional metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
 
 ### Example Usage
 
@@ -82,6 +82,7 @@ import(
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -95,25 +96,37 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Destinations.Statuses.List(ctx, "<value>", nil, nil)
+    res, err := s.Packs.Destinations.Statuses.List(ctx, operations.GetOutputStatusSystemOutputsByPackRequest{
+        Pack: "<value>",
+    })
     if err != nil {
         log.Fatal(err)
     }
     if res.CountedOutputStatus != nil {
-        // handle response
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                              | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
-| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                                  | :heavy_check_mark:                                                                                                                     | The context to use for the request.                                                                                                    |
-| `pack`                                                                                                                                 | `string`                                                                                                                               | :heavy_check_mark:                                                                                                                     | The <code>id</code> of the Pack to list.                                                                                               |
-| `metrics`                                                                                                                              | `*bool`                                                                                                                                | :heavy_minus_sign:                                                                                                                     | Set to <code>true</code> to include metrics for each Destination. Otherwise, <code>false</code> (default).                             |
-| `type_`                                                                                                                                | `*bool`                                                                                                                                | :heavy_minus_sign:                                                                                                                     | Set to <code>true</code> to prefix the Destination <code>id</code> with the Destination type. Otherwise, <code>false</code> (default). |
-| `opts`                                                                                                                                 | [][operations.Option](../../models/operations/option.md)                                                                               | :heavy_minus_sign:                                                                                                                     | The options for this request.                                                                                                          |
+| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                                        | :heavy_check_mark:                                                                                                           | The context to use for the request.                                                                                          |
+| `request`                                                                                                                    | [operations.GetOutputStatusSystemOutputsByPackRequest](../../models/operations/getoutputstatussystemoutputsbypackrequest.md) | :heavy_check_mark:                                                                                                           | The request object to use for the request.                                                                                   |
+| `opts`                                                                                                                       | [][operations.Option](../../models/operations/option.md)                                                                     | :heavy_minus_sign:                                                                                                           | The options for this request.                                                                                                |
 
 ### Response
 

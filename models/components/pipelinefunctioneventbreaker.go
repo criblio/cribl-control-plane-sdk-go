@@ -554,8 +554,10 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse struct {
 	// The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
 	JSONArrayField *string `json:"jsonArrayField,omitzero"`
 	// Top-level fields to copy to the output events. Nested fields are not supported. 'Array field' is always excluded. If 'Array field' points to a nested array, the entire top-level object will be excluded. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
-	ParentFieldsToCopy []string                                                                      `json:"parentFieldsToCopy,omitzero"`
-	ExistingOrNew      EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew `json:"existingOrNew"`
+	ParentFieldsToCopy []string `json:"parentFieldsToCopy,omitzero"`
+	// List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
+	FieldsToRemove []string                                                                      `json:"fieldsToRemove,omitzero"`
+	ExistingOrNew  EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
@@ -608,6 +610,13 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetPa
 		return nil
 	}
 	return e.ParentFieldsToCopy
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetFieldsToRemove() []string {
+	if e == nil {
+		return nil
+	}
+	return e.FieldsToRemove
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetExistingOrNew() EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew {
@@ -737,8 +746,10 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue struct {
 	// The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
 	JSONArrayField *string `json:"jsonArrayField,omitzero"`
 	// Top-level fields to copy to the output events. Nested fields are not supported. 'Array field' is always excluded. If 'Array field' points to a nested array, the entire top-level object will be excluded. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
-	ParentFieldsToCopy []string                                                                     `json:"parentFieldsToCopy,omitzero"`
-	ExistingOrNew      EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew `json:"existingOrNew"`
+	ParentFieldsToCopy []string `json:"parentFieldsToCopy,omitzero"`
+	// List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
+	FieldsToRemove []string                                                                     `json:"fieldsToRemove,omitzero"`
+	ExistingOrNew  EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
@@ -798,6 +809,13 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetPar
 		return nil
 	}
 	return e.ParentFieldsToCopy
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetFieldsToRemove() []string {
+	if e == nil {
+		return nil
+	}
+	return e.FieldsToRemove
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetExistingOrNew() EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew {
