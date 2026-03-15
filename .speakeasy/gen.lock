@@ -5,14 +5,14 @@ management:
   docVersion: 4.18.0-alpha.1773443038855-8fc278ec
   speakeasyVersion: 1.753.0
   generationVersion: 2.862.0
-  releaseVersion: 0.7.0-beta.3
-  configChecksum: 3843258ded616949858c5b946d34acd6
+  releaseVersion: 0.7.0-beta.4
+  configChecksum: c73fd4f0d9ed1a12a2287b99bdadfee9
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 5fc1dcb0-31da-49e2-9ded-4ede68685b6d
-  pristine_commit_hash: af375eaf0fdf8c0b35533104234bff89db47ddd5
-  pristine_tree_hash: 3ed14ad231281e8ad9d7eb82e2d9cd5029b53df6
+  generation_id: 9aa16a25-022f-4247-a9b0-09a147d65ac2
+  pristine_commit_hash: 6dadd146c8e37a121ba0af78a460bc0f80042783
+  pristine_tree_hash: 8ca7d8d7591101adaf5dbcf9c7ddd4878c8e74ca
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: b7f5948a58b932c7bfe411533ebee678285e4d32
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:d52676200b340ace20559a848ca5dfb0091a3486
-    pristine_git_object: 4e3be954ff92faa3f8a6a68c43a50184049bd2f5
+    last_write_checksum: sha1:64337a9812d5a7e3a2fdecde0851bd84cc018816
+    pristine_git_object: 0f0ea55592fad609bdf8e1a15e1eab57c0db70b9
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:e05a182b5a8d789d74e48e6f6c5f6af545c66d22
@@ -30064,7 +30064,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Destinations.Statuses.List()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `error.status[400]` **Added**\n* `CriblControlPlane.Packs.Sources.Statuses.List()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `error.status[400]` **Added**\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n  *  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n* `CriblControlPlane.Sources.Statuses.List()`: \n  *  `request` **Changed**\n  *  `error.status[400]` **Added**\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n  *  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n* `CriblControlPlane.Destinations.Statuses.List()`: \n  *  `request` **Changed**\n  *  `error.status[400]` **Added**\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n  *  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n  *  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array)` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
