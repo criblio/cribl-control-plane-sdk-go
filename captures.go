@@ -39,6 +39,7 @@ func (s *Captures) Create(ctx context.Context, request components.CaptureParams,
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
 	}
 
 	for _, opt := range opts {

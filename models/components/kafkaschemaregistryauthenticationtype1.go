@@ -98,3 +98,6 @@ func (k *KafkaSchemaRegistryAuthenticationType1) GetDefaultValueSchemaID() *floa
 	}
 	return k.DefaultValueSchemaID
 }
+
+// #region class-body-kafkaschemaregistryauthenticationtype1
+// #endregion class-body-kafkaschemaregistryauthenticationtype1

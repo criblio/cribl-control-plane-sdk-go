@@ -416,3 +416,6 @@ func (i *InputOffice365MsgTrace) GetTemplateResource() *string {
 	}
 	return i.TemplateResource
 }
+
+// #region class-body-inputoffice365msgtrace
+// #endregion class-body-inputoffice365msgtrace
