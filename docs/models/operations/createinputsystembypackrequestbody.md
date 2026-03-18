@@ -365,6 +365,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodySecurityLake(operations.CreateInputSystemByPackInputSecurityLake{/* values here */})
 ```
 
+### CreateInputSystemByPackInputServicenowTable
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyServicenowTable(operations.CreateInputSystemByPackInputServicenowTable{/* values here */})
+```
+
 ### CreateInputSystemByPackInputZscalerHec
 
 ```go
@@ -503,6 +509,8 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputNetflow is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeSecurityLake:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSecurityLake is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeServicenowTable:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputServicenowTable is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeZscalerHec:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputZscalerHec is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeCloudflareHec:

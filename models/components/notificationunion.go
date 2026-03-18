@@ -243,6 +243,10 @@ type Notification3 struct {
 	Conf          *ConditionSpecificConfigs3 `json:"conf,omitzero"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// The worker group/fleet this notification belongs to
+	Group *string `json:"group,omitzero"`
+	// The pack this notification belongs to
+	Pack *string `json:"pack,omitzero"`
 	// Pairs of templates and targets for notification routing
 	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs,omitzero"`
 }
@@ -312,6 +316,20 @@ func (n *Notification3) GetMetadata() []ItemsTypeMetadata {
 		return nil
 	}
 	return n.Metadata
+}
+
+func (n *Notification3) GetGroup() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Group
+}
+
+func (n *Notification3) GetPack() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Pack
 }
 
 func (n *Notification3) GetTemplateTargetPairs() []ItemsTypePoliciesItemsTemplateTargetPairs {
@@ -561,6 +579,10 @@ type Notification2 struct {
 	Conf          *ConditionSpecificConfigs2 `json:"conf,omitzero"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// The worker group/fleet this notification belongs to
+	Group *string `json:"group,omitzero"`
+	// The pack this notification belongs to
+	Pack *string `json:"pack,omitzero"`
 }
 
 func (n Notification2) MarshalJSON() ([]byte, error) {
@@ -635,6 +657,20 @@ func (n *Notification2) GetMetadata() []ItemsTypeMetadata {
 		return nil
 	}
 	return n.Metadata
+}
+
+func (n *Notification2) GetGroup() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Group
+}
+
+func (n *Notification2) GetPack() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Pack
 }
 
 // #region class-body-notification2
@@ -877,6 +913,10 @@ type Notification1 struct {
 	Conf          *ConditionSpecificConfigs1 `json:"conf,omitzero"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// The worker group/fleet this notification belongs to
+	Group *string `json:"group,omitzero"`
+	// The pack this notification belongs to
+	Pack *string `json:"pack,omitzero"`
 }
 
 func (n Notification1) MarshalJSON() ([]byte, error) {
@@ -951,6 +991,20 @@ func (n *Notification1) GetMetadata() []ItemsTypeMetadata {
 		return nil
 	}
 	return n.Metadata
+}
+
+func (n *Notification1) GetGroup() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Group
+}
+
+func (n *Notification1) GetPack() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Pack
 }
 
 // #region class-body-notification1

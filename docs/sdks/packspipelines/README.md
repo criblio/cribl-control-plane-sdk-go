@@ -50,34 +50,32 @@ func main() {
                     components.PipelineFunctionAggregateMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))"),
                         ID: components.PipelineFunctionAggregateMetricsIDAggregateMetrics,
-                        Conf: components.CreatePipelineFunctionAggregateMetricsConfAggregateMetricsCumulativeTrue(
-                            components.AggregateMetricsCumulativeTrue{
-                                Cumulative: criblcontrolplanesdkgo.Pointer(false),
-                                Passthrough: criblcontrolplanesdkgo.Pointer(false),
-                                PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
-                                SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
-                                TimeWindow: "10s",
-                                Aggregations: []components.AggregateMetricsCumulativeTrueAggregation{
-                                    components.AggregateMetricsCumulativeTrueAggregation{
-                                        MetricType: components.AggregateMetricsCumulativeTrueMetricTypeGauge,
-                                        Agg: "avg(_value || proc.cpu_perc).as(proc.cpu_perc_avg)",
-                                    },
-                                    components.AggregateMetricsCumulativeTrueAggregation{
-                                        MetricType: components.AggregateMetricsCumulativeTrueMetricTypeGauge,
-                                        Agg: "sum(_value || proc.mem_perc).as(proc.mem_perc_sum)",
-                                    },
-                                    components.AggregateMetricsCumulativeTrueAggregation{
-                                        MetricType: components.AggregateMetricsCumulativeTrueMetricTypeCounter,
-                                        Agg: "count(_value || proc.bytes_in).as(proc.bytes_in_count)",
-                                    },
+                        Conf: components.PipelineFunctionAggregateMetricsConf{
+                            Passthrough: criblcontrolplanesdkgo.Pointer(false),
+                            PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
+                            SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
+                            TimeWindow: "10s",
+                            Aggregations: []components.Aggregation{
+                                components.Aggregation{
+                                    MetricType: components.PipelineFunctionAggregateMetricsMetricTypeGauge,
+                                    Agg: "avg(_value || proc.cpu_perc).as(proc.cpu_perc_avg)",
                                 },
-                                Groupbys: []string{
-                                    "proc",
+                                components.Aggregation{
+                                    MetricType: components.PipelineFunctionAggregateMetricsMetricTypeGauge,
+                                    Agg: "sum(_value || proc.mem_perc).as(proc.mem_perc_sum)",
                                 },
-                                ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(true),
-                                FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
+                                components.Aggregation{
+                                    MetricType: components.PipelineFunctionAggregateMetricsMetricTypeCounter,
+                                    Agg: "count(_value || proc.bytes_in).as(proc.bytes_in_count)",
+                                },
                             },
-                        ),
+                            Groupbys: []string{
+                                "proc",
+                            },
+                            Cumulative: criblcontrolplanesdkgo.Pointer(false),
+                            ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(true),
+                            FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
+                        },
                     },
                 ),
             },
@@ -130,24 +128,22 @@ func main() {
                     components.PipelineFunctionAggregation{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionAggregationIDAggregation,
-                        Conf: components.CreatePipelineFunctionAggregationConfAggregationCumulativeTrue(
-                            components.AggregationCumulativeTrue{
-                                Cumulative: criblcontrolplanesdkgo.Pointer(false),
-                                Passthrough: criblcontrolplanesdkgo.Pointer(false),
-                                PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
-                                SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
-                                MetricsMode: criblcontrolplanesdkgo.Pointer(false),
-                                TimeWindow: "10s",
-                                Aggregations: []string{
-                                    "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
-                                },
-                                Groupbys: []string{
-                                    "srcaddr",
-                                },
-                                ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(false),
-                                FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
+                        Conf: components.PipelineFunctionAggregationConf{
+                            Passthrough: criblcontrolplanesdkgo.Pointer(false),
+                            PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
+                            SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
+                            MetricsMode: criblcontrolplanesdkgo.Pointer(false),
+                            TimeWindow: "10s",
+                            Aggregations: []string{
+                                "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
                             },
-                        ),
+                            Groupbys: []string{
+                                "srcaddr",
+                            },
+                            Cumulative: criblcontrolplanesdkgo.Pointer(false),
+                            ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(false),
+                            FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
+                        },
                     },
                 ),
             },
@@ -1322,31 +1318,27 @@ func main() {
                     components.PipelineFunctionLookup{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionLookupIDLookup,
-                        Conf: components.CreatePipelineFunctionLookupConfLookupDbLookupFalse(
-                            components.CreateLookupDbLookupFalseExact(
-                                components.LookupDbLookupFalseMatchModeExact{
-                                    MatchMode: components.LookupDbLookupFalseMatchModeExactMatchModeExact.ToPointer(),
-                                    IgnoreCase: criblcontrolplanesdkgo.Pointer(false),
-                                    DbLookup: criblcontrolplanesdkgo.Pointer(false),
-                                    ReloadPeriodSec: criblcontrolplanesdkgo.Pointer[float64](-1),
-                                    File: "ip_locations.csv",
-                                    InFields: []components.LookupDbLookupFalseMatchModeExactInField{
-                                        components.LookupDbLookupFalseMatchModeExactInField{
-                                            EventField: "destination_ip",
-                                            LookupField: criblcontrolplanesdkgo.Pointer("ip"),
-                                        },
-                                    },
-                                    OutFields: []components.LookupDbLookupFalseMatchModeExactOutField{
-                                        components.LookupDbLookupFalseMatchModeExactOutField{
-                                            LookupField: "location",
-                                            EventField: criblcontrolplanesdkgo.Pointer("location"),
-                                            DefaultValue: criblcontrolplanesdkgo.Pointer("Unknown"),
-                                        },
-                                    },
-                                    AddToEvent: criblcontrolplanesdkgo.Pointer(false),
+                        Conf: components.PipelineFunctionLookupConf{
+                            File: "ip_locations.csv",
+                            DbLookup: criblcontrolplanesdkgo.Pointer(false),
+                            MatchMode: components.MatchModeExact.ToPointer(),
+                            ReloadPeriodSec: criblcontrolplanesdkgo.Pointer[float64](-1),
+                            InFields: []components.InField{
+                                components.InField{
+                                    EventField: "destination_ip",
+                                    LookupField: criblcontrolplanesdkgo.Pointer("ip"),
                                 },
-                            ),
-                        ),
+                            },
+                            OutFields: []components.OutField{
+                                components.OutField{
+                                    LookupField: "location",
+                                    EventField: criblcontrolplanesdkgo.Pointer("location"),
+                                    DefaultValue: criblcontrolplanesdkgo.Pointer("Unknown"),
+                                },
+                            },
+                            AddToEvent: criblcontrolplanesdkgo.Pointer(false),
+                            IgnoreCase: criblcontrolplanesdkgo.Pointer(false),
+                        },
                     },
                 ),
             },
@@ -1524,17 +1516,15 @@ func main() {
                     components.PipelineFunctionOtlpLogs{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='open_telemetry:open_telemetry'"),
                         ID: components.PipelineFunctionOtlpLogsIDOtlpLogs,
-                        Conf: components.CreateFunctionConfSchemaOtlpLogsOTLPLogsBatchOTLPLogsTrue(
-                            components.OTLPLogsBatchOTLPLogsTrue{
-                                BatchOTLPLogs: criblcontrolplanesdkgo.Pointer(true),
-                                SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
-                                Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
-                                SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
-                                MetadataKeys: []any{},
-                                MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
-                                DropNonLogEvents: criblcontrolplanesdkgo.Pointer(false),
-                            },
-                        ),
+                        Conf: components.FunctionConfSchemaOtlpLogs{
+                            DropNonLogEvents: criblcontrolplanesdkgo.Pointer(false),
+                            BatchOTLPLogs: criblcontrolplanesdkgo.Pointer(true),
+                            SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
+                            Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
+                            SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
+                            MetadataKeys: []any{},
+                            MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
+                        },
                     },
                 ),
             },
@@ -1587,27 +1577,25 @@ func main() {
                     components.PipelineFunctionOtlpMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='prometheus_rw:prom_rw_in'"),
                         ID: components.PipelineFunctionOtlpMetricsIDOtlpMetrics,
-                        Conf: components.CreateFunctionConfSchemaOtlpMetricsOTLPMetricsBatchOTLPMetricsTrue(
-                            components.OTLPMetricsBatchOTLPMetricsTrue{
-                                BatchOTLPMetrics: criblcontrolplanesdkgo.Pointer(true),
-                                SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
-                                Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
-                                SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
-                                MetadataKeys: []any{},
-                                MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
-                                ResourceAttributePrefixes: []string{
-                                    "service",
-                                    "system",
-                                    "telemetry",
-                                    "k8s",
-                                    "cloud",
-                                    "host",
-                                    "process",
-                                },
-                                DropNonMetricEvents: criblcontrolplanesdkgo.Pointer(false),
-                                OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
+                        Conf: components.FunctionConfSchemaOtlpMetrics{
+                            ResourceAttributePrefixes: []string{
+                                "service",
+                                "system",
+                                "telemetry",
+                                "k8s",
+                                "cloud",
+                                "host",
+                                "process",
                             },
-                        ),
+                            DropNonMetricEvents: criblcontrolplanesdkgo.Pointer(false),
+                            OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
+                            BatchOTLPMetrics: criblcontrolplanesdkgo.Pointer(true),
+                            SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
+                            Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
+                            SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
+                            MetadataKeys: []any{},
+                            MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
+                        },
                     },
                 ),
             },
@@ -1660,18 +1648,16 @@ func main() {
                     components.PipelineFunctionOtlpTraces{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='open_telemetry:open_telemetry'"),
                         ID: components.PipelineFunctionOtlpTracesIDOtlpTraces,
-                        Conf: components.CreateFunctionConfSchemaOtlpTracesOTLPTracesBatchOTLPTracesTrue(
-                            components.OTLPTracesBatchOTLPTracesTrue{
-                                BatchOTLPTraces: criblcontrolplanesdkgo.Pointer(true),
-                                SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
-                                Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
-                                SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
-                                MetadataKeys: []any{},
-                                MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
-                                DropNonTraceEvents: criblcontrolplanesdkgo.Pointer(false),
-                                OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
-                            },
-                        ),
+                        Conf: components.FunctionConfSchemaOtlpTraces{
+                            DropNonTraceEvents: criblcontrolplanesdkgo.Pointer(false),
+                            OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
+                            BatchOTLPTraces: criblcontrolplanesdkgo.Pointer(true),
+                            SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
+                            Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
+                            SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
+                            MetadataKeys: []any{},
+                            MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
+                        },
                     },
                 ),
             },
@@ -2777,34 +2763,32 @@ func main() {
                     components.PipelineFunctionAggregateMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))"),
                         ID: components.PipelineFunctionAggregateMetricsIDAggregateMetrics,
-                        Conf: components.CreatePipelineFunctionAggregateMetricsConfAggregateMetricsCumulativeTrue(
-                            components.AggregateMetricsCumulativeTrue{
-                                Cumulative: criblcontrolplanesdkgo.Pointer(false),
-                                Passthrough: criblcontrolplanesdkgo.Pointer(false),
-                                PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
-                                SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
-                                TimeWindow: "10s",
-                                Aggregations: []components.AggregateMetricsCumulativeTrueAggregation{
-                                    components.AggregateMetricsCumulativeTrueAggregation{
-                                        MetricType: components.AggregateMetricsCumulativeTrueMetricTypeGauge,
-                                        Agg: "avg(_value || proc.cpu_perc).as(proc.cpu_perc_avg)",
-                                    },
-                                    components.AggregateMetricsCumulativeTrueAggregation{
-                                        MetricType: components.AggregateMetricsCumulativeTrueMetricTypeGauge,
-                                        Agg: "sum(_value || proc.mem_perc).as(proc.mem_perc_sum)",
-                                    },
-                                    components.AggregateMetricsCumulativeTrueAggregation{
-                                        MetricType: components.AggregateMetricsCumulativeTrueMetricTypeCounter,
-                                        Agg: "count(_value || proc.bytes_in).as(proc.bytes_in_count)",
-                                    },
+                        Conf: components.PipelineFunctionAggregateMetricsConf{
+                            Passthrough: criblcontrolplanesdkgo.Pointer(false),
+                            PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
+                            SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
+                            TimeWindow: "10s",
+                            Aggregations: []components.Aggregation{
+                                components.Aggregation{
+                                    MetricType: components.PipelineFunctionAggregateMetricsMetricTypeGauge,
+                                    Agg: "avg(_value || proc.cpu_perc).as(proc.cpu_perc_avg)",
                                 },
-                                Groupbys: []string{
-                                    "proc",
+                                components.Aggregation{
+                                    MetricType: components.PipelineFunctionAggregateMetricsMetricTypeGauge,
+                                    Agg: "sum(_value || proc.mem_perc).as(proc.mem_perc_sum)",
                                 },
-                                ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(true),
-                                FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
+                                components.Aggregation{
+                                    MetricType: components.PipelineFunctionAggregateMetricsMetricTypeCounter,
+                                    Agg: "count(_value || proc.bytes_in).as(proc.bytes_in_count)",
+                                },
                             },
-                        ),
+                            Groupbys: []string{
+                                "proc",
+                            },
+                            Cumulative: criblcontrolplanesdkgo.Pointer(false),
+                            ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(true),
+                            FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
+                        },
                     },
                 ),
             },
@@ -2857,24 +2841,22 @@ func main() {
                     components.PipelineFunctionAggregation{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionAggregationIDAggregation,
-                        Conf: components.CreatePipelineFunctionAggregationConfAggregationCumulativeTrue(
-                            components.AggregationCumulativeTrue{
-                                Cumulative: criblcontrolplanesdkgo.Pointer(false),
-                                Passthrough: criblcontrolplanesdkgo.Pointer(false),
-                                PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
-                                SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
-                                MetricsMode: criblcontrolplanesdkgo.Pointer(false),
-                                TimeWindow: "10s",
-                                Aggregations: []string{
-                                    "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
-                                },
-                                Groupbys: []string{
-                                    "srcaddr",
-                                },
-                                ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(false),
-                                FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
+                        Conf: components.PipelineFunctionAggregationConf{
+                            Passthrough: criblcontrolplanesdkgo.Pointer(false),
+                            PreserveGroupBys: criblcontrolplanesdkgo.Pointer(false),
+                            SufficientStatsOnly: criblcontrolplanesdkgo.Pointer(false),
+                            MetricsMode: criblcontrolplanesdkgo.Pointer(false),
+                            TimeWindow: "10s",
+                            Aggregations: []string{
+                                "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
                             },
-                        ),
+                            Groupbys: []string{
+                                "srcaddr",
+                            },
+                            Cumulative: criblcontrolplanesdkgo.Pointer(false),
+                            ShouldTreatDotsAsLiterals: criblcontrolplanesdkgo.Pointer(false),
+                            FlushOnInputClose: criblcontrolplanesdkgo.Pointer(true),
+                        },
                     },
                 ),
             },
@@ -4049,31 +4031,27 @@ func main() {
                     components.PipelineFunctionLookup{
                         Filter: criblcontrolplanesdkgo.Pointer("true"),
                         ID: components.PipelineFunctionLookupIDLookup,
-                        Conf: components.CreatePipelineFunctionLookupConfLookupDbLookupFalse(
-                            components.CreateLookupDbLookupFalseExact(
-                                components.LookupDbLookupFalseMatchModeExact{
-                                    MatchMode: components.LookupDbLookupFalseMatchModeExactMatchModeExact.ToPointer(),
-                                    IgnoreCase: criblcontrolplanesdkgo.Pointer(false),
-                                    DbLookup: criblcontrolplanesdkgo.Pointer(false),
-                                    ReloadPeriodSec: criblcontrolplanesdkgo.Pointer[float64](-1),
-                                    File: "ip_locations.csv",
-                                    InFields: []components.LookupDbLookupFalseMatchModeExactInField{
-                                        components.LookupDbLookupFalseMatchModeExactInField{
-                                            EventField: "destination_ip",
-                                            LookupField: criblcontrolplanesdkgo.Pointer("ip"),
-                                        },
-                                    },
-                                    OutFields: []components.LookupDbLookupFalseMatchModeExactOutField{
-                                        components.LookupDbLookupFalseMatchModeExactOutField{
-                                            LookupField: "location",
-                                            EventField: criblcontrolplanesdkgo.Pointer("location"),
-                                            DefaultValue: criblcontrolplanesdkgo.Pointer("Unknown"),
-                                        },
-                                    },
-                                    AddToEvent: criblcontrolplanesdkgo.Pointer(false),
+                        Conf: components.PipelineFunctionLookupConf{
+                            File: "ip_locations.csv",
+                            DbLookup: criblcontrolplanesdkgo.Pointer(false),
+                            MatchMode: components.MatchModeExact.ToPointer(),
+                            ReloadPeriodSec: criblcontrolplanesdkgo.Pointer[float64](-1),
+                            InFields: []components.InField{
+                                components.InField{
+                                    EventField: "destination_ip",
+                                    LookupField: criblcontrolplanesdkgo.Pointer("ip"),
                                 },
-                            ),
-                        ),
+                            },
+                            OutFields: []components.OutField{
+                                components.OutField{
+                                    LookupField: "location",
+                                    EventField: criblcontrolplanesdkgo.Pointer("location"),
+                                    DefaultValue: criblcontrolplanesdkgo.Pointer("Unknown"),
+                                },
+                            },
+                            AddToEvent: criblcontrolplanesdkgo.Pointer(false),
+                            IgnoreCase: criblcontrolplanesdkgo.Pointer(false),
+                        },
                     },
                 ),
             },
@@ -4251,17 +4229,15 @@ func main() {
                     components.PipelineFunctionOtlpLogs{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='open_telemetry:open_telemetry'"),
                         ID: components.PipelineFunctionOtlpLogsIDOtlpLogs,
-                        Conf: components.CreateFunctionConfSchemaOtlpLogsOTLPLogsBatchOTLPLogsTrue(
-                            components.OTLPLogsBatchOTLPLogsTrue{
-                                BatchOTLPLogs: criblcontrolplanesdkgo.Pointer(true),
-                                SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
-                                Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
-                                SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
-                                MetadataKeys: []any{},
-                                MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
-                                DropNonLogEvents: criblcontrolplanesdkgo.Pointer(false),
-                            },
-                        ),
+                        Conf: components.FunctionConfSchemaOtlpLogs{
+                            DropNonLogEvents: criblcontrolplanesdkgo.Pointer(false),
+                            BatchOTLPLogs: criblcontrolplanesdkgo.Pointer(true),
+                            SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
+                            Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
+                            SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
+                            MetadataKeys: []any{},
+                            MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
+                        },
                     },
                 ),
             },
@@ -4314,27 +4290,25 @@ func main() {
                     components.PipelineFunctionOtlpMetrics{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='prometheus_rw:prom_rw_in'"),
                         ID: components.PipelineFunctionOtlpMetricsIDOtlpMetrics,
-                        Conf: components.CreateFunctionConfSchemaOtlpMetricsOTLPMetricsBatchOTLPMetricsTrue(
-                            components.OTLPMetricsBatchOTLPMetricsTrue{
-                                BatchOTLPMetrics: criblcontrolplanesdkgo.Pointer(true),
-                                SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
-                                Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
-                                SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
-                                MetadataKeys: []any{},
-                                MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
-                                ResourceAttributePrefixes: []string{
-                                    "service",
-                                    "system",
-                                    "telemetry",
-                                    "k8s",
-                                    "cloud",
-                                    "host",
-                                    "process",
-                                },
-                                DropNonMetricEvents: criblcontrolplanesdkgo.Pointer(false),
-                                OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
+                        Conf: components.FunctionConfSchemaOtlpMetrics{
+                            ResourceAttributePrefixes: []string{
+                                "service",
+                                "system",
+                                "telemetry",
+                                "k8s",
+                                "cloud",
+                                "host",
+                                "process",
                             },
-                        ),
+                            DropNonMetricEvents: criblcontrolplanesdkgo.Pointer(false),
+                            OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
+                            BatchOTLPMetrics: criblcontrolplanesdkgo.Pointer(true),
+                            SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
+                            Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
+                            SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
+                            MetadataKeys: []any{},
+                            MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
+                        },
                     },
                 ),
             },
@@ -4387,18 +4361,16 @@ func main() {
                     components.PipelineFunctionOtlpTraces{
                         Filter: criblcontrolplanesdkgo.Pointer("__inputId=='open_telemetry:open_telemetry'"),
                         ID: components.PipelineFunctionOtlpTracesIDOtlpTraces,
-                        Conf: components.CreateFunctionConfSchemaOtlpTracesOTLPTracesBatchOTLPTracesTrue(
-                            components.OTLPTracesBatchOTLPTracesTrue{
-                                BatchOTLPTraces: criblcontrolplanesdkgo.Pointer(true),
-                                SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
-                                Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
-                                SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
-                                MetadataKeys: []any{},
-                                MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
-                                DropNonTraceEvents: criblcontrolplanesdkgo.Pointer(false),
-                                OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
-                            },
-                        ),
+                        Conf: components.FunctionConfSchemaOtlpTraces{
+                            DropNonTraceEvents: criblcontrolplanesdkgo.Pointer(false),
+                            OtlpVersion: components.OtlpVersionOptionsZeroDot10Dot0.ToPointer(),
+                            BatchOTLPTraces: criblcontrolplanesdkgo.Pointer(true),
+                            SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192),
+                            Timeout: criblcontrolplanesdkgo.Pointer[float64](200),
+                            SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0),
+                            MetadataKeys: []any{},
+                            MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000),
+                        },
                     },
                 ),
             },

@@ -277,6 +277,10 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputSecurityLake() *components
 	return u.GetInput().InputSecurityLake
 }
 
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputServicenowTable() *components.InputServicenowTable {
+	return u.GetInput().InputServicenowTable
+}
+
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputZscalerHec() *components.InputZscalerHec {
 	return u.GetInput().InputZscalerHec
 }
