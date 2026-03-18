@@ -32,7 +32,7 @@ func (e *InputOffice365ServiceType) UnmarshalJSON(data []byte) error {
 }
 
 type InputOffice365ServiceContentConfig struct {
-	// Office 365 Services API Content Type
+	// Microsoft 365 Services API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
 	Description *string  `json:"description,omitzero"`
@@ -109,11 +109,11 @@ type InputOffice365Service struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
-	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
+	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
-	// Office 365 Azure Tenant ID
+	// Microsoft 365 Azure Tenant ID
 	TenantID string `json:"tenantId"`
-	// Office 365 Azure Application ID
+	// Microsoft 365 Azure Application ID
 	AppID string `json:"appId"`
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
@@ -129,13 +129,13 @@ type InputOffice365Service struct {
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
-	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+	// Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitzero"`
 	RetryRules    *RetryRulesTypeCodesEnableHeader     `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
 	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
-	// Office 365 Azure client secret
+	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`

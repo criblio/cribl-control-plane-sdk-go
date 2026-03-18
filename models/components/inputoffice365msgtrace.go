@@ -31,6 +31,32 @@ func (e *InputOffice365MsgTraceType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// InputOffice365MsgTraceAuthenticationMethod - Select authentication method.
+type InputOffice365MsgTraceAuthenticationMethod string
+
+const (
+	InputOffice365MsgTraceAuthenticationMethodManual      InputOffice365MsgTraceAuthenticationMethod = "manual"
+	InputOffice365MsgTraceAuthenticationMethodSecret      InputOffice365MsgTraceAuthenticationMethod = "secret"
+	InputOffice365MsgTraceAuthenticationMethodOauth       InputOffice365MsgTraceAuthenticationMethod = "oauth"
+	InputOffice365MsgTraceAuthenticationMethodOauthSecret InputOffice365MsgTraceAuthenticationMethod = "oauthSecret"
+	InputOffice365MsgTraceAuthenticationMethodOauthCert   InputOffice365MsgTraceAuthenticationMethod = "oauthCert"
+)
+
+func (e InputOffice365MsgTraceAuthenticationMethod) ToPointer() *InputOffice365MsgTraceAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MsgTraceAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "oauth", "oauthSecret", "oauthCert":
+			return true
+		}
+	}
+	return false
+}
+
 type InputOffice365MsgTrace struct {
 	// Unique ID for this input
 	ID       *string                    `json:"id,omitzero"`
@@ -62,7 +88,7 @@ type InputOffice365MsgTrace struct {
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *AuthenticationMethodOptionsManualOauth `json:"authType,omitzero"`
+	AuthType *InputOffice365MsgTraceAuthenticationMethod `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
 	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
@@ -97,7 +123,7 @@ type InputOffice365MsgTrace struct {
 	ClientID *string `json:"clientId,omitzero"`
 	// Resource to pass in the OAuth request parameter.
 	Resource *string `json:"resource,omitzero"`
-	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
+	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string          `json:"textSecret,omitzero"`
@@ -235,7 +261,7 @@ func (i *InputOffice365MsgTrace) GetDisableTimeFilter() *bool {
 	return i.DisableTimeFilter
 }
 
-func (i *InputOffice365MsgTrace) GetAuthType() *AuthenticationMethodOptionsManualOauth {
+func (i *InputOffice365MsgTrace) GetAuthType() *InputOffice365MsgTraceAuthenticationMethod {
 	if i == nil {
 		return nil
 	}

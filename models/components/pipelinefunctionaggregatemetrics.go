@@ -4,7 +4,6 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
@@ -33,25 +32,25 @@ func (e *PipelineFunctionAggregateMetricsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// AggregateMetricsCumulativeFalseMetricType - The output metric type
-type AggregateMetricsCumulativeFalseMetricType string
+// PipelineFunctionAggregateMetricsMetricType - The output metric type
+type PipelineFunctionAggregateMetricsMetricType string
 
 const (
-	AggregateMetricsCumulativeFalseMetricTypeAutomatic    AggregateMetricsCumulativeFalseMetricType = "automatic"
-	AggregateMetricsCumulativeFalseMetricTypeCounter      AggregateMetricsCumulativeFalseMetricType = "counter"
-	AggregateMetricsCumulativeFalseMetricTypeDistribution AggregateMetricsCumulativeFalseMetricType = "distribution"
-	AggregateMetricsCumulativeFalseMetricTypeGauge        AggregateMetricsCumulativeFalseMetricType = "gauge"
-	AggregateMetricsCumulativeFalseMetricTypeHistogram    AggregateMetricsCumulativeFalseMetricType = "histogram"
-	AggregateMetricsCumulativeFalseMetricTypeSummary      AggregateMetricsCumulativeFalseMetricType = "summary"
-	AggregateMetricsCumulativeFalseMetricTypeTimer        AggregateMetricsCumulativeFalseMetricType = "timer"
+	PipelineFunctionAggregateMetricsMetricTypeAutomatic    PipelineFunctionAggregateMetricsMetricType = "automatic"
+	PipelineFunctionAggregateMetricsMetricTypeCounter      PipelineFunctionAggregateMetricsMetricType = "counter"
+	PipelineFunctionAggregateMetricsMetricTypeDistribution PipelineFunctionAggregateMetricsMetricType = "distribution"
+	PipelineFunctionAggregateMetricsMetricTypeGauge        PipelineFunctionAggregateMetricsMetricType = "gauge"
+	PipelineFunctionAggregateMetricsMetricTypeHistogram    PipelineFunctionAggregateMetricsMetricType = "histogram"
+	PipelineFunctionAggregateMetricsMetricTypeSummary      PipelineFunctionAggregateMetricsMetricType = "summary"
+	PipelineFunctionAggregateMetricsMetricTypeTimer        PipelineFunctionAggregateMetricsMetricType = "timer"
 )
 
-func (e AggregateMetricsCumulativeFalseMetricType) ToPointer() *AggregateMetricsCumulativeFalseMetricType {
+func (e PipelineFunctionAggregateMetricsMetricType) ToPointer() *PipelineFunctionAggregateMetricsMetricType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AggregateMetricsCumulativeFalseMetricType) IsExact() bool {
+func (e *PipelineFunctionAggregateMetricsMetricType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "automatic", "counter", "distribution", "gauge", "histogram", "summary", "timer":
@@ -61,527 +60,216 @@ func (e *AggregateMetricsCumulativeFalseMetricType) IsExact() bool {
 	return false
 }
 
-type AggregateMetricsCumulativeFalseAggregation struct {
+type Aggregation struct {
 	// The output metric type
-	MetricType AggregateMetricsCumulativeFalseMetricType `json:"metricType"`
+	MetricType PipelineFunctionAggregateMetricsMetricType `json:"metricType"`
 	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
 	Agg string `json:"agg"`
 }
 
-func (a AggregateMetricsCumulativeFalseAggregation) MarshalJSON() ([]byte, error) {
+func (a Aggregation) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(a, "", false)
 }
 
-func (a *AggregateMetricsCumulativeFalseAggregation) UnmarshalJSON(data []byte) error {
+func (a *Aggregation) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AggregateMetricsCumulativeFalseAggregation) GetMetricType() AggregateMetricsCumulativeFalseMetricType {
+func (a *Aggregation) GetMetricType() PipelineFunctionAggregateMetricsMetricType {
 	if a == nil {
-		return AggregateMetricsCumulativeFalseMetricType("")
+		return PipelineFunctionAggregateMetricsMetricType("")
 	}
 	return a.MetricType
 }
 
-func (a *AggregateMetricsCumulativeFalseAggregation) GetAgg() string {
+func (a *Aggregation) GetAgg() string {
 	if a == nil {
 		return ""
 	}
 	return a.Agg
 }
 
-type AggregateMetricsCumulativeFalseAdd struct {
+type PipelineFunctionAggregateMetricsAdd struct {
 	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`
 }
 
-func (a AggregateMetricsCumulativeFalseAdd) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (p PipelineFunctionAggregateMetricsAdd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
 }
 
-func (a *AggregateMetricsCumulativeFalseAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (p *PipelineFunctionAggregateMetricsAdd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AggregateMetricsCumulativeFalseAdd) GetName() *string {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsAdd) GetName() *string {
+	if p == nil {
 		return nil
 	}
-	return a.Name
+	return p.Name
 }
 
-func (a *AggregateMetricsCumulativeFalseAdd) GetValue() string {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsAdd) GetValue() string {
+	if p == nil {
 		return ""
 	}
-	return a.Value
+	return p.Value
 }
 
-type AggregateMetricsCumulativeFalse struct {
+type PipelineFunctionAggregateMetricsConf struct {
+	// Pass through the original events along with the aggregation events
+	Passthrough *bool `json:"passthrough,omitzero"`
+	// Preserve the structure of the original aggregation event's groupby fields
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitzero"`
+	// Output only statistics that are sufficient for the supplied aggregations
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitzero"`
+	// A prefix that is prepended to all of the fields output by this Aggregations Function
+	Prefix *string `json:"prefix,omitzero"`
+	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
+	TimeWindow string `json:"timeWindow"`
+	// Combination of Aggregation function and output metric type
+	Aggregations []Aggregation `json:"aggregations"`
+	// Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
+	Groupbys []string `json:"groupbys,omitzero"`
+	// The maximum number of events to include in any given aggregation event
+	FlushEventLimit *float64 `json:"flushEventLimit,omitzero"`
+	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
+	FlushMemLimit *string `json:"flushMemLimit,omitzero"`
 	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
 	Cumulative *bool `json:"cumulative,omitzero"`
+	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitzero"`
+	// Set of key-value pairs to evaluate and add/set
+	Add []PipelineFunctionAggregateMetricsAdd `json:"add,omitzero"`
+	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitzero"`
 	// The tumbling window tolerance to late events. Must be a valid time string (such as 10s).
 	LagTolerance *string `json:"lagTolerance,omitzero"`
 	// How long to wait before flushing a bucket that has not received events. Must be a valid time string (such as 10s).
 	IdleTimeLimit *string `json:"idleTimeLimit,omitzero"`
-	// Pass through the original events along with the aggregation events
-	Passthrough *bool `json:"passthrough,omitzero"`
-	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `json:"preserveGroupBys,omitzero"`
-	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitzero"`
-	// A prefix that is prepended to all of the fields output by this Aggregations Function
-	Prefix *string `json:"prefix,omitzero"`
-	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow string `json:"timeWindow"`
-	// Combination of Aggregation function and output metric type
-	Aggregations []AggregateMetricsCumulativeFalseAggregation `json:"aggregations"`
-	// Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-	Groupbys []string `json:"groupbys,omitzero"`
-	// The maximum number of events to include in any given aggregation event
-	FlushEventLimit *float64 `json:"flushEventLimit,omitzero"`
-	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-	FlushMemLimit *string `json:"flushMemLimit,omitzero"`
-	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitzero"`
-	// Set of key-value pairs to evaluate and add/set
-	Add []AggregateMetricsCumulativeFalseAdd `json:"add,omitzero"`
-	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitzero"`
 }
 
-func (a AggregateMetricsCumulativeFalse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (p PipelineFunctionAggregateMetricsConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
 }
 
-func (a *AggregateMetricsCumulativeFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (p *PipelineFunctionAggregateMetricsConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetCumulative() *bool {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetPassthrough() *bool {
+	if p == nil {
 		return nil
 	}
-	return a.Cumulative
+	return p.Passthrough
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetLagTolerance() *string {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetPreserveGroupBys() *bool {
+	if p == nil {
 		return nil
 	}
-	return a.LagTolerance
+	return p.PreserveGroupBys
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetIdleTimeLimit() *string {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetSufficientStatsOnly() *bool {
+	if p == nil {
 		return nil
 	}
-	return a.IdleTimeLimit
+	return p.SufficientStatsOnly
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetPassthrough() *bool {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetPrefix() *string {
+	if p == nil {
 		return nil
 	}
-	return a.Passthrough
+	return p.Prefix
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetPreserveGroupBys() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.PreserveGroupBys
-}
-
-func (a *AggregateMetricsCumulativeFalse) GetSufficientStatsOnly() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.SufficientStatsOnly
-}
-
-func (a *AggregateMetricsCumulativeFalse) GetPrefix() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Prefix
-}
-
-func (a *AggregateMetricsCumulativeFalse) GetTimeWindow() string {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetTimeWindow() string {
+	if p == nil {
 		return ""
 	}
-	return a.TimeWindow
+	return p.TimeWindow
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetAggregations() []AggregateMetricsCumulativeFalseAggregation {
-	if a == nil {
-		return []AggregateMetricsCumulativeFalseAggregation{}
+func (p *PipelineFunctionAggregateMetricsConf) GetAggregations() []Aggregation {
+	if p == nil {
+		return []Aggregation{}
 	}
-	return a.Aggregations
+	return p.Aggregations
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetGroupbys() []string {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetGroupbys() []string {
+	if p == nil {
 		return nil
 	}
-	return a.Groupbys
+	return p.Groupbys
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetFlushEventLimit() *float64 {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetFlushEventLimit() *float64 {
+	if p == nil {
 		return nil
 	}
-	return a.FlushEventLimit
+	return p.FlushEventLimit
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetFlushMemLimit() *string {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetFlushMemLimit() *string {
+	if p == nil {
 		return nil
 	}
-	return a.FlushMemLimit
+	return p.FlushMemLimit
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetShouldTreatDotsAsLiterals() *bool {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetCumulative() *bool {
+	if p == nil {
 		return nil
 	}
-	return a.ShouldTreatDotsAsLiterals
+	return p.Cumulative
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetAdd() []AggregateMetricsCumulativeFalseAdd {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetShouldTreatDotsAsLiterals() *bool {
+	if p == nil {
 		return nil
 	}
-	return a.Add
+	return p.ShouldTreatDotsAsLiterals
 }
 
-func (a *AggregateMetricsCumulativeFalse) GetFlushOnInputClose() *bool {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetAdd() []PipelineFunctionAggregateMetricsAdd {
+	if p == nil {
 		return nil
 	}
-	return a.FlushOnInputClose
+	return p.Add
 }
 
-// AggregateMetricsCumulativeTrueMetricType - The output metric type
-type AggregateMetricsCumulativeTrueMetricType string
-
-const (
-	AggregateMetricsCumulativeTrueMetricTypeAutomatic    AggregateMetricsCumulativeTrueMetricType = "automatic"
-	AggregateMetricsCumulativeTrueMetricTypeCounter      AggregateMetricsCumulativeTrueMetricType = "counter"
-	AggregateMetricsCumulativeTrueMetricTypeDistribution AggregateMetricsCumulativeTrueMetricType = "distribution"
-	AggregateMetricsCumulativeTrueMetricTypeGauge        AggregateMetricsCumulativeTrueMetricType = "gauge"
-	AggregateMetricsCumulativeTrueMetricTypeHistogram    AggregateMetricsCumulativeTrueMetricType = "histogram"
-	AggregateMetricsCumulativeTrueMetricTypeSummary      AggregateMetricsCumulativeTrueMetricType = "summary"
-	AggregateMetricsCumulativeTrueMetricTypeTimer        AggregateMetricsCumulativeTrueMetricType = "timer"
-)
-
-func (e AggregateMetricsCumulativeTrueMetricType) ToPointer() *AggregateMetricsCumulativeTrueMetricType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AggregateMetricsCumulativeTrueMetricType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "automatic", "counter", "distribution", "gauge", "histogram", "summary", "timer":
-			return true
-		}
-	}
-	return false
-}
-
-type AggregateMetricsCumulativeTrueAggregation struct {
-	// The output metric type
-	MetricType AggregateMetricsCumulativeTrueMetricType `json:"metricType"`
-	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
-	Agg string `json:"agg"`
-}
-
-func (a AggregateMetricsCumulativeTrueAggregation) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AggregateMetricsCumulativeTrueAggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *AggregateMetricsCumulativeTrueAggregation) GetMetricType() AggregateMetricsCumulativeTrueMetricType {
-	if a == nil {
-		return AggregateMetricsCumulativeTrueMetricType("")
-	}
-	return a.MetricType
-}
-
-func (a *AggregateMetricsCumulativeTrueAggregation) GetAgg() string {
-	if a == nil {
-		return ""
-	}
-	return a.Agg
-}
-
-type AggregateMetricsCumulativeTrueAdd struct {
-	Name *string `json:"name,omitzero"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-}
-
-func (a AggregateMetricsCumulativeTrueAdd) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AggregateMetricsCumulativeTrueAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *AggregateMetricsCumulativeTrueAdd) GetName() *string {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetFlushOnInputClose() *bool {
+	if p == nil {
 		return nil
 	}
-	return a.Name
+	return p.FlushOnInputClose
 }
 
-func (a *AggregateMetricsCumulativeTrueAdd) GetValue() string {
-	if a == nil {
-		return ""
-	}
-	return a.Value
-}
-
-type AggregateMetricsCumulativeTrue struct {
-	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `json:"cumulative,omitzero"`
-	// Pass through the original events along with the aggregation events
-	Passthrough *bool `json:"passthrough,omitzero"`
-	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `json:"preserveGroupBys,omitzero"`
-	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitzero"`
-	// A prefix that is prepended to all of the fields output by this Aggregations Function
-	Prefix *string `json:"prefix,omitzero"`
-	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow string `json:"timeWindow"`
-	// Combination of Aggregation function and output metric type
-	Aggregations []AggregateMetricsCumulativeTrueAggregation `json:"aggregations"`
-	// Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-	Groupbys []string `json:"groupbys,omitzero"`
-	// The maximum number of events to include in any given aggregation event
-	FlushEventLimit *float64 `json:"flushEventLimit,omitzero"`
-	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-	FlushMemLimit *string `json:"flushMemLimit,omitzero"`
-	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitzero"`
-	// Set of key-value pairs to evaluate and add/set
-	Add []AggregateMetricsCumulativeTrueAdd `json:"add,omitzero"`
-	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitzero"`
-}
-
-func (a AggregateMetricsCumulativeTrue) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AggregateMetricsCumulativeTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetCumulative() *bool {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetLagTolerance() *string {
+	if p == nil {
 		return nil
 	}
-	return a.Cumulative
+	return p.LagTolerance
 }
 
-func (a *AggregateMetricsCumulativeTrue) GetPassthrough() *bool {
-	if a == nil {
+func (p *PipelineFunctionAggregateMetricsConf) GetIdleTimeLimit() *string {
+	if p == nil {
 		return nil
 	}
-	return a.Passthrough
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetPreserveGroupBys() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.PreserveGroupBys
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetSufficientStatsOnly() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.SufficientStatsOnly
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetPrefix() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Prefix
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetTimeWindow() string {
-	if a == nil {
-		return ""
-	}
-	return a.TimeWindow
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetAggregations() []AggregateMetricsCumulativeTrueAggregation {
-	if a == nil {
-		return []AggregateMetricsCumulativeTrueAggregation{}
-	}
-	return a.Aggregations
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetGroupbys() []string {
-	if a == nil {
-		return nil
-	}
-	return a.Groupbys
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetFlushEventLimit() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.FlushEventLimit
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetFlushMemLimit() *string {
-	if a == nil {
-		return nil
-	}
-	return a.FlushMemLimit
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetShouldTreatDotsAsLiterals() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.ShouldTreatDotsAsLiterals
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetAdd() []AggregateMetricsCumulativeTrueAdd {
-	if a == nil {
-		return nil
-	}
-	return a.Add
-}
-
-func (a *AggregateMetricsCumulativeTrue) GetFlushOnInputClose() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.FlushOnInputClose
-}
-
-type PipelineFunctionAggregateMetricsConfType string
-
-const (
-	PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeTrue  PipelineFunctionAggregateMetricsConfType = "AggregateMetricsCumulativeTrue"
-	PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeFalse PipelineFunctionAggregateMetricsConfType = "AggregateMetricsCumulativeFalse"
-)
-
-type PipelineFunctionAggregateMetricsConf struct {
-	AggregateMetricsCumulativeTrue  *AggregateMetricsCumulativeTrue  `queryParam:"inline" union:"member"`
-	AggregateMetricsCumulativeFalse *AggregateMetricsCumulativeFalse `queryParam:"inline" union:"member"`
-
-	Type PipelineFunctionAggregateMetricsConfType
-}
-
-func CreatePipelineFunctionAggregateMetricsConfAggregateMetricsCumulativeTrue(aggregateMetricsCumulativeTrue AggregateMetricsCumulativeTrue) PipelineFunctionAggregateMetricsConf {
-	typ := PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeTrue
-
-	return PipelineFunctionAggregateMetricsConf{
-		AggregateMetricsCumulativeTrue: &aggregateMetricsCumulativeTrue,
-		Type:                           typ,
-	}
-}
-
-func CreatePipelineFunctionAggregateMetricsConfAggregateMetricsCumulativeFalse(aggregateMetricsCumulativeFalse AggregateMetricsCumulativeFalse) PipelineFunctionAggregateMetricsConf {
-	typ := PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeFalse
-
-	return PipelineFunctionAggregateMetricsConf{
-		AggregateMetricsCumulativeFalse: &aggregateMetricsCumulativeFalse,
-		Type:                            typ,
-	}
-}
-
-func (u *PipelineFunctionAggregateMetricsConf) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var aggregateMetricsCumulativeTrue AggregateMetricsCumulativeTrue = AggregateMetricsCumulativeTrue{}
-	if err := utils.UnmarshalJSON(data, &aggregateMetricsCumulativeTrue, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeTrue,
-			Value: &aggregateMetricsCumulativeTrue,
-		})
-	}
-
-	var aggregateMetricsCumulativeFalse AggregateMetricsCumulativeFalse = AggregateMetricsCumulativeFalse{}
-	if err := utils.UnmarshalJSON(data, &aggregateMetricsCumulativeFalse, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeFalse,
-			Value: &aggregateMetricsCumulativeFalse,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregateMetricsConf", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregateMetricsConf", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(PipelineFunctionAggregateMetricsConfType)
-	switch best.Type {
-	case PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeTrue:
-		u.AggregateMetricsCumulativeTrue = best.Value.(*AggregateMetricsCumulativeTrue)
-		return nil
-	case PipelineFunctionAggregateMetricsConfTypeAggregateMetricsCumulativeFalse:
-		u.AggregateMetricsCumulativeFalse = best.Value.(*AggregateMetricsCumulativeFalse)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionAggregateMetricsConf", string(data))
-}
-
-func (u PipelineFunctionAggregateMetricsConf) MarshalJSON() ([]byte, error) {
-	if u.AggregateMetricsCumulativeTrue != nil {
-		return utils.MarshalJSON(u.AggregateMetricsCumulativeTrue, "", true)
-	}
-
-	if u.AggregateMetricsCumulativeFalse != nil {
-		return utils.MarshalJSON(u.AggregateMetricsCumulativeFalse, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type PipelineFunctionAggregateMetricsConf: all fields are null")
+	return p.IdleTimeLimit
 }
 
 type PipelineFunctionAggregateMetrics struct {

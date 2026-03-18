@@ -268,6 +268,10 @@ func (u *UpdateInputByIDRequest) GetInputSecurityLake() *components.InputSecurit
 	return u.GetInput().InputSecurityLake
 }
 
+func (u *UpdateInputByIDRequest) GetInputServicenowTable() *components.InputServicenowTable {
+	return u.GetInput().InputServicenowTable
+}
+
 func (u *UpdateInputByIDRequest) GetInputZscalerHec() *components.InputZscalerHec {
 	return u.GetInput().InputZscalerHec
 }

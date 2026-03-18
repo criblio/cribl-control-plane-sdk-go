@@ -363,6 +363,12 @@ input2 := components.CreateInput2Netflow(components.InputNetflow{/* values here 
 input2 := components.CreateInput2SecurityLake(components.InputSecurityLake{/* values here */})
 ```
 
+### InputServicenowTable
+
+```go
+input2 := components.CreateInput2ServicenowTable(components.InputServicenowTable{/* values here */})
+```
+
 ### InputZscalerHec
 
 ```go
@@ -501,6 +507,8 @@ switch input2.Type {
 		// input2.InputNetflow is populated
 	case components.Input2TypeSecurityLake:
 		// input2.InputSecurityLake is populated
+	case components.Input2TypeServicenowTable:
+		// input2.InputServicenowTable is populated
 	case components.Input2TypeZscalerHec:
 		// input2.InputZscalerHec is populated
 	case components.Input2TypeCloudflareHec:

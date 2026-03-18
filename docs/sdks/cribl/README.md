@@ -5,7 +5,7 @@
 ### Available Operations
 
 * [List](#list) - Get Cribl system settings
-* [Update](#update) - Update Cribl system settings
+* [Update](#update) - Update system settings
 
 ## List
 
@@ -69,7 +69,7 @@ Update Cribl system settings.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="updateSystemSettingsConf" method="patch" path="/system/settings/conf" -->
+<!-- UsageSnippet language="go" operationID="updateSystemSettingsConf" method="patch" path="/system/settings/conf" example="UpdateSystemSettingsExamplesUpdateApiSettings" -->
 ```go
 package main
 
@@ -94,13 +94,19 @@ func main() {
     res, err := s.System.Settings.Cribl.Update(ctx, components.SystemSettingsConf{
         API: components.APITypeSystemSettingsConf{
             Disabled: false,
-            Host: "meaty-spring.biz",
-            Port: 2424.38,
+            Host: "0.0.0.0",
+            Port: 9000,
+            Ssl: &components.SslTypeSystemSettingsConfAPI{
+                CertPath: "/opt/cribl/local/cribl/auth/cribl.crt",
+                Disabled: false,
+                Passphrase: "",
+                PrivKeyPath: "/opt/cribl/local/cribl/auth/cribl.key",
+            },
         },
         Backups: components.CreateBackupsSettingsUnionBackupsSettings1(
             components.BackupsSettings1{
-                BackupPersistence: "<value>",
-                BackupsDirectory: "<value>",
+                BackupPersistence: "24h",
+                BackupsDirectory: "$CRIBL_STATE_DIR/backups",
             },
         ),
         Pii: components.CreatePiiSettingsUnionPiiSettings1(
@@ -109,17 +115,15 @@ func main() {
             },
         ),
         Proxy: components.ProxyTypeSystemSettingsConf{
-            UseEnvVars: true,
+            UseEnvVars: false,
         },
         Rollback: components.CreateRollbackSettingsUnionRollbackSettings1(
             components.RollbackSettings1{
-                RollbackEnabled: false,
-                RollbackRetries: criblcontrolplanesdkgo.Pointer[float64](3174.73),
-                RollbackTimeout: criblcontrolplanesdkgo.Pointer[float64](1506.54),
+                RollbackEnabled: true,
             },
         ),
         Shutdown: components.ShutdownTypeSystemSettingsConf{
-            DrainTimeout: 3723.75,
+            DrainTimeout: 10000,
         },
         Sni: components.CreateSniSettingsUnionSniSettings1(
             components.SniSettings1{
@@ -127,31 +131,31 @@ func main() {
             },
         ),
         System: components.SystemTypeSystemSettingsConf{
-            Intercom: false,
+            Intercom: true,
             Upgrade: components.UpgradeOptionsSystemSettingsConfSystemAPI,
         },
         TLS: components.CreateTLSSettingsUnionTLSSettings1(
             components.TLSSettings1{
-                DefaultCipherList: "<value>",
-                DefaultEcdhCurve: "<value>",
-                MaxVersion: "<value>",
-                MinVersion: "<value>",
+                DefaultCipherList: "DEFAULT",
+                DefaultEcdhCurve: "auto",
+                MaxVersion: "TLSv1.3",
+                MinVersion: "TLSv1.2",
                 RejectUnauthorized: true,
             },
         ),
         UpgradeGroupSettings: components.CreateUpgradeGroupSettingsUnionUpgradeGroupSettings1(
             components.UpgradeGroupSettings1{
-                IsRolling: criblcontrolplanesdkgo.Pointer(false),
-                Quantity: criblcontrolplanesdkgo.Pointer[float64](7915.07),
-                RetryCount: criblcontrolplanesdkgo.Pointer[float64](4414.66),
-                RetryDelay: criblcontrolplanesdkgo.Pointer[float64](4374.4),
+                IsRolling: criblcontrolplanesdkgo.Pointer(true),
+                Quantity: criblcontrolplanesdkgo.Pointer[float64](100),
+                RetryCount: criblcontrolplanesdkgo.Pointer[float64](5),
+                RetryDelay: criblcontrolplanesdkgo.Pointer[float64](1000),
             },
         ),
         UpgradeSettings: components.UpgradeSettings{},
         Workers: components.WorkersTypeSystemSettingsConf{
-            Count: 2124.14,
-            Memory: 20.53,
-            Minimum: 6157.83,
+            Count: 0,
+            Memory: 0,
+            Minimum: 1,
         },
     })
     if err != nil {
