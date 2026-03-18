@@ -74,7 +74,7 @@ type CreateOutputOutputNewrelicEvents struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
+	AuthType    *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
 	CustomURL   *string                                  `json:"customUrl,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -291,7 +291,7 @@ func (c *CreateOutputOutputNewrelicEvents) GetOnBackpressure() *components.Backp
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputNewrelicEvents) GetAuthType() *components.AuthenticationMethodOptions3 {
+func (c *CreateOutputOutputNewrelicEvents) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if c == nil {
 		return nil
 	}
@@ -575,7 +575,7 @@ type CreateOutputOutputNewrelic struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
+	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -799,7 +799,7 @@ func (c *CreateOutputOutputNewrelic) GetOnBackpressure() *components.Backpressur
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputNewrelic) GetAuthType() *components.AuthenticationMethodOptions3 {
+func (c *CreateOutputOutputNewrelic) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if c == nil {
 		return nil
 	}
@@ -6451,7 +6451,7 @@ type CreateOutputOutputHoneycomb struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
+	AuthType    *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
@@ -6645,7 +6645,7 @@ func (c *CreateOutputOutputHoneycomb) GetOnBackpressure() *components.Backpressu
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputHoneycomb) GetAuthType() *components.AuthenticationMethodOptions3 {
+func (c *CreateOutputOutputHoneycomb) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if c == nil {
 		return nil
 	}

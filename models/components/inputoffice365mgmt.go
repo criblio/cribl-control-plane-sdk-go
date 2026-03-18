@@ -32,7 +32,7 @@ func (e *InputOffice365MgmtType) UnmarshalJSON(data []byte) error {
 }
 
 type InputOffice365MgmtContentConfig struct {
-	// Office 365 Management Activity API Content Type
+	// Microsoft 365 Management Activity API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
 	Description *string  `json:"description,omitzero"`
@@ -109,11 +109,11 @@ type InputOffice365Mgmt struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
-	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
+	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType SubscriptionPlanOptions `json:"planType"`
-	// Office 365 Azure Tenant ID
+	// Microsoft 365 Azure Tenant ID
 	TenantID string `json:"tenantId"`
-	// Office 365 Azure Application ID
+	// Microsoft 365 Azure Application ID
 	AppID string `json:"appId"`
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
@@ -131,15 +131,15 @@ type InputOffice365Mgmt struct {
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
 	PublisherIdentifier *string `json:"publisherIdentifier,omitzero"`
-	// Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+	// Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []InputOffice365MgmtContentConfig `json:"contentConfig,omitzero"`
-	// Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+	// Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Microsoft 365 events are available for retrieval.
 	IngestionLag *float64         `json:"ingestionLag,omitzero"`
 	RetryRules   *RetryRulesType1 `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
 	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitzero"`
 	Description *string                       `json:"description,omitzero"`
-	// Office 365 Azure client secret
+	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`

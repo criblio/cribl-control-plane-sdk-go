@@ -10047,7 +10047,7 @@ type CreateOutputSystemByPackOutputDataset struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
+	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -10281,7 +10281,7 @@ func (c *CreateOutputSystemByPackOutputDataset) GetOnBackpressure() *components.
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputDataset) GetAuthType() *components.AuthenticationMethodOptions3 {
+func (c *CreateOutputSystemByPackOutputDataset) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if c == nil {
 		return nil
 	}
@@ -13628,7 +13628,7 @@ type CreateOutputSystemByPackOutputDatadog struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
+	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -13895,7 +13895,7 @@ func (c *CreateOutputSystemByPackOutputDatadog) GetOnBackpressure() *components.
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputDatadog) GetAuthType() *components.AuthenticationMethodOptions3 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if c == nil {
 		return nil
 	}
