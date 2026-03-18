@@ -1,7 +1,5 @@
 # Role
 
-Leader Node role: <code>primary</code> or <code>standby</code>.
-
 ## Example Usage
 
 ```go
@@ -9,7 +7,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-value := components.RolePrimary
+value := components.RoleStandby
 
 // Open enum: custom values can be created with a direct type cast
 custom := components.Role("custom_value")
@@ -20,5 +18,5 @@ custom := components.Role("custom_value")
 
 | Name          | Value         |
 | ------------- | ------------- |
-| `RolePrimary` | primary       |
 | `RoleStandby` | standby       |
+| `RolePrimary` | primary       |

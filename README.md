@@ -304,7 +304,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Health](docs/sdks/health/README.md)
 
-* [Get](docs/sdks/health/README.md#get) - Get the health status of the server
+* [Get](docs/sdks/health/README.md#get) - Retrieve health status of the server
 
 ### [LakeDatasets](docs/sdks/lakedatasets/README.md)
 

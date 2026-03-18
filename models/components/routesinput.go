@@ -6,7 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type Routes struct {
+type RoutesInput struct {
 	// Array of user-provided comments that describe or annotate Routes.
 	Comments []RouteComment `json:"comments,omitzero"`
 	// Information about the Route Groups that the Route is associated with.
@@ -14,44 +14,44 @@ type Routes struct {
 	// Unique identifier for the Routing table. The supported value is <code>default</code>.
 	ID string `json:"id"`
 	// Array of Route configurations that define how events are processed and routed.
-	Routes []RouteConf `json:"routes"`
+	Routes []RouteConfInput `json:"routes"`
 }
 
-func (r Routes) MarshalJSON() ([]byte, error) {
+func (r RoutesInput) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *Routes) UnmarshalJSON(data []byte) error {
+func (r *RoutesInput) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *Routes) GetComments() []RouteComment {
+func (r *RoutesInput) GetComments() []RouteComment {
 	if r == nil {
 		return nil
 	}
 	return r.Comments
 }
 
-func (r *Routes) GetGroups() map[string]AdditionalPropertiesTypeRoutesGroups {
+func (r *RoutesInput) GetGroups() map[string]AdditionalPropertiesTypeRoutesGroups {
 	if r == nil {
 		return nil
 	}
 	return r.Groups
 }
 
-func (r *Routes) GetID() string {
+func (r *RoutesInput) GetID() string {
 	if r == nil {
 		return ""
 	}
 	return r.ID
 }
 
-func (r *Routes) GetRoutes() []RouteConf {
+func (r *RoutesInput) GetRoutes() []RouteConfInput {
 	if r == nil {
-		return []RouteConf{}
+		return []RouteConfInput{}
 	}
 	return r.Routes
 }

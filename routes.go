@@ -280,10 +280,10 @@ func (s *Routes) Get(ctx context.Context, id string, opts ...operations.Option) 
 
 // Update a Route
 // Update a Route in the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
-func (s *Routes) Update(ctx context.Context, id string, routes components.Routes, opts ...operations.Option) (*operations.UpdateRoutesByIDResponse, error) {
+func (s *Routes) Update(ctx context.Context, id string, routesInput components.RoutesInput, opts ...operations.Option) (*operations.UpdateRoutesByIDResponse, error) {
 	request := operations.UpdateRoutesByIDRequest{
-		ID:     id,
-		Routes: routes,
+		ID:          id,
+		RoutesInput: routesInput,
 	}
 
 	o := operations.Options{}
@@ -319,7 +319,7 @@ func (s *Routes) Update(ctx context.Context, id string, routes components.Routes
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Routes", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RoutesInput", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -776,7 +776,7 @@ func (s *Routes) List(ctx context.Context, opts ...operations.Option) (*operatio
 
 // Append - Add a Route to the end of the Routing table
 // Add a Route to the end of the specified Routing table.
-func (s *Routes) Append(ctx context.Context, id string, requestBody []components.RouteConf, opts ...operations.Option) (*operations.CreateRoutesAppendByIDResponse, error) {
+func (s *Routes) Append(ctx context.Context, id string, requestBody []components.RouteConfInput, opts ...operations.Option) (*operations.CreateRoutesAppendByIDResponse, error) {
 	request := operations.CreateRoutesAppendByIDRequest{
 		ID:          id,
 		RequestBody: requestBody,
