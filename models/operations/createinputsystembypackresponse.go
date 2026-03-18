@@ -2611,6 +2611,30 @@ func (e *CreateInputSystemByPackTypeMicrosoftGraph) UnmarshalJSON(data []byte) e
 	}
 }
 
+// CreateInputSystemByPackAuthenticationMethodMicrosoftGraph - Select authentication method.
+type CreateInputSystemByPackAuthenticationMethodMicrosoftGraph string
+
+const (
+	CreateInputSystemByPackAuthenticationMethodMicrosoftGraphOauth       CreateInputSystemByPackAuthenticationMethodMicrosoftGraph = "oauth"
+	CreateInputSystemByPackAuthenticationMethodMicrosoftGraphOauthSecret CreateInputSystemByPackAuthenticationMethodMicrosoftGraph = "oauthSecret"
+	CreateInputSystemByPackAuthenticationMethodMicrosoftGraphOauthCert   CreateInputSystemByPackAuthenticationMethodMicrosoftGraph = "oauthCert"
+)
+
+func (e CreateInputSystemByPackAuthenticationMethodMicrosoftGraph) ToPointer() *CreateInputSystemByPackAuthenticationMethodMicrosoftGraph {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackAuthenticationMethodMicrosoftGraph) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "oauth", "oauthSecret", "oauthCert":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Unique ID for this input
 	ID       string                                    `json:"id"`
@@ -2642,7 +2666,7 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType *CreateInputSystemByPackAuthenticationMethodMicrosoftGraph `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
 	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
@@ -2663,12 +2687,6 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	LogLevel    *components.LogLevelOptions `json:"logLevel,omitzero"`
 	RetryRules  *components.RetryRulesType1 `json:"retryRules,omitzero"`
 	Description *string                     `json:"description,omitzero"`
-	// Username to run Microsoft Graph API call.
-	Username *string `json:"username,omitzero"`
-	// Password to run Microsoft Graph API call.
-	Password *string `json:"password,omitzero"`
-	// Select or create a secret that references your credentials.
-	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
@@ -2677,7 +2695,7 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	ClientID *string `json:"clientId,omitzero"`
 	// Resource to pass in the OAuth request parameter.
 	Resource *string `json:"resource,omitzero"`
-	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
+	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string                     `json:"textSecret,omitzero"`
@@ -2815,7 +2833,7 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetDisableTimeFilter() *boo
 	return c.DisableTimeFilter
 }
 
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetAuthType() *CreateInputSystemByPackAuthenticationMethodMicrosoftGraph {
 	if c == nil {
 		return nil
 	}
@@ -2897,27 +2915,6 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetDescription() *string {
 		return nil
 	}
 	return c.Description
-}
-
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
 }
 
 func (c *CreateInputSystemByPackInputMicrosoftGraph) GetClientSecret() *string {
@@ -3020,6 +3017,32 @@ func (e *CreateInputSystemByPackTypeOffice365MsgTrace) UnmarshalJSON(data []byte
 	}
 }
 
+// CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace - Select authentication method.
+type CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace string
+
+const (
+	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceManual      CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "manual"
+	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceSecret      CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "secret"
+	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceOauth       CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "oauth"
+	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceOauthSecret CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "oauthSecret"
+	CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceOauthCert   CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = "oauthCert"
+)
+
+func (e CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace) ToPointer() *CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "oauth", "oauthSecret", "oauthCert":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Unique ID for this input
 	ID       string                                       `json:"id"`
@@ -3051,7 +3074,7 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType *CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
 	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
@@ -3086,7 +3109,7 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	ClientID *string `json:"clientId,omitzero"`
 	// Resource to pass in the OAuth request parameter.
 	Resource *string `json:"resource,omitzero"`
-	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
+	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string                     `json:"textSecret,omitzero"`
@@ -3224,7 +3247,7 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetDisableTimeFilter() *
 	return c.DisableTimeFilter
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetAuthType() *CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace {
 	if c == nil {
 		return nil
 	}
@@ -3433,7 +3456,7 @@ func (e *CreateInputSystemByPackTypeOffice365Service) UnmarshalJSON(data []byte)
 }
 
 type CreateInputSystemByPackContentConfigOffice365Service struct {
-	// Office 365 Services API Content Type
+	// Microsoft 365 Services API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
 	Description *string  `json:"description,omitzero"`
@@ -3510,11 +3533,11 @@ type CreateInputSystemByPackInputOffice365Service struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *components.PqType                        `json:"pq,omitzero"`
-	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
+	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
-	// Office 365 Azure Tenant ID
+	// Microsoft 365 Azure Tenant ID
 	TenantID string `json:"tenantId"`
-	// Office 365 Azure Application ID
+	// Microsoft 365 Azure Application ID
 	AppID string `json:"appId"`
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
@@ -3530,13 +3553,13 @@ type CreateInputSystemByPackInputOffice365Service struct {
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+	// Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []CreateInputSystemByPackContentConfigOffice365Service `json:"contentConfig,omitzero"`
 	RetryRules    *components.RetryRulesType1                            `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
 	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
-	// Office 365 Azure client secret
+	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
@@ -3789,7 +3812,7 @@ func (e *CreateInputSystemByPackTypeOffice365Mgmt) UnmarshalJSON(data []byte) er
 }
 
 type CreateInputSystemByPackContentConfigOffice365Mgmt struct {
-	// Office 365 Management Activity API Content Type
+	// Microsoft 365 Management Activity API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
 	Description *string  `json:"description,omitzero"`
@@ -3866,11 +3889,11 @@ type CreateInputSystemByPackInputOffice365Mgmt struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *components.PqType                        `json:"pq,omitzero"`
-	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
+	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType components.SubscriptionPlanOptions `json:"planType"`
-	// Office 365 Azure Tenant ID
+	// Microsoft 365 Azure Tenant ID
 	TenantID string `json:"tenantId"`
-	// Office 365 Azure Application ID
+	// Microsoft 365 Azure Application ID
 	AppID string `json:"appId"`
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
@@ -3888,15 +3911,15 @@ type CreateInputSystemByPackInputOffice365Mgmt struct {
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
 	PublisherIdentifier *string `json:"publisherIdentifier,omitzero"`
-	// Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+	// Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []CreateInputSystemByPackContentConfigOffice365Mgmt `json:"contentConfig,omitzero"`
-	// Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+	// Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Microsoft 365 events are available for retrieval.
 	IngestionLag *float64                    `json:"ingestionLag,omitzero"`
 	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
 	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
-	// Office 365 Azure client secret
+	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`

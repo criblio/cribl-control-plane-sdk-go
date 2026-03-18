@@ -173,7 +173,7 @@ type PipelineFunctionLookupConf struct {
 	OutFields []OutField `json:"outFields,omitzero"`
 	// Add the looked-up values to _raw, as key=value pairs
 	AddToEvent *bool `json:"addToEvent,omitzero"`
-	// Whether to ignore case when performing lookups using Match Mode: Exact
+	// Whether to ignore case when performing lookups using Match Mode: Regex.
 	IgnoreCase *bool `json:"ignoreCase,omitzero"`
 }
 
