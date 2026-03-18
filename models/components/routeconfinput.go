@@ -6,7 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type RouteConf struct {
+type RouteConfInput struct {
 	// Array of clone configurations, each with a key-value pair to set or overwrite in cloned events. Original events continue to the next Route.
 	Clones []map[string]string `json:"clones,omitzero"`
 	// Context for the Route: <code>group</code> (Worker Group or Edge Fleet) or <code>pack</code>.
@@ -19,12 +19,8 @@ type RouteConf struct {
 	EnableOutputExpression *bool `json:"enableOutputExpression,omitzero"`
 	// JavaScript expression to select events for routing.
 	Filter *string `json:"filter,omitzero"`
-	// If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events. Defaults to <code>true</code> when not specified.
-	Final bool `json:"final"`
 	// Unique identifier for the Route Group that the Route is associated with.
 	GroupID *string `json:"groupId,omitzero"`
-	// Unique identifier for the Route.
-	ID string `json:"id"`
 	// Name of the Route.
 	Name string `json:"name"`
 	// Destination that the Route sends matching events to after the Pipeline processes the events.
@@ -34,113 +30,117 @@ type RouteConf struct {
 	// Pipeline that the Route sends matching events to.
 	Pipeline      string         `json:"pipeline"`
 	TargetContext *TargetContext `json:"targetContext,omitzero"`
+	// If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events. Defaults to <code>true</code> if omitted.
+	Final *bool `json:"final,omitzero"`
+	// Unique identifier for the Route. If omitted, the server generates a deterministic identifier.
+	ID *string `json:"id,omitzero"`
 }
 
-func (r RouteConf) MarshalJSON() ([]byte, error) {
+func (r RouteConfInput) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RouteConf) UnmarshalJSON(data []byte) error {
+func (r *RouteConfInput) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RouteConf) GetClones() []map[string]string {
+func (r *RouteConfInput) GetClones() []map[string]string {
 	if r == nil {
 		return nil
 	}
 	return r.Clones
 }
 
-func (r *RouteConf) GetContext() *string {
+func (r *RouteConfInput) GetContext() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Context
 }
 
-func (r *RouteConf) GetDescription() *string {
+func (r *RouteConfInput) GetDescription() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Description
 }
 
-func (r *RouteConf) GetDisabled() *bool {
+func (r *RouteConfInput) GetDisabled() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.Disabled
 }
 
-func (r *RouteConf) GetEnableOutputExpression() *bool {
+func (r *RouteConfInput) GetEnableOutputExpression() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.EnableOutputExpression
 }
 
-func (r *RouteConf) GetFilter() *string {
+func (r *RouteConfInput) GetFilter() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Filter
 }
 
-func (r *RouteConf) GetFinal() bool {
-	if r == nil {
-		return false
-	}
-	return r.Final
-}
-
-func (r *RouteConf) GetGroupID() *string {
+func (r *RouteConfInput) GetGroupID() *string {
 	if r == nil {
 		return nil
 	}
 	return r.GroupID
 }
 
-func (r *RouteConf) GetID() string {
-	if r == nil {
-		return ""
-	}
-	return r.ID
-}
-
-func (r *RouteConf) GetName() string {
+func (r *RouteConfInput) GetName() string {
 	if r == nil {
 		return ""
 	}
 	return r.Name
 }
 
-func (r *RouteConf) GetOutput() *string {
+func (r *RouteConfInput) GetOutput() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Output
 }
 
-func (r *RouteConf) GetOutputExpression() *string {
+func (r *RouteConfInput) GetOutputExpression() *string {
 	if r == nil {
 		return nil
 	}
 	return r.OutputExpression
 }
 
-func (r *RouteConf) GetPipeline() string {
+func (r *RouteConfInput) GetPipeline() string {
 	if r == nil {
 		return ""
 	}
 	return r.Pipeline
 }
 
-func (r *RouteConf) GetTargetContext() *TargetContext {
+func (r *RouteConfInput) GetTargetContext() *TargetContext {
 	if r == nil {
 		return nil
 	}
 	return r.TargetContext
+}
+
+func (r *RouteConfInput) GetFinal() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Final
+}
+
+func (r *RouteConfInput) GetID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ID
 }
