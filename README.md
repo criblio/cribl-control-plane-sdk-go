@@ -135,7 +135,7 @@ func main() {
 		log.Fatal(err)
 	}
 	routes := routesListResponse.CountedRoutes
-	if routes != nil && len(routes.Items) > 0 && routes.Items[0].ID != nil {
+	if routes != nil && len(routes.Items) > 0 && routes.Items[0].ID != "" {
 		var pipelineID string
 		if pipeline.CountedPipeline != nil && len(pipeline.CountedPipeline.Items) > 0 {
 			pipelineID = pipeline.CountedPipeline.Items[0].ID
@@ -144,18 +144,37 @@ func main() {
 		if destination.CountedOutput != nil && len(destination.CountedOutput.Items) > 0 {
 			destinationID = "my-fs-destination"
 		}
-		routes.Items[0].Routes = append([]components.RoutesRoute{{
+		newRoute := components.RouteConfInput{
 			Final:       criblcontrolplanesdkgo.Bool(false),
 			ID:          criblcontrolplanesdkgo.String("my-route"),
 			Name:        "my-route",
 			Pipeline:    pipelineID,
-			Output:      destinationID,
+			Output:      criblcontrolplanesdkgo.String(destinationID),
 			Filter:      criblcontrolplanesdkgo.String("__inputId=='tcpjson:my-tcp-json'"),
 			Description: criblcontrolplanesdkgo.String("My new route"),
-		}}, routes.Items[0].Routes...)
-		_, err = s.Routes.Update(ctx, *routes.Items[0].ID, components.Routes{
+		}
+		updatedRoutes := []components.RouteConfInput{newRoute}
+		for _, r := range routes.Items[0].Routes {
+			updatedRoutes = append(updatedRoutes, components.RouteConfInput{
+				Clones:                  r.Clones,
+				Context:                 r.Context,
+				Description:             r.Description,
+				Disabled:                r.Disabled,
+				EnableOutputExpression:  r.EnableOutputExpression,
+				Filter:                  r.Filter,
+				Final:                   criblcontrolplanesdkgo.Bool(r.Final),
+				GroupID:                 r.GroupID,
+				ID:                      criblcontrolplanesdkgo.String(r.ID),
+				Name:                    r.Name,
+				Output:                  r.Output,
+				OutputExpression:        r.OutputExpression,
+				Pipeline:                r.Pipeline,
+				TargetContext:           r.TargetContext,
+			})
+		}
+		_, err = s.Routes.Update(ctx, routes.Items[0].ID, components.RoutesInput{
 			ID:     routes.Items[0].ID,
-			Routes: routes.Items[0].Routes,
+			Routes: updatedRoutes,
 		}, operations.WithServerURL(groupURL))
 		if err != nil {
 			log.Fatal(err)
