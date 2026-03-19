@@ -32,8 +32,8 @@ func newHealth(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 	}
 }
 
-// Get - Retrieve health status of the server
-// Get the current health status of the server.
+// Get the health status of the server
+// Get the current health status of the server (Leader or Worker Node).
 func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operations.GetHealthResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

@@ -5885,7 +5885,7 @@ type RestAuthenticationLoginSecret struct {
 	LoginURL string `json:"loginUrl"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
 	LoginBody string `json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitzero"`
@@ -8474,7 +8474,7 @@ type RestAuthenticationLogin struct {
 	LoginURL string `json:"loginUrl"`
 	Username string `json:"username"`
 	Password string `json:"password"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
 	LoginBody string `json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitzero"`

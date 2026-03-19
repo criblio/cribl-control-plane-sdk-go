@@ -7,11 +7,15 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+// HealthServerStatusError - Health status of the Leader or Worker Node.
 type HealthServerStatusError struct {
-	Role      *components.Role                    `json:"role,omitzero"`
-	StartTime float64                             `json:"startTime"`
-	Status    components.HealthServerStatusStatus `json:"status"`
-	HTTPMeta  components.HTTPMetadata             `json:"-"`
+	// Leader Node role: <code>primary</code> or <code>standby</code>.
+	Role *components.Role `json:"role,omitzero"`
+	// Timestamp (in Unix time) when the Cribl process started.
+	StartTime int64 `json:"startTime"`
+	// Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
+	Status   components.HealthServerStatusStatus `json:"status"`
+	HTTPMeta components.HTTPMetadata             `json:"-"`
 }
 
 var _ error = &HealthServerStatusError{}
