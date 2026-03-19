@@ -1,6 +1,6 @@
 # AuthenticationMethodOptions2
 
-Select authentication method.
+Enter API key directly, or select a stored secret
 
 ## Example Usage
 
@@ -18,10 +18,7 @@ custom := components.AuthenticationMethodOptions2("custom_value")
 
 ## Values
 
-| Name                                      | Value                                     |
-| ----------------------------------------- | ----------------------------------------- |
-| `AuthenticationMethodOptions2Manual`      | manual                                    |
-| `AuthenticationMethodOptions2Secret`      | secret                                    |
-| `AuthenticationMethodOptions2Oauth`       | oauth                                     |
-| `AuthenticationMethodOptions2OauthSecret` | oauthSecret                               |
-| `AuthenticationMethodOptions2OauthCert`   | oauthCert                                 |
+| Name                                 | Value                                |
+| ------------------------------------ | ------------------------------------ |
+| `AuthenticationMethodOptions2Manual` | manual                               |
+| `AuthenticationMethodOptions2Secret` | secret                               |

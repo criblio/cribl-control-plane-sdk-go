@@ -2611,6 +2611,30 @@ func (e *CreateInputTypeMicrosoftGraph) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// CreateInputAuthenticationMethodMicrosoftGraph - Select authentication method.
+type CreateInputAuthenticationMethodMicrosoftGraph string
+
+const (
+	CreateInputAuthenticationMethodMicrosoftGraphOauth       CreateInputAuthenticationMethodMicrosoftGraph = "oauth"
+	CreateInputAuthenticationMethodMicrosoftGraphOauthSecret CreateInputAuthenticationMethodMicrosoftGraph = "oauthSecret"
+	CreateInputAuthenticationMethodMicrosoftGraphOauthCert   CreateInputAuthenticationMethodMicrosoftGraph = "oauthCert"
+)
+
+func (e CreateInputAuthenticationMethodMicrosoftGraph) ToPointer() *CreateInputAuthenticationMethodMicrosoftGraph {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputAuthenticationMethodMicrosoftGraph) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "oauth", "oauthSecret", "oauthCert":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputInputMicrosoftGraph struct {
 	// Unique ID for this input
 	ID       string                        `json:"id"`
@@ -2642,7 +2666,7 @@ type CreateInputInputMicrosoftGraph struct {
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType *CreateInputAuthenticationMethodMicrosoftGraph `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
 	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
@@ -2663,12 +2687,6 @@ type CreateInputInputMicrosoftGraph struct {
 	LogLevel    *components.LogLevelOptions `json:"logLevel,omitzero"`
 	RetryRules  *components.RetryRulesType1 `json:"retryRules,omitzero"`
 	Description *string                     `json:"description,omitzero"`
-	// Username to run Microsoft Graph API call.
-	Username *string `json:"username,omitzero"`
-	// Password to run Microsoft Graph API call.
-	Password *string `json:"password,omitzero"`
-	// Select or create a secret that references your credentials.
-	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
@@ -2815,7 +2833,7 @@ func (c *CreateInputInputMicrosoftGraph) GetDisableTimeFilter() *bool {
 	return c.DisableTimeFilter
 }
 
-func (c *CreateInputInputMicrosoftGraph) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (c *CreateInputInputMicrosoftGraph) GetAuthType() *CreateInputAuthenticationMethodMicrosoftGraph {
 	if c == nil {
 		return nil
 	}
@@ -2897,27 +2915,6 @@ func (c *CreateInputInputMicrosoftGraph) GetDescription() *string {
 		return nil
 	}
 	return c.Description
-}
-
-func (c *CreateInputInputMicrosoftGraph) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CreateInputInputMicrosoftGraph) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CreateInputInputMicrosoftGraph) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
 }
 
 func (c *CreateInputInputMicrosoftGraph) GetClientSecret() *string {
@@ -3020,6 +3017,32 @@ func (e *CreateInputTypeOffice365MsgTrace) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// CreateInputAuthenticationMethodOffice365MsgTrace - Select authentication method.
+type CreateInputAuthenticationMethodOffice365MsgTrace string
+
+const (
+	CreateInputAuthenticationMethodOffice365MsgTraceManual      CreateInputAuthenticationMethodOffice365MsgTrace = "manual"
+	CreateInputAuthenticationMethodOffice365MsgTraceSecret      CreateInputAuthenticationMethodOffice365MsgTrace = "secret"
+	CreateInputAuthenticationMethodOffice365MsgTraceOauth       CreateInputAuthenticationMethodOffice365MsgTrace = "oauth"
+	CreateInputAuthenticationMethodOffice365MsgTraceOauthSecret CreateInputAuthenticationMethodOffice365MsgTrace = "oauthSecret"
+	CreateInputAuthenticationMethodOffice365MsgTraceOauthCert   CreateInputAuthenticationMethodOffice365MsgTrace = "oauthCert"
+)
+
+func (e CreateInputAuthenticationMethodOffice365MsgTrace) ToPointer() *CreateInputAuthenticationMethodOffice365MsgTrace {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputAuthenticationMethodOffice365MsgTrace) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "oauth", "oauthSecret", "oauthCert":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputInputOffice365MsgTrace struct {
 	// Unique ID for this input
 	ID       string                           `json:"id"`
@@ -3051,7 +3074,7 @@ type CreateInputInputOffice365MsgTrace struct {
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType *CreateInputAuthenticationMethodOffice365MsgTrace `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
 	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
@@ -3224,7 +3247,7 @@ func (c *CreateInputInputOffice365MsgTrace) GetDisableTimeFilter() *bool {
 	return c.DisableTimeFilter
 }
 
-func (c *CreateInputInputOffice365MsgTrace) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (c *CreateInputInputOffice365MsgTrace) GetAuthType() *CreateInputAuthenticationMethodOffice365MsgTrace {
 	if c == nil {
 		return nil
 	}
