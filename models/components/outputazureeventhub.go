@@ -118,6 +118,8 @@ type OutputAzureEventhub struct {
 	PqControls           *OutputAzureEventhubPqControls `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputAzureEventhub) MarshalJSON() ([]byte, error) {
@@ -395,4 +397,11 @@ func (o *OutputAzureEventhub) GetTemplateTopic() *string {
 		return nil
 	}
 	return o.TemplateTopic
+}
+
+func (o *OutputAzureEventhub) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

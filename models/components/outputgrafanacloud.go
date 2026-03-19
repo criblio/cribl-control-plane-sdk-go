@@ -134,6 +134,10 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	TemplateLokiURL *string `json:"__template_lokiUrl,omitzero"`
 	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
 	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
@@ -455,6 +459,20 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplatePrometheusURL() *string {
 	return o.TemplatePrometheusURL
 }
 
+func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
 // #region class-body-outputgrafanacloudgrafanacloud2
 // #endregion class-body-outputgrafanacloudgrafanacloud2
 
@@ -583,6 +601,10 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	TemplateLokiURL *string `json:"__template_lokiUrl,omitzero"`
 	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
 	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {
@@ -902,6 +924,20 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplatePrometheusURL() *string {
 		return nil
 	}
 	return o.TemplatePrometheusURL
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 // #region class-body-outputgrafanacloudgrafanacloud1

@@ -279,11 +279,11 @@ func (s *PacksRoutes) Get(ctx context.Context, id string, pack string, opts ...o
 
 // Update a Route within a Pack
 // Update the specified Route within the specified Pack.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
-func (s *PacksRoutes) Update(ctx context.Context, id string, pack string, routes components.Routes, opts ...operations.Option) (*operations.UpdateRoutesByPackAndIDResponse, error) {
+func (s *PacksRoutes) Update(ctx context.Context, id string, pack string, routesInput components.RoutesInput, opts ...operations.Option) (*operations.UpdateRoutesByPackAndIDResponse, error) {
 	request := operations.UpdateRoutesByPackAndIDRequest{
-		ID:     id,
-		Pack:   pack,
-		Routes: routes,
+		ID:          id,
+		Pack:        pack,
+		RoutesInput: routesInput,
 	}
 
 	o := operations.Options{}
@@ -319,7 +319,7 @@ func (s *PacksRoutes) Update(ctx context.Context, id string, pack string, routes
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Routes", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RoutesInput", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -780,7 +780,7 @@ func (s *PacksRoutes) List(ctx context.Context, pack string, opts ...operations.
 
 // Append - Add a Route to the end of the Routing table within a Pack
 // Add a Route to the end of the specified Routing table within the specified Pack.
-func (s *PacksRoutes) Append(ctx context.Context, id string, pack string, requestBody []components.RouteConf, opts ...operations.Option) (*operations.CreateRoutesAppendByPackAndIDResponse, error) {
+func (s *PacksRoutes) Append(ctx context.Context, id string, pack string, requestBody []components.RouteConfInput, opts ...operations.Option) (*operations.CreateRoutesAppendByPackAndIDResponse, error) {
 	request := operations.CreateRoutesAppendByPackAndIDRequest{
 		ID:          id,
 		Pack:        pack,

@@ -6,41 +6,11 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type RoutesGroups struct {
-	// Brief description of the Route Group.
-	Description *string `json:"description,omitzero"`
-	// Relative position of the Route Group among all Route Groups. Routes are evaluated in ascending order according to the index value of their Route Group.
-	Index float64 `json:"index"`
-	// Name of the Route Group.
-	Name string `json:"name"`
-}
-
-func (r *RoutesGroups) GetDescription() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Description
-}
-
-func (r *RoutesGroups) GetIndex() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Index
-}
-
-func (r *RoutesGroups) GetName() string {
-	if r == nil {
-		return ""
-	}
-	return r.Name
-}
-
 type Routes struct {
 	// Array of user-provided comments that describe or annotate Routes.
 	Comments []RouteComment `json:"comments,omitzero"`
 	// Information about the Route Groups that the Route is associated with.
-	Groups map[string]RoutesGroups `json:"groups,omitzero"`
+	Groups map[string]AdditionalPropertiesTypeRoutesGroups `json:"groups,omitzero"`
 	// Unique identifier for the Routing table. The supported value is <code>default</code>.
 	ID string `json:"id"`
 	// Array of Route configurations that define how events are processed and routed.
@@ -65,7 +35,7 @@ func (r *Routes) GetComments() []RouteComment {
 	return r.Comments
 }
 
-func (r *Routes) GetGroups() map[string]RoutesGroups {
+func (r *Routes) GetGroups() map[string]AdditionalPropertiesTypeRoutesGroups {
 	if r == nil {
 		return nil
 	}
