@@ -115,8 +115,18 @@ type OutputFilesystem struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (o OutputFilesystem) MarshalJSON() ([]byte, error) {
@@ -431,9 +441,44 @@ func (o *OutputFilesystem) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
+func (o *OutputFilesystem) GetTemplatePartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePartitionExpr
+}
+
 func (o *OutputFilesystem) GetTemplateFormat() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateFormat
+}
+
+func (o *OutputFilesystem) GetTemplateBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBaseFileName
+}
+
+func (o *OutputFilesystem) GetTemplateFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFileNameSuffix
+}
+
+func (o *OutputFilesystem) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputFilesystem) GetTemplateCompress() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCompress
 }

@@ -254,6 +254,14 @@ type OutputSplunkLb struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
+	TemplateNestedFields *string `json:"__template_nestedFields,omitzero"`
+	// Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+	TemplateMaxS2Sversion *string `json:"__template_maxS2Sversion,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (o OutputSplunkLb) MarshalJSON() ([]byte, error) {
@@ -559,4 +567,32 @@ func (o *OutputSplunkLb) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
+}
+
+func (o *OutputSplunkLb) GetTemplateNestedFields() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateNestedFields
+}
+
+func (o *OutputSplunkLb) GetTemplateMaxS2Sversion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateMaxS2Sversion
+}
+
+func (o *OutputSplunkLb) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputSplunkLb) GetTemplateCompress() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCompress
 }

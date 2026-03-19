@@ -4607,6 +4607,8 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -4967,6 +4969,13 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateRegion() *string
 	return c.TemplateRegion
 }
 
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
 func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
@@ -5178,6 +5187,8 @@ type CreateInputSystemByPackInputPrometheus struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -5561,6 +5572,13 @@ func (c *CreateInputSystemByPackInputPrometheus) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 func (c *CreateInputSystemByPackInputPrometheus) GetTemplateAssumeRoleArn() *string {
@@ -9715,6 +9733,10 @@ type CreateInputSystemByPackInputSplunk struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+	TemplateMaxS2Sversion *string `json:"__template_maxS2Sversion,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputSplunk) MarshalJSON() ([]byte, error) {
@@ -9943,6 +9965,20 @@ func (c *CreateInputSystemByPackInputSplunk) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputSplunk) GetTemplateMaxS2Sversion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateMaxS2Sversion
+}
+
+func (c *CreateInputSystemByPackInputSplunk) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
 }
 
 type CreateInputSystemByPackTypeHTTP string
@@ -10413,6 +10449,8 @@ type CreateInputSystemByPackInputMsk struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -10773,6 +10811,13 @@ func (c *CreateInputSystemByPackInputMsk) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateInputSystemByPackInputMsk) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 func (c *CreateInputSystemByPackInputMsk) GetTemplateAssumeRoleArn() *string {

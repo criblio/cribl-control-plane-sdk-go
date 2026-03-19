@@ -2,11 +2,12 @@
 
 package components
 
+// Role - Leader Node role: <code>primary</code> or <code>standby</code>.
 type Role string
 
 const (
-	RoleStandby Role = "standby"
 	RolePrimary Role = "primary"
+	RoleStandby Role = "standby"
 )
 
 func (e Role) ToPointer() *Role {
@@ -17,18 +18,19 @@ func (e Role) ToPointer() *Role {
 func (e *Role) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "standby", "primary":
+		case "primary", "standby":
 			return true
 		}
 	}
 	return false
 }
 
+// HealthServerStatusStatus - Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
 type HealthServerStatusStatus string
 
 const (
-	HealthServerStatusStatusShuttingDown HealthServerStatusStatus = "shutting down"
 	HealthServerStatusStatusHealthy      HealthServerStatusStatus = "healthy"
+	HealthServerStatusStatusShuttingDown HealthServerStatusStatus = "shutting down"
 	HealthServerStatusStatusStandby      HealthServerStatusStatus = "standby"
 )
 
@@ -40,17 +42,21 @@ func (e HealthServerStatusStatus) ToPointer() *HealthServerStatusStatus {
 func (e *HealthServerStatusStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "shutting down", "healthy", "standby":
+		case "healthy", "shutting down", "standby":
 			return true
 		}
 	}
 	return false
 }
 
+// HealthServerStatus - Health status of the Leader or Worker Node.
 type HealthServerStatus struct {
-	Role      *Role                    `json:"role,omitzero"`
-	StartTime float64                  `json:"startTime"`
-	Status    HealthServerStatusStatus `json:"status"`
+	// Leader Node role: <code>primary</code> or <code>standby</code>.
+	Role *Role `json:"role,omitzero"`
+	// Timestamp (in Unix time) when the Cribl process started.
+	StartTime int64 `json:"startTime"`
+	// Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
+	Status HealthServerStatusStatus `json:"status"`
 }
 
 func (h *HealthServerStatus) GetRole() *Role {
@@ -60,9 +66,9 @@ func (h *HealthServerStatus) GetRole() *Role {
 	return h.Role
 }
 
-func (h *HealthServerStatus) GetStartTime() float64 {
+func (h *HealthServerStatus) GetStartTime() int64 {
 	if h == nil {
-		return 0.0
+		return 0
 	}
 	return h.StartTime
 }

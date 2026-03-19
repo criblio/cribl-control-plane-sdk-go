@@ -274,6 +274,10 @@ type OutputGoogleChronicle struct {
 	TemplateAPIVersion *string `json:"__template_apiVersion,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.
 	TemplateCustomerID *string `json:"__template_customerId,omitzero"`
 }
@@ -651,6 +655,20 @@ func (o *OutputGoogleChronicle) GetTemplateRegion() *string {
 		return nil
 	}
 	return o.TemplateRegion
+}
+
+func (o *OutputGoogleChronicle) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicle) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputGoogleChronicle) GetTemplateCustomerID() *string {

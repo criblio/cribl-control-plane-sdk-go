@@ -43,6 +43,30 @@ const (
 	WORKER_GROUP_ID = "my-worker-group"
 )
 
+// routeConfsToInput converts RouteConf (API response) to RouteConfInput (API request).
+func routeConfsToInput(routes []components.RouteConf) []components.RouteConfInput {
+	result := make([]components.RouteConfInput, len(routes))
+	for i, r := range routes {
+		result[i] = components.RouteConfInput{
+			Clones:                 r.Clones,
+			Context:                r.Context,
+			Description:            r.Description,
+			Disabled:               r.Disabled,
+			EnableOutputExpression: r.EnableOutputExpression,
+			Filter:                 r.Filter,
+			GroupID:                r.GroupID,
+			Name:                   r.Name,
+			Output:                 r.Output,
+			OutputExpression:       r.OutputExpression,
+			Pipeline:               r.Pipeline,
+			TargetContext:          r.TargetContext,
+			Final:                  criblcontrolplanesdkgo.Bool(r.Final),
+			ID:                     criblcontrolplanesdkgo.String(r.ID),
+		}
+	}
+	return result
+}
+
 func main() {
 	ctx := context.Background()
 
@@ -157,10 +181,10 @@ func main() {
 		// Get the first Routes configuration
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
-		// Create new Route
-		newRoute := components.RouteConf{
-			Final:                  false,
-			ID:                     "my-route",
+		// Create new Route (Routes.Update expects RoutesInput with RouteConfInput)
+		newRoute := components.RouteConfInput{
+			Final:                  criblcontrolplanesdkgo.Bool(false),
+			ID:                     criblcontrolplanesdkgo.String("my-route"),
 			Name:                   "my-route",
 			Pipeline:               "my-pipeline",
 			Output:                 criblcontrolplanesdkgo.String("my-fs-destination"),
@@ -169,14 +193,14 @@ func main() {
 			Description:            criblcontrolplanesdkgo.String("This is my new Route"),
 		}
 
-		// Add new route to existing Routes
-		updatedRoutes := append([]components.RouteConf{newRoute}, existingRoutes.Routes...)
+		// Add new route to existing Routes (convert RouteConf to RouteConfInput)
+		updatedRoutesInput := append([]components.RouteConfInput{newRoute}, routeConfsToInput(existingRoutes.Routes)...)
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
 				ID:     existingRoutes.ID,
-				Routes: updatedRoutes,
+				Routes: updatedRoutesInput,
 			}, operations.WithServerURL(groupURL))
 
 			if err != nil {

@@ -152,16 +152,24 @@ type OutputSqs struct {
 	PqControls           *OutputSqsPqControls `json:"pqControls,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
+	// Binds 'queueType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueType' at runtime.
+	TemplateQueueType *string `json:"__template_queueType,omitzero"`
 	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
 	TemplateAwsAccountID *string `json:"__template_awsAccountId,omitzero"`
+	// Binds 'messageGroupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageGroupId' at runtime.
+	TemplateMessageGroupID *string `json:"__template_messageGroupId,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
@@ -478,11 +486,25 @@ func (o *OutputSqs) GetTemplateQueueName() *string {
 	return o.TemplateQueueName
 }
 
+func (o *OutputSqs) GetTemplateQueueType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateQueueType
+}
+
 func (o *OutputSqs) GetTemplateAwsAccountID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateAwsAccountID
+}
+
+func (o *OutputSqs) GetTemplateMessageGroupID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateMessageGroupID
 }
 
 func (o *OutputSqs) GetTemplateAwsSecretKey() *string {
@@ -499,6 +521,13 @@ func (o *OutputSqs) GetTemplateRegion() *string {
 	return o.TemplateRegion
 }
 
+func (o *OutputSqs) GetTemplateEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateEndpoint
+}
+
 func (o *OutputSqs) GetTemplateAssumeRoleArn() *string {
 	if o == nil {
 		return nil
@@ -511,6 +540,13 @@ func (o *OutputSqs) GetTemplateAssumeRoleExternalID() *string {
 		return nil
 	}
 	return o.TemplateAssumeRoleExternalID
+}
+
+func (o *OutputSqs) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputSqs) GetTemplateAwsAPIKey() *string {

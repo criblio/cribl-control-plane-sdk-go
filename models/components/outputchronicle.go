@@ -200,6 +200,10 @@ type OutputChronicle struct {
 	PqControls           *OutputChroniclePqControls `json:"pqControls,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
@@ -556,6 +560,20 @@ func (o *OutputChronicle) GetTemplateRegion() *string {
 		return nil
 	}
 	return o.TemplateRegion
+}
+
+func (o *OutputChronicle) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputChronicle) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputChronicle) GetTemplateEndpoint() *string {

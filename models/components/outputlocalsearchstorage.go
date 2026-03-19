@@ -308,6 +308,10 @@ type OutputLocalSearchStorage struct {
 	TemplateDatabase *string `json:"__template_database,omitzero"`
 	// Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
 	TemplateTableName *string `json:"__template_tableName,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputLocalSearchStorage) MarshalJSON() ([]byte, error) {
@@ -704,4 +708,18 @@ func (o *OutputLocalSearchStorage) GetTemplateTableName() *string {
 		return nil
 	}
 	return o.TemplateTableName
+}
+
+func (o *OutputLocalSearchStorage) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputLocalSearchStorage) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

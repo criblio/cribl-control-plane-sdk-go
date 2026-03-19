@@ -275,6 +275,8 @@ type OutputMicrosoftFabric struct {
 	PqControls           *OutputMicrosoftFabricPqControls `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.
 	TemplateBootstrapServer *string `json:"__template_bootstrap_server,omitzero"`
 }
@@ -554,6 +556,13 @@ func (o *OutputMicrosoftFabric) GetTemplateTopic() *string {
 		return nil
 	}
 	return o.TemplateTopic
+}
+
+func (o *OutputMicrosoftFabric) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputMicrosoftFabric) GetTemplateBootstrapServer() *string {

@@ -105,6 +105,8 @@ type OutputExabeam struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputExabeam) MarshalJSON() ([]byte, error) {
@@ -382,4 +384,11 @@ func (o *OutputExabeam) GetTemplateRegion() *string {
 		return nil
 	}
 	return o.TemplateRegion
+}
+
+func (o *OutputExabeam) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

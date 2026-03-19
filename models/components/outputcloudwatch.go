@@ -115,14 +115,22 @@ type OutputCloudwatch struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                     `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputCloudwatchPqControls `json:"pqControls,omitzero"`
+	// Binds 'logGroupName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logGroupName' at runtime.
+	TemplateLogGroupName *string `json:"__template_logGroupName,omitzero"`
+	// Binds 'logStreamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logStreamName' at runtime.
+	TemplateLogStreamName *string `json:"__template_logStreamName,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
@@ -397,6 +405,20 @@ func (o *OutputCloudwatch) GetPqControls() *OutputCloudwatchPqControls {
 	return o.PqControls
 }
 
+func (o *OutputCloudwatch) GetTemplateLogGroupName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogGroupName
+}
+
+func (o *OutputCloudwatch) GetTemplateLogStreamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogStreamName
+}
+
 func (o *OutputCloudwatch) GetTemplateAwsSecretKey() *string {
 	if o == nil {
 		return nil
@@ -411,6 +433,13 @@ func (o *OutputCloudwatch) GetTemplateRegion() *string {
 	return o.TemplateRegion
 }
 
+func (o *OutputCloudwatch) GetTemplateEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateEndpoint
+}
+
 func (o *OutputCloudwatch) GetTemplateAssumeRoleArn() *string {
 	if o == nil {
 		return nil
@@ -423,6 +452,13 @@ func (o *OutputCloudwatch) GetTemplateAssumeRoleExternalID() *string {
 		return nil
 	}
 	return o.TemplateAssumeRoleExternalID
+}
+
+func (o *OutputCloudwatch) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputCloudwatch) GetTemplateAwsAPIKey() *string {

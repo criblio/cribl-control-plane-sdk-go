@@ -232,6 +232,10 @@ type OutputDynatraceHTTP struct {
 	ActiveGateDomain *string `json:"activeGateDomain,omitzero"`
 	// URL to send events to. Can be overwritten by an event's __url field.
 	URL *string `json:"url,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -567,6 +571,20 @@ func (o *OutputDynatraceHTTP) GetURL() *string {
 		return nil
 	}
 	return o.URL
+}
+
+func (o *OutputDynatraceHTTP) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputDynatraceHTTP) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputDynatraceHTTP) GetTemplateURL() *string {

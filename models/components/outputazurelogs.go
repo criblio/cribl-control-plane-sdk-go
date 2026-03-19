@@ -148,6 +148,10 @@ type OutputAzureLogs struct {
 	WorkspaceKey *string `json:"workspaceKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	KeypairSecret *string `json:"keypairSecret,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
 	TemplateWorkspaceID *string `json:"__template_workspaceId,omitzero"`
 	// Binds 'workspaceKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceKey' at runtime.
@@ -450,6 +454,20 @@ func (o *OutputAzureLogs) GetKeypairSecret() *string {
 		return nil
 	}
 	return o.KeypairSecret
+}
+
+func (o *OutputAzureLogs) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputAzureLogs) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputAzureLogs) GetTemplateWorkspaceID() *string {

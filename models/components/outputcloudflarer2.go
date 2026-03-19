@@ -166,8 +166,18 @@ type OutputCloudflareR2 struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (o OutputCloudflareR2) MarshalJSON() ([]byte, error) {
@@ -573,11 +583,46 @@ func (o *OutputCloudflareR2) GetTemplateBucket() *string {
 	return o.TemplateBucket
 }
 
+func (o *OutputCloudflareR2) GetTemplatePartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePartitionExpr
+}
+
 func (o *OutputCloudflareR2) GetTemplateFormat() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateFormat
+}
+
+func (o *OutputCloudflareR2) GetTemplateBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBaseFileName
+}
+
+func (o *OutputCloudflareR2) GetTemplateFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFileNameSuffix
+}
+
+func (o *OutputCloudflareR2) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputCloudflareR2) GetTemplateCompress() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCompress
 }
 
 // #region class-body-outputcloudflarer2

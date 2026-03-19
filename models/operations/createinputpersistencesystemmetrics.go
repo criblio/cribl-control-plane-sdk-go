@@ -1225,6 +1225,8 @@ type CreateInputInputSecurityLake struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -1592,6 +1594,13 @@ func (c *CreateInputInputSecurityLake) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateInputInputSecurityLake) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 func (c *CreateInputInputSecurityLake) GetTemplateAssumeRoleArn() *string {
@@ -6611,6 +6620,8 @@ type CreateInputInputSqs struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -6887,6 +6898,13 @@ func (c *CreateInputInputSqs) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateInputInputSqs) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 func (c *CreateInputInputSqs) GetTemplateAssumeRoleArn() *string {
@@ -7977,6 +7995,8 @@ type CreateInputInputS3Inventory struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -8360,6 +8380,13 @@ func (c *CreateInputInputS3Inventory) GetTemplateRegion() *string {
 	return c.TemplateRegion
 }
 
+func (c *CreateInputInputS3Inventory) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
 func (c *CreateInputInputS3Inventory) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
@@ -8500,6 +8527,8 @@ type CreateInputInputS3 struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -8867,6 +8896,13 @@ func (c *CreateInputInputS3) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateInputInputS3) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 func (c *CreateInputInputS3) GetTemplateAssumeRoleArn() *string {
@@ -9464,6 +9500,8 @@ type CreateInputInputKinesis struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -9747,6 +9785,13 @@ func (c *CreateInputInputKinesis) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateInputInputKinesis) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 func (c *CreateInputInputKinesis) GetTemplateAssumeRoleArn() *string {
@@ -10732,6 +10777,8 @@ type CreateInputInputCrowdstrike struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -11085,6 +11132,13 @@ func (c *CreateInputInputCrowdstrike) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateInputInputCrowdstrike) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 func (c *CreateInputInputCrowdstrike) GetTemplateAssumeRoleArn() *string {

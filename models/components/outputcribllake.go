@@ -151,12 +151,28 @@ type OutputCriblLake struct {
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
 	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
+	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
+	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputCriblLake) MarshalJSON() ([]byte, error) {
@@ -527,6 +543,13 @@ func (o *OutputCriblLake) GetTemplateAwsSecretKey() *string {
 	return o.TemplateAwsSecretKey
 }
 
+func (o *OutputCriblLake) GetTemplateEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateEndpoint
+}
+
 func (o *OutputCriblLake) GetTemplateAssumeRoleArn() *string {
 	if o == nil {
 		return nil
@@ -546,4 +569,53 @@ func (o *OutputCriblLake) GetTemplateDestPath() *string {
 		return nil
 	}
 	return o.TemplateDestPath
+}
+
+func (o *OutputCriblLake) GetTemplateObjectACL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateObjectACL
+}
+
+func (o *OutputCriblLake) GetTemplateStorageClass() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStorageClass
+}
+
+func (o *OutputCriblLake) GetTemplateServerSideEncryption() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateServerSideEncryption
+}
+
+func (o *OutputCriblLake) GetTemplateKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateKmsKeyID
+}
+
+func (o *OutputCriblLake) GetTemplateBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBaseFileName
+}
+
+func (o *OutputCriblLake) GetTemplateFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFileNameSuffix
+}
+
+func (o *OutputCriblLake) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

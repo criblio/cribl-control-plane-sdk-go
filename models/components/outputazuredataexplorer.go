@@ -451,6 +451,8 @@ type OutputAzureDataExplorer struct {
 	TemplateDatabase *string `json:"__template_database,omitzero"`
 	// Binds 'table' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'table' at runtime.
 	TemplateTable *string `json:"__template_table,omitzero"`
+	// Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+	TemplateOauthEndpoint *string `json:"__template_oauthEndpoint,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
 	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
@@ -461,8 +463,16 @@ type OutputAzureDataExplorer struct {
 	TemplateClientSecret *string `json:"__template_clientSecret,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'mappingRef' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mappingRef' at runtime.
+	TemplateMappingRef *string `json:"__template_mappingRef,omitzero"`
 	// Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
 	TemplateIngestURL *string `json:"__template_ingestUrl,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 }
 
 func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
@@ -1092,6 +1102,13 @@ func (o *OutputAzureDataExplorer) GetTemplateTable() *string {
 	return o.TemplateTable
 }
 
+func (o *OutputAzureDataExplorer) GetTemplateOauthEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOauthEndpoint
+}
+
 func (o *OutputAzureDataExplorer) GetTemplateTenantID() *string {
 	if o == nil {
 		return nil
@@ -1127,9 +1144,37 @@ func (o *OutputAzureDataExplorer) GetTemplateFormat() *string {
 	return o.TemplateFormat
 }
 
+func (o *OutputAzureDataExplorer) GetTemplateCompress() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCompress
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateMappingRef() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateMappingRef
+}
+
 func (o *OutputAzureDataExplorer) GetTemplateIngestURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateIngestURL
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFileNameSuffix
 }

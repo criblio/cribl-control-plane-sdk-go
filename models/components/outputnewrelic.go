@@ -190,6 +190,10 @@ type OutputNewrelic struct {
 	TemplateLogType *string `json:"__template_logType,omitzero"`
 	// Binds 'messageField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageField' at runtime.
 	TemplateMessageField *string `json:"__template_messageField,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputNewrelic) MarshalJSON() ([]byte, error) {
@@ -523,4 +527,18 @@ func (o *OutputNewrelic) GetTemplateMessageField() *string {
 		return nil
 	}
 	return o.TemplateMessageField
+}
+
+func (o *OutputNewrelic) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputNewrelic) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

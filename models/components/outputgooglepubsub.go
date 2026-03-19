@@ -113,6 +113,8 @@ type OutputGooglePubsub struct {
 	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputGooglePubsub) MarshalJSON() ([]byte, error) {
@@ -369,4 +371,11 @@ func (o *OutputGooglePubsub) GetTemplateRegion() *string {
 		return nil
 	}
 	return o.TemplateRegion
+}
+
+func (o *OutputGooglePubsub) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

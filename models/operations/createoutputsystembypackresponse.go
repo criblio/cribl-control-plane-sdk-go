@@ -110,6 +110,10 @@ type CreateOutputSystemByPackOutputNewrelicEvents struct {
 	TemplateAccountID *string `json:"__template_accountId,omitzero"`
 	// Binds 'eventType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'eventType' at runtime.
 	TemplateEventType *string `json:"__template_eventType,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
 	TemplateCustomURL *string `json:"__template_customUrl,omitzero"`
 }
@@ -433,6 +437,20 @@ func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTemplateEventType() *s
 	return c.TemplateEventType
 }
 
+func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTemplateCustomURL() *string {
 	if c == nil {
 		return nil
@@ -622,6 +640,10 @@ type CreateOutputSystemByPackOutputNewrelic struct {
 	TemplateLogType *string `json:"__template_logType,omitzero"`
 	// Binds 'messageField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageField' at runtime.
 	TemplateMessageField *string `json:"__template_messageField,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputNewrelic) MarshalJSON() ([]byte, error) {
@@ -957,6 +979,20 @@ func (c *CreateOutputSystemByPackOutputNewrelic) GetTemplateMessageField() *stri
 	return c.TemplateMessageField
 }
 
+func (c *CreateOutputSystemByPackOutputNewrelic) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputNewrelic) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeElasticCloud string
 
 const (
@@ -1070,6 +1106,10 @@ type CreateOutputSystemByPackOutputElasticCloud struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsElasticCloud `json:"pqControls,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputElasticCloud) MarshalJSON() ([]byte, error) {
@@ -1356,6 +1396,20 @@ func (c *CreateOutputSystemByPackOutputElasticCloud) GetPqControls() *CreateOutp
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeElastic string
 
 const (
@@ -1580,6 +1634,10 @@ type CreateOutputSystemByPackOutputElastic struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsElastic `json:"pqControls,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -1938,6 +1996,20 @@ func (c *CreateOutputSystemByPackOutputElastic) GetPqControls() *CreateOutputSys
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputElastic) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputElastic) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 func (c *CreateOutputSystemByPackOutputElastic) GetTemplateURL() *string {
 	if c == nil {
 		return nil
@@ -2084,14 +2156,22 @@ type CreateOutputSystemByPackOutputMsk struct {
 	PqControls           *CreateOutputSystemByPackPqControlsMsk `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'compression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compression' at runtime.
+	TemplateCompression *string `json:"__template_compression,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
@@ -2485,6 +2565,20 @@ func (c *CreateOutputSystemByPackOutputMsk) GetTemplateTopic() *string {
 	return c.TemplateTopic
 }
 
+func (c *CreateOutputSystemByPackOutputMsk) GetTemplateFormat() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFormat
+}
+
+func (c *CreateOutputSystemByPackOutputMsk) GetTemplateCompression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompression
+}
+
 func (c *CreateOutputSystemByPackOutputMsk) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
@@ -2499,6 +2593,13 @@ func (c *CreateOutputSystemByPackOutputMsk) GetTemplateRegion() *string {
 	return c.TemplateRegion
 }
 
+func (c *CreateOutputSystemByPackOutputMsk) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
 func (c *CreateOutputSystemByPackOutputMsk) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
@@ -2511,6 +2612,13 @@ func (c *CreateOutputSystemByPackOutputMsk) GetTemplateAssumeRoleExternalID() *s
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
+}
+
+func (c *CreateOutputSystemByPackOutputMsk) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
 }
 
 func (c *CreateOutputSystemByPackOutputMsk) GetTemplateAwsAPIKey() *string {
@@ -2637,6 +2745,12 @@ type CreateOutputSystemByPackOutputConfluentCloud struct {
 	PqControls           *CreateOutputSystemByPackPqControlsConfluentCloud `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'compression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compression' at runtime.
+	TemplateCompression *string `json:"__template_compression,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -2944,6 +3058,27 @@ func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateTopic() *strin
 	return c.TemplateTopic
 }
 
+func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateFormat() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFormat
+}
+
+func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateCompression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompression
+}
+
+func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeKafka string
 
 const (
@@ -3061,6 +3196,12 @@ type CreateOutputSystemByPackOutputKafka struct {
 	PqControls           *CreateOutputSystemByPackPqControlsKafka `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'compression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compression' at runtime.
+	TemplateCompression *string `json:"__template_compression,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputKafka) MarshalJSON() ([]byte, error) {
@@ -3368,6 +3509,27 @@ func (c *CreateOutputSystemByPackOutputKafka) GetTemplateTopic() *string {
 	return c.TemplateTopic
 }
 
+func (c *CreateOutputSystemByPackOutputKafka) GetTemplateFormat() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFormat
+}
+
+func (c *CreateOutputSystemByPackOutputKafka) GetTemplateCompression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompression
+}
+
+func (c *CreateOutputSystemByPackOutputKafka) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeExabeam string
 
 const (
@@ -3465,6 +3627,8 @@ type CreateOutputSystemByPackOutputExabeam struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputExabeam) MarshalJSON() ([]byte, error) {
@@ -3744,6 +3908,13 @@ func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateRegion() *string {
 	return c.TemplateRegion
 }
 
+func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeGooglePubsub string
 
 const (
@@ -3849,6 +4020,8 @@ type CreateOutputSystemByPackOutputGooglePubsub struct {
 	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputGooglePubsub) MarshalJSON() ([]byte, error) {
@@ -4107,6 +4280,13 @@ func (c *CreateOutputSystemByPackOutputGooglePubsub) GetTemplateRegion() *string
 	return c.TemplateRegion
 }
 
+func (c *CreateOutputSystemByPackOutputGooglePubsub) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeGoogleCloudLogging string
 
 const (
@@ -4333,6 +4513,8 @@ type CreateOutputSystemByPackOutputGoogleCloudLogging struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                               `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsGoogleCloudLogging `json:"pqControls,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
@@ -4836,6 +5018,13 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetPqControls() *Crea
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeGoogleCloudStorage string
 
 const (
@@ -4998,8 +5187,20 @@ type CreateOutputSystemByPackOutputGoogleCloudStorage struct {
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputGoogleCloudStorage) MarshalJSON() ([]byte, error) {
@@ -5419,11 +5620,53 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateRegion() *
 	return c.TemplateRegion
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDestPath
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplatePartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePartitionExpr
+}
+
 func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBaseFileName
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFileNameSuffix
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
 }
 
 type CreateOutputSystemByPackTypeGoogleChronicle string
@@ -5692,6 +5935,10 @@ type CreateOutputSystemByPackOutputGoogleChronicle struct {
 	TemplateAPIVersion *string `json:"__template_apiVersion,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.
 	TemplateCustomerID *string `json:"__template_customerId,omitzero"`
 }
@@ -6071,6 +6318,20 @@ func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetTemplateRegion() *str
 	return c.TemplateRegion
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetTemplateCustomerID() *string {
 	if c == nil {
 		return nil
@@ -6188,6 +6449,8 @@ type CreateOutputSystemByPackOutputAzureEventhub struct {
 	PqControls           *CreateOutputSystemByPackPqControlsAzureEventhub `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputAzureEventhub) MarshalJSON() ([]byte, error) {
@@ -6467,6 +6730,13 @@ func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateTopic() *string
 	return c.TemplateTopic
 }
 
+func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeHoneycomb string
 
 const (
@@ -6579,6 +6849,10 @@ type CreateOutputSystemByPackOutputHoneycomb struct {
 	Team *string `json:"team,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputHoneycomb) MarshalJSON() ([]byte, error) {
@@ -6858,6 +7132,20 @@ func (c *CreateOutputSystemByPackOutputHoneycomb) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputHoneycomb) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputHoneycomb) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeKinesis string
 
 const (
@@ -7004,10 +7292,14 @@ type CreateOutputSystemByPackOutputKinesis struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
@@ -7331,6 +7623,13 @@ func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateRegion() *string {
 	return c.TemplateRegion
 }
 
+func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
 func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
@@ -7343,6 +7642,13 @@ func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateAssumeRoleExternalID(
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
+}
+
+func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
 }
 
 func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateAwsAPIKey() *string {
@@ -7492,6 +7798,10 @@ type CreateOutputSystemByPackOutputAzureLogs struct {
 	WorkspaceKey *string `json:"workspaceKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	KeypairSecret *string `json:"keypairSecret,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
 	TemplateWorkspaceID *string `json:"__template_workspaceId,omitzero"`
 	// Binds 'workspaceKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceKey' at runtime.
@@ -7794,6 +8104,20 @@ func (c *CreateOutputSystemByPackOutputAzureLogs) GetKeypairSecret() *string {
 		return nil
 	}
 	return c.KeypairSecret
+}
+
+func (c *CreateOutputSystemByPackOutputAzureLogs) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputAzureLogs) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
 }
 
 func (c *CreateOutputSystemByPackOutputAzureLogs) GetTemplateWorkspaceID() *string {
@@ -8253,6 +8577,8 @@ type CreateOutputSystemByPackOutputAzureDataExplorer struct {
 	TemplateDatabase *string `json:"__template_database,omitzero"`
 	// Binds 'table' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'table' at runtime.
 	TemplateTable *string `json:"__template_table,omitzero"`
+	// Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+	TemplateOauthEndpoint *string `json:"__template_oauthEndpoint,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
 	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
@@ -8263,8 +8589,16 @@ type CreateOutputSystemByPackOutputAzureDataExplorer struct {
 	TemplateClientSecret *string `json:"__template_clientSecret,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'mappingRef' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mappingRef' at runtime.
+	TemplateMappingRef *string `json:"__template_mappingRef,omitzero"`
 	// Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
 	TemplateIngestURL *string `json:"__template_ingestUrl,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
@@ -8894,6 +9228,13 @@ func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateTable() *st
 	return c.TemplateTable
 }
 
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateOauthEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOauthEndpoint
+}
+
 func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateTenantID() *string {
 	if c == nil {
 		return nil
@@ -8929,11 +9270,39 @@ func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateFormat() *s
 	return c.TemplateFormat
 }
 
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
+}
+
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateMappingRef() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateMappingRef
+}
+
 func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateIngestURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateIngestURL
+}
+
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFileNameSuffix
 }
 
 type CreateOutputSystemByPackTypeAzureBlob string
@@ -9100,8 +9469,20 @@ type CreateOutputSystemByPackOutputAzureBlob struct {
 	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
 	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -9527,11 +9908,53 @@ func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateContainerName() *st
 	return c.TemplateContainerName
 }
 
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDestPath
+}
+
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplatePartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePartitionExpr
+}
+
 func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
+}
+
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBaseFileName
+}
+
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFileNameSuffix
+}
+
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
 }
 
 func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateConnectionString() *string {
@@ -9709,14 +10132,36 @@ type CreateOutputSystemByPackOutputS3 struct {
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
+	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
+	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputS3) MarshalJSON() ([]byte, error) {
@@ -10199,6 +10644,13 @@ func (c *CreateOutputSystemByPackOutputS3) GetTemplateAwsSecretKey() *string {
 	return c.TemplateAwsSecretKey
 }
 
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
@@ -10213,6 +10665,48 @@ func (c *CreateOutputSystemByPackOutputS3) GetTemplateAssumeRoleExternalID() *st
 	return c.TemplateAssumeRoleExternalID
 }
 
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDestPath
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateObjectACL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateObjectACL
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateStorageClass() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageClass
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateServerSideEncryption() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateServerSideEncryption
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateKmsKeyID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateKmsKeyID
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplatePartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePartitionExpr
+}
+
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
@@ -10220,11 +10714,39 @@ func (c *CreateOutputSystemByPackOutputS3) GetTemplateFormat() *string {
 	return c.TemplateFormat
 }
 
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBaseFileName
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFileNameSuffix
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
 }
 
 // #region class-body-createoutputsystembypackoutputs3
@@ -10337,8 +10859,18 @@ type CreateOutputSystemByPackOutputFilesystem struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputFilesystem) MarshalJSON() ([]byte, error) {
@@ -10653,11 +11185,46 @@ func (c *CreateOutputSystemByPackOutputFilesystem) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
+func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplatePartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePartitionExpr
+}
+
 func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
+}
+
+func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplateBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBaseFileName
+}
+
+func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplateFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFileNameSuffix
+}
+
+func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
 }
 
 type CreateOutputSystemByPackTypeSignalfx string
@@ -10772,6 +11339,10 @@ type CreateOutputSystemByPackOutputSignalfx struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsSignalfx `json:"pqControls,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputSignalfx) MarshalJSON() ([]byte, error) {
@@ -11051,6 +11622,20 @@ func (c *CreateOutputSystemByPackOutputSignalfx) GetPqControls() *CreateOutputSy
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputSignalfx) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputSignalfx) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeWavefront string
 
 const (
@@ -11163,6 +11748,10 @@ type CreateOutputSystemByPackOutputWavefront struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsWavefront `json:"pqControls,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputWavefront) MarshalJSON() ([]byte, error) {
@@ -11442,6 +12031,20 @@ func (c *CreateOutputSystemByPackOutputWavefront) GetPqControls() *CreateOutputS
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputWavefront) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputWavefront) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeTcpjson string
 
 const (
@@ -11554,6 +12157,8 @@ type CreateOutputSystemByPackOutputTcpjson struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -11844,6 +12449,13 @@ func (c *CreateOutputSystemByPackOutputTcpjson) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputTcpjson) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 func (c *CreateOutputSystemByPackOutputTcpjson) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -11978,6 +12590,10 @@ type CreateOutputSystemByPackOutputWizHec struct {
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
 	TemplateWizEnvironment *string `json:"__template_wiz_environment,omitzero"`
 	// Binds 'data_center' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'data_center' at runtime.
@@ -12298,6 +12914,20 @@ func (c *CreateOutputSystemByPackOutputWizHec) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputWizHec) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputWizHec) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 func (c *CreateOutputSystemByPackOutputWizHec) GetTemplateWizEnvironment() *string {
 	if c == nil {
 		return nil
@@ -12488,6 +13118,10 @@ type CreateOutputSystemByPackOutputSplunkHec struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsSplunkHec `json:"pqControls,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -12832,6 +13466,20 @@ func (c *CreateOutputSystemByPackOutputSplunkHec) GetPqControls() *CreateOutputS
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputSplunkHec) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputSplunkHec) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 func (c *CreateOutputSystemByPackOutputSplunkHec) GetTemplateURL() *string {
 	if c == nil {
 		return nil
@@ -13085,6 +13733,14 @@ type CreateOutputSystemByPackOutputSplunkLb struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
+	TemplateNestedFields *string `json:"__template_nestedFields,omitzero"`
+	// Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+	TemplateMaxS2Sversion *string `json:"__template_maxS2Sversion,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputSplunkLb) MarshalJSON() ([]byte, error) {
@@ -13392,6 +14048,34 @@ func (c *CreateOutputSystemByPackOutputSplunkLb) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputSplunkLb) GetTemplateNestedFields() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateNestedFields
+}
+
+func (c *CreateOutputSystemByPackOutputSplunkLb) GetTemplateMaxS2Sversion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateMaxS2Sversion
+}
+
+func (c *CreateOutputSystemByPackOutputSplunkLb) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputSplunkLb) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
+}
+
 type CreateOutputSystemByPackTypeSplunk string
 
 const (
@@ -13502,6 +14186,14 @@ type CreateOutputSystemByPackOutputSplunk struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
+	TemplateNestedFields *string `json:"__template_nestedFields,omitzero"`
+	// Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+	TemplateMaxS2Sversion *string `json:"__template_maxS2Sversion,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputSplunk) MarshalJSON() ([]byte, error) {
@@ -13779,6 +14471,34 @@ func (c *CreateOutputSystemByPackOutputSplunk) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateOutputSystemByPackOutputSplunk) GetTemplateNestedFields() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateNestedFields
+}
+
+func (c *CreateOutputSystemByPackOutputSplunk) GetTemplateMaxS2Sversion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateMaxS2Sversion
+}
+
+func (c *CreateOutputSystemByPackOutputSplunk) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputSplunk) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
 }
 
 type CreateOutputSystemByPackTypeSyslog string
@@ -14060,6 +14780,8 @@ type CreateOutputSystemByPackOutputSyslog struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputSyslog) MarshalJSON() ([]byte, error) {
@@ -14388,6 +15110,13 @@ func (c *CreateOutputSystemByPackOutputSyslog) GetTemplatePort() *string {
 	return c.TemplatePort
 }
 
+func (c *CreateOutputSystemByPackOutputSyslog) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 type CreateOutputSystemByPackTypeDevnull string
 
 const (
@@ -14692,6 +15421,10 @@ type CreateOutputSystemByPackOutputSentinel struct {
 	DceEndpoint *string `json:"dceEndpoint,omitzero"`
 	// The name of the stream (Sentinel table) in which to store the events
 	StreamName *string `json:"streamName,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
@@ -15106,6 +15839,20 @@ func (c *CreateOutputSystemByPackOutputSentinel) GetStreamName() *string {
 	return c.StreamName
 }
 
+func (c *CreateOutputSystemByPackOutputSentinel) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputSentinel) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
 func (c *CreateOutputSystemByPackOutputSentinel) GetTemplateLoginURL() *string {
 	if c == nil {
 		return nil
@@ -15495,6 +16242,10 @@ type CreateOutputSystemByPackOutputWebhook struct {
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
@@ -15981,6 +16732,20 @@ func (c *CreateOutputSystemByPackOutputWebhook) GetLoadBalanceStatsPeriodSec() *
 		return nil
 	}
 	return c.LoadBalanceStatsPeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhook) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputWebhook) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
 }
 
 func (c *CreateOutputSystemByPackOutputWebhook) GetTemplateLoginURL() *string {
