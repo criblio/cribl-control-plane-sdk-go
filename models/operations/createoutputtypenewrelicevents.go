@@ -4105,6 +4105,8 @@ type CreateOutputOutputXsiam struct {
 	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
 	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
+	// Compress the payload body before sending
+	Compress *bool `json:"compress,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
@@ -4252,6 +4254,13 @@ func (c *CreateOutputOutputXsiam) GetMaxPayloadEvents() *float64 {
 		return nil
 	}
 	return c.MaxPayloadEvents
+}
+
+func (c *CreateOutputOutputXsiam) GetCompress() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
 }
 
 func (c *CreateOutputOutputXsiam) GetRejectUnauthorized() *bool {
