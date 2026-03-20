@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 6ff8078b36f4bcacb57c8674d1373b23
-  docVersion: 4.17.1-alpha.1773875380225-2e0eac96
+  docChecksum: c2b73ec877a272533fa445b60381ff08
+  docVersion: 4.17.1-alpha.1773961807308-b464397a
   speakeasyVersion: 1.757.1
   generationVersion: 2.866.2
-  releaseVersion: 0.7.0-alpha.8
-  configChecksum: 2f483854c96140bb870dd9f77fba889b
+  releaseVersion: 0.7.0-alpha.9
+  configChecksum: 08c652224298a8193e72f340938da982
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 130159a6-cf82-4e9d-8360-50e9ea3a5c17
-  pristine_commit_hash: ef965bf482b5ceef3ee2cc921bc6bc4a9dfbbbc6
-  pristine_tree_hash: 164bf49c602c3df18ab42fc07dd33ba8c0abf44a
+  generation_id: 760a6fe6-2cf2-4753-a244-007f9cbcaa56
+  pristine_commit_hash: 8d32902b766db014c7aa543fb77c279ef2027452
+  pristine_tree_hash: 6be73636dbad6a4403ed7bca9f00f5cbe4bd74cd
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: b7f5948a58b932c7bfe411533ebee678285e4d32
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:81752f6bf88cc1ccfdf3d2746e36a91d5b3af0c8
-    pristine_git_object: 2e466423b3cc8598ae45fc13b6bfb60db877f322
+    last_write_checksum: sha1:51831db8c4b3e6eafe70fb1d5cbcc3cf8bc67b1c
+    pristine_git_object: 9bcfc5b1e71cb6a92bef5fa86f079c92065279b0
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:e05a182b5a8d789d74e48e6f6c5f6af545c66d22
@@ -5217,8 +5217,8 @@ trackedFiles:
     pristine_git_object: 2a4024028dcd33575099662e84285a86ffaa9838
   docs/models/components/outputxsiam.md:
     id: fd3141d90993
-    last_write_checksum: sha1:689b4afaf32d517d467903288543e1128a8c4d42
-    pristine_git_object: e7e50b5fb9c464ca15144ef23eb032b8dd18e417
+    last_write_checksum: sha1:ca33c6e72b4b6765a291f4d4356c79a64e17d705
+    pristine_git_object: c6f4e9962e585a57533ebbba75cb174c3a2cb7da
   docs/models/components/outputxsiamauthenticationmethod.md:
     id: 06f0135667c2
     last_write_checksum: sha1:0277ce698712e82f197678738ab5872c40fa0cf2
@@ -11877,8 +11877,8 @@ trackedFiles:
     pristine_git_object: 3aead613e0d45fece8bad35e08a806bfe6016945
   docs/models/operations/createoutputoutputxsiam.md:
     id: 01010583d5b3
-    last_write_checksum: sha1:ab4828ac3e1e3a19b61167c529a7ecb4b7c1df2c
-    pristine_git_object: 89f6809a1ca7ef50dd77fd68cee7374b992ab2f2
+    last_write_checksum: sha1:ea67cac8370aa42a162cd66bb5a13683f46da649
+    pristine_git_object: 20f74ffe1c6128e56ca3eb902bfe5de735351c6b
   docs/models/operations/createoutputpayloadformat.md:
     id: 25a3506e6343
     last_write_checksum: sha1:f1e20baeb860c838c6a4db3ee2718c888ebfcb48
@@ -12685,8 +12685,8 @@ trackedFiles:
     pristine_git_object: 24900ca53f344caf3203fcbb949ff0e232e93f72
   docs/models/operations/createoutputsystembypackoutputxsiam.md:
     id: 19a124a7e76e
-    last_write_checksum: sha1:2a5a7fd9d59e6ca566a4e68c58ee4a77da2900dd
-    pristine_git_object: 261a46a7ec110c9ca2d748eb99b0acd7619c3012
+    last_write_checksum: sha1:bb245e21cc05991a965ce850c8b7ccd50a17a1b1
+    pristine_git_object: 37c5e33e9145011916211487ba8e69e96c7bcfc7
   docs/models/operations/createoutputsystembypackpayloadformat.md:
     id: c9d61a8ec4bd
     last_write_checksum: sha1:dbe0a7018d7672946c8c794a03f11772a36c54b6
@@ -16573,8 +16573,8 @@ trackedFiles:
     pristine_git_object: d5248f0f6da367ebf3491635f149614c76b85890
   models/components/outputxsiam.go:
     id: 85195f50ee4a
-    last_write_checksum: sha1:295efb58eb2af802fe01690556706c179d9daa75
-    pristine_git_object: 874dd49dde1346dfc8fdac97eae60f7ee5e30936
+    last_write_checksum: sha1:e6e4e9b9bb03fb22a69a13c346c44219988fac40
+    pristine_git_object: 66a69390dfaad5d460c1689dabe57fbfa1885ed1
   models/components/ownertypeheartbeatmetadatakube.go:
     id: 4b17a4215078
     last_write_checksum: sha1:28cd7c5e2e59d0a6b698591e7b6547e6bf0617b3
@@ -17349,8 +17349,8 @@ trackedFiles:
     pristine_git_object: d1cdf8236ee15d1ca3cdce001eaceb2692aa8e66
   models/operations/createoutputsystembypacktypenewrelicevents.go:
     id: e9b72d2f2033
-    last_write_checksum: sha1:12d072414bb5bf17ab8bb504dba4773df81c02b1
-    pristine_git_object: 84ff69d64822bac3083f37abc132f86e2c810997
+    last_write_checksum: sha1:d8f37399080e1e1523f1368ce6b46dbf7c2a2b69
+    pristine_git_object: 62d857fe7758872ff9e76bb945f4d82098fd34e0
   models/operations/createoutputsystemtestbypackandid.go:
     id: 3c3fbdbac29f
     last_write_checksum: sha1:c59866cebc4aa9d77005e745bec2314fa9fd277b
@@ -17361,8 +17361,8 @@ trackedFiles:
     pristine_git_object: be1b89cc9424dccc723881deb2c1c87e60888529
   models/operations/createoutputtypenewrelicevents.go:
     id: a152c79fec82
-    last_write_checksum: sha1:772ca48302934b54d07d4a399ff06cc214514036
-    pristine_git_object: abe5ed2d3d5d6a5a3c64192f64aebc29ef6c1759
+    last_write_checksum: sha1:3a4442d8ccd1cffa4f6354bf0621ea665f1ce659
+    pristine_git_object: 3248212ea0e76224191761ecc368ba53dbf95b8c
   models/operations/createpacks.go:
     id: 9f29a81ad83c
     last_write_checksum: sha1:60076b06d0f6b0e314ab89d87d9ddfc234ad8b17
@@ -28374,7 +28374,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Routes.Update()`:  `request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Health.Get()`: \n  *  `response.StartTime` **Changed** (Breaking ⚠️)\n  *  `error.StartTime` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(microsoft_graph)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(microsoft_graph)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(microsoft_graph)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(microsoft_graph)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Update()`:  `request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[].union(local_search_schema_mapper)` **Added**\n  *  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(local_search_schema_mapper)` **Added**\n  *  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Packs.Routes.Append()`: \n  *  `request.RequestBody[]` **Changed**\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[].union(local_search_schema_mapper)` **Added**\n  *  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(local_search_schema_mapper)` **Added**\n  *  `response.Items[].Conf.Functions[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Functions.Get()`:  `response.Items[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody[]` **Changed**\n* `CriblControlPlane.Functions.List()`:  `response.Items[].union(local_search_schema_mapper)` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[].union(xsiam).Compress` **Added**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody.union(xsiam).Compress` **Added**\n  *  `response.Items[].union(xsiam).Compress` **Added**\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[].union(xsiam).Compress` **Added**\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output.union(xsiam).Compress` **Added**\n  *  `response.Items[].union(xsiam).Compress` **Added**\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[].union(xsiam).Compress` **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items[].union(xsiam).Compress` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.union(xsiam).Compress` **Added**\n  *  `response.Items[].union(xsiam).Compress` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[].union(xsiam).Compress` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.union(xsiam).Compress` **Added**\n  *  `response.Items[].union(xsiam).Compress` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[].union(xsiam).Compress` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
