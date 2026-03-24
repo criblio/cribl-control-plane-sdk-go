@@ -63,6 +63,8 @@ type OutputPrometheus struct {
 	MetricRenameExpr *string `json:"metricRenameExpr,omitzero"`
 	// Generate and send metadata (`type` and `metricFamilyName`) requests
 	SendMetadata *bool `json:"sendMetadata,omitzero"`
+	// Serialize histogram bucket series as `<metric>_bucket` to match Prometheus histogram naming convention
+	UsePrometheusHistogramBucketSuffix *bool `json:"usePrometheusHistogramBucketSuffix,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -202,6 +204,13 @@ func (o *OutputPrometheus) GetSendMetadata() *bool {
 		return nil
 	}
 	return o.SendMetadata
+}
+
+func (o *OutputPrometheus) GetUsePrometheusHistogramBucketSuffix() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UsePrometheusHistogramBucketSuffix
 }
 
 func (o *OutputPrometheus) GetConcurrency() *float64 {
