@@ -3,8 +3,11 @@
 package components
 
 type ResourcePolicy struct {
-	Gid    string       `json:"gid"`
-	ID     *string      `json:"id,omitzero"`
+	// Unique identifier for the group that owns the resource.
+	Gid string `json:"gid"`
+	// Unique identifier for the resource. Omitted for resource type <code>groups</code>.
+	ID *string `json:"id,omitzero"`
+	// String that defines the access control policy for the resource.
 	Policy string       `json:"policy"`
 	Type   RbacResource `json:"type"`
 }

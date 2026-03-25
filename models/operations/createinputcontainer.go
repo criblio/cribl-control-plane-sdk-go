@@ -1001,6 +1001,37 @@ func (e *CreateInputTypeServicenowTable) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// CreateInputAuthenticationTypeServicenowTable - ServiceNow Table API authentication method
+type CreateInputAuthenticationTypeServicenowTable string
+
+const (
+	// CreateInputAuthenticationTypeServicenowTableNone None
+	CreateInputAuthenticationTypeServicenowTableNone CreateInputAuthenticationTypeServicenowTable = "none"
+	// CreateInputAuthenticationTypeServicenowTableBasic Basic
+	CreateInputAuthenticationTypeServicenowTableBasic CreateInputAuthenticationTypeServicenowTable = "basic"
+	// CreateInputAuthenticationTypeServicenowTableBasicSecret Basic (credentials secret)
+	CreateInputAuthenticationTypeServicenowTableBasicSecret CreateInputAuthenticationTypeServicenowTable = "basicSecret"
+	// CreateInputAuthenticationTypeServicenowTableOauth OAuth
+	CreateInputAuthenticationTypeServicenowTableOauth CreateInputAuthenticationTypeServicenowTable = "oauth"
+	// CreateInputAuthenticationTypeServicenowTableOauthSecret OAuth (text secret)
+	CreateInputAuthenticationTypeServicenowTableOauthSecret CreateInputAuthenticationTypeServicenowTable = "oauthSecret"
+)
+
+func (e CreateInputAuthenticationTypeServicenowTable) ToPointer() *CreateInputAuthenticationTypeServicenowTable {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputAuthenticationTypeServicenowTable) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "basicSecret", "oauth", "oauthSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputInputServicenowTable struct {
 	// Unique ID for this input
 	ID       string                         `json:"id"`
@@ -1019,7 +1050,72 @@ type CreateInputInputServicenowTable struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *components.PqType                        `json:"pq,omitzero"`
-	Description *string                                   `json:"description,omitzero"`
+	// ServiceNow instance base URL for Table API requests. Enter a literal URL (https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
+	Instance string `json:"instance"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// ServiceNow Table API authentication method
+	AuthType *CreateInputAuthenticationTypeServicenowTable `json:"authType,omitzero"`
+	// Cron schedule on which to run this job
+	CronSchedule string `json:"cronSchedule"`
+	// Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+	Earliest string `json:"earliest"`
+	// Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+	Latest string `json:"latest"`
+	// Track collection progress between consecutive scheduled executions
+	StateTracking *bool `json:"stateTracking,omitzero"`
+	// Collector runtime log level
+	LogLevel *components.LogLevelOptions `json:"logLevel,omitzero"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// When a DNS server returns multiple addresses, @{product} cycles through them in the order returned
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules  *components.RetryRulesType     `json:"retryRules,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	Username    *string                        `json:"username,omitzero"`
+	Password    *string                        `json:"password,omitzero"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitzero"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitzero"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	// Select or create a stored text secret for the OAuth client secret parameter value
+	TextSecret *string `json:"textSecret,omitzero"`
+	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
+	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+	StateMergeExpression *string `json:"stateMergeExpression,omitzero"`
+	// Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
+	TemplateInstance *string `json:"__template_instance,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+	TemplateSecret *string `json:"__template_secret,omitzero"`
 }
 
 func (c CreateInputInputServicenowTable) MarshalJSON() ([]byte, error) {
@@ -1103,11 +1199,249 @@ func (c *CreateInputInputServicenowTable) GetPq() *components.PqType {
 	return c.Pq
 }
 
+func (c *CreateInputInputServicenowTable) GetInstance() string {
+	if c == nil {
+		return ""
+	}
+	return c.Instance
+}
+
+func (c *CreateInputInputServicenowTable) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateInputInputServicenowTable) GetAuthType() *CreateInputAuthenticationTypeServicenowTable {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CreateInputInputServicenowTable) GetCronSchedule() string {
+	if c == nil {
+		return ""
+	}
+	return c.CronSchedule
+}
+
+func (c *CreateInputInputServicenowTable) GetEarliest() string {
+	if c == nil {
+		return ""
+	}
+	return c.Earliest
+}
+
+func (c *CreateInputInputServicenowTable) GetLatest() string {
+	if c == nil {
+		return ""
+	}
+	return c.Latest
+}
+
+func (c *CreateInputInputServicenowTable) GetStateTracking() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.StateTracking
+}
+
+func (c *CreateInputInputServicenowTable) GetLogLevel() *components.LogLevelOptions {
+	if c == nil {
+		return nil
+	}
+	return c.LogLevel
+}
+
+func (c *CreateInputInputServicenowTable) GetRequestTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.RequestTimeout
+}
+
+func (c *CreateInputInputServicenowTable) GetUseRoundRobinDNS() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseRoundRobinDNS
+}
+
+func (c *CreateInputInputServicenowTable) GetKeepAliveTime() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.KeepAliveTime
+}
+
+func (c *CreateInputInputServicenowTable) GetJobTimeout() *string {
+	if c == nil {
+		return nil
+	}
+	return c.JobTimeout
+}
+
+func (c *CreateInputInputServicenowTable) GetMaxMissedKeepAlives() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxMissedKeepAlives
+}
+
+func (c *CreateInputInputServicenowTable) GetTTL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TTL
+}
+
+func (c *CreateInputInputServicenowTable) GetIgnoreGroupJobsLimit() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IgnoreGroupJobsLimit
+}
+
+func (c *CreateInputInputServicenowTable) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputInputServicenowTable) GetRetryRules() *components.RetryRulesType {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
 func (c *CreateInputInputServicenowTable) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
+}
+
+func (c *CreateInputInputServicenowTable) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CreateInputInputServicenowTable) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CreateInputInputServicenowTable) GetCredentialsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CreateInputInputServicenowTable) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CreateInputInputServicenowTable) GetSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SecretParamName
+}
+
+func (c *CreateInputInputServicenowTable) GetSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Secret
+}
+
+func (c *CreateInputInputServicenowTable) GetTokenAttributeName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenAttributeName
+}
+
+func (c *CreateInputInputServicenowTable) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CreateInputInputServicenowTable) GetTokenTimeoutSecs() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.TokenTimeoutSecs
+}
+
+func (c *CreateInputInputServicenowTable) GetOauthParams() []components.ItemsTypeOauthParams {
+	if c == nil {
+		return nil
+	}
+	return c.OauthParams
+}
+
+func (c *CreateInputInputServicenowTable) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.OauthHeaders
+}
+
+func (c *CreateInputInputServicenowTable) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CreateInputInputServicenowTable) GetStateUpdateExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.StateUpdateExpression
+}
+
+func (c *CreateInputInputServicenowTable) GetStateMergeExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.StateMergeExpression
+}
+
+func (c *CreateInputInputServicenowTable) GetTemplateInstance() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateInstance
+}
+
+func (c *CreateInputInputServicenowTable) GetTemplateLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLoginURL
+}
+
+func (c *CreateInputInputServicenowTable) GetTemplateSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSecret
 }
 
 type CreateInputTypeSecurityLake string
@@ -13730,71 +14064,4 @@ func (c *CreateInputContainer) GetDetail() *bool {
 		return nil
 	}
 	return c.Detail
-}
-
-type CreateInputPersistenceSystemMetrics struct {
-	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `json:"enable,omitzero"`
-	// Time span for each file bucket
-	TimeWindow *string `json:"timeWindow,omitzero"`
-	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `json:"maxDataSize,omitzero"`
-	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
-	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
-	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
-	DestPath *string `json:"destPath,omitzero"`
-}
-
-func (c CreateInputPersistenceSystemMetrics) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateInputPersistenceSystemMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateInputPersistenceSystemMetrics) GetEnable() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enable
-}
-
-func (c *CreateInputPersistenceSystemMetrics) GetTimeWindow() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TimeWindow
-}
-
-func (c *CreateInputPersistenceSystemMetrics) GetMaxDataSize() *string {
-	if c == nil {
-		return nil
-	}
-	return c.MaxDataSize
-}
-
-func (c *CreateInputPersistenceSystemMetrics) GetMaxDataTime() *string {
-	if c == nil {
-		return nil
-	}
-	return c.MaxDataTime
-}
-
-func (c *CreateInputPersistenceSystemMetrics) GetCompress() *components.DataCompressionFormatOptionsPersistence {
-	if c == nil {
-		return nil
-	}
-	return c.Compress
-}
-
-func (c *CreateInputPersistenceSystemMetrics) GetDestPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.DestPath
 }

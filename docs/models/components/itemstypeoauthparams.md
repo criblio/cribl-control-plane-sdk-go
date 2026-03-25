@@ -1,4 +1,4 @@
-# CreateOutputSystemByPackOauthParam
+# ItemsTypeOauthParams
 
 
 ## Fields

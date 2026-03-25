@@ -106,7 +106,7 @@ type InputOffice365MsgTrace struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *LogLevelOptions                 `json:"logLevel,omitzero"`
+	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
 	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	Description *string                          `json:"description,omitzero"`
 	// Username to run Message Trace API call.
@@ -324,7 +324,7 @@ func (i *InputOffice365MsgTrace) GetMaxTaskReschedule() *float64 {
 	return i.MaxTaskReschedule
 }
 
-func (i *InputOffice365MsgTrace) GetLogLevel() *LogLevelOptions {
+func (i *InputOffice365MsgTrace) GetLogLevel() *LogLevelOptionsDebugError {
 	if i == nil {
 		return nil
 	}

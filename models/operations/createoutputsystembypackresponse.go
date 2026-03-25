@@ -16008,70 +16008,6 @@ func (c *CreateOutputSystemByPackPqControlsWebhook) UnmarshalJSON(data []byte) e
 	return nil
 }
 
-type CreateOutputSystemByPackOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (c CreateOutputSystemByPackOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputSystemByPackOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateOutputSystemByPackOauthParam) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CreateOutputSystemByPackOauthParam) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CreateOutputSystemByPackOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (c CreateOutputSystemByPackOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputSystemByPackOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateOutputSystemByPackOauthHeader) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CreateOutputSystemByPackOauthHeader) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CreateOutputSystemByPackURLWebhook struct {
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
@@ -16230,9 +16166,9 @@ type CreateOutputSystemByPackOutputWebhook struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []CreateOutputSystemByPackOauthParam `json:"oauthParams,omitzero"`
+	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []CreateOutputSystemByPackOauthHeader `json:"oauthHeaders,omitzero"`
+	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -16685,14 +16621,14 @@ func (c *CreateOutputSystemByPackOutputWebhook) GetTokenTimeoutSecs() *float64 {
 	return c.TokenTimeoutSecs
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetOauthParams() []CreateOutputSystemByPackOauthParam {
+func (c *CreateOutputSystemByPackOutputWebhook) GetOauthParams() []components.ItemsTypeOauthParams {
 	if c == nil {
 		return nil
 	}
 	return c.OauthParams
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetOauthHeaders() []CreateOutputSystemByPackOauthHeader {
+func (c *CreateOutputSystemByPackOutputWebhook) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	if c == nil {
 		return nil
 	}

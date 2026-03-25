@@ -10,6 +10,73 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputSystemByPackPersistenceSystemMetrics struct {
+	// Spool metrics to disk for Cribl Edge and Search
+	Enable *bool `json:"enable,omitzero"`
+	// Time span for each file bucket
+	TimeWindow *string `json:"timeWindow,omitzero"`
+	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
+	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
+	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
+	DestPath *string `json:"destPath,omitzero"`
+}
+
+func (c CreateInputSystemByPackPersistenceSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetTimeWindow() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TimeWindow
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetMaxDataSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxDataSize
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetMaxDataTime() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxDataTime
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetCompress() *components.DataCompressionFormatOptionsPersistence {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
 type CreateInputSystemByPackInputSystemMetrics struct {
 	// Unique ID for this input
 	ID       string                                   `json:"id"`
@@ -2866,7 +2933,7 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *components.LogLevelOptions                 `json:"logLevel,omitzero"`
+	LogLevel    *components.LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
 	RetryRules  *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	Description *string                                     `json:"description,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
@@ -3078,7 +3145,7 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetMaxTaskReschedule() *flo
 	return c.MaxTaskReschedule
 }
 
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetLogLevel() *components.LogLevelOptions {
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetLogLevel() *components.LogLevelOptionsDebugError {
 	if c == nil {
 		return nil
 	}
@@ -3274,7 +3341,7 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *components.LogLevelOptions                 `json:"logLevel,omitzero"`
+	LogLevel    *components.LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
 	RetryRules  *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	Description *string                                     `json:"description,omitzero"`
 	// Username to run Message Trace API call.
@@ -3492,7 +3559,7 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetMaxTaskReschedule() *
 	return c.MaxTaskReschedule
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetLogLevel() *components.LogLevelOptions {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetLogLevel() *components.LogLevelOptionsDebugError {
 	if c == nil {
 		return nil
 	}
@@ -5040,31 +5107,6 @@ func (e *CreateInputSystemByPackDiscoveryTypePrometheus) IsExact() bool {
 	return false
 }
 
-// CreateInputSystemByPackLogLevelPrometheus - Collector runtime log level
-type CreateInputSystemByPackLogLevelPrometheus string
-
-const (
-	CreateInputSystemByPackLogLevelPrometheusError CreateInputSystemByPackLogLevelPrometheus = "error"
-	CreateInputSystemByPackLogLevelPrometheusWarn  CreateInputSystemByPackLogLevelPrometheus = "warn"
-	CreateInputSystemByPackLogLevelPrometheusInfo  CreateInputSystemByPackLogLevelPrometheus = "info"
-	CreateInputSystemByPackLogLevelPrometheusDebug CreateInputSystemByPackLogLevelPrometheus = "debug"
-)
-
-func (e CreateInputSystemByPackLogLevelPrometheus) ToPointer() *CreateInputSystemByPackLogLevelPrometheus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSystemByPackLogLevelPrometheus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "warn", "info", "debug":
-			return true
-		}
-	}
-	return false
-}
-
 // CreateInputSystemByPackMetricsProtocol - Protocol to use when collecting metrics
 type CreateInputSystemByPackMetricsProtocol string
 
@@ -5113,7 +5155,7 @@ type CreateInputSystemByPackInputPrometheus struct {
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
 	Interval float64 `json:"interval"`
 	// Collector runtime log level
-	LogLevel CreateInputSystemByPackLogLevelPrometheus `json:"logLevel"`
+	LogLevel components.LogLevelOptions `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
@@ -5301,9 +5343,9 @@ func (c *CreateInputSystemByPackInputPrometheus) GetInterval() float64 {
 	return c.Interval
 }
 
-func (c *CreateInputSystemByPackInputPrometheus) GetLogLevel() CreateInputSystemByPackLogLevelPrometheus {
+func (c *CreateInputSystemByPackInputPrometheus) GetLogLevel() components.LogLevelOptions {
 	if c == nil {
-		return CreateInputSystemByPackLogLevelPrometheus("")
+		return components.LogLevelOptions("")
 	}
 	return c.LogLevel
 }

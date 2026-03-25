@@ -16008,70 +16008,6 @@ func (c *CreateOutputPqControlsWebhook) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type CreateOutputOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (c CreateOutputOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateOutputOauthParam) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CreateOutputOauthParam) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CreateOutputOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (c CreateOutputOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateOutputOauthHeader) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CreateOutputOauthHeader) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CreateOutputURLWebhook struct {
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
@@ -16230,9 +16166,9 @@ type CreateOutputOutputWebhook struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []CreateOutputOauthParam `json:"oauthParams,omitzero"`
+	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []CreateOutputOauthHeader `json:"oauthHeaders,omitzero"`
+	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -16685,14 +16621,14 @@ func (c *CreateOutputOutputWebhook) GetTokenTimeoutSecs() *float64 {
 	return c.TokenTimeoutSecs
 }
 
-func (c *CreateOutputOutputWebhook) GetOauthParams() []CreateOutputOauthParam {
+func (c *CreateOutputOutputWebhook) GetOauthParams() []components.ItemsTypeOauthParams {
 	if c == nil {
 		return nil
 	}
 	return c.OauthParams
 }
 
-func (c *CreateOutputOutputWebhook) GetOauthHeaders() []CreateOutputOauthHeader {
+func (c *CreateOutputOutputWebhook) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	if c == nil {
 		return nil
 	}
