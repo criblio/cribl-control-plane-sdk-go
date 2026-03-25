@@ -21,7 +21,7 @@ func (g *GetOutputSamplesByIDRequest) GetID() string {
 
 type GetOutputSamplesByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// sample event data for the Destination
+	// Sample event data for the Destination
 	CountedOutputSamplesResponse *components.CountedOutputSamplesResponse
 }
 

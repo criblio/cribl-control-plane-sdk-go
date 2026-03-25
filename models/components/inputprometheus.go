@@ -58,31 +58,6 @@ func (e *InputPrometheusDiscoveryType) IsExact() bool {
 	return false
 }
 
-// InputPrometheusLogLevel - Collector runtime log level
-type InputPrometheusLogLevel string
-
-const (
-	InputPrometheusLogLevelError InputPrometheusLogLevel = "error"
-	InputPrometheusLogLevelWarn  InputPrometheusLogLevel = "warn"
-	InputPrometheusLogLevelInfo  InputPrometheusLogLevel = "info"
-	InputPrometheusLogLevelDebug InputPrometheusLogLevel = "debug"
-)
-
-func (e InputPrometheusLogLevel) ToPointer() *InputPrometheusLogLevel {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputPrometheusLogLevel) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "warn", "info", "debug":
-			return true
-		}
-	}
-	return false
-}
-
 // MetricsProtocol - Protocol to use when collecting metrics
 type MetricsProtocol string
 
@@ -131,7 +106,7 @@ type InputPrometheus struct {
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
 	Interval float64 `json:"interval"`
 	// Collector runtime log level
-	LogLevel InputPrometheusLogLevel `json:"logLevel"`
+	LogLevel LogLevelOptions `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
@@ -319,9 +294,9 @@ func (i *InputPrometheus) GetInterval() float64 {
 	return i.Interval
 }
 
-func (i *InputPrometheus) GetLogLevel() InputPrometheusLogLevel {
+func (i *InputPrometheus) GetLogLevel() LogLevelOptions {
 	if i == nil {
-		return InputPrometheusLogLevel("")
+		return LogLevelOptions("")
 	}
 	return i.LogLevel
 }

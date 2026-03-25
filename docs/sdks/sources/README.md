@@ -1788,7 +1788,7 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: operations.CreateInputDiscoveryTypePrometheusStatic.ToPointer(),
             Interval: 60,
-            LogLevel: operations.CreateInputLogLevelPrometheusInfo,
+            LogLevel: components.LogLevelOptionsInfo,
             TargetList: []string{
                 "http://localhost:9090/metrics",
             },
@@ -2049,6 +2049,10 @@ func main() {
             Type: operations.CreateInputTypeServicenowTableServicenowTable,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Instance: "https://example.service-now.com",
+            CronSchedule: "0 * * * *",
+            Earliest: "-1d",
+            Latest: "now",
         },
     ))
     if err != nil {
@@ -4519,7 +4523,7 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: components.InputPrometheusDiscoveryTypeStatic.ToPointer(),
             Interval: 60,
-            LogLevel: components.InputPrometheusLogLevelInfo,
+            LogLevel: components.LogLevelOptionsInfo,
             TargetList: []string{
                 "http://localhost:9090/metrics",
             },
@@ -4774,6 +4778,10 @@ func main() {
             Type: components.InputServicenowTableTypeServicenowTable,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Instance: "https://example.service-now.com",
+            CronSchedule: "0 * * * *",
+            Earliest: "-1d",
+            Latest: "now",
         },
     ))
     if err != nil {

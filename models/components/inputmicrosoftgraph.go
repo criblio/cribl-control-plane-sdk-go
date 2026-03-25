@@ -104,7 +104,7 @@ type InputMicrosoftGraph struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *LogLevelOptions                 `json:"logLevel,omitzero"`
+	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
 	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	Description *string                          `json:"description,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
@@ -316,7 +316,7 @@ func (i *InputMicrosoftGraph) GetMaxTaskReschedule() *float64 {
 	return i.MaxTaskReschedule
 }
 
-func (i *InputMicrosoftGraph) GetLogLevel() *LogLevelOptions {
+func (i *InputMicrosoftGraph) GetLogLevel() *LogLevelOptionsDebugError {
 	if i == nil {
 		return nil
 	}
