@@ -485,21 +485,21 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetShouldMarkCriblBreaker()
 	return e.ShouldMarkCriblBreaker
 }
 
-type EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew string
+type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew string
 
 const (
-	// EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNewExisting Use Existing
-	EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNewExisting EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew = "existing"
-	// EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNewNew Create New
-	EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNewNew EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew = "new"
+	// EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNewExisting Use Existing
+	EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNewExisting EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew = "existing"
+	// EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNewNew Create New
+	EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNewNew EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew = "new"
 )
 
-func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew) ToPointer() *EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew {
+func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew) ToPointer() *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew) IsExact() bool {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "existing", "new":
@@ -509,60 +509,58 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew) IsExact() b
 	return false
 }
 
-type EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat struct {
+type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat struct {
 	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
 	Length *float64                                                  `json:"length,omitzero"`
 	Format *string                                                   `json:"format,omitzero"`
 }
 
-func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) MarshalJSON() ([]byte, error) {
+func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(e, "", false)
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) UnmarshalJSON(data []byte) error {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
 	if e == nil {
 		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
 	}
 	return e.Type
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) GetLength() *float64 {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat) GetLength() *float64 {
 	if e == nil {
 		return nil
 	}
 	return e.Length
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) GetFormat() *string {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat) GetFormat() *string {
 	if e == nil {
 		return nil
 	}
 	return e.Format
 }
 
-type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
-	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
+type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse struct {
+	// Automatically extract fields from JSON events. When disabled, only _raw and _time are defined on extracted events.
+	JSONExtractAll *bool                                                `json:"jsonExtractAll,omitzero"`
+	RuleType       *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
 	JSONArrayField *string `json:"jsonArrayField,omitzero"`
 	// Top-level fields to copy to the output events. Nested fields are not supported. 'Array field' is always excluded. If 'Array field' points to a nested array, the entire top-level object will be excluded. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
-	ParentFieldsToCopy []string `json:"parentFieldsToCopy,omitzero"`
-	// Automatically extract fields from JSON events. When disabled, only _raw and _time are defined on extracted events.
-	JSONExtractAll *bool `json:"jsonExtractAll,omitzero"`
-	// Optional path to timestamp field in extracted events, such as eventTime or level1.level2.eventTime.
-	JSONTimeField *string                                                    `json:"jsonTimeField,omitzero"`
-	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew `json:"existingOrNew"`
+	ParentFieldsToCopy []string                                                                      `json:"parentFieldsToCopy,omitzero"`
+	ExistingOrNew      EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                       `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string                                                                          `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -573,106 +571,378 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
 	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
 }
 
-func (e EventBreakerExistingOrNewNewRuleTypeJSONArray) MarshalJSON() ([]byte, error) {
+func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(e, "", false)
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) UnmarshalJSON(data []byte) error {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetRuleType() *EventBreakerTypeOptionsEventBreakerExistingOrNewNew {
-	if e == nil {
-		return nil
-	}
-	return e.RuleType
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetJSONArrayField() *string {
-	if e == nil {
-		return nil
-	}
-	return e.JSONArrayField
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetParentFieldsToCopy() []string {
-	if e == nil {
-		return nil
-	}
-	return e.ParentFieldsToCopy
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetJSONExtractAll() *bool {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetJSONExtractAll() *bool {
 	if e == nil {
 		return nil
 	}
 	return e.JSONExtractAll
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetJSONTimeField() *string {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetRuleType() *EventBreakerTypeOptionsEventBreakerExistingOrNewNew {
 	if e == nil {
 		return nil
 	}
-	return e.JSONTimeField
+	return e.RuleType
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetExistingOrNew() EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetJSONArrayField() *string {
 	if e == nil {
-		return EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew("")
+		return nil
+	}
+	return e.JSONArrayField
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetParentFieldsToCopy() []string {
+	if e == nil {
+		return nil
+	}
+	return e.ParentFieldsToCopy
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetExistingOrNew() EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew {
+	if e == nil {
+		return EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseExistingOrNew("")
 	}
 	return e.ExistingOrNew
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetMaxEventBytes() *float64 {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetMaxEventBytes() *float64 {
 	if e == nil {
 		return nil
 	}
 	return e.MaxEventBytes
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestampAnchorRegex() *string {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetTimestampAnchorRegex() *string {
 	if e == nil {
 		return nil
 	}
 	return e.TimestampAnchorRegex
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestamp() *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetTimestamp() *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalseTimestampFormat {
 	if e == nil {
 		return nil
 	}
 	return e.Timestamp
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestampTimezone() *string {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetTimestampTimezone() *string {
 	if e == nil {
 		return nil
 	}
 	return e.TimestampTimezone
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestampEarliest() *string {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetTimestampEarliest() *string {
 	if e == nil {
 		return nil
 	}
 	return e.TimestampEarliest
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestampLatest() *string {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetTimestampLatest() *string {
 	if e == nil {
 		return nil
 	}
 	return e.TimestampLatest
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetShouldMarkCriblBreaker() *bool {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) GetShouldMarkCriblBreaker() *bool {
 	if e == nil {
 		return nil
 	}
 	return e.ShouldMarkCriblBreaker
+}
+
+type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew string
+
+const (
+	// EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNewExisting Use Existing
+	EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNewExisting EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew = "existing"
+	// EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNewNew Create New
+	EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNewNew EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew = "new"
+)
+
+func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew) ToPointer() *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "existing", "new":
+			return true
+		}
+	}
+	return false
+}
+
+type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat struct {
+	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
+	Length *float64                                                  `json:"length,omitzero"`
+	Format *string                                                   `json:"format,omitzero"`
+}
+
+func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
+	if e == nil {
+		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
+	}
+	return e.Type
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat) GetLength() *float64 {
+	if e == nil {
+		return nil
+	}
+	return e.Length
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat) GetFormat() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Format
+}
+
+type EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue struct {
+	// Automatically extract fields from JSON events. When disabled, only _raw and _time are defined on extracted events.
+	JSONExtractAll *bool `json:"jsonExtractAll,omitzero"`
+	// Optional path to timestamp field in extracted events, such as eventTime or level1.level2.eventTime.
+	JSONTimeField *string                                              `json:"jsonTimeField,omitzero"`
+	RuleType      *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
+	// The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
+	JSONArrayField *string `json:"jsonArrayField,omitzero"`
+	// Top-level fields to copy to the output events. Nested fields are not supported. 'Array field' is always excluded. If 'Array field' points to a nested array, the entire top-level object will be excluded. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
+	ParentFieldsToCopy []string                                                                     `json:"parentFieldsToCopy,omitzero"`
+	ExistingOrNew      EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew `json:"existingOrNew"`
+	// The maximum number of bytes that an event can be before being flushed to the Pipelines
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
+	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
+	TimestampAnchorRegex *string                                                                         `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat `json:"timestamp,omitzero"`
+	// Timezone to assign to timestamps without timezone info
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
+	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
+	TimestampEarliest *string `json:"timestampEarliest,omitzero"`
+	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
+	TimestampLatest *string `json:"timestampLatest,omitzero"`
+	// Add this Function name to the cribl_breaker field
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+}
+
+func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetJSONExtractAll() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.JSONExtractAll
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetJSONTimeField() *string {
+	if e == nil {
+		return nil
+	}
+	return e.JSONTimeField
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetRuleType() *EventBreakerTypeOptionsEventBreakerExistingOrNewNew {
+	if e == nil {
+		return nil
+	}
+	return e.RuleType
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetJSONArrayField() *string {
+	if e == nil {
+		return nil
+	}
+	return e.JSONArrayField
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetParentFieldsToCopy() []string {
+	if e == nil {
+		return nil
+	}
+	return e.ParentFieldsToCopy
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetExistingOrNew() EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew {
+	if e == nil {
+		return EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueExistingOrNew("")
+	}
+	return e.ExistingOrNew
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetMaxEventBytes() *float64 {
+	if e == nil {
+		return nil
+	}
+	return e.MaxEventBytes
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetTimestampAnchorRegex() *string {
+	if e == nil {
+		return nil
+	}
+	return e.TimestampAnchorRegex
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetTimestamp() *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrueTimestampFormat {
+	if e == nil {
+		return nil
+	}
+	return e.Timestamp
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetTimestampTimezone() *string {
+	if e == nil {
+		return nil
+	}
+	return e.TimestampTimezone
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetTimestampEarliest() *string {
+	if e == nil {
+		return nil
+	}
+	return e.TimestampEarliest
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetTimestampLatest() *string {
+	if e == nil {
+		return nil
+	}
+	return e.TimestampLatest
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) GetShouldMarkCriblBreaker() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.ShouldMarkCriblBreaker
+}
+
+type EventBreakerExistingOrNewNewRuleTypeJSONArrayType string
+
+const (
+	EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue  EventBreakerExistingOrNewNewRuleTypeJSONArrayType = "EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue"
+	EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse EventBreakerExistingOrNewNewRuleTypeJSONArrayType = "EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse"
+)
+
+type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
+	EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue  *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue  `queryParam:"inline" union:"member"`
+	EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse *EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse `queryParam:"inline" union:"member"`
+
+	Type EventBreakerExistingOrNewNewRuleTypeJSONArrayType
+}
+
+func CreateEventBreakerExistingOrNewNewRuleTypeJSONArrayEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue(eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue) EventBreakerExistingOrNewNewRuleTypeJSONArray {
+	typ := EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue
+
+	return EventBreakerExistingOrNewNewRuleTypeJSONArray{
+		EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue: &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue,
+		Type: typ,
+	}
+}
+
+func CreateEventBreakerExistingOrNewNewRuleTypeJSONArrayEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse(eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse) EventBreakerExistingOrNewNewRuleTypeJSONArray {
+	typ := EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse
+
+	return EventBreakerExistingOrNewNewRuleTypeJSONArray{
+		EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse: &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse,
+		Type: typ,
+	}
+}
+
+func (u *EventBreakerExistingOrNewNewRuleTypeJSONArray) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue = EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue{}
+	if err := utils.UnmarshalJSON(data, &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue,
+			Value: &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue,
+		})
+	}
+
+	var eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse = EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse{}
+	if err := utils.UnmarshalJSON(data, &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse,
+			Value: &eventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for EventBreakerExistingOrNewNewRuleTypeJSONArray", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for EventBreakerExistingOrNewNewRuleTypeJSONArray", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(EventBreakerExistingOrNewNewRuleTypeJSONArrayType)
+	switch best.Type {
+	case EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue:
+		u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue = best.Value.(*EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue)
+		return nil
+	case EventBreakerExistingOrNewNewRuleTypeJSONArrayTypeEventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse:
+		u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse = best.Value.(*EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for EventBreakerExistingOrNewNewRuleTypeJSONArray", string(data))
+}
+
+func (u EventBreakerExistingOrNewNewRuleTypeJSONArray) MarshalJSON() ([]byte, error) {
+	if u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue != nil {
+		return utils.MarshalJSON(u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllTrue, "", true)
+	}
+
+	if u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse != nil {
+		return utils.MarshalJSON(u.EventBreakerExistingOrNewNewRuleTypeJSONArrayJSONExtractAllFalse, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type EventBreakerExistingOrNewNewRuleTypeJSONArray: all fields are null")
 }
 
 type EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew string
@@ -1040,9 +1310,6 @@ func CreateEventBreakerExistingOrNewNewJSON(json EventBreakerExistingOrNewNewRul
 
 func CreateEventBreakerExistingOrNewNewJSONArray(jsonArray EventBreakerExistingOrNewNewRuleTypeJSONArray) EventBreakerExistingOrNewNew {
 	typ := EventBreakerExistingOrNewNewTypeJSONArray
-
-	typStr := EventBreakerTypeOptionsEventBreakerExistingOrNewNew(typ)
-	jsonArray.RuleType = &typStr
 
 	return EventBreakerExistingOrNewNew{
 		EventBreakerExistingOrNewNewRuleTypeJSONArray: &jsonArray,

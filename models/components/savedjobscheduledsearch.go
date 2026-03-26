@@ -22,7 +22,7 @@ type SavedJobScheduledSearch struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Configuration for a scheduled job
-	Schedule *ScheduleTypeSavedJobResponseCollection `json:"schedule,omitzero"`
+	Schedule *ScheduleTypeSavedJobCollection `json:"schedule,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Identifies which search query to run
@@ -96,7 +96,7 @@ func (s *SavedJobScheduledSearch) GetEnvironment() *string {
 	return s.Environment
 }
 
-func (s *SavedJobScheduledSearch) GetSchedule() *ScheduleTypeSavedJobResponseCollection {
+func (s *SavedJobScheduledSearch) GetSchedule() *ScheduleTypeSavedJobCollection {
 	if s == nil {
 		return nil
 	}

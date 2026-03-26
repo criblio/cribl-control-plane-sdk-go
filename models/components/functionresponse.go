@@ -41,7 +41,6 @@ const (
 	FunctionResponseTypeLimit                     FunctionResponseType = "limit"
 	FunctionResponseTypeLocalSearchDatatypeParser FunctionResponseType = "local_search_datatype_parser"
 	FunctionResponseTypeLocalSearchRulesetRunner  FunctionResponseType = "local_search_ruleset_runner"
-	FunctionResponseTypeLocalSearchSchemaMapper   FunctionResponseType = "local_search_schema_mapper"
 	FunctionResponseTypeLocalSearchTransformer    FunctionResponseType = "local_search_transformer"
 	FunctionResponseTypeLookup                    FunctionResponseType = "lookup"
 	FunctionResponseTypeMask                      FunctionResponseType = "mask"
@@ -112,7 +111,6 @@ type FunctionResponse struct {
 	FunctionLimit                     *FunctionLimit                     `queryParam:"inline" union:"member"`
 	FunctionLocalSearchDatatypeParser *FunctionLocalSearchDatatypeParser `queryParam:"inline" union:"member"`
 	FunctionLocalSearchRulesetRunner  *FunctionLocalSearchRulesetRunner  `queryParam:"inline" union:"member"`
-	FunctionLocalSearchSchemaMapper   *FunctionLocalSearchSchemaMapper   `queryParam:"inline" union:"member"`
 	FunctionLocalSearchTransformer    *FunctionLocalSearchTransformer    `queryParam:"inline" union:"member"`
 	FunctionLookup                    *FunctionLookup                    `queryParam:"inline" union:"member"`
 	FunctionMask                      *FunctionMask                      `queryParam:"inline" union:"member"`
@@ -500,18 +498,6 @@ func CreateFunctionResponseLocalSearchRulesetRunner(localSearchRulesetRunner Fun
 	return FunctionResponse{
 		FunctionLocalSearchRulesetRunner: &localSearchRulesetRunner,
 		Type:                             typ,
-	}
-}
-
-func CreateFunctionResponseLocalSearchSchemaMapper(localSearchSchemaMapper FunctionLocalSearchSchemaMapper) FunctionResponse {
-	typ := FunctionResponseTypeLocalSearchSchemaMapper
-
-	typStr := FunctionLocalSearchSchemaMapperID(typ)
-	localSearchSchemaMapper.ID = typStr
-
-	return FunctionResponse{
-		FunctionLocalSearchSchemaMapper: &localSearchSchemaMapper,
-		Type:                            typ,
 	}
 }
 
@@ -1254,15 +1240,6 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 		u.FunctionLocalSearchRulesetRunner = functionLocalSearchRulesetRunner
 		u.Type = FunctionResponseTypeLocalSearchRulesetRunner
 		return nil
-	case "local_search_schema_mapper":
-		functionLocalSearchSchemaMapper := new(FunctionLocalSearchSchemaMapper)
-		if err := utils.UnmarshalJSON(data, &functionLocalSearchSchemaMapper, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_schema_mapper) type FunctionLocalSearchSchemaMapper within FunctionResponse: %w", string(data), err)
-		}
-
-		u.FunctionLocalSearchSchemaMapper = functionLocalSearchSchemaMapper
-		u.Type = FunctionResponseTypeLocalSearchSchemaMapper
-		return nil
 	case "local_search_transformer":
 		functionLocalSearchTransformer := new(FunctionLocalSearchTransformer)
 		if err := utils.UnmarshalJSON(data, &functionLocalSearchTransformer, "", true, nil); err != nil {
@@ -1719,10 +1696,6 @@ func (u FunctionResponse) MarshalJSON() ([]byte, error) {
 
 	if u.FunctionLocalSearchRulesetRunner != nil {
 		return utils.MarshalJSON(u.FunctionLocalSearchRulesetRunner, "", true)
-	}
-
-	if u.FunctionLocalSearchSchemaMapper != nil {
-		return utils.MarshalJSON(u.FunctionLocalSearchSchemaMapper, "", true)
 	}
 
 	if u.FunctionLocalSearchTransformer != nil {

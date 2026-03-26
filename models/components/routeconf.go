@@ -19,7 +19,7 @@ type RouteConf struct {
 	EnableOutputExpression *bool `json:"enableOutputExpression,omitzero"`
 	// JavaScript expression to select events for routing.
 	Filter *string `json:"filter,omitzero"`
-	// If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events. Defaults to <code>true</code> when not specified.
+	// If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events.
 	Final bool `json:"final"`
 	// Unique identifier for the Route Group that the Route is associated with.
 	GroupID *string `json:"groupId,omitzero"`

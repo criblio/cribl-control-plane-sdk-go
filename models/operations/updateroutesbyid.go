@@ -10,8 +10,8 @@ import (
 type UpdateRoutesByIDRequest struct {
 	// The <code>id</code> of the Routing table that contains the Route to update. The supported value is <code>default</code>.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// RoutesInput object
-	RoutesInput components.RoutesInput `request:"mediaType=application/json"`
+	// Routes object
+	Routes components.Routes `request:"mediaType=application/json"`
 }
 
 func (u *UpdateRoutesByIDRequest) GetID() string {
@@ -21,11 +21,11 @@ func (u *UpdateRoutesByIDRequest) GetID() string {
 	return u.ID
 }
 
-func (u *UpdateRoutesByIDRequest) GetRoutesInput() components.RoutesInput {
+func (u *UpdateRoutesByIDRequest) GetRoutes() components.Routes {
 	if u == nil {
-		return components.RoutesInput{}
+		return components.Routes{}
 	}
-	return u.RoutesInput
+	return u.Routes
 }
 
 type UpdateRoutesByIDResponse struct {

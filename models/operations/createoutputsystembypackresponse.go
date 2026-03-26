@@ -10,20 +10,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type CreateOutputSystemByPackPqControlsNewrelicEvents struct {
-}
-
-func (c CreateOutputSystemByPackPqControlsNewrelicEvents) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputSystemByPackPqControlsNewrelicEvents) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
 type CreateOutputSystemByPackOutputNewrelicEvents struct {
 	// Unique ID for this output
 	ID   string                                     `json:"id"`
@@ -74,7 +60,7 @@ type CreateOutputSystemByPackOutputNewrelicEvents struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType    *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
 	CustomURL   *string                                  `json:"customUrl,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -291,7 +277,7 @@ func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetOnBackpressure() *comp
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetAuthType() *components.AuthenticationMethodOptions3 {
 	if c == nil {
 		return nil
 	}
@@ -575,7 +561,7 @@ type CreateOutputSystemByPackOutputNewrelic struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -799,7 +785,7 @@ func (c *CreateOutputSystemByPackOutputNewrelic) GetOnBackpressure() *components
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputNewrelic) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (c *CreateOutputSystemByPackOutputNewrelic) GetAuthType() *components.AuthenticationMethodOptions3 {
 	if c == nil {
 		return nil
 	}
@@ -6451,7 +6437,7 @@ type CreateOutputSystemByPackOutputHoneycomb struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType    *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
@@ -6645,7 +6631,7 @@ func (c *CreateOutputSystemByPackOutputHoneycomb) GetOnBackpressure() *component
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputHoneycomb) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (c *CreateOutputSystemByPackOutputHoneycomb) GetAuthType() *components.AuthenticationMethodOptions3 {
 	if c == nil {
 		return nil
 	}
