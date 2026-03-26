@@ -40,7 +40,7 @@ func main() {
     res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
         AuthType: "connectionString",
         ConnectionString: criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000.0),
         DatabaseType: components.DatabaseConnectionTypeMysql,
         Description: "Production MySQL database for customer data",
         ID: "mysql-prod-db",
@@ -80,7 +80,7 @@ func main() {
 
     res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
         AuthType: "secret",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypeMysql,
         Description: "Analytics MySQL database",
         ID: "mysql-analytics-db",
@@ -122,7 +122,7 @@ func main() {
     res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
         AuthType: "connectionString",
         ConnectionString: criblcontrolplanesdkgo.Pointer("oracle.example.com:1521/ORCL"),
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypeOracle,
         Description: "Oracle ERP database",
         ID: "oracle-erp",
@@ -164,7 +164,7 @@ func main() {
 
     res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
         AuthType: "secrets",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         CredsSecrets: criblcontrolplanesdkgo.Pointer("oracle-secure-credentials"),
         DatabaseType: components.DatabaseConnectionTypeOracle,
         Description: "High-security Oracle database with credential secrets",
@@ -206,7 +206,7 @@ func main() {
 
     res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
         AuthType: "secret",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](20000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](20000.0),
         DatabaseType: components.DatabaseConnectionTypeOracle,
         Description: "Oracle data warehouse",
         ID: "oracle-warehouse",
@@ -250,7 +250,7 @@ func main() {
     res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
         AuthType: "connectionString",
         ConnectionString: criblcontrolplanesdkgo.Pointer("postgresql://warehouse_user:SecurePass456@postgres.example.com:5432/warehouse?sslmode=require"),
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypePostgres,
         Description: "Data warehouse PostgreSQL database",
         ID: "postgres-warehouse",
@@ -290,7 +290,7 @@ func main() {
 
     res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
         AuthType: "secret",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000.0),
         DatabaseType: components.DatabaseConnectionTypePostgres,
         Description: "Logs PostgreSQL database",
         ID: "postgres-logs",
@@ -335,7 +335,7 @@ func main() {
         DatabaseType: components.DatabaseConnectionTypeSqlserver,
         Description: "Reporting SQL Server database with custom config",
         ID: "sqlserver-reporting",
-        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](60000),
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](60000.0),
         Tags: criblcontrolplanesdkgo.Pointer("reporting,sqlserver,analytics"),
     })
     if err != nil {
@@ -373,11 +373,11 @@ func main() {
     res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
         AuthType: "connectionString",
         ConnectionString: criblcontrolplanesdkgo.Pointer("Server=sqlserver.example.com;Database=ERP;User Id=erp_admin;Password=ERP_Pass789!;Encrypt=true"),
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypeSqlserver,
         Description: "ERP SQL Server database",
         ID: "sqlserver-erp",
-        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](30000),
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](30000.0),
         Tags: criblcontrolplanesdkgo.Pointer("erp,sqlserver,finance"),
     })
     if err != nil {
@@ -414,11 +414,11 @@ func main() {
 
     res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
         AuthType: "secret",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypeSqlserver,
         Description: "CRM SQL Server database",
         ID: "sqlserver-crm",
-        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         Tags: criblcontrolplanesdkgo.Pointer("crm,sqlserver,sales"),
         TextSecret: criblcontrolplanesdkgo.Pointer("sqlserver-crm-connection"),
     })
@@ -595,7 +595,7 @@ func main() {
     res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
         AuthType: "connectionString",
         ConnectionString: criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000.0),
         DatabaseType: components.DatabaseConnectionTypeMysql,
         Description: "Production MySQL database for customer data",
         ID: "mysql-prod-db",
@@ -635,7 +635,7 @@ func main() {
 
     res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
         AuthType: "secret",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypeMysql,
         Description: "Analytics MySQL database",
         ID: "mysql-analytics-db",
@@ -677,7 +677,7 @@ func main() {
     res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
         AuthType: "connectionString",
         ConnectionString: criblcontrolplanesdkgo.Pointer("oracle.example.com:1521/ORCL"),
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypeOracle,
         Description: "Oracle ERP database",
         ID: "oracle-erp",
@@ -719,7 +719,7 @@ func main() {
 
     res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
         AuthType: "secrets",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         CredsSecrets: criblcontrolplanesdkgo.Pointer("oracle-secure-credentials"),
         DatabaseType: components.DatabaseConnectionTypeOracle,
         Description: "High-security Oracle database with credential secrets",
@@ -761,7 +761,7 @@ func main() {
 
     res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
         AuthType: "secret",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](20000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](20000.0),
         DatabaseType: components.DatabaseConnectionTypeOracle,
         Description: "Oracle data warehouse",
         ID: "oracle-warehouse",
@@ -805,7 +805,7 @@ func main() {
     res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
         AuthType: "connectionString",
         ConnectionString: criblcontrolplanesdkgo.Pointer("postgresql://warehouse_user:SecurePass456@postgres.example.com:5432/warehouse?sslmode=require"),
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypePostgres,
         Description: "Data warehouse PostgreSQL database",
         ID: "postgres-warehouse",
@@ -845,7 +845,7 @@ func main() {
 
     res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
         AuthType: "secret",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000.0),
         DatabaseType: components.DatabaseConnectionTypePostgres,
         Description: "Logs PostgreSQL database",
         ID: "postgres-logs",
@@ -890,7 +890,7 @@ func main() {
         DatabaseType: components.DatabaseConnectionTypeSqlserver,
         Description: "Reporting SQL Server database with custom config",
         ID: "sqlserver-reporting",
-        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](60000),
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](60000.0),
         Tags: criblcontrolplanesdkgo.Pointer("reporting,sqlserver,analytics"),
     })
     if err != nil {
@@ -928,11 +928,11 @@ func main() {
     res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
         AuthType: "connectionString",
         ConnectionString: criblcontrolplanesdkgo.Pointer("Server=sqlserver.example.com;Database=ERP;User Id=erp_admin;Password=ERP_Pass789!;Encrypt=true"),
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypeSqlserver,
         Description: "ERP SQL Server database",
         ID: "sqlserver-erp",
-        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](30000),
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](30000.0),
         Tags: criblcontrolplanesdkgo.Pointer("erp,sqlserver,finance"),
     })
     if err != nil {
@@ -969,11 +969,11 @@ func main() {
 
     res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
         AuthType: "secret",
-        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         DatabaseType: components.DatabaseConnectionTypeSqlserver,
         Description: "CRM SQL Server database",
         ID: "sqlserver-crm",
-        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](15000),
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
         Tags: criblcontrolplanesdkgo.Pointer("crm,sqlserver,sales"),
         TextSecret: criblcontrolplanesdkgo.Pointer("sqlserver-crm-connection"),
     })
