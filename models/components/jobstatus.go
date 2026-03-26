@@ -37,7 +37,9 @@ func (e *State) IsExact() bool {
 	return false
 }
 
+// JobStatus - Status of a job, including its current state and failure reason.
 type JobStatus struct {
+	// Reason the job entered its current <code>state</code>, typically populated upon failure.
 	Reason map[string]any `json:"reason,omitzero"`
 	// State of the Job
 	State State `json:"state"`

@@ -10,6 +10,83 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputContainer struct {
+	// Select the level of detail for container metrics
+	Mode *CreateInputContainerMode `json:"mode,omitzero"`
+	// Full paths for Docker's UNIX-domain socket
+	DockerSocket []string `json:"dockerSocket,omitzero"`
+	// Timeout, in seconds, for the Docker API
+	DockerTimeout *float64 `json:"dockerTimeout,omitzero"`
+	// Containers matching any of these will be included. All are included if no filters are added.
+	Filters []CreateInputContainerFilter `json:"filters,omitzero"`
+	// Include stopped and paused containers
+	AllContainers *bool `json:"allContainers,omitzero"`
+	// Generate separate metrics for each device
+	PerDevice *bool `json:"perDevice,omitzero"`
+	// Generate full container metrics
+	Detail *bool `json:"detail,omitzero"`
+}
+
+func (c CreateInputContainer) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputContainer) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputContainer) GetMode() *CreateInputContainerMode {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputContainer) GetDockerSocket() []string {
+	if c == nil {
+		return nil
+	}
+	return c.DockerSocket
+}
+
+func (c *CreateInputContainer) GetDockerTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DockerTimeout
+}
+
+func (c *CreateInputContainer) GetFilters() []CreateInputContainerFilter {
+	if c == nil {
+		return nil
+	}
+	return c.Filters
+}
+
+func (c *CreateInputContainer) GetAllContainers() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AllContainers
+}
+
+func (c *CreateInputContainer) GetPerDevice() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerDevice
+}
+
+func (c *CreateInputContainer) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
 type CreateInputPersistenceSystemMetrics struct {
 	// Spool metrics to disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`

@@ -1001,6 +1001,33 @@ func (e *CreateInputSystemByPackTypeServicenowTable) UnmarshalJSON(data []byte) 
 	}
 }
 
+// CreateInputSystemByPackDisplayValue - ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+type CreateInputSystemByPackDisplayValue string
+
+const (
+	// CreateInputSystemByPackDisplayValueFalse Raw
+	CreateInputSystemByPackDisplayValueFalse CreateInputSystemByPackDisplayValue = "false"
+	// CreateInputSystemByPackDisplayValueTrue Display
+	CreateInputSystemByPackDisplayValueTrue CreateInputSystemByPackDisplayValue = "true"
+	// CreateInputSystemByPackDisplayValueAll All
+	CreateInputSystemByPackDisplayValueAll CreateInputSystemByPackDisplayValue = "all"
+)
+
+func (e CreateInputSystemByPackDisplayValue) ToPointer() *CreateInputSystemByPackDisplayValue {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackDisplayValue) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "false", "true", "all":
+			return true
+		}
+	}
+	return false
+}
+
 // CreateInputSystemByPackAuthenticationTypeServicenowTable - ServiceNow Table API authentication method
 type CreateInputSystemByPackAuthenticationTypeServicenowTable string
 
@@ -1052,6 +1079,14 @@ type CreateInputSystemByPackInputServicenowTable struct {
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// ServiceNow instance base URL for Table API requests. Enter a literal URL (https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
 	Instance string `json:"instance"`
+	// ServiceNow table name to collect from.
+	TableName string `json:"tableName"`
+	// Field names to return from the Table API (sysparm_fields). Leave empty to return all fields.
+	Fields []string `json:"fields,omitzero"`
+	// ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+	DisplayValue *CreateInputSystemByPackDisplayValue `json:"displayValue,omitzero"`
+	// Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
+	PageSize *int64 `json:"pageSize,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// ServiceNow Table API authentication method
@@ -1204,6 +1239,34 @@ func (c *CreateInputSystemByPackInputServicenowTable) GetInstance() string {
 		return ""
 	}
 	return c.Instance
+}
+
+func (c *CreateInputSystemByPackInputServicenowTable) GetTableName() string {
+	if c == nil {
+		return ""
+	}
+	return c.TableName
+}
+
+func (c *CreateInputSystemByPackInputServicenowTable) GetFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Fields
+}
+
+func (c *CreateInputSystemByPackInputServicenowTable) GetDisplayValue() *CreateInputSystemByPackDisplayValue {
+	if c == nil {
+		return nil
+	}
+	return c.DisplayValue
+}
+
+func (c *CreateInputSystemByPackInputServicenowTable) GetPageSize() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.PageSize
 }
 
 func (c *CreateInputSystemByPackInputServicenowTable) GetRejectUnauthorized() *bool {
@@ -13987,81 +14050,4 @@ func (c *CreateInputSystemByPackContainerFilter) GetExpr() string {
 		return ""
 	}
 	return c.Expr
-}
-
-type CreateInputSystemByPackContainer struct {
-	// Select the level of detail for container metrics
-	Mode *CreateInputSystemByPackContainerMode `json:"mode,omitzero"`
-	// Full paths for Docker's UNIX-domain socket
-	DockerSocket []string `json:"dockerSocket,omitzero"`
-	// Timeout, in seconds, for the Docker API
-	DockerTimeout *float64 `json:"dockerTimeout,omitzero"`
-	// Containers matching any of these will be included. All are included if no filters are added.
-	Filters []CreateInputSystemByPackContainerFilter `json:"filters,omitzero"`
-	// Include stopped and paused containers
-	AllContainers *bool `json:"allContainers,omitzero"`
-	// Generate separate metrics for each device
-	PerDevice *bool `json:"perDevice,omitzero"`
-	// Generate full container metrics
-	Detail *bool `json:"detail,omitzero"`
-}
-
-func (c CreateInputSystemByPackContainer) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateInputSystemByPackContainer) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateInputSystemByPackContainer) GetMode() *CreateInputSystemByPackContainerMode {
-	if c == nil {
-		return nil
-	}
-	return c.Mode
-}
-
-func (c *CreateInputSystemByPackContainer) GetDockerSocket() []string {
-	if c == nil {
-		return nil
-	}
-	return c.DockerSocket
-}
-
-func (c *CreateInputSystemByPackContainer) GetDockerTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.DockerTimeout
-}
-
-func (c *CreateInputSystemByPackContainer) GetFilters() []CreateInputSystemByPackContainerFilter {
-	if c == nil {
-		return nil
-	}
-	return c.Filters
-}
-
-func (c *CreateInputSystemByPackContainer) GetAllContainers() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.AllContainers
-}
-
-func (c *CreateInputSystemByPackContainer) GetPerDevice() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.PerDevice
-}
-
-func (c *CreateInputSystemByPackContainer) GetDetail() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Detail
 }

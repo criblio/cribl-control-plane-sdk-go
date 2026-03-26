@@ -95,7 +95,7 @@ func main() {
         API: components.APITypeSystemSettingsConf{
             Disabled: false,
             Host: "0.0.0.0",
-            Port: 9000,
+            Port: 9000.0,
             Ssl: &components.SslTypeSystemSettingsConfAPI{
                 CertPath: "/opt/cribl/local/cribl/auth/cribl.crt",
                 Disabled: false,
@@ -123,7 +123,7 @@ func main() {
             },
         ),
         Shutdown: components.ShutdownTypeSystemSettingsConf{
-            DrainTimeout: 10000,
+            DrainTimeout: 10000.0,
         },
         Sni: components.CreateSniSettingsUnionSniSettings1(
             components.SniSettings1{
@@ -146,16 +146,16 @@ func main() {
         UpgradeGroupSettings: components.CreateUpgradeGroupSettingsUnionUpgradeGroupSettings1(
             components.UpgradeGroupSettings1{
                 IsRolling: criblcontrolplanesdkgo.Pointer(true),
-                Quantity: criblcontrolplanesdkgo.Pointer[float64](100),
-                RetryCount: criblcontrolplanesdkgo.Pointer[float64](5),
-                RetryDelay: criblcontrolplanesdkgo.Pointer[float64](1000),
+                Quantity: criblcontrolplanesdkgo.Pointer[float64](100.0),
+                RetryCount: criblcontrolplanesdkgo.Pointer[float64](5.0),
+                RetryDelay: criblcontrolplanesdkgo.Pointer[float64](1000.0),
             },
         ),
         UpgradeSettings: components.UpgradeSettings{},
         Workers: components.WorkersTypeSystemSettingsConf{
-            Count: 0,
-            Memory: 0,
-            Minimum: 1,
+            Count: 0.0,
+            Memory: 0.0,
+            Minimum: 1.0,
         },
     })
     if err != nil {

@@ -35,7 +35,7 @@ func main() {
     )
 
     res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-        Duration: 15,
+        Duration: 15.0,
         Filter: "__inputId.startsWith(\"http:\") && status >= 400 && status < 500",
         Level: components.CaptureLevelBeforeRoutes,
         MaxEvents: 500,
@@ -77,7 +77,7 @@ func main() {
     )
 
     res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-        Duration: 5,
+        Duration: 5.0,
         Filter: "sourcetype===\"pan:traffic\" && src_zone===\"trusted\"",
         Level: components.CaptureLevelBeforePreProcessingPipeline,
         MaxEvents: 100,
@@ -119,7 +119,7 @@ func main() {
     )
 
     res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-        Duration: 5,
+        Duration: 5.0,
         Filter: "sourcetype===\"pan:traffic\" && dest_geoip.country.iso_code === \"US\"",
         Level: components.CaptureLevelBeforePreProcessingPipeline,
         MaxEvents: 100,
@@ -161,7 +161,7 @@ func main() {
     )
 
     res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-        Duration: 5,
+        Duration: 5.0,
         Filter: "sourcetype===\"pan:traffic\"",
         Level: components.CaptureLevelBeforePreProcessingPipeline,
         MaxEvents: 100,

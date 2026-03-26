@@ -105,7 +105,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
-            Port: criblcontrolplanesdkgo.Pointer[float64](9109),
+            Port: criblcontrolplanesdkgo.Pointer[float64](9109.0),
         },
     ))
     if err != nil {
@@ -190,7 +190,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 8088,
+            Port: 8088.0,
             HecAPI: "/services/collector",
         },
     ))
@@ -322,7 +322,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -365,7 +365,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -408,7 +408,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10090,
+            Port: 10090.0,
         },
     ))
     if err != nil {
@@ -494,7 +494,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 8126,
+            Port: 8126.0,
         },
     ))
     if err != nil {
@@ -539,7 +539,7 @@ func main() {
             Samples: []operations.CreateInputSample{
                 operations.CreateInputSample{
                     Sample: "sample.json",
-                    EventsPerSec: 10,
+                    EventsPerSec: 10.0,
                 },
             },
         },
@@ -584,7 +584,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: operations.CreateInputDiscoveryTypeEdgePrometheusStatic,
-            Interval: 60,
+            Interval: 60.0,
             Targets: []operations.CreateInputTarget{
                 operations.CreateInputTarget{
                     Host: "localhost",
@@ -632,7 +632,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "localhost",
-            Port: 9200,
+            Port: 9200.0,
             ElasticAPI: "/",
         },
     ))
@@ -723,7 +723,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Command: "echo \"Hello World\"",
-            Interval: criblcontrolplanesdkgo.Pointer[float64](60),
+            Interval: criblcontrolplanesdkgo.Pointer[float64](60.0),
         },
     ))
     if err != nil {
@@ -808,7 +808,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -895,7 +895,7 @@ func main() {
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
                 PqEnabled: criblcontrolplanesdkgo.Pointer(false),
                 Host: "0.0.0.0",
-                Port: 10080,
+                Port: 10080.0,
                 PrometheusAPI: "/api/prom/push",
             },
         ),
@@ -940,7 +940,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -983,7 +983,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -1284,7 +1284,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
             LokiAPI: "/loki/api/v1/push",
         },
     ))
@@ -1328,7 +1328,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            UDPPort: criblcontrolplanesdkgo.Pointer[float64](8125),
+            UDPPort: criblcontrolplanesdkgo.Pointer[float64](8125.0),
         },
     ))
     if err != nil {
@@ -1414,7 +1414,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 57000,
+            Port: 57000.0,
         },
     ))
     if err != nil {
@@ -1506,7 +1506,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 2055,
+            Port: 2055.0,
         },
     ))
     if err != nil {
@@ -1744,7 +1744,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 4317,
+            Port: 4317.0,
         },
     ))
     if err != nil {
@@ -1787,7 +1787,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: operations.CreateInputDiscoveryTypePrometheusStatic.ToPointer(),
-            Interval: 60,
+            Interval: 60.0,
             LogLevel: components.LogLevelOptionsInfo,
             TargetList: []string{
                 "http://localhost:9090/metrics",
@@ -1834,7 +1834,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
             PrometheusAPI: "/write",
         },
     ))
@@ -1878,7 +1878,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 514,
+            Port: 514.0,
         },
     ))
     if err != nil {
@@ -2050,6 +2050,14 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Instance: "https://example.service-now.com",
+            TableName: "incident",
+            Fields: []string{
+                "sys_id",
+                "number",
+                "short_description",
+            },
+            DisplayValue: operations.CreateInputDisplayValueFalse.ToPointer(),
+            PageSize: criblcontrolplanesdkgo.Pointer[int64](10000),
             CronSchedule: "0 * * * *",
             Earliest: "-1d",
             Latest: "now",
@@ -2095,7 +2103,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "192.168.1.1",
-            Port: 161,
+            Port: 161.0,
         },
     ))
     if err != nil {
@@ -2138,7 +2146,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 9997,
+            Port: 9997.0,
         },
     ))
     if err != nil {
@@ -2181,7 +2189,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 8088,
+            Port: 8088.0,
             SplunkHecAPI: "/services/collector",
         },
     ))
@@ -2316,7 +2324,7 @@ func main() {
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
                 PqEnabled: criblcontrolplanesdkgo.Pointer(false),
                 Host: "0.0.0.0",
-                UDPPort: 514,
+                UDPPort: 514.0,
             },
         ),
     ))
@@ -2442,7 +2450,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10090,
+            Port: 10090.0,
         },
     ))
     if err != nil {
@@ -2485,7 +2493,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10090,
+            Port: 10090.0,
         },
     ))
     if err != nil {
@@ -2528,13 +2536,13 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 5985,
+            Port: 5985.0,
             Subscriptions: []operations.CreateInputSubscription{
                 operations.CreateInputSubscription{
                     SubscriptionName: "subscription-1",
                     ContentFormat: operations.CreateInputFormatRenderedText,
-                    HeartbeatInterval: 60,
-                    BatchTimeout: 5,
+                    HeartbeatInterval: 60.0,
+                    BatchTimeout: 5.0,
                     Targets: []string{},
                 },
             },
@@ -2711,7 +2719,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -2754,7 +2762,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 8088,
+            Port: 8088.0,
             HecAPI: "/services/collector",
         },
     ))
@@ -2878,7 +2886,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
-            Port: criblcontrolplanesdkgo.Pointer[float64](9109),
+            Port: criblcontrolplanesdkgo.Pointer[float64](9109.0),
         },
     ))
     if err != nil {
@@ -2961,7 +2969,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 8088,
+            Port: 8088.0,
             HecAPI: "/services/collector",
         },
     ))
@@ -3090,7 +3098,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -3132,7 +3140,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -3174,7 +3182,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10090,
+            Port: 10090.0,
         },
     ))
     if err != nil {
@@ -3258,7 +3266,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 8126,
+            Port: 8126.0,
         },
     ))
     if err != nil {
@@ -3302,7 +3310,7 @@ func main() {
             Samples: []components.Sample{
                 components.Sample{
                     Sample: "sample.json",
-                    EventsPerSec: 10,
+                    EventsPerSec: 10.0,
                 },
             },
         },
@@ -3346,7 +3354,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: components.InputEdgePrometheusDiscoveryTypeStatic,
-            Interval: 60,
+            Interval: 60.0,
             Targets: []components.Target{
                 components.Target{
                     Host: "localhost",
@@ -3393,7 +3401,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "localhost",
-            Port: 9200,
+            Port: 9200.0,
             ElasticAPI: "/",
         },
     ))
@@ -3482,7 +3490,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Command: "echo \"Hello World\"",
-            Interval: criblcontrolplanesdkgo.Pointer[float64](60),
+            Interval: criblcontrolplanesdkgo.Pointer[float64](60.0),
         },
     ))
     if err != nil {
@@ -3565,7 +3573,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -3650,7 +3658,7 @@ func main() {
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
                 PqEnabled: criblcontrolplanesdkgo.Pointer(false),
                 Host: "0.0.0.0",
-                Port: 10080,
+                Port: 10080.0,
                 PrometheusAPI: "/api/prom/push",
             },
         ),
@@ -3694,7 +3702,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -3736,7 +3744,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -4030,7 +4038,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
             LokiAPI: "/loki/api/v1/push",
         },
     ))
@@ -4073,7 +4081,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            UDPPort: criblcontrolplanesdkgo.Pointer[float64](8125),
+            UDPPort: criblcontrolplanesdkgo.Pointer[float64](8125.0),
         },
     ))
     if err != nil {
@@ -4157,7 +4165,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 57000,
+            Port: 57000.0,
         },
     ))
     if err != nil {
@@ -4247,7 +4255,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 2055,
+            Port: 2055.0,
         },
     ))
     if err != nil {
@@ -4480,7 +4488,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 4317,
+            Port: 4317.0,
         },
     ))
     if err != nil {
@@ -4522,7 +4530,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: components.InputPrometheusDiscoveryTypeStatic.ToPointer(),
-            Interval: 60,
+            Interval: 60.0,
             LogLevel: components.LogLevelOptionsInfo,
             TargetList: []string{
                 "http://localhost:9090/metrics",
@@ -4568,7 +4576,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
             PrometheusAPI: "/write",
         },
     ))
@@ -4611,7 +4619,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 514,
+            Port: 514.0,
         },
     ))
     if err != nil {
@@ -4779,6 +4787,14 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Instance: "https://example.service-now.com",
+            TableName: "incident",
+            Fields: []string{
+                "sys_id",
+                "number",
+                "short_description",
+            },
+            DisplayValue: components.DisplayValueFalse.ToPointer(),
+            PageSize: criblcontrolplanesdkgo.Pointer[int64](10000),
             CronSchedule: "0 * * * *",
             Earliest: "-1d",
             Latest: "now",
@@ -4823,7 +4839,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "192.168.1.1",
-            Port: 161,
+            Port: 161.0,
         },
     ))
     if err != nil {
@@ -4865,7 +4881,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 9997,
+            Port: 9997.0,
         },
     ))
     if err != nil {
@@ -4907,7 +4923,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 8088,
+            Port: 8088.0,
             SplunkHecAPI: "/services/collector",
         },
     ))
@@ -5039,7 +5055,7 @@ func main() {
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
                 PqEnabled: criblcontrolplanesdkgo.Pointer(false),
                 Host: "0.0.0.0",
-                UDPPort: 514,
+                UDPPort: 514.0,
             },
         ),
     ))
@@ -5162,7 +5178,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10090,
+            Port: 10090.0,
         },
     ))
     if err != nil {
@@ -5204,7 +5220,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10090,
+            Port: 10090.0,
         },
     ))
     if err != nil {
@@ -5246,13 +5262,13 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 5985,
+            Port: 5985.0,
             Subscriptions: []components.Subscription{
                 components.Subscription{
                     SubscriptionName: "subscription-1",
                     ContentFormat: components.InputWefFormatRenderedText,
-                    HeartbeatInterval: 60,
-                    BatchTimeout: 5,
+                    HeartbeatInterval: 60.0,
+                    BatchTimeout: 5.0,
                     Targets: []string{},
                 },
             },
@@ -5425,7 +5441,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 10080,
+            Port: 10080.0,
         },
     ))
     if err != nil {
@@ -5467,7 +5483,7 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
-            Port: 8088,
+            Port: 8088.0,
             HecAPI: "/services/collector",
         },
     ))

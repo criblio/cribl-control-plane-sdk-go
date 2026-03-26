@@ -10,6 +10,83 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputSystemByPackContainer struct {
+	// Select the level of detail for container metrics
+	Mode *CreateInputSystemByPackContainerMode `json:"mode,omitzero"`
+	// Full paths for Docker's UNIX-domain socket
+	DockerSocket []string `json:"dockerSocket,omitzero"`
+	// Timeout, in seconds, for the Docker API
+	DockerTimeout *float64 `json:"dockerTimeout,omitzero"`
+	// Containers matching any of these will be included. All are included if no filters are added.
+	Filters []CreateInputSystemByPackContainerFilter `json:"filters,omitzero"`
+	// Include stopped and paused containers
+	AllContainers *bool `json:"allContainers,omitzero"`
+	// Generate separate metrics for each device
+	PerDevice *bool `json:"perDevice,omitzero"`
+	// Generate full container metrics
+	Detail *bool `json:"detail,omitzero"`
+}
+
+func (c CreateInputSystemByPackContainer) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackContainer) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackContainer) GetMode() *CreateInputSystemByPackContainerMode {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackContainer) GetDockerSocket() []string {
+	if c == nil {
+		return nil
+	}
+	return c.DockerSocket
+}
+
+func (c *CreateInputSystemByPackContainer) GetDockerTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DockerTimeout
+}
+
+func (c *CreateInputSystemByPackContainer) GetFilters() []CreateInputSystemByPackContainerFilter {
+	if c == nil {
+		return nil
+	}
+	return c.Filters
+}
+
+func (c *CreateInputSystemByPackContainer) GetAllContainers() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AllContainers
+}
+
+func (c *CreateInputSystemByPackContainer) GetPerDevice() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerDevice
+}
+
+func (c *CreateInputSystemByPackContainer) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
 type CreateInputSystemByPackPersistenceSystemMetrics struct {
 	// Spool metrics to disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`

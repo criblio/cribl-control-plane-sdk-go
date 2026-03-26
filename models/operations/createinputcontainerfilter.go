@@ -1001,6 +1001,33 @@ func (e *CreateInputTypeServicenowTable) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// CreateInputDisplayValue - ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+type CreateInputDisplayValue string
+
+const (
+	// CreateInputDisplayValueFalse Raw
+	CreateInputDisplayValueFalse CreateInputDisplayValue = "false"
+	// CreateInputDisplayValueTrue Display
+	CreateInputDisplayValueTrue CreateInputDisplayValue = "true"
+	// CreateInputDisplayValueAll All
+	CreateInputDisplayValueAll CreateInputDisplayValue = "all"
+)
+
+func (e CreateInputDisplayValue) ToPointer() *CreateInputDisplayValue {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputDisplayValue) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "false", "true", "all":
+			return true
+		}
+	}
+	return false
+}
+
 // CreateInputAuthenticationTypeServicenowTable - ServiceNow Table API authentication method
 type CreateInputAuthenticationTypeServicenowTable string
 
@@ -1052,6 +1079,14 @@ type CreateInputInputServicenowTable struct {
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// ServiceNow instance base URL for Table API requests. Enter a literal URL (https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
 	Instance string `json:"instance"`
+	// ServiceNow table name to collect from.
+	TableName string `json:"tableName"`
+	// Field names to return from the Table API (sysparm_fields). Leave empty to return all fields.
+	Fields []string `json:"fields,omitzero"`
+	// ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+	DisplayValue *CreateInputDisplayValue `json:"displayValue,omitzero"`
+	// Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
+	PageSize *int64 `json:"pageSize,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// ServiceNow Table API authentication method
@@ -1204,6 +1239,34 @@ func (c *CreateInputInputServicenowTable) GetInstance() string {
 		return ""
 	}
 	return c.Instance
+}
+
+func (c *CreateInputInputServicenowTable) GetTableName() string {
+	if c == nil {
+		return ""
+	}
+	return c.TableName
+}
+
+func (c *CreateInputInputServicenowTable) GetFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Fields
+}
+
+func (c *CreateInputInputServicenowTable) GetDisplayValue() *CreateInputDisplayValue {
+	if c == nil {
+		return nil
+	}
+	return c.DisplayValue
+}
+
+func (c *CreateInputInputServicenowTable) GetPageSize() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.PageSize
 }
 
 func (c *CreateInputInputServicenowTable) GetRejectUnauthorized() *bool {
@@ -13987,81 +14050,4 @@ func (c *CreateInputContainerFilter) GetExpr() string {
 		return ""
 	}
 	return c.Expr
-}
-
-type CreateInputContainer struct {
-	// Select the level of detail for container metrics
-	Mode *CreateInputContainerMode `json:"mode,omitzero"`
-	// Full paths for Docker's UNIX-domain socket
-	DockerSocket []string `json:"dockerSocket,omitzero"`
-	// Timeout, in seconds, for the Docker API
-	DockerTimeout *float64 `json:"dockerTimeout,omitzero"`
-	// Containers matching any of these will be included. All are included if no filters are added.
-	Filters []CreateInputContainerFilter `json:"filters,omitzero"`
-	// Include stopped and paused containers
-	AllContainers *bool `json:"allContainers,omitzero"`
-	// Generate separate metrics for each device
-	PerDevice *bool `json:"perDevice,omitzero"`
-	// Generate full container metrics
-	Detail *bool `json:"detail,omitzero"`
-}
-
-func (c CreateInputContainer) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateInputContainer) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateInputContainer) GetMode() *CreateInputContainerMode {
-	if c == nil {
-		return nil
-	}
-	return c.Mode
-}
-
-func (c *CreateInputContainer) GetDockerSocket() []string {
-	if c == nil {
-		return nil
-	}
-	return c.DockerSocket
-}
-
-func (c *CreateInputContainer) GetDockerTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.DockerTimeout
-}
-
-func (c *CreateInputContainer) GetFilters() []CreateInputContainerFilter {
-	if c == nil {
-		return nil
-	}
-	return c.Filters
-}
-
-func (c *CreateInputContainer) GetAllContainers() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.AllContainers
-}
-
-func (c *CreateInputContainer) GetPerDevice() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.PerDevice
-}
-
-func (c *CreateInputContainer) GetDetail() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Detail
 }

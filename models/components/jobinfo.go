@@ -2,12 +2,17 @@
 
 package components
 
+// JobInfo - Detailed information about a job, including its configuration, status, and statistics.
 type JobInfo struct {
-	Args   RunnableJob                                     `json:"args"`
-	ID     string                                          `json:"id"`
-	Keep   *bool                                           `json:"keep,omitzero"`
-	Stats  map[string]AdditionalPropertiesTypeJobInfoStats `json:"stats"`
-	Status JobStatus                                       `json:"status"`
+	Args RunnableJob `json:"args"`
+	// Unique identifier for the job.
+	ID string `json:"id"`
+	// If <code>true</code>, retain the job and its artifacts instead of deleting according to the time-to-live or retention policy. The job persists until it is manually deleted.
+	Keep *bool `json:"keep,omitzero"`
+	// Counters and metrics collected during job execution.
+	Stats map[string]AdditionalPropertiesTypeJobInfoStats `json:"stats"`
+	// Status of a job, including its current state and failure reason.
+	Status JobStatus `json:"status"`
 }
 
 func (j *JobInfo) GetArgs() RunnableJob {
