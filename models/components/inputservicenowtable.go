@@ -31,6 +31,33 @@ func (e *InputServicenowTableType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// DisplayValue - ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+type DisplayValue string
+
+const (
+	// DisplayValueFalse Raw
+	DisplayValueFalse DisplayValue = "false"
+	// DisplayValueTrue Display
+	DisplayValueTrue DisplayValue = "true"
+	// DisplayValueAll All
+	DisplayValueAll DisplayValue = "all"
+)
+
+func (e DisplayValue) ToPointer() *DisplayValue {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DisplayValue) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "false", "true", "all":
+			return true
+		}
+	}
+	return false
+}
+
 // InputServicenowTableAuthenticationType - ServiceNow Table API authentication method
 type InputServicenowTableAuthenticationType string
 
@@ -82,6 +109,14 @@ type InputServicenowTable struct {
 	Pq          *PqType                        `json:"pq,omitzero"`
 	// ServiceNow instance base URL for Table API requests. Enter a literal URL (https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
 	Instance string `json:"instance"`
+	// ServiceNow table name to collect from.
+	TableName string `json:"tableName"`
+	// Field names to return from the Table API (sysparm_fields). Leave empty to return all fields.
+	Fields []string `json:"fields,omitzero"`
+	// ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+	DisplayValue *DisplayValue `json:"displayValue,omitzero"`
+	// Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
+	PageSize *int64 `json:"pageSize,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// ServiceNow Table API authentication method
@@ -234,6 +269,34 @@ func (i *InputServicenowTable) GetInstance() string {
 		return ""
 	}
 	return i.Instance
+}
+
+func (i *InputServicenowTable) GetTableName() string {
+	if i == nil {
+		return ""
+	}
+	return i.TableName
+}
+
+func (i *InputServicenowTable) GetFields() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Fields
+}
+
+func (i *InputServicenowTable) GetDisplayValue() *DisplayValue {
+	if i == nil {
+		return nil
+	}
+	return i.DisplayValue
+}
+
+func (i *InputServicenowTable) GetPageSize() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.PageSize
 }
 
 func (i *InputServicenowTable) GetRejectUnauthorized() *bool {
