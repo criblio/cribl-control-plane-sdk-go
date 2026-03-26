@@ -31,30 +31,6 @@ func (e *InputMicrosoftGraphType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// InputMicrosoftGraphAuthenticationMethod - Select authentication method.
-type InputMicrosoftGraphAuthenticationMethod string
-
-const (
-	InputMicrosoftGraphAuthenticationMethodOauth       InputMicrosoftGraphAuthenticationMethod = "oauth"
-	InputMicrosoftGraphAuthenticationMethodOauthSecret InputMicrosoftGraphAuthenticationMethod = "oauthSecret"
-	InputMicrosoftGraphAuthenticationMethodOauthCert   InputMicrosoftGraphAuthenticationMethod = "oauthCert"
-)
-
-func (e InputMicrosoftGraphAuthenticationMethod) ToPointer() *InputMicrosoftGraphAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputMicrosoftGraphAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "oauth", "oauthSecret", "oauthCert":
-			return true
-		}
-	}
-	return false
-}
-
 type InputMicrosoftGraph struct {
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitzero"`
@@ -86,7 +62,7 @@ type InputMicrosoftGraph struct {
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select authentication method.
-	AuthType *InputMicrosoftGraphAuthenticationMethod `json:"authType,omitzero"`
+	AuthType *AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
 	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
@@ -107,6 +83,12 @@ type InputMicrosoftGraph struct {
 	LogLevel    *LogLevelOptions `json:"logLevel,omitzero"`
 	RetryRules  *RetryRulesType1 `json:"retryRules,omitzero"`
 	Description *string          `json:"description,omitzero"`
+	// Username to run Microsoft Graph API call.
+	Username *string `json:"username,omitzero"`
+	// Password to run Microsoft Graph API call.
+	Password *string `json:"password,omitzero"`
+	// Select or create a secret that references your credentials.
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
@@ -115,7 +97,7 @@ type InputMicrosoftGraph struct {
 	ClientID *string `json:"clientId,omitzero"`
 	// Resource to pass in the OAuth request parameter.
 	Resource *string `json:"resource,omitzero"`
-	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
 	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string          `json:"textSecret,omitzero"`
@@ -253,7 +235,7 @@ func (i *InputMicrosoftGraph) GetDisableTimeFilter() *bool {
 	return i.DisableTimeFilter
 }
 
-func (i *InputMicrosoftGraph) GetAuthType() *InputMicrosoftGraphAuthenticationMethod {
+func (i *InputMicrosoftGraph) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -335,6 +317,27 @@ func (i *InputMicrosoftGraph) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputMicrosoftGraph) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputMicrosoftGraph) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputMicrosoftGraph) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
 }
 
 func (i *InputMicrosoftGraph) GetClientSecret() *string {

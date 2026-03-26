@@ -12,8 +12,8 @@ type UpdateRoutesByPackAndIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// The <code>id</code> of the Pack to update.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// RoutesInput object
-	RoutesInput components.RoutesInput `request:"mediaType=application/json"`
+	// Routes object
+	Routes components.Routes `request:"mediaType=application/json"`
 }
 
 func (u *UpdateRoutesByPackAndIDRequest) GetID() string {
@@ -30,11 +30,11 @@ func (u *UpdateRoutesByPackAndIDRequest) GetPack() string {
 	return u.Pack
 }
 
-func (u *UpdateRoutesByPackAndIDRequest) GetRoutesInput() components.RoutesInput {
+func (u *UpdateRoutesByPackAndIDRequest) GetRoutes() components.Routes {
 	if u == nil {
-		return components.RoutesInput{}
+		return components.Routes{}
 	}
-	return u.RoutesInput
+	return u.Routes
 }
 
 type UpdateRoutesByPackAndIDResponse struct {

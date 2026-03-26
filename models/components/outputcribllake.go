@@ -31,29 +31,6 @@ func (e *OutputCriblLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AwsAuthenticationMethod string
-
-const (
-	AwsAuthenticationMethodAuto    AwsAuthenticationMethod = "auto"
-	AwsAuthenticationMethodAutoRPC AwsAuthenticationMethod = "auto_rpc"
-	AwsAuthenticationMethodManual  AwsAuthenticationMethod = "manual"
-)
-
-func (e AwsAuthenticationMethod) ToPointer() *AwsAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AwsAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "auto_rpc", "manual":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputCriblLake struct {
 	// Unique ID for this output
 	ID   *string             `json:"id,omitzero"`
@@ -131,9 +108,9 @@ type OutputCriblLake struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                 `json:"maxClosingFilesToBackpressure,omitzero"`
-	AwsAuthenticationMethod       *AwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
-	Format                        *FormatOptions           `json:"format,omitzero"`
+	MaxClosingFilesToBackpressure *float64                        `json:"maxClosingFilesToBackpressure,omitzero"`
+	AwsAuthenticationMethod       *AwsAuthenticationMethodOptions `json:"awsAuthenticationMethod,omitzero"`
+	Format                        *FormatOptions                  `json:"format,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	Description            *string  `json:"description,omitzero"`
@@ -450,7 +427,7 @@ func (o *OutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
 	return o.MaxClosingFilesToBackpressure
 }
 
-func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethod {
+func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}

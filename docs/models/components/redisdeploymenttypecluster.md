@@ -1,16 +1,29 @@
 # RedisDeploymentTypeCluster
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                   | Type                                                                                                                                    | Required                                                                                                                                | Description                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `DeploymentType`                                                                                                                        | [*components.RedisDeploymentTypeClusterDeploymentType](../../models/components/redisdeploymenttypeclusterdeploymenttype.md)             | :heavy_minus_sign:                                                                                                                      | How the Redis server is configured. Defaults to Standalone                                                                              |
-| `RootNodes`                                                                                                                             | [][components.RedisDeploymentTypeClusterRootNode](../../models/components/redisdeploymenttypeclusterrootnode.md)                        | :heavy_minus_sign:                                                                                                                      | Root nodes to which the cluster connection should be initiated                                                                          |
-| `TLS`                                                                                                                                   | `*bool`                                                                                                                                 | :heavy_minus_sign:                                                                                                                      | Use TLS for connections to this cluster                                                                                                 |
-| `ScaleReads`                                                                                                                            | [*components.ScaleReads](../../models/components/scalereads.md)                                                                         | :heavy_minus_sign:                                                                                                                      | Which nodes read commands should be sent to                                                                                             |
-| `TLSOptions`                                                                                                                            | [*components.TLSOptionsTypeRedisDeploymentTypeCluster](../../models/components/tlsoptionstyperedisdeploymenttypecluster.md)             | :heavy_minus_sign:                                                                                                                      | N/A                                                                                                                                     |
-| `Commands`                                                                                                                              | [][components.RedisDeploymentTypeClusterCommand](../../models/components/redisdeploymenttypeclustercommand.md)                          | :heavy_check_mark:                                                                                                                      | N/A                                                                                                                                     |
-| `AuthType`                                                                                                                              | [*components.RedisDeploymentTypeClusterAuthenticationMethod](../../models/components/redisdeploymenttypeclusterauthenticationmethod.md) | :heavy_minus_sign:                                                                                                                      | N/A                                                                                                                                     |
-| `MaxBlockSecs`                                                                                                                          | `*float64`                                                                                                                              | :heavy_minus_sign:                                                                                                                      | Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.               |
-| `EnableClientSideCaching`                                                                                                               | `*bool`                                                                                                                                 | :heavy_minus_sign:                                                                                                                      | Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.   |
+### RedisDeploymentTypeClusterTLSTrue
+
+```go
+redisDeploymentTypeCluster := components.CreateRedisDeploymentTypeClusterRedisDeploymentTypeClusterTLSTrue(components.RedisDeploymentTypeClusterTLSTrue{/* values here */})
+```
+
+### RedisDeploymentTypeClusterTLSFalse
+
+```go
+redisDeploymentTypeCluster := components.CreateRedisDeploymentTypeClusterRedisDeploymentTypeClusterTLSFalse(components.RedisDeploymentTypeClusterTLSFalse{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch redisDeploymentTypeCluster.Type {
+	case components.RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSTrue:
+		// redisDeploymentTypeCluster.RedisDeploymentTypeClusterTLSTrue is populated
+	case components.RedisDeploymentTypeClusterTypeRedisDeploymentTypeClusterTLSFalse:
+		// redisDeploymentTypeCluster.RedisDeploymentTypeClusterTLSFalse is populated
+}
+```
