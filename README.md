@@ -709,7 +709,7 @@ func main() {
 	)
 
 	res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-		Duration:  5,
+		Duration:  5.0,
 		Filter:    "sourcetype===\"pan:traffic\"",
 		Level:     components.CaptureLevelBeforePreProcessingPipeline,
 		MaxEvents: 100,

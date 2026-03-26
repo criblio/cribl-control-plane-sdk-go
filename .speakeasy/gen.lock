@@ -1,24 +1,24 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: bc7f73941a79cbc9c3bf076fd4243e2a
-  docVersion: 4.17.1-alpha.1774307005086-d2efec2e
-  speakeasyVersion: 1.757.1
-  generationVersion: 2.866.2
-  releaseVersion: 0.7.0-alpha.10
-  configChecksum: be75ce4b9425d1e3d01dc6432f7e991c
+  docChecksum: 926ea8ecde785465a3ceea03791962c9
+  docVersion: 4.17.1-alpha.1774479808532-911e82d2
+  speakeasyVersion: 1.759.2
+  generationVersion: 2.869.23
+  releaseVersion: 0.7.0-alpha.11
+  configChecksum: 7018e8dfea8f947fab33eb41d04e3b8c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 6c52ab7d-2979-4957-be85-35e9c074cae9
-  pristine_commit_hash: 3764a3847989ff965946cbaee035ff08c5088a08
-  pristine_tree_hash: 507b43e60526fa53bde168d581ea55edb27f18ff
+  generation_id: 7d5aea6b-c891-4405-bbcd-991f22cd5c2f
+  pristine_commit_hash: 29609a49ff082d54f6ac29831f3a5d8ed417e8bc
+  pristine_tree_hash: 4a7e0088609e784c75db4b1beaea9ddd55512ba4
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.14
-    core: 3.13.36
+    core: 3.13.40
     defaultEnabledRetries: 0.2.0
     deprecations: 2.81.3
     devContainers: 2.90.0
@@ -61,8 +61,8 @@ trackedFiles:
     pristine_git_object: e6a994416d0f527912d2d272e2583458f4fc9bcb
   USAGE.md:
     id: 3aed33ce6e6f
-    last_write_checksum: sha1:de574497ae065830683e9ae61109ec9655ac0cff
-    pristine_git_object: 45686ee33c08e602e33cefc162bd80ff8ca648f9
+    last_write_checksum: sha1:52f2c16a77cd102971e3e0578cf3cf34cc7a7c06
+    pristine_git_object: 17670d5673cb894f000ec3377ab5948a2c2950f0
   acl.go:
     id: 2d8ed13a008a
     last_write_checksum: sha1:3a82e3edf0738b2d06c192221165ba88e288a5ed
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: b7f5948a58b932c7bfe411533ebee678285e4d32
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:c6ac7fa04281208ac38371f593c34c49c50b39f6
-    pristine_git_object: 295a3b226f1e5f66a23e471024142523acf31b3e
+    last_write_checksum: sha1:26ec888df4a623b101ad2aa733e9d63c03c20858
+    pristine_git_object: d17c2d86d5ee49d72faf36fff5c67131ffcecd64
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:e05a182b5a8d789d74e48e6f6c5f6af545c66d22
@@ -177,8 +177,8 @@ trackedFiles:
     pristine_git_object: 2b6dc6a3b9bf21038baf0c01aebc19ab0d8b111a
   docs/models/components/authenticationmethodoptions.md:
     id: 6418716cf251
-    last_write_checksum: sha1:3afa4d12fcfe783573e7dce93a93576c8f72cda0
-    pristine_git_object: e9a87bde52627d28b2c6d175cb4411f4e7101797
+    last_write_checksum: sha1:53f81e4cde376667479a62d259924ab919ab61e7
+    pristine_git_object: f76c1b1fa7183c3fa54322a165725fbf2143286e
   docs/models/components/authenticationmethodoptions1.md:
     id: cba291ae6e75
     last_write_checksum: sha1:f170fc4ba3e0eb2d53377f80a03a65f053e535ba
@@ -14393,8 +14393,8 @@ trackedFiles:
     pristine_git_object: 9a4fa7fb316ca83ff559bbafe3ee23cab40b3286
   docs/sdks/captures/README.md:
     id: 7598191d8c6a
-    last_write_checksum: sha1:bf4beb139907fffe62c19d81137d6e7b95861e16
-    pristine_git_object: ddb7cac690fe9f1168fd3d1b3aa21f0912ef5e9c
+    last_write_checksum: sha1:f6293831971d79ca66d267a0c46a64ed60423ad7
+    pristine_git_object: 8f721402c4c5e797b5a89dffb3af1df9f0946b86
   docs/sdks/collectors/README.md:
     id: b8ecaf222c71
     last_write_checksum: sha1:8f46c17ed5832919a914233f9d26826f4c68f72f
@@ -14413,12 +14413,12 @@ trackedFiles:
     pristine_git_object: 480965500623fbb43a914d2895217b3f3ecaf38b
   docs/sdks/databaseconnections/README.md:
     id: ef33daf326f1
-    last_write_checksum: sha1:cbde9be8a2620a3609cd5d6b039c51d00228c386
-    pristine_git_object: dfd33c9ceceb54bf84b317cfd1deac9ebc8e0945
+    last_write_checksum: sha1:b13348fc6596cffde6e954ddc50ce06c35d05216
+    pristine_git_object: 00ca11c1828bc7d09896408076b0a8178a8f6111
   docs/sdks/destinations/README.md:
     id: e83d288899aa
-    last_write_checksum: sha1:0bd96b017d54b965a953be414e39c143a4fa3af7
-    pristine_git_object: 47fe6331556763083584593b0e34bde350f34b39
+    last_write_checksum: sha1:f3bb6e56f43cd67f455b414b65d59cba976b4ef2
+    pristine_git_object: bf5ded1a17a38b3f869972136af4def2bdfa1bc6
   docs/sdks/destinationspq/README.md:
     id: 4e89748a1821
     last_write_checksum: sha1:4b9cdd0f58325d80a38d62d11d5b9fcf810fd827
@@ -14461,8 +14461,8 @@ trackedFiles:
     pristine_git_object: d906ecee7686b9ac065edfe78e07ae39e694232a
   docs/sdks/packsdestinations/README.md:
     id: 895ef2236167
-    last_write_checksum: sha1:a870a8335d2ad8664f32b876a17b8e9732621109
-    pristine_git_object: 1d0ad35b03ddfe4cdefc37d4b85840fa35d75680
+    last_write_checksum: sha1:fdd5e3e6e072b16e358e6e1c48bafb61908ee797
+    pristine_git_object: 272104500c032c2cae2c85ab84745739075fac08
   docs/sdks/packsdestinationspq/README.md:
     id: 12a1d2d7f4c4
     last_write_checksum: sha1:3923f0073270b4a0500a267f381ea33bfe5dd8e4
@@ -14477,8 +14477,8 @@ trackedFiles:
     pristine_git_object: 02b121170d0ce4c7dc5a44b06748da1ddb608fe9
   docs/sdks/packspipelines/README.md:
     id: b0262a36d64a
-    last_write_checksum: sha1:ab37fc9da3cc0c256b46f5b56aa30d38217b2702
-    pristine_git_object: 4a557ede7ab97c9b2a4a23c96676986dd0eac7ce
+    last_write_checksum: sha1:ea75bd3ef72cfd363022b8120b50e75c4f69264c
+    pristine_git_object: 6aaa14111260d88a2d0190ce3a1f327caf9bba89
   docs/sdks/packsroutes/README.md:
     id: a1fb73e27b09
     last_write_checksum: sha1:bb536fba2056f043b2181f8dc103620c9c139c87
@@ -14489,8 +14489,8 @@ trackedFiles:
     pristine_git_object: 3ad49c446222d885e414a1a93ba914045b425877
   docs/sdks/packssources/README.md:
     id: 91cf5c639969
-    last_write_checksum: sha1:148a95a2208fb1893d6e0f8ebd511424ddb6d1c0
-    pristine_git_object: bb53c1c6180cd394c9f58be0a45b8260bf7fe0e5
+    last_write_checksum: sha1:59aa99888462901d24a39eadcc59a2e8f09f3705
+    pristine_git_object: 0f37526f7a02ce2d9ef169d90125d36944359048
   docs/sdks/packssourcespq/README.md:
     id: cbbc4cefed4b
     last_write_checksum: sha1:806d1e86726fae7d68b65f2676499cf7e48491a1
@@ -14501,8 +14501,8 @@ trackedFiles:
     pristine_git_object: 3a5dd11cadbfb5fec7770f3bba9fb72721519377
   docs/sdks/pipelines/README.md:
     id: 96306a4a5f5a
-    last_write_checksum: sha1:f6a01d877b577192333630376526b670e175abad
-    pristine_git_object: 45eef0b080e67fb04bcfb1200205239b4b8d254b
+    last_write_checksum: sha1:dc921b0bae12afa235edbb06f3f681399c2520c3
+    pristine_git_object: 19efcc60a3684a553e40be1853f2be87411802be
   docs/sdks/routes/README.md:
     id: 8eceb878c9af
     last_write_checksum: sha1:aef1a40a30d4b7e99dfcefe3a8d4c00320f62742
@@ -14517,8 +14517,8 @@ trackedFiles:
     pristine_git_object: deaabe1fb35614b11ed0f25009be730f1beb3de5
   docs/sdks/sources/README.md:
     id: c1396b2a57d9
-    last_write_checksum: sha1:0a2f30c2a32922e8370822ca64298fbe7f49ea8c
-    pristine_git_object: 70c343dc5af67f74cc858920228176b347278180
+    last_write_checksum: sha1:9a680c99483a11259974be37de94dc630d7b6e01
+    pristine_git_object: 4569147fe4c4d478002b89f1e794fc7544a7f46a
   docs/sdks/sourcespq/README.md:
     id: 08e24f4817a2
     last_write_checksum: sha1:d928c35e9ca3e7d7732ab7b8044bb65bae4a4f26
@@ -14693,8 +14693,8 @@ trackedFiles:
     pristine_git_object: 5abecfb7be4aaf9c52aa3d4b4fff51f45ba3a97c
   models/components/authenticationmethodoptions.go:
     id: d44bdae75ca0
-    last_write_checksum: sha1:1d6872a7e16efd206deb1f2b9979ac1705144848
-    pristine_git_object: 81f89e1b96ecd4dfb252c5f84c451e4eed6ccba1
+    last_write_checksum: sha1:86806e7bec1935d50926a611b826b7bd12dea01d
+    pristine_git_object: 4334e3819613d77c1255c6e89d922e8ff36f8e5b
   models/components/authenticationmethodoptions1.go:
     id: 6e24b8e0e3d0
     last_write_checksum: sha1:895c79d65b87783ad231b6ec63819f7686a9fadb
@@ -28374,7 +28374,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody.union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n  *  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output.union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n  *  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n  *  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n  *  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[].union(prometheus).UsePrometheusHistogramBucketSuffix` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

@@ -5,10 +5,12 @@ package components
 type AuthenticationMethodOptions string
 
 const (
-	AuthenticationMethodOptionsManual       AuthenticationMethodOptions = "manual"
-	AuthenticationMethodOptionsSecret       AuthenticationMethodOptions = "secret"
-	AuthenticationMethodOptionsClientSecret AuthenticationMethodOptions = "clientSecret"
-	AuthenticationMethodOptionsClientCert   AuthenticationMethodOptions = "clientCert"
+	AuthenticationMethodOptionsManual             AuthenticationMethodOptions = "manual"
+	AuthenticationMethodOptionsSecret             AuthenticationMethodOptions = "secret"
+	AuthenticationMethodOptionsClientSecret       AuthenticationMethodOptions = "clientSecret"
+	AuthenticationMethodOptionsClientCert         AuthenticationMethodOptions = "clientCert"
+	AuthenticationMethodOptionsClientAssertion    AuthenticationMethodOptions = "clientAssertion"
+	AuthenticationMethodOptionsClientAssertionRPC AuthenticationMethodOptions = "clientAssertion_rpc"
 )
 
 func (e AuthenticationMethodOptions) ToPointer() *AuthenticationMethodOptions {
@@ -19,7 +21,7 @@ func (e AuthenticationMethodOptions) ToPointer() *AuthenticationMethodOptions {
 func (e *AuthenticationMethodOptions) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "manual", "secret", "clientSecret", "clientCert":
+		case "manual", "secret", "clientSecret", "clientCert", "clientAssertion", "clientAssertion_rpc":
 			return true
 		}
 	}

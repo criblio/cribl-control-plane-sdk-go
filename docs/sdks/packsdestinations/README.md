@@ -577,76 +577,76 @@ func main() {
             TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
-            TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60),
+            TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60.0),
             ExcludeFields: []string{
                 "__kube_*",
                 "__metadata",
                 "__winEvent",
             },
             Compression: components.CompressionOptions1Gzip.ToPointer(),
-            Concurrency: criblcontrolplanesdkgo.Pointer[float64](5),
-            MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096),
-            MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0),
+            Concurrency: criblcontrolplanesdkgo.Pointer[float64](5.0),
+            MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096.0),
+            MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0.0),
             RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
-            TimeoutSec: criblcontrolplanesdkgo.Pointer[float64](30),
-            FlushPeriodSec: criblcontrolplanesdkgo.Pointer[float64](1),
+            TimeoutSec: criblcontrolplanesdkgo.Pointer[float64](30.0),
+            FlushPeriodSec: criblcontrolplanesdkgo.Pointer[float64](1.0),
             FailedRequestLoggingMode: components.FailedRequestLoggingModeOptionsNone.ToPointer(),
             SafeHeaders: []string{},
             ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
             ResponseRetrySettings: []components.ItemsTypeResponseRetrySettings{
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 401,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000),
+                    HTTPStatus: 401.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 403,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000),
+                    HTTPStatus: 403.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 408,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 408.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 429,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 429.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 500,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 500.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 502,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 502.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 503,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 503.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 504,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 504.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 509,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 509.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
             },
             TimeoutRetrySettings: &components.TimeoutRetrySettingsType{
@@ -696,7 +696,7 @@ func main() {
             ID: "cribl-tcp-output",
             Type: operations.CreateOutputSystemByPackTypeCriblTCPCriblTCP,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
-            Port: criblcontrolplanesdkgo.Pointer[float64](10090),
+            Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
     ))
     if err != nil {
@@ -1449,7 +1449,7 @@ func main() {
             Type: operations.CreateOutputSystemByPackTypeGraphiteGraphite,
             Protocol: components.DestinationProtocolOptionsTCP,
             Host: "localhost",
-            Port: 2003,
+            Port: 2003.0,
         },
     ))
     if err != nil {
@@ -1910,7 +1910,7 @@ func main() {
             Hosts: []operations.CreateOutputSystemByPackHostNetflow{
                 operations.CreateOutputSystemByPackHostNetflow{
                     Host: "localhost",
-                    Port: 2055,
+                    Port: 2055.0,
                 },
             },
         },
@@ -2457,7 +2457,7 @@ func main() {
             Hosts: []operations.CreateOutputSystemByPackHostSnmp{
                 operations.CreateOutputSystemByPackHostSnmp{
                     Host: "192.168.1.1",
-                    Port: 161,
+                    Port: 161.0,
                 },
             },
         },
@@ -2542,7 +2542,7 @@ func main() {
             ID: "splunk-output",
             Type: operations.CreateOutputSystemByPackTypeSplunkSplunk,
             Host: "localhost",
-            Port: 9997,
+            Port: 9997.0,
         },
     ))
     if err != nil {
@@ -2624,7 +2624,7 @@ func main() {
             Hosts: []components.ItemsTypeHosts{
                 components.ItemsTypeHosts{
                     Host: "localhost",
-                    Port: 9997,
+                    Port: 9997.0,
                 },
             },
         },
@@ -2710,7 +2710,7 @@ func main() {
             Type: operations.CreateOutputSystemByPackTypeStatsdStatsd,
             Protocol: components.DestinationProtocolOptionsUDP,
             Host: "localhost",
-            Port: 8125,
+            Port: 8125.0,
         },
     ))
     if err != nil {
@@ -2752,7 +2752,7 @@ func main() {
             Type: operations.CreateOutputSystemByPackTypeStatsdExtStatsdExt,
             Protocol: components.DestinationProtocolOptionsUDP,
             Host: "localhost",
-            Port: 8125,
+            Port: 8125.0,
         },
     ))
     if err != nil {
@@ -2833,7 +2833,7 @@ func main() {
             ID: "syslog-output",
             Type: operations.CreateOutputSystemByPackTypeSyslogSyslog,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
-            Port: criblcontrolplanesdkgo.Pointer[float64](514),
+            Port: criblcontrolplanesdkgo.Pointer[float64](514.0),
         },
     ))
     if err != nil {
@@ -2874,7 +2874,7 @@ func main() {
             ID: "tcpjson-output",
             Type: operations.CreateOutputSystemByPackTypeTcpjsonTcpjson,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
-            Port: criblcontrolplanesdkgo.Pointer[float64](10090),
+            Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
     ))
     if err != nil {
@@ -3625,76 +3625,76 @@ func main() {
             TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
-            TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60),
+            TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60.0),
             ExcludeFields: []string{
                 "__kube_*",
                 "__metadata",
                 "__winEvent",
             },
             Compression: components.CompressionOptions1Gzip.ToPointer(),
-            Concurrency: criblcontrolplanesdkgo.Pointer[float64](5),
-            MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096),
-            MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0),
+            Concurrency: criblcontrolplanesdkgo.Pointer[float64](5.0),
+            MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096.0),
+            MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0.0),
             RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
-            TimeoutSec: criblcontrolplanesdkgo.Pointer[float64](30),
-            FlushPeriodSec: criblcontrolplanesdkgo.Pointer[float64](1),
+            TimeoutSec: criblcontrolplanesdkgo.Pointer[float64](30.0),
+            FlushPeriodSec: criblcontrolplanesdkgo.Pointer[float64](1.0),
             FailedRequestLoggingMode: components.FailedRequestLoggingModeOptionsNone.ToPointer(),
             SafeHeaders: []string{},
             ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
             ResponseRetrySettings: []components.ItemsTypeResponseRetrySettings{
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 401,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000),
+                    HTTPStatus: 401.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 403,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000),
+                    HTTPStatus: 403.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 408,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 408.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 429,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 429.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 500,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 500.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 502,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 502.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 503,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 503.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 504,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 504.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
                 components.ItemsTypeResponseRetrySettings{
-                    HTTPStatus: 509,
-                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250),
-                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2),
-                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000),
+                    HTTPStatus: 509.0,
+                    InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
+                    BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
+                    MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
             },
             TimeoutRetrySettings: &components.TimeoutRetrySettingsType{
@@ -3743,7 +3743,7 @@ func main() {
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-output"),
             Type: components.OutputCriblTCPTypeCriblTCP,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
-            Port: criblcontrolplanesdkgo.Pointer[float64](10090),
+            Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
     ))
     if err != nil {
@@ -4478,7 +4478,7 @@ func main() {
             Type: components.OutputGraphiteTypeGraphite,
             Protocol: components.DestinationProtocolOptionsTCP,
             Host: "localhost",
-            Port: 2003,
+            Port: 2003.0,
         },
     ))
     if err != nil {
@@ -4928,7 +4928,7 @@ func main() {
             Hosts: []components.OutputNetflowHost{
                 components.OutputNetflowHost{
                     Host: "localhost",
-                    Port: 2055,
+                    Port: 2055.0,
                 },
             },
         },
@@ -5462,7 +5462,7 @@ func main() {
             Hosts: []components.OutputSnmpHost{
                 components.OutputSnmpHost{
                     Host: "192.168.1.1",
-                    Port: 161,
+                    Port: 161.0,
                 },
             },
         },
@@ -5545,7 +5545,7 @@ func main() {
             ID: criblcontrolplanesdkgo.Pointer("splunk-output"),
             Type: components.OutputSplunkTypeSplunk,
             Host: "localhost",
-            Port: 9997,
+            Port: 9997.0,
         },
     ))
     if err != nil {
@@ -5625,7 +5625,7 @@ func main() {
             Hosts: []components.ItemsTypeHosts{
                 components.ItemsTypeHosts{
                     Host: "localhost",
-                    Port: 9997,
+                    Port: 9997.0,
                 },
             },
         },
@@ -5709,7 +5709,7 @@ func main() {
             Type: components.OutputStatsdTypeStatsd,
             Protocol: components.DestinationProtocolOptionsUDP,
             Host: "localhost",
-            Port: 8125,
+            Port: 8125.0,
         },
     ))
     if err != nil {
@@ -5750,7 +5750,7 @@ func main() {
             Type: components.OutputStatsdExtTypeStatsdExt,
             Protocol: components.DestinationProtocolOptionsUDP,
             Host: "localhost",
-            Port: 8125,
+            Port: 8125.0,
         },
     ))
     if err != nil {
@@ -5829,7 +5829,7 @@ func main() {
             ID: criblcontrolplanesdkgo.Pointer("syslog-output"),
             Type: components.OutputSyslogTypeSyslog,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
-            Port: criblcontrolplanesdkgo.Pointer[float64](514),
+            Port: criblcontrolplanesdkgo.Pointer[float64](514.0),
         },
     ))
     if err != nil {
@@ -5869,7 +5869,7 @@ func main() {
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-output"),
             Type: components.OutputTcpjsonTypeTcpjson,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
-            Port: criblcontrolplanesdkgo.Pointer[float64](10090),
+            Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
     ))
     if err != nil {
