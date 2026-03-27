@@ -582,6 +582,9 @@ func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateFormat() *string
 	return c.TemplateFormat
 }
 
+// #region class-body-createoutputsystembypackoutputcloudflarer2
+// #endregion class-body-createoutputsystembypackoutputcloudflarer2
+
 type CreateOutputSystemByPackTypeMicrosoftFabric string
 
 const (
@@ -7770,6 +7773,9 @@ func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateAwsAPIKey() *string {
 	return c.TemplateAwsAPIKey
 }
 
+// #region class-body-createoutputsystembypackoutputdls3
+// #endregion class-body-createoutputsystembypackoutputdls3
+
 type CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem string
 
 const (
@@ -12467,6 +12473,9 @@ func (c *CreateOutputSystemByPackOutputGrafanaCloudPqControls2) UnmarshalJSON(da
 	return nil
 }
 
+// #region class-body-createoutputsystembypackoutputgrafanacloudpqcontrols2
+// #endregion class-body-createoutputsystembypackoutputgrafanacloudpqcontrols2
+
 type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 struct {
 	// Unique ID for this output
 	ID   string                                          `json:"id"`
@@ -12864,6 +12873,9 @@ func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetTemplatePro
 	return c.TemplatePrometheusURL
 }
 
+// #region class-body-createoutputsystembypackoutputgrafanacloudgrafanacloud2
+// #endregion class-body-createoutputsystembypackoutputgrafanacloudgrafanacloud2
+
 type CreateOutputSystemByPackOutputGrafanaCloudType1 string
 
 const (
@@ -12900,6 +12912,9 @@ func (c *CreateOutputSystemByPackOutputGrafanaCloudPqControls1) UnmarshalJSON(da
 	}
 	return nil
 }
+
+// #region class-body-createoutputsystembypackoutputgrafanacloudpqcontrols1
+// #endregion class-body-createoutputsystembypackoutputgrafanacloudpqcontrols1
 
 type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 struct {
 	// Unique ID for this output
@@ -13297,6 +13312,9 @@ func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetTemplatePro
 	}
 	return c.TemplatePrometheusURL
 }
+
+// #region class-body-createoutputsystembypackoutputgrafanacloudgrafanacloud1
+// #endregion class-body-createoutputsystembypackoutputgrafanacloudgrafanacloud1
 
 type CreateOutputSystemByPackOutputGrafanaCloudUnionType string
 

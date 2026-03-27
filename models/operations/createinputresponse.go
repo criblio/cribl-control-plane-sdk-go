@@ -3406,6 +3406,9 @@ func (c *CreateInputInputOffice365MsgTrace) GetTemplateResource() *string {
 	return c.TemplateResource
 }
 
+// #region class-body-createinputinputoffice365msgtrace
+// #endregion class-body-createinputinputoffice365msgtrace
+
 type CreateInputTypeOffice365Service string
 
 const (
@@ -3485,6 +3488,9 @@ func (c *CreateInputContentConfigOffice365Service) GetEnabled() *bool {
 	}
 	return c.Enabled
 }
+
+// #region class-body-createinputcontentconfigoffice365service
+// #endregion class-body-createinputcontentconfigoffice365service
 
 type CreateInputInputOffice365Service struct {
 	// Unique ID for this input
@@ -3756,6 +3762,9 @@ func (c *CreateInputInputOffice365Service) GetTemplateClientSecret() *string {
 	return c.TemplateClientSecret
 }
 
+// #region class-body-createinputinputoffice365service
+// #endregion class-body-createinputinputoffice365service
+
 type CreateInputTypeOffice365Mgmt string
 
 const (
@@ -3835,6 +3844,9 @@ func (c *CreateInputContentConfigOffice365Mgmt) GetEnabled() *bool {
 	}
 	return c.Enabled
 }
+
+// #region class-body-createinputcontentconfigoffice365mgmt
+// #endregion class-body-createinputcontentconfigoffice365mgmt
 
 type CreateInputInputOffice365Mgmt struct {
 	// Unique ID for this input
@@ -4132,6 +4144,9 @@ func (c *CreateInputInputOffice365Mgmt) GetTemplateClientSecret() *string {
 	}
 	return c.TemplateClientSecret
 }
+
+// #region class-body-createinputinputoffice365mgmt
+// #endregion class-body-createinputinputoffice365mgmt
 
 type CreateInputTypeEdgePrometheus string
 
@@ -6132,6 +6147,9 @@ func (c *CreateInputPrometheusAuth2) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+// #region class-body-createinputprometheusauth2
+// #endregion class-body-createinputprometheusauth2
+
 type CreateInputLokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
@@ -6197,6 +6215,9 @@ func (c *CreateInputLokiAuth2) GetTextSecret() *string {
 	}
 	return c.TextSecret
 }
+
+// #region class-body-createinputlokiauth2
+// #endregion class-body-createinputlokiauth2
 
 type CreateInputInputGrafanaGrafana2 struct {
 	// Unique ID for this input
@@ -6493,6 +6514,9 @@ func (c *CreateInputInputGrafanaGrafana2) GetTemplatePort() *string {
 	return c.TemplatePort
 }
 
+// #region class-body-createinputinputgrafanagrafana2
+// #endregion class-body-createinputinputgrafanagrafana2
+
 type CreateInputInputGrafanaType1 string
 
 const (
@@ -6582,6 +6606,9 @@ func (c *CreateInputPrometheusAuth1) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+// #region class-body-createinputprometheusauth1
+// #endregion class-body-createinputprometheusauth1
+
 type CreateInputLokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
@@ -6647,6 +6674,9 @@ func (c *CreateInputLokiAuth1) GetTextSecret() *string {
 	}
 	return c.TextSecret
 }
+
+// #region class-body-createinputlokiauth1
+// #endregion class-body-createinputlokiauth1
 
 type CreateInputInputGrafanaGrafana1 struct {
 	// Unique ID for this input
@@ -6942,6 +6972,9 @@ func (c *CreateInputInputGrafanaGrafana1) GetTemplatePort() *string {
 	}
 	return c.TemplatePort
 }
+
+// #region class-body-createinputinputgrafanagrafana1
+// #endregion class-body-createinputinputgrafanagrafana1
 
 type CreateInputInputGrafanaUnionType string
 

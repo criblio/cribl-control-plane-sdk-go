@@ -582,6 +582,9 @@ func (c *CreateOutputOutputCloudflareR2) GetTemplateFormat() *string {
 	return c.TemplateFormat
 }
 
+// #region class-body-createoutputoutputcloudflarer2
+// #endregion class-body-createoutputoutputcloudflarer2
+
 type CreateOutputTypeMicrosoftFabric string
 
 const (
@@ -7770,6 +7773,9 @@ func (c *CreateOutputOutputDlS3) GetTemplateAwsAPIKey() *string {
 	return c.TemplateAwsAPIKey
 }
 
+// #region class-body-createoutputoutputdls3
+// #endregion class-body-createoutputoutputdls3
+
 type CreateOutputTypeCrowdstrikeNextGenSiem string
 
 const (
@@ -12467,6 +12473,9 @@ func (c *CreateOutputOutputGrafanaCloudPqControls2) UnmarshalJSON(data []byte) e
 	return nil
 }
 
+// #region class-body-createoutputoutputgrafanacloudpqcontrols2
+// #endregion class-body-createoutputoutputgrafanacloudpqcontrols2
+
 type CreateOutputOutputGrafanaCloudGrafanaCloud2 struct {
 	// Unique ID for this output
 	ID   string                              `json:"id"`
@@ -12864,6 +12873,9 @@ func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetTemplatePrometheusURL()
 	return c.TemplatePrometheusURL
 }
 
+// #region class-body-createoutputoutputgrafanacloudgrafanacloud2
+// #endregion class-body-createoutputoutputgrafanacloudgrafanacloud2
+
 type CreateOutputOutputGrafanaCloudType1 string
 
 const (
@@ -12900,6 +12912,9 @@ func (c *CreateOutputOutputGrafanaCloudPqControls1) UnmarshalJSON(data []byte) e
 	}
 	return nil
 }
+
+// #region class-body-createoutputoutputgrafanacloudpqcontrols1
+// #endregion class-body-createoutputoutputgrafanacloudpqcontrols1
 
 type CreateOutputOutputGrafanaCloudGrafanaCloud1 struct {
 	// Unique ID for this output
@@ -13297,6 +13312,9 @@ func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetTemplatePrometheusURL()
 	}
 	return c.TemplatePrometheusURL
 }
+
+// #region class-body-createoutputoutputgrafanacloudgrafanacloud1
+// #endregion class-body-createoutputoutputgrafanacloudgrafanacloud1
 
 type CreateOutputOutputGrafanaCloudUnionType string
 
