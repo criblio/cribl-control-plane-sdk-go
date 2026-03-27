@@ -1,0 +1,29 @@
+# RestAuthenticationNoneRestRetryRulesTypeStatic
+
+
+## Supported Types
+
+### RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse
+
+```go
+restAuthenticationNoneRestRetryRulesTypeStatic := components.CreateRestAuthenticationNoneRestRetryRulesTypeStaticRestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse(components.RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse{/* values here */})
+```
+
+### RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue
+
+```go
+restAuthenticationNoneRestRetryRulesTypeStatic := components.CreateRestAuthenticationNoneRestRetryRulesTypeStaticRestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue(components.RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationNoneRestRetryRulesTypeStatic.Type {
+	case components.RestAuthenticationNoneRestRetryRulesTypeStaticTypeRestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse:
+		// restAuthenticationNoneRestRetryRulesTypeStatic.RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderFalse is populated
+	case components.RestAuthenticationNoneRestRetryRulesTypeStaticTypeRestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue:
+		// restAuthenticationNoneRestRetryRulesTypeStatic.RestAuthenticationNoneRestRetryRulesTypeStaticEnableHeaderTrue is populated
+}
+```

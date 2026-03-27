@@ -1,0 +1,24 @@
+# RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethod
+
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethodGet
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethod("custom_value")
+```
+
+
+## Values
+
+| Name                                                                                                    | Value                                                                                                   |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethodGet`          | get                                                                                                     |
+| `RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethodPost`         | post                                                                                                    |
+| `RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethodPostWithBody` | post_with_body                                                                                          |
+| `RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPEnableDiscoverCodeFalseDiscoverMethodOther`        | other                                                                                                   |

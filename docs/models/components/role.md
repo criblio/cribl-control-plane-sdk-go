@@ -1,0 +1,22 @@
+# Role
+
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.RoleStandby
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.Role("custom_value")
+```
+
+
+## Values
+
+| Name          | Value         |
+| ------------- | ------------- |
+| `RoleStandby` | standby       |
+| `RolePrimary` | primary       |
