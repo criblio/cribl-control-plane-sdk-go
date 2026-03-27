@@ -1,0 +1,20 @@
+# PipelineFunctionLocalSearchDatatypeParserID
+
+Function ID
+
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.PipelineFunctionLocalSearchDatatypeParserIDLocalSearchDatatypeParser
+```
+
+
+## Values
+
+| Name                                                                   | Value                                                                  |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `PipelineFunctionLocalSearchDatatypeParserIDLocalSearchDatatypeParser` | local_search_datatype_parser                                           |

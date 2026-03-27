@@ -1,0 +1,47 @@
+# RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery
+
+
+## Supported Types
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHTTP
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryHTTP(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeJSON
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryJSON(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeList
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryList(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeNone
+
+```go
+restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery := components.CreateRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryNone(components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeNone{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery.Type {
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryTypeHTTP:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHTTP is populated
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryTypeJSON:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeJSON is populated
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryTypeList:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeList is populated
+	case components.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryTypeNone:
+		// restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeNone is populated
+	default:
+		// Unknown type - use restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery.GetUnknownRaw() for raw JSON
+}
+```

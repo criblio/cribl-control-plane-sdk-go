@@ -1,0 +1,29 @@
+# RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic
+
+
+## Supported Types
+
+### RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse
+
+```go
+restAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic := components.CreateRestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticRestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse(components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue
+
+```go
+restAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic := components.CreateRestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticRestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue(components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic.Type {
+	case components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticTypeRestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse:
+		// restAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderFalse is populated
+	case components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticTypeRestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue:
+		// restAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStaticEnableHeaderTrue is populated
+}
+```

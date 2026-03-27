@@ -1,0 +1,29 @@
+# RestAuthenticationHmacRestRetryRulesTypeBackoff
+
+
+## Supported Types
+
+### RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse
+
+```go
+restAuthenticationHmacRestRetryRulesTypeBackoff := components.CreateRestAuthenticationHmacRestRetryRulesTypeBackoffRestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse(components.RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse{/* values here */})
+```
+
+### RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue
+
+```go
+restAuthenticationHmacRestRetryRulesTypeBackoff := components.CreateRestAuthenticationHmacRestRetryRulesTypeBackoffRestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue(components.RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationHmacRestRetryRulesTypeBackoff.Type {
+	case components.RestAuthenticationHmacRestRetryRulesTypeBackoffTypeRestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse:
+		// restAuthenticationHmacRestRetryRulesTypeBackoff.RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderFalse is populated
+	case components.RestAuthenticationHmacRestRetryRulesTypeBackoffTypeRestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue:
+		// restAuthenticationHmacRestRetryRulesTypeBackoff.RestAuthenticationHmacRestRetryRulesTypeBackoffEnableHeaderTrue is populated
+}
+```

@@ -1,0 +1,29 @@
+# RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff
+
+
+## Supported Types
+
+### RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse
+
+```go
+restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff := components.CreateRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse(components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue
+
+```go
+restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff := components.CreateRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue(components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff.Type {
+	case components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffTypeRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse:
+		// restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse is populated
+	case components.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffTypeRestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue:
+		// restAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue is populated
+}
+```

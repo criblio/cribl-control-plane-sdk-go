@@ -1,0 +1,47 @@
+# RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPGet(components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPPost(components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPPostWithBody(components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
+
+```go
+restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPOther(components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP.Type {
+	case components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeGet:
+		// restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypePost:
+		// restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	case components.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPTypeOther:
+		// restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther is populated
+	default:
+		// Unknown type - use restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```

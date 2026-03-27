@@ -1,0 +1,29 @@
+# RestCollectMethodPostWithBodyRestRetryRulesTypeStatic
+
+
+## Supported Types
+
+### RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse
+
+```go
+restCollectMethodPostWithBodyRestRetryRulesTypeStatic := components.CreateRestCollectMethodPostWithBodyRestRetryRulesTypeStaticRestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse(components.RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse{/* values here */})
+```
+
+### RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue
+
+```go
+restCollectMethodPostWithBodyRestRetryRulesTypeStatic := components.CreateRestCollectMethodPostWithBodyRestRetryRulesTypeStaticRestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue(components.RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restCollectMethodPostWithBodyRestRetryRulesTypeStatic.Type {
+	case components.RestCollectMethodPostWithBodyRestRetryRulesTypeStaticTypeRestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse:
+		// restCollectMethodPostWithBodyRestRetryRulesTypeStatic.RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderFalse is populated
+	case components.RestCollectMethodPostWithBodyRestRetryRulesTypeStaticTypeRestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue:
+		// restCollectMethodPostWithBodyRestRetryRulesTypeStatic.RestCollectMethodPostWithBodyRestRetryRulesTypeStaticEnableHeaderTrue is populated
+}
+```

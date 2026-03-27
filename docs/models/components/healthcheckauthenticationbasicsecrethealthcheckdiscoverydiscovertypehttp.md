@@ -1,0 +1,39 @@
+# HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPGet(components.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPPost(components.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP := components.CreateHealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPPostWithBody(components.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP.Type {
+	case components.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypeGet:
+		// healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePost:
+		// healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP.HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	default:
+		// Unknown type - use healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```
