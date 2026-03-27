@@ -40,7 +40,7 @@ const (
 
 func main() {
 	ctx := context.Background()
-	baseURL := fmt.Sprintf("https://%s-%s.cribl.cloud/api/v1", WORKSPACE_NAME, ORG_ID)
+	baseURL := fmt.Sprintf("https://%s-%s.cribl.cloud", WORKSPACE_NAME, ORG_ID)
 
 	// Create authenticated SDK client with OAuth2
 	client := criblcontrolplanesdkgo.New(

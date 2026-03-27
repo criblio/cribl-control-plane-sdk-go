@@ -30,6 +30,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
@@ -55,14 +56,13 @@ const (
 func main() {
 	ctx := context.Background()
 
-	// Initialize Cribl client
 	client, err := CreateCriblClient(ctx)
 	if err != nil {
 		log.Fatalf("Failed to create Cribl client: %v", err)
 	}
 
-	groupURL := fmt.Sprintf("%s/m/%s", BaseURL, WORKER_GROUP_ID)
-	packURL := fmt.Sprintf("%s/p/%s", groupURL, PACK_ID)
+	wg := client.InGroup(WORKER_GROUP_ID)
+	packURL := strings.TrimRight(BaseURL, "/") + "/api/v1/m/" + WORKER_GROUP_ID + "/p/" + PACK_ID
 
 	// Check if Worker Group exists first
 	getResponse, err := client.Groups.Get(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, nil)
@@ -75,7 +75,7 @@ func main() {
 	fmt.Printf("✅ Worker Group '%s' exists, proceeding with Pack installation.\n", WORKER_GROUP_ID)
 
 	// First, check if Pack already exists and clean up
-	client.Packs.Delete(ctx, PACK_ID, operations.WithServerURL(groupURL))
+	wg.Packs.Delete(ctx, PACK_ID)
 
 	// Install Pack from URL
 	fmt.Printf("Installing Pack from: %s\n", PACK_URL)
@@ -86,7 +86,7 @@ func main() {
 		},
 	)
 
-	_, err = client.Packs.Install(ctx, installReq, operations.WithServerURL(groupURL))
+	_, err = wg.Packs.Install(ctx, installReq)
 	if err != nil {
 		log.Printf("Error installing Pack - %v", err)
 	} else {
@@ -108,7 +108,7 @@ func main() {
 			SendToRoutes: &sendToRoutes,
 		},
 	)
-	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(packURL))
+	_, err = wg.Sources.Create(ctx, createInputRequest, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error creating TCP JSON Source in Pack: %v", err)
 	} else {
@@ -134,7 +134,7 @@ func main() {
 	}
 
 	createOutputRequest := operations.CreateCreateOutputRequestS3(s3Destination)
-	_, err = client.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(packURL))
+	_, err = wg.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error creating Amazon S3 Destination in Pack: %v", err)
 	} else {
@@ -165,7 +165,7 @@ func main() {
 		Conf: conf,
 	}
 
-	_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(packURL))
+	_, err = wg.Pipelines.Create(ctx, pipeline, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error creating Pipeline in Pack: %v", err)
 	} else {
@@ -173,7 +173,7 @@ func main() {
 	}
 
 	// Get existing Routes and add new Route
-	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(packURL))
+	routesListResponse, err := wg.Routes.List(ctx, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error listing routes in pack: %v", err)
 	} else if routesListResponse.CountedRoutes != nil && routesListResponse.CountedRoutes.Items != nil && len(routesListResponse.CountedRoutes.Items) > 0 {
@@ -197,7 +197,7 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
+			_, err = wg.Routes.Update(ctx, existingRoutes.ID, components.Routes{
 				ID:     existingRoutes.ID,
 				Routes: updatedRoutes,
 			}, operations.WithServerURL(packURL))

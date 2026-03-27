@@ -7,6 +7,9 @@ require (
 	github.com/joho/godotenv v1.5.1
 )
 
-require golang.org/x/sync v0.8.0 // indirect
+require (
+	github.com/spyzhov/ajson v0.8.0 // indirect
+	golang.org/x/sync v0.8.0 // indirect
+)
 
 replace github.com/criblio/cribl-control-plane-sdk-go => ../

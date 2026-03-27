@@ -46,13 +46,12 @@ const (
 func main() {
 	ctx := context.Background()
 
-	// Initialize Cribl client
 	client, err := CreateCriblClient(ctx)
 	if err != nil {
 		log.Fatalf("Failed to create Cribl client: %v", err)
 	}
 
-	groupURL := fmt.Sprintf("%s/m/%s", BaseURL, WORKER_GROUP_ID)
+	wg := client.InGroup(WORKER_GROUP_ID)
 
 	// Check if Worker Group already exists
 	getResponse, err := client.Groups.Get(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, nil)
@@ -94,7 +93,7 @@ func main() {
 		SendToRoutes: &sendToRoutes,
 	}
 	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONSource)
-	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(groupURL))
+	_, err = wg.Sources.Create(ctx, createInputRequest)
 	if err != nil {
 		log.Printf("Error creating TCP JSON Source: %v", err)
 	} else {
@@ -111,7 +110,7 @@ func main() {
 	}
 
 	createOutputRequest := operations.CreateCreateOutputRequestFilesystem(fileSystemDestination)
-	_, err = client.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(groupURL))
+	_, err = wg.Destinations.Create(ctx, createOutputRequest)
 	if err != nil {
 		log.Printf("Error creating Filesystem Destination: %v", err)
 	} else {
@@ -142,7 +141,7 @@ func main() {
 		Conf: conf,
 	}
 
-	_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(groupURL))
+	_, err = wg.Pipelines.Create(ctx, pipeline)
 	if err != nil {
 		log.Printf("Error creating Pipeline: %v", err)
 	} else {
@@ -150,7 +149,7 @@ func main() {
 	}
 
 	// Get existing Routes and add new Route
-	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(groupURL))
+	routesListResponse, err := wg.Routes.List(ctx)
 	if err != nil {
 		log.Printf("Error listing routes: %v", err)
 	} else if routesListResponse.CountedRoutes != nil && routesListResponse.CountedRoutes.Items != nil && len(routesListResponse.CountedRoutes.Items) > 0 {
@@ -174,10 +173,10 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
+			_, err = wg.Routes.Update(ctx, existingRoutes.ID, components.Routes{
 				ID:     existingRoutes.ID,
 				Routes: updatedRoutes,
-			}, operations.WithServerURL(groupURL))
+			})
 
 			if err != nil {
 				log.Printf("Error updating routes: %v", err)
@@ -195,7 +194,7 @@ func main() {
 		Files:     []string{"."},
 	}
 
-	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, operations.WithServerURL(groupURL))
+	commitResponse, err := wg.Versions.Commits.Create(ctx, commitParams)
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
 	} else if commitResponse.CountedGitCommitSummary != nil && commitResponse.CountedGitCommitSummary.Items != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {

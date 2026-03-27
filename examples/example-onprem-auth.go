@@ -86,7 +86,7 @@ func getJWTExp(token string) (time.Time, error) {
 
 func main() {
 	ctx := context.Background()
-	baseURL := fmt.Sprintf("%s/api/v1", ONPREM_SERVER_URL)
+	baseURL := ONPREM_SERVER_URL
 
 	// Create client for retrieving Bearer token
 	tokenClient := criblcontrolplanesdkgo.New(baseURL)

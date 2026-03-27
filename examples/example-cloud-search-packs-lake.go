@@ -11,8 +11,8 @@ The example:
 Prerequisites: Replace the placeholder values for ORG_ID, CLIENT_ID,
 CLIENT_SECRET, and WORKSPACE_NAME with your Organization ID, Client ID and
 Secret, and Workspace name. To get your CLIENT_ID and CLIENT_SECRET values,
-follow the steps at 
-https://docs.cribl.io/cribl-as-code/authentication/#cloud-auth. 
+follow the steps at
+https://docs.cribl.io/cribl-as-code/authentication/#cloud-auth.
 Your Client ID
 and Secret are sensitive information and should be kept private.
 
@@ -28,7 +28,6 @@ import (
 
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 )
 
 // Configuration constants - Replace with your actual values
@@ -73,8 +72,11 @@ func main() {
 		},
 	)
 
-	searchGroupURL := fmt.Sprintf("https://%s.cribl.cloud/api/v1/search", WORKSPACE)
-	s.Packs.Install(ctx, installReq, operations.WithServerURL(searchGroupURL))
+	search := s.InGroup("default_search")
+	if _, err := search.Packs.Install(ctx, installReq); err != nil {
+		fmt.Printf("pack install: %v\n", err)
+		return
+	}
 
 	// Create Lake Dataset
 	fmt.Printf("Creating Lake Dataset: %s\n", DATASET_ID)

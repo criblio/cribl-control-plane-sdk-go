@@ -48,7 +48,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
@@ -73,13 +72,13 @@ func main() {
 	}
 
 	workerGroupID := "my-worker-group"
-	groupURL := fmt.Sprintf("https://api.example.com/m/%s", workerGroupID)
+	wg := s.InGroup(workerGroupID)
 
 	// Create a TCP JSON Source
 	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := "your-auth-token"
 	sendToRoutes := true
-	source, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestTcpjson(operations.InputTcpjson{
+	source, err := wg.Sources.Create(ctx, operations.CreateCreateInputRequestTcpjson(operations.InputTcpjson{
 		ID:           "my-tcp-json",
 		Type:         operations.CreateInputTypeTcpjsonTcpjson,
 		Host:         "0.0.0.0",
@@ -87,17 +86,17 @@ func main() {
 		AuthType:     &authType,
 		AuthToken:    &authToken,
 		SendToRoutes: &sendToRoutes,
-	}), operations.WithServerURL(groupURL))
+	}))
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Create a Filesystem Destination
-	destination, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestFilesystem(operations.OutputFilesystem{
+	destination, err := wg.Destinations.Create(ctx, operations.CreateCreateOutputRequestFilesystem(operations.OutputFilesystem{
 		ID:       "my-fs-destination",
 		Type:     operations.TypeFilesystemFilesystem,
 		DestPath: "/tmp/my-output",
-	}), operations.WithServerURL(groupURL))
+	}))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -107,7 +106,7 @@ func main() {
 	asyncFuncTimeout := int64(1000)
 	filter := "true"
 	final := true
-	pipeline, err := s.Pipelines.Create(ctx, components.PipelineInput{
+	pipeline, err := wg.Pipelines.Create(ctx, components.PipelineInput{
 		ID: "my-pipeline",
 		Conf: components.ConfInput{
 			AsyncFuncTimeout: &asyncFuncTimeout,
@@ -124,13 +123,13 @@ func main() {
 				}),
 			},
 		},
-	}, operations.WithServerURL(groupURL))
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Add Route to Routing table
-	routesListResponse, err := s.Routes.List(ctx, operations.WithServerURL(groupURL))
+	routesListResponse, err := wg.Routes.List(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -172,10 +171,10 @@ func main() {
 				TargetContext:           r.TargetContext,
 			})
 		}
-		_, err = s.Routes.Update(ctx, routes.Items[0].ID, components.RoutesInput{
+		_, err = wg.Routes.Update(ctx, routes.Items[0].ID, components.RoutesInput{
 			ID:     routes.Items[0].ID,
 			Routes: updatedRoutes,
-		}, operations.WithServerURL(groupURL))
+		})
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -183,11 +182,11 @@ func main() {
 
 	// Commit configuration changes
 	effective := true
-	commitResponse, err := s.Versions.Commits.Create(ctx, components.GitCommitBody{
+	commitResponse, err := wg.Versions.Commits.Create(ctx, components.GitCommitBody{
 		Message:   "Initial configuration",
 		Effective: &effective,
 		Files:     []string{"."},
-	}, &workerGroupID)
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -206,9 +205,6 @@ func main() {
 }
 
 ```
-
-> [!NOTE]
-> Additional examples demonstrating various SDK features and use cases can be found in the [`examples`](./examples) directory.
 
 <!-- No End SDK Example Usage [usage] -->
 
@@ -537,7 +533,6 @@ func main() {
 		for res.CapturedEvent.Next() {
 			event, _ := res.CapturedEvent.Value()
 			log.Print(event)
-			// Handle the event
 		}
 	}
 }
@@ -782,13 +777,7 @@ func main() {
 	)
 
 	res, err := s.Nodes.List(ctx, operations.GetProductsWorkersByProductRequest{
-		Product:   components.ProductsBaseStream,
-		FilterExp: criblcontrolplanesdkgo.Pointer("<value>"),
-		SortExp:   criblcontrolplanesdkgo.Pointer("<value>"),
-		Filter:    criblcontrolplanesdkgo.Pointer("<value>"),
-		Sort:      criblcontrolplanesdkgo.Pointer("<value>"),
-		Limit:     criblcontrolplanesdkgo.Pointer[int64](881129),
-		Offset:    criblcontrolplanesdkgo.Pointer[int64](990978),
+		Product: components.ProductsBaseStream,
 	})
 	if err != nil {
 		log.Fatal(err)
