@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 8916e444e8720b7a5a31c501b1a861a8
-  docVersion: 4.18.0-alpha.1774479808928-10da8442
+  docChecksum: 857c1954a86a4fe5ac0b3fd1b35170fe
+  docVersion: 4.18.0-alpha.1774566306015-cba67aae
   speakeasyVersion: 1.759.2
   generationVersion: 2.869.23
-  releaseVersion: 0.7.0-beta.10
-  configChecksum: 4550a9a89559e2b4ab8f206151909d84
+  releaseVersion: 0.7.0-beta.11
+  configChecksum: 8c4f5b0299998e1465d424ca799d60a9
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: b381f14b-48d1-4fdf-ab01-922cd5afef6b
-  pristine_commit_hash: 16ff7d6d34ece3da12e667de1c9841e39727c0b8
-  pristine_tree_hash: bab6eac3eb37d9cac6e301aa4cb7bb2415c3e733
+  generation_id: db3e4d1d-fc40-4d73-bc24-9fc447aefb2e
+  pristine_commit_hash: 16b781855328d10571c9b52823dbb63b326fe51a
+  pristine_tree_hash: bb9c9eefb1d6a4b4fd47b5f2ddd8b6330b7451ec
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,12 +97,12 @@ trackedFiles:
     pristine_git_object: d29238492b5ebce8b57c7600bc3242dafb30b8fd
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:077e1998874362dff4497bcb5f01bff292508fba
-    pristine_git_object: ab9472c236f7052405bdfc638577961b78a86e69
+    last_write_checksum: sha1:25560fb00730b8c38b8e05f8fdec50eb1acfb5c6
+    pristine_git_object: e5e29b9bdc1f399c733907ae7bbbb05a136a958e
   databaseconnections.go:
     id: 6871bc6bafc7
-    last_write_checksum: sha1:e05a182b5a8d789d74e48e6f6c5f6af545c66d22
-    pristine_git_object: 58b9f2a67bfbf8f31ae6a66e54feb536f4182972
+    last_write_checksum: sha1:f2922f4844c44986350b4a10214fd4cd344a7523
+    pristine_git_object: 56c86632c56275dc63ace48e4602e5e3fbb7facf
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:bfd0ac75b0a6c7e1138ffbaab0611fa1ec800265
@@ -14445,8 +14445,8 @@ trackedFiles:
     pristine_git_object: ef86e558172a3da9b68781c22ddc074e47671ebb
   docs/sdks/databaseconnections/README.md:
     id: ef33daf326f1
-    last_write_checksum: sha1:b13348fc6596cffde6e954ddc50ce06c35d05216
-    pristine_git_object: 00ca11c1828bc7d09896408076b0a8178a8f6111
+    last_write_checksum: sha1:fe815ada669fbfae769d8e700d1c173566209aad
+    pristine_git_object: 2708fafa01ead1e252aa0b30fb1fa0e36ea00120
   docs/sdks/destinations/README.md:
     id: e83d288899aa
     last_write_checksum: sha1:d9428fc02450092424d5fb2e9f9aa0f2be434f77
@@ -28502,7 +28502,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(servicenow_table)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(servicenow_table)` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(servicenow_table)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(servicenow_table)` **Changed**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(servicenow_table)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(servicenow_table)` **Changed**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(servicenow_table)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(servicenow_table)` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(servicenow_table)` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(servicenow_table)` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(servicenow_table)` **Changed**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(servicenow_table)` **Changed**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(servicenow_table)` **Changed**\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(servicenow_table)` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
