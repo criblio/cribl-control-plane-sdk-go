@@ -5,14 +5,14 @@ management:
   docVersion: 4.17.0-7e952fa7
   speakeasyVersion: 1.759.2
   generationVersion: 2.869.23
-  releaseVersion: 0.7.0-rc.4
-  configChecksum: e80896379bd83f0d592fe35480788ab4
+  releaseVersion: 0.7.0-rc.5
+  configChecksum: 55ec877045fbb3e0a7cb9a5e5b9ecf99
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: ebf87ffa-ee91-4a8c-9c50-d790acb0d079
-  pristine_commit_hash: a05a69055ba71fa84d37c4873203866bc967b5a0
-  pristine_tree_hash: 1b6098676985ae304035cec440cb778111003d88
+  generation_id: bb9612d4-aa21-48ab-bbd2-9e45d1d06e44
+  pristine_commit_hash: e0779626b7bd30619e2abcba4d7aba00dcf435d3
+  pristine_tree_hash: 8c8d12fe29fe20139bdfda5a69af189abb05f65a
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: b7f5948a58b932c7bfe411533ebee678285e4d32
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:519722e6a0961beefdbd69c11d39ee1b4415b1a1
-    pristine_git_object: 58b7d113bd1a504d47ea2f228701a17436422b05
+    last_write_checksum: sha1:603e691512c4623c871631f97aa48b0379847bcd
+    pristine_git_object: 6af05d2ae72c2032e03aba57033d9fb49305cb55
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:e05a182b5a8d789d74e48e6f6c5f6af545c66d22
@@ -30198,7 +30198,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`: \n  *  `request.CriblPack` **Added**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`: \n  *  `request` **Changed**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`: \n  *  `request` **Changed**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Update()`:  `request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.Update()`:  `request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Functions.Get()`:  `response.Items[].union(local_search_schema_mapper)` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Functions.List()`:  `response.Items[].union(local_search_schema_mapper)` **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.Append()`: \n  *  `request.RequestBody[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(microsoft_graph)` **Changed**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(microsoft_graph)` **Changed**\n  *  `response.Items[].union(microsoft_graph)` **Changed**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(microsoft_graph)` **Changed**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(microsoft_graph)` **Changed**\n  *  `response.Items[].union(microsoft_graph)` **Changed**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(microsoft_graph)` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(microsoft_graph)` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(microsoft_graph)` **Changed**\n  *  `response.Items[].union(microsoft_graph)` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(microsoft_graph)` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(microsoft_graph)` **Changed**\n  *  `response.Items[].union(microsoft_graph)` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(microsoft_graph)` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

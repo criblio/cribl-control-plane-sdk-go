@@ -533,6 +533,7 @@ func main() {
 		for res.CapturedEvent.Next() {
 			event, _ := res.CapturedEvent.Value()
 			log.Print(event)
+			// Handle the event
 		}
 	}
 }
@@ -777,7 +778,13 @@ func main() {
 	)
 
 	res, err := s.Nodes.List(ctx, operations.GetProductsWorkersByProductRequest{
-		Product: components.ProductsBaseStream,
+		Product:   components.ProductsBaseStream,
+		FilterExp: criblcontrolplanesdkgo.Pointer("<value>"),
+		SortExp:   criblcontrolplanesdkgo.Pointer("<value>"),
+		Filter:    criblcontrolplanesdkgo.Pointer("<value>"),
+		Sort:      criblcontrolplanesdkgo.Pointer("<value>"),
+		Limit:     criblcontrolplanesdkgo.Pointer[int64](881129),
+		Offset:    criblcontrolplanesdkgo.Pointer[int64](990978),
 	})
 	if err != nil {
 		log.Fatal(err)

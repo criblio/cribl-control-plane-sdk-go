@@ -6,15 +6,13 @@ package criblcontrolplanesdkgo
 
 import (
 	"context"
-	"net/http"
-	"strings"
-	"time"
-
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/config"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/hooks"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"net/http"
+	"time"
 )
 
 // HTTPClient provides an interface for supplying the SDK with a custom HTTP client
@@ -84,18 +82,10 @@ type CriblControlPlane struct {
 
 type SDKOption func(*CriblControlPlane)
 
-func normalizeLeaderServerURL(serverURL string) string {
-	s := strings.TrimRight(serverURL, "/")
-	if strings.HasSuffix(s, "/api/v1") {
-		return s
-	}
-	return s + "/api/v1"
-}
-
 // WithServerURL allows providing an alternative server URL
 func WithServerURL(serverURL string) SDKOption {
 	return func(sdk *CriblControlPlane) {
-		sdk.sdkConfiguration.ServerURL = normalizeLeaderServerURL(serverURL)
+		sdk.sdkConfiguration.ServerURL = serverURL
 	}
 }
 
@@ -106,7 +96,7 @@ func WithTemplatedServerURL(serverURL string, params map[string]string) SDKOptio
 			serverURL = utils.ReplaceParameters(serverURL, params)
 		}
 
-		sdk.sdkConfiguration.ServerURL = normalizeLeaderServerURL(serverURL)
+		sdk.sdkConfiguration.ServerURL = serverURL
 	}
 }
 
@@ -149,9 +139,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.7.0-rc.4",
+		SDKVersion: "0.7.0-rc.5",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.7.0-rc.4 2.869.23 4.17.0-7e952fa7 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.7.0-rc.5 2.869.23 4.17.0-7e952fa7 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -171,7 +161,7 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 		sdk.sdkConfiguration.Client = &http.Client{Timeout: 60 * time.Second}
 	}
 
-	sdk.sdkConfiguration.ServerURL = normalizeLeaderServerURL(serverURL)
+	sdk.sdkConfiguration.ServerURL = serverURL
 
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
@@ -192,59 +182,4 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.Versions = newVersions(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
-}
-
-func (c *CriblControlPlane) cloneWithServerURL(serverURL string) *CriblControlPlane {
-	cloned := &CriblControlPlane{
-		SDKVersion:       c.SDKVersion,
-		sdkConfiguration: c.sdkConfiguration,
-		hooks:            c.hooks,
-	}
-
-	cloned.sdkConfiguration.ServerURL = serverURL
-
-	cloned.DatabaseConnections = newDatabaseConnections(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Functions = newFunctions(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Sources = newSources(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Packs = newPacks(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Destinations = newDestinations(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Pipelines = newPipelines(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Routes = newRoutes(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Collectors = newCollectors(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Groups = newGroups(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.LakeDatasets = newLakeDatasets(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Auth = newAuth(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.System = newSystem(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Nodes = newNodes(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Health = newHealth(cloned, cloned.sdkConfiguration, cloned.hooks)
-	cloned.Versions = newVersions(cloned, cloned.sdkConfiguration, cloned.hooks)
-
-	return cloned
-}
-
-func (c *CriblControlPlane) InGroup(groupID string) *CriblControlPlane {
-	base := trimKnownAPIContext(c.sdkConfiguration.ServerURL)
-	return c.cloneWithServerURL(base + "/api/v1/m/" + groupID)
-}
-
-func (c *CriblControlPlane) InWorker(workerID string) *CriblControlPlane {
-	base := trimKnownAPIContext(c.sdkConfiguration.ServerURL)
-	return c.cloneWithServerURL(base + "/api/v1/w/" + workerID)
-}
-
-func trimKnownAPIContext(serverURL string) string {
-	serverURL = strings.TrimRight(serverURL, "/")
-
-	switch {
-	case strings.HasSuffix(serverURL, "/api/v1"):
-		return strings.TrimSuffix(serverURL, "/api/v1")
-	case strings.Contains(serverURL, "/api/v1/m/"):
-		idx := strings.Index(serverURL, "/api/v1/m/")
-		return serverURL[:idx]
-	case strings.Contains(serverURL, "/api/v1/w/"):
-		idx := strings.Index(serverURL, "/api/v1/w/")
-		return serverURL[:idx]
-	default:
-		return serverURL
-	}
 }
