@@ -2665,6 +2665,8 @@ type CreateInputInputMicrosoftGraph struct {
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+	MaxPages *int64 `json:"maxPages,omitzero"`
 	// Select authentication method.
 	AuthType *CreateInputAuthenticationMethodMicrosoftGraph `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
@@ -2831,6 +2833,13 @@ func (c *CreateInputInputMicrosoftGraph) GetDisableTimeFilter() *bool {
 		return nil
 	}
 	return c.DisableTimeFilter
+}
+
+func (c *CreateInputInputMicrosoftGraph) GetMaxPages() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxPages
 }
 
 func (c *CreateInputInputMicrosoftGraph) GetAuthType() *CreateInputAuthenticationMethodMicrosoftGraph {

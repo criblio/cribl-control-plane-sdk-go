@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 926ea8ecde785465a3ceea03791962c9
-  docVersion: 4.17.1-alpha.1774479808532-911e82d2
-  speakeasyVersion: 1.759.2
-  generationVersion: 2.869.23
-  releaseVersion: 0.7.0-alpha.11
-  configChecksum: 7018e8dfea8f947fab33eb41d04e3b8c
+  docChecksum: 28902226513d5a31c274740a252cd2c9
+  docVersion: 4.17.1-alpha.1774739006047-c0158cf2
+  speakeasyVersion: 1.759.3
+  generationVersion: 2.869.25
+  releaseVersion: 0.7.0-alpha.12
+  configChecksum: b943d225dcafb7d9b1ab06b8b8b039f3
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 7d5aea6b-c891-4405-bbcd-991f22cd5c2f
-  pristine_commit_hash: 29609a49ff082d54f6ac29831f3a5d8ed417e8bc
-  pristine_tree_hash: 4a7e0088609e784c75db4b1beaea9ddd55512ba4
+  generation_id: b8a23016-32ca-49a9-a68d-d35945397020
+  pristine_commit_hash: 9a915896f6d57f2d3884f503831bb5c3e83aaf9c
+  pristine_tree_hash: 25bb54675ef40edd7cc1f2a5b9450a6685f23e29
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: b7f5948a58b932c7bfe411533ebee678285e4d32
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:26ec888df4a623b101ad2aa733e9d63c03c20858
-    pristine_git_object: d17c2d86d5ee49d72faf36fff5c67131ffcecd64
+    last_write_checksum: sha1:612bcfe27bef7b7ff839f25f4c60aba753184e0f
+    pristine_git_object: 88744c8318392958a732595d0beb62c53f1d472d
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:e05a182b5a8d789d74e48e6f6c5f6af545c66d22
@@ -3337,8 +3337,8 @@ trackedFiles:
     pristine_git_object: c8607aa6cd85f31bba6721a5b70b68d038c937aa
   docs/models/components/inputmicrosoftgraph.md:
     id: d240a8f17e27
-    last_write_checksum: sha1:f7da1f04cd2f323ebab1771274d090cfd335736c
-    pristine_git_object: 4169df87b45da7f722e4eca30dd913d23aa1b9a8
+    last_write_checksum: sha1:b9cd37dbfd49157a1f33268dedc576390fd0c58d
+    pristine_git_object: 6f548cf46edab863fc3ce90d2f9bc5081f6c8a2c
   docs/models/components/inputmicrosoftgraphauthenticationmethod.md:
     id: 547a47dd05f8
     last_write_checksum: sha1:4d6db5e904fc9cdeddfdef0398a0d8e726885a05
@@ -9765,8 +9765,8 @@ trackedFiles:
     pristine_git_object: 601df4df20c47f58c66063dbb48e9c31d7e628ab
   docs/models/operations/createinputinputmicrosoftgraph.md:
     id: afc36c44556a
-    last_write_checksum: sha1:e267f311176db65a2f9cbd4038af984abe4bea45
-    pristine_git_object: 2a233bb6f12e91b0a67335770834d45cc0eb5a38
+    last_write_checksum: sha1:fed173286dab0228c0fc761217c4252b6f2a7c12
+    pristine_git_object: 265c4021270379f7148937a8f7143901e61ec7b1
   docs/models/operations/createinputinputmodeldriventelemetry.md:
     id: 86a5f183722e
     last_write_checksum: sha1:72aa3c23e735d00ab601fe834f46240ee5389915
@@ -10469,8 +10469,8 @@ trackedFiles:
     pristine_git_object: 5b47bf07e126dce9be5b443e75062a86d71b4c91
   docs/models/operations/createinputsystembypackinputmicrosoftgraph.md:
     id: 2de2293af014
-    last_write_checksum: sha1:b758cb2ada2e4e08c5da45960d3946635b55972f
-    pristine_git_object: 8386a1c7999ffbaeadd97cbcc3d9df6f4c6a0a42
+    last_write_checksum: sha1:298029471ba5977ceb20aed5f3707e0d7e26fad9
+    pristine_git_object: da0c5e078ecb33fc108148d1f484784b84cedc3a
   docs/models/operations/createinputsystembypackinputmodeldriventelemetry.md:
     id: 688a00c7a55b
     last_write_checksum: sha1:78c9c5a2d4841013d3a3df924adbbae30cdcf221
@@ -14449,8 +14449,8 @@ trackedFiles:
     pristine_git_object: 0a5cb3bb62083443fd95fd2dcd98233d492dda70
   docs/sdks/lakedatasets/README.md:
     id: 525057cafa86
-    last_write_checksum: sha1:08becbbcceb79151cca0246c43d90b48fd267658
-    pristine_git_object: ec91a924c0b5f49b49a973973c9f0ee75b0a805b
+    last_write_checksum: sha1:deacab5ecbb4300438484d70ea14d4645a3ba748
+    pristine_git_object: 88b731942e7b385e351292620148bf85e584b0d5
   docs/sdks/nodes/README.md:
     id: caae80e86772
     last_write_checksum: sha1:ef9f98f4a518804b2c0a608e8558e21f3993b931
@@ -15873,8 +15873,8 @@ trackedFiles:
     pristine_git_object: 1fcbd139a51f91e83148cfb4600fcc60510f415e
   models/components/inputmicrosoftgraph.go:
     id: 65fcc4ab2054
-    last_write_checksum: sha1:5a5c116bcc96d20ed01ed79da2edb1d9f9acd46d
-    pristine_git_object: 89e32fc15e2208020a285fea0187cc6cb62056e8
+    last_write_checksum: sha1:f7cd39cf14f0465b48ad5b0e6d0690fcb8ac2b5a
+    pristine_git_object: 04ffcbd1f94c8ac4bb1b98313c49ef01050ed875
   models/components/inputmodeldriventelemetry.go:
     id: db637b837bd6
     last_write_checksum: sha1:f1f1e863fe1d2c5c3171206e63c69df794468298
@@ -17321,12 +17321,12 @@ trackedFiles:
     pristine_git_object: 14107d7b9839ebbbeba238584f79d424997f518d
   models/operations/createinputresponse.go:
     id: 4a65919a7957
-    last_write_checksum: sha1:d187134456b3d5b7b5edfae40f2b104592bca160
-    pristine_git_object: 47f3b2d9896de0002d2222adea34d80c62dac1a8
+    last_write_checksum: sha1:a1d38091c47faa2629525c97768042ebd8349565
+    pristine_git_object: 0fdd401a212376b1685bd200b28783bcee092cdd
   models/operations/createinputsystembypackresponse.go:
     id: 7f6c1101c884
-    last_write_checksum: sha1:dc3ad2f0c30803ea36901e2d99ad1bf35a6580fd
-    pristine_git_object: dffcac9c40431892d940e152514ab26424576e58
+    last_write_checksum: sha1:f00b06d8704a77ba090eb2089ba36f4c12d0698e
+    pristine_git_object: 1498c0ede1a7173cc9ee0068f6f44ffa717f99cc
   models/operations/createinputsystembypacktypetcpjson.go:
     id: 66c636180142
     last_write_checksum: sha1:783b2d3c6e926022332f07ff35c5d2f222d70d63
@@ -21774,6 +21774,39 @@ examples:
           application/json: {}
         "500":
           application/json: {}
+    LakeDatasetCreateExamplesJsonDataset:
+      parameters:
+        path:
+          lakeId: "<id>"
+      requestBody:
+        application/json: {"acceleratedFields": ["host", "status"], "description": "Web server access logs", "format": "json", "id": "web_access_logs", "retentionPeriodInDays": 90, "storageLocationId": "my-storage-location"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+    LakeDatasetCreateExamplesParquetDataset:
+      parameters:
+        path:
+          lakeId: "<id>"
+      requestBody:
+        application/json: {"description": "Security event data in Parquet format", "format": "parquet", "id": "security_events", "retentionPeriodInDays": 365, "searchConfig": {"datatypes": ["palo_alto_firewall", "crowdstrike_fdr"]}, "storageLocationId": "my-storage-location"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+    LakeDatasetCreateExamplesMinimalDataset:
+      parameters:
+        path:
+          lakeId: "<id>"
+      requestBody:
+        application/json: {"id": "app_logs"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
   getCriblLakeDatasetByLakeId:
     speakeasy-default-get-cribl-lake-dataset-by-lake-id:
       parameters:
@@ -22017,6 +22050,30 @@ examples:
           id: "<id>"
       requestBody:
         application/json: {}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+    LakeDatasetUpdateExamplesUpdateRetention:
+      parameters:
+        path:
+          lakeId: "<id>"
+          id: "<id>"
+      requestBody:
+        application/json: {"retentionPeriodInDays": 180}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+    LakeDatasetUpdateExamplesUpdateDescription:
+      parameters:
+        path:
+          lakeId: "<id>"
+          id: "<id>"
+      requestBody:
+        application/json: {"acceleratedFields": ["host", "status", "source"], "description": "Web server access logs with accelerated fields."}
       responses:
         "200":
           application/json: {}
@@ -28374,7 +28431,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.union(azure_blob).AuthType` **Changed**\n  *  `response.Items[].union(azure_blob).AuthType` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[].union(azure_blob).AuthType` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(microsoft_graph).MaxPages` **Added**\n  *  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(microsoft_graph).MaxPages` **Added**\n  *  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(microsoft_graph).MaxPages` **Added**\n  *  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(microsoft_graph).MaxPages` **Added**\n  *  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(microsoft_graph).MaxPages` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
