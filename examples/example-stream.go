@@ -29,7 +29,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -37,6 +36,27 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 )
+
+func routeConfToInput(r components.RouteConf) components.RouteConfInput {
+	final := r.Final
+	id := r.ID
+	return components.RouteConfInput{
+		Clones:                 r.Clones,
+		Context:                r.Context,
+		Description:            r.Description,
+		Disabled:               r.Disabled,
+		EnableOutputExpression: r.EnableOutputExpression,
+		Filter:                 r.Filter,
+		Final:                  criblcontrolplanesdkgo.Bool(final),
+		GroupID:                r.GroupID,
+		ID:                     criblcontrolplanesdkgo.String(id),
+		Name:                   r.Name,
+		Output:                 r.Output,
+		OutputExpression:       r.OutputExpression,
+		Pipeline:               r.Pipeline,
+		TargetContext:          r.TargetContext,
+	}
+}
 
 const (
 	PORT            = 9020
@@ -47,12 +67,13 @@ const (
 func main() {
 	ctx := context.Background()
 
+	// Initialize Cribl client
 	client, err := CreateCriblClient(ctx)
 	if err != nil {
 		log.Fatalf("Failed to create Cribl client: %v", err)
 	}
 
-	wg := client.InGroup(WORKER_GROUP_ID)
+	groupURL := fmt.Sprintf("%s/m/%s", BaseURL, WORKER_GROUP_ID)
 
 	// Check if Worker Group already exists
 	getResponse, err := client.Groups.Get(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, nil)
@@ -94,7 +115,7 @@ func main() {
 		SendToRoutes: &sendToRoutes,
 	}
 	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONSource)
-	_, err = wg.Sources.Create(ctx, createInputRequest)
+	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating TCP JSON Source: %v", err)
 	} else {
@@ -111,7 +132,7 @@ func main() {
 	}
 
 	createOutputRequest := operations.CreateCreateOutputRequestFilesystem(fileSystemDestination)
-	_, err = wg.Destinations.Create(ctx, createOutputRequest)
+	_, err = client.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating Filesystem Destination: %v", err)
 	} else {
@@ -142,7 +163,7 @@ func main() {
 		Conf: conf,
 	}
 
-	_, err = wg.Pipelines.Create(ctx, pipeline)
+	_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating Pipeline: %v", err)
 	} else {
@@ -150,7 +171,7 @@ func main() {
 	}
 
 	// Get existing Routes and add new Route
-	routesListResponse, err := wg.Routes.List(ctx)
+	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error listing routes: %v", err)
 	} else if routesListResponse.CountedRoutes != nil && routesListResponse.CountedRoutes.Items != nil && len(routesListResponse.CountedRoutes.Items) > 0 {
@@ -174,16 +195,17 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			var routeInputs []components.RouteConfInput
-			b, err := json.Marshal(updatedRoutes)
-			if err == nil {
-				err = json.Unmarshal(b, &routeInputs)
+			routeInputs := make([]components.RouteConfInput, len(updatedRoutes))
+			for i := range updatedRoutes {
+				routeInputs[i] = routeConfToInput(updatedRoutes[i])
 			}
-			if err == nil {
-				_, err = wg.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
-					ID: existingRoutes.ID, Comments: existingRoutes.Comments, Groups: existingRoutes.Groups, Routes: routeInputs,
-				})
-			}
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
+				ID:       existingRoutes.ID,
+				Comments: existingRoutes.Comments,
+				Groups:   existingRoutes.Groups,
+				Routes:   routeInputs,
+			}, operations.WithServerURL(groupURL))
+
 			if err != nil {
 				log.Printf("Error updating routes: %v", err)
 			} else {
@@ -200,7 +222,7 @@ func main() {
 		Files:     []string{"."},
 	}
 
-	commitResponse, err := wg.Versions.Commits.Create(ctx, commitParams)
+	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
 	} else if commitResponse.CountedGitCommitSummary != nil && commitResponse.CountedGitCommitSummary.Items != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {

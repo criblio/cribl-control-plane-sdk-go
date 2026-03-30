@@ -19,9 +19,8 @@
  * Prerequisites: Replace the placeholder values for ORG_ID, CLIENT_ID,
  * CLIENT_SECRET, and WORKSPACE_NAME with your Organization ID, Client ID and
  * Secret, and Workspace name. To get your CLIENT_ID and CLIENT_SECRET values,
- * follow the steps at
- * https://docs.cribl.io/cribl-as-code/authentication/#cloud-auth.
- * Your Client ID and Secret are sensitive information and should be kept private.
+ * follow the steps at https://docs.cribl.io/api/#criblcloud. Your Client ID
+ * and Secret are sensitive information and should be kept private.
  *
  * NOTE: This example is for Cribl.Cloud deployments only. It does not require
  * .env file configuration.
@@ -48,7 +47,7 @@ const (
 
 func main() {
 	ctx := context.Background()
-	baseURL := fmt.Sprintf("https://%s-%s.cribl.cloud", WORKSPACE_NAME, ORG_ID)
+	baseURL := fmt.Sprintf("https://%s-%s.cribl.cloud/api/v1", WORKSPACE_NAME, ORG_ID)
 
 	// Create authenticated client
 	client := criblcontrolplanesdkgo.New(
@@ -104,23 +103,22 @@ func main() {
 
 	fmt.Printf("✅ Worker Group created: %s\n", WORKER_GROUP_ID)
 
-	// Scale and provision the Worker Group
-	group := components.ConfigGroup{
-		ID:                  WORKER_GROUP_ID,
-		Name:                criblcontrolplanesdkgo.String("my-aws-worker-group"),
-		OnPrem:              criblcontrolplanesdkgo.Bool(false),
-		WorkerRemoteAccess:  criblcontrolplanesdkgo.Bool(true),
-		Provisioned:         criblcontrolplanesdkgo.Bool(true),
-		IsFleet:             criblcontrolplanesdkgo.Bool(false),
-		IsSearch:            criblcontrolplanesdkgo.Bool(false),
-		EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate48MbPerSec.ToPointer(), // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
-		Cloud: &components.ConfigGroupCloud{
-			Provider: &awsProvider,
-			Region:   "us-east-1",
-		},
+	// Fetch the created group and scale/provision it
+	getUpdatedResponse, err := client.Groups.Get(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, nil)
+	if err != nil {
+		log.Fatalf("Error fetching Worker Group for update: %v", err)
 	}
 
-	updateResponse, err := client.Groups.Update(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, group)
+	if getUpdatedResponse.CountedConfigGroup == nil || getUpdatedResponse.CountedConfigGroup.Items == nil || len(getUpdatedResponse.CountedConfigGroup.Items) == 0 {
+		log.Fatal("Worker Group not found after creation")
+	}
+
+	// Scale and provision the Worker Group - modify only the fields that need to change
+	updateGroup := getUpdatedResponse.CountedConfigGroup.Items[0]
+	updateGroup.EstimatedIngestRate = components.EstimatedIngestRateOptionsConfigGroupRate48MbPerSec.ToPointer() // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
+	updateGroup.Provisioned = criblcontrolplanesdkgo.Bool(true)
+
+	updateResponse, err := client.Groups.Update(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, updateGroup)
 	if err != nil {
 		log.Fatalf("Error updating Worker Group: %v", err)
 	}

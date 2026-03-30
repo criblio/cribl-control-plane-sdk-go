@@ -11,10 +11,10 @@ Output object
 createOutputRequest := operations.CreateCreateOutputRequestDefault(operations.CreateOutputOutputDefault{/* values here */})
 ```
 
-### CreateOutputOutputWebhookUnion
+### CreateOutputOutputWebhook
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestWebhook(operations.CreateOutputOutputWebhookUnion{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestWebhook(operations.CreateOutputOutputWebhook{/* values here */})
 ```
 
 ### CreateOutputOutputSentinel
@@ -440,7 +440,7 @@ switch createOutputRequest.Type {
 	case operations.CreateOutputRequestTypeDefault:
 		// createOutputRequest.CreateOutputOutputDefault is populated
 	case operations.CreateOutputRequestTypeWebhook:
-		// createOutputRequest.CreateOutputOutputWebhookUnion is populated
+		// createOutputRequest.CreateOutputOutputWebhook is populated
 	case operations.CreateOutputRequestTypeSentinel:
 		// createOutputRequest.CreateOutputOutputSentinel is populated
 	case operations.CreateOutputRequestTypeDevnull:

@@ -97,7 +97,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedJobInfo != nil {
+    if res.CountedObject != nil {
         // handle response
     }
 }

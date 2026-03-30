@@ -28,15 +28,34 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
-	"strings"
 
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 )
+
+func routeConfToInput(r components.RouteConf) components.RouteConfInput {
+	final := r.Final
+	id := r.ID
+	return components.RouteConfInput{
+		Clones:                 r.Clones,
+		Context:                r.Context,
+		Description:            r.Description,
+		Disabled:               r.Disabled,
+		EnableOutputExpression: r.EnableOutputExpression,
+		Filter:                 r.Filter,
+		Final:                  criblcontrolplanesdkgo.Bool(final),
+		GroupID:                r.GroupID,
+		ID:                     criblcontrolplanesdkgo.String(id),
+		Name:                   r.Name,
+		Output:                 r.Output,
+		OutputExpression:       r.OutputExpression,
+		Pipeline:               r.Pipeline,
+		TargetContext:          r.TargetContext,
+	}
+}
 
 const (
 	PACK_URL        = "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.5/cribl-palo-alto-networks-d6bc6883-1.1.5.crbl"
@@ -57,13 +76,14 @@ const (
 func main() {
 	ctx := context.Background()
 
+	// Initialize Cribl client
 	client, err := CreateCriblClient(ctx)
 	if err != nil {
 		log.Fatalf("Failed to create Cribl client: %v", err)
 	}
 
-	wg := client.InGroup(WORKER_GROUP_ID)
-	packURL := strings.TrimRight(BaseURL, "/") + "/api/v1/m/" + WORKER_GROUP_ID + "/p/" + PACK_ID
+	groupURL := fmt.Sprintf("%s/m/%s", BaseURL, WORKER_GROUP_ID)
+	packURL := fmt.Sprintf("%s/p/%s", groupURL, PACK_ID)
 
 	// Check if Worker Group exists first
 	getResponse, err := client.Groups.Get(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, nil)
@@ -76,7 +96,7 @@ func main() {
 	fmt.Printf("✅ Worker Group '%s' exists, proceeding with Pack installation.\n", WORKER_GROUP_ID)
 
 	// First, check if Pack already exists and clean up
-	wg.Packs.Delete(ctx, PACK_ID)
+	client.Packs.Delete(ctx, PACK_ID, operations.WithServerURL(groupURL))
 
 	// Install Pack from URL
 	fmt.Printf("Installing Pack from: %s\n", PACK_URL)
@@ -87,7 +107,7 @@ func main() {
 		},
 	)
 
-	_, err = wg.Packs.Install(ctx, installReq)
+	_, err = client.Packs.Install(ctx, installReq, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error installing Pack - %v", err)
 	} else {
@@ -98,18 +118,17 @@ func main() {
 	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := AUTH_TOKEN
 	sendToRoutes := true
-	createInputRequest := operations.CreateCreateInputRequestTcpjson(
-		operations.CreateInputInputTcpjson{
-			ID:           "my-tcp-json",
-			Type:         operations.CreateInputTypeTcpjsonTcpjson,
-			Host:         "0.0.0.0",
-			Port:         float64(PORT),
-			AuthType:     &authType,
-			AuthToken:    &authToken,
-			SendToRoutes: &sendToRoutes,
-		},
-	)
-	_, err = wg.Sources.Create(ctx, createInputRequest, operations.WithServerURL(packURL))
+	tcpJSONSource := operations.CreateInputInputTcpjson{
+		ID:           "my-tcp-json",
+		Type:         operations.CreateInputTypeTcpjsonTcpjson,
+		Host:         "0.0.0.0",
+		Port:         float64(PORT),
+		AuthType:     &authType,
+		AuthToken:    &authToken,
+		SendToRoutes: &sendToRoutes,
+	}
+	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONSource)
+	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error creating TCP JSON Source in Pack: %v", err)
 	} else {
@@ -121,21 +140,20 @@ func main() {
 	region := AWS_REGION
 	secretKey := AWS_SECRET_KEY
 	apiKey := AWS_API_KEY
-	stagePath := "/tmp/cribl-stage"
 	s3Destination := operations.CreateOutputOutputS3{
 		ID:             "my-s3-destination",
 		Type:           operations.CreateOutputTypeS3S3,
 		Bucket:         AWS_BUCKET_NAME,
-		StagePath:      stagePath,
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
-		Compress:       components.CompressionOptionsHTTPGzip.ToPointer(),
+		StagePath:      "/tmp/cribl-s3-stage",
+		Compress:       components.CompressionOptions2Gzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}
 
 	createOutputRequest := operations.CreateCreateOutputRequestS3(s3Destination)
-	_, err = wg.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(packURL))
+	_, err = client.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error creating Amazon S3 Destination in Pack: %v", err)
 	} else {
@@ -166,7 +184,7 @@ func main() {
 		Conf: conf,
 	}
 
-	_, err = wg.Pipelines.Create(ctx, pipeline, operations.WithServerURL(packURL))
+	_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error creating Pipeline in Pack: %v", err)
 	} else {
@@ -174,7 +192,7 @@ func main() {
 	}
 
 	// Get existing Routes and add new Route
-	routesListResponse, err := wg.Routes.List(ctx, operations.WithServerURL(packURL))
+	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error listing routes in pack: %v", err)
 	} else if routesListResponse.CountedRoutes != nil && routesListResponse.CountedRoutes.Items != nil && len(routesListResponse.CountedRoutes.Items) > 0 {
@@ -198,16 +216,17 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			var routeInputs []components.RouteConfInput
-			b, err := json.Marshal(updatedRoutes)
-			if err == nil {
-				err = json.Unmarshal(b, &routeInputs)
+			routeInputs := make([]components.RouteConfInput, len(updatedRoutes))
+			for i := range updatedRoutes {
+				routeInputs[i] = routeConfToInput(updatedRoutes[i])
 			}
-			if err == nil {
-				_, err = wg.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
-					ID: existingRoutes.ID, Comments: existingRoutes.Comments, Groups: existingRoutes.Groups, Routes: routeInputs,
-				}, operations.WithServerURL(packURL))
-			}
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
+				ID:       existingRoutes.ID,
+				Comments: existingRoutes.Comments,
+				Groups:   existingRoutes.Groups,
+				Routes:   routeInputs,
+			}, operations.WithServerURL(packURL))
+
 			if err != nil {
 				log.Printf("Error updating Routes in Pack: %v", err)
 			} else {

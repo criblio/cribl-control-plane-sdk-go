@@ -154,7 +154,7 @@ func main() {
             OauthType: operations.CreateOutputOauthTypeAuthenticationMethodClientSecret,
             ClientSecret: criblcontrolplanesdkgo.Pointer("client-secret"),
             Format: components.DataFormatOptionsJSON.ToPointer(),
-            Compress: components.CompressionOptionsHTTPGzip,
+            Compress: components.CompressionOptions2Gzip,
         },
     ))
     if err != nil {
@@ -575,7 +575,7 @@ func main() {
             },
             Streamtags: []string{},
             LoadBalanced: criblcontrolplanesdkgo.Pointer(false),
-            TLS: &components.TLSSettingsClientSideTypeCaPathCertPath{
+            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
             TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60.0),
@@ -584,7 +584,7 @@ func main() {
                 "__metadata",
                 "__winEvent",
             },
-            Compression: components.CompressionOptionsGzipNoneGzip.ToPointer(),
+            Compression: components.CompressionOptions1Gzip.ToPointer(),
             Concurrency: criblcontrolplanesdkgo.Pointer[float64](5.0),
             MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096.0),
             MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0.0),
@@ -1032,7 +1032,7 @@ func main() {
             Type: operations.CreateOutputTypeDynatraceOtlpDynatraceOtlp,
             Protocol: operations.CreateOutputProtocolDynatraceOtlpHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
-            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
             EndpointType: operations.CreateOutputEndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
@@ -2373,7 +2373,7 @@ func main() {
             Type: operations.CreateOutputTypeServiceNowServiceNow,
             Endpoint: "ingest.lightstep.com:443",
             TokenSecret: "your-token-secret",
-            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
             Protocol: components.ProtocolOptionsHTTP,
         },
     ))
@@ -2953,13 +2953,11 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestWebhook(
-        operations.CreateCreateOutputOutputWebhookUnionCreateOutputOutputWebhookWebhook1(
-            operations.CreateOutputOutputWebhookWebhook1{
-                ID: "webhook-output",
-                Type: operations.CreateOutputOutputWebhookType1Webhook,
-                URL: "https://example.com/webhook",
-            },
-        ),
+        operations.CreateOutputOutputWebhook{
+            ID: "webhook-output",
+            Type: operations.CreateOutputTypeWebhookWebhook,
+            URL: criblcontrolplanesdkgo.Pointer("https://example.com/webhook"),
+        },
     ))
     if err != nil {
         log.Fatal(err)
@@ -3212,7 +3210,7 @@ func main() {
             OauthType: components.OutputAzureDataExplorerAuthenticationMethodClientSecret,
             ClientSecret: criblcontrolplanesdkgo.Pointer("client-secret"),
             Format: components.DataFormatOptionsJSON.ToPointer(),
-            Compress: components.CompressionOptionsHTTPGzip,
+            Compress: components.CompressionOptions2Gzip,
         },
     ))
     if err != nil {
@@ -3623,7 +3621,7 @@ func main() {
             },
             Streamtags: []string{},
             LoadBalanced: criblcontrolplanesdkgo.Pointer(false),
-            TLS: &components.TLSSettingsClientSideTypeCaPathCertPath{
+            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
             TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60.0),
@@ -3632,7 +3630,7 @@ func main() {
                 "__metadata",
                 "__winEvent",
             },
-            Compression: components.CompressionOptionsGzipNoneGzip.ToPointer(),
+            Compression: components.CompressionOptions1Gzip.ToPointer(),
             Concurrency: criblcontrolplanesdkgo.Pointer[float64](5.0),
             MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096.0),
             MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0.0),
@@ -4071,7 +4069,7 @@ func main() {
             Type: components.OutputDynatraceOtlpTypeDynatraceOtlp,
             Protocol: components.OutputDynatraceOtlpProtocolHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
-            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
             EndpointType: components.EndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
@@ -5380,7 +5378,7 @@ func main() {
             Type: components.OutputServiceNowTypeServiceNow,
             Endpoint: "ingest.lightstep.com:443",
             TokenSecret: "your-token-secret",
-            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
             Protocol: components.ProtocolOptionsHTTP,
         },
     ))
@@ -5946,13 +5944,11 @@ func main() {
     )
 
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputWebhook(
-        components.CreateOutputWebhookOutputWebhookWebhook1(
-            components.OutputWebhookWebhook1{
-                ID: criblcontrolplanesdkgo.Pointer("webhook-output"),
-                Type: components.OutputWebhookType1Webhook,
-                URL: "https://example.com/webhook",
-            },
-        ),
+        components.OutputWebhook{
+            ID: criblcontrolplanesdkgo.Pointer("webhook-output"),
+            Type: components.OutputWebhookTypeWebhook,
+            URL: criblcontrolplanesdkgo.Pointer("https://example.com/webhook"),
+        },
     ))
     if err != nil {
         log.Fatal(err)
