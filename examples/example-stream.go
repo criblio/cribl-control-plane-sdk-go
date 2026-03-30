@@ -37,6 +37,27 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 )
 
+func routeConfToInput(r components.RouteConf) components.RouteConfInput {
+	final := r.Final
+	id := r.ID
+	return components.RouteConfInput{
+		Clones:                 r.Clones,
+		Context:                r.Context,
+		Description:            r.Description,
+		Disabled:               r.Disabled,
+		EnableOutputExpression: r.EnableOutputExpression,
+		Filter:                 r.Filter,
+		Final:                  criblcontrolplanesdkgo.Bool(final),
+		GroupID:                r.GroupID,
+		ID:                     criblcontrolplanesdkgo.String(id),
+		Name:                   r.Name,
+		Output:                 r.Output,
+		OutputExpression:       r.OutputExpression,
+		Pipeline:               r.Pipeline,
+		TargetContext:          r.TargetContext,
+	}
+}
+
 const (
 	PORT            = 9020
 	AUTH_TOKEN      = "4a4b3663-7a57-7369-7632-795553573668"
@@ -174,9 +195,15 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
-				ID:     existingRoutes.ID,
-				Routes: updatedRoutes,
+			routeInputs := make([]components.RouteConfInput, len(updatedRoutes))
+			for i := range updatedRoutes {
+				routeInputs[i] = routeConfToInput(updatedRoutes[i])
+			}
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
+				ID:       existingRoutes.ID,
+				Comments: existingRoutes.Comments,
+				Groups:   existingRoutes.Groups,
+				Routes:   routeInputs,
 			}, operations.WithServerURL(groupURL))
 
 			if err != nil {

@@ -36,6 +36,27 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 )
 
+func routeConfToInput(r components.RouteConf) components.RouteConfInput {
+	final := r.Final
+	id := r.ID
+	return components.RouteConfInput{
+		Clones:                 r.Clones,
+		Context:                r.Context,
+		Description:            r.Description,
+		Disabled:               r.Disabled,
+		EnableOutputExpression: r.EnableOutputExpression,
+		Filter:                 r.Filter,
+		Final:                  criblcontrolplanesdkgo.Bool(final),
+		GroupID:                r.GroupID,
+		ID:                     criblcontrolplanesdkgo.String(id),
+		Name:                   r.Name,
+		Output:                 r.Output,
+		OutputExpression:       r.OutputExpression,
+		Pipeline:               r.Pipeline,
+		TargetContext:          r.TargetContext,
+	}
+}
+
 const (
 	PACK_URL        = "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.5/cribl-palo-alto-networks-d6bc6883-1.1.5.crbl"
 	PACK_ID         = "cribl-palo-alto-networks"
@@ -195,9 +216,15 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
-				ID:     existingRoutes.ID,
-				Routes: updatedRoutes,
+			routeInputs := make([]components.RouteConfInput, len(updatedRoutes))
+			for i := range updatedRoutes {
+				routeInputs[i] = routeConfToInput(updatedRoutes[i])
+			}
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
+				ID:       existingRoutes.ID,
+				Comments: existingRoutes.Comments,
+				Groups:   existingRoutes.Groups,
+				Routes:   routeInputs,
 			}, operations.WithServerURL(packURL))
 
 			if err != nil {
