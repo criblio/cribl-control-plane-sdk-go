@@ -29,6 +29,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 
@@ -173,11 +174,16 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			_, err = wg.Routes.Update(ctx, existingRoutes.ID, components.Routes{
-				ID:     existingRoutes.ID,
-				Routes: updatedRoutes,
-			})
-
+			var routeInputs []components.RouteConfInput
+			b, err := json.Marshal(updatedRoutes)
+			if err == nil {
+				err = json.Unmarshal(b, &routeInputs)
+			}
+			if err == nil {
+				_, err = wg.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
+					ID: existingRoutes.ID, Comments: existingRoutes.Comments, Groups: existingRoutes.Groups, Routes: routeInputs,
+				})
+			}
 			if err != nil {
 				log.Printf("Error updating routes: %v", err)
 			} else {
