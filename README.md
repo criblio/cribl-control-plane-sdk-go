@@ -459,7 +459,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 #### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
 * [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
-* [Update](docs/sdks/cribl/README.md#update) - Update system settings
+* [Update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
 
 ### [Versions.Branches](docs/sdks/branches/README.md)
 
@@ -762,6 +762,7 @@ import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -776,11 +777,19 @@ func main() {
 		}),
 	)
 
-	res, err := s.Sources.Statuses.List(ctx, criblcontrolplanesdkgo.Pointer(true), criblcontrolplanesdkgo.Pointer(false), nil, nil)
+	res, err := s.Nodes.List(ctx, operations.GetProductsWorkersByProductRequest{
+		Product:   components.ProductsBaseStream,
+		FilterExp: criblcontrolplanesdkgo.Pointer("<value>"),
+		SortExp:   criblcontrolplanesdkgo.Pointer("<value>"),
+		Filter:    criblcontrolplanesdkgo.Pointer("<value>"),
+		Sort:      criblcontrolplanesdkgo.Pointer("<value>"),
+		Limit:     criblcontrolplanesdkgo.Pointer[int64](881129),
+		Offset:    criblcontrolplanesdkgo.Pointer[int64](990978),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedInputStatus != nil {
+	if res.CountedMasterWorkerEntry != nil {
 		for {
 			// handle items
 
