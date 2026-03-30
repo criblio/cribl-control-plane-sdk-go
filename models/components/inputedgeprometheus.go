@@ -227,7 +227,7 @@ type InputEdgePrometheus struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -263,6 +263,8 @@ type InputEdgePrometheus struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -504,7 +506,7 @@ func (i *InputEdgePrometheus) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputEdgePrometheus) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputEdgePrometheus) GetSignatureVersion() *SignatureVersionOptionsV2V4 {
 	if i == nil {
 		return nil
 	}
@@ -621,6 +623,13 @@ func (i *InputEdgePrometheus) GetTemplateRegion() *string {
 		return nil
 	}
 	return i.TemplateRegion
+}
+
+func (i *InputEdgePrometheus) GetTemplateEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEndpoint
 }
 
 func (i *InputEdgePrometheus) GetTemplateAssumeRoleArn() *string {

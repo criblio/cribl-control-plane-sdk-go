@@ -59,31 +59,6 @@ func (e *InputPrometheusDiscoveryType) IsExact() bool {
 	return false
 }
 
-// InputPrometheusLogLevel - Collector runtime log level
-type InputPrometheusLogLevel string
-
-const (
-	InputPrometheusLogLevelError InputPrometheusLogLevel = "error"
-	InputPrometheusLogLevelWarn  InputPrometheusLogLevel = "warn"
-	InputPrometheusLogLevelInfo  InputPrometheusLogLevel = "info"
-	InputPrometheusLogLevelDebug InputPrometheusLogLevel = "debug"
-)
-
-func (e InputPrometheusLogLevel) ToPointer() *InputPrometheusLogLevel {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputPrometheusLogLevel) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "warn", "info", "debug":
-			return true
-		}
-	}
-	return false
-}
-
 // MetricsProtocol - Protocol to use when collecting metrics
 type MetricsProtocol string
 
@@ -132,7 +107,7 @@ type InputPrometheus struct {
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
 	Interval float64 `json:"interval"`
 	// Collector runtime log level
-	LogLevel InputPrometheusLogLevel `json:"logLevel"`
+	LogLevel LogLevelOptions `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
@@ -179,7 +154,7 @@ type InputPrometheus struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Use Assume Role credentials to access EC2
@@ -196,6 +171,8 @@ type InputPrometheus struct {
 	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
+	TemplateDiscoveryType *string `json:"__template_discoveryType,omitzero"`
 	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
 	TemplateLogLevel *string `json:"__template_logLevel,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
@@ -204,10 +181,16 @@ type InputPrometheus struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 }
 
 func (i InputPrometheus) MarshalJSON() ([]byte, error) {
@@ -312,9 +295,9 @@ func (i *InputPrometheus) GetInterval() float64 {
 	return i.Interval
 }
 
-func (i *InputPrometheus) GetLogLevel() InputPrometheusLogLevel {
+func (i *InputPrometheus) GetLogLevel() LogLevelOptions {
 	if i == nil {
-		return InputPrometheusLogLevel("")
+		return LogLevelOptions("")
 	}
 	return i.LogLevel
 }
@@ -487,7 +470,7 @@ func (i *InputPrometheus) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputPrometheus) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputPrometheus) GetSignatureVersion() *SignatureVersionOptionsV2V4 {
 	if i == nil {
 		return nil
 	}
@@ -550,6 +533,13 @@ func (i *InputPrometheus) GetCredentialsSecret() *string {
 	return i.CredentialsSecret
 }
 
+func (i *InputPrometheus) GetTemplateDiscoveryType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateDiscoveryType
+}
+
 func (i *InputPrometheus) GetTemplateLogLevel() *string {
 	if i == nil {
 		return nil
@@ -578,6 +568,13 @@ func (i *InputPrometheus) GetTemplateRegion() *string {
 	return i.TemplateRegion
 }
 
+func (i *InputPrometheus) GetTemplateEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEndpoint
+}
+
 func (i *InputPrometheus) GetTemplateAssumeRoleArn() *string {
 	if i == nil {
 		return nil
@@ -590,4 +587,18 @@ func (i *InputPrometheus) GetTemplateAssumeRoleExternalID() *string {
 		return nil
 	}
 	return i.TemplateAssumeRoleExternalID
+}
+
+func (i *InputPrometheus) GetTemplateUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateUsername
+}
+
+func (i *InputPrometheus) GetTemplatePassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePassword
 }

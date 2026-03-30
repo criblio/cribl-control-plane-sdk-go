@@ -28,6 +28,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
@@ -129,7 +130,7 @@ func main() {
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
-		Compress:       components.CompressionOptions2Gzip.ToPointer(),
+		Compress:       components.CompressionOptionsHTTPGzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}
 
@@ -197,11 +198,16 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			_, err = wg.Routes.Update(ctx, existingRoutes.ID, components.Routes{
-				ID:     existingRoutes.ID,
-				Routes: updatedRoutes,
-			}, operations.WithServerURL(packURL))
-
+			var routeInputs []components.RouteConfInput
+			b, err := json.Marshal(updatedRoutes)
+			if err == nil {
+				err = json.Unmarshal(b, &routeInputs)
+			}
+			if err == nil {
+				_, err = wg.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
+					ID: existingRoutes.ID, Comments: existingRoutes.Comments, Groups: existingRoutes.Groups, Routes: routeInputs,
+				}, operations.WithServerURL(packURL))
+			}
 			if err != nil {
 				log.Printf("Error updating Routes in Pack: %v", err)
 			} else {

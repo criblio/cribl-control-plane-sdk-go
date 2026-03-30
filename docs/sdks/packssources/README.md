@@ -38,7 +38,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Sources.List(ctx, "<value>")
+    res, err := s.Packs.Sources.List(ctx, "<value>", nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -50,11 +50,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to list.                 |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                                                                                   | Type                                                                                                                                                        | Required                                                                                                                                                    | Description                                                                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                       | [context.Context](https://pkg.go.dev/context#Context)                                                                                                       | :heavy_check_mark:                                                                                                                                          | The context to use for the request.                                                                                                                         |
+| `pack`                                                                                                                                                      | `string`                                                                                                                                                    | :heavy_check_mark:                                                                                                                                          | The <code>id</code> of the Pack to list.                                                                                                                    |
+| `type_`                                                                                                                                                     | []`string`                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                          | Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
+| `opts`                                                                                                                                                      | [][operations.Option](../../models/operations/option.md)                                                                                                    | :heavy_minus_sign:                                                                                                                                          | The options for this request.                                                                                                                               |
 
 ### Response
 
@@ -1786,7 +1787,7 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: operations.CreateInputSystemByPackDiscoveryTypePrometheusStatic.ToPointer(),
             Interval: 60.0,
-            LogLevel: operations.CreateInputSystemByPackLogLevelPrometheusInfo,
+            LogLevel: components.LogLevelOptionsInfo,
             TargetList: []string{
                 "http://localhost:9090/metrics",
             },
@@ -2006,6 +2007,59 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "security-lake-queue",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesServiceNowTable
+
+<!-- UsageSnippet language="go" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesServiceNowTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Sources.Create(ctx, "<value>", operations.CreateCreateInputSystemByPackRequestBodyServicenowTable(
+        operations.CreateInputSystemByPackInputServicenowTable{
+            ID: "servicenow-table-source",
+            Type: operations.CreateInputSystemByPackTypeServicenowTableServicenowTable,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Instance: "https://example.service-now.com",
+            TableName: "incident",
+            Fields: []string{
+                "sys_id",
+                "number",
+                "short_description",
+            },
+            DisplayValue: operations.CreateInputSystemByPackDisplayValueFalse.ToPointer(),
+            PageSize: criblcontrolplanesdkgo.Pointer[int64](10000),
+            CronSchedule: "0 * * * *",
+            Earliest: "-1d",
+            Latest: "now",
         },
     ))
     if err != nil {
@@ -2800,7 +2854,7 @@ func main() {
 
 ## Update
 
-Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
+Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
 
 ### Example Usage: InputCreateExamplesAppscope
 
@@ -4478,7 +4532,7 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: components.InputPrometheusDiscoveryTypeStatic.ToPointer(),
             Interval: 60.0,
-            LogLevel: components.InputPrometheusLogLevelInfo,
+            LogLevel: components.LogLevelOptionsInfo,
             TargetList: []string{
                 "http://localhost:9090/metrics",
             },
@@ -4693,6 +4747,58 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "security-lake-queue",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesServiceNowTable
+
+<!-- UsageSnippet language="go" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesServiceNowTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Sources.Update(ctx, "<id>", "<value>", components.CreateInput2ServicenowTable(
+        components.InputServicenowTable{
+            ID: criblcontrolplanesdkgo.Pointer("servicenow-table-source"),
+            Type: components.InputServicenowTableTypeServicenowTable,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Instance: "https://example.service-now.com",
+            TableName: "incident",
+            Fields: []string{
+                "sys_id",
+                "number",
+                "short_description",
+            },
+            DisplayValue: components.DisplayValueFalse.ToPointer(),
+            PageSize: criblcontrolplanesdkgo.Pointer[int64](10000),
+            CronSchedule: "0 * * * *",
+            Earliest: "-1d",
+            Latest: "now",
         },
     ))
     if err != nil {

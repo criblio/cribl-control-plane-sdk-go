@@ -3,7 +3,7 @@
 
 package components
 
-// LogLevelOptions - Log Level (verbosity) for collection runtime behavior.
+// LogLevelOptions - Collector runtime log level
 type LogLevelOptions string
 
 const (
@@ -11,7 +11,6 @@ const (
 	LogLevelOptionsWarn  LogLevelOptions = "warn"
 	LogLevelOptionsInfo  LogLevelOptions = "info"
 	LogLevelOptionsDebug LogLevelOptions = "debug"
-	LogLevelOptionsSilly LogLevelOptions = "silly"
 )
 
 func (e LogLevelOptions) ToPointer() *LogLevelOptions {
@@ -22,7 +21,7 @@ func (e LogLevelOptions) ToPointer() *LogLevelOptions {
 func (e *LogLevelOptions) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "error", "warn", "info", "debug", "silly":
+		case "error", "warn", "info", "debug":
 			return true
 		}
 	}

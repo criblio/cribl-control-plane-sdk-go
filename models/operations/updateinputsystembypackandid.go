@@ -278,6 +278,10 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputSecurityLake() *components
 	return u.GetInput().InputSecurityLake
 }
 
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputServicenowTable() *components.InputServicenowTable {
+	return u.GetInput().InputServicenowTable
+}
+
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputZscalerHec() *components.InputZscalerHec {
 	return u.GetInput().InputZscalerHec
 }
@@ -288,7 +292,7 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputCloudflareHec() *component
 
 type UpdateInputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// the updated Source object
 	CountedInput *components.CountedInput
 }
 

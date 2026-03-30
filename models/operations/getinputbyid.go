@@ -22,7 +22,7 @@ func (g *GetInputByIDRequest) GetID() string {
 
 type GetInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// a Source object
 	CountedInput *components.CountedInput
 }
 

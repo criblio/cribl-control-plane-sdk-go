@@ -220,9 +220,9 @@ type OutputLocalSearchStorage struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the database instance. Example: http://localhost:8123/
-	URL      string                      `json:"url"`
-	AuthType *AuthenticationTypeOptions1 `json:"authType,omitzero"`
-	Database string                      `json:"database"`
+	URL      string                                           `json:"url"`
+	AuthType *AuthenticationTypeOptionsBasicCredentialsSecret `json:"authType,omitzero"`
+	Database string                                           `json:"database"`
 	// Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data. Defaults to JSON Compact.
@@ -230,8 +230,8 @@ type OutputLocalSearchStorage struct {
 	// How event fields are mapped to columns.
 	MappingType *OutputLocalSearchStorageMappingType `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a table immediately.
-	AsyncInserts *bool                       `json:"asyncInserts,omitzero"`
-	TLS          *TLSSettingsClientSideType1 `json:"tls,omitzero"`
+	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -286,7 +286,7 @@ type OutputLocalSearchStorage struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -299,14 +299,20 @@ type OutputLocalSearchStorage struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions           `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputLocalSearchStoragePqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputLocalSearchStoragePqControls `json:"pqControls,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
 	TemplateDatabase *string `json:"__template_database,omitzero"`
 	// Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
 	TemplateTableName *string `json:"__template_tableName,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputLocalSearchStorage) MarshalJSON() ([]byte, error) {
@@ -369,7 +375,7 @@ func (o *OutputLocalSearchStorage) GetURL() string {
 	return o.URL
 }
 
-func (o *OutputLocalSearchStorage) GetAuthType() *AuthenticationTypeOptions1 {
+func (o *OutputLocalSearchStorage) GetAuthType() *AuthenticationTypeOptionsBasicCredentialsSecret {
 	if o == nil {
 		return nil
 	}
@@ -411,7 +417,7 @@ func (o *OutputLocalSearchStorage) GetAsyncInserts() *bool {
 	return o.AsyncInserts
 }
 
-func (o *OutputLocalSearchStorage) GetTLS() *TLSSettingsClientSideType1 {
+func (o *OutputLocalSearchStorage) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if o == nil {
 		return nil
 	}
@@ -670,6 +676,13 @@ func (o *OutputLocalSearchStorage) GetPqOnBackpressure() *QueueFullBehaviorOptio
 	return o.PqOnBackpressure
 }
 
+func (o *OutputLocalSearchStorage) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputLocalSearchStorage) GetPqControls() *OutputLocalSearchStoragePqControls {
 	if o == nil {
 		return nil
@@ -696,4 +709,18 @@ func (o *OutputLocalSearchStorage) GetTemplateTableName() *string {
 		return nil
 	}
 	return o.TemplateTableName
+}
+
+func (o *OutputLocalSearchStorage) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputLocalSearchStorage) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
