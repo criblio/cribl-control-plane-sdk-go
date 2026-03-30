@@ -179,9 +179,6 @@ func CreateOutputDefault(defaultT OutputDefault) Output {
 func CreateOutputWebhook(webhook OutputWebhook) Output {
 	typ := OutputTypeWebhook
 
-	typStr := OutputWebhookType(typ)
-	webhook.Type = typStr
-
 	return Output{
 		OutputWebhook: &webhook,
 		Type:          typ,

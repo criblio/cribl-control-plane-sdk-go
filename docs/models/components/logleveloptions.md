@@ -1,6 +1,6 @@
 # LogLevelOptions
 
-Log Level (verbosity) for collection runtime behavior.
+Collector runtime log level
 
 ## Example Usage
 
@@ -24,4 +24,3 @@ custom := components.LogLevelOptions("custom_value")
 | `LogLevelOptionsWarn`  | warn                   |
 | `LogLevelOptionsInfo`  | info                   |
 | `LogLevelOptionsDebug` | debug                  |
-| `LogLevelOptionsSilly` | silly                  |

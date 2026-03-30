@@ -11,10 +11,10 @@ Output object
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyDefault(operations.CreateOutputSystemByPackOutputDefault{/* values here */})
 ```
 
-### CreateOutputSystemByPackOutputWebhook
+### CreateOutputSystemByPackOutputWebhookUnion
 
 ```go
-createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyWebhook(operations.CreateOutputSystemByPackOutputWebhook{/* values here */})
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyWebhook(operations.CreateOutputSystemByPackOutputWebhookUnion{/* values here */})
 ```
 
 ### CreateOutputSystemByPackOutputSentinel
@@ -440,7 +440,7 @@ switch createOutputSystemByPackRequestBody.Type {
 	case operations.CreateOutputSystemByPackRequestBodyTypeDefault:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputDefault is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeWebhook:
-		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputWebhook is populated
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputWebhookUnion is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeSentinel:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputSentinel is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeDevnull:

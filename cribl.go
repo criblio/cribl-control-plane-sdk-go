@@ -274,7 +274,7 @@ func (s *Cribl) List(ctx context.Context, opts ...operations.Option) (*operation
 
 }
 
-// Update Cribl system settings
+// Update system settings
 // Update Cribl system settings.
 func (s *Cribl) Update(ctx context.Context, request components.SystemSettingsConf, opts ...operations.Option) (*operations.UpdateSystemSettingsConfResponse, error) {
 	o := operations.Options{}

@@ -18,6 +18,7 @@ import (
 	"net/url"
 )
 
+// DatabaseConnections - Actions related to DatabaseConnections
 type DatabaseConnections struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
