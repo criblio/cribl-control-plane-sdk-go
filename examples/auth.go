@@ -53,11 +53,11 @@ func init() {
 	if isOnprem {
 		config := getOnpremConfiguration()
 		configuration = config
-		BaseURL = config.ServerURL
+		BaseURL = fmt.Sprintf("%s/api/v1", config.ServerURL)
 	} else {
 		config := getCloudConfiguration()
 		configuration = config
-		BaseURL = fmt.Sprintf("https://%s-%s.cribl.cloud", config.WorkspaceName, config.OrgID)
+		BaseURL = fmt.Sprintf("https://%s-%s.cribl.cloud/api/v1", config.WorkspaceName, config.OrgID)
 	}
 }
 

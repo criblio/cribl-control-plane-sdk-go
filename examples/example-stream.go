@@ -29,7 +29,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -47,12 +46,13 @@ const (
 func main() {
 	ctx := context.Background()
 
+	// Initialize Cribl client
 	client, err := CreateCriblClient(ctx)
 	if err != nil {
 		log.Fatalf("Failed to create Cribl client: %v", err)
 	}
 
-	wg := client.InGroup(WORKER_GROUP_ID)
+	groupURL := fmt.Sprintf("%s/m/%s", BaseURL, WORKER_GROUP_ID)
 
 	// Check if Worker Group already exists
 	getResponse, err := client.Groups.Get(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, nil)
@@ -94,7 +94,7 @@ func main() {
 		SendToRoutes: &sendToRoutes,
 	}
 	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONSource)
-	_, err = wg.Sources.Create(ctx, createInputRequest)
+	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating TCP JSON Source: %v", err)
 	} else {
@@ -111,7 +111,7 @@ func main() {
 	}
 
 	createOutputRequest := operations.CreateCreateOutputRequestFilesystem(fileSystemDestination)
-	_, err = wg.Destinations.Create(ctx, createOutputRequest)
+	_, err = client.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating Filesystem Destination: %v", err)
 	} else {
@@ -142,7 +142,7 @@ func main() {
 		Conf: conf,
 	}
 
-	_, err = wg.Pipelines.Create(ctx, pipeline)
+	_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating Pipeline: %v", err)
 	} else {
@@ -150,7 +150,7 @@ func main() {
 	}
 
 	// Get existing Routes and add new Route
-	routesListResponse, err := wg.Routes.List(ctx)
+	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error listing routes: %v", err)
 	} else if routesListResponse.CountedRoutes != nil && routesListResponse.CountedRoutes.Items != nil && len(routesListResponse.CountedRoutes.Items) > 0 {
@@ -174,16 +174,11 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			var routeInputs []components.RouteConfInput
-			b, err := json.Marshal(updatedRoutes)
-			if err == nil {
-				err = json.Unmarshal(b, &routeInputs)
-			}
-			if err == nil {
-				_, err = wg.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
-					ID: existingRoutes.ID, Comments: existingRoutes.Comments, Groups: existingRoutes.Groups, Routes: routeInputs,
-				})
-			}
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
+				ID:     existingRoutes.ID,
+				Routes: updatedRoutes,
+			}, operations.WithServerURL(groupURL))
+
 			if err != nil {
 				log.Printf("Error updating routes: %v", err)
 			} else {
@@ -200,7 +195,7 @@ func main() {
 		Files:     []string{"."},
 	}
 
-	commitResponse, err := wg.Versions.Commits.Create(ctx, commitParams)
+	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
 	} else if commitResponse.CountedGitCommitSummary != nil && commitResponse.CountedGitCommitSummary.Items != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {

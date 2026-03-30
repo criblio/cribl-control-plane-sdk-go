@@ -30,7 +30,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -55,12 +54,13 @@ const (
 func main() {
 	ctx := context.Background()
 
+	// Initialize Cribl client
 	client, err := CreateCriblClient(ctx)
 	if err != nil {
 		log.Fatalf("Failed to create Cribl client: %v", err)
 	}
 
-	fleet := client.InGroup(FLEET_ID)
+	groupURL := fmt.Sprintf("%s/m/%s", BaseURL, FLEET_ID)
 
 	// Check if Fleet already exists
 	getResponse, err := client.Groups.Get(ctx, components.ProductsCoreEdge, FLEET_ID, nil)
@@ -105,7 +105,7 @@ func main() {
 
 	syslogUnion := operations.CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog2(syslogSource)
 	createRequest := operations.CreateCreateInputRequestSyslog(syslogUnion)
-	_, err = fleet.Sources.Create(ctx, createRequest)
+	_, err = client.Sources.Create(ctx, createRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating Syslog source: %v", err)
 	} else {
@@ -125,12 +125,12 @@ func main() {
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
 		StagePath:      "/tmp/cribl-s3-stage",
-		Compress:       components.CompressionOptionsHTTPGzip.ToPointer(),
+		Compress:       components.CompressionOptions2Gzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}
 
 	createOutputRequest := operations.CreateCreateOutputRequestS3(s3Destination)
-	_, err = fleet.Destinations.Create(ctx, createOutputRequest)
+	_, err = client.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating Amazon S3 destination: %v", err)
 	} else {
@@ -161,7 +161,7 @@ func main() {
 		Conf: conf,
 	}
 
-	_, err = fleet.Pipelines.Create(ctx, pipeline)
+	_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating pipeline: %v", err)
 	} else {
@@ -169,7 +169,7 @@ func main() {
 	}
 
 	// Get existing Routes and add new Route
-	routesListResponse, err := fleet.Routes.List(ctx)
+	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error listing routes: %v", err)
 	} else if routesListResponse.CountedRoutes != nil && routesListResponse.CountedRoutes.Items != nil && len(routesListResponse.CountedRoutes.Items) > 0 {
@@ -193,16 +193,11 @@ func main() {
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			var routeInputs []components.RouteConfInput
-			b, err := json.Marshal(updatedRoutes)
-			if err == nil {
-				err = json.Unmarshal(b, &routeInputs)
-			}
-			if err == nil {
-				_, err = fleet.Routes.Update(ctx, existingRoutes.ID, components.RoutesInput{
-					ID: existingRoutes.ID, Comments: existingRoutes.Comments, Groups: existingRoutes.Groups, Routes: routeInputs,
-				})
-			}
+			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
+				ID:     existingRoutes.ID,
+				Routes: updatedRoutes,
+			}, operations.WithServerURL(groupURL))
+
 			if err != nil {
 				log.Printf("Error updating Routes: %v", err)
 			} else {
@@ -219,7 +214,7 @@ func main() {
 		Files:     []string{"."},
 	}
 
-	commitResponse, err := fleet.Versions.Commits.Create(ctx, commitParams)
+	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
 	} else if commitResponse.CountedGitCommitSummary != nil && commitResponse.CountedGitCommitSummary.Items != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {
