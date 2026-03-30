@@ -3,7 +3,9 @@
 
 package components
 
+// OutputSamplesResponse - Sample events from a Destination.
 type OutputSamplesResponse struct {
+	// Array of sample events returned from a Destination test.
 	Events []map[string]any `json:"events"`
 }
 

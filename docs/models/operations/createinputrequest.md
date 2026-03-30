@@ -365,6 +365,12 @@ createInputRequest := operations.CreateCreateInputRequestNetflow(operations.Crea
 createInputRequest := operations.CreateCreateInputRequestSecurityLake(operations.CreateInputInputSecurityLake{/* values here */})
 ```
 
+### CreateInputInputServicenowTable
+
+```go
+createInputRequest := operations.CreateCreateInputRequestServicenowTable(operations.CreateInputInputServicenowTable{/* values here */})
+```
+
 ### CreateInputInputZscalerHec
 
 ```go
@@ -503,6 +509,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputNetflow is populated
 	case operations.CreateInputRequestTypeSecurityLake:
 		// createInputRequest.CreateInputInputSecurityLake is populated
+	case operations.CreateInputRequestTypeServicenowTable:
+		// createInputRequest.CreateInputInputServicenowTable is populated
 	case operations.CreateInputRequestTypeZscalerHec:
 		// createInputRequest.CreateInputInputZscalerHec is populated
 	case operations.CreateInputRequestTypeCloudflareHec:

@@ -11,8 +11,6 @@ import (
 type GetSavedJobByIDRequest struct {
 	// The <code>id</code> of the Collector to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack that includes the Collector to get.
-	CriblPack *string `queryParam:"style=form,explode=true,name=criblPack"`
 }
 
 func (g *GetSavedJobByIDRequest) GetID() string {
@@ -22,17 +20,10 @@ func (g *GetSavedJobByIDRequest) GetID() string {
 	return g.ID
 }
 
-func (g *GetSavedJobByIDRequest) GetCriblPack() *string {
-	if g == nil {
-		return nil
-	}
-	return g.CriblPack
-}
-
 type GetSavedJobByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of SavedJob objects
-	CountedSavedJob *components.CountedSavedJob
+	// a list of SavedJobResponse objects
+	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 
 func (g GetSavedJobByIDResponse) MarshalJSON() ([]byte, error) {
@@ -53,9 +44,9 @@ func (g *GetSavedJobByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetSavedJobByIDResponse) GetCountedSavedJob() *components.CountedSavedJob {
+func (g *GetSavedJobByIDResponse) GetCountedSavedJobResponse() *components.CountedSavedJobResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedSavedJob
+	return g.CountedSavedJobResponse
 }

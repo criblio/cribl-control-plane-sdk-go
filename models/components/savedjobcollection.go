@@ -23,14 +23,14 @@ type SavedJobCollection struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Configuration for a scheduled job
-	Schedule *ScheduleTypeSavedJobCollection `json:"schedule,omitzero"`
+	Schedule *ScheduleTypeSavedJobResponseCollection `json:"schedule,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// If enabled, tasks are created and run by the same Worker Node
 	WorkerAffinity *bool `json:"workerAffinity,omitzero"`
 	// Collector configuration
-	Collector Collector                                    `json:"collector"`
-	Input     *TypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	Collector Collector                                                         `json:"collector"`
+	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
 }
 
 func (s SavedJobCollection) MarshalJSON() ([]byte, error) {
@@ -100,7 +100,7 @@ func (s *SavedJobCollection) GetEnvironment() *string {
 	return s.Environment
 }
 
-func (s *SavedJobCollection) GetSchedule() *ScheduleTypeSavedJobCollection {
+func (s *SavedJobCollection) GetSchedule() *ScheduleTypeSavedJobResponseCollection {
 	if s == nil {
 		return nil
 	}
@@ -168,7 +168,7 @@ func (s *SavedJobCollection) GetCollectorSplunk() *CollectorSplunk {
 	return s.GetCollector().CollectorSplunk
 }
 
-func (s *SavedJobCollection) GetInput() *TypeCollectionWithBreakerRulesetsConstraint {
+func (s *SavedJobCollection) GetInput() *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint {
 	if s == nil {
 		return nil
 	}
