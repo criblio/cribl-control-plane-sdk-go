@@ -742,6 +742,12 @@ type RestAuthenticationOauthSecret struct {
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationOauthSecretRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationOauthSecretScheduling `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 }
 
 func (r RestAuthenticationOauthSecret) MarshalJSON() ([]byte, error) {
@@ -1012,6 +1018,27 @@ func (r *RestAuthenticationOauthSecret) GetScheduling() *RestAuthenticationOauth
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationOauthSecret) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestAuthenticationOauthSecret) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
+}
+
+func (r *RestAuthenticationOauthSecret) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
 }
 
 // RestAuthenticationOauthAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -3331,6 +3358,10 @@ type RestAuthenticationOauth struct {
 	SafeHeaders []string                           `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationOauthRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationOauthScheduling `json:"__scheduling,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 }
 
 func (r RestAuthenticationOauth) MarshalJSON() ([]byte, error) {
@@ -3601,6 +3632,20 @@ func (r *RestAuthenticationOauth) GetScheduling() *RestAuthenticationOauthSchedu
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationOauth) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
+}
+
+func (r *RestAuthenticationOauth) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
 }
 
 // RestAuthenticationLoginSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -5920,6 +5965,12 @@ type RestAuthenticationLoginSecret struct {
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationLoginSecretRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationLoginSecretScheduling `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 }
 
 func (r RestAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
@@ -6190,6 +6241,27 @@ func (r *RestAuthenticationLoginSecret) GetScheduling() *RestAuthenticationLogin
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationLoginSecret) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestAuthenticationLoginSecret) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
+}
+
+func (r *RestAuthenticationLoginSecret) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
 }
 
 // RestAuthenticationLoginAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -8509,6 +8581,12 @@ type RestAuthenticationLogin struct {
 	SafeHeaders []string                           `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationLoginRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationLoginScheduling `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 }
 
 func (r RestAuthenticationLogin) MarshalJSON() ([]byte, error) {
@@ -8786,6 +8864,27 @@ func (r *RestAuthenticationLogin) GetScheduling() *RestAuthenticationLoginSchedu
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationLogin) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestAuthenticationLogin) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
+}
+
+func (r *RestAuthenticationLogin) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
 }
 
 // RestAuthenticationBasicSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.

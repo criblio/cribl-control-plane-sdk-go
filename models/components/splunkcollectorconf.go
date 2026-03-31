@@ -462,6 +462,7 @@ type SplunkAuthenticationTokenSecret struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationTokenSecretRetryRules `json:"retryRules,omitzero"`
+	Token              *string                                    `json:"token,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSecret) MarshalJSON() ([]byte, error) {
@@ -606,6 +607,13 @@ func (s *SplunkAuthenticationTokenSecret) GetRetryRulesBackoff() *SplunkAuthenti
 		return v.SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetToken() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Token
 }
 
 // SplunkAuthenticationTokenAuthentication - Authentication method for Discover and Collect REST calls
@@ -1060,6 +1068,8 @@ type SplunkAuthenticationToken struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationTokenRetryRules `json:"retryRules,omitzero"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 }
 
 func (s SplunkAuthenticationToken) MarshalJSON() ([]byte, error) {
@@ -1204,6 +1214,13 @@ func (s *SplunkAuthenticationToken) GetRetryRulesBackoff() *SplunkAuthentication
 		return v.SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationToken) GetTokenSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenSecret
 }
 
 // SplunkAuthenticationBasicSecretAuthentication - Authentication method for Discover and Collect REST calls
@@ -1659,6 +1676,9 @@ type SplunkAuthenticationBasicSecret struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationBasicSecretRetryRules `json:"retryRules,omitzero"`
+	Token              *string                                    `json:"token,omitzero"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
@@ -1803,6 +1823,20 @@ func (s *SplunkAuthenticationBasicSecret) GetRetryRulesBackoff() *SplunkAuthenti
 		return v.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetToken() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Token
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetTokenSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenSecret
 }
 
 // SplunkAuthenticationBasicAuthentication - Authentication method for Discover and Collect REST calls
@@ -2260,6 +2294,9 @@ type SplunkAuthenticationBasic struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationBasicRetryRules `json:"retryRules,omitzero"`
+	Token              *string                              `json:"token,omitzero"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 }
 
 func (s SplunkAuthenticationBasic) MarshalJSON() ([]byte, error) {
@@ -2411,6 +2448,20 @@ func (s *SplunkAuthenticationBasic) GetRetryRulesBackoff() *SplunkAuthentication
 		return v.SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationBasic) GetToken() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Token
+}
+
+func (s *SplunkAuthenticationBasic) GetTokenSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenSecret
 }
 
 // SplunkAuthenticationNoneAuthentication - Authentication method for Discover and Collect REST calls
@@ -2864,6 +2915,9 @@ type SplunkAuthenticationNone struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                               `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
+	Token              *string                             `json:"token,omitzero"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 }
 
 func (s SplunkAuthenticationNone) MarshalJSON() ([]byte, error) {
@@ -3001,6 +3055,20 @@ func (s *SplunkAuthenticationNone) GetRetryRulesBackoff() *SplunkAuthenticationN
 		return v.SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationNone) GetToken() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Token
+}
+
+func (s *SplunkAuthenticationNone) GetTokenSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenSecret
 }
 
 type SplunkCollectorConfType string
