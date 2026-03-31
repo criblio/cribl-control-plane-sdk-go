@@ -63,6 +63,8 @@ type PipelineFunctionAggregationConf struct {
 	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitzero"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
 	FlushOnInputClose *bool `json:"flushOnInputClose,omitzero"`
+	// When enabled (e.g. for Cribl Search), convert undefined expression results to null so requested-but-missing fields appear in JSON output. When disabled (default), undefined is preserved.
+	PrintUndefineds *bool `json:"printUndefineds,omitzero"`
 	// The tumbling window tolerance to late events. Must be a valid time string (such as 10s).
 	LagTolerance *string `json:"lagTolerance,omitzero"`
 	// How long to wait before flushing a bucket that has not received events. Must be a valid time string (such as 10s).
@@ -183,6 +185,13 @@ func (p *PipelineFunctionAggregationConf) GetFlushOnInputClose() *bool {
 		return nil
 	}
 	return p.FlushOnInputClose
+}
+
+func (p *PipelineFunctionAggregationConf) GetPrintUndefineds() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.PrintUndefineds
 }
 
 func (p *PipelineFunctionAggregationConf) GetLagTolerance() *string {
