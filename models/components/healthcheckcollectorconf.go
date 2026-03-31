@@ -1271,6 +1271,10 @@ type HealthCheckAuthenticationNone struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (h HealthCheckAuthenticationNone) MarshalJSON() ([]byte, error) {
@@ -1408,6 +1412,20 @@ func (h *HealthCheckAuthenticationNone) GetRetryRulesBackoff() *HealthCheckAuthe
 		return v.HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationNone) GetClientSecretParamValue() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ClientSecretParamValue
+}
+
+func (h *HealthCheckAuthenticationNone) GetTextSecret() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TextSecret
 }
 
 // HealthCheckCollectMethodPostWithBodyHealthCheckMethod - Health check HTTP method.
@@ -2674,6 +2692,10 @@ type HealthCheckCollectMethodPostWithBody struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodPostWithBodyRetryRules `json:"retryRules,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -2818,6 +2840,20 @@ func (h *HealthCheckCollectMethodPostWithBody) GetRetryRulesBackoff() *HealthChe
 		return v.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckCollectMethodPostWithBody) GetClientSecretParamValue() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ClientSecretParamValue
+}
+
+func (h *HealthCheckCollectMethodPostWithBody) GetTextSecret() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TextSecret
 }
 
 // HealthCheckCollectMethodPostHealthCheckMethod - Health check HTTP method.
@@ -4084,6 +4120,10 @@ type HealthCheckCollectMethodPost struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodPostRetryRules `json:"retryRules,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPost) MarshalJSON() ([]byte, error) {
@@ -4228,6 +4268,20 @@ func (h *HealthCheckCollectMethodPost) GetRetryRulesBackoff() *HealthCheckCollec
 		return v.HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckCollectMethodPost) GetClientSecretParamValue() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ClientSecretParamValue
+}
+
+func (h *HealthCheckCollectMethodPost) GetTextSecret() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TextSecret
 }
 
 // HealthCheckCollectMethodGetHealthCheckMethod - Health check HTTP method.
@@ -5526,6 +5580,10 @@ type HealthCheckCollectMethodGet struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                               `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodGetRetryRules `json:"retryRules,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (h HealthCheckCollectMethodGet) MarshalJSON() ([]byte, error) {
@@ -5670,6 +5728,20 @@ func (h *HealthCheckCollectMethodGet) GetRetryRulesBackoff() *HealthCheckCollect
 		return v.HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckCollectMethodGet) GetClientSecretParamValue() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ClientSecretParamValue
+}
+
+func (h *HealthCheckCollectMethodGet) GetTextSecret() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TextSecret
 }
 
 type HealthCheckCollectorConfType string

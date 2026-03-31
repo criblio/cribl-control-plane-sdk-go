@@ -6,8 +6,8 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type TLSOptionsTypeRedisDeploymentTypeCluster struct {
-	// Reject certs that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's CA)
+type TLSOptionsTypeRedisDeploymentTypeStandalone struct {
+	// Reject certificates that are not authorized by a CA in the 'CA certificate path', or by another trusted CA (such as the system's CA)
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Server name for the SNI (Server Name Indication) TLS extension. Must be a host name, not an IP address.
 	Servername *string `json:"servername,omitzero"`
@@ -27,74 +27,74 @@ type TLSOptionsTypeRedisDeploymentTypeCluster struct {
 	MaxVersion *MaximumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions `json:"maxVersion,omitzero"`
 }
 
-func (t TLSOptionsTypeRedisDeploymentTypeCluster) MarshalJSON() ([]byte, error) {
+func (t TLSOptionsTypeRedisDeploymentTypeStandalone) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(t, "", false)
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) UnmarshalJSON(data []byte) error {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) GetRejectUnauthorized() *bool {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) GetRejectUnauthorized() *bool {
 	if t == nil {
 		return nil
 	}
 	return t.RejectUnauthorized
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) GetServername() *string {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) GetServername() *string {
 	if t == nil {
 		return nil
 	}
 	return t.Servername
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) GetCertificateName() *string {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) GetCertificateName() *string {
 	if t == nil {
 		return nil
 	}
 	return t.CertificateName
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) GetCaPath() *string {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) GetCaPath() *string {
 	if t == nil {
 		return nil
 	}
 	return t.CaPath
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) GetPrivKeyPath() *string {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) GetPrivKeyPath() *string {
 	if t == nil {
 		return nil
 	}
 	return t.PrivKeyPath
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) GetCertPath() *string {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) GetCertPath() *string {
 	if t == nil {
 		return nil
 	}
 	return t.CertPath
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) GetPassphrase() *string {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) GetPassphrase() *string {
 	if t == nil {
 		return nil
 	}
 	return t.Passphrase
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) GetMinVersion() *MinimumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) GetMinVersion() *MinimumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions {
 	if t == nil {
 		return nil
 	}
 	return t.MinVersion
 }
 
-func (t *TLSOptionsTypeRedisDeploymentTypeCluster) GetMaxVersion() *MaximumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions {
+func (t *TLSOptionsTypeRedisDeploymentTypeStandalone) GetMaxVersion() *MaximumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions {
 	if t == nil {
 		return nil
 	}

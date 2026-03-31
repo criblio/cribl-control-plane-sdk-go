@@ -1285,6 +1285,8 @@ type HealthCheckAuthenticationOauthSecret struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationOauthSecretRetryRules `json:"retryRules,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauthSecret) MarshalJSON() ([]byte, error) {
@@ -1471,6 +1473,13 @@ func (h *HealthCheckAuthenticationOauthSecret) GetRetryRulesBackoff() *HealthChe
 		return v.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetClientSecretParamValue() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ClientSecretParamValue
 }
 
 // HealthCheckAuthenticationOauthAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -2749,6 +2758,8 @@ type HealthCheckAuthenticationOauth struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationOauthRetryRules `json:"retryRules,omitzero"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauth) MarshalJSON() ([]byte, error) {
@@ -2935,6 +2946,13 @@ func (h *HealthCheckAuthenticationOauth) GetRetryRulesBackoff() *HealthCheckAuth
 		return v.HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationOauth) GetTextSecret() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TextSecret
 }
 
 // HealthCheckAuthenticationLoginSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -4211,6 +4229,10 @@ type HealthCheckAuthenticationLoginSecret struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationLoginSecretRetryRules `json:"retryRules,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
@@ -4390,6 +4412,20 @@ func (h *HealthCheckAuthenticationLoginSecret) GetRetryRulesBackoff() *HealthChe
 		return v.HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetClientSecretParamValue() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ClientSecretParamValue
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetTextSecret() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TextSecret
 }
 
 // HealthCheckAuthenticationLoginAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -5668,6 +5704,10 @@ type HealthCheckAuthenticationLogin struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationLoginRetryRules `json:"retryRules,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLogin) MarshalJSON() ([]byte, error) {
@@ -5854,6 +5894,20 @@ func (h *HealthCheckAuthenticationLogin) GetRetryRulesBackoff() *HealthCheckAuth
 		return v.HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationLogin) GetClientSecretParamValue() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ClientSecretParamValue
+}
+
+func (h *HealthCheckAuthenticationLogin) GetTextSecret() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TextSecret
 }
 
 // HealthCheckAuthenticationBasicSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -7120,6 +7174,10 @@ type HealthCheckAuthenticationBasicSecret struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationBasicSecretRetryRules `json:"retryRules,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
@@ -7264,6 +7322,20 @@ func (h *HealthCheckAuthenticationBasicSecret) GetRetryRulesBackoff() *HealthChe
 		return v.HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetClientSecretParamValue() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ClientSecretParamValue
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetTextSecret() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TextSecret
 }
 
 // HealthCheckAuthenticationBasicAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -8532,6 +8604,10 @@ type HealthCheckAuthenticationBasic struct {
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationBasicRetryRules `json:"retryRules,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasic) MarshalJSON() ([]byte, error) {
@@ -8683,4 +8759,18 @@ func (h *HealthCheckAuthenticationBasic) GetRetryRulesBackoff() *HealthCheckAuth
 		return v.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (h *HealthCheckAuthenticationBasic) GetClientSecretParamValue() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ClientSecretParamValue
+}
+
+func (h *HealthCheckAuthenticationBasic) GetTextSecret() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TextSecret
 }

@@ -892,7 +892,7 @@ func main() {
                                     ExistingOrNew: components.EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNewNew,
                                     MaxEventBytes: criblcontrolplanesdkgo.Pointer[float64](51200.0),
                                     TimestampAnchorRegex: criblcontrolplanesdkgo.Pointer("/^/"),
-                                    Timestamp: &components.EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat{
+                                    Timestamp: &components.TimestampFormatTypeEventBreakerExistingOrNewNew{
                                         Type: components.TimestampTypeOptionsEventBreakerExistingOrNewNewTimestampAuto,
                                         Length: criblcontrolplanesdkgo.Pointer[float64](150.0),
                                     },
@@ -1865,6 +1865,7 @@ func main() {
                                 },
                                 DeploymentType: components.RedisAuthTypeNoneDeploymentTypeStandalone.ToPointer(),
                                 MaxBlockSecs: criblcontrolplanesdkgo.Pointer[float64](60.0),
+                                URL: criblcontrolplanesdkgo.Pointer("'redis://localhost:6379/0'"),
                             },
                         ),
                     },
@@ -3605,7 +3606,7 @@ func main() {
                                     ExistingOrNew: components.EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNewNew,
                                     MaxEventBytes: criblcontrolplanesdkgo.Pointer[float64](51200.0),
                                     TimestampAnchorRegex: criblcontrolplanesdkgo.Pointer("/^/"),
-                                    Timestamp: &components.EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat{
+                                    Timestamp: &components.TimestampFormatTypeEventBreakerExistingOrNewNew{
                                         Type: components.TimestampTypeOptionsEventBreakerExistingOrNewNewTimestampAuto,
                                         Length: criblcontrolplanesdkgo.Pointer[float64](150.0),
                                     },
@@ -4578,6 +4579,7 @@ func main() {
                                 },
                                 DeploymentType: components.RedisAuthTypeNoneDeploymentTypeStandalone.ToPointer(),
                                 MaxBlockSecs: criblcontrolplanesdkgo.Pointer[float64](60.0),
+                                URL: criblcontrolplanesdkgo.Pointer("'redis://localhost:6379/0'"),
                             },
                         ),
                     },

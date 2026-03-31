@@ -2039,6 +2039,12 @@ type RestCollectMethodPostWithBody struct {
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *RestCollectMethodPostWithBodyRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestCollectMethodPostWithBodyScheduling `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -2260,6 +2266,27 @@ func (r *RestCollectMethodPostWithBody) GetScheduling() *RestCollectMethodPostWi
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestCollectMethodPostWithBody) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestCollectMethodPostWithBody) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
+}
+
+func (r *RestCollectMethodPostWithBody) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
 }
 
 type RestCollectMethodPostCollectMethod string
@@ -4565,6 +4592,12 @@ type RestCollectMethodPost struct {
 	SafeHeaders []string                         `json:"safeHeaders,omitzero"`
 	RetryRules  *RestCollectMethodPostRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestCollectMethodPostScheduling `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 }
 
 func (r RestCollectMethodPost) MarshalJSON() ([]byte, error) {
@@ -4786,6 +4819,27 @@ func (r *RestCollectMethodPost) GetScheduling() *RestCollectMethodPostScheduling
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestCollectMethodPost) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestCollectMethodPost) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
+}
+
+func (r *RestCollectMethodPost) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
 }
 
 type RestCollectMethodGetCollectMethod string
@@ -7091,6 +7145,12 @@ type RestCollectMethodGet struct {
 	SafeHeaders []string                        `json:"safeHeaders,omitzero"`
 	RetryRules  *RestCollectMethodGetRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestCollectMethodGetScheduling `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 }
 
 func (r RestCollectMethodGet) MarshalJSON() ([]byte, error) {
@@ -7312,6 +7372,27 @@ func (r *RestCollectMethodGet) GetScheduling() *RestCollectMethodGetScheduling {
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestCollectMethodGet) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestCollectMethodGet) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
+}
+
+func (r *RestCollectMethodGet) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
 }
 
 type RestCollectorConfType string

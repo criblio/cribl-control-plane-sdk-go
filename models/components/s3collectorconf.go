@@ -112,6 +112,10 @@ type S3AwsAuthenticationMethodSecret struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodSecret) MarshalJSON() ([]byte, error) {
@@ -272,6 +276,20 @@ func (s *S3AwsAuthenticationMethodSecret) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3AwsAuthenticationMethodSecret) GetAwsAPIKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsAPIKey
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetAwsSecretKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecretKey
+}
+
 // #region class-body-s3awsauthenticationmethodsecret
 // #endregion class-body-s3awsauthenticationmethodsecret
 
@@ -380,6 +398,8 @@ type S3AwsAuthenticationMethodManual struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Select or create a stored secret that references AWS access key and secret key.
+	AwsSecret *string `json:"awsSecret,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodManual) MarshalJSON() ([]byte, error) {
@@ -547,6 +567,13 @@ func (s *S3AwsAuthenticationMethodManual) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3AwsAuthenticationMethodManual) GetAwsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecret
+}
+
 // #region class-body-s3awsauthenticationmethodmanual
 // #endregion class-body-s3awsauthenticationmethodmanual
 
@@ -651,6 +678,12 @@ type S3AwsAuthenticationMethodAuto struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Select or create a stored secret that references AWS access key and secret key.
+	AwsSecret *string `json:"awsSecret,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodAuto) MarshalJSON() ([]byte, error) {
@@ -804,6 +837,27 @@ func (s *S3AwsAuthenticationMethodAuto) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3AwsAuthenticationMethodAuto) GetAwsAPIKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsAPIKey
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetAwsSecretKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecretKey
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetAwsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecret
+}
+
 // #region class-body-s3awsauthenticationmethodauto
 // #endregion class-body-s3awsauthenticationmethodauto
 
@@ -910,6 +964,12 @@ type S3PartitioningSchemeNone struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Select or create a stored secret that references AWS access key and secret key.
+	AwsSecret *string `json:"awsSecret,omitzero"`
 }
 
 func (s S3PartitioningSchemeNone) MarshalJSON() ([]byte, error) {
@@ -1070,6 +1130,27 @@ func (s *S3PartitioningSchemeNone) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3PartitioningSchemeNone) GetAwsAPIKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsAPIKey
+}
+
+func (s *S3PartitioningSchemeNone) GetAwsSecretKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecretKey
+}
+
+func (s *S3PartitioningSchemeNone) GetAwsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecret
+}
+
 // #region class-body-s3partitioningschemenone
 // #endregion class-body-s3partitioningschemenone
 
@@ -1174,6 +1255,12 @@ type S3PartitioningSchemeDdss struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Select or create a stored secret that references AWS access key and secret key.
+	AwsSecret *string `json:"awsSecret,omitzero"`
 }
 
 func (s S3PartitioningSchemeDdss) MarshalJSON() ([]byte, error) {
@@ -1325,6 +1412,27 @@ func (s *S3PartitioningSchemeDdss) GetDisableTimeFilter() *bool {
 		return nil
 	}
 	return s.DisableTimeFilter
+}
+
+func (s *S3PartitioningSchemeDdss) GetAwsAPIKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsAPIKey
+}
+
+func (s *S3PartitioningSchemeDdss) GetAwsSecretKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecretKey
+}
+
+func (s *S3PartitioningSchemeDdss) GetAwsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecret
 }
 
 // #region class-body-s3partitioningschemeddss
