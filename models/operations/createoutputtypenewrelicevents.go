@@ -70,32 +70,30 @@ type CreateOutputOutputCloudflareR2 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
-	Endpoint string `json:"endpoint"`
-	// Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket string `json:"bucket"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *CreateOutputAuthenticationMethodCloudflareR2 `json:"awsAuthenticationMethod,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	// Signature version to use for signing MinIO requests
+	SignatureVersion *components.SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	// Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `json:"destPath,omitzero"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
-	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
-	DestPath *string `json:"destPath,omitzero"`
-	// Signature version to use for signing MinIO requests
-	SignatureVersion *components.SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass *components.StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
-	// Server-side encryption for uploaded objects
-	ServerSideEncryption *components.ServerSideEncryptionOptions `json:"serverSideEncryption,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
@@ -108,6 +106,10 @@ type CreateOutputOutputCloudflareR2 struct {
 	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
@@ -123,13 +125,13 @@ type CreateOutputOutputCloudflareR2 struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
-	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
-	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
-	Description            *string  `json:"description,omitzero"`
+	// Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
+	Endpoint string `json:"endpoint"`
+	// Storage class to select for uploaded objects
+	StorageClass *components.StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptionsAes256 `json:"serverSideEncryption,omitzero"`
+	Description          *string                                                         `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -166,8 +168,12 @@ type CreateOutputOutputCloudflareR2 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
 	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
 	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -178,6 +184,10 @@ type CreateOutputOutputCloudflareR2 struct {
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
@@ -235,20 +245,6 @@ func (c *CreateOutputOutputCloudflareR2) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetEndpoint() string {
-	if c == nil {
-		return ""
-	}
-	return c.Endpoint
-}
-
-func (c *CreateOutputOutputCloudflareR2) GetBucket() string {
-	if c == nil {
-		return ""
-	}
-	return c.Bucket
-}
-
 func (c *CreateOutputOutputCloudflareR2) GetAwsAuthenticationMethod() *CreateOutputAuthenticationMethodCloudflareR2 {
 	if c == nil {
 		return nil
@@ -256,53 +252,11 @@ func (c *CreateOutputOutputCloudflareR2) GetAwsAuthenticationMethod() *CreateOut
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AwsSecretKey
-}
-
-func (c *CreateOutputOutputCloudflareR2) GetStagePath() string {
-	if c == nil {
-		return ""
-	}
-	return c.StagePath
-}
-
-func (c *CreateOutputOutputCloudflareR2) GetAddIDToStagePath() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.AddIDToStagePath
-}
-
-func (c *CreateOutputOutputCloudflareR2) GetDestPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.DestPath
-}
-
 func (c *CreateOutputOutputCloudflareR2) GetSignatureVersion() *components.SignatureVersionOptionsMinIo {
 	if c == nil {
 		return nil
 	}
 	return c.SignatureVersion
-}
-
-func (c *CreateOutputOutputCloudflareR2) GetStorageClass() *components.StorageClassOptionsReducedredundancyStandard {
-	if c == nil {
-		return nil
-	}
-	return c.StorageClass
-}
-
-func (c *CreateOutputOutputCloudflareR2) GetServerSideEncryption() *components.ServerSideEncryptionOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ServerSideEncryption
 }
 
 func (c *CreateOutputOutputCloudflareR2) GetReuseConnections() *bool {
@@ -319,11 +273,60 @@ func (c *CreateOutputOutputCloudflareR2) GetRejectUnauthorized() *bool {
 	return c.RejectUnauthorized
 }
 
+func (c *CreateOutputOutputCloudflareR2) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetMaxConcurrentFileParts() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxConcurrentFileParts
+}
+
 func (c *CreateOutputOutputCloudflareR2) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetStagePath() string {
+	if c == nil {
+		return ""
+	}
+	return c.StagePath
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetAddIDToStagePath() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AddIDToStagePath
 }
 
 func (c *CreateOutputOutputCloudflareR2) GetRemoveEmptyDirs() *bool {
@@ -366,6 +369,20 @@ func (c *CreateOutputOutputCloudflareR2) GetMaxFileSizeMB() *float64 {
 		return nil
 	}
 	return c.MaxFileSizeMB
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetMaxFileOpenTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileOpenTimeSec
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetMaxFileIdleTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileIdleTimeSec
 }
 
 func (c *CreateOutputOutputCloudflareR2) GetMaxOpenFiles() *float64 {
@@ -424,25 +441,25 @@ func (c *CreateOutputOutputCloudflareR2) GetRetrySettings() *components.RetrySet
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputOutputCloudflareR2) GetEndpoint() string {
 	if c == nil {
-		return nil
+		return ""
 	}
-	return c.MaxFileOpenTimeSec
+	return c.Endpoint
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputOutputCloudflareR2) GetStorageClass() *components.StorageClassOptionsReducedredundancyStandard {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileIdleTimeSec
+	return c.StorageClass
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputOutputCloudflareR2) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptionsAes256 {
 	if c == nil {
 		return nil
 	}
-	return c.MaxConcurrentFileParts
+	return c.ServerSideEncryption
 }
 
 func (c *CreateOutputOutputCloudflareR2) GetDescription() *string {
@@ -578,11 +595,25 @@ func (c *CreateOutputOutputCloudflareR2) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
+func (c *CreateOutputOutputCloudflareR2) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
 func (c *CreateOutputOutputCloudflareR2) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetTemplateDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDestPath
 }
 
 func (c *CreateOutputOutputCloudflareR2) GetTemplatePartitionExpr() *string {
@@ -618,6 +649,20 @@ func (c *CreateOutputOutputCloudflareR2) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetTemplateStorageClass() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageClass
+}
+
+func (c *CreateOutputOutputCloudflareR2) GetTemplateServerSideEncryption() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateServerSideEncryption
 }
 
 func (c *CreateOutputOutputCloudflareR2) GetTemplateCompress() *string {
@@ -6299,20 +6344,8 @@ type CreateOutputOutputCriblLake struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket *string `json:"bucket,omitzero"`
-	// Region where the S3 bucket is located
-	Region *string `json:"region,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access S3
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -6321,19 +6354,28 @@ type CreateOutputOutputCriblLake struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// Signature version to use for signing S3 requests
+	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket *string `json:"bucket,omitzero"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitzero"`
+	// Lake dataset to send the data to.
+	DestPath *string `json:"destPath,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `json:"stagePath,omitzero"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
-	// Lake dataset to send the data to.
-	DestPath *string `json:"destPath,omitzero"`
-	// Object ACL to assign to uploaded objects
-	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass         *components.StorageClassOptions                           `json:"storageClass,omitzero"`
-	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
-	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression to define the output filename prefix (can be constant)
@@ -6342,6 +6384,10 @@ type CreateOutputOutputCriblLake struct {
 	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
@@ -6357,16 +6403,16 @@ type CreateOutputOutputCriblLake struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
-	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
-	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                             `json:"maxClosingFilesToBackpressure,omitzero"`
-	AwsAuthenticationMethod       *CreateOutputAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
-	Format                        *components.FormatOptions            `json:"format,omitzero"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
+	// Storage class to select for uploaded objects
+	StorageClass *components.StorageClassOptions `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID                *string                              `json:"kmsKeyId,omitzero"`
+	AwsAuthenticationMethod *CreateOutputAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	Format                  *components.FormatOptions            `json:"format,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	Description            *string  `json:"description,omitzero"`
@@ -6378,20 +6424,26 @@ type CreateOutputOutputCriblLake struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitzero"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
 	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
 	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
 	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
@@ -6400,12 +6452,6 @@ type CreateOutputOutputCriblLake struct {
 	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
 	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
-	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
-	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
-	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
-	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
-	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (c CreateOutputOutputCriblLake) MarshalJSON() ([]byte, error) {
@@ -6461,53 +6507,11 @@ func (c *CreateOutputOutputCriblLake) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputCriblLake) GetBucket() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Bucket
-}
-
-func (c *CreateOutputOutputCriblLake) GetRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Region
-}
-
-func (c *CreateOutputOutputCriblLake) GetAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AwsSecretKey
-}
-
 func (c *CreateOutputOutputCriblLake) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
-}
-
-func (c *CreateOutputOutputCriblLake) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
-}
-
-func (c *CreateOutputOutputCriblLake) GetReuseConnections() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.ReuseConnections
-}
-
-func (c *CreateOutputOutputCriblLake) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
 }
 
 func (c *CreateOutputOutputCriblLake) GetEnableAssumeRole() *bool {
@@ -6538,6 +6542,69 @@ func (c *CreateOutputOutputCriblLake) GetDurationSeconds() *float64 {
 	return c.DurationSeconds
 }
 
+func (c *CreateOutputOutputCriblLake) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
+	if c == nil {
+		return nil
+	}
+	return c.SignatureVersion
+}
+
+func (c *CreateOutputOutputCriblLake) GetReuseConnections() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ReuseConnections
+}
+
+func (c *CreateOutputOutputCriblLake) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputOutputCriblLake) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
+func (c *CreateOutputOutputCriblLake) GetBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputOutputCriblLake) GetRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Region
+}
+
+func (c *CreateOutputOutputCriblLake) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+func (c *CreateOutputOutputCriblLake) GetVerifyPermissions() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.VerifyPermissions
+}
+
+func (c *CreateOutputOutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
+}
+
 func (c *CreateOutputOutputCriblLake) GetStagePath() *string {
 	if c == nil {
 		return nil
@@ -6550,41 +6617,6 @@ func (c *CreateOutputOutputCriblLake) GetAddIDToStagePath() *bool {
 		return nil
 	}
 	return c.AddIDToStagePath
-}
-
-func (c *CreateOutputOutputCriblLake) GetDestPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.DestPath
-}
-
-func (c *CreateOutputOutputCriblLake) GetObjectACL() *components.ObjectACLOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ObjectACL
-}
-
-func (c *CreateOutputOutputCriblLake) GetStorageClass() *components.StorageClassOptions {
-	if c == nil {
-		return nil
-	}
-	return c.StorageClass
-}
-
-func (c *CreateOutputOutputCriblLake) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ServerSideEncryption
-}
-
-func (c *CreateOutputOutputCriblLake) GetKmsKeyID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.KmsKeyID
 }
 
 func (c *CreateOutputOutputCriblLake) GetRemoveEmptyDirs() *bool {
@@ -6613,6 +6645,20 @@ func (c *CreateOutputOutputCriblLake) GetMaxFileSizeMB() *float64 {
 		return nil
 	}
 	return c.MaxFileSizeMB
+}
+
+func (c *CreateOutputOutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileOpenTimeSec
+}
+
+func (c *CreateOutputOutputCriblLake) GetMaxFileIdleTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileIdleTimeSec
 }
 
 func (c *CreateOutputOutputCriblLake) GetMaxOpenFiles() *float64 {
@@ -6671,32 +6717,32 @@ func (c *CreateOutputOutputCriblLake) GetRetrySettings() *components.RetrySettin
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputOutputCriblLake) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileOpenTimeSec
+	return c.ObjectACL
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputOutputCriblLake) GetStorageClass() *components.StorageClassOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileIdleTimeSec
+	return c.StorageClass
 }
 
-func (c *CreateOutputOutputCriblLake) GetVerifyPermissions() *bool {
+func (c *CreateOutputOutputCriblLake) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
 	if c == nil {
 		return nil
 	}
-	return c.VerifyPermissions
+	return c.ServerSideEncryption
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputOutputCriblLake) GetKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
-	return c.MaxClosingFilesToBackpressure
+	return c.KmsKeyID
 }
 
 func (c *CreateOutputOutputCriblLake) GetAwsAuthenticationMethod() *CreateOutputAwsAuthenticationMethod {
@@ -6755,27 +6801,6 @@ func (c *CreateOutputOutputCriblLake) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateBucket() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateBucket
-}
-
-func (c *CreateOutputOutputCriblLake) GetTemplateRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateRegion
-}
-
-func (c *CreateOutputOutputCriblLake) GetTemplateAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateAwsSecretKey
-}
-
 func (c *CreateOutputOutputCriblLake) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
@@ -6797,11 +6822,53 @@ func (c *CreateOutputOutputCriblLake) GetTemplateAssumeRoleExternalID() *string 
 	return c.TemplateAssumeRoleExternalID
 }
 
+func (c *CreateOutputOutputCriblLake) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateOutputOutputCriblLake) GetTemplateBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBucket
+}
+
+func (c *CreateOutputOutputCriblLake) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
 func (c *CreateOutputOutputCriblLake) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
+}
+
+func (c *CreateOutputOutputCriblLake) GetTemplateBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBaseFileName
+}
+
+func (c *CreateOutputOutputCriblLake) GetTemplateFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFileNameSuffix
+}
+
+func (c *CreateOutputOutputCriblLake) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
 }
 
 func (c *CreateOutputOutputCriblLake) GetTemplateObjectACL() *string {
@@ -6830,27 +6897,6 @@ func (c *CreateOutputOutputCriblLake) GetTemplateKmsKeyID() *string {
 		return nil
 	}
 	return c.TemplateKmsKeyID
-}
-
-func (c *CreateOutputOutputCriblLake) GetTemplateBaseFileName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateBaseFileName
-}
-
-func (c *CreateOutputOutputCriblLake) GetTemplateFileNameSuffix() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateFileNameSuffix
-}
-
-func (c *CreateOutputOutputCriblLake) GetTemplateOnBackpressure() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateOnBackpressure
 }
 
 type CreateOutputTypeSecurityLake string
@@ -6911,21 +6957,8 @@ type CreateOutputOutputSecurityLake struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket string `json:"bucket"`
-	// Region where the Amazon Security Lake is located.
-	Region       string  `json:"region"`
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing Amazon Security Lake requests
-	SignatureVersion *CreateOutputSignatureVersionSecurityLake `json:"signatureVersion,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access S3
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -6934,23 +6967,39 @@ type CreateOutputOutputSecurityLake struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	// Signature version to use for signing Amazon Security Lake requests
+	SignatureVersion *CreateOutputSignatureVersionSecurityLake `json:"signatureVersion,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool   `json:"rejectUnauthorized,omitzero"`
+	AwsSecretKey       *string `json:"awsSecretKey,omitzero"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region string `json:"region"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
-	// Object ACL to assign to uploaded objects
-	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass         *components.StorageClassOptions                           `json:"storageClass,omitzero"`
-	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
-	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression to define the output filename prefix (can be constant)
 	BaseFileName *string `json:"baseFileName,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
@@ -6966,16 +7015,14 @@ type CreateOutputOutputSecurityLake struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
-	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
-	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
-	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
+	// Storage class to select for uploaded objects
+	StorageClass *components.StorageClassOptions `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
 	AccountID string `json:"accountId"`
 	// Name of the custom source configured in Amazon Security Lake
@@ -7015,18 +7062,22 @@ type CreateOutputOutputSecurityLake struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitzero"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
 	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
 	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
@@ -7035,10 +7086,6 @@ type CreateOutputOutputSecurityLake struct {
 	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
 	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
-	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
-	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
-	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
@@ -7096,60 +7143,11 @@ func (c *CreateOutputOutputSecurityLake) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputSecurityLake) GetBucket() string {
-	if c == nil {
-		return ""
-	}
-	return c.Bucket
-}
-
-func (c *CreateOutputOutputSecurityLake) GetRegion() string {
-	if c == nil {
-		return ""
-	}
-	return c.Region
-}
-
-func (c *CreateOutputOutputSecurityLake) GetAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AwsSecretKey
-}
-
-func (c *CreateOutputOutputSecurityLake) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
-	if c == nil {
-		return nil
-	}
-	return c.AwsAuthenticationMethod
-}
-
 func (c *CreateOutputOutputSecurityLake) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
-}
-
-func (c *CreateOutputOutputSecurityLake) GetSignatureVersion() *CreateOutputSignatureVersionSecurityLake {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
-}
-
-func (c *CreateOutputOutputSecurityLake) GetReuseConnections() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.ReuseConnections
-}
-
-func (c *CreateOutputOutputSecurityLake) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
 }
 
 func (c *CreateOutputOutputSecurityLake) GetEnableAssumeRole() *bool {
@@ -7180,6 +7178,76 @@ func (c *CreateOutputOutputSecurityLake) GetDurationSeconds() *float64 {
 	return c.DurationSeconds
 }
 
+func (c *CreateOutputOutputSecurityLake) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAuthenticationMethod
+}
+
+func (c *CreateOutputOutputSecurityLake) GetSignatureVersion() *CreateOutputSignatureVersionSecurityLake {
+	if c == nil {
+		return nil
+	}
+	return c.SignatureVersion
+}
+
+func (c *CreateOutputOutputSecurityLake) GetReuseConnections() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ReuseConnections
+}
+
+func (c *CreateOutputOutputSecurityLake) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputOutputSecurityLake) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
+func (c *CreateOutputOutputSecurityLake) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputOutputSecurityLake) GetRegion() string {
+	if c == nil {
+		return ""
+	}
+	return c.Region
+}
+
+func (c *CreateOutputOutputSecurityLake) GetMaxConcurrentFileParts() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxConcurrentFileParts
+}
+
+func (c *CreateOutputOutputSecurityLake) GetVerifyPermissions() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.VerifyPermissions
+}
+
+func (c *CreateOutputOutputSecurityLake) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
+}
+
 func (c *CreateOutputOutputSecurityLake) GetStagePath() string {
 	if c == nil {
 		return ""
@@ -7192,34 +7260,6 @@ func (c *CreateOutputOutputSecurityLake) GetAddIDToStagePath() *bool {
 		return nil
 	}
 	return c.AddIDToStagePath
-}
-
-func (c *CreateOutputOutputSecurityLake) GetObjectACL() *components.ObjectACLOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ObjectACL
-}
-
-func (c *CreateOutputOutputSecurityLake) GetStorageClass() *components.StorageClassOptions {
-	if c == nil {
-		return nil
-	}
-	return c.StorageClass
-}
-
-func (c *CreateOutputOutputSecurityLake) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ServerSideEncryption
-}
-
-func (c *CreateOutputOutputSecurityLake) GetKmsKeyID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.KmsKeyID
 }
 
 func (c *CreateOutputOutputSecurityLake) GetRemoveEmptyDirs() *bool {
@@ -7241,6 +7281,20 @@ func (c *CreateOutputOutputSecurityLake) GetMaxFileSizeMB() *float64 {
 		return nil
 	}
 	return c.MaxFileSizeMB
+}
+
+func (c *CreateOutputOutputSecurityLake) GetMaxFileOpenTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileOpenTimeSec
+}
+
+func (c *CreateOutputOutputSecurityLake) GetMaxFileIdleTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileIdleTimeSec
 }
 
 func (c *CreateOutputOutputSecurityLake) GetMaxOpenFiles() *float64 {
@@ -7299,39 +7353,32 @@ func (c *CreateOutputOutputSecurityLake) GetRetrySettings() *components.RetrySet
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputOutputSecurityLake) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileOpenTimeSec
+	return c.ObjectACL
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputOutputSecurityLake) GetStorageClass() *components.StorageClassOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileIdleTimeSec
+	return c.StorageClass
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputOutputSecurityLake) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxConcurrentFileParts
+	return c.ServerSideEncryption
 }
 
-func (c *CreateOutputOutputSecurityLake) GetVerifyPermissions() *bool {
+func (c *CreateOutputOutputSecurityLake) GetKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
-	return c.VerifyPermissions
-}
-
-func (c *CreateOutputOutputSecurityLake) GetMaxClosingFilesToBackpressure() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxClosingFilesToBackpressure
+	return c.KmsKeyID
 }
 
 func (c *CreateOutputOutputSecurityLake) GetAccountID() string {
@@ -7474,27 +7521,6 @@ func (c *CreateOutputOutputSecurityLake) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateBucket() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateBucket
-}
-
-func (c *CreateOutputOutputSecurityLake) GetTemplateRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateRegion
-}
-
-func (c *CreateOutputOutputSecurityLake) GetTemplateAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateAwsSecretKey
-}
-
 func (c *CreateOutputOutputSecurityLake) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
@@ -7514,6 +7540,41 @@ func (c *CreateOutputOutputSecurityLake) GetTemplateAssumeRoleExternalID() *stri
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
+}
+
+func (c *CreateOutputOutputSecurityLake) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateOutputOutputSecurityLake) GetTemplateBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBucket
+}
+
+func (c *CreateOutputOutputSecurityLake) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
+func (c *CreateOutputOutputSecurityLake) GetTemplateBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBaseFileName
+}
+
+func (c *CreateOutputOutputSecurityLake) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
 }
 
 func (c *CreateOutputOutputSecurityLake) GetTemplateObjectACL() *string {
@@ -7542,20 +7603,6 @@ func (c *CreateOutputOutputSecurityLake) GetTemplateKmsKeyID() *string {
 		return nil
 	}
 	return c.TemplateKmsKeyID
-}
-
-func (c *CreateOutputOutputSecurityLake) GetTemplateBaseFileName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateBaseFileName
-}
-
-func (c *CreateOutputOutputSecurityLake) GetTemplateOnBackpressure() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateOnBackpressure
 }
 
 func (c *CreateOutputOutputSecurityLake) GetTemplateAwsAPIKey() *string {
@@ -7600,22 +7647,8 @@ type CreateOutputOutputDlS3 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket string `json:"bucket"`
-	// Region where the S3 bucket is located
-	Region *string `json:"region,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access S3
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -7624,19 +7657,32 @@ type CreateOutputOutputDlS3 struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	// Signature version to use for signing S3 requests
+	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitzero"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `json:"destPath,omitzero"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
-	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-	DestPath *string `json:"destPath,omitzero"`
-	// Object ACL to assign to uploaded objects
-	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass         *components.StorageClassOptions                           `json:"storageClass,omitzero"`
-	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
-	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// Format of the output data
@@ -7647,6 +7693,10 @@ type CreateOutputOutputDlS3 struct {
 	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
@@ -7662,16 +7712,14 @@ type CreateOutputOutputDlS3 struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
-	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
-	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
-	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
+	// Storage class to select for uploaded objects
+	StorageClass *components.StorageClassOptions `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
 	PartitioningFields []string `json:"partitioningFields,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -7713,28 +7761,20 @@ type CreateOutputOutputDlS3 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitzero"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
 	TemplateDestPath *string `json:"__template_destPath,omitzero"`
-	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
-	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
-	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
-	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
-	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
-	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
-	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
-	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
 	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
@@ -7743,6 +7783,14 @@ type CreateOutputOutputDlS3 struct {
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
+	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
+	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
@@ -7802,60 +7850,11 @@ func (c *CreateOutputOutputDlS3) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputDlS3) GetBucket() string {
-	if c == nil {
-		return ""
-	}
-	return c.Bucket
-}
-
-func (c *CreateOutputOutputDlS3) GetRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Region
-}
-
-func (c *CreateOutputOutputDlS3) GetAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AwsSecretKey
-}
-
-func (c *CreateOutputOutputDlS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
-	if c == nil {
-		return nil
-	}
-	return c.AwsAuthenticationMethod
-}
-
 func (c *CreateOutputOutputDlS3) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
-}
-
-func (c *CreateOutputOutputDlS3) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
-}
-
-func (c *CreateOutputOutputDlS3) GetReuseConnections() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.ReuseConnections
-}
-
-func (c *CreateOutputOutputDlS3) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
 }
 
 func (c *CreateOutputOutputDlS3) GetEnableAssumeRole() *bool {
@@ -7886,6 +7885,83 @@ func (c *CreateOutputOutputDlS3) GetDurationSeconds() *float64 {
 	return c.DurationSeconds
 }
 
+func (c *CreateOutputOutputDlS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAuthenticationMethod
+}
+
+func (c *CreateOutputOutputDlS3) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
+	if c == nil {
+		return nil
+	}
+	return c.SignatureVersion
+}
+
+func (c *CreateOutputOutputDlS3) GetReuseConnections() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ReuseConnections
+}
+
+func (c *CreateOutputOutputDlS3) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputOutputDlS3) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
+func (c *CreateOutputOutputDlS3) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputOutputDlS3) GetRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Region
+}
+
+func (c *CreateOutputOutputDlS3) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+func (c *CreateOutputOutputDlS3) GetMaxConcurrentFileParts() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxConcurrentFileParts
+}
+
+func (c *CreateOutputOutputDlS3) GetVerifyPermissions() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.VerifyPermissions
+}
+
+func (c *CreateOutputOutputDlS3) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
+}
+
 func (c *CreateOutputOutputDlS3) GetStagePath() string {
 	if c == nil {
 		return ""
@@ -7898,41 +7974,6 @@ func (c *CreateOutputOutputDlS3) GetAddIDToStagePath() *bool {
 		return nil
 	}
 	return c.AddIDToStagePath
-}
-
-func (c *CreateOutputOutputDlS3) GetDestPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.DestPath
-}
-
-func (c *CreateOutputOutputDlS3) GetObjectACL() *components.ObjectACLOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ObjectACL
-}
-
-func (c *CreateOutputOutputDlS3) GetStorageClass() *components.StorageClassOptions {
-	if c == nil {
-		return nil
-	}
-	return c.StorageClass
-}
-
-func (c *CreateOutputOutputDlS3) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ServerSideEncryption
-}
-
-func (c *CreateOutputOutputDlS3) GetKmsKeyID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.KmsKeyID
 }
 
 func (c *CreateOutputOutputDlS3) GetRemoveEmptyDirs() *bool {
@@ -7968,6 +8009,20 @@ func (c *CreateOutputOutputDlS3) GetMaxFileSizeMB() *float64 {
 		return nil
 	}
 	return c.MaxFileSizeMB
+}
+
+func (c *CreateOutputOutputDlS3) GetMaxFileOpenTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileOpenTimeSec
+}
+
+func (c *CreateOutputOutputDlS3) GetMaxFileIdleTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileIdleTimeSec
 }
 
 func (c *CreateOutputOutputDlS3) GetMaxOpenFiles() *float64 {
@@ -8026,39 +8081,32 @@ func (c *CreateOutputOutputDlS3) GetRetrySettings() *components.RetrySettingsTyp
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputOutputDlS3) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileOpenTimeSec
+	return c.ObjectACL
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputOutputDlS3) GetStorageClass() *components.StorageClassOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileIdleTimeSec
+	return c.StorageClass
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputOutputDlS3) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxConcurrentFileParts
+	return c.ServerSideEncryption
 }
 
-func (c *CreateOutputOutputDlS3) GetVerifyPermissions() *bool {
+func (c *CreateOutputOutputDlS3) GetKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
-	return c.VerifyPermissions
-}
-
-func (c *CreateOutputOutputDlS3) GetMaxClosingFilesToBackpressure() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxClosingFilesToBackpressure
+	return c.KmsKeyID
 }
 
 func (c *CreateOutputOutputDlS3) GetPartitioningFields() []string {
@@ -8208,27 +8256,6 @@ func (c *CreateOutputOutputDlS3) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateBucket() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateBucket
-}
-
-func (c *CreateOutputOutputDlS3) GetTemplateRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateRegion
-}
-
-func (c *CreateOutputOutputDlS3) GetTemplateAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateAwsSecretKey
-}
-
 func (c *CreateOutputOutputDlS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
@@ -8250,39 +8277,32 @@ func (c *CreateOutputOutputDlS3) GetTemplateAssumeRoleExternalID() *string {
 	return c.TemplateAssumeRoleExternalID
 }
 
+func (c *CreateOutputOutputDlS3) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateOutputOutputDlS3) GetTemplateBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBucket
+}
+
+func (c *CreateOutputOutputDlS3) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
 func (c *CreateOutputOutputDlS3) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
-}
-
-func (c *CreateOutputOutputDlS3) GetTemplateObjectACL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateObjectACL
-}
-
-func (c *CreateOutputOutputDlS3) GetTemplateStorageClass() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateStorageClass
-}
-
-func (c *CreateOutputOutputDlS3) GetTemplateServerSideEncryption() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateServerSideEncryption
-}
-
-func (c *CreateOutputOutputDlS3) GetTemplateKmsKeyID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateKmsKeyID
 }
 
 func (c *CreateOutputOutputDlS3) GetTemplateFormat() *string {
@@ -8311,6 +8331,34 @@ func (c *CreateOutputOutputDlS3) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputOutputDlS3) GetTemplateObjectACL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateObjectACL
+}
+
+func (c *CreateOutputOutputDlS3) GetTemplateStorageClass() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageClass
+}
+
+func (c *CreateOutputOutputDlS3) GetTemplateServerSideEncryption() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateServerSideEncryption
+}
+
+func (c *CreateOutputOutputDlS3) GetTemplateKmsKeyID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateKmsKeyID
 }
 
 func (c *CreateOutputOutputDlS3) GetTemplateAwsAPIKey() *string {
@@ -17691,36 +17739,32 @@ type CreateOutputOutputMinio struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// MinIO service url (e.g. http://minioHost:9000)
-	Endpoint string `json:"endpoint"`
-	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket string `json:"bucket"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	// Signature version to use for signing MinIO requests
+	SignatureVersion *components.SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// Region where the MinIO service/cluster is located
+	// Name of the destination MinIO bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the MinIO bucket is located
 	Region *string `json:"region,omitzero"`
-	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `json:"destPath,omitzero"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
-	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
-	DestPath *string `json:"destPath,omitzero"`
-	// Signature version to use for signing MinIO requests
-	SignatureVersion *components.SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
-	// Object ACL to assign to uploaded objects
-	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass *components.StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
-	// Server-side encryption for uploaded objects
-	ServerSideEncryption *components.ServerSideEncryptionOptions `json:"serverSideEncryption,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
@@ -17733,6 +17777,10 @@ type CreateOutputOutputMinio struct {
 	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
@@ -17748,13 +17796,15 @@ type CreateOutputOutputMinio struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
-	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
-	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
-	Description            *string  `json:"description,omitzero"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
+	// Storage class to select for uploaded objects
+	StorageClass *components.StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptionsAes256 `json:"serverSideEncryption,omitzero"`
+	Description          *string                                                         `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
@@ -17793,10 +17843,14 @@ type CreateOutputOutputMinio struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
 	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
 	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -17807,6 +17861,12 @@ type CreateOutputOutputMinio struct {
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
@@ -17866,20 +17926,6 @@ func (c *CreateOutputOutputMinio) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputMinio) GetEndpoint() string {
-	if c == nil {
-		return ""
-	}
-	return c.Endpoint
-}
-
-func (c *CreateOutputOutputMinio) GetBucket() string {
-	if c == nil {
-		return ""
-	}
-	return c.Bucket
-}
-
 func (c *CreateOutputOutputMinio) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
@@ -17887,67 +17933,11 @@ func (c *CreateOutputOutputMinio) GetAwsAuthenticationMethod() *components.Authe
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputMinio) GetAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AwsSecretKey
-}
-
-func (c *CreateOutputOutputMinio) GetRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Region
-}
-
-func (c *CreateOutputOutputMinio) GetStagePath() string {
-	if c == nil {
-		return ""
-	}
-	return c.StagePath
-}
-
-func (c *CreateOutputOutputMinio) GetAddIDToStagePath() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.AddIDToStagePath
-}
-
-func (c *CreateOutputOutputMinio) GetDestPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.DestPath
-}
-
 func (c *CreateOutputOutputMinio) GetSignatureVersion() *components.SignatureVersionOptionsMinIo {
 	if c == nil {
 		return nil
 	}
 	return c.SignatureVersion
-}
-
-func (c *CreateOutputOutputMinio) GetObjectACL() *components.ObjectACLOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ObjectACL
-}
-
-func (c *CreateOutputOutputMinio) GetStorageClass() *components.StorageClassOptionsReducedredundancyStandard {
-	if c == nil {
-		return nil
-	}
-	return c.StorageClass
-}
-
-func (c *CreateOutputOutputMinio) GetServerSideEncryption() *components.ServerSideEncryptionOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ServerSideEncryption
 }
 
 func (c *CreateOutputOutputMinio) GetReuseConnections() *bool {
@@ -17964,11 +17954,67 @@ func (c *CreateOutputOutputMinio) GetRejectUnauthorized() *bool {
 	return c.RejectUnauthorized
 }
 
+func (c *CreateOutputOutputMinio) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
+func (c *CreateOutputOutputMinio) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputOutputMinio) GetRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Region
+}
+
+func (c *CreateOutputOutputMinio) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+func (c *CreateOutputOutputMinio) GetMaxConcurrentFileParts() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxConcurrentFileParts
+}
+
 func (c *CreateOutputOutputMinio) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
+}
+
+func (c *CreateOutputOutputMinio) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
+}
+
+func (c *CreateOutputOutputMinio) GetStagePath() string {
+	if c == nil {
+		return ""
+	}
+	return c.StagePath
+}
+
+func (c *CreateOutputOutputMinio) GetAddIDToStagePath() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AddIDToStagePath
 }
 
 func (c *CreateOutputOutputMinio) GetRemoveEmptyDirs() *bool {
@@ -18011,6 +18057,20 @@ func (c *CreateOutputOutputMinio) GetMaxFileSizeMB() *float64 {
 		return nil
 	}
 	return c.MaxFileSizeMB
+}
+
+func (c *CreateOutputOutputMinio) GetMaxFileOpenTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileOpenTimeSec
+}
+
+func (c *CreateOutputOutputMinio) GetMaxFileIdleTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileIdleTimeSec
 }
 
 func (c *CreateOutputOutputMinio) GetMaxOpenFiles() *float64 {
@@ -18069,25 +18129,32 @@ func (c *CreateOutputOutputMinio) GetRetrySettings() *components.RetrySettingsTy
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputMinio) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputOutputMinio) GetEndpoint() string {
 	if c == nil {
-		return nil
+		return ""
 	}
-	return c.MaxFileOpenTimeSec
+	return c.Endpoint
 }
 
-func (c *CreateOutputOutputMinio) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputOutputMinio) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileIdleTimeSec
+	return c.ObjectACL
 }
 
-func (c *CreateOutputOutputMinio) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputOutputMinio) GetStorageClass() *components.StorageClassOptionsReducedredundancyStandard {
 	if c == nil {
 		return nil
 	}
-	return c.MaxConcurrentFileParts
+	return c.StorageClass
+}
+
+func (c *CreateOutputOutputMinio) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptionsAes256 {
+	if c == nil {
+		return nil
+	}
+	return c.ServerSideEncryption
 }
 
 func (c *CreateOutputOutputMinio) GetDescription() *string {
@@ -18230,6 +18297,13 @@ func (c *CreateOutputOutputMinio) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
+func (c *CreateOutputOutputMinio) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
 func (c *CreateOutputOutputMinio) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
@@ -18242,6 +18316,13 @@ func (c *CreateOutputOutputMinio) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateOutputOutputMinio) GetTemplateDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDestPath
 }
 
 func (c *CreateOutputOutputMinio) GetTemplatePartitionExpr() *string {
@@ -18277,6 +18358,27 @@ func (c *CreateOutputOutputMinio) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputOutputMinio) GetTemplateObjectACL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateObjectACL
+}
+
+func (c *CreateOutputOutputMinio) GetTemplateStorageClass() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageClass
+}
+
+func (c *CreateOutputOutputMinio) GetTemplateServerSideEncryption() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateServerSideEncryption
 }
 
 func (c *CreateOutputOutputMinio) GetTemplateAwsAPIKey() *string {
