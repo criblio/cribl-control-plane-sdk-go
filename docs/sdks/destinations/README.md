@@ -365,9 +365,9 @@ func main() {
         operations.CreateOutputOutputCloudflareR2{
             ID: "cloudflare-r2-output",
             Type: operations.CreateOutputTypeCloudflareR2CloudflareR2,
-            Endpoint: "https://account-id.r2.cloudflarestorage.com",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
+            Endpoint: "https://account-id.r2.cloudflarestorage.com",
         },
     ))
     if err != nil {
@@ -1821,9 +1821,9 @@ func main() {
         operations.CreateOutputOutputMinio{
             ID: "minio-output",
             Type: operations.CreateOutputTypeMinioMinio,
-            Endpoint: "http://localhost:9000",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
+            Endpoint: "http://localhost:9000",
         },
     ))
     if err != nil {
@@ -2241,9 +2241,9 @@ func main() {
         operations.CreateOutputOutputSecurityLake{
             ID: "security-lake-output",
             Type: operations.CreateOutputTypeSecurityLakeSecurityLake,
+            AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
-            AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             StagePath: "/tmp/staging",
             AccountID: "123456789012",
             CustomSource: "my-custom-source",
@@ -2953,11 +2953,13 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestWebhook(
-        operations.CreateOutputOutputWebhook{
-            ID: "webhook-output",
-            Type: operations.CreateOutputTypeWebhookWebhook,
-            URL: criblcontrolplanesdkgo.Pointer("https://example.com/webhook"),
-        },
+        operations.CreateCreateOutputOutputWebhookUnionCreateOutputOutputWebhookWebhook1(
+            operations.CreateOutputOutputWebhookWebhook1{
+                ID: "webhook-output",
+                Type: operations.CreateOutputOutputWebhookType1Webhook,
+                URL: "https://example.com/webhook",
+            },
+        ),
     ))
     if err != nil {
         log.Fatal(err)
@@ -3416,9 +3418,9 @@ func main() {
         components.OutputCloudflareR2{
             ID: criblcontrolplanesdkgo.Pointer("cloudflare-r2-output"),
             Type: components.OutputCloudflareR2TypeCloudflareR2,
-            Endpoint: "https://account-id.r2.cloudflarestorage.com",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
+            Endpoint: "https://account-id.r2.cloudflarestorage.com",
         },
     ))
     if err != nil {
@@ -4839,9 +4841,9 @@ func main() {
         components.OutputMinio{
             ID: criblcontrolplanesdkgo.Pointer("minio-output"),
             Type: components.OutputMinioTypeMinio,
-            Endpoint: "http://localhost:9000",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
+            Endpoint: "http://localhost:9000",
         },
     ))
     if err != nil {
@@ -5249,9 +5251,9 @@ func main() {
         components.OutputSecurityLake{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-output"),
             Type: components.OutputSecurityLakeTypeSecurityLake,
+            AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
-            AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             StagePath: "/tmp/staging",
             AccountID: "123456789012",
             CustomSource: "my-custom-source",
@@ -5944,11 +5946,13 @@ func main() {
     )
 
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputWebhook(
-        components.OutputWebhook{
-            ID: criblcontrolplanesdkgo.Pointer("webhook-output"),
-            Type: components.OutputWebhookTypeWebhook,
-            URL: criblcontrolplanesdkgo.Pointer("https://example.com/webhook"),
-        },
+        components.CreateOutputWebhookOutputWebhookWebhook1(
+            components.OutputWebhookWebhook1{
+                ID: criblcontrolplanesdkgo.Pointer("webhook-output"),
+                Type: components.OutputWebhookType1Webhook,
+                URL: "https://example.com/webhook",
+            },
+        ),
     ))
     if err != nil {
         log.Fatal(err)

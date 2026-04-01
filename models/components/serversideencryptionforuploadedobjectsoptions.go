@@ -2,11 +2,12 @@
 
 package components
 
+// ServerSideEncryptionForUploadedObjectsOptions - Server-side encryption to use for uploaded objects
 type ServerSideEncryptionForUploadedObjectsOptions string
 
 const (
-	// ServerSideEncryptionForUploadedObjectsOptionsAes256 Amazon S3 Managed Key
-	ServerSideEncryptionForUploadedObjectsOptionsAes256 ServerSideEncryptionForUploadedObjectsOptions = "AES256"
+	// ServerSideEncryptionForUploadedObjectsOptionsAes256Value Amazon S3 Managed Key
+	ServerSideEncryptionForUploadedObjectsOptionsAes256Value ServerSideEncryptionForUploadedObjectsOptions = "AES256"
 	// ServerSideEncryptionForUploadedObjectsOptionsAwsKms AWS KMS Managed Key
 	ServerSideEncryptionForUploadedObjectsOptionsAwsKms ServerSideEncryptionForUploadedObjectsOptions = "aws:kms"
 )

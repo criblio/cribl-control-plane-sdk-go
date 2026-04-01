@@ -10013,22 +10013,8 @@ type CreateOutputSystemByPackOutputS3 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket string `json:"bucket"`
-	// Region where the S3 bucket is located
-	Region *string `json:"region,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access S3
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -10037,19 +10023,32 @@ type CreateOutputSystemByPackOutputS3 struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	// Signature version to use for signing S3 requests
+	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitzero"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `json:"destPath,omitzero"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
-	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-	DestPath *string `json:"destPath,omitzero"`
-	// Object ACL to assign to uploaded objects
-	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass         *components.StorageClassOptions                           `json:"storageClass,omitzero"`
-	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
-	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
@@ -10062,6 +10061,10 @@ type CreateOutputSystemByPackOutputS3 struct {
 	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
@@ -10077,17 +10080,15 @@ type CreateOutputSystemByPackOutputS3 struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
-	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
-	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
-	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
-	Description                   *string  `json:"description,omitzero"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
+	// Storage class to select for uploaded objects
+	StorageClass *components.StorageClassOptions `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID    *string `json:"kmsKeyId,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
@@ -10126,28 +10127,20 @@ type CreateOutputSystemByPackOutputS3 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitzero"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
 	TemplateDestPath *string `json:"__template_destPath,omitzero"`
-	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
-	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
-	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
-	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
-	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
-	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
-	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
-	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
 	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
 	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -10158,6 +10151,14 @@ type CreateOutputSystemByPackOutputS3 struct {
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
+	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
+	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
@@ -10217,60 +10218,11 @@ func (c *CreateOutputSystemByPackOutputS3) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateOutputSystemByPackOutputS3) GetBucket() string {
-	if c == nil {
-		return ""
-	}
-	return c.Bucket
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Region
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AwsSecretKey
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
-	if c == nil {
-		return nil
-	}
-	return c.AwsAuthenticationMethod
-}
-
 func (c *CreateOutputSystemByPackOutputS3) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetReuseConnections() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.ReuseConnections
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
 }
 
 func (c *CreateOutputSystemByPackOutputS3) GetEnableAssumeRole() *bool {
@@ -10301,6 +10253,83 @@ func (c *CreateOutputSystemByPackOutputS3) GetDurationSeconds() *float64 {
 	return c.DurationSeconds
 }
 
+func (c *CreateOutputSystemByPackOutputS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAuthenticationMethod
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
+	if c == nil {
+		return nil
+	}
+	return c.SignatureVersion
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetReuseConnections() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ReuseConnections
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Region
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetMaxConcurrentFileParts() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxConcurrentFileParts
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetVerifyPermissions() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.VerifyPermissions
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
+}
+
 func (c *CreateOutputSystemByPackOutputS3) GetStagePath() string {
 	if c == nil {
 		return ""
@@ -10313,41 +10342,6 @@ func (c *CreateOutputSystemByPackOutputS3) GetAddIDToStagePath() *bool {
 		return nil
 	}
 	return c.AddIDToStagePath
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetDestPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.DestPath
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetObjectACL() *components.ObjectACLOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ObjectACL
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetStorageClass() *components.StorageClassOptions {
-	if c == nil {
-		return nil
-	}
-	return c.StorageClass
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ServerSideEncryption
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetKmsKeyID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.KmsKeyID
 }
 
 func (c *CreateOutputSystemByPackOutputS3) GetRemoveEmptyDirs() *bool {
@@ -10390,6 +10384,20 @@ func (c *CreateOutputSystemByPackOutputS3) GetMaxFileSizeMB() *float64 {
 		return nil
 	}
 	return c.MaxFileSizeMB
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetMaxFileOpenTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileOpenTimeSec
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetMaxFileIdleTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileIdleTimeSec
 }
 
 func (c *CreateOutputSystemByPackOutputS3) GetMaxOpenFiles() *float64 {
@@ -10448,39 +10456,32 @@ func (c *CreateOutputSystemByPackOutputS3) GetRetrySettings() *components.RetryS
 	return c.RetrySettings
 }
 
-func (c *CreateOutputSystemByPackOutputS3) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputS3) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileOpenTimeSec
+	return c.ObjectACL
 }
 
-func (c *CreateOutputSystemByPackOutputS3) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputS3) GetStorageClass() *components.StorageClassOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxFileIdleTimeSec
+	return c.StorageClass
 }
 
-func (c *CreateOutputSystemByPackOutputS3) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputS3) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
 	if c == nil {
 		return nil
 	}
-	return c.MaxConcurrentFileParts
+	return c.ServerSideEncryption
 }
 
-func (c *CreateOutputSystemByPackOutputS3) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputS3) GetKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
-	return c.VerifyPermissions
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetMaxClosingFilesToBackpressure() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxClosingFilesToBackpressure
+	return c.KmsKeyID
 }
 
 func (c *CreateOutputSystemByPackOutputS3) GetDescription() *string {
@@ -10623,27 +10624,6 @@ func (c *CreateOutputSystemByPackOutputS3) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputSystemByPackOutputS3) GetTemplateBucket() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateBucket
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetTemplateRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateRegion
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetTemplateAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateAwsSecretKey
-}
-
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
@@ -10665,39 +10645,32 @@ func (c *CreateOutputSystemByPackOutputS3) GetTemplateAssumeRoleExternalID() *st
 	return c.TemplateAssumeRoleExternalID
 }
 
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBucket
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetTemplateObjectACL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateObjectACL
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetTemplateStorageClass() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateStorageClass
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetTemplateServerSideEncryption() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateServerSideEncryption
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetTemplateKmsKeyID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateKmsKeyID
 }
 
 func (c *CreateOutputSystemByPackOutputS3) GetTemplatePartitionExpr() *string {
@@ -10733,6 +10706,34 @@ func (c *CreateOutputSystemByPackOutputS3) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateObjectACL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateObjectACL
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateStorageClass() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageClass
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateServerSideEncryption() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateServerSideEncryption
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateKmsKeyID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateKmsKeyID
 }
 
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateAwsAPIKey() *string {
@@ -10789,7 +10790,7 @@ type CreateOutputSystemByPackOutputFilesystem struct {
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Final destination for the output files
 	DestPath string `json:"destPath"`
-	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `json:"stagePath,omitzero"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
@@ -15909,49 +15910,49 @@ func (c *CreateOutputSystemByPackOutputSentinel) GetTemplateStreamName() *string
 	return c.TemplateStreamName
 }
 
-type CreateOutputSystemByPackTypeWebhook string
+type CreateOutputSystemByPackOutputWebhookType2 string
 
 const (
-	CreateOutputSystemByPackTypeWebhookWebhook CreateOutputSystemByPackTypeWebhook = "webhook"
+	CreateOutputSystemByPackOutputWebhookType2Webhook CreateOutputSystemByPackOutputWebhookType2 = "webhook"
 )
 
-func (e CreateOutputSystemByPackTypeWebhook) ToPointer() *CreateOutputSystemByPackTypeWebhook {
+func (e CreateOutputSystemByPackOutputWebhookType2) ToPointer() *CreateOutputSystemByPackOutputWebhookType2 {
 	return &e
 }
-func (e *CreateOutputSystemByPackTypeWebhook) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackOutputWebhookType2) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "webhook":
-		*e = CreateOutputSystemByPackTypeWebhook(v)
+		*e = CreateOutputSystemByPackOutputWebhookType2(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeWebhook: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackOutputWebhookType2: %v", v)
 	}
 }
 
-// CreateOutputSystemByPackFormatWebhook - How to format events before sending out
-type CreateOutputSystemByPackFormatWebhook string
+// CreateOutputSystemByPackOutputWebhookFormat2 - How to format events before sending out
+type CreateOutputSystemByPackOutputWebhookFormat2 string
 
 const (
-	// CreateOutputSystemByPackFormatWebhookNdjson NDJSON (Newline Delimited JSON)
-	CreateOutputSystemByPackFormatWebhookNdjson CreateOutputSystemByPackFormatWebhook = "ndjson"
-	// CreateOutputSystemByPackFormatWebhookJSONArray JSON Array
-	CreateOutputSystemByPackFormatWebhookJSONArray CreateOutputSystemByPackFormatWebhook = "json_array"
-	// CreateOutputSystemByPackFormatWebhookCustom Custom
-	CreateOutputSystemByPackFormatWebhookCustom CreateOutputSystemByPackFormatWebhook = "custom"
-	// CreateOutputSystemByPackFormatWebhookAdvanced Advanced
-	CreateOutputSystemByPackFormatWebhookAdvanced CreateOutputSystemByPackFormatWebhook = "advanced"
+	// CreateOutputSystemByPackOutputWebhookFormat2Ndjson NDJSON (Newline Delimited JSON)
+	CreateOutputSystemByPackOutputWebhookFormat2Ndjson CreateOutputSystemByPackOutputWebhookFormat2 = "ndjson"
+	// CreateOutputSystemByPackOutputWebhookFormat2JSONArray JSON Array
+	CreateOutputSystemByPackOutputWebhookFormat2JSONArray CreateOutputSystemByPackOutputWebhookFormat2 = "json_array"
+	// CreateOutputSystemByPackOutputWebhookFormat2Custom Custom
+	CreateOutputSystemByPackOutputWebhookFormat2Custom CreateOutputSystemByPackOutputWebhookFormat2 = "custom"
+	// CreateOutputSystemByPackOutputWebhookFormat2Advanced Advanced
+	CreateOutputSystemByPackOutputWebhookFormat2Advanced CreateOutputSystemByPackOutputWebhookFormat2 = "advanced"
 )
 
-func (e CreateOutputSystemByPackFormatWebhook) ToPointer() *CreateOutputSystemByPackFormatWebhook {
+func (e CreateOutputSystemByPackOutputWebhookFormat2) ToPointer() *CreateOutputSystemByPackOutputWebhookFormat2 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputSystemByPackFormatWebhook) IsExact() bool {
+func (e *CreateOutputSystemByPackOutputWebhookFormat2) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "ndjson", "json_array", "custom", "advanced":
@@ -15961,30 +15962,30 @@ func (e *CreateOutputSystemByPackFormatWebhook) IsExact() bool {
 	return false
 }
 
-// CreateOutputSystemByPackAuthenticationTypeWebhook - Authentication method to use for the HTTP request
-type CreateOutputSystemByPackAuthenticationTypeWebhook string
+// CreateOutputSystemByPackOutputWebhookAuthenticationType2 - Authentication method to use for the HTTP request
+type CreateOutputSystemByPackOutputWebhookAuthenticationType2 string
 
 const (
-	// CreateOutputSystemByPackAuthenticationTypeWebhookNone None
-	CreateOutputSystemByPackAuthenticationTypeWebhookNone CreateOutputSystemByPackAuthenticationTypeWebhook = "none"
-	// CreateOutputSystemByPackAuthenticationTypeWebhookBasic Basic
-	CreateOutputSystemByPackAuthenticationTypeWebhookBasic CreateOutputSystemByPackAuthenticationTypeWebhook = "basic"
-	// CreateOutputSystemByPackAuthenticationTypeWebhookCredentialsSecret Basic (credentials secret)
-	CreateOutputSystemByPackAuthenticationTypeWebhookCredentialsSecret CreateOutputSystemByPackAuthenticationTypeWebhook = "credentialsSecret"
-	// CreateOutputSystemByPackAuthenticationTypeWebhookToken Token
-	CreateOutputSystemByPackAuthenticationTypeWebhookToken CreateOutputSystemByPackAuthenticationTypeWebhook = "token"
-	// CreateOutputSystemByPackAuthenticationTypeWebhookTextSecret Token (text secret)
-	CreateOutputSystemByPackAuthenticationTypeWebhookTextSecret CreateOutputSystemByPackAuthenticationTypeWebhook = "textSecret"
-	// CreateOutputSystemByPackAuthenticationTypeWebhookOauth OAuth
-	CreateOutputSystemByPackAuthenticationTypeWebhookOauth CreateOutputSystemByPackAuthenticationTypeWebhook = "oauth"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType2None None
+	CreateOutputSystemByPackOutputWebhookAuthenticationType2None CreateOutputSystemByPackOutputWebhookAuthenticationType2 = "none"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType2Basic Basic
+	CreateOutputSystemByPackOutputWebhookAuthenticationType2Basic CreateOutputSystemByPackOutputWebhookAuthenticationType2 = "basic"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType2CredentialsSecret Basic (credentials secret)
+	CreateOutputSystemByPackOutputWebhookAuthenticationType2CredentialsSecret CreateOutputSystemByPackOutputWebhookAuthenticationType2 = "credentialsSecret"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType2Token Token
+	CreateOutputSystemByPackOutputWebhookAuthenticationType2Token CreateOutputSystemByPackOutputWebhookAuthenticationType2 = "token"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType2TextSecret Token (text secret)
+	CreateOutputSystemByPackOutputWebhookAuthenticationType2TextSecret CreateOutputSystemByPackOutputWebhookAuthenticationType2 = "textSecret"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType2Oauth OAuth
+	CreateOutputSystemByPackOutputWebhookAuthenticationType2Oauth CreateOutputSystemByPackOutputWebhookAuthenticationType2 = "oauth"
 )
 
-func (e CreateOutputSystemByPackAuthenticationTypeWebhook) ToPointer() *CreateOutputSystemByPackAuthenticationTypeWebhook {
+func (e CreateOutputSystemByPackOutputWebhookAuthenticationType2) ToPointer() *CreateOutputSystemByPackOutputWebhookAuthenticationType2 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputSystemByPackAuthenticationTypeWebhook) IsExact() bool {
+func (e *CreateOutputSystemByPackOutputWebhookAuthenticationType2) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
@@ -15994,21 +15995,24 @@ func (e *CreateOutputSystemByPackAuthenticationTypeWebhook) IsExact() bool {
 	return false
 }
 
-type CreateOutputSystemByPackPqControlsWebhook struct {
+type CreateOutputSystemByPackOutputWebhookPqControls2 struct {
 }
 
-func (c CreateOutputSystemByPackPqControlsWebhook) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputWebhookPqControls2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputSystemByPackPqControlsWebhook) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputWebhookPqControls2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputSystemByPackURLWebhook struct {
+// #region class-body-createoutputsystembypackoutputwebhookpqcontrols2
+// #endregion class-body-createoutputsystembypackoutputwebhookpqcontrols2
+
+type CreateOutputSystemByPackOutputWebhookURL2 struct {
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
@@ -16017,42 +16021,45 @@ type CreateOutputSystemByPackURLWebhook struct {
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
-func (c CreateOutputSystemByPackURLWebhook) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputWebhookURL2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputSystemByPackURLWebhook) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputWebhookURL2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputSystemByPackURLWebhook) GetURL() string {
+func (c *CreateOutputSystemByPackOutputWebhookURL2) GetURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.URL
 }
 
-func (c *CreateOutputSystemByPackURLWebhook) GetWeight() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookURL2) GetWeight() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Weight
 }
 
-func (c *CreateOutputSystemByPackURLWebhook) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputWebhookURL2) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-type CreateOutputSystemByPackOutputWebhook struct {
+// #region class-body-createoutputsystembypackoutputwebhookurl2
+// #endregion class-body-createoutputsystembypackoutputwebhookurl2
+
+type CreateOutputSystemByPackOutputWebhookWebhook2 struct {
 	// Unique ID for this output
-	ID   string                              `json:"id"`
-	Type CreateOutputSystemByPackTypeWebhook `json:"type"`
+	ID   string                                     `json:"id"`
+	Type CreateOutputSystemByPackOutputWebhookType2 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -16064,7 +16071,7 @@ type CreateOutputSystemByPackOutputWebhook struct {
 	// The method to use when sending events
 	Method *components.MethodOptions `json:"method,omitzero"`
 	// How to format events before sending out
-	Format *CreateOutputSystemByPackFormatWebhook `json:"format,omitzero"`
+	Format *CreateOutputSystemByPackOutputWebhookFormat2 `json:"format,omitzero"`
 	// Disable to close the connection immediately after sending the outgoing request
 	KeepAlive *bool `json:"keepAlive,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -16099,7 +16106,7 @@ type CreateOutputSystemByPackOutputWebhook struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Authentication method to use for the HTTP request
-	AuthType *CreateOutputSystemByPackAuthenticationTypeWebhook          `json:"authType,omitzero"`
+	AuthType *CreateOutputSystemByPackOutputWebhookAuthenticationType2   `json:"authType,omitzero"`
 	TLS      *components.TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
@@ -16143,10 +16150,10 @@ type CreateOutputSystemByPackOutputWebhook struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputSystemByPackPqControlsWebhook `json:"pqControls,omitzero"`
-	Username             *string                                    `json:"username,omitzero"`
-	Password             *string                                    `json:"password,omitzero"`
+	PqMaxBufferSizeBytes *string                                           `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackOutputWebhookPqControls2 `json:"pqControls,omitzero"`
+	Username             *string                                           `json:"username,omitzero"`
+	Password             *string                                           `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -16172,8 +16179,8 @@ type CreateOutputSystemByPackOutputWebhook struct {
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool                                `json:"excludeSelf,omitzero"`
-	Urls        []CreateOutputSystemByPackURLWebhook `json:"urls,omitzero"`
+	ExcludeSelf *bool                                       `json:"excludeSelf,omitzero"`
+	Urls        []CreateOutputSystemByPackOutputWebhookURL2 `json:"urls"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -16190,519 +16197,1416 @@ type CreateOutputSystemByPackOutputWebhook struct {
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
-func (c CreateOutputSystemByPackOutputWebhook) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputWebhookWebhook2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetID() string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetType() CreateOutputSystemByPackTypeWebhook {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetType() CreateOutputSystemByPackOutputWebhookType2 {
 	if c == nil {
-		return CreateOutputSystemByPackTypeWebhook("")
+		return CreateOutputSystemByPackOutputWebhookType2("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetMethod() *components.MethodOptions {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetMethod() *components.MethodOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Method
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetFormat() *CreateOutputSystemByPackFormatWebhook {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetFormat() *CreateOutputSystemByPackOutputWebhookFormat2 {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetKeepAlive() *bool {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetKeepAlive() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAlive
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetAuthType() *CreateOutputSystemByPackAuthenticationTypeWebhook {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetAuthType() *CreateOutputSystemByPackOutputWebhookAuthenticationType2 {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTotalMemoryLimitKB() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTotalMemoryLimitKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TotalMemoryLimitKB
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetLoadBalanced() *bool {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetLoadBalanced() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanced
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetCustomSourceExpression() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetCustomSourceExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CustomSourceExpression
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetCustomDropWhenNull() *bool {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetCustomDropWhenNull() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CustomDropWhenNull
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetCustomEventDelimiter() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetCustomEventDelimiter() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CustomEventDelimiter
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetCustomContentType() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetCustomContentType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CustomContentType
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetCustomPayloadExpression() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetCustomPayloadExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CustomPayloadExpression
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetAdvancedContentType() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetAdvancedContentType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AdvancedContentType
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetFormatEventCode() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetFormatEventCode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FormatEventCode
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetFormatPayloadCode() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetFormatPayloadCode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FormatPayloadCode
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPqControls() *CreateOutputSystemByPackPqControlsWebhook {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPqControls() *CreateOutputSystemByPackOutputWebhookPqControls2 {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetUsername() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetPassword() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Password
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetToken() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetCredentialsSecret() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetLoginURL() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetLoginURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.LoginURL
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetSecretParamName() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetSecretParamName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.SecretParamName
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetSecret() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Secret
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTokenAttributeName() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTokenAttributeName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TokenAttributeName
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetAuthHeaderExpr() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetAuthHeaderExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthHeaderExpr
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTokenTimeoutSecs() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTokenTimeoutSecs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TokenTimeoutSecs
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetOauthParams() []components.ItemsTypeOauthParams {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetOauthParams() []components.ItemsTypeOauthParams {
 	if c == nil {
 		return nil
 	}
 	return c.OauthParams
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	if c == nil {
 		return nil
 	}
 	return c.OauthHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetURL() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.URL
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetExcludeSelf() *bool {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetExcludeSelf() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetUrls() []CreateOutputSystemByPackURLWebhook {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetUrls() []CreateOutputSystemByPackOutputWebhookURL2 {
 	if c == nil {
-		return nil
+		return []CreateOutputSystemByPackOutputWebhookURL2{}
 	}
 	return c.Urls
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetDNSResolvePeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetDNSResolvePeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DNSResolvePeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetLoadBalanceStatsPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetLoadBalanceStatsPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanceStatsPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTemplateLoginURL() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTemplateLoginURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateLoginURL
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTemplateSecret() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTemplateSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateSecret
 }
 
-func (c *CreateOutputSystemByPackOutputWebhook) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
+}
+
+// #region class-body-createoutputsystembypackoutputwebhookwebhook2
+// #endregion class-body-createoutputsystembypackoutputwebhookwebhook2
+
+type CreateOutputSystemByPackOutputWebhookType1 string
+
+const (
+	CreateOutputSystemByPackOutputWebhookType1Webhook CreateOutputSystemByPackOutputWebhookType1 = "webhook"
+)
+
+func (e CreateOutputSystemByPackOutputWebhookType1) ToPointer() *CreateOutputSystemByPackOutputWebhookType1 {
+	return &e
+}
+func (e *CreateOutputSystemByPackOutputWebhookType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = CreateOutputSystemByPackOutputWebhookType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackOutputWebhookType1: %v", v)
+	}
+}
+
+// CreateOutputSystemByPackOutputWebhookFormat1 - How to format events before sending out
+type CreateOutputSystemByPackOutputWebhookFormat1 string
+
+const (
+	// CreateOutputSystemByPackOutputWebhookFormat1Ndjson NDJSON (Newline Delimited JSON)
+	CreateOutputSystemByPackOutputWebhookFormat1Ndjson CreateOutputSystemByPackOutputWebhookFormat1 = "ndjson"
+	// CreateOutputSystemByPackOutputWebhookFormat1JSONArray JSON Array
+	CreateOutputSystemByPackOutputWebhookFormat1JSONArray CreateOutputSystemByPackOutputWebhookFormat1 = "json_array"
+	// CreateOutputSystemByPackOutputWebhookFormat1Custom Custom
+	CreateOutputSystemByPackOutputWebhookFormat1Custom CreateOutputSystemByPackOutputWebhookFormat1 = "custom"
+	// CreateOutputSystemByPackOutputWebhookFormat1Advanced Advanced
+	CreateOutputSystemByPackOutputWebhookFormat1Advanced CreateOutputSystemByPackOutputWebhookFormat1 = "advanced"
+)
+
+func (e CreateOutputSystemByPackOutputWebhookFormat1) ToPointer() *CreateOutputSystemByPackOutputWebhookFormat1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateOutputSystemByPackOutputWebhookFormat1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ndjson", "json_array", "custom", "advanced":
+			return true
+		}
+	}
+	return false
+}
+
+// CreateOutputSystemByPackOutputWebhookAuthenticationType1 - Authentication method to use for the HTTP request
+type CreateOutputSystemByPackOutputWebhookAuthenticationType1 string
+
+const (
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType1None None
+	CreateOutputSystemByPackOutputWebhookAuthenticationType1None CreateOutputSystemByPackOutputWebhookAuthenticationType1 = "none"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType1Basic Basic
+	CreateOutputSystemByPackOutputWebhookAuthenticationType1Basic CreateOutputSystemByPackOutputWebhookAuthenticationType1 = "basic"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType1CredentialsSecret Basic (credentials secret)
+	CreateOutputSystemByPackOutputWebhookAuthenticationType1CredentialsSecret CreateOutputSystemByPackOutputWebhookAuthenticationType1 = "credentialsSecret"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType1Token Token
+	CreateOutputSystemByPackOutputWebhookAuthenticationType1Token CreateOutputSystemByPackOutputWebhookAuthenticationType1 = "token"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType1TextSecret Token (text secret)
+	CreateOutputSystemByPackOutputWebhookAuthenticationType1TextSecret CreateOutputSystemByPackOutputWebhookAuthenticationType1 = "textSecret"
+	// CreateOutputSystemByPackOutputWebhookAuthenticationType1Oauth OAuth
+	CreateOutputSystemByPackOutputWebhookAuthenticationType1Oauth CreateOutputSystemByPackOutputWebhookAuthenticationType1 = "oauth"
+)
+
+func (e CreateOutputSystemByPackOutputWebhookAuthenticationType1) ToPointer() *CreateOutputSystemByPackOutputWebhookAuthenticationType1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateOutputSystemByPackOutputWebhookAuthenticationType1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateOutputSystemByPackOutputWebhookPqControls1 struct {
+}
+
+func (c CreateOutputSystemByPackOutputWebhookPqControls1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookPqControls1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+// #region class-body-createoutputsystembypackoutputwebhookpqcontrols1
+// #endregion class-body-createoutputsystembypackoutputwebhookpqcontrols1
+
+type CreateOutputSystemByPackOutputWebhookURL1 struct {
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL string `json:"url"`
+	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+	Weight *float64 `json:"weight,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+}
+
+func (c CreateOutputSystemByPackOutputWebhookURL1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookURL1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookURL1) GetURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.URL
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookURL1) GetWeight() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Weight
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookURL1) GetTemplateURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateURL
+}
+
+// #region class-body-createoutputsystembypackoutputwebhookurl1
+// #endregion class-body-createoutputsystembypackoutputwebhookurl1
+
+type CreateOutputSystemByPackOutputWebhookWebhook1 struct {
+	// Unique ID for this output
+	ID   string                                     `json:"id"`
+	Type CreateOutputSystemByPackOutputWebhookType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// The method to use when sending events
+	Method *components.MethodOptions `json:"method,omitzero"`
+	// How to format events before sending out
+	Format *CreateOutputSystemByPackOutputWebhookFormat1 `json:"format,omitzero"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `json:"keepAlive,omitzero"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `json:"concurrency,omitzero"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
+	// Compress the payload body before sending
+	Compress *bool `json:"compress,omitzero"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	// Authentication method to use for the HTTP request
+	AuthType *CreateOutputSystemByPackOutputWebhookAuthenticationType1   `json:"authType,omitzero"`
+	TLS      *components.TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `json:"loadBalanced,omitzero"`
+	Description  *string `json:"description,omitzero"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `json:"customSourceExpression,omitzero"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `json:"customDropWhenNull,omitzero"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `json:"customEventDelimiter,omitzero"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `json:"customContentType,omitzero"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `json:"customPayloadExpression,omitzero"`
+	// HTTP content-type header value
+	AdvancedContentType *string `json:"advancedContentType,omitzero"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitzero"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitzero"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `json:"pqPath,omitzero"`
+	// Codec to use to compress the persisted data
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                           `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackOutputWebhookPqControls1 `json:"pqControls,omitzero"`
+	Username             *string                                           `json:"username,omitzero"`
+	Password             *string                                           `json:"password,omitzero"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitzero"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitzero"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitzero"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL string `json:"url"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool                                       `json:"excludeSelf,omitzero"`
+	Urls        []CreateOutputSystemByPackOutputWebhookURL1 `json:"urls,omitzero"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+	TemplateSecret *string `json:"__template_secret,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+}
+
+func (c CreateOutputSystemByPackOutputWebhookWebhook1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetType() CreateOutputSystemByPackOutputWebhookType1 {
+	if c == nil {
+		return CreateOutputSystemByPackOutputWebhookType1("")
+	}
+	return c.Type
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetSystemFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SystemFields
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetMethod() *components.MethodOptions {
+	if c == nil {
+		return nil
+	}
+	return c.Method
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFormat() *CreateOutputSystemByPackOutputWebhookFormat1 {
+	if c == nil {
+		return nil
+	}
+	return c.Format
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetKeepAlive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.KeepAlive
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetConcurrency() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Concurrency
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetMaxPayloadSizeKB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxPayloadSizeKB
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetMaxPayloadEvents() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxPayloadEvents
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCompress() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTimeoutSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.TimeoutSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFlushPeriodSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.FlushPeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.ExtraHTTPHeaders
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetUseRoundRobinDNS() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseRoundRobinDNS
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.FailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetSafeHeaders() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SafeHeaders
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+	if c == nil {
+		return nil
+	}
+	return c.ResponseRetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+	if c == nil {
+		return nil
+	}
+	return c.TimeoutRetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetResponseHonorRetryAfterHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ResponseHonorRetryAfterHeader
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetAuthType() *CreateOutputSystemByPackOutputWebhookAuthenticationType1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
+	if c == nil {
+		return nil
+	}
+	return c.TLS
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTotalMemoryLimitKB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.TotalMemoryLimitKB
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetLoadBalanced() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.LoadBalanced
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomSourceExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CustomSourceExpression
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomDropWhenNull() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.CustomDropWhenNull
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomEventDelimiter() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CustomEventDelimiter
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomContentType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CustomContentType
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomPayloadExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CustomPayloadExpression
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetAdvancedContentType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AdvancedContentType
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFormatEventCode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.FormatEventCode
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFormatPayloadCode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.FormatPayloadCode
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqStrictOrdering() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqStrictOrdering
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqRatePerSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqRatePerSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMode() *components.ModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqMode
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxBufferSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSize
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxBackpressureSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBackpressureSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxFileSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxFileSize
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxSize
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqPath
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqCompress() *components.CompressionOptionsPq {
+	if c == nil {
+		return nil
+	}
+	return c.PqCompress
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqControls() *CreateOutputSystemByPackOutputWebhookPqControls1 {
+	if c == nil {
+		return nil
+	}
+	return c.PqControls
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetToken() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Token
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCredentialsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SecretParamName
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Secret
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTokenAttributeName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenAttributeName
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTokenTimeoutSecs() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.TokenTimeoutSecs
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOauthParams() []components.ItemsTypeOauthParams {
+	if c == nil {
+		return nil
+	}
+	return c.OauthParams
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.OauthHeaders
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.URL
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetExcludeSelf() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ExcludeSelf
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetUrls() []CreateOutputSystemByPackOutputWebhookURL1 {
+	if c == nil {
+		return nil
+	}
+	return c.Urls
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetDNSResolvePeriodSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DNSResolvePeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetLoadBalanceStatsPeriodSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.LoadBalanceStatsPeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLoginURL
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSecret
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateURL
+}
+
+// #region class-body-createoutputsystembypackoutputwebhookwebhook1
+// #endregion class-body-createoutputsystembypackoutputwebhookwebhook1
+
+type CreateOutputSystemByPackOutputWebhookUnionType string
+
+const (
+	CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook1 CreateOutputSystemByPackOutputWebhookUnionType = "createOutputSystemByPack_OutputWebhook_Webhook_1"
+	CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook2 CreateOutputSystemByPackOutputWebhookUnionType = "createOutputSystemByPack_OutputWebhook_Webhook_2"
+)
+
+type CreateOutputSystemByPackOutputWebhookUnion struct {
+	CreateOutputSystemByPackOutputWebhookWebhook1 *CreateOutputSystemByPackOutputWebhookWebhook1 `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputWebhookWebhook2 *CreateOutputSystemByPackOutputWebhookWebhook2 `queryParam:"inline" union:"member"`
+
+	Type CreateOutputSystemByPackOutputWebhookUnionType
+}
+
+func CreateCreateOutputSystemByPackOutputWebhookUnionCreateOutputSystemByPackOutputWebhookWebhook1(createOutputSystemByPackOutputWebhookWebhook1 CreateOutputSystemByPackOutputWebhookWebhook1) CreateOutputSystemByPackOutputWebhookUnion {
+	typ := CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook1
+
+	return CreateOutputSystemByPackOutputWebhookUnion{
+		CreateOutputSystemByPackOutputWebhookWebhook1: &createOutputSystemByPackOutputWebhookWebhook1,
+		Type: typ,
+	}
+}
+
+func CreateCreateOutputSystemByPackOutputWebhookUnionCreateOutputSystemByPackOutputWebhookWebhook2(createOutputSystemByPackOutputWebhookWebhook2 CreateOutputSystemByPackOutputWebhookWebhook2) CreateOutputSystemByPackOutputWebhookUnion {
+	typ := CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook2
+
+	return CreateOutputSystemByPackOutputWebhookUnion{
+		CreateOutputSystemByPackOutputWebhookWebhook2: &createOutputSystemByPackOutputWebhookWebhook2,
+		Type: typ,
+	}
+}
+
+func (u *CreateOutputSystemByPackOutputWebhookUnion) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var createOutputSystemByPackOutputWebhookWebhook1 CreateOutputSystemByPackOutputWebhookWebhook1 = CreateOutputSystemByPackOutputWebhookWebhook1{}
+	if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputWebhookWebhook1, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook1,
+			Value: &createOutputSystemByPackOutputWebhookWebhook1,
+		})
+	}
+
+	var createOutputSystemByPackOutputWebhookWebhook2 CreateOutputSystemByPackOutputWebhookWebhook2 = CreateOutputSystemByPackOutputWebhookWebhook2{}
+	if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputWebhookWebhook2, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook2,
+			Value: &createOutputSystemByPackOutputWebhookWebhook2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackOutputWebhookUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackOutputWebhookUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(CreateOutputSystemByPackOutputWebhookUnionType)
+	switch best.Type {
+	case CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook1:
+		u.CreateOutputSystemByPackOutputWebhookWebhook1 = best.Value.(*CreateOutputSystemByPackOutputWebhookWebhook1)
+		return nil
+	case CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook2:
+		u.CreateOutputSystemByPackOutputWebhookWebhook2 = best.Value.(*CreateOutputSystemByPackOutputWebhookWebhook2)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackOutputWebhookUnion", string(data))
+}
+
+func (u CreateOutputSystemByPackOutputWebhookUnion) MarshalJSON() ([]byte, error) {
+	if u.CreateOutputSystemByPackOutputWebhookWebhook1 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputWebhookWebhook1, "", true)
+	}
+
+	if u.CreateOutputSystemByPackOutputWebhookWebhook2 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputWebhookWebhook2, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type CreateOutputSystemByPackOutputWebhookUnion: all fields are null")
 }
 
 type CreateOutputSystemByPackTypeDefault string
@@ -16883,7 +17787,7 @@ const (
 // CreateOutputSystemByPackRequestBody - Output object
 type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputDefault                *CreateOutputSystemByPackOutputDefault                `queryParam:"inline" union:"member"`
-	CreateOutputSystemByPackOutputWebhook                *CreateOutputSystemByPackOutputWebhook                `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputWebhookUnion           *CreateOutputSystemByPackOutputWebhookUnion           `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputSentinel               *CreateOutputSystemByPackOutputSentinel               `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputDevnull                *CreateOutputSystemByPackOutputDevnull                `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputSyslog                 *CreateOutputSystemByPackOutputSyslog                 `queryParam:"inline" union:"member"`
@@ -16969,15 +17873,12 @@ func CreateCreateOutputSystemByPackRequestBodyDefault(defaultT CreateOutputSyste
 	}
 }
 
-func CreateCreateOutputSystemByPackRequestBodyWebhook(webhook CreateOutputSystemByPackOutputWebhook) CreateOutputSystemByPackRequestBody {
+func CreateCreateOutputSystemByPackRequestBodyWebhook(webhook CreateOutputSystemByPackOutputWebhookUnion) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeWebhook
 
-	typStr := CreateOutputSystemByPackTypeWebhook(typ)
-	webhook.Type = typStr
-
 	return CreateOutputSystemByPackRequestBody{
-		CreateOutputSystemByPackOutputWebhook: &webhook,
-		Type:                                  typ,
+		CreateOutputSystemByPackOutputWebhookUnion: &webhook,
+		Type: typ,
 	}
 }
 
@@ -17828,12 +18729,12 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.Type = CreateOutputSystemByPackRequestBodyTypeDefault
 		return nil
 	case "webhook":
-		createOutputSystemByPackOutputWebhook := new(CreateOutputSystemByPackOutputWebhook)
-		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputWebhook, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == webhook) type CreateOutputSystemByPackOutputWebhook within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		createOutputSystemByPackOutputWebhookUnion := new(CreateOutputSystemByPackOutputWebhookUnion)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputWebhookUnion, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == webhook) type CreateOutputSystemByPackOutputWebhookUnion within CreateOutputSystemByPackRequestBody: %w", string(data), err)
 		}
 
-		u.CreateOutputSystemByPackOutputWebhook = createOutputSystemByPackOutputWebhook
+		u.CreateOutputSystemByPackOutputWebhookUnion = createOutputSystemByPackOutputWebhookUnion
 		u.Type = CreateOutputSystemByPackRequestBodyTypeWebhook
 		return nil
 	case "sentinel":
@@ -18467,8 +19368,8 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputDefault, "", true)
 	}
 
-	if u.CreateOutputSystemByPackOutputWebhook != nil {
-		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputWebhook, "", true)
+	if u.CreateOutputSystemByPackOutputWebhookUnion != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputWebhookUnion, "", true)
 	}
 
 	if u.CreateOutputSystemByPackOutputSentinel != nil {
@@ -18775,8 +19676,8 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyDefault() *CreateOutputS
 	return c.GetRequestBody().CreateOutputSystemByPackOutputDefault
 }
 
-func (c *CreateOutputSystemByPackRequest) GetRequestBodyWebhook() *CreateOutputSystemByPackOutputWebhook {
-	return c.GetRequestBody().CreateOutputSystemByPackOutputWebhook
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyWebhook() *CreateOutputSystemByPackOutputWebhookUnion {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputWebhookUnion
 }
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodySentinel() *CreateOutputSystemByPackOutputSentinel {

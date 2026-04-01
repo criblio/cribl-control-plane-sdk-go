@@ -45,7 +45,7 @@ type OutputFilesystem struct {
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Final destination for the output files
 	DestPath string `json:"destPath"`
-	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `json:"stagePath,omitzero"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`

@@ -68,32 +68,30 @@ type OutputCloudflareR2 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
-	Endpoint string `json:"endpoint"`
-	// Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket string `json:"bucket"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *OutputCloudflareR2AuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	// Signature version to use for signing MinIO requests
+	SignatureVersion *SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	// Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `json:"destPath,omitzero"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
-	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
-	DestPath *string `json:"destPath,omitzero"`
-	// Signature version to use for signing MinIO requests
-	SignatureVersion *SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
-	// Server-side encryption for uploaded objects
-	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
@@ -106,6 +104,10 @@ type OutputCloudflareR2 struct {
 	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
@@ -121,13 +123,13 @@ type OutputCloudflareR2 struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
-	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
-	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
-	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
-	Description            *string  `json:"description,omitzero"`
+	// Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
+	Endpoint string `json:"endpoint"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptionsAes256 `json:"serverSideEncryption,omitzero"`
+	Description          *string                                              `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -164,8 +166,12 @@ type OutputCloudflareR2 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
 	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
 	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -176,6 +182,10 @@ type OutputCloudflareR2 struct {
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
@@ -233,20 +243,6 @@ func (o *OutputCloudflareR2) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputCloudflareR2) GetEndpoint() string {
-	if o == nil {
-		return ""
-	}
-	return o.Endpoint
-}
-
-func (o *OutputCloudflareR2) GetBucket() string {
-	if o == nil {
-		return ""
-	}
-	return o.Bucket
-}
-
 func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *OutputCloudflareR2AuthenticationMethod {
 	if o == nil {
 		return nil
@@ -254,53 +250,11 @@ func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *OutputCloudflareR2Aut
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputCloudflareR2) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
-}
-
-func (o *OutputCloudflareR2) GetStagePath() string {
-	if o == nil {
-		return ""
-	}
-	return o.StagePath
-}
-
-func (o *OutputCloudflareR2) GetAddIDToStagePath() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.AddIDToStagePath
-}
-
-func (o *OutputCloudflareR2) GetDestPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DestPath
-}
-
 func (o *OutputCloudflareR2) GetSignatureVersion() *SignatureVersionOptionsMinIo {
 	if o == nil {
 		return nil
 	}
 	return o.SignatureVersion
-}
-
-func (o *OutputCloudflareR2) GetStorageClass() *StorageClassOptionsReducedredundancyStandard {
-	if o == nil {
-		return nil
-	}
-	return o.StorageClass
-}
-
-func (o *OutputCloudflareR2) GetServerSideEncryption() *ServerSideEncryptionOptions {
-	if o == nil {
-		return nil
-	}
-	return o.ServerSideEncryption
 }
 
 func (o *OutputCloudflareR2) GetReuseConnections() *bool {
@@ -317,11 +271,60 @@ func (o *OutputCloudflareR2) GetRejectUnauthorized() *bool {
 	return o.RejectUnauthorized
 }
 
+func (o *OutputCloudflareR2) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCloudflareR2) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputCloudflareR2) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputCloudflareR2) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
 func (o *OutputCloudflareR2) GetVerifyPermissions() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.VerifyPermissions
+}
+
+func (o *OutputCloudflareR2) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputCloudflareR2) GetStagePath() string {
+	if o == nil {
+		return ""
+	}
+	return o.StagePath
+}
+
+func (o *OutputCloudflareR2) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
 }
 
 func (o *OutputCloudflareR2) GetRemoveEmptyDirs() *bool {
@@ -364,6 +367,20 @@ func (o *OutputCloudflareR2) GetMaxFileSizeMB() *float64 {
 		return nil
 	}
 	return o.MaxFileSizeMB
+}
+
+func (o *OutputCloudflareR2) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputCloudflareR2) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
 }
 
 func (o *OutputCloudflareR2) GetMaxOpenFiles() *float64 {
@@ -422,25 +439,25 @@ func (o *OutputCloudflareR2) GetRetrySettings() *RetrySettingsType {
 	return o.RetrySettings
 }
 
-func (o *OutputCloudflareR2) GetMaxFileOpenTimeSec() *float64 {
+func (o *OutputCloudflareR2) GetEndpoint() string {
 	if o == nil {
-		return nil
+		return ""
 	}
-	return o.MaxFileOpenTimeSec
+	return o.Endpoint
 }
 
-func (o *OutputCloudflareR2) GetMaxFileIdleTimeSec() *float64 {
+func (o *OutputCloudflareR2) GetStorageClass() *StorageClassOptionsReducedredundancyStandard {
 	if o == nil {
 		return nil
 	}
-	return o.MaxFileIdleTimeSec
+	return o.StorageClass
 }
 
-func (o *OutputCloudflareR2) GetMaxConcurrentFileParts() *float64 {
+func (o *OutputCloudflareR2) GetServerSideEncryption() *ServerSideEncryptionForUploadedObjectsOptionsAes256 {
 	if o == nil {
 		return nil
 	}
-	return o.MaxConcurrentFileParts
+	return o.ServerSideEncryption
 }
 
 func (o *OutputCloudflareR2) GetDescription() *string {
@@ -576,11 +593,25 @@ func (o *OutputCloudflareR2) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
+func (o *OutputCloudflareR2) GetTemplateAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAwsSecretKey
+}
+
 func (o *OutputCloudflareR2) GetTemplateBucket() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateBucket
+}
+
+func (o *OutputCloudflareR2) GetTemplateDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateDestPath
 }
 
 func (o *OutputCloudflareR2) GetTemplatePartitionExpr() *string {
@@ -616,6 +647,20 @@ func (o *OutputCloudflareR2) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return o.TemplateOnBackpressure
+}
+
+func (o *OutputCloudflareR2) GetTemplateStorageClass() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStorageClass
+}
+
+func (o *OutputCloudflareR2) GetTemplateServerSideEncryption() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateServerSideEncryption
 }
 
 func (o *OutputCloudflareR2) GetTemplateCompress() *string {
