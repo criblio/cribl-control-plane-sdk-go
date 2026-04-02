@@ -149,6 +149,16 @@ type RedisAuthTypeTextSecret struct {
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
+	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	URL        *string                                      `json:"url,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	// Which nodes read commands should be sent to
+	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
+	MasterName *string                                      `json:"masterName,omitzero"`
+	Username   *string                                      `json:"username,omitzero"`
+	Password   *string                                      `json:"password,omitzero"`
+	// Secret that references Redis username and password
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 }
 
 func (r RedisAuthTypeTextSecret) MarshalJSON() ([]byte, error) {
@@ -202,6 +212,55 @@ func (r *RedisAuthTypeTextSecret) GetEnableClientSideCaching() *bool {
 		return nil
 	}
 	return r.EnableClientSideCaching
+}
+
+func (r *RedisAuthTypeTextSecret) GetURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.URL
+}
+
+func (r *RedisAuthTypeTextSecret) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
+	if r == nil {
+		return nil
+	}
+	return r.TLSOptions
+}
+
+func (r *RedisAuthTypeTextSecret) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.ScaleReads
+}
+
+func (r *RedisAuthTypeTextSecret) GetMasterName() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MasterName
+}
+
+func (r *RedisAuthTypeTextSecret) GetUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Username
+}
+
+func (r *RedisAuthTypeTextSecret) GetPassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Password
+}
+
+func (r *RedisAuthTypeTextSecret) GetCredentialsSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.CredentialsSecret
 }
 
 type RedisAuthTypeCredentialsSecretAuthenticationMethod string
@@ -320,6 +379,16 @@ type RedisAuthTypeCredentialsSecret struct {
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
+	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	URL        *string                                      `json:"url,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	// Which nodes read commands should be sent to
+	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
+	MasterName *string                                      `json:"masterName,omitzero"`
+	Username   *string                                      `json:"username,omitzero"`
+	Password   *string                                      `json:"password,omitzero"`
+	// Secret that references Redis admin password
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (r RedisAuthTypeCredentialsSecret) MarshalJSON() ([]byte, error) {
@@ -373,6 +442,55 @@ func (r *RedisAuthTypeCredentialsSecret) GetEnableClientSideCaching() *bool {
 		return nil
 	}
 	return r.EnableClientSideCaching
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.URL
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
+	if r == nil {
+		return nil
+	}
+	return r.TLSOptions
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.ScaleReads
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetMasterName() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MasterName
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Username
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetPassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Password
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
 }
 
 type RedisAuthTypeManualAuthenticationMethod string
@@ -491,6 +609,16 @@ type RedisAuthTypeManual struct {
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
+	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	URL        *string                                      `json:"url,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	// Which nodes read commands should be sent to
+	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
+	MasterName *string                                      `json:"masterName,omitzero"`
+	// Secret that references Redis username and password
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Secret that references Redis admin password
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (r RedisAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -551,6 +679,48 @@ func (r *RedisAuthTypeManual) GetEnableClientSideCaching() *bool {
 		return nil
 	}
 	return r.EnableClientSideCaching
+}
+
+func (r *RedisAuthTypeManual) GetURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.URL
+}
+
+func (r *RedisAuthTypeManual) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
+	if r == nil {
+		return nil
+	}
+	return r.TLSOptions
+}
+
+func (r *RedisAuthTypeManual) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.ScaleReads
+}
+
+func (r *RedisAuthTypeManual) GetMasterName() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MasterName
+}
+
+func (r *RedisAuthTypeManual) GetCredentialsSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.CredentialsSecret
+}
+
+func (r *RedisAuthTypeManual) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
 }
 
 type RedisAuthTypeNoneAuthenticationMethod string
@@ -667,6 +837,18 @@ type RedisAuthTypeNone struct {
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
+	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	URL        *string                                      `json:"url,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	// Which nodes read commands should be sent to
+	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
+	MasterName *string                                      `json:"masterName,omitzero"`
+	Username   *string                                      `json:"username,omitzero"`
+	Password   *string                                      `json:"password,omitzero"`
+	// Secret that references Redis username and password
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Secret that references Redis admin password
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (r RedisAuthTypeNone) MarshalJSON() ([]byte, error) {
@@ -713,6 +895,62 @@ func (r *RedisAuthTypeNone) GetEnableClientSideCaching() *bool {
 		return nil
 	}
 	return r.EnableClientSideCaching
+}
+
+func (r *RedisAuthTypeNone) GetURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.URL
+}
+
+func (r *RedisAuthTypeNone) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
+	if r == nil {
+		return nil
+	}
+	return r.TLSOptions
+}
+
+func (r *RedisAuthTypeNone) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.ScaleReads
+}
+
+func (r *RedisAuthTypeNone) GetMasterName() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MasterName
+}
+
+func (r *RedisAuthTypeNone) GetUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Username
+}
+
+func (r *RedisAuthTypeNone) GetPassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Password
+}
+
+func (r *RedisAuthTypeNone) GetCredentialsSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.CredentialsSecret
+}
+
+func (r *RedisAuthTypeNone) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
 }
 
 // RedisDeploymentTypeSentinelDeploymentType - How the Redis server is configured. Defaults to Standalone
@@ -860,13 +1098,23 @@ type RedisDeploymentTypeSentinel struct {
 	RootNodes []RedisDeploymentTypeSentinelRootNode `json:"rootNodes,omitzero"`
 	// Use TLS for connections to this cluster
 	TLS        *bool                                            `json:"tls,omitzero"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeCluster        `json:"tlsOptions,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone     `json:"tlsOptions,omitzero"`
 	Commands   []RedisDeploymentTypeSentinelCommand             `json:"commands"`
 	AuthType   *RedisDeploymentTypeSentinelAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
+	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	URL *string `json:"url,omitzero"`
+	// Which nodes read commands should be sent to
+	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
+	Username   *string                                      `json:"username,omitzero"`
+	Password   *string                                      `json:"password,omitzero"`
+	// Secret that references Redis username and password
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Secret that references Redis admin password
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (r RedisDeploymentTypeSentinel) MarshalJSON() ([]byte, error) {
@@ -908,7 +1156,7 @@ func (r *RedisDeploymentTypeSentinel) GetTLS() *bool {
 	return r.TLS
 }
 
-func (r *RedisDeploymentTypeSentinel) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeCluster {
+func (r *RedisDeploymentTypeSentinel) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
 	if r == nil {
 		return nil
 	}
@@ -941,6 +1189,48 @@ func (r *RedisDeploymentTypeSentinel) GetEnableClientSideCaching() *bool {
 		return nil
 	}
 	return r.EnableClientSideCaching
+}
+
+func (r *RedisDeploymentTypeSentinel) GetURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.URL
+}
+
+func (r *RedisDeploymentTypeSentinel) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.ScaleReads
+}
+
+func (r *RedisDeploymentTypeSentinel) GetUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Username
+}
+
+func (r *RedisDeploymentTypeSentinel) GetPassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Password
+}
+
+func (r *RedisDeploymentTypeSentinel) GetCredentialsSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.CredentialsSecret
+}
+
+func (r *RedisDeploymentTypeSentinel) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
 }
 
 // RedisDeploymentTypeClusterDeploymentType - How the Redis server is configured. Defaults to Standalone
@@ -1000,33 +1290,6 @@ func (r *RedisDeploymentTypeClusterRootNode) GetPort() float64 {
 		return 0.0
 	}
 	return r.Port
-}
-
-// ScaleReads - Which nodes read commands should be sent to
-type ScaleReads string
-
-const (
-	// ScaleReadsMaster Masters
-	ScaleReadsMaster ScaleReads = "master"
-	// ScaleReadsReplica Replicas
-	ScaleReadsReplica ScaleReads = "replica"
-	// ScaleReadsAll Masters and Replicas
-	ScaleReadsAll ScaleReads = "all"
-)
-
-func (e ScaleReads) ToPointer() *ScaleReads {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ScaleReads) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "master", "replica", "all":
-			return true
-		}
-	}
-	return false
 }
 
 type RedisDeploymentTypeClusterCommand struct {
@@ -1115,14 +1378,23 @@ type RedisDeploymentTypeCluster struct {
 	// Use TLS for connections to this cluster
 	TLS *bool `json:"tls,omitzero"`
 	// Which nodes read commands should be sent to
-	ScaleReads *ScaleReads                                     `json:"scaleReads,omitzero"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeCluster       `json:"tlsOptions,omitzero"`
+	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster    `json:"scaleReads,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone    `json:"tlsOptions,omitzero"`
 	Commands   []RedisDeploymentTypeClusterCommand             `json:"commands"`
 	AuthType   *RedisDeploymentTypeClusterAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
+	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	URL        *string `json:"url,omitzero"`
+	MasterName *string `json:"masterName,omitzero"`
+	Username   *string `json:"username,omitzero"`
+	Password   *string `json:"password,omitzero"`
+	// Secret that references Redis username and password
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Secret that references Redis admin password
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (r RedisDeploymentTypeCluster) MarshalJSON() ([]byte, error) {
@@ -1157,14 +1429,14 @@ func (r *RedisDeploymentTypeCluster) GetTLS() *bool {
 	return r.TLS
 }
 
-func (r *RedisDeploymentTypeCluster) GetScaleReads() *ScaleReads {
+func (r *RedisDeploymentTypeCluster) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
 	if r == nil {
 		return nil
 	}
 	return r.ScaleReads
 }
 
-func (r *RedisDeploymentTypeCluster) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeCluster {
+func (r *RedisDeploymentTypeCluster) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
 	if r == nil {
 		return nil
 	}
@@ -1199,6 +1471,48 @@ func (r *RedisDeploymentTypeCluster) GetEnableClientSideCaching() *bool {
 	return r.EnableClientSideCaching
 }
 
+func (r *RedisDeploymentTypeCluster) GetURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.URL
+}
+
+func (r *RedisDeploymentTypeCluster) GetMasterName() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MasterName
+}
+
+func (r *RedisDeploymentTypeCluster) GetUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Username
+}
+
+func (r *RedisDeploymentTypeCluster) GetPassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Password
+}
+
+func (r *RedisDeploymentTypeCluster) GetCredentialsSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.CredentialsSecret
+}
+
+func (r *RedisDeploymentTypeCluster) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
+}
+
 // RedisDeploymentTypeStandaloneDeploymentType - How the Redis server is configured. Defaults to Standalone
 type RedisDeploymentTypeStandaloneDeploymentType string
 
@@ -1224,101 +1538,6 @@ func (e *RedisDeploymentTypeStandaloneDeploymentType) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type TLSOptions struct {
-	// Reject certificates that are not authorized by a CA in the 'CA certificate path', or by another trusted CA (such as the system's CA)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Server name for the SNI (Server Name Indication) TLS extension. Must be a host name, not an IP address.
-	Servername *string `json:"servername,omitzero"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitzero"`
-	// Path on client in which to find CA certificates to verify the server's certificate. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitzero"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitzero"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitzero"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitzero"`
-	// Minimum TLS version to use when connecting
-	MinVersion *MinimumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions `json:"minVersion,omitzero"`
-	// Maximum TLS version to use when connecting
-	MaxVersion *MaximumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions `json:"maxVersion,omitzero"`
-}
-
-func (t TLSOptions) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *TLSOptions) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (t *TLSOptions) GetRejectUnauthorized() *bool {
-	if t == nil {
-		return nil
-	}
-	return t.RejectUnauthorized
-}
-
-func (t *TLSOptions) GetServername() *string {
-	if t == nil {
-		return nil
-	}
-	return t.Servername
-}
-
-func (t *TLSOptions) GetCertificateName() *string {
-	if t == nil {
-		return nil
-	}
-	return t.CertificateName
-}
-
-func (t *TLSOptions) GetCaPath() *string {
-	if t == nil {
-		return nil
-	}
-	return t.CaPath
-}
-
-func (t *TLSOptions) GetPrivKeyPath() *string {
-	if t == nil {
-		return nil
-	}
-	return t.PrivKeyPath
-}
-
-func (t *TLSOptions) GetCertPath() *string {
-	if t == nil {
-		return nil
-	}
-	return t.CertPath
-}
-
-func (t *TLSOptions) GetPassphrase() *string {
-	if t == nil {
-		return nil
-	}
-	return t.Passphrase
-}
-
-func (t *TLSOptions) GetMinVersion() *MinimumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions {
-	if t == nil {
-		return nil
-	}
-	return t.MinVersion
-}
-
-func (t *TLSOptions) GetMaxVersion() *MaximumTLSVersionOptionsRedisDeploymentTypeStandaloneTLSOptions {
-	if t == nil {
-		return nil
-	}
-	return t.MaxVersion
 }
 
 type RedisDeploymentTypeStandaloneCommand struct {
@@ -1404,13 +1623,22 @@ type RedisDeploymentTypeStandalone struct {
 	DeploymentType *RedisDeploymentTypeStandaloneDeploymentType `json:"deploymentType,omitzero"`
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	URL        string                                             `json:"url"`
-	TLSOptions *TLSOptions                                        `json:"tlsOptions,omitzero"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone       `json:"tlsOptions,omitzero"`
 	Commands   []RedisDeploymentTypeStandaloneCommand             `json:"commands"`
 	AuthType   *RedisDeploymentTypeStandaloneAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
+	// Which nodes read commands should be sent to
+	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
+	MasterName *string                                      `json:"masterName,omitzero"`
+	Username   *string                                      `json:"username,omitzero"`
+	Password   *string                                      `json:"password,omitzero"`
+	// Secret that references Redis username and password
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Secret that references Redis admin password
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (r RedisDeploymentTypeStandalone) MarshalJSON() ([]byte, error) {
@@ -1438,7 +1666,7 @@ func (r *RedisDeploymentTypeStandalone) GetURL() string {
 	return r.URL
 }
 
-func (r *RedisDeploymentTypeStandalone) GetTLSOptions() *TLSOptions {
+func (r *RedisDeploymentTypeStandalone) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
 	if r == nil {
 		return nil
 	}
@@ -1471,6 +1699,48 @@ func (r *RedisDeploymentTypeStandalone) GetEnableClientSideCaching() *bool {
 		return nil
 	}
 	return r.EnableClientSideCaching
+}
+
+func (r *RedisDeploymentTypeStandalone) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.ScaleReads
+}
+
+func (r *RedisDeploymentTypeStandalone) GetMasterName() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MasterName
+}
+
+func (r *RedisDeploymentTypeStandalone) GetUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Username
+}
+
+func (r *RedisDeploymentTypeStandalone) GetPassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Password
+}
+
+func (r *RedisDeploymentTypeStandalone) GetCredentialsSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.CredentialsSecret
+}
+
+func (r *RedisDeploymentTypeStandalone) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
 }
 
 type PipelineFunctionRedisConfType string

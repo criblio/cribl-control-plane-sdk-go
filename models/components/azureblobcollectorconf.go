@@ -100,6 +100,12 @@ type AzureBlobAuthTypeClientCert struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitzero"`
+	// Text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Text secret containing the client secret
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
 	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
@@ -236,6 +242,27 @@ func (a *AzureBlobAuthTypeClientCert) GetParquetChunkDownloadTimeout() *float64 
 	return a.ParquetChunkDownloadTimeout
 }
 
+func (a *AzureBlobAuthTypeClientCert) GetConnectionString() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ConnectionString
+}
+
+func (a *AzureBlobAuthTypeClientCert) GetTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TextSecret
+}
+
+func (a *AzureBlobAuthTypeClientCert) GetClientTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientTextSecret
+}
+
 func (a *AzureBlobAuthTypeClientCert) GetTemplateContainerName() *string {
 	if a == nil {
 		return nil
@@ -342,6 +369,11 @@ type AzureBlobAuthTypeClientSecret struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitzero"`
+	// Text secret
+	TextSecret  *string                                     `json:"textSecret,omitzero"`
+	Certificate *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
 	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
@@ -478,6 +510,27 @@ func (a *AzureBlobAuthTypeClientSecret) GetParquetChunkDownloadTimeout() *float6
 	return a.ParquetChunkDownloadTimeout
 }
 
+func (a *AzureBlobAuthTypeClientSecret) GetConnectionString() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ConnectionString
+}
+
+func (a *AzureBlobAuthTypeClientSecret) GetTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TextSecret
+}
+
+func (a *AzureBlobAuthTypeClientSecret) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if a == nil {
+		return nil
+	}
+	return a.Certificate
+}
+
 func (a *AzureBlobAuthTypeClientSecret) GetTemplateContainerName() *string {
 	if a == nil {
 		return nil
@@ -574,6 +627,11 @@ type AzureBlobAuthTypeSecret struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitzero"`
+	// Text secret containing the client secret
+	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
+	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
 	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
@@ -675,6 +733,27 @@ func (a *AzureBlobAuthTypeSecret) GetParquetChunkDownloadTimeout() *float64 {
 	return a.ParquetChunkDownloadTimeout
 }
 
+func (a *AzureBlobAuthTypeSecret) GetConnectionString() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ConnectionString
+}
+
+func (a *AzureBlobAuthTypeSecret) GetClientTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientTextSecret
+}
+
+func (a *AzureBlobAuthTypeSecret) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if a == nil {
+		return nil
+	}
+	return a.Certificate
+}
+
 func (a *AzureBlobAuthTypeSecret) GetTemplateContainerName() *string {
 	if a == nil {
 		return nil
@@ -771,6 +850,11 @@ type AzureBlobAuthTypeManual struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Text secret containing the client secret
+	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
+	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
 	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
@@ -870,6 +954,27 @@ func (a *AzureBlobAuthTypeManual) GetParquetChunkDownloadTimeout() *float64 {
 		return nil
 	}
 	return a.ParquetChunkDownloadTimeout
+}
+
+func (a *AzureBlobAuthTypeManual) GetTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TextSecret
+}
+
+func (a *AzureBlobAuthTypeManual) GetClientTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientTextSecret
+}
+
+func (a *AzureBlobAuthTypeManual) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if a == nil {
+		return nil
+	}
+	return a.Certificate
 }
 
 func (a *AzureBlobAuthTypeManual) GetTemplateContainerName() *string {

@@ -61,7 +61,19 @@ type EventBreakerExistingOrNewExisting struct {
 	ExistingOrNew EventBreakerExistingOrNewExistingExistingOrNew `json:"existingOrNew"`
 	ExistingRule  *string                                        `json:"existingRule,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	ShouldMarkCriblBreaker *bool                                                `json:"shouldMarkCriblBreaker,omitzero"`
+	RuleType               *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
+	// The maximum number of bytes that an event can be before being flushed to the Pipelines
+	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
+	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
+	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	// Timezone to assign to timestamps without timezone info
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
+	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
+	TimestampEarliest *string `json:"timestampEarliest,omitzero"`
+	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
+	TimestampLatest *string `json:"timestampLatest,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewExisting) MarshalJSON() ([]byte, error) {
@@ -96,6 +108,55 @@ func (e *EventBreakerExistingOrNewExisting) GetShouldMarkCriblBreaker() *bool {
 	return e.ShouldMarkCriblBreaker
 }
 
+func (e *EventBreakerExistingOrNewExisting) GetRuleType() *EventBreakerTypeOptionsEventBreakerExistingOrNewNew {
+	if e == nil {
+		return nil
+	}
+	return e.RuleType
+}
+
+func (e *EventBreakerExistingOrNewExisting) GetMaxEventBytes() *float64 {
+	if e == nil {
+		return nil
+	}
+	return e.MaxEventBytes
+}
+
+func (e *EventBreakerExistingOrNewExisting) GetTimestampAnchorRegex() *string {
+	if e == nil {
+		return nil
+	}
+	return e.TimestampAnchorRegex
+}
+
+func (e *EventBreakerExistingOrNewExisting) GetTimestamp() *TimestampFormatTypeEventBreakerExistingOrNewNew {
+	if e == nil {
+		return nil
+	}
+	return e.Timestamp
+}
+
+func (e *EventBreakerExistingOrNewExisting) GetTimestampTimezone() *string {
+	if e == nil {
+		return nil
+	}
+	return e.TimestampTimezone
+}
+
+func (e *EventBreakerExistingOrNewExisting) GetTimestampEarliest() *string {
+	if e == nil {
+		return nil
+	}
+	return e.TimestampEarliest
+}
+
+func (e *EventBreakerExistingOrNewExisting) GetTimestampLatest() *string {
+	if e == nil {
+		return nil
+	}
+	return e.TimestampLatest
+}
+
 type EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew string
 
 const (
@@ -120,44 +181,6 @@ func (e *EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew) IsExact() bool {
 	return false
 }
 
-type EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitzero"`
-	Format *string                                                   `json:"format,omitzero"`
-}
-
-func (e EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
-	if e == nil {
-		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
-	}
-	return e.Type
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat) GetLength() *float64 {
-	if e == nil {
-		return nil
-	}
-	return e.Length
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat) GetFormat() *string {
-	if e == nil {
-		return nil
-	}
-	return e.Format
-}
-
 type EventBreakerExistingOrNewNewRuleTypeCsv struct {
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// Delimiter character to use to split values
@@ -172,8 +195,8 @@ type EventBreakerExistingOrNewNewRuleTypeCsv struct {
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                 `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -181,7 +204,8 @@ type EventBreakerExistingOrNewNewRuleTypeCsv struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
+	ExistingRule           *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeCsv) MarshalJSON() ([]byte, error) {
@@ -251,7 +275,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetTimestampAnchorRegex() *str
 	return e.TimestampAnchorRegex
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetTimestamp() *EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat {
+func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetTimestamp() *TimestampFormatTypeEventBreakerExistingOrNewNew {
 	if e == nil {
 		return nil
 	}
@@ -286,6 +310,13 @@ func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetShouldMarkCriblBreaker() *b
 	return e.ShouldMarkCriblBreaker
 }
 
+func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetExistingRule() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ExistingRule
+}
+
 type EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew string
 
 const (
@@ -310,44 +341,6 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew) IsExact() bool
 	return false
 }
 
-type EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitzero"`
-	Format *string                                                   `json:"format,omitzero"`
-}
-
-func (e EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
-	if e == nil {
-		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
-	}
-	return e.Type
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat) GetLength() *float64 {
-	if e == nil {
-		return nil
-	}
-	return e.Length
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat) GetFormat() *string {
-	if e == nil {
-		return nil
-	}
-	return e.Format
-}
-
 type EventBreakerExistingOrNewNewRuleTypeHeader struct {
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// Field delimiter regex
@@ -364,8 +357,8 @@ type EventBreakerExistingOrNewNewRuleTypeHeader struct {
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                    `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -373,7 +366,8 @@ type EventBreakerExistingOrNewNewRuleTypeHeader struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
+	ExistingRule           *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeHeader) MarshalJSON() ([]byte, error) {
@@ -450,7 +444,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetTimestampAnchorRegex() *
 	return e.TimestampAnchorRegex
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetTimestamp() *EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat {
+func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetTimestamp() *TimestampFormatTypeEventBreakerExistingOrNewNew {
 	if e == nil {
 		return nil
 	}
@@ -485,6 +479,13 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetShouldMarkCriblBreaker()
 	return e.ShouldMarkCriblBreaker
 }
 
+func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetExistingRule() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ExistingRule
+}
+
 type EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew string
 
 const (
@@ -509,44 +510,6 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew) IsExact() b
 	return false
 }
 
-type EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitzero"`
-	Format *string                                                   `json:"format,omitzero"`
-}
-
-func (e EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
-	if e == nil {
-		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
-	}
-	return e.Type
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) GetLength() *float64 {
-	if e == nil {
-		return nil
-	}
-	return e.Length
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat) GetFormat() *string {
-	if e == nil {
-		return nil
-	}
-	return e.Format
-}
-
 type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
@@ -563,8 +526,8 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                       `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -572,7 +535,8 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
+	ExistingRule           *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSONArray) MarshalJSON() ([]byte, error) {
@@ -649,7 +613,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestampAnchorRegex(
 	return e.TimestampAnchorRegex
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestamp() *EventBreakerExistingOrNewNewRuleTypeJSONArrayTimestampFormat {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestamp() *TimestampFormatTypeEventBreakerExistingOrNewNew {
 	if e == nil {
 		return nil
 	}
@@ -684,6 +648,13 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetShouldMarkCriblBreake
 	return e.ShouldMarkCriblBreaker
 }
 
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetExistingRule() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ExistingRule
+}
+
 type EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew string
 
 const (
@@ -708,52 +679,14 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew) IsExact() bool {
 	return false
 }
 
-type EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitzero"`
-	Format *string                                                   `json:"format,omitzero"`
-}
-
-func (e EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
-	if e == nil {
-		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
-	}
-	return e.Type
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat) GetLength() *float64 {
-	if e == nil {
-		return nil
-	}
-	return e.Length
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat) GetFormat() *string {
-	if e == nil {
-		return nil
-	}
-	return e.Format
-}
-
 type EventBreakerExistingOrNewNewRuleTypeJSON struct {
 	RuleType      *EventBreakerTypeOptionsEventBreakerExistingOrNewNew  `json:"ruleType,omitzero"`
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                  `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -761,7 +694,8 @@ type EventBreakerExistingOrNewNewRuleTypeJSON struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
+	ExistingRule           *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSON) MarshalJSON() ([]byte, error) {
@@ -803,7 +737,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetTimestampAnchorRegex() *st
 	return e.TimestampAnchorRegex
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetTimestamp() *EventBreakerExistingOrNewNewRuleTypeJSONTimestampFormat {
+func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetTimestamp() *TimestampFormatTypeEventBreakerExistingOrNewNew {
 	if e == nil {
 		return nil
 	}
@@ -838,6 +772,13 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetShouldMarkCriblBreaker() *
 	return e.ShouldMarkCriblBreaker
 }
 
+func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetExistingRule() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ExistingRule
+}
+
 type EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew string
 
 const (
@@ -862,44 +803,6 @@ func (e *EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew) IsExact() bool 
 	return false
 }
 
-type EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitzero"`
-	Format *string                                                   `json:"format,omitzero"`
-}
-
-func (e EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
-	if e == nil {
-		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
-	}
-	return e.Type
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat) GetLength() *float64 {
-	if e == nil {
-		return nil
-	}
-	return e.Length
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat) GetFormat() *string {
-	if e == nil {
-		return nil
-	}
-	return e.Format
-}
-
 type EventBreakerExistingOrNewNewRuleTypeRegex struct {
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The regex used to break the stream into events at the beginning of the match. Matched content will be consumed, unless you use a lookahead regex such as (?=pattern) to keep it. Do NOT use capturing groups in the pattern.
@@ -908,8 +811,8 @@ type EventBreakerExistingOrNewNewRuleTypeRegex struct {
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                                   `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
+	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -917,7 +820,8 @@ type EventBreakerExistingOrNewNewRuleTypeRegex struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
+	ExistingRule           *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeRegex) MarshalJSON() ([]byte, error) {
@@ -966,7 +870,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetTimestampAnchorRegex() *s
 	return e.TimestampAnchorRegex
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetTimestamp() *EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat {
+func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetTimestamp() *TimestampFormatTypeEventBreakerExistingOrNewNew {
 	if e == nil {
 		return nil
 	}
@@ -999,6 +903,13 @@ func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetShouldMarkCriblBreaker() 
 		return nil
 	}
 	return e.ShouldMarkCriblBreaker
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetExistingRule() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ExistingRule
 }
 
 type EventBreakerExistingOrNewNewType string

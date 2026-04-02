@@ -14,9 +14,9 @@
 
 Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
 
-### Example Usage
+### Example Usage: LakeDatasetCreateExamplesJsonDataset
 
-<!-- UsageSnippet language="go" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" -->
+<!-- UsageSnippet language="go" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" example="LakeDatasetCreateExamplesJsonDataset" -->
 ```go
 package main
 
@@ -39,7 +39,95 @@ func main() {
     )
 
     res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
-        ID: "<id>",
+        AcceleratedFields: []string{
+            "host",
+            "status",
+        },
+        Description: criblcontrolplanesdkgo.Pointer("Web server access logs"),
+        Format: components.FormatOptionsJSON.ToPointer(),
+        ID: "web_access_logs",
+        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](90.0),
+        StorageLocationID: criblcontrolplanesdkgo.Pointer("my-storage-location"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedCriblLakeDataset != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: LakeDatasetCreateExamplesMinimalDataset
+
+<!-- UsageSnippet language="go" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" example="LakeDatasetCreateExamplesMinimalDataset" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
+        ID: "app_logs",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedCriblLakeDataset != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: LakeDatasetCreateExamplesParquetDataset
+
+<!-- UsageSnippet language="go" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" example="LakeDatasetCreateExamplesParquetDataset" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
+        Description: criblcontrolplanesdkgo.Pointer("Security event data in Parquet format"),
+        Format: components.FormatOptionsParquet.ToPointer(),
+        ID: "security_events",
+        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](365.0),
+        SearchConfig: &components.LakeDatasetSearchConfig{
+            Datatypes: []string{
+                "palo_alto_firewall",
+                "crowdstrike_fdr",
+            },
+        },
+        StorageLocationID: criblcontrolplanesdkgo.Pointer("my-storage-location"),
     })
     if err != nil {
         log.Fatal(err)
@@ -256,9 +344,9 @@ func main() {
 
 Update the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 
-### Example Usage
+### Example Usage: LakeDatasetUpdateExamplesUpdateDescription
 
-<!-- UsageSnippet language="go" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
+<!-- UsageSnippet language="go" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" example="LakeDatasetUpdateExamplesUpdateDescription" -->
 ```go
 package main
 
@@ -280,7 +368,49 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{})
+    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
+        AcceleratedFields: []string{
+            "host",
+            "status",
+            "source",
+        },
+        Description: criblcontrolplanesdkgo.Pointer("Web server access logs with accelerated fields."),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedCriblLakeDataset != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: LakeDatasetUpdateExamplesUpdateRetention
+
+<!-- UsageSnippet language="go" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" example="LakeDatasetUpdateExamplesUpdateRetention" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
+        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](180.0),
+    })
     if err != nil {
         log.Fatal(err)
     }

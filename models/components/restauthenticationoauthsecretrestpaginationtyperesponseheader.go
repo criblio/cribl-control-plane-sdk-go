@@ -2313,6 +2313,10 @@ type RestAuthenticationHmac struct {
 	SafeHeaders []string                          `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationHmacRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationHmacScheduling `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
 	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
@@ -2536,6 +2540,20 @@ func (r *RestAuthenticationHmac) GetScheduling() *RestAuthenticationHmacScheduli
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationHmac) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestAuthenticationHmac) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
 }
 
 func (r *RestAuthenticationHmac) GetTemplateCollectURL() *string {
@@ -4853,6 +4871,12 @@ type RestAuthenticationGoogleOauthSecret struct {
 	SafeHeaders []string                                       `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationGoogleOauthSecretRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationGoogleOauthSecretScheduling `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
 	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
@@ -5090,6 +5114,27 @@ func (r *RestAuthenticationGoogleOauthSecret) GetScheduling() *RestAuthenticatio
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
 }
 
 func (r *RestAuthenticationGoogleOauthSecret) GetTemplateCollectURL() *string {
@@ -7407,6 +7452,10 @@ type RestAuthenticationGoogleOauth struct {
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationGoogleOauthRetryRules `json:"retryRules,omitzero"`
 	Scheduling  *RestAuthenticationGoogleOauthScheduling `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
 	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
@@ -7644,6 +7693,20 @@ func (r *RestAuthenticationGoogleOauth) GetScheduling() *RestAuthenticationGoogl
 		return nil
 	}
 	return r.Scheduling
+}
+
+func (r *RestAuthenticationGoogleOauth) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestAuthenticationGoogleOauth) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
 }
 
 func (r *RestAuthenticationGoogleOauth) GetTemplateCollectURL() *string {
