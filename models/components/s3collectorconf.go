@@ -112,6 +112,10 @@ type S3AwsAuthenticationMethodSecret struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -282,6 +286,20 @@ func (s *S3AwsAuthenticationMethodSecret) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3AwsAuthenticationMethodSecret) GetAwsAPIKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsAPIKey
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetAwsSecretKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecretKey
+}
+
 func (s *S3AwsAuthenticationMethodSecret) GetTemplateBucket() *string {
 	if s == nil {
 		return nil
@@ -425,6 +443,8 @@ type S3AwsAuthenticationMethodManual struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Select or create a stored secret that references AWS access key and secret key.
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -602,6 +622,13 @@ func (s *S3AwsAuthenticationMethodManual) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3AwsAuthenticationMethodManual) GetAwsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecret
+}
+
 func (s *S3AwsAuthenticationMethodManual) GetTemplateBucket() *string {
 	if s == nil {
 		return nil
@@ -741,6 +768,12 @@ type S3AwsAuthenticationMethodAuto struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Select or create a stored secret that references AWS access key and secret key.
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -904,6 +937,27 @@ func (s *S3AwsAuthenticationMethodAuto) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3AwsAuthenticationMethodAuto) GetAwsAPIKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsAPIKey
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetAwsSecretKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecretKey
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetAwsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecret
+}
+
 func (s *S3AwsAuthenticationMethodAuto) GetTemplateBucket() *string {
 	if s == nil {
 		return nil
@@ -1045,6 +1099,12 @@ type S3PartitioningSchemeNone struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Select or create a stored secret that references AWS access key and secret key.
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -1215,6 +1275,27 @@ func (s *S3PartitioningSchemeNone) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
+func (s *S3PartitioningSchemeNone) GetAwsAPIKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsAPIKey
+}
+
+func (s *S3PartitioningSchemeNone) GetAwsSecretKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecretKey
+}
+
+func (s *S3PartitioningSchemeNone) GetAwsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecret
+}
+
 func (s *S3PartitioningSchemeNone) GetTemplateBucket() *string {
 	if s == nil {
 		return nil
@@ -1354,6 +1435,12 @@ type S3PartitioningSchemeDdss struct {
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Select or create a stored secret that references AWS access key and secret key.
+	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -1515,6 +1602,27 @@ func (s *S3PartitioningSchemeDdss) GetDisableTimeFilter() *bool {
 		return nil
 	}
 	return s.DisableTimeFilter
+}
+
+func (s *S3PartitioningSchemeDdss) GetAwsAPIKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsAPIKey
+}
+
+func (s *S3PartitioningSchemeDdss) GetAwsSecretKey() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecretKey
+}
+
+func (s *S3PartitioningSchemeDdss) GetAwsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AwsSecret
 }
 
 func (s *S3PartitioningSchemeDdss) GetTemplateBucket() *string {

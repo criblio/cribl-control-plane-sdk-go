@@ -1,4 +1,4 @@
-# EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat
+# TimestampFormatTypeEventBreakerExistingOrNewNew
 
 
 ## Fields

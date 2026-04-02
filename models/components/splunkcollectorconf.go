@@ -462,6 +462,7 @@ type SplunkAuthenticationTokenSecret struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationTokenSecretRetryRules `json:"retryRules,omitzero"`
+	Token              *string                                    `json:"token,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -618,6 +619,13 @@ func (s *SplunkAuthenticationTokenSecret) GetRetryRulesBackoff() *SplunkAuthenti
 		return v.SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetToken() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Token
 }
 
 func (s *SplunkAuthenticationTokenSecret) GetTemplateSearchHead() *string {
@@ -1114,6 +1122,8 @@ type SplunkAuthenticationToken struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationTokenRetryRules `json:"retryRules,omitzero"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -1270,6 +1280,13 @@ func (s *SplunkAuthenticationToken) GetRetryRulesBackoff() *SplunkAuthentication
 		return v.SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationToken) GetTokenSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenSecret
 }
 
 func (s *SplunkAuthenticationToken) GetTemplateSearchHead() *string {
@@ -1767,6 +1784,9 @@ type SplunkAuthenticationBasicSecret struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationBasicSecretRetryRules `json:"retryRules,omitzero"`
+	Token              *string                                    `json:"token,omitzero"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -1923,6 +1943,20 @@ func (s *SplunkAuthenticationBasicSecret) GetRetryRulesBackoff() *SplunkAuthenti
 		return v.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetToken() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Token
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetTokenSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenSecret
 }
 
 func (s *SplunkAuthenticationBasicSecret) GetTemplateSearchHead() *string {
@@ -2422,6 +2456,9 @@ type SplunkAuthenticationBasic struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationBasicRetryRules `json:"retryRules,omitzero"`
+	Token              *string                              `json:"token,omitzero"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -2585,6 +2622,20 @@ func (s *SplunkAuthenticationBasic) GetRetryRulesBackoff() *SplunkAuthentication
 		return v.SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationBasic) GetToken() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Token
+}
+
+func (s *SplunkAuthenticationBasic) GetTokenSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenSecret
 }
 
 func (s *SplunkAuthenticationBasic) GetTemplateSearchHead() *string {
@@ -3080,6 +3131,9 @@ type SplunkAuthenticationNone struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                               `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
+	Token              *string                             `json:"token,omitzero"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -3229,6 +3283,20 @@ func (s *SplunkAuthenticationNone) GetRetryRulesBackoff() *SplunkAuthenticationN
 		return v.SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (s *SplunkAuthenticationNone) GetToken() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Token
+}
+
+func (s *SplunkAuthenticationNone) GetTokenSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenSecret
 }
 
 func (s *SplunkAuthenticationNone) GetTemplateSearchHead() *string {
