@@ -2635,6 +2635,37 @@ func (e *CreateInputAuthenticationMethodMicrosoftGraph) IsExact() bool {
 	return false
 }
 
+// CreateInputSubscriptionPlan - Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+type CreateInputSubscriptionPlan string
+
+const (
+	// CreateInputSubscriptionPlanEnterpriseGcc Microsoft 365 Enterprise
+	CreateInputSubscriptionPlanEnterpriseGcc CreateInputSubscriptionPlan = "enterprise_gcc"
+	// CreateInputSubscriptionPlanGcc Microsoft 365 GCC
+	CreateInputSubscriptionPlanGcc CreateInputSubscriptionPlan = "gcc"
+	// CreateInputSubscriptionPlanGccHigh Microsoft 365 GCC High
+	CreateInputSubscriptionPlanGccHigh CreateInputSubscriptionPlan = "gcc_high"
+	// CreateInputSubscriptionPlanDod Microsoft 365 DoD
+	CreateInputSubscriptionPlanDod CreateInputSubscriptionPlan = "dod"
+	// CreateInputSubscriptionPlanChina Microsoft 365 China (21Vianet)
+	CreateInputSubscriptionPlanChina CreateInputSubscriptionPlan = "china"
+)
+
+func (e CreateInputSubscriptionPlan) ToPointer() *CreateInputSubscriptionPlan {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSubscriptionPlan) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "enterprise_gcc", "gcc", "gcc_high", "dod", "china":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputInputMicrosoftGraph struct {
 	// Unique ID for this input
 	ID       string                        `json:"id"`
@@ -2698,7 +2729,7 @@ type CreateInputInputMicrosoftGraph struct {
 	// Resource to pass in the OAuth request parameter.
 	Resource *string `json:"resource,omitzero"`
 	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
-	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
+	PlanType *CreateInputSubscriptionPlan `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string                     `json:"textSecret,omitzero"`
 	CertOptions *components.CertOptionsType `json:"certOptions,omitzero"`
@@ -2954,7 +2985,7 @@ func (c *CreateInputInputMicrosoftGraph) GetResource() *string {
 	return c.Resource
 }
 
-func (c *CreateInputInputMicrosoftGraph) GetPlanType() *components.SubscriptionPlanOptions {
+func (c *CreateInputInputMicrosoftGraph) GetPlanType() *CreateInputSubscriptionPlan {
 	if c == nil {
 		return nil
 	}
