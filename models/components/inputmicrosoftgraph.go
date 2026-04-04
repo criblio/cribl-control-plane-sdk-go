@@ -55,6 +55,37 @@ func (e *InputMicrosoftGraphAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+// SubscriptionPlan - Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+type SubscriptionPlan string
+
+const (
+	// SubscriptionPlanEnterpriseGcc Microsoft 365 Enterprise
+	SubscriptionPlanEnterpriseGcc SubscriptionPlan = "enterprise_gcc"
+	// SubscriptionPlanGcc Microsoft 365 GCC
+	SubscriptionPlanGcc SubscriptionPlan = "gcc"
+	// SubscriptionPlanGccHigh Microsoft 365 GCC High
+	SubscriptionPlanGccHigh SubscriptionPlan = "gcc_high"
+	// SubscriptionPlanDod Microsoft 365 DoD
+	SubscriptionPlanDod SubscriptionPlan = "dod"
+	// SubscriptionPlanChina Microsoft 365 China (21Vianet)
+	SubscriptionPlanChina SubscriptionPlan = "china"
+)
+
+func (e SubscriptionPlan) ToPointer() *SubscriptionPlan {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SubscriptionPlan) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "enterprise_gcc", "gcc", "gcc_high", "dod", "china":
+			return true
+		}
+	}
+	return false
+}
+
 type InputMicrosoftGraph struct {
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitzero"`
@@ -118,7 +149,7 @@ type InputMicrosoftGraph struct {
 	// Resource to pass in the OAuth request parameter.
 	Resource *string `json:"resource,omitzero"`
 	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
-	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
+	PlanType *SubscriptionPlan `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string          `json:"textSecret,omitzero"`
 	CertOptions *CertOptionsType `json:"certOptions,omitzero"`
@@ -374,7 +405,7 @@ func (i *InputMicrosoftGraph) GetResource() *string {
 	return i.Resource
 }
 
-func (i *InputMicrosoftGraph) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputMicrosoftGraph) GetPlanType() *SubscriptionPlan {
 	if i == nil {
 		return nil
 	}
