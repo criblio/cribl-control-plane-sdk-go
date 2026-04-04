@@ -2961,6 +2961,37 @@ func (e *CreateInputSystemByPackAuthenticationMethodMicrosoftGraph) IsExact() bo
 	return false
 }
 
+// CreateInputSystemByPackSubscriptionPlan - Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+type CreateInputSystemByPackSubscriptionPlan string
+
+const (
+	// CreateInputSystemByPackSubscriptionPlanEnterpriseGcc Microsoft 365 Enterprise
+	CreateInputSystemByPackSubscriptionPlanEnterpriseGcc CreateInputSystemByPackSubscriptionPlan = "enterprise_gcc"
+	// CreateInputSystemByPackSubscriptionPlanGcc Microsoft 365 GCC
+	CreateInputSystemByPackSubscriptionPlanGcc CreateInputSystemByPackSubscriptionPlan = "gcc"
+	// CreateInputSystemByPackSubscriptionPlanGccHigh Microsoft 365 GCC High
+	CreateInputSystemByPackSubscriptionPlanGccHigh CreateInputSystemByPackSubscriptionPlan = "gcc_high"
+	// CreateInputSystemByPackSubscriptionPlanDod Microsoft 365 DoD
+	CreateInputSystemByPackSubscriptionPlanDod CreateInputSystemByPackSubscriptionPlan = "dod"
+	// CreateInputSystemByPackSubscriptionPlanChina Microsoft 365 China (21Vianet)
+	CreateInputSystemByPackSubscriptionPlanChina CreateInputSystemByPackSubscriptionPlan = "china"
+)
+
+func (e CreateInputSystemByPackSubscriptionPlan) ToPointer() *CreateInputSystemByPackSubscriptionPlan {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackSubscriptionPlan) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "enterprise_gcc", "gcc", "gcc_high", "dod", "china":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Unique ID for this input
 	ID       string                                    `json:"id"`
@@ -3024,7 +3055,7 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Resource to pass in the OAuth request parameter.
 	Resource *string `json:"resource,omitzero"`
 	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
-	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
+	PlanType *CreateInputSystemByPackSubscriptionPlan `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string                     `json:"textSecret,omitzero"`
 	CertOptions *components.CertOptionsType `json:"certOptions,omitzero"`
@@ -3280,7 +3311,7 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetResource() *string {
 	return c.Resource
 }
 
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetPlanType() *components.SubscriptionPlanOptions {
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetPlanType() *CreateInputSystemByPackSubscriptionPlan {
 	if c == nil {
 		return nil
 	}
