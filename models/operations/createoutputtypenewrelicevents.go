@@ -1313,6 +1313,8 @@ type CreateOutputOutputDatabricks struct {
 	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
 	// Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
 	WorkspaceID string `json:"workspaceId"`
+	// Hostname for the Databricks workspace. Override this to connect to government or secure cloud environments (e.g. cloud.databricks.us, cloud.databricks.mil, azuredatabricks.net).
+	WorkspaceHost *string `json:"workspaceHost,omitzero"`
 	// OAuth scope for Unity Catalog authentication
 	Scope string `json:"scope"`
 	// OAuth client ID for Unity Catalog authentication
@@ -1567,6 +1569,13 @@ func (c *CreateOutputOutputDatabricks) GetWorkspaceID() string {
 		return ""
 	}
 	return c.WorkspaceID
+}
+
+func (c *CreateOutputOutputDatabricks) GetWorkspaceHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.WorkspaceHost
 }
 
 func (c *CreateOutputOutputDatabricks) GetScope() string {
