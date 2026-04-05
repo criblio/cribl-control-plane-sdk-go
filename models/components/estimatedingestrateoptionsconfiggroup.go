@@ -2,7 +2,7 @@
 
 package components
 
-// EstimatedIngestRateOptionsConfigGroup - Estimated ingest rate for Cloud Groups, in GB/sec.
+// EstimatedIngestRateOptionsConfigGroup - Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
 type EstimatedIngestRateOptionsConfigGroup int64
 
 const (
