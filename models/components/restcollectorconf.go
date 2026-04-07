@@ -9,4767 +9,104 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	// If 'Strict discover response parsing' parsing is enabled, provide the response format
-	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
-	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
-
-func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestParams
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverType() RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType {
-	if r == nil {
-		return RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverDataField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverDataField
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverResponseFormat() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverResponseFormat
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetFormatResultCode() *string {
-	if r == nil {
-		return nil
-	}
-	return r.FormatResultCode
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-// RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType string
+type RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesType string
 
 const (
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeHTTP RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "http"
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeJSON RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "json"
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeList RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "list"
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeNone RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "none"
+	RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesType = "arrayOfAny"
+	RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesTypeStr        RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesType = "str"
 )
 
-func (e RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType) ToPointer() *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType {
-	return &e
+// RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes - Names of attributes within the response that contain next-page information
+type RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesType
 }
 
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
+func CreateRestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesArrayOfAny(arrayOfAny []any) RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny
+
+	return RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
 	}
-	return false
 }
 
-type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	// If 'Strict discover response parsing' parsing is enabled, provide the response format
-	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
-	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
+func CreateRestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesStr(str string) RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesTypeStr
 
-func (r RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestParams
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverType() RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType {
-	if r == nil {
-		return RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverDataField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverDataField
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverResponseFormat() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverResponseFormat
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetFormatResultCode() *string {
-	if r == nil {
-		return nil
-	}
-	return r.FormatResultCode
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType string
-
-const (
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeGet          RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType = "get"
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypePost         RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType = "post"
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeOther        RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType = "other"
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
-)
-
-type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP struct {
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
-	UnknownRaw                                                                    json.RawMessage                                                                `json:"-" union:"unknown"`
-
-	Type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPType
-}
-
-func CreateRestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPGet(get RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP {
-	typ := RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeGet
-
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
-	get.DiscoverMethod = typStr
-
-	return RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP{
-		RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet: &get,
+	return RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes{
+		Str:  &str,
 		Type: typ,
 	}
 }
 
-func CreateRestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPPost(post RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP {
-	typ := RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypePost
+func (u *RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes) UnmarshalJSON(data []byte) error {
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
-	post.DiscoverMethod = typStr
+	var candidates []utils.UnionCandidate
 
-	return RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP{
-		RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost: &post,
-		Type: typ,
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
 	}
-}
-
-func CreateRestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPPostWithBody(postWithBody RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP {
-	typ := RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypePostWithBody
-
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
-	postWithBody.DiscoverMethod = typStr
-
-	return RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP{
-		RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody: &postWithBody,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPOther(other RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP {
-	typ := RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeOther
-
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
-	other.DiscoverMethod = typStr
-
-	return RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP{
-		RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther: &other,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP {
-	return RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP{
-		UnknownRaw: raw,
-		Type:       RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown,
-	}
-}
-
-func (u RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
-	return u.Type == RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown
-}
-
-func (u *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		DiscoverMethod string `json:"discoverMethod"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown
-		return nil
-	}
-
-	switch dis.DiscoverMethod {
-	case "get":
-		restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet := new(RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverMethod == get) type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet within RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet = restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
-		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeGet
-		return nil
-	case "post":
-		restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost := new(RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverMethod == post) type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost within RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost = restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost
-		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypePost
-		return nil
-	case "post_with_body":
-		restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody := new(RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverMethod == post_with_body) type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody within RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
-		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypePostWithBody
-		return nil
-	case "other":
-		restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther := new(RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverMethod == other) type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther within RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
-		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeOther
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPTypeUnknown
-		return nil
-	}
-
-}
-
-func (u RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
-	if u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP: all fields are null")
-}
-
-type RestAuthenticationNoneDiscoveryType string
-
-const (
-	RestAuthenticationNoneDiscoveryTypeHTTP    RestAuthenticationNoneDiscoveryType = "http"
-	RestAuthenticationNoneDiscoveryTypeJSON    RestAuthenticationNoneDiscoveryType = "json"
-	RestAuthenticationNoneDiscoveryTypeList    RestAuthenticationNoneDiscoveryType = "list"
-	RestAuthenticationNoneDiscoveryTypeNone    RestAuthenticationNoneDiscoveryType = "none"
-	RestAuthenticationNoneDiscoveryTypeUnknown RestAuthenticationNoneDiscoveryType = "UNKNOWN"
-)
-
-type RestAuthenticationNoneDiscovery struct {
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON *RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeList *RestAuthenticationNoneRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestDiscoveryDiscoverTypeNone *RestAuthenticationNoneRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
-	UnknownRaw                                          json.RawMessage                                      `json:"-" union:"unknown"`
-
-	Type RestAuthenticationNoneDiscoveryType
-}
-
-func CreateRestAuthenticationNoneDiscoveryHTTP(http RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP) RestAuthenticationNoneDiscovery {
-	typ := RestAuthenticationNoneDiscoveryTypeHTTP
-
-	return RestAuthenticationNoneDiscovery{
-		RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP: &http,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNoneDiscoveryJSON(json RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON) RestAuthenticationNoneDiscovery {
-	typ := RestAuthenticationNoneDiscoveryTypeJSON
-
-	typStr := RestAuthenticationNoneRestDiscoveryDiscoverTypeJSONDiscoverType(typ)
-	json.DiscoverType = typStr
-
-	return RestAuthenticationNoneDiscovery{
-		RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON: &json,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNoneDiscoveryList(list RestAuthenticationNoneRestDiscoveryDiscoverTypeList) RestAuthenticationNoneDiscovery {
-	typ := RestAuthenticationNoneDiscoveryTypeList
-
-	typStr := RestAuthenticationNoneRestDiscoveryDiscoverTypeListDiscoverType(typ)
-	list.DiscoverType = typStr
-
-	return RestAuthenticationNoneDiscovery{
-		RestAuthenticationNoneRestDiscoveryDiscoverTypeList: &list,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNoneDiscoveryNone(none RestAuthenticationNoneRestDiscoveryDiscoverTypeNone) RestAuthenticationNoneDiscovery {
-	typ := RestAuthenticationNoneDiscoveryTypeNone
-
-	typStr := RestAuthenticationNoneRestDiscoveryDiscoverTypeNoneDiscoverType(typ)
-	none.DiscoverType = typStr
-
-	return RestAuthenticationNoneDiscovery{
-		RestAuthenticationNoneRestDiscoveryDiscoverTypeNone: &none,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNoneDiscoveryUnknown(raw json.RawMessage) RestAuthenticationNoneDiscovery {
-	return RestAuthenticationNoneDiscovery{
-		UnknownRaw: raw,
-		Type:       RestAuthenticationNoneDiscoveryTypeUnknown,
-	}
-}
-
-func (u RestAuthenticationNoneDiscovery) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u RestAuthenticationNoneDiscovery) IsUnknown() bool {
-	return u.Type == RestAuthenticationNoneDiscoveryTypeUnknown
-}
-
-func (u *RestAuthenticationNoneDiscovery) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		DiscoverType string `json:"discoverType"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNoneDiscoveryTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNoneDiscoveryTypeUnknown
-		return nil
-	}
-
-	switch dis.DiscoverType {
-	case "http":
-		restAuthenticationNoneRestDiscoveryDiscoverTypeHTTP := new(RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestDiscoveryDiscoverTypeHTTP, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == http) type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP within RestAuthenticationNoneDiscovery: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP = restAuthenticationNoneRestDiscoveryDiscoverTypeHTTP
-		u.Type = RestAuthenticationNoneDiscoveryTypeHTTP
-		return nil
-	case "json":
-		restAuthenticationNoneRestDiscoveryDiscoverTypeJSON := new(RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestDiscoveryDiscoverTypeJSON, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == json) type RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON within RestAuthenticationNoneDiscovery: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON = restAuthenticationNoneRestDiscoveryDiscoverTypeJSON
-		u.Type = RestAuthenticationNoneDiscoveryTypeJSON
-		return nil
-	case "list":
-		restAuthenticationNoneRestDiscoveryDiscoverTypeList := new(RestAuthenticationNoneRestDiscoveryDiscoverTypeList)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestDiscoveryDiscoverTypeList, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == list) type RestAuthenticationNoneRestDiscoveryDiscoverTypeList within RestAuthenticationNoneDiscovery: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeList = restAuthenticationNoneRestDiscoveryDiscoverTypeList
-		u.Type = RestAuthenticationNoneDiscoveryTypeList
-		return nil
-	case "none":
-		restAuthenticationNoneRestDiscoveryDiscoverTypeNone := new(RestAuthenticationNoneRestDiscoveryDiscoverTypeNone)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestDiscoveryDiscoverTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == none) type RestAuthenticationNoneRestDiscoveryDiscoverTypeNone within RestAuthenticationNoneDiscovery: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestDiscoveryDiscoverTypeNone = restAuthenticationNoneRestDiscoveryDiscoverTypeNone
-		u.Type = RestAuthenticationNoneDiscoveryTypeNone
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNoneDiscoveryTypeUnknown
-		return nil
-	}
-
-}
-
-func (u RestAuthenticationNoneDiscovery) MarshalJSON() ([]byte, error) {
-	if u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestDiscoveryDiscoverTypeList != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeList, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestDiscoveryDiscoverTypeNone != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestDiscoveryDiscoverTypeNone, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type RestAuthenticationNoneDiscovery: all fields are null")
-}
-
-type RestAuthenticationNoneCollectMethod string
-
-const (
-	// RestAuthenticationNoneCollectMethodGet GET
-	RestAuthenticationNoneCollectMethodGet RestAuthenticationNoneCollectMethod = "get"
-	// RestAuthenticationNoneCollectMethodPost POST
-	RestAuthenticationNoneCollectMethodPost RestAuthenticationNoneCollectMethod = "post"
-	// RestAuthenticationNoneCollectMethodPostWithBody POST with Body
-	RestAuthenticationNoneCollectMethodPostWithBody RestAuthenticationNoneCollectMethod = "post_with_body"
-	// RestAuthenticationNoneCollectMethodOther Other
-	RestAuthenticationNoneCollectMethodOther RestAuthenticationNoneCollectMethod = "other"
-)
-
-func (e RestAuthenticationNoneCollectMethod) ToPointer() *RestAuthenticationNoneCollectMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationNoneCollectMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body", "other":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationNoneRestPaginationTypeRequestPage struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField string `json:"pageField"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField string `json:"sizeField"`
-	// Maximum number of records to collect per page
-	Size float64 `json:"size"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
-	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-}
-
-func (r RestAuthenticationNoneRestPaginationTypeRequestPage) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetPageField() string {
-	if r == nil {
-		return ""
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetSizeField() string {
-	if r == nil {
-		return ""
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetSize() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetTotalRecordField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalRecordField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetZeroIndexed() bool {
-	if r == nil {
-		return false
-	}
-	return r.ZeroIndexed
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-type RestAuthenticationNoneRestPaginationTypeRequestOffset struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField string `json:"offsetField"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField string `json:"limitField"`
-	// Maximum number of records to collect per request
-	Limit float64 `json:"limit"`
-	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
-	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestAuthenticationNoneRestPaginationTypeRequestOffset) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetOffsetField() string {
-	if r == nil {
-		return ""
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetLimitField() string {
-	if r == nil {
-		return ""
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetLimit() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetTotalRecordField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalRecordField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetZeroIndexed() bool {
-	if r == nil {
-		return false
-	}
-	return r.ZeroIndexed
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestAuthenticationNoneRestPaginationTypeResponseHeaderLink struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute string `json:"nextRelationAttribute"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetNextRelationAttribute() string {
-	if r == nil {
-		return ""
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestAuthenticationNoneRestPaginationTypeResponseHeader struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestAuthenticationNoneRestPaginationTypeResponseHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetAttribute() []string {
-	if r == nil {
-		return []string{}
-	}
-	return r.Attribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseHeader) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestAuthenticationNoneRestPaginationTypeResponseBody struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestAuthenticationNoneRestPaginationTypeResponseBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetAttribute() []string {
-	if r == nil {
-		return []string{}
-	}
-	return r.Attribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestAuthenticationNoneRestPaginationTypeNone struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestAuthenticationNoneRestPaginationTypeNone) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationNoneRestPaginationTypeNone) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestAuthenticationNonePaginationType string
-
-const (
-	RestAuthenticationNonePaginationTypeNone               RestAuthenticationNonePaginationType = "none"
-	RestAuthenticationNonePaginationTypeResponseBody       RestAuthenticationNonePaginationType = "response_body"
-	RestAuthenticationNonePaginationTypeResponseHeader     RestAuthenticationNonePaginationType = "response_header"
-	RestAuthenticationNonePaginationTypeResponseHeaderLink RestAuthenticationNonePaginationType = "response_header_link"
-	RestAuthenticationNonePaginationTypeRequestOffset      RestAuthenticationNonePaginationType = "request_offset"
-	RestAuthenticationNonePaginationTypeRequestPage        RestAuthenticationNonePaginationType = "request_page"
-	RestAuthenticationNonePaginationTypeUnknown            RestAuthenticationNonePaginationType = "UNKNOWN"
-)
-
-type RestAuthenticationNonePagination struct {
-	RestAuthenticationNoneRestPaginationTypeNone               *RestAuthenticationNoneRestPaginationTypeNone               `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestPaginationTypeResponseBody       *RestAuthenticationNoneRestPaginationTypeResponseBody       `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestPaginationTypeResponseHeader     *RestAuthenticationNoneRestPaginationTypeResponseHeader     `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestPaginationTypeResponseHeaderLink *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestPaginationTypeRequestOffset      *RestAuthenticationNoneRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestPaginationTypeRequestPage        *RestAuthenticationNoneRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
-	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
-
-	Type RestAuthenticationNonePaginationType
-}
-
-func CreateRestAuthenticationNonePaginationNone(none RestAuthenticationNoneRestPaginationTypeNone) RestAuthenticationNonePagination {
-	typ := RestAuthenticationNonePaginationTypeNone
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	none.Type = typStr
-
-	return RestAuthenticationNonePagination{
-		RestAuthenticationNoneRestPaginationTypeNone: &none,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNonePaginationResponseBody(responseBody RestAuthenticationNoneRestPaginationTypeResponseBody) RestAuthenticationNonePagination {
-	typ := RestAuthenticationNonePaginationTypeResponseBody
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	responseBody.Type = typStr
-
-	return RestAuthenticationNonePagination{
-		RestAuthenticationNoneRestPaginationTypeResponseBody: &responseBody,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNonePaginationResponseHeader(responseHeader RestAuthenticationNoneRestPaginationTypeResponseHeader) RestAuthenticationNonePagination {
-	typ := RestAuthenticationNonePaginationTypeResponseHeader
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	responseHeader.Type = typStr
-
-	return RestAuthenticationNonePagination{
-		RestAuthenticationNoneRestPaginationTypeResponseHeader: &responseHeader,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNonePaginationResponseHeaderLink(responseHeaderLink RestAuthenticationNoneRestPaginationTypeResponseHeaderLink) RestAuthenticationNonePagination {
-	typ := RestAuthenticationNonePaginationTypeResponseHeaderLink
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	responseHeaderLink.Type = typStr
-
-	return RestAuthenticationNonePagination{
-		RestAuthenticationNoneRestPaginationTypeResponseHeaderLink: &responseHeaderLink,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNonePaginationRequestOffset(requestOffset RestAuthenticationNoneRestPaginationTypeRequestOffset) RestAuthenticationNonePagination {
-	typ := RestAuthenticationNonePaginationTypeRequestOffset
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	requestOffset.Type = typStr
-
-	return RestAuthenticationNonePagination{
-		RestAuthenticationNoneRestPaginationTypeRequestOffset: &requestOffset,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNonePaginationRequestPage(requestPage RestAuthenticationNoneRestPaginationTypeRequestPage) RestAuthenticationNonePagination {
-	typ := RestAuthenticationNonePaginationTypeRequestPage
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	requestPage.Type = typStr
-
-	return RestAuthenticationNonePagination{
-		RestAuthenticationNoneRestPaginationTypeRequestPage: &requestPage,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNonePaginationUnknown(raw json.RawMessage) RestAuthenticationNonePagination {
-	return RestAuthenticationNonePagination{
-		UnknownRaw: raw,
-		Type:       RestAuthenticationNonePaginationTypeUnknown,
-	}
-}
-
-func (u RestAuthenticationNonePagination) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u RestAuthenticationNonePagination) IsUnknown() bool {
-	return u.Type == RestAuthenticationNonePaginationTypeUnknown
-}
-
-func (u *RestAuthenticationNonePagination) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Type string `json:"type"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNonePaginationTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNonePaginationTypeUnknown
-		return nil
-	}
-
-	switch dis.Type {
-	case "none":
-		restAuthenticationNoneRestPaginationTypeNone := new(RestAuthenticationNoneRestPaginationTypeNone)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestPaginationTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestAuthenticationNoneRestPaginationTypeNone within RestAuthenticationNonePagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestPaginationTypeNone = restAuthenticationNoneRestPaginationTypeNone
-		u.Type = RestAuthenticationNonePaginationTypeNone
-		return nil
-	case "response_body":
-		restAuthenticationNoneRestPaginationTypeResponseBody := new(RestAuthenticationNoneRestPaginationTypeResponseBody)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestPaginationTypeResponseBody, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestAuthenticationNoneRestPaginationTypeResponseBody within RestAuthenticationNonePagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestPaginationTypeResponseBody = restAuthenticationNoneRestPaginationTypeResponseBody
-		u.Type = RestAuthenticationNonePaginationTypeResponseBody
-		return nil
-	case "response_header":
-		restAuthenticationNoneRestPaginationTypeResponseHeader := new(RestAuthenticationNoneRestPaginationTypeResponseHeader)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestPaginationTypeResponseHeader, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestAuthenticationNoneRestPaginationTypeResponseHeader within RestAuthenticationNonePagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestPaginationTypeResponseHeader = restAuthenticationNoneRestPaginationTypeResponseHeader
-		u.Type = RestAuthenticationNonePaginationTypeResponseHeader
-		return nil
-	case "response_header_link":
-		restAuthenticationNoneRestPaginationTypeResponseHeaderLink := new(RestAuthenticationNoneRestPaginationTypeResponseHeaderLink)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestPaginationTypeResponseHeaderLink, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestAuthenticationNoneRestPaginationTypeResponseHeaderLink within RestAuthenticationNonePagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestPaginationTypeResponseHeaderLink = restAuthenticationNoneRestPaginationTypeResponseHeaderLink
-		u.Type = RestAuthenticationNonePaginationTypeResponseHeaderLink
-		return nil
-	case "request_offset":
-		restAuthenticationNoneRestPaginationTypeRequestOffset := new(RestAuthenticationNoneRestPaginationTypeRequestOffset)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestPaginationTypeRequestOffset, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestAuthenticationNoneRestPaginationTypeRequestOffset within RestAuthenticationNonePagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestPaginationTypeRequestOffset = restAuthenticationNoneRestPaginationTypeRequestOffset
-		u.Type = RestAuthenticationNonePaginationTypeRequestOffset
-		return nil
-	case "request_page":
-		restAuthenticationNoneRestPaginationTypeRequestPage := new(RestAuthenticationNoneRestPaginationTypeRequestPage)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestPaginationTypeRequestPage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestAuthenticationNoneRestPaginationTypeRequestPage within RestAuthenticationNonePagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestPaginationTypeRequestPage = restAuthenticationNoneRestPaginationTypeRequestPage
-		u.Type = RestAuthenticationNonePaginationTypeRequestPage
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNonePaginationTypeUnknown
-		return nil
-	}
-
-}
-
-func (u RestAuthenticationNonePagination) MarshalJSON() ([]byte, error) {
-	if u.RestAuthenticationNoneRestPaginationTypeNone != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestPaginationTypeNone, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestPaginationTypeResponseBody != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestPaginationTypeResponseBody, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestPaginationTypeResponseHeader != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestPaginationTypeResponseHeader, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestPaginationTypeResponseHeaderLink != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestPaginationTypeResponseHeaderLink, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestPaginationTypeRequestOffset != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestPaginationTypeRequestOffset, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestPaginationTypeRequestPage != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestPaginationTypeRequestPage, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type RestAuthenticationNonePagination: all fields are null")
-}
-
-type RestAuthenticationNoneRestRetryRulesTypeBackoff struct {
-	// The algorithm to use when performing HTTP retries
-	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between a failed request and the first retry
-	Interval *float64 `json:"interval,omitzero"`
-	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitzero"`
-	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitzero"`
-	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitzero"`
-	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
-	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
-}
-
-func (r RestAuthenticationNoneRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if r == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetInterval() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetMultiplier() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetMaxIntervalMs() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetCodes() []float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetEnableHeader() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetRetryConnectTimeout() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetRetryConnectReset() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeBackoff) GetRetryHeaderName() *string {
-	if r == nil {
-		return nil
-	}
-	return r.RetryHeaderName
-}
-
-type RestAuthenticationNoneRestRetryRulesTypeStatic struct {
-	// The algorithm to use when performing HTTP retries
-	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `json:"interval,omitzero"`
-	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitzero"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitzero"`
-	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
-	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
-}
-
-func (r RestAuthenticationNoneRestRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if r == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) GetInterval() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) GetCodes() []float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) GetEnableHeader() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) GetRetryConnectTimeout() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) GetRetryConnectReset() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeStatic) GetRetryHeaderName() *string {
-	if r == nil {
-		return nil
-	}
-	return r.RetryHeaderName
-}
-
-type RestAuthenticationNoneRestRetryRulesTypeNone struct {
-	// The algorithm to use when performing HTTP retries
-	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-}
-
-func (r RestAuthenticationNoneRestRetryRulesTypeNone) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneRestRetryRulesTypeNone) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if r == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return r.Type
-}
-
-type RestAuthenticationNoneRetryRulesType string
-
-const (
-	RestAuthenticationNoneRetryRulesTypeNone    RestAuthenticationNoneRetryRulesType = "none"
-	RestAuthenticationNoneRetryRulesTypeStatic  RestAuthenticationNoneRetryRulesType = "static"
-	RestAuthenticationNoneRetryRulesTypeBackoff RestAuthenticationNoneRetryRulesType = "backoff"
-	RestAuthenticationNoneRetryRulesTypeUnknown RestAuthenticationNoneRetryRulesType = "UNKNOWN"
-)
-
-type RestAuthenticationNoneRetryRules struct {
-	RestAuthenticationNoneRestRetryRulesTypeNone    *RestAuthenticationNoneRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestRetryRulesTypeStatic  *RestAuthenticationNoneRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
-	RestAuthenticationNoneRestRetryRulesTypeBackoff *RestAuthenticationNoneRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
-	UnknownRaw                                      json.RawMessage                                  `json:"-" union:"unknown"`
-
-	Type RestAuthenticationNoneRetryRulesType
-}
-
-func CreateRestAuthenticationNoneRetryRulesNone(none RestAuthenticationNoneRestRetryRulesTypeNone) RestAuthenticationNoneRetryRules {
-	typ := RestAuthenticationNoneRetryRulesTypeNone
-
-	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
-	none.Type = typStr
-
-	return RestAuthenticationNoneRetryRules{
-		RestAuthenticationNoneRestRetryRulesTypeNone: &none,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNoneRetryRulesStatic(static RestAuthenticationNoneRestRetryRulesTypeStatic) RestAuthenticationNoneRetryRules {
-	typ := RestAuthenticationNoneRetryRulesTypeStatic
-
-	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
-	static.Type = typStr
-
-	return RestAuthenticationNoneRetryRules{
-		RestAuthenticationNoneRestRetryRulesTypeStatic: &static,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNoneRetryRulesBackoff(backoff RestAuthenticationNoneRestRetryRulesTypeBackoff) RestAuthenticationNoneRetryRules {
-	typ := RestAuthenticationNoneRetryRulesTypeBackoff
-
-	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
-	backoff.Type = typStr
-
-	return RestAuthenticationNoneRetryRules{
-		RestAuthenticationNoneRestRetryRulesTypeBackoff: &backoff,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationNoneRetryRulesUnknown(raw json.RawMessage) RestAuthenticationNoneRetryRules {
-	return RestAuthenticationNoneRetryRules{
-		UnknownRaw: raw,
-		Type:       RestAuthenticationNoneRetryRulesTypeUnknown,
-	}
-}
-
-func (u RestAuthenticationNoneRetryRules) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u RestAuthenticationNoneRetryRules) IsUnknown() bool {
-	return u.Type == RestAuthenticationNoneRetryRulesTypeUnknown
-}
-
-func (u *RestAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Type string `json:"type"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNoneRetryRulesTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNoneRetryRulesTypeUnknown
-		return nil
-	}
-
-	switch dis.Type {
-	case "none":
-		restAuthenticationNoneRestRetryRulesTypeNone := new(RestAuthenticationNoneRestRetryRulesTypeNone)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestRetryRulesTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestAuthenticationNoneRestRetryRulesTypeNone within RestAuthenticationNoneRetryRules: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestRetryRulesTypeNone = restAuthenticationNoneRestRetryRulesTypeNone
-		u.Type = RestAuthenticationNoneRetryRulesTypeNone
-		return nil
-	case "static":
-		restAuthenticationNoneRestRetryRulesTypeStatic := new(RestAuthenticationNoneRestRetryRulesTypeStatic)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestRetryRulesTypeStatic, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == static) type RestAuthenticationNoneRestRetryRulesTypeStatic within RestAuthenticationNoneRetryRules: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestRetryRulesTypeStatic = restAuthenticationNoneRestRetryRulesTypeStatic
-		u.Type = RestAuthenticationNoneRetryRulesTypeStatic
-		return nil
-	case "backoff":
-		restAuthenticationNoneRestRetryRulesTypeBackoff := new(RestAuthenticationNoneRestRetryRulesTypeBackoff)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationNoneRestRetryRulesTypeBackoff, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == backoff) type RestAuthenticationNoneRestRetryRulesTypeBackoff within RestAuthenticationNoneRetryRules: %w", string(data), err)
-		}
-
-		u.RestAuthenticationNoneRestRetryRulesTypeBackoff = restAuthenticationNoneRestRetryRulesTypeBackoff
-		u.Type = RestAuthenticationNoneRetryRulesTypeBackoff
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationNoneRetryRulesTypeUnknown
-		return nil
-	}
-
-}
-
-func (u RestAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
-	if u.RestAuthenticationNoneRestRetryRulesTypeNone != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestRetryRulesTypeNone, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestRetryRulesTypeStatic != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestRetryRulesTypeStatic, "", true)
-	}
-
-	if u.RestAuthenticationNoneRestRetryRulesTypeBackoff != nil {
-		return utils.MarshalJSON(u.RestAuthenticationNoneRestRetryRulesTypeBackoff, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type RestAuthenticationNoneRetryRules: all fields are null")
-}
-
-type RestAuthenticationNoneStateTracking struct {
-	// Track collection progress between consecutive scheduled executions
-	Enabled *bool `json:"enabled,omitzero"`
-}
-
-func (r RestAuthenticationNoneStateTracking) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneStateTracking) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneStateTracking) GetEnabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Enabled
-}
-
-type RestAuthenticationNoneScheduling struct {
-	StateTracking *RestAuthenticationNoneStateTracking `json:"stateTracking,omitzero"`
-}
-
-func (r RestAuthenticationNoneScheduling) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNoneScheduling) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNoneScheduling) GetStateTracking() *RestAuthenticationNoneStateTracking {
-	if r == nil {
-		return nil
-	}
-	return r.StateTracking
-}
-
-type RestAuthenticationNone struct {
-	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-	Authentication RestAuthenticationNoneAuthentication `json:"authentication"`
-	Discovery      *RestAuthenticationNoneDiscovery     `json:"discovery,omitzero"`
-	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                              `json:"collectUrl"`
-	CollectMethod         RestAuthenticationNoneCollectMethod                 `json:"collectMethod"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
-	Pagination            *RestAuthenticationNonePagination                   `json:"pagination,omitzero"`
-	// HTTP request inactivity timeout. Use 0 to disable.
-	Timeout *float64 `json:"timeout,omitzero"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
-	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
-	// Decode the URL before sending requests (including pagination requests)
-	DecodeURL *bool `json:"decodeUrl,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Enable to add response headers to the resHeaders field under the __collectible object
-	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
-	// Stop pagination when the Event Breaker produces no events
-	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitzero"`
-	// List of headers that are safe to log in plain text
-	SafeHeaders []string                          `json:"safeHeaders,omitzero"`
-	RetryRules  *RestAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestAuthenticationNoneScheduling `json:"__scheduling,omitzero"`
-	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
-	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
-	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
-	// Select or create an HMAC Function to use with authentication
-	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
-}
-
-func (r RestAuthenticationNone) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetAuthentication() RestAuthenticationNoneAuthentication {
-	if r == nil {
-		return RestAuthenticationNoneAuthentication("")
-	}
-	return r.Authentication
-}
-
-func (r *RestAuthenticationNone) GetDiscovery() *RestAuthenticationNoneDiscovery {
-	if r == nil {
-		return nil
-	}
-	return r.Discovery
-}
-
-func (r *RestAuthenticationNone) GetDiscoveryHTTP() *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP {
-	if v := r.GetDiscovery(); v != nil {
-		return v.RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTP
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetDiscoveryJSON() *RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON {
-	if v := r.GetDiscovery(); v != nil {
-		return v.RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetDiscoveryList() *RestAuthenticationNoneRestDiscoveryDiscoverTypeList {
-	if v := r.GetDiscovery(); v != nil {
-		return v.RestAuthenticationNoneRestDiscoveryDiscoverTypeList
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetDiscoveryNone() *RestAuthenticationNoneRestDiscoveryDiscoverTypeNone {
-	if v := r.GetDiscovery(); v != nil {
-		return v.RestAuthenticationNoneRestDiscoveryDiscoverTypeNone
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetCollectURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.CollectURL
-}
-
-func (r *RestAuthenticationNone) GetCollectMethod() RestAuthenticationNoneCollectMethod {
-	if r == nil {
-		return RestAuthenticationNoneCollectMethod("")
-	}
-	return r.CollectMethod
-}
-
-func (r *RestAuthenticationNone) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.CollectRequestHeaders
-}
-
-func (r *RestAuthenticationNone) GetPagination() *RestAuthenticationNonePagination {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestAuthenticationNone) GetPaginationNone() *RestAuthenticationNoneRestPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestAuthenticationNoneRestPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetPaginationResponseBody() *RestAuthenticationNoneRestPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestAuthenticationNoneRestPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetPaginationResponseHeader() *RestAuthenticationNoneRestPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestAuthenticationNoneRestPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetPaginationResponseHeaderLink() *RestAuthenticationNoneRestPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestAuthenticationNoneRestPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetPaginationRequestOffset() *RestAuthenticationNoneRestPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestAuthenticationNoneRestPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetPaginationRequestPage() *RestAuthenticationNoneRestPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestAuthenticationNoneRestPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetTimeout() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Timeout
-}
-
-func (r *RestAuthenticationNone) GetUseRoundRobinDNS() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.UseRoundRobinDNS
-}
-
-func (r *RestAuthenticationNone) GetDisableTimeFilter() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.DisableTimeFilter
-}
-
-func (r *RestAuthenticationNone) GetDecodeURL() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.DecodeURL
-}
-
-func (r *RestAuthenticationNone) GetRejectUnauthorized() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RejectUnauthorized
-}
-
-func (r *RestAuthenticationNone) GetCaptureHeaders() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.CaptureHeaders
-}
-
-func (r *RestAuthenticationNone) GetStopOnEmptyResults() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.StopOnEmptyResults
-}
-
-func (r *RestAuthenticationNone) GetSafeHeaders() []string {
-	if r == nil {
-		return nil
-	}
-	return r.SafeHeaders
-}
-
-func (r *RestAuthenticationNone) GetRetryRules() *RestAuthenticationNoneRetryRules {
-	if r == nil {
-		return nil
-	}
-	return r.RetryRules
-}
-
-func (r *RestAuthenticationNone) GetRetryRulesNone() *RestAuthenticationNoneRestRetryRulesTypeNone {
-	if v := r.GetRetryRules(); v != nil {
-		return v.RestAuthenticationNoneRestRetryRulesTypeNone
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetRetryRulesStatic() *RestAuthenticationNoneRestRetryRulesTypeStatic {
-	if v := r.GetRetryRules(); v != nil {
-		return v.RestAuthenticationNoneRestRetryRulesTypeStatic
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetRetryRulesBackoff() *RestAuthenticationNoneRestRetryRulesTypeBackoff {
-	if v := r.GetRetryRules(); v != nil {
-		return v.RestAuthenticationNoneRestRetryRulesTypeBackoff
-	}
-	return nil
-}
-
-func (r *RestAuthenticationNone) GetScheduling() *RestAuthenticationNoneScheduling {
-	if r == nil {
-		return nil
-	}
-	return r.Scheduling
-}
-
-func (r *RestAuthenticationNone) GetClientSecretParamValue() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ClientSecretParamValue
-}
-
-func (r *RestAuthenticationNone) GetServiceAccountCredentials() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ServiceAccountCredentials
-}
-
-func (r *RestAuthenticationNone) GetHmacFunctionID() *string {
-	if r == nil {
-		return nil
-	}
-	return r.HmacFunctionID
-}
-
-type RestCollectMethodOtherCollectMethod string
-
-const (
-	// RestCollectMethodOtherCollectMethodGet GET
-	RestCollectMethodOtherCollectMethodGet RestCollectMethodOtherCollectMethod = "get"
-	// RestCollectMethodOtherCollectMethodPost POST
-	RestCollectMethodOtherCollectMethodPost RestCollectMethodOtherCollectMethod = "post"
-	// RestCollectMethodOtherCollectMethodPostWithBody POST with Body
-	RestCollectMethodOtherCollectMethodPostWithBody RestCollectMethodOtherCollectMethod = "post_with_body"
-	// RestCollectMethodOtherCollectMethodOther Other
-	RestCollectMethodOtherCollectMethodOther RestCollectMethodOtherCollectMethod = "other"
-)
-
-func (e RestCollectMethodOtherCollectMethod) ToPointer() *RestCollectMethodOtherCollectMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestCollectMethodOtherCollectMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body", "other":
-			return true
-		}
-	}
-	return false
-}
-
-// RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType string
-
-const (
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverTypeHTTP RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType = "http"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverTypeJSON RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType = "json"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverTypeList RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType = "list"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverTypeNone RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType = "none"
-)
-
-func (e RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType) ToPointer() *RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone struct {
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetDiscoverType() RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType {
-	if r == nil {
-		return RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-// RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType string
-
-const (
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverTypeHTTP RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType = "http"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverTypeJSON RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType = "json"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverTypeList RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType = "list"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverTypeNone RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType = "none"
-)
-
-func (e RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType) ToPointer() *RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeList struct {
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType `json:"discoverType"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeList) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetDiscoverType() RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType {
-	if r == nil {
-		return RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetItemList() []string {
-	if r == nil {
-		return []string{}
-	}
-	return r.ItemList
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-// RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType string
-
-const (
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverTypeHTTP RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType = "http"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverTypeJSON RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType = "json"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverTypeList RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType = "list"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverTypeNone RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType = "none"
-)
-
-func (e RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType) ToPointer() *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON struct {
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType `json:"discoverType"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult string `json:"manualDiscoverResult"`
-	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
-	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetDiscoverType() RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType {
-	if r == nil {
-		return RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetManualDiscoverResult() string {
-	if r == nil {
-		return ""
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetDiscoverDataField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverDataField
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-// RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType string
-
-const (
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverTypeHTTP RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType = "http"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverTypeJSON RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType = "json"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverTypeList RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType = "list"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverTypeNone RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType = "none"
-)
-
-func (e RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType) ToPointer() *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct {
-	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	// Custom HTTP method to use for the Discover operation
-	DiscoverVerb string `json:"discoverVerb"`
-	// Template for body to send with the discover request
-	DiscoverBody          *string                                             `json:"discoverBody,omitzero"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	// If 'Strict discover response parsing' parsing is enabled, provide the response format
-	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
-	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverVerb() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverVerb
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverBody() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverBody
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestParams
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverType() RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType {
-	if r == nil {
-		return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverDataField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverDataField
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverResponseFormat() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverResponseFormat
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetFormatResultCode() *string {
-	if r == nil {
-		return nil
-	}
-	return r.FormatResultCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-// RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType string
-
-const (
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverTypeHTTP RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType = "http"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverTypeJSON RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType = "json"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverTypeList RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType = "list"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverTypeNone RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType = "none"
-)
-
-func (e RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType) ToPointer() *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
-	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
-	DiscoverBody string `json:"discoverBody"`
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	// If 'Strict discover response parsing' parsing is enabled, provide the response format
-	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
-	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverBody
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverType() RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType {
-	if r == nil {
-		return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverDataField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverDataField
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverResponseFormat() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverResponseFormat
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetFormatResultCode() *string {
-	if r == nil {
-		return nil
-	}
-	return r.FormatResultCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-// RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType string
-
-const (
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeHTTP RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "http"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeJSON RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "json"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeList RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "list"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeNone RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "none"
-)
-
-func (e RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType) ToPointer() *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	// If 'Strict discover response parsing' parsing is enabled, provide the response format
-	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
-	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestParams
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverType() RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType {
-	if r == nil {
-		return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverDataField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverDataField
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverResponseFormat() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverResponseFormat
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetFormatResultCode() *string {
-	if r == nil {
-		return nil
-	}
-	return r.FormatResultCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-// RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType string
-
-const (
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeHTTP RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "http"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeJSON RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "json"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeList RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "list"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeNone RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "none"
-)
-
-func (e RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType) ToPointer() *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	// If 'Strict discover response parsing' parsing is enabled, provide the response format
-	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
-	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestParams
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverType() RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType {
-	if r == nil {
-		return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverDataField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverDataField
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverResponseFormat() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverResponseFormat
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetFormatResultCode() *string {
-	if r == nil {
-		return nil
-	}
-	return r.FormatResultCode
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType string
-
-const (
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeGet          RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType = "get"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypePost         RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType = "post"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypePostWithBody RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType = "post_with_body"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeOther        RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType = "other"
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown      RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType = "UNKNOWN"
-)
-
-type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP struct {
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet          *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet          `queryParam:"inline" union:"member"`
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost         `queryParam:"inline" union:"member"`
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody `queryParam:"inline" union:"member"`
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther        `queryParam:"inline" union:"member"`
-	UnknownRaw                                                                    json.RawMessage                                                                `json:"-" union:"unknown"`
-
-	Type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPType
-}
-
-func CreateRestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPGet(get RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP {
-	typ := RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeGet
-
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
-	get.DiscoverMethod = typStr
-
-	return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP{
-		RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet: &get,
-		Type: typ,
-	}
-}
-
-func CreateRestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPPost(post RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP {
-	typ := RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypePost
-
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
-	post.DiscoverMethod = typStr
-
-	return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP{
-		RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost: &post,
-		Type: typ,
-	}
-}
-
-func CreateRestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPPostWithBody(postWithBody RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP {
-	typ := RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypePostWithBody
-
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
-	postWithBody.DiscoverMethod = typStr
-
-	return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP{
-		RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody: &postWithBody,
-		Type: typ,
-	}
-}
-
-func CreateRestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPOther(other RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP {
-	typ := RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeOther
-
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
-	other.DiscoverMethod = typStr
-
-	return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP{
-		RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther: &other,
-		Type: typ,
-	}
-}
-
-func CreateRestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPUnknown(raw json.RawMessage) RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP {
-	return RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP{
-		UnknownRaw: raw,
-		Type:       RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown,
-	}
-}
-
-func (u RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) IsUnknown() bool {
-	return u.Type == RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown
-}
-
-func (u *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		DiscoverMethod string `json:"discoverMethod"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown
-		return nil
-	}
-
-	switch dis.DiscoverMethod {
-	case "get":
-		restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet := new(RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet)
-		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverMethod == get) type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet within RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP: %w", string(data), err)
-		}
-
-		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet = restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
-		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeGet
-		return nil
-	case "post":
-		restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost := new(RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
-		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverMethod == post) type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost within RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP: %w", string(data), err)
-		}
-
-		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost = restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost
-		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypePost
-		return nil
-	case "post_with_body":
-		restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody := new(RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody)
-		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverMethod == post_with_body) type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody within RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP: %w", string(data), err)
-		}
-
-		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody = restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
-		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypePostWithBody
-		return nil
-	case "other":
-		restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther := new(RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther)
-		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverMethod == other) type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther within RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP: %w", string(data), err)
-		}
-
-		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther = restCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
-		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeOther
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPTypeUnknown
-		return nil
-	}
-
-}
-
-func (u RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) MarshalJSON() ([]byte, error) {
-	if u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet != nil {
-		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet, "", true)
-	}
-
-	if u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost != nil {
-		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost, "", true)
-	}
-
-	if u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody != nil {
-		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody, "", true)
-	}
-
-	if u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther != nil {
-		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP: all fields are null")
-}
-
-type RestCollectMethodOtherDiscoveryType string
-
-const (
-	RestCollectMethodOtherDiscoveryTypeHTTP    RestCollectMethodOtherDiscoveryType = "http"
-	RestCollectMethodOtherDiscoveryTypeJSON    RestCollectMethodOtherDiscoveryType = "json"
-	RestCollectMethodOtherDiscoveryTypeList    RestCollectMethodOtherDiscoveryType = "list"
-	RestCollectMethodOtherDiscoveryTypeNone    RestCollectMethodOtherDiscoveryType = "none"
-	RestCollectMethodOtherDiscoveryTypeUnknown RestCollectMethodOtherDiscoveryType = "UNKNOWN"
-)
-
-type RestCollectMethodOtherDiscovery struct {
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP `queryParam:"inline" union:"member"`
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON *RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeList *RestCollectMethodOtherRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
-	RestCollectMethodOtherRestDiscoveryDiscoverTypeNone *RestCollectMethodOtherRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
-	UnknownRaw                                          json.RawMessage                                      `json:"-" union:"unknown"`
-
-	Type RestCollectMethodOtherDiscoveryType
-}
-
-func CreateRestCollectMethodOtherDiscoveryHTTP(http RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP) RestCollectMethodOtherDiscovery {
-	typ := RestCollectMethodOtherDiscoveryTypeHTTP
-
-	return RestCollectMethodOtherDiscovery{
-		RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP: &http,
-		Type: typ,
-	}
-}
-
-func CreateRestCollectMethodOtherDiscoveryJSON(json RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON) RestCollectMethodOtherDiscovery {
-	typ := RestCollectMethodOtherDiscoveryTypeJSON
-
-	typStr := RestCollectMethodOtherRestDiscoveryDiscoverTypeJSONDiscoverType(typ)
-	json.DiscoverType = typStr
-
-	return RestCollectMethodOtherDiscovery{
-		RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON: &json,
-		Type: typ,
-	}
-}
-
-func CreateRestCollectMethodOtherDiscoveryList(list RestCollectMethodOtherRestDiscoveryDiscoverTypeList) RestCollectMethodOtherDiscovery {
-	typ := RestCollectMethodOtherDiscoveryTypeList
-
-	typStr := RestCollectMethodOtherRestDiscoveryDiscoverTypeListDiscoverType(typ)
-	list.DiscoverType = typStr
-
-	return RestCollectMethodOtherDiscovery{
-		RestCollectMethodOtherRestDiscoveryDiscoverTypeList: &list,
-		Type: typ,
-	}
-}
-
-func CreateRestCollectMethodOtherDiscoveryNone(none RestCollectMethodOtherRestDiscoveryDiscoverTypeNone) RestCollectMethodOtherDiscovery {
-	typ := RestCollectMethodOtherDiscoveryTypeNone
-
-	typStr := RestCollectMethodOtherRestDiscoveryDiscoverTypeNoneDiscoverType(typ)
-	none.DiscoverType = typStr
-
-	return RestCollectMethodOtherDiscovery{
-		RestCollectMethodOtherRestDiscoveryDiscoverTypeNone: &none,
-		Type: typ,
-	}
-}
-
-func CreateRestCollectMethodOtherDiscoveryUnknown(raw json.RawMessage) RestCollectMethodOtherDiscovery {
-	return RestCollectMethodOtherDiscovery{
-		UnknownRaw: raw,
-		Type:       RestCollectMethodOtherDiscoveryTypeUnknown,
-	}
-}
-
-func (u RestCollectMethodOtherDiscovery) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u RestCollectMethodOtherDiscovery) IsUnknown() bool {
-	return u.Type == RestCollectMethodOtherDiscoveryTypeUnknown
-}
-
-func (u *RestCollectMethodOtherDiscovery) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		DiscoverType string `json:"discoverType"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodOtherDiscoveryTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodOtherDiscoveryTypeUnknown
-		return nil
-	}
-
-	switch dis.DiscoverType {
-	case "http":
-		restCollectMethodOtherRestDiscoveryDiscoverTypeHTTP := new(RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP)
-		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestDiscoveryDiscoverTypeHTTP, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == http) type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP within RestCollectMethodOtherDiscovery: %w", string(data), err)
-		}
-
-		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP = restCollectMethodOtherRestDiscoveryDiscoverTypeHTTP
-		u.Type = RestCollectMethodOtherDiscoveryTypeHTTP
-		return nil
-	case "json":
-		restCollectMethodOtherRestDiscoveryDiscoverTypeJSON := new(RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON)
-		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestDiscoveryDiscoverTypeJSON, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == json) type RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON within RestCollectMethodOtherDiscovery: %w", string(data), err)
-		}
 
-		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON = restCollectMethodOtherRestDiscoveryDiscoverTypeJSON
-		u.Type = RestCollectMethodOtherDiscoveryTypeJSON
-		return nil
-	case "list":
-		restCollectMethodOtherRestDiscoveryDiscoverTypeList := new(RestCollectMethodOtherRestDiscoveryDiscoverTypeList)
-		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestDiscoveryDiscoverTypeList, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == list) type RestCollectMethodOtherRestDiscoveryDiscoverTypeList within RestCollectMethodOtherDiscovery: %w", string(data), err)
-		}
-
-		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeList = restCollectMethodOtherRestDiscoveryDiscoverTypeList
-		u.Type = RestCollectMethodOtherDiscoveryTypeList
-		return nil
-	case "none":
-		restCollectMethodOtherRestDiscoveryDiscoverTypeNone := new(RestCollectMethodOtherRestDiscoveryDiscoverTypeNone)
-		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestDiscoveryDiscoverTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == none) type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone within RestCollectMethodOtherDiscovery: %w", string(data), err)
-		}
-
-		u.RestCollectMethodOtherRestDiscoveryDiscoverTypeNone = restCollectMethodOtherRestDiscoveryDiscoverTypeNone
-		u.Type = RestCollectMethodOtherDiscoveryTypeNone
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodOtherDiscoveryTypeUnknown
-		return nil
-	}
-
-}
-
-func (u RestCollectMethodOtherDiscovery) MarshalJSON() ([]byte, error) {
-	if u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP != nil {
-		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP, "", true)
-	}
-
-	if u.RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON != nil {
-		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON, "", true)
-	}
-
-	if u.RestCollectMethodOtherRestDiscoveryDiscoverTypeList != nil {
-		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeList, "", true)
-	}
-
-	if u.RestCollectMethodOtherRestDiscoveryDiscoverTypeNone != nil {
-		return utils.MarshalJSON(u.RestCollectMethodOtherRestDiscoveryDiscoverTypeNone, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type RestCollectMethodOtherDiscovery: all fields are null")
-}
-
-type RestCollectMethodOtherRestPaginationTypeRequestPage struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField string `json:"pageField"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField string `json:"sizeField"`
-	// Maximum number of records to collect per page
-	Size float64 `json:"size"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
-	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestPaginationTypeRequestPage) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetPageField() string {
-	if r == nil {
-		return ""
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetSizeField() string {
-	if r == nil {
-		return ""
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetSize() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetTotalRecordField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalRecordField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetZeroIndexed() bool {
-	if r == nil {
-		return false
-	}
-	return r.ZeroIndexed
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-type RestCollectMethodOtherRestPaginationTypeRequestOffset struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField string `json:"offsetField"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField string `json:"limitField"`
-	// Maximum number of records to collect per request
-	Limit float64 `json:"limit"`
-	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
-	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestPaginationTypeRequestOffset) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetOffsetField() string {
-	if r == nil {
-		return ""
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetLimitField() string {
-	if r == nil {
-		return ""
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetLimit() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetTotalRecordField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalRecordField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetZeroIndexed() bool {
-	if r == nil {
-		return false
-	}
-	return r.ZeroIndexed
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesTypeStr,
+			Value: &str,
+		})
 	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute string `json:"nextRelationAttribute"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetNextRelationAttribute() string {
-	if r == nil {
-		return ""
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestCollectMethodOtherRestPaginationTypeResponseHeader struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestCollectMethodOtherRestPaginationTypeResponseHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetAttribute() []string {
-	if r == nil {
-		return []string{}
-	}
-	return r.Attribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
 
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetOffset() *float64 {
-	if r == nil {
-		return nil
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes", string(data))
 	}
-	return r.Offset
-}
 
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetLimitField() *string {
-	if r == nil {
-		return nil
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes", string(data))
 	}
-	return r.LimitField
-}
 
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetLimit() *float64 {
-	if r == nil {
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesType)
+	switch best.Type {
+	case RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
 		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetPageField() *string {
-	if r == nil {
+	case RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
 		return nil
 	}
-	return r.PageField
-}
 
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes", string(data))
 }
 
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetSizeField() *string {
-	if r == nil {
-		return nil
+func (u RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
 	}
-	return r.SizeField
-}
 
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetSize() *float64 {
-	if r == nil {
-		return nil
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
 	}
-	return r.Size
-}
 
-func (r *RestCollectMethodOtherRestPaginationTypeResponseHeader) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
+	return nil, errors.New("could not marshal union type RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes: all fields are null")
 }
 
 type RestCollectMethodOtherRestPaginationTypeResponseBody struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
 	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestPaginationTypeResponseBody) MarshalJSON() ([]byte, error) {
@@ -4790,9 +127,9 @@ func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetType() Paginat
 	return r.Type
 }
 
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetAttribute() []string {
+func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetAttribute() RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -4811,109 +148,8 @@ func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetLastPageExpr()
 	return r.LastPageExpr
 }
 
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
 type RestCollectMethodOtherRestPaginationTypeNone struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestPaginationTypeNone) MarshalJSON() ([]byte, error) {
@@ -4934,103 +170,19 @@ func (r *RestCollectMethodOtherRestPaginationTypeNone) GetType() PaginationOptio
 	return r.Type
 }
 
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodOtherRestPaginationTypeNone) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestCollectMethodOtherPaginationType string
+type RestCollectMethodOtherPaginationUnionType string
 
 const (
-	RestCollectMethodOtherPaginationTypeNone               RestCollectMethodOtherPaginationType = "none"
-	RestCollectMethodOtherPaginationTypeResponseBody       RestCollectMethodOtherPaginationType = "response_body"
-	RestCollectMethodOtherPaginationTypeResponseHeader     RestCollectMethodOtherPaginationType = "response_header"
-	RestCollectMethodOtherPaginationTypeResponseHeaderLink RestCollectMethodOtherPaginationType = "response_header_link"
-	RestCollectMethodOtherPaginationTypeRequestOffset      RestCollectMethodOtherPaginationType = "request_offset"
-	RestCollectMethodOtherPaginationTypeRequestPage        RestCollectMethodOtherPaginationType = "request_page"
-	RestCollectMethodOtherPaginationTypeUnknown            RestCollectMethodOtherPaginationType = "UNKNOWN"
+	RestCollectMethodOtherPaginationUnionTypeNone               RestCollectMethodOtherPaginationUnionType = "none"
+	RestCollectMethodOtherPaginationUnionTypeResponseBody       RestCollectMethodOtherPaginationUnionType = "response_body"
+	RestCollectMethodOtherPaginationUnionTypeResponseHeader     RestCollectMethodOtherPaginationUnionType = "response_header"
+	RestCollectMethodOtherPaginationUnionTypeResponseHeaderLink RestCollectMethodOtherPaginationUnionType = "response_header_link"
+	RestCollectMethodOtherPaginationUnionTypeRequestOffset      RestCollectMethodOtherPaginationUnionType = "request_offset"
+	RestCollectMethodOtherPaginationUnionTypeRequestPage        RestCollectMethodOtherPaginationUnionType = "request_page"
+	RestCollectMethodOtherPaginationUnionTypeUnknown            RestCollectMethodOtherPaginationUnionType = "UNKNOWN"
 )
 
-type RestCollectMethodOtherPagination struct {
+type RestCollectMethodOtherPaginationUnion struct {
 	RestCollectMethodOtherRestPaginationTypeNone               *RestCollectMethodOtherRestPaginationTypeNone               `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestPaginationTypeResponseBody       *RestCollectMethodOtherRestPaginationTypeResponseBody       `queryParam:"inline" union:"member"`
 	RestCollectMethodOtherRestPaginationTypeResponseHeader     *RestCollectMethodOtherRestPaginationTypeResponseHeader     `queryParam:"inline" union:"member"`
@@ -5039,97 +191,97 @@ type RestCollectMethodOtherPagination struct {
 	RestCollectMethodOtherRestPaginationTypeRequestPage        *RestCollectMethodOtherRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
 	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
 
-	Type RestCollectMethodOtherPaginationType
+	Type RestCollectMethodOtherPaginationUnionType
 }
 
-func CreateRestCollectMethodOtherPaginationNone(none RestCollectMethodOtherRestPaginationTypeNone) RestCollectMethodOtherPagination {
-	typ := RestCollectMethodOtherPaginationTypeNone
+func CreateRestCollectMethodOtherPaginationUnionNone(none RestCollectMethodOtherRestPaginationTypeNone) RestCollectMethodOtherPaginationUnion {
+	typ := RestCollectMethodOtherPaginationUnionTypeNone
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	none.Type = typStr
 
-	return RestCollectMethodOtherPagination{
+	return RestCollectMethodOtherPaginationUnion{
 		RestCollectMethodOtherRestPaginationTypeNone: &none,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodOtherPaginationResponseBody(responseBody RestCollectMethodOtherRestPaginationTypeResponseBody) RestCollectMethodOtherPagination {
-	typ := RestCollectMethodOtherPaginationTypeResponseBody
+func CreateRestCollectMethodOtherPaginationUnionResponseBody(responseBody RestCollectMethodOtherRestPaginationTypeResponseBody) RestCollectMethodOtherPaginationUnion {
+	typ := RestCollectMethodOtherPaginationUnionTypeResponseBody
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseBody.Type = typStr
 
-	return RestCollectMethodOtherPagination{
+	return RestCollectMethodOtherPaginationUnion{
 		RestCollectMethodOtherRestPaginationTypeResponseBody: &responseBody,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodOtherPaginationResponseHeader(responseHeader RestCollectMethodOtherRestPaginationTypeResponseHeader) RestCollectMethodOtherPagination {
-	typ := RestCollectMethodOtherPaginationTypeResponseHeader
+func CreateRestCollectMethodOtherPaginationUnionResponseHeader(responseHeader RestCollectMethodOtherRestPaginationTypeResponseHeader) RestCollectMethodOtherPaginationUnion {
+	typ := RestCollectMethodOtherPaginationUnionTypeResponseHeader
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseHeader.Type = typStr
 
-	return RestCollectMethodOtherPagination{
+	return RestCollectMethodOtherPaginationUnion{
 		RestCollectMethodOtherRestPaginationTypeResponseHeader: &responseHeader,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodOtherPaginationResponseHeaderLink(responseHeaderLink RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) RestCollectMethodOtherPagination {
-	typ := RestCollectMethodOtherPaginationTypeResponseHeaderLink
+func CreateRestCollectMethodOtherPaginationUnionResponseHeaderLink(responseHeaderLink RestCollectMethodOtherRestPaginationTypeResponseHeaderLink) RestCollectMethodOtherPaginationUnion {
+	typ := RestCollectMethodOtherPaginationUnionTypeResponseHeaderLink
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseHeaderLink.Type = typStr
 
-	return RestCollectMethodOtherPagination{
+	return RestCollectMethodOtherPaginationUnion{
 		RestCollectMethodOtherRestPaginationTypeResponseHeaderLink: &responseHeaderLink,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodOtherPaginationRequestOffset(requestOffset RestCollectMethodOtherRestPaginationTypeRequestOffset) RestCollectMethodOtherPagination {
-	typ := RestCollectMethodOtherPaginationTypeRequestOffset
+func CreateRestCollectMethodOtherPaginationUnionRequestOffset(requestOffset RestCollectMethodOtherRestPaginationTypeRequestOffset) RestCollectMethodOtherPaginationUnion {
+	typ := RestCollectMethodOtherPaginationUnionTypeRequestOffset
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	requestOffset.Type = typStr
 
-	return RestCollectMethodOtherPagination{
+	return RestCollectMethodOtherPaginationUnion{
 		RestCollectMethodOtherRestPaginationTypeRequestOffset: &requestOffset,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodOtherPaginationRequestPage(requestPage RestCollectMethodOtherRestPaginationTypeRequestPage) RestCollectMethodOtherPagination {
-	typ := RestCollectMethodOtherPaginationTypeRequestPage
+func CreateRestCollectMethodOtherPaginationUnionRequestPage(requestPage RestCollectMethodOtherRestPaginationTypeRequestPage) RestCollectMethodOtherPaginationUnion {
+	typ := RestCollectMethodOtherPaginationUnionTypeRequestPage
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	requestPage.Type = typStr
 
-	return RestCollectMethodOtherPagination{
+	return RestCollectMethodOtherPaginationUnion{
 		RestCollectMethodOtherRestPaginationTypeRequestPage: &requestPage,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodOtherPaginationUnknown(raw json.RawMessage) RestCollectMethodOtherPagination {
-	return RestCollectMethodOtherPagination{
+func CreateRestCollectMethodOtherPaginationUnionUnknown(raw json.RawMessage) RestCollectMethodOtherPaginationUnion {
+	return RestCollectMethodOtherPaginationUnion{
 		UnknownRaw: raw,
-		Type:       RestCollectMethodOtherPaginationTypeUnknown,
+		Type:       RestCollectMethodOtherPaginationUnionTypeUnknown,
 	}
 }
 
-func (u RestCollectMethodOtherPagination) GetUnknownRaw() json.RawMessage {
+func (u RestCollectMethodOtherPaginationUnion) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u RestCollectMethodOtherPagination) IsUnknown() bool {
-	return u.Type == RestCollectMethodOtherPaginationTypeUnknown
+func (u RestCollectMethodOtherPaginationUnion) IsUnknown() bool {
+	return u.Type == RestCollectMethodOtherPaginationUnionTypeUnknown
 }
 
-func (u *RestCollectMethodOtherPagination) UnmarshalJSON(data []byte) error {
+func (u *RestCollectMethodOtherPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -5138,12 +290,12 @@ func (u *RestCollectMethodOtherPagination) UnmarshalJSON(data []byte) error {
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodOtherPaginationTypeUnknown
+		u.Type = RestCollectMethodOtherPaginationUnionTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodOtherPaginationTypeUnknown
+		u.Type = RestCollectMethodOtherPaginationUnionTypeUnknown
 		return nil
 	}
 
@@ -5151,66 +303,66 @@ func (u *RestCollectMethodOtherPagination) UnmarshalJSON(data []byte) error {
 	case "none":
 		restCollectMethodOtherRestPaginationTypeNone := new(RestCollectMethodOtherRestPaginationTypeNone)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestPaginationTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestCollectMethodOtherRestPaginationTypeNone within RestCollectMethodOtherPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestCollectMethodOtherRestPaginationTypeNone within RestCollectMethodOtherPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodOtherRestPaginationTypeNone = restCollectMethodOtherRestPaginationTypeNone
-		u.Type = RestCollectMethodOtherPaginationTypeNone
+		u.Type = RestCollectMethodOtherPaginationUnionTypeNone
 		return nil
 	case "response_body":
 		restCollectMethodOtherRestPaginationTypeResponseBody := new(RestCollectMethodOtherRestPaginationTypeResponseBody)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestPaginationTypeResponseBody, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestCollectMethodOtherRestPaginationTypeResponseBody within RestCollectMethodOtherPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestCollectMethodOtherRestPaginationTypeResponseBody within RestCollectMethodOtherPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodOtherRestPaginationTypeResponseBody = restCollectMethodOtherRestPaginationTypeResponseBody
-		u.Type = RestCollectMethodOtherPaginationTypeResponseBody
+		u.Type = RestCollectMethodOtherPaginationUnionTypeResponseBody
 		return nil
 	case "response_header":
 		restCollectMethodOtherRestPaginationTypeResponseHeader := new(RestCollectMethodOtherRestPaginationTypeResponseHeader)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestPaginationTypeResponseHeader, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestCollectMethodOtherRestPaginationTypeResponseHeader within RestCollectMethodOtherPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestCollectMethodOtherRestPaginationTypeResponseHeader within RestCollectMethodOtherPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodOtherRestPaginationTypeResponseHeader = restCollectMethodOtherRestPaginationTypeResponseHeader
-		u.Type = RestCollectMethodOtherPaginationTypeResponseHeader
+		u.Type = RestCollectMethodOtherPaginationUnionTypeResponseHeader
 		return nil
 	case "response_header_link":
 		restCollectMethodOtherRestPaginationTypeResponseHeaderLink := new(RestCollectMethodOtherRestPaginationTypeResponseHeaderLink)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestPaginationTypeResponseHeaderLink, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink within RestCollectMethodOtherPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink within RestCollectMethodOtherPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodOtherRestPaginationTypeResponseHeaderLink = restCollectMethodOtherRestPaginationTypeResponseHeaderLink
-		u.Type = RestCollectMethodOtherPaginationTypeResponseHeaderLink
+		u.Type = RestCollectMethodOtherPaginationUnionTypeResponseHeaderLink
 		return nil
 	case "request_offset":
 		restCollectMethodOtherRestPaginationTypeRequestOffset := new(RestCollectMethodOtherRestPaginationTypeRequestOffset)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestPaginationTypeRequestOffset, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestCollectMethodOtherRestPaginationTypeRequestOffset within RestCollectMethodOtherPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestCollectMethodOtherRestPaginationTypeRequestOffset within RestCollectMethodOtherPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodOtherRestPaginationTypeRequestOffset = restCollectMethodOtherRestPaginationTypeRequestOffset
-		u.Type = RestCollectMethodOtherPaginationTypeRequestOffset
+		u.Type = RestCollectMethodOtherPaginationUnionTypeRequestOffset
 		return nil
 	case "request_page":
 		restCollectMethodOtherRestPaginationTypeRequestPage := new(RestCollectMethodOtherRestPaginationTypeRequestPage)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodOtherRestPaginationTypeRequestPage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestCollectMethodOtherRestPaginationTypeRequestPage within RestCollectMethodOtherPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestCollectMethodOtherRestPaginationTypeRequestPage within RestCollectMethodOtherPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodOtherRestPaginationTypeRequestPage = restCollectMethodOtherRestPaginationTypeRequestPage
-		u.Type = RestCollectMethodOtherPaginationTypeRequestPage
+		u.Type = RestCollectMethodOtherPaginationUnionTypeRequestPage
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodOtherPaginationTypeUnknown
+		u.Type = RestCollectMethodOtherPaginationUnionTypeUnknown
 		return nil
 	}
 
 }
 
-func (u RestCollectMethodOtherPagination) MarshalJSON() ([]byte, error) {
+func (u RestCollectMethodOtherPaginationUnion) MarshalJSON() ([]byte, error) {
 	if u.RestCollectMethodOtherRestPaginationTypeNone != nil {
 		return utils.MarshalJSON(u.RestCollectMethodOtherRestPaginationTypeNone, "", true)
 	}
@@ -5238,7 +390,7 @@ func (u RestCollectMethodOtherPagination) MarshalJSON() ([]byte, error) {
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type RestCollectMethodOtherPagination: all fields are null")
+	return nil, errors.New("could not marshal union type RestCollectMethodOtherPaginationUnion: all fields are null")
 }
 
 // RestCollectMethodOtherAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -5680,7 +832,7 @@ type RestCollectMethodOther struct {
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL            string                                              `json:"collectUrl"`
 	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
-	Pagination            *RestCollectMethodOtherPagination                   `json:"pagination,omitzero"`
+	Pagination            *RestCollectMethodOtherPaginationUnion              `json:"pagination,omitzero"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication RestCollectMethodOtherAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -5707,6 +859,8 @@ type RestCollectMethodOther struct {
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestCollectMethodOther) MarshalJSON() ([]byte, error) {
@@ -5797,7 +951,7 @@ func (r *RestCollectMethodOther) GetCollectRequestHeaders() []ItemsTypeRestColle
 	return r.CollectRequestHeaders
 }
 
-func (r *RestCollectMethodOther) GetPagination() *RestCollectMethodOtherPagination {
+func (r *RestCollectMethodOther) GetPagination() *RestCollectMethodOtherPaginationUnion {
 	if r == nil {
 		return nil
 	}
@@ -5965,6 +1119,13 @@ func (r *RestCollectMethodOther) GetHmacFunctionID() *string {
 	return r.HmacFunctionID
 }
 
+func (r *RestCollectMethodOther) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
+}
+
 type RestCollectMethodPostWithBodyCollectMethod string
 
 const (
@@ -6021,18 +1182,6 @@ func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNoneDiscoverType)
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone struct {
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]byte, error) {
@@ -6051,104 +1200,6 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetDiscover
 		return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNoneDiscoverType("")
 	}
 	return r.DiscoverType
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
 }
 
 // RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeListDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -6181,16 +1232,6 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList struct {
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeListDiscoverType `json:"discoverType"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) MarshalJSON() ([]byte, error) {
@@ -6216,97 +1257,6 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetItemList
 		return []string{}
 	}
 	return r.ItemList
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
 }
 
 // RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSONDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -6341,16 +1291,6 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON struct {
 	ManualDiscoverResult string `json:"manualDiscoverResult"`
 	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]byte, error) {
@@ -6385,95 +1325,32 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetDiscover
 	return r.DiscoverDataField
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
+type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod string
+
+const (
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodGet GET
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodGet RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "get"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPost POST
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPost RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "post"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPostWithBody RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "post_with_body"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodOther Other
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodOther RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod) ToPointer() *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -6501,8 +1378,30 @@ func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return false
 }
 
+type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct {
-	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverMethod RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod `json:"discoverMethod"`
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
@@ -6511,9 +1410,9 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOth
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                                   `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                      `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -6523,10 +1422,6 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOth
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) MarshalJSON() ([]byte, error) {
@@ -6540,9 +1435,9 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return nil
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverMethod() RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -6589,53 +1484,11 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPagination() *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverDataField() *string {
@@ -6673,18 +1526,32 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
+type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod string
+
+const (
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodGet GET
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodGet RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "get"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPost POST
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPost RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "post"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPostWithBody RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "post_with_body"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodOther Other
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodOther RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod) ToPointer() *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetItemList() []string {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -6712,16 +1579,38 @@ func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return false
 }
 
+type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
-	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverMethod RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
 	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
 	DiscoverBody string `json:"discoverBody"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                                          `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                             `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -6731,10 +1620,6 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -6748,9 +1633,9 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return nil
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverMethod() RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -6783,53 +1668,11 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPagination() *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverDataField() *string {
@@ -6867,18 +1710,32 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
+type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod string
+
+const (
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodGet GET
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodGet RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "get"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPost POST
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPost RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "post"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPostWithBody RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "post_with_body"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodOther Other
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodOther RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod) ToPointer() *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetItemList() []string {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -6906,15 +1763,37 @@ func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return false
 }
 
+type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                                        `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                                  `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                     `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -6924,10 +1803,6 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) MarshalJSON() ([]byte, error) {
@@ -6941,9 +1816,9 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return nil
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -6976,53 +1851,11 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverDataField() *string {
@@ -7060,18 +1893,32 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
+type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod string
+
+const (
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodGet GET
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodGet RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "get"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPost POST
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPost RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "post"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPostWithBody RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "post_with_body"
+	// RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodOther Other
+	RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodOther RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod) ToPointer() *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetItemList() []string {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -7099,15 +1946,37 @@ func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return false
 }
 
+type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                                       `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                                 `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                    `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -7117,10 +1986,6 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) MarshalJSON() ([]byte, error) {
@@ -7134,9 +1999,9 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return nil
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverMethod() RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -7169,53 +2034,11 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPagination() *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverDataField() *string {
@@ -7253,20 +2076,6 @@ func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPType string
 
 const (
@@ -7290,7 +2099,7 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP struct {
 func CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPGet(get RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeGet
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod(typ)
 	get.DiscoverMethod = typStr
 
 	return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP{
@@ -7302,7 +2111,7 @@ func CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPGet(get Res
 func CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPPost(post RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypePost
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod(typ)
 	post.DiscoverMethod = typStr
 
 	return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP{
@@ -7314,7 +2123,7 @@ func CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPPost(post R
 func CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPPostWithBody(postWithBody RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypePostWithBody
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod(typ)
 	postWithBody.DiscoverMethod = typStr
 
 	return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP{
@@ -7326,7 +2135,7 @@ func CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPPostWithBod
 func CreateRestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPOther(other RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPTypeOther
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod(typ)
 	other.DiscoverMethod = typStr
 
 	return RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTP{
@@ -7620,20 +2429,6 @@ type RestCollectMethodPostWithBodyRestPaginationTypeRequestPage struct {
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
 	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) MarshalJSON() ([]byte, error) {
@@ -7710,55 +2505,6 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) GetZeroInde
 	return r.ZeroIndexed
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
 type RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
@@ -7775,22 +2521,6 @@ type RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset struct {
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
 	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) MarshalJSON() ([]byte, error) {
@@ -7860,62 +2590,6 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetZeroIn
 	return r.ZeroIndexed
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
 type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -7924,26 +2598,6 @@ type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink struct {
 	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) MarshalJSON() ([]byte, error) {
@@ -7985,106 +2639,102 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetM
 	return r.MaxPages
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
+type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesType string
+
+const (
+	RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesType = "arrayOfAny"
+	RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesTypeStr        RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesType = "str"
+)
+
+// RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes - Names of attributes within the response that contain next-page information
+type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesType
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetOffsetField() *string {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesArrayOfAny(arrayOfAny []any) RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny
+
+	return RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
 	}
-	return r.OffsetField
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetOffset() *float64 {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesStr(str string) RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesTypeStr
+
+	return RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes{
+		Str:  &str,
+		Type: typ,
 	}
-	return r.Offset
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetLimitField() *string {
-	if r == nil {
+func (u *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesType)
+	switch best.Type {
+	case RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
 		return nil
 	}
-	return r.LimitField
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes", string(data))
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetLimit() *float64 {
-	if r == nil {
-		return nil
+func (u RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
 	}
-	return r.Limit
-}
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetPageField() *string {
-	if r == nil {
-		return nil
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
 	}
-	return r.PageField
-}
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
+	return nil, errors.New("could not marshal union type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes: all fields are null")
 }
 
 type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) MarshalJSON() ([]byte, error) {
@@ -8105,9 +2755,9 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetType(
 	return r.Type
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetAttribute() []string {
+func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetAttribute() RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -8119,120 +2769,104 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetMaxPa
 	return r.MaxPages
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
+type RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesType string
+
+const (
+	RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesType = "arrayOfAny"
+	RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesTypeStr        RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesType = "str"
+)
+
+// RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes - Names of attributes within the response that contain next-page information
+type RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesType
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesArrayOfAny(arrayOfAny []any) RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny
+
+	return RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
 	}
-	return r.NextRelationAttribute
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesStr(str string) RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesTypeStr
+
+	return RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes{
+		Str:  &str,
+		Type: typ,
 	}
-	return r.CurRelationAttribute
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetOffsetField() *string {
-	if r == nil {
+func (u *RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesType)
+	switch best.Type {
+	case RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
 		return nil
 	}
-	return r.OffsetField
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes", string(data))
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetOffset() *float64 {
-	if r == nil {
-		return nil
+func (u RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
 	}
-	return r.Offset
-}
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetLimitField() *string {
-	if r == nil {
-		return nil
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
 	}
-	return r.LimitField
-}
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
+	return nil, errors.New("could not marshal union type RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes: all fields are null")
 }
 
 type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
 	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) MarshalJSON() ([]byte, error) {
@@ -8253,9 +2887,9 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetType() 
 	return r.Type
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetAttribute() []string {
+func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetAttribute() RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -8274,109 +2908,8 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetLastPag
 	return r.LastPageExpr
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
 type RestCollectMethodPostWithBodyRestPaginationTypeNone struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestPaginationTypeNone) MarshalJSON() ([]byte, error) {
@@ -8397,103 +2930,19 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetType() Paginati
 	return r.Type
 }
 
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostWithBodyRestPaginationTypeNone) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestCollectMethodPostWithBodyPaginationType string
+type RestCollectMethodPostWithBodyPaginationUnionType string
 
 const (
-	RestCollectMethodPostWithBodyPaginationTypeNone               RestCollectMethodPostWithBodyPaginationType = "none"
-	RestCollectMethodPostWithBodyPaginationTypeResponseBody       RestCollectMethodPostWithBodyPaginationType = "response_body"
-	RestCollectMethodPostWithBodyPaginationTypeResponseHeader     RestCollectMethodPostWithBodyPaginationType = "response_header"
-	RestCollectMethodPostWithBodyPaginationTypeResponseHeaderLink RestCollectMethodPostWithBodyPaginationType = "response_header_link"
-	RestCollectMethodPostWithBodyPaginationTypeRequestOffset      RestCollectMethodPostWithBodyPaginationType = "request_offset"
-	RestCollectMethodPostWithBodyPaginationTypeRequestPage        RestCollectMethodPostWithBodyPaginationType = "request_page"
-	RestCollectMethodPostWithBodyPaginationTypeUnknown            RestCollectMethodPostWithBodyPaginationType = "UNKNOWN"
+	RestCollectMethodPostWithBodyPaginationUnionTypeNone               RestCollectMethodPostWithBodyPaginationUnionType = "none"
+	RestCollectMethodPostWithBodyPaginationUnionTypeResponseBody       RestCollectMethodPostWithBodyPaginationUnionType = "response_body"
+	RestCollectMethodPostWithBodyPaginationUnionTypeResponseHeader     RestCollectMethodPostWithBodyPaginationUnionType = "response_header"
+	RestCollectMethodPostWithBodyPaginationUnionTypeResponseHeaderLink RestCollectMethodPostWithBodyPaginationUnionType = "response_header_link"
+	RestCollectMethodPostWithBodyPaginationUnionTypeRequestOffset      RestCollectMethodPostWithBodyPaginationUnionType = "request_offset"
+	RestCollectMethodPostWithBodyPaginationUnionTypeRequestPage        RestCollectMethodPostWithBodyPaginationUnionType = "request_page"
+	RestCollectMethodPostWithBodyPaginationUnionTypeUnknown            RestCollectMethodPostWithBodyPaginationUnionType = "UNKNOWN"
 )
 
-type RestCollectMethodPostWithBodyPagination struct {
+type RestCollectMethodPostWithBodyPaginationUnion struct {
 	RestCollectMethodPostWithBodyRestPaginationTypeNone               *RestCollectMethodPostWithBodyRestPaginationTypeNone               `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestPaginationTypeResponseBody       *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody       `queryParam:"inline" union:"member"`
 	RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader     *RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader     `queryParam:"inline" union:"member"`
@@ -8502,97 +2951,97 @@ type RestCollectMethodPostWithBodyPagination struct {
 	RestCollectMethodPostWithBodyRestPaginationTypeRequestPage        *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
 	UnknownRaw                                                        json.RawMessage                                                    `json:"-" union:"unknown"`
 
-	Type RestCollectMethodPostWithBodyPaginationType
+	Type RestCollectMethodPostWithBodyPaginationUnionType
 }
 
-func CreateRestCollectMethodPostWithBodyPaginationNone(none RestCollectMethodPostWithBodyRestPaginationTypeNone) RestCollectMethodPostWithBodyPagination {
-	typ := RestCollectMethodPostWithBodyPaginationTypeNone
+func CreateRestCollectMethodPostWithBodyPaginationUnionNone(none RestCollectMethodPostWithBodyRestPaginationTypeNone) RestCollectMethodPostWithBodyPaginationUnion {
+	typ := RestCollectMethodPostWithBodyPaginationUnionTypeNone
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	none.Type = typStr
 
-	return RestCollectMethodPostWithBodyPagination{
+	return RestCollectMethodPostWithBodyPaginationUnion{
 		RestCollectMethodPostWithBodyRestPaginationTypeNone: &none,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostWithBodyPaginationResponseBody(responseBody RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) RestCollectMethodPostWithBodyPagination {
-	typ := RestCollectMethodPostWithBodyPaginationTypeResponseBody
+func CreateRestCollectMethodPostWithBodyPaginationUnionResponseBody(responseBody RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) RestCollectMethodPostWithBodyPaginationUnion {
+	typ := RestCollectMethodPostWithBodyPaginationUnionTypeResponseBody
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseBody.Type = typStr
 
-	return RestCollectMethodPostWithBodyPagination{
+	return RestCollectMethodPostWithBodyPaginationUnion{
 		RestCollectMethodPostWithBodyRestPaginationTypeResponseBody: &responseBody,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostWithBodyPaginationResponseHeader(responseHeader RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) RestCollectMethodPostWithBodyPagination {
-	typ := RestCollectMethodPostWithBodyPaginationTypeResponseHeader
+func CreateRestCollectMethodPostWithBodyPaginationUnionResponseHeader(responseHeader RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader) RestCollectMethodPostWithBodyPaginationUnion {
+	typ := RestCollectMethodPostWithBodyPaginationUnionTypeResponseHeader
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseHeader.Type = typStr
 
-	return RestCollectMethodPostWithBodyPagination{
+	return RestCollectMethodPostWithBodyPaginationUnion{
 		RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader: &responseHeader,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostWithBodyPaginationResponseHeaderLink(responseHeaderLink RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) RestCollectMethodPostWithBodyPagination {
-	typ := RestCollectMethodPostWithBodyPaginationTypeResponseHeaderLink
+func CreateRestCollectMethodPostWithBodyPaginationUnionResponseHeaderLink(responseHeaderLink RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink) RestCollectMethodPostWithBodyPaginationUnion {
+	typ := RestCollectMethodPostWithBodyPaginationUnionTypeResponseHeaderLink
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseHeaderLink.Type = typStr
 
-	return RestCollectMethodPostWithBodyPagination{
+	return RestCollectMethodPostWithBodyPaginationUnion{
 		RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink: &responseHeaderLink,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostWithBodyPaginationRequestOffset(requestOffset RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) RestCollectMethodPostWithBodyPagination {
-	typ := RestCollectMethodPostWithBodyPaginationTypeRequestOffset
+func CreateRestCollectMethodPostWithBodyPaginationUnionRequestOffset(requestOffset RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) RestCollectMethodPostWithBodyPaginationUnion {
+	typ := RestCollectMethodPostWithBodyPaginationUnionTypeRequestOffset
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	requestOffset.Type = typStr
 
-	return RestCollectMethodPostWithBodyPagination{
+	return RestCollectMethodPostWithBodyPaginationUnion{
 		RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset: &requestOffset,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostWithBodyPaginationRequestPage(requestPage RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) RestCollectMethodPostWithBodyPagination {
-	typ := RestCollectMethodPostWithBodyPaginationTypeRequestPage
+func CreateRestCollectMethodPostWithBodyPaginationUnionRequestPage(requestPage RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) RestCollectMethodPostWithBodyPaginationUnion {
+	typ := RestCollectMethodPostWithBodyPaginationUnionTypeRequestPage
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	requestPage.Type = typStr
 
-	return RestCollectMethodPostWithBodyPagination{
+	return RestCollectMethodPostWithBodyPaginationUnion{
 		RestCollectMethodPostWithBodyRestPaginationTypeRequestPage: &requestPage,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostWithBodyPaginationUnknown(raw json.RawMessage) RestCollectMethodPostWithBodyPagination {
-	return RestCollectMethodPostWithBodyPagination{
+func CreateRestCollectMethodPostWithBodyPaginationUnionUnknown(raw json.RawMessage) RestCollectMethodPostWithBodyPaginationUnion {
+	return RestCollectMethodPostWithBodyPaginationUnion{
 		UnknownRaw: raw,
-		Type:       RestCollectMethodPostWithBodyPaginationTypeUnknown,
+		Type:       RestCollectMethodPostWithBodyPaginationUnionTypeUnknown,
 	}
 }
 
-func (u RestCollectMethodPostWithBodyPagination) GetUnknownRaw() json.RawMessage {
+func (u RestCollectMethodPostWithBodyPaginationUnion) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u RestCollectMethodPostWithBodyPagination) IsUnknown() bool {
-	return u.Type == RestCollectMethodPostWithBodyPaginationTypeUnknown
+func (u RestCollectMethodPostWithBodyPaginationUnion) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostWithBodyPaginationUnionTypeUnknown
 }
 
-func (u *RestCollectMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
+func (u *RestCollectMethodPostWithBodyPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -8601,12 +3050,12 @@ func (u *RestCollectMethodPostWithBodyPagination) UnmarshalJSON(data []byte) err
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodPostWithBodyPaginationTypeUnknown
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodPostWithBodyPaginationTypeUnknown
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeUnknown
 		return nil
 	}
 
@@ -8614,66 +3063,66 @@ func (u *RestCollectMethodPostWithBodyPagination) UnmarshalJSON(data []byte) err
 	case "none":
 		restCollectMethodPostWithBodyRestPaginationTypeNone := new(RestCollectMethodPostWithBodyRestPaginationTypeNone)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostWithBodyRestPaginationTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestCollectMethodPostWithBodyRestPaginationTypeNone within RestCollectMethodPostWithBodyPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestCollectMethodPostWithBodyRestPaginationTypeNone within RestCollectMethodPostWithBodyPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostWithBodyRestPaginationTypeNone = restCollectMethodPostWithBodyRestPaginationTypeNone
-		u.Type = RestCollectMethodPostWithBodyPaginationTypeNone
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeNone
 		return nil
 	case "response_body":
 		restCollectMethodPostWithBodyRestPaginationTypeResponseBody := new(RestCollectMethodPostWithBodyRestPaginationTypeResponseBody)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostWithBodyRestPaginationTypeResponseBody, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody within RestCollectMethodPostWithBodyPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody within RestCollectMethodPostWithBodyPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostWithBodyRestPaginationTypeResponseBody = restCollectMethodPostWithBodyRestPaginationTypeResponseBody
-		u.Type = RestCollectMethodPostWithBodyPaginationTypeResponseBody
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeResponseBody
 		return nil
 	case "response_header":
 		restCollectMethodPostWithBodyRestPaginationTypeResponseHeader := new(RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostWithBodyRestPaginationTypeResponseHeader, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader within RestCollectMethodPostWithBodyPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader within RestCollectMethodPostWithBodyPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader = restCollectMethodPostWithBodyRestPaginationTypeResponseHeader
-		u.Type = RestCollectMethodPostWithBodyPaginationTypeResponseHeader
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeResponseHeader
 		return nil
 	case "response_header_link":
 		restCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink := new(RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink within RestCollectMethodPostWithBodyPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink within RestCollectMethodPostWithBodyPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink = restCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink
-		u.Type = RestCollectMethodPostWithBodyPaginationTypeResponseHeaderLink
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeResponseHeaderLink
 		return nil
 	case "request_offset":
 		restCollectMethodPostWithBodyRestPaginationTypeRequestOffset := new(RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostWithBodyRestPaginationTypeRequestOffset, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset within RestCollectMethodPostWithBodyPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset within RestCollectMethodPostWithBodyPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset = restCollectMethodPostWithBodyRestPaginationTypeRequestOffset
-		u.Type = RestCollectMethodPostWithBodyPaginationTypeRequestOffset
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeRequestOffset
 		return nil
 	case "request_page":
 		restCollectMethodPostWithBodyRestPaginationTypeRequestPage := new(RestCollectMethodPostWithBodyRestPaginationTypeRequestPage)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostWithBodyRestPaginationTypeRequestPage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestCollectMethodPostWithBodyRestPaginationTypeRequestPage within RestCollectMethodPostWithBodyPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestCollectMethodPostWithBodyRestPaginationTypeRequestPage within RestCollectMethodPostWithBodyPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostWithBodyRestPaginationTypeRequestPage = restCollectMethodPostWithBodyRestPaginationTypeRequestPage
-		u.Type = RestCollectMethodPostWithBodyPaginationTypeRequestPage
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeRequestPage
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodPostWithBodyPaginationTypeUnknown
+		u.Type = RestCollectMethodPostWithBodyPaginationUnionTypeUnknown
 		return nil
 	}
 
 }
 
-func (u RestCollectMethodPostWithBodyPagination) MarshalJSON() ([]byte, error) {
+func (u RestCollectMethodPostWithBodyPaginationUnion) MarshalJSON() ([]byte, error) {
 	if u.RestCollectMethodPostWithBodyRestPaginationTypeNone != nil {
 		return utils.MarshalJSON(u.RestCollectMethodPostWithBodyRestPaginationTypeNone, "", true)
 	}
@@ -8701,7 +3150,7 @@ func (u RestCollectMethodPostWithBodyPagination) MarshalJSON() ([]byte, error) {
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type RestCollectMethodPostWithBodyPagination: all fields are null")
+	return nil, errors.New("could not marshal union type RestCollectMethodPostWithBodyPaginationUnion: all fields are null")
 }
 
 // RestCollectMethodPostWithBodyAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -9140,7 +3589,7 @@ type RestCollectMethodPostWithBody struct {
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL            string                                              `json:"collectUrl"`
 	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
-	Pagination            *RestCollectMethodPostWithBodyPagination            `json:"pagination,omitzero"`
+	Pagination            *RestCollectMethodPostWithBodyPaginationUnion       `json:"pagination,omitzero"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication RestCollectMethodPostWithBodyAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -9167,6 +3616,8 @@ type RestCollectMethodPostWithBody struct {
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -9243,7 +3694,7 @@ func (r *RestCollectMethodPostWithBody) GetCollectRequestHeaders() []ItemsTypeRe
 	return r.CollectRequestHeaders
 }
 
-func (r *RestCollectMethodPostWithBody) GetPagination() *RestCollectMethodPostWithBodyPagination {
+func (r *RestCollectMethodPostWithBody) GetPagination() *RestCollectMethodPostWithBodyPaginationUnion {
 	if r == nil {
 		return nil
 	}
@@ -9411,6 +3862,13 @@ func (r *RestCollectMethodPostWithBody) GetHmacFunctionID() *string {
 	return r.HmacFunctionID
 }
 
+func (r *RestCollectMethodPostWithBody) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
+}
+
 type RestCollectMethodPostCollectMethod string
 
 const (
@@ -9467,18 +3925,6 @@ func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeNoneDiscoverType) IsExact
 type RestCollectMethodPostRestDiscoveryDiscoverTypeNone struct {
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]byte, error) {
@@ -9497,104 +3943,6 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetDiscoverType() R
 		return RestCollectMethodPostRestDiscoveryDiscoverTypeNoneDiscoverType("")
 	}
 	return r.DiscoverType
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeNone) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
 }
 
 // RestCollectMethodPostRestDiscoveryDiscoverTypeListDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -9627,16 +3975,6 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeList struct {
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeListDiscoverType `json:"discoverType"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeList) MarshalJSON() ([]byte, error) {
@@ -9662,97 +4000,6 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetItemList() []str
 		return []string{}
 	}
 	return r.ItemList
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
 }
 
 // RestCollectMethodPostRestDiscoveryDiscoverTypeJSONDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -9787,16 +4034,6 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeJSON struct {
 	ManualDiscoverResult string `json:"manualDiscoverResult"`
 	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]byte, error) {
@@ -9831,95 +4068,32 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetDiscoverDataFiel
 	return r.DiscoverDataField
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
+type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod string
+
+const (
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodGet GET
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodGet RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "get"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPost POST
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPost RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "post"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPostWithBody RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "post_with_body"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodOther Other
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodOther RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod) ToPointer() *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -9947,8 +4121,30 @@ func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDi
 	return false
 }
 
+type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct {
-	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverMethod RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod `json:"discoverMethod"`
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
@@ -9957,9 +4153,9 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struc
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                           `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                              `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -9969,10 +4165,6 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struc
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) MarshalJSON() ([]byte, error) {
@@ -9986,9 +4178,9 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) 
 	return nil
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverMethod() RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -10035,53 +4227,11 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) 
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPagination() *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverDataField() *string {
@@ -10119,18 +4269,32 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) 
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
+type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod string
+
+const (
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodGet GET
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodGet RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "get"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPost POST
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPost RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "post"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPostWithBody RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "post_with_body"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodOther Other
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodOther RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod) ToPointer() *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetItemList() []string {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -10158,16 +4322,38 @@ func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 	return false
 }
 
+type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
-	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverMethod RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
 	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
 	DiscoverBody string `json:"discoverBody"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                                  `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                     `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -10177,10 +4363,6 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBod
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -10194,9 +4376,9 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 	return nil
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverMethod() RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -10229,53 +4411,11 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPagination() *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverDataField() *string {
@@ -10313,18 +4453,32 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
+type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod string
+
+const (
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodGet GET
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodGet RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "get"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPost POST
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPost RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "post"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPostWithBody RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "post_with_body"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodOther Other
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodOther RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod) ToPointer() *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetItemList() []string {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -10352,15 +4506,37 @@ func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDis
 	return false
 }
 
+type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                                `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                          `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                             `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -10370,10 +4546,6 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) MarshalJSON() ([]byte, error) {
@@ -10387,9 +4559,9 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) U
 	return nil
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -10422,53 +4594,11 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) G
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverDataField() *string {
@@ -10506,18 +4636,32 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) G
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
+type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod string
+
+const (
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodGet GET
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodGet RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "get"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPost POST
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPost RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "post"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPostWithBody RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "post_with_body"
+	// RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodOther Other
+	RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodOther RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod) ToPointer() *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetItemList() []string {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -10545,15 +4689,37 @@ func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDisc
 	return false
 }
 
+type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                               `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                         `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                            `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -10563,10 +4729,6 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct 
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) MarshalJSON() ([]byte, error) {
@@ -10580,9 +4742,9 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Un
 	return nil
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverMethod() RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -10615,53 +4777,11 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Ge
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPagination() *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverDataField() *string {
@@ -10699,20 +4819,6 @@ func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Ge
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPType string
 
 const (
@@ -10736,7 +4842,7 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP struct {
 func CreateRestCollectMethodPostRestDiscoveryDiscoverTypeHTTPGet(get RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeGet
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod(typ)
 	get.DiscoverMethod = typStr
 
 	return RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP{
@@ -10748,7 +4854,7 @@ func CreateRestCollectMethodPostRestDiscoveryDiscoverTypeHTTPGet(get RestCollect
 func CreateRestCollectMethodPostRestDiscoveryDiscoverTypeHTTPPost(post RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypePost
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod(typ)
 	post.DiscoverMethod = typStr
 
 	return RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP{
@@ -10760,7 +4866,7 @@ func CreateRestCollectMethodPostRestDiscoveryDiscoverTypeHTTPPost(post RestColle
 func CreateRestCollectMethodPostRestDiscoveryDiscoverTypeHTTPPostWithBody(postWithBody RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypePostWithBody
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod(typ)
 	postWithBody.DiscoverMethod = typStr
 
 	return RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP{
@@ -10772,7 +4878,7 @@ func CreateRestCollectMethodPostRestDiscoveryDiscoverTypeHTTPPostWithBody(postWi
 func CreateRestCollectMethodPostRestDiscoveryDiscoverTypeHTTPOther(other RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPTypeOther
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod(typ)
 	other.DiscoverMethod = typStr
 
 	return RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP{
@@ -11066,20 +5172,6 @@ type RestCollectMethodPostRestPaginationTypeRequestPage struct {
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
 	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
 }
 
 func (r RestCollectMethodPostRestPaginationTypeRequestPage) MarshalJSON() ([]byte, error) {
@@ -11156,55 +5248,6 @@ func (r *RestCollectMethodPostRestPaginationTypeRequestPage) GetZeroIndexed() bo
 	return r.ZeroIndexed
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeRequestPage) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestPage) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestPage) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestPage) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestPage) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestPage) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestPage) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
 type RestCollectMethodPostRestPaginationTypeRequestOffset struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
@@ -11221,22 +5264,6 @@ type RestCollectMethodPostRestPaginationTypeRequestOffset struct {
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
 	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostRestPaginationTypeRequestOffset) MarshalJSON() ([]byte, error) {
@@ -11306,62 +5333,6 @@ func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetZeroIndexed() 
 	return r.ZeroIndexed
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
 type RestCollectMethodPostRestPaginationTypeResponseHeaderLink struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -11370,26 +5341,6 @@ type RestCollectMethodPostRestPaginationTypeResponseHeaderLink struct {
 	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostRestPaginationTypeResponseHeaderLink) MarshalJSON() ([]byte, error) {
@@ -11431,106 +5382,102 @@ func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetMaxPages(
 	return r.MaxPages
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
+type RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesType string
+
+const (
+	RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesType = "arrayOfAny"
+	RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesTypeStr        RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesType = "str"
+)
+
+// RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes - Names of attributes within the response that contain next-page information
+type RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesType
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetOffsetField() *string {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesArrayOfAny(arrayOfAny []any) RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny
+
+	return RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
 	}
-	return r.OffsetField
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetOffset() *float64 {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesStr(str string) RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesTypeStr
+
+	return RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes{
+		Str:  &str,
+		Type: typ,
 	}
-	return r.Offset
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetLimitField() *string {
-	if r == nil {
+func (u *RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesType)
+	switch best.Type {
+	case RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
 		return nil
 	}
-	return r.LimitField
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes", string(data))
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetLimit() *float64 {
-	if r == nil {
-		return nil
+func (u RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
 	}
-	return r.Limit
-}
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetPageField() *string {
-	if r == nil {
-		return nil
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
 	}
-	return r.PageField
-}
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeaderLink) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
+	return nil, errors.New("could not marshal union type RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes: all fields are null")
 }
 
 type RestCollectMethodPostRestPaginationTypeResponseHeader struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostRestPaginationTypeResponseHeader) MarshalJSON() ([]byte, error) {
@@ -11551,9 +5498,9 @@ func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetType() Pagina
 	return r.Type
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetAttribute() []string {
+func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetAttribute() RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -11565,120 +5512,104 @@ func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetMaxPages() fl
 	return r.MaxPages
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
+type RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesType string
+
+const (
+	RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesType = "arrayOfAny"
+	RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesTypeStr        RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesType = "str"
+)
+
+// RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes - Names of attributes within the response that contain next-page information
+type RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesType
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesArrayOfAny(arrayOfAny []any) RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny
+
+	return RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
 	}
-	return r.NextRelationAttribute
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesStr(str string) RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesTypeStr
+
+	return RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes{
+		Str:  &str,
+		Type: typ,
 	}
-	return r.CurRelationAttribute
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetOffsetField() *string {
-	if r == nil {
+func (u *RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesType)
+	switch best.Type {
+	case RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
 		return nil
 	}
-	return r.OffsetField
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes", string(data))
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetOffset() *float64 {
-	if r == nil {
-		return nil
+func (u RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
 	}
-	return r.Offset
-}
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetLimitField() *string {
-	if r == nil {
-		return nil
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
 	}
-	return r.LimitField
-}
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseHeader) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
+	return nil, errors.New("could not marshal union type RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes: all fields are null")
 }
 
 type RestCollectMethodPostRestPaginationTypeResponseBody struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
 	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostRestPaginationTypeResponseBody) MarshalJSON() ([]byte, error) {
@@ -11699,9 +5630,9 @@ func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetType() Paginati
 	return r.Type
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetAttribute() []string {
+func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetAttribute() RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -11720,109 +5651,8 @@ func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetLastPageExpr() 
 	return r.LastPageExpr
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
 type RestCollectMethodPostRestPaginationTypeNone struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodPostRestPaginationTypeNone) MarshalJSON() ([]byte, error) {
@@ -11843,103 +5673,19 @@ func (r *RestCollectMethodPostRestPaginationTypeNone) GetType() PaginationOption
 	return r.Type
 }
 
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodPostRestPaginationTypeNone) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestCollectMethodPostPaginationType string
+type RestCollectMethodPostPaginationUnionType string
 
 const (
-	RestCollectMethodPostPaginationTypeNone               RestCollectMethodPostPaginationType = "none"
-	RestCollectMethodPostPaginationTypeResponseBody       RestCollectMethodPostPaginationType = "response_body"
-	RestCollectMethodPostPaginationTypeResponseHeader     RestCollectMethodPostPaginationType = "response_header"
-	RestCollectMethodPostPaginationTypeResponseHeaderLink RestCollectMethodPostPaginationType = "response_header_link"
-	RestCollectMethodPostPaginationTypeRequestOffset      RestCollectMethodPostPaginationType = "request_offset"
-	RestCollectMethodPostPaginationTypeRequestPage        RestCollectMethodPostPaginationType = "request_page"
-	RestCollectMethodPostPaginationTypeUnknown            RestCollectMethodPostPaginationType = "UNKNOWN"
+	RestCollectMethodPostPaginationUnionTypeNone               RestCollectMethodPostPaginationUnionType = "none"
+	RestCollectMethodPostPaginationUnionTypeResponseBody       RestCollectMethodPostPaginationUnionType = "response_body"
+	RestCollectMethodPostPaginationUnionTypeResponseHeader     RestCollectMethodPostPaginationUnionType = "response_header"
+	RestCollectMethodPostPaginationUnionTypeResponseHeaderLink RestCollectMethodPostPaginationUnionType = "response_header_link"
+	RestCollectMethodPostPaginationUnionTypeRequestOffset      RestCollectMethodPostPaginationUnionType = "request_offset"
+	RestCollectMethodPostPaginationUnionTypeRequestPage        RestCollectMethodPostPaginationUnionType = "request_page"
+	RestCollectMethodPostPaginationUnionTypeUnknown            RestCollectMethodPostPaginationUnionType = "UNKNOWN"
 )
 
-type RestCollectMethodPostPagination struct {
+type RestCollectMethodPostPaginationUnion struct {
 	RestCollectMethodPostRestPaginationTypeNone               *RestCollectMethodPostRestPaginationTypeNone               `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestPaginationTypeResponseBody       *RestCollectMethodPostRestPaginationTypeResponseBody       `queryParam:"inline" union:"member"`
 	RestCollectMethodPostRestPaginationTypeResponseHeader     *RestCollectMethodPostRestPaginationTypeResponseHeader     `queryParam:"inline" union:"member"`
@@ -11948,97 +5694,97 @@ type RestCollectMethodPostPagination struct {
 	RestCollectMethodPostRestPaginationTypeRequestPage        *RestCollectMethodPostRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
 	UnknownRaw                                                json.RawMessage                                            `json:"-" union:"unknown"`
 
-	Type RestCollectMethodPostPaginationType
+	Type RestCollectMethodPostPaginationUnionType
 }
 
-func CreateRestCollectMethodPostPaginationNone(none RestCollectMethodPostRestPaginationTypeNone) RestCollectMethodPostPagination {
-	typ := RestCollectMethodPostPaginationTypeNone
+func CreateRestCollectMethodPostPaginationUnionNone(none RestCollectMethodPostRestPaginationTypeNone) RestCollectMethodPostPaginationUnion {
+	typ := RestCollectMethodPostPaginationUnionTypeNone
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	none.Type = typStr
 
-	return RestCollectMethodPostPagination{
+	return RestCollectMethodPostPaginationUnion{
 		RestCollectMethodPostRestPaginationTypeNone: &none,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostPaginationResponseBody(responseBody RestCollectMethodPostRestPaginationTypeResponseBody) RestCollectMethodPostPagination {
-	typ := RestCollectMethodPostPaginationTypeResponseBody
+func CreateRestCollectMethodPostPaginationUnionResponseBody(responseBody RestCollectMethodPostRestPaginationTypeResponseBody) RestCollectMethodPostPaginationUnion {
+	typ := RestCollectMethodPostPaginationUnionTypeResponseBody
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseBody.Type = typStr
 
-	return RestCollectMethodPostPagination{
+	return RestCollectMethodPostPaginationUnion{
 		RestCollectMethodPostRestPaginationTypeResponseBody: &responseBody,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostPaginationResponseHeader(responseHeader RestCollectMethodPostRestPaginationTypeResponseHeader) RestCollectMethodPostPagination {
-	typ := RestCollectMethodPostPaginationTypeResponseHeader
+func CreateRestCollectMethodPostPaginationUnionResponseHeader(responseHeader RestCollectMethodPostRestPaginationTypeResponseHeader) RestCollectMethodPostPaginationUnion {
+	typ := RestCollectMethodPostPaginationUnionTypeResponseHeader
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseHeader.Type = typStr
 
-	return RestCollectMethodPostPagination{
+	return RestCollectMethodPostPaginationUnion{
 		RestCollectMethodPostRestPaginationTypeResponseHeader: &responseHeader,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostPaginationResponseHeaderLink(responseHeaderLink RestCollectMethodPostRestPaginationTypeResponseHeaderLink) RestCollectMethodPostPagination {
-	typ := RestCollectMethodPostPaginationTypeResponseHeaderLink
+func CreateRestCollectMethodPostPaginationUnionResponseHeaderLink(responseHeaderLink RestCollectMethodPostRestPaginationTypeResponseHeaderLink) RestCollectMethodPostPaginationUnion {
+	typ := RestCollectMethodPostPaginationUnionTypeResponseHeaderLink
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseHeaderLink.Type = typStr
 
-	return RestCollectMethodPostPagination{
+	return RestCollectMethodPostPaginationUnion{
 		RestCollectMethodPostRestPaginationTypeResponseHeaderLink: &responseHeaderLink,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostPaginationRequestOffset(requestOffset RestCollectMethodPostRestPaginationTypeRequestOffset) RestCollectMethodPostPagination {
-	typ := RestCollectMethodPostPaginationTypeRequestOffset
+func CreateRestCollectMethodPostPaginationUnionRequestOffset(requestOffset RestCollectMethodPostRestPaginationTypeRequestOffset) RestCollectMethodPostPaginationUnion {
+	typ := RestCollectMethodPostPaginationUnionTypeRequestOffset
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	requestOffset.Type = typStr
 
-	return RestCollectMethodPostPagination{
+	return RestCollectMethodPostPaginationUnion{
 		RestCollectMethodPostRestPaginationTypeRequestOffset: &requestOffset,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostPaginationRequestPage(requestPage RestCollectMethodPostRestPaginationTypeRequestPage) RestCollectMethodPostPagination {
-	typ := RestCollectMethodPostPaginationTypeRequestPage
+func CreateRestCollectMethodPostPaginationUnionRequestPage(requestPage RestCollectMethodPostRestPaginationTypeRequestPage) RestCollectMethodPostPaginationUnion {
+	typ := RestCollectMethodPostPaginationUnionTypeRequestPage
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	requestPage.Type = typStr
 
-	return RestCollectMethodPostPagination{
+	return RestCollectMethodPostPaginationUnion{
 		RestCollectMethodPostRestPaginationTypeRequestPage: &requestPage,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodPostPaginationUnknown(raw json.RawMessage) RestCollectMethodPostPagination {
-	return RestCollectMethodPostPagination{
+func CreateRestCollectMethodPostPaginationUnionUnknown(raw json.RawMessage) RestCollectMethodPostPaginationUnion {
+	return RestCollectMethodPostPaginationUnion{
 		UnknownRaw: raw,
-		Type:       RestCollectMethodPostPaginationTypeUnknown,
+		Type:       RestCollectMethodPostPaginationUnionTypeUnknown,
 	}
 }
 
-func (u RestCollectMethodPostPagination) GetUnknownRaw() json.RawMessage {
+func (u RestCollectMethodPostPaginationUnion) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u RestCollectMethodPostPagination) IsUnknown() bool {
-	return u.Type == RestCollectMethodPostPaginationTypeUnknown
+func (u RestCollectMethodPostPaginationUnion) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostPaginationUnionTypeUnknown
 }
 
-func (u *RestCollectMethodPostPagination) UnmarshalJSON(data []byte) error {
+func (u *RestCollectMethodPostPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -12047,12 +5793,12 @@ func (u *RestCollectMethodPostPagination) UnmarshalJSON(data []byte) error {
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodPostPaginationTypeUnknown
+		u.Type = RestCollectMethodPostPaginationUnionTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodPostPaginationTypeUnknown
+		u.Type = RestCollectMethodPostPaginationUnionTypeUnknown
 		return nil
 	}
 
@@ -12060,66 +5806,66 @@ func (u *RestCollectMethodPostPagination) UnmarshalJSON(data []byte) error {
 	case "none":
 		restCollectMethodPostRestPaginationTypeNone := new(RestCollectMethodPostRestPaginationTypeNone)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostRestPaginationTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestCollectMethodPostRestPaginationTypeNone within RestCollectMethodPostPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestCollectMethodPostRestPaginationTypeNone within RestCollectMethodPostPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostRestPaginationTypeNone = restCollectMethodPostRestPaginationTypeNone
-		u.Type = RestCollectMethodPostPaginationTypeNone
+		u.Type = RestCollectMethodPostPaginationUnionTypeNone
 		return nil
 	case "response_body":
 		restCollectMethodPostRestPaginationTypeResponseBody := new(RestCollectMethodPostRestPaginationTypeResponseBody)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostRestPaginationTypeResponseBody, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestCollectMethodPostRestPaginationTypeResponseBody within RestCollectMethodPostPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestCollectMethodPostRestPaginationTypeResponseBody within RestCollectMethodPostPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostRestPaginationTypeResponseBody = restCollectMethodPostRestPaginationTypeResponseBody
-		u.Type = RestCollectMethodPostPaginationTypeResponseBody
+		u.Type = RestCollectMethodPostPaginationUnionTypeResponseBody
 		return nil
 	case "response_header":
 		restCollectMethodPostRestPaginationTypeResponseHeader := new(RestCollectMethodPostRestPaginationTypeResponseHeader)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostRestPaginationTypeResponseHeader, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestCollectMethodPostRestPaginationTypeResponseHeader within RestCollectMethodPostPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestCollectMethodPostRestPaginationTypeResponseHeader within RestCollectMethodPostPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostRestPaginationTypeResponseHeader = restCollectMethodPostRestPaginationTypeResponseHeader
-		u.Type = RestCollectMethodPostPaginationTypeResponseHeader
+		u.Type = RestCollectMethodPostPaginationUnionTypeResponseHeader
 		return nil
 	case "response_header_link":
 		restCollectMethodPostRestPaginationTypeResponseHeaderLink := new(RestCollectMethodPostRestPaginationTypeResponseHeaderLink)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostRestPaginationTypeResponseHeaderLink, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestCollectMethodPostRestPaginationTypeResponseHeaderLink within RestCollectMethodPostPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestCollectMethodPostRestPaginationTypeResponseHeaderLink within RestCollectMethodPostPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostRestPaginationTypeResponseHeaderLink = restCollectMethodPostRestPaginationTypeResponseHeaderLink
-		u.Type = RestCollectMethodPostPaginationTypeResponseHeaderLink
+		u.Type = RestCollectMethodPostPaginationUnionTypeResponseHeaderLink
 		return nil
 	case "request_offset":
 		restCollectMethodPostRestPaginationTypeRequestOffset := new(RestCollectMethodPostRestPaginationTypeRequestOffset)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostRestPaginationTypeRequestOffset, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestCollectMethodPostRestPaginationTypeRequestOffset within RestCollectMethodPostPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestCollectMethodPostRestPaginationTypeRequestOffset within RestCollectMethodPostPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostRestPaginationTypeRequestOffset = restCollectMethodPostRestPaginationTypeRequestOffset
-		u.Type = RestCollectMethodPostPaginationTypeRequestOffset
+		u.Type = RestCollectMethodPostPaginationUnionTypeRequestOffset
 		return nil
 	case "request_page":
 		restCollectMethodPostRestPaginationTypeRequestPage := new(RestCollectMethodPostRestPaginationTypeRequestPage)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodPostRestPaginationTypeRequestPage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestCollectMethodPostRestPaginationTypeRequestPage within RestCollectMethodPostPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestCollectMethodPostRestPaginationTypeRequestPage within RestCollectMethodPostPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodPostRestPaginationTypeRequestPage = restCollectMethodPostRestPaginationTypeRequestPage
-		u.Type = RestCollectMethodPostPaginationTypeRequestPage
+		u.Type = RestCollectMethodPostPaginationUnionTypeRequestPage
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodPostPaginationTypeUnknown
+		u.Type = RestCollectMethodPostPaginationUnionTypeUnknown
 		return nil
 	}
 
 }
 
-func (u RestCollectMethodPostPagination) MarshalJSON() ([]byte, error) {
+func (u RestCollectMethodPostPaginationUnion) MarshalJSON() ([]byte, error) {
 	if u.RestCollectMethodPostRestPaginationTypeNone != nil {
 		return utils.MarshalJSON(u.RestCollectMethodPostRestPaginationTypeNone, "", true)
 	}
@@ -12147,7 +5893,7 @@ func (u RestCollectMethodPostPagination) MarshalJSON() ([]byte, error) {
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type RestCollectMethodPostPagination: all fields are null")
+	return nil, errors.New("could not marshal union type RestCollectMethodPostPaginationUnion: all fields are null")
 }
 
 // RestCollectMethodPostAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -12585,7 +6331,7 @@ type RestCollectMethodPost struct {
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL            string                                              `json:"collectUrl"`
 	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
-	Pagination            *RestCollectMethodPostPagination                    `json:"pagination,omitzero"`
+	Pagination            *RestCollectMethodPostPaginationUnion               `json:"pagination,omitzero"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication RestCollectMethodPostAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -12612,6 +6358,8 @@ type RestCollectMethodPost struct {
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestCollectMethodPost) MarshalJSON() ([]byte, error) {
@@ -12688,7 +6436,7 @@ func (r *RestCollectMethodPost) GetCollectRequestHeaders() []ItemsTypeRestCollec
 	return r.CollectRequestHeaders
 }
 
-func (r *RestCollectMethodPost) GetPagination() *RestCollectMethodPostPagination {
+func (r *RestCollectMethodPost) GetPagination() *RestCollectMethodPostPaginationUnion {
 	if r == nil {
 		return nil
 	}
@@ -12856,6 +6604,13 @@ func (r *RestCollectMethodPost) GetHmacFunctionID() *string {
 	return r.HmacFunctionID
 }
 
+func (r *RestCollectMethodPost) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
+}
+
 type RestCollectMethodGetCollectMethod string
 
 const (
@@ -12912,18 +6667,6 @@ func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType) IsExact(
 type RestCollectMethodGetRestDiscoveryDiscoverTypeNone struct {
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodGetRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]byte, error) {
@@ -12942,104 +6685,6 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetDiscoverType() Re
 		return RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType("")
 	}
 	return r.DiscoverType
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
 }
 
 // RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -13072,16 +6717,6 @@ type RestCollectMethodGetRestDiscoveryDiscoverTypeList struct {
 	DiscoverType RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType `json:"discoverType"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
 
 func (r RestCollectMethodGetRestDiscoveryDiscoverTypeList) MarshalJSON() ([]byte, error) {
@@ -13107,97 +6742,6 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetItemList() []stri
 		return []string{}
 	}
 	return r.ItemList
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
 }
 
 // RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -13232,16 +6776,6 @@ type RestCollectMethodGetRestDiscoveryDiscoverTypeJSON struct {
 	ManualDiscoverResult string `json:"manualDiscoverResult"`
 	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]byte, error) {
@@ -13276,95 +6810,32 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetDiscoverDataField
 	return r.DiscoverDataField
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetDiscoverURL() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverURL
+type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod string
+
+const (
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodGet GET
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodGet RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "get"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPost POST
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPost RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "post"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodPostWithBody RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "post_with_body"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodOther Other
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethodOther RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod) ToPointer() *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.DiscoverMethod
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -13392,8 +6863,30 @@ func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDis
 	return false
 }
 
+type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct {
-	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverMethod RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod `json:"discoverMethod"`
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
@@ -13402,9 +6895,9 @@ type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                          `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                             `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -13414,10 +6907,6 @@ type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) MarshalJSON() ([]byte, error) {
@@ -13431,9 +6920,9 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) U
 	return nil
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverMethod() RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -13480,53 +6969,11 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) G
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPagination() *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverDataField() *string {
@@ -13564,18 +7011,32 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) G
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
+type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod string
+
+const (
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodGet GET
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodGet RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "get"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPost POST
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPost RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "post"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodPostWithBody RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "post_with_body"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodOther Other
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethodOther RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod) ToPointer() *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetItemList() []string {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -13603,16 +7064,38 @@ func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWith
 	return false
 }
 
+type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
-	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverMethod RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod `json:"discoverMethod"`
 	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
 	DiscoverBody string `json:"discoverBody"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                                 `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                                    `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -13622,10 +7105,6 @@ type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -13639,9 +7118,9 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWith
 	return nil
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverMethod() RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -13674,53 +7153,11 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWith
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPagination() *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverDataField() *string {
@@ -13758,18 +7195,32 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWith
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
+type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod string
+
+const (
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodGet GET
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodGet RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "get"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPost POST
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPost RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "post"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodPostWithBody RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "post_with_body"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodOther Other
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethodOther RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod) ToPointer() *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetItemList() []string {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -13797,15 +7248,37 @@ func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDisc
 	return false
 }
 
+type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod `json:"discoverMethod"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                               `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                         `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                            `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -13815,10 +7288,6 @@ type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct 
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) MarshalJSON() ([]byte, error) {
@@ -13832,9 +7301,9 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) Un
 	return nil
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -13867,53 +7336,11 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) Ge
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverDataField() *string {
@@ -13951,18 +7378,32 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) Ge
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
+type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod string
+
+const (
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodGet GET
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodGet RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "get"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPost POST
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPost RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "post"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPostWithBody POST with Body
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodPostWithBody RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "post_with_body"
+	// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodOther Other
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethodOther RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod = "other"
+)
+
+func (e RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod) ToPointer() *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod {
+	return &e
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetItemList() []string {
-	if r == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
 	}
-	return r.ItemList
+	return false
 }
 
 // RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -13990,15 +7431,37 @@ func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDisco
 	return false
 }
 
+type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination struct {
+	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+}
+
+func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
+	if r == nil {
+		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
+	}
+	return r.Type
+}
+
 type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod `json:"discoverMethod"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams                              `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                           `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -14008,10 +7471,6 @@ type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
 }
 
 func (r RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) MarshalJSON() ([]byte, error) {
@@ -14025,9 +7484,9 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Unm
 	return nil
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverMethod() RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod {
 	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+		return RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod("")
 	}
 	return r.DiscoverMethod
 }
@@ -14060,53 +7519,11 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Get
 	return r.DiscoverRequestHeaders
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPagination() *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
 }
 
 func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverDataField() *string {
@@ -14144,20 +7561,6 @@ func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) Get
 	return r.FormatResultCode
 }
 
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
 type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPType string
 
 const (
@@ -14181,7 +7584,7 @@ type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP struct {
 func CreateRestCollectMethodGetRestDiscoveryDiscoverTypeHTTPGet(get RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeGet
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverMethod(typ)
 	get.DiscoverMethod = typStr
 
 	return RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP{
@@ -14193,7 +7596,7 @@ func CreateRestCollectMethodGetRestDiscoveryDiscoverTypeHTTPGet(get RestCollectM
 func CreateRestCollectMethodGetRestDiscoveryDiscoverTypeHTTPPost(post RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypePost
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverMethod(typ)
 	post.DiscoverMethod = typStr
 
 	return RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP{
@@ -14205,7 +7608,7 @@ func CreateRestCollectMethodGetRestDiscoveryDiscoverTypeHTTPPost(post RestCollec
 func CreateRestCollectMethodGetRestDiscoveryDiscoverTypeHTTPPostWithBody(postWithBody RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypePostWithBody
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverMethod(typ)
 	postWithBody.DiscoverMethod = typStr
 
 	return RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP{
@@ -14217,7 +7620,7 @@ func CreateRestCollectMethodGetRestDiscoveryDiscoverTypeHTTPPostWithBody(postWit
 func CreateRestCollectMethodGetRestDiscoveryDiscoverTypeHTTPOther(other RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP {
 	typ := RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPTypeOther
 
-	typStr := DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP(typ)
+	typStr := RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverMethod(typ)
 	other.DiscoverMethod = typStr
 
 	return RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP{
@@ -14511,20 +7914,6 @@ type RestCollectMethodGetRestPaginationTypeRequestPage struct {
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
 	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
 }
 
 func (r RestCollectMethodGetRestPaginationTypeRequestPage) MarshalJSON() ([]byte, error) {
@@ -14601,55 +7990,6 @@ func (r *RestCollectMethodGetRestPaginationTypeRequestPage) GetZeroIndexed() boo
 	return r.ZeroIndexed
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeRequestPage) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestPage) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestPage) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestPage) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestPage) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestPage) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestPage) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
 type RestCollectMethodGetRestPaginationTypeRequestOffset struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
@@ -14666,22 +8006,6 @@ type RestCollectMethodGetRestPaginationTypeRequestOffset struct {
 	MaxPages float64 `json:"maxPages"`
 	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
 	ZeroIndexed bool `json:"zeroIndexed"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodGetRestPaginationTypeRequestOffset) MarshalJSON() ([]byte, error) {
@@ -14751,62 +8075,6 @@ func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) GetZeroIndexed() b
 	return r.ZeroIndexed
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeRequestOffset) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
 type RestCollectMethodGetRestPaginationTypeResponseHeaderLink struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -14815,26 +8083,6 @@ type RestCollectMethodGetRestPaginationTypeResponseHeaderLink struct {
 	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodGetRestPaginationTypeResponseHeaderLink) MarshalJSON() ([]byte, error) {
@@ -14876,106 +8124,102 @@ func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetMaxPages()
 	return r.MaxPages
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
+type RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesType string
+
+const (
+	RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesType = "arrayOfAny"
+	RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesTypeStr        RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesType = "str"
+)
+
+// RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes - Names of attributes within the response that contain next-page information
+type RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesType
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetOffsetField() *string {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesArrayOfAny(arrayOfAny []any) RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny
+
+	return RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
 	}
-	return r.OffsetField
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetOffset() *float64 {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesStr(str string) RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesTypeStr
+
+	return RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes{
+		Str:  &str,
+		Type: typ,
 	}
-	return r.Offset
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetLimitField() *string {
-	if r == nil {
+func (u *RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesType)
+	switch best.Type {
+	case RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
 		return nil
 	}
-	return r.LimitField
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes", string(data))
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetLimit() *float64 {
-	if r == nil {
-		return nil
+func (u RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
 	}
-	return r.Limit
-}
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetPageField() *string {
-	if r == nil {
-		return nil
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
 	}
-	return r.PageField
-}
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeaderLink) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
+	return nil, errors.New("could not marshal union type RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes: all fields are null")
 }
 
 type RestCollectMethodGetRestPaginationTypeResponseHeader struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodGetRestPaginationTypeResponseHeader) MarshalJSON() ([]byte, error) {
@@ -14996,9 +8240,9 @@ func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetType() Paginat
 	return r.Type
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetAttribute() []string {
+func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetAttribute() RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -15010,120 +8254,104 @@ func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetMaxPages() flo
 	return r.MaxPages
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
+type RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesType string
+
+const (
+	RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesType = "arrayOfAny"
+	RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesTypeStr        RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesType = "str"
+)
+
+// RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes - Names of attributes within the response that contain next-page information
+type RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesType
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesArrayOfAny(arrayOfAny []any) RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny
+
+	return RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
 	}
-	return r.NextRelationAttribute
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
+func CreateRestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesStr(str string) RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesTypeStr
+
+	return RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes{
+		Str:  &str,
+		Type: typ,
 	}
-	return r.CurRelationAttribute
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetOffsetField() *string {
-	if r == nil {
+func (u *RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesType)
+	switch best.Type {
+	case RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
 		return nil
 	}
-	return r.OffsetField
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes", string(data))
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetOffset() *float64 {
-	if r == nil {
-		return nil
+func (u RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
 	}
-	return r.Offset
-}
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetLimitField() *string {
-	if r == nil {
-		return nil
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
 	}
-	return r.LimitField
-}
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseHeader) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
+	return nil, errors.New("could not marshal union type RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes: all fields are null")
 }
 
 type RestCollectMethodGetRestPaginationTypeResponseBody struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
 	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodGetRestPaginationTypeResponseBody) MarshalJSON() ([]byte, error) {
@@ -15144,9 +8372,9 @@ func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetType() Paginatio
 	return r.Type
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetAttribute() []string {
+func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetAttribute() RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -15165,109 +8393,8 @@ func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetLastPageExpr() *
 	return r.LastPageExpr
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeResponseBody) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
 type RestCollectMethodGetRestPaginationTypeNone struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
 }
 
 func (r RestCollectMethodGetRestPaginationTypeNone) MarshalJSON() ([]byte, error) {
@@ -15288,103 +8415,19 @@ func (r *RestCollectMethodGetRestPaginationTypeNone) GetType() PaginationOptions
 	return r.Type
 }
 
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestCollectMethodGetRestPaginationTypeNone) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestCollectMethodGetPaginationType string
+type RestCollectMethodGetPaginationUnionType string
 
 const (
-	RestCollectMethodGetPaginationTypeNone               RestCollectMethodGetPaginationType = "none"
-	RestCollectMethodGetPaginationTypeResponseBody       RestCollectMethodGetPaginationType = "response_body"
-	RestCollectMethodGetPaginationTypeResponseHeader     RestCollectMethodGetPaginationType = "response_header"
-	RestCollectMethodGetPaginationTypeResponseHeaderLink RestCollectMethodGetPaginationType = "response_header_link"
-	RestCollectMethodGetPaginationTypeRequestOffset      RestCollectMethodGetPaginationType = "request_offset"
-	RestCollectMethodGetPaginationTypeRequestPage        RestCollectMethodGetPaginationType = "request_page"
-	RestCollectMethodGetPaginationTypeUnknown            RestCollectMethodGetPaginationType = "UNKNOWN"
+	RestCollectMethodGetPaginationUnionTypeNone               RestCollectMethodGetPaginationUnionType = "none"
+	RestCollectMethodGetPaginationUnionTypeResponseBody       RestCollectMethodGetPaginationUnionType = "response_body"
+	RestCollectMethodGetPaginationUnionTypeResponseHeader     RestCollectMethodGetPaginationUnionType = "response_header"
+	RestCollectMethodGetPaginationUnionTypeResponseHeaderLink RestCollectMethodGetPaginationUnionType = "response_header_link"
+	RestCollectMethodGetPaginationUnionTypeRequestOffset      RestCollectMethodGetPaginationUnionType = "request_offset"
+	RestCollectMethodGetPaginationUnionTypeRequestPage        RestCollectMethodGetPaginationUnionType = "request_page"
+	RestCollectMethodGetPaginationUnionTypeUnknown            RestCollectMethodGetPaginationUnionType = "UNKNOWN"
 )
 
-type RestCollectMethodGetPagination struct {
+type RestCollectMethodGetPaginationUnion struct {
 	RestCollectMethodGetRestPaginationTypeNone               *RestCollectMethodGetRestPaginationTypeNone               `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestPaginationTypeResponseBody       *RestCollectMethodGetRestPaginationTypeResponseBody       `queryParam:"inline" union:"member"`
 	RestCollectMethodGetRestPaginationTypeResponseHeader     *RestCollectMethodGetRestPaginationTypeResponseHeader     `queryParam:"inline" union:"member"`
@@ -15393,97 +8436,97 @@ type RestCollectMethodGetPagination struct {
 	RestCollectMethodGetRestPaginationTypeRequestPage        *RestCollectMethodGetRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
 	UnknownRaw                                               json.RawMessage                                           `json:"-" union:"unknown"`
 
-	Type RestCollectMethodGetPaginationType
+	Type RestCollectMethodGetPaginationUnionType
 }
 
-func CreateRestCollectMethodGetPaginationNone(none RestCollectMethodGetRestPaginationTypeNone) RestCollectMethodGetPagination {
-	typ := RestCollectMethodGetPaginationTypeNone
+func CreateRestCollectMethodGetPaginationUnionNone(none RestCollectMethodGetRestPaginationTypeNone) RestCollectMethodGetPaginationUnion {
+	typ := RestCollectMethodGetPaginationUnionTypeNone
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	none.Type = typStr
 
-	return RestCollectMethodGetPagination{
+	return RestCollectMethodGetPaginationUnion{
 		RestCollectMethodGetRestPaginationTypeNone: &none,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodGetPaginationResponseBody(responseBody RestCollectMethodGetRestPaginationTypeResponseBody) RestCollectMethodGetPagination {
-	typ := RestCollectMethodGetPaginationTypeResponseBody
+func CreateRestCollectMethodGetPaginationUnionResponseBody(responseBody RestCollectMethodGetRestPaginationTypeResponseBody) RestCollectMethodGetPaginationUnion {
+	typ := RestCollectMethodGetPaginationUnionTypeResponseBody
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseBody.Type = typStr
 
-	return RestCollectMethodGetPagination{
+	return RestCollectMethodGetPaginationUnion{
 		RestCollectMethodGetRestPaginationTypeResponseBody: &responseBody,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodGetPaginationResponseHeader(responseHeader RestCollectMethodGetRestPaginationTypeResponseHeader) RestCollectMethodGetPagination {
-	typ := RestCollectMethodGetPaginationTypeResponseHeader
+func CreateRestCollectMethodGetPaginationUnionResponseHeader(responseHeader RestCollectMethodGetRestPaginationTypeResponseHeader) RestCollectMethodGetPaginationUnion {
+	typ := RestCollectMethodGetPaginationUnionTypeResponseHeader
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseHeader.Type = typStr
 
-	return RestCollectMethodGetPagination{
+	return RestCollectMethodGetPaginationUnion{
 		RestCollectMethodGetRestPaginationTypeResponseHeader: &responseHeader,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodGetPaginationResponseHeaderLink(responseHeaderLink RestCollectMethodGetRestPaginationTypeResponseHeaderLink) RestCollectMethodGetPagination {
-	typ := RestCollectMethodGetPaginationTypeResponseHeaderLink
+func CreateRestCollectMethodGetPaginationUnionResponseHeaderLink(responseHeaderLink RestCollectMethodGetRestPaginationTypeResponseHeaderLink) RestCollectMethodGetPaginationUnion {
+	typ := RestCollectMethodGetPaginationUnionTypeResponseHeaderLink
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	responseHeaderLink.Type = typStr
 
-	return RestCollectMethodGetPagination{
+	return RestCollectMethodGetPaginationUnion{
 		RestCollectMethodGetRestPaginationTypeResponseHeaderLink: &responseHeaderLink,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodGetPaginationRequestOffset(requestOffset RestCollectMethodGetRestPaginationTypeRequestOffset) RestCollectMethodGetPagination {
-	typ := RestCollectMethodGetPaginationTypeRequestOffset
+func CreateRestCollectMethodGetPaginationUnionRequestOffset(requestOffset RestCollectMethodGetRestPaginationTypeRequestOffset) RestCollectMethodGetPaginationUnion {
+	typ := RestCollectMethodGetPaginationUnionTypeRequestOffset
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	requestOffset.Type = typStr
 
-	return RestCollectMethodGetPagination{
+	return RestCollectMethodGetPaginationUnion{
 		RestCollectMethodGetRestPaginationTypeRequestOffset: &requestOffset,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodGetPaginationRequestPage(requestPage RestCollectMethodGetRestPaginationTypeRequestPage) RestCollectMethodGetPagination {
-	typ := RestCollectMethodGetPaginationTypeRequestPage
+func CreateRestCollectMethodGetPaginationUnionRequestPage(requestPage RestCollectMethodGetRestPaginationTypeRequestPage) RestCollectMethodGetPaginationUnion {
+	typ := RestCollectMethodGetPaginationUnionTypeRequestPage
 
 	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
 	requestPage.Type = typStr
 
-	return RestCollectMethodGetPagination{
+	return RestCollectMethodGetPaginationUnion{
 		RestCollectMethodGetRestPaginationTypeRequestPage: &requestPage,
 		Type: typ,
 	}
 }
 
-func CreateRestCollectMethodGetPaginationUnknown(raw json.RawMessage) RestCollectMethodGetPagination {
-	return RestCollectMethodGetPagination{
+func CreateRestCollectMethodGetPaginationUnionUnknown(raw json.RawMessage) RestCollectMethodGetPaginationUnion {
+	return RestCollectMethodGetPaginationUnion{
 		UnknownRaw: raw,
-		Type:       RestCollectMethodGetPaginationTypeUnknown,
+		Type:       RestCollectMethodGetPaginationUnionTypeUnknown,
 	}
 }
 
-func (u RestCollectMethodGetPagination) GetUnknownRaw() json.RawMessage {
+func (u RestCollectMethodGetPaginationUnion) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u RestCollectMethodGetPagination) IsUnknown() bool {
-	return u.Type == RestCollectMethodGetPaginationTypeUnknown
+func (u RestCollectMethodGetPaginationUnion) IsUnknown() bool {
+	return u.Type == RestCollectMethodGetPaginationUnionTypeUnknown
 }
 
-func (u *RestCollectMethodGetPagination) UnmarshalJSON(data []byte) error {
+func (u *RestCollectMethodGetPaginationUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -15492,12 +8535,12 @@ func (u *RestCollectMethodGetPagination) UnmarshalJSON(data []byte) error {
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodGetPaginationTypeUnknown
+		u.Type = RestCollectMethodGetPaginationUnionTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodGetPaginationTypeUnknown
+		u.Type = RestCollectMethodGetPaginationUnionTypeUnknown
 		return nil
 	}
 
@@ -15505,66 +8548,66 @@ func (u *RestCollectMethodGetPagination) UnmarshalJSON(data []byte) error {
 	case "none":
 		restCollectMethodGetRestPaginationTypeNone := new(RestCollectMethodGetRestPaginationTypeNone)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodGetRestPaginationTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestCollectMethodGetRestPaginationTypeNone within RestCollectMethodGetPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestCollectMethodGetRestPaginationTypeNone within RestCollectMethodGetPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodGetRestPaginationTypeNone = restCollectMethodGetRestPaginationTypeNone
-		u.Type = RestCollectMethodGetPaginationTypeNone
+		u.Type = RestCollectMethodGetPaginationUnionTypeNone
 		return nil
 	case "response_body":
 		restCollectMethodGetRestPaginationTypeResponseBody := new(RestCollectMethodGetRestPaginationTypeResponseBody)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodGetRestPaginationTypeResponseBody, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestCollectMethodGetRestPaginationTypeResponseBody within RestCollectMethodGetPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestCollectMethodGetRestPaginationTypeResponseBody within RestCollectMethodGetPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodGetRestPaginationTypeResponseBody = restCollectMethodGetRestPaginationTypeResponseBody
-		u.Type = RestCollectMethodGetPaginationTypeResponseBody
+		u.Type = RestCollectMethodGetPaginationUnionTypeResponseBody
 		return nil
 	case "response_header":
 		restCollectMethodGetRestPaginationTypeResponseHeader := new(RestCollectMethodGetRestPaginationTypeResponseHeader)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodGetRestPaginationTypeResponseHeader, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestCollectMethodGetRestPaginationTypeResponseHeader within RestCollectMethodGetPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestCollectMethodGetRestPaginationTypeResponseHeader within RestCollectMethodGetPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodGetRestPaginationTypeResponseHeader = restCollectMethodGetRestPaginationTypeResponseHeader
-		u.Type = RestCollectMethodGetPaginationTypeResponseHeader
+		u.Type = RestCollectMethodGetPaginationUnionTypeResponseHeader
 		return nil
 	case "response_header_link":
 		restCollectMethodGetRestPaginationTypeResponseHeaderLink := new(RestCollectMethodGetRestPaginationTypeResponseHeaderLink)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodGetRestPaginationTypeResponseHeaderLink, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestCollectMethodGetRestPaginationTypeResponseHeaderLink within RestCollectMethodGetPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestCollectMethodGetRestPaginationTypeResponseHeaderLink within RestCollectMethodGetPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodGetRestPaginationTypeResponseHeaderLink = restCollectMethodGetRestPaginationTypeResponseHeaderLink
-		u.Type = RestCollectMethodGetPaginationTypeResponseHeaderLink
+		u.Type = RestCollectMethodGetPaginationUnionTypeResponseHeaderLink
 		return nil
 	case "request_offset":
 		restCollectMethodGetRestPaginationTypeRequestOffset := new(RestCollectMethodGetRestPaginationTypeRequestOffset)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodGetRestPaginationTypeRequestOffset, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestCollectMethodGetRestPaginationTypeRequestOffset within RestCollectMethodGetPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestCollectMethodGetRestPaginationTypeRequestOffset within RestCollectMethodGetPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodGetRestPaginationTypeRequestOffset = restCollectMethodGetRestPaginationTypeRequestOffset
-		u.Type = RestCollectMethodGetPaginationTypeRequestOffset
+		u.Type = RestCollectMethodGetPaginationUnionTypeRequestOffset
 		return nil
 	case "request_page":
 		restCollectMethodGetRestPaginationTypeRequestPage := new(RestCollectMethodGetRestPaginationTypeRequestPage)
 		if err := utils.UnmarshalJSON(data, &restCollectMethodGetRestPaginationTypeRequestPage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestCollectMethodGetRestPaginationTypeRequestPage within RestCollectMethodGetPagination: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestCollectMethodGetRestPaginationTypeRequestPage within RestCollectMethodGetPaginationUnion: %w", string(data), err)
 		}
 
 		u.RestCollectMethodGetRestPaginationTypeRequestPage = restCollectMethodGetRestPaginationTypeRequestPage
-		u.Type = RestCollectMethodGetPaginationTypeRequestPage
+		u.Type = RestCollectMethodGetPaginationUnionTypeRequestPage
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestCollectMethodGetPaginationTypeUnknown
+		u.Type = RestCollectMethodGetPaginationUnionTypeUnknown
 		return nil
 	}
 
 }
 
-func (u RestCollectMethodGetPagination) MarshalJSON() ([]byte, error) {
+func (u RestCollectMethodGetPaginationUnion) MarshalJSON() ([]byte, error) {
 	if u.RestCollectMethodGetRestPaginationTypeNone != nil {
 		return utils.MarshalJSON(u.RestCollectMethodGetRestPaginationTypeNone, "", true)
 	}
@@ -15592,7 +8635,7 @@ func (u RestCollectMethodGetPagination) MarshalJSON() ([]byte, error) {
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type RestCollectMethodGetPagination: all fields are null")
+	return nil, errors.New("could not marshal union type RestCollectMethodGetPaginationUnion: all fields are null")
 }
 
 // RestCollectMethodGetAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -16030,7 +9073,7 @@ type RestCollectMethodGet struct {
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL            string                                              `json:"collectUrl"`
 	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
-	Pagination            *RestCollectMethodGetPagination                     `json:"pagination,omitzero"`
+	Pagination            *RestCollectMethodGetPaginationUnion                `json:"pagination,omitzero"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication RestCollectMethodGetAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -16057,6 +9100,8 @@ type RestCollectMethodGet struct {
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (r RestCollectMethodGet) MarshalJSON() ([]byte, error) {
@@ -16133,7 +9178,7 @@ func (r *RestCollectMethodGet) GetCollectRequestHeaders() []ItemsTypeRestCollect
 	return r.CollectRequestHeaders
 }
 
-func (r *RestCollectMethodGet) GetPagination() *RestCollectMethodGetPagination {
+func (r *RestCollectMethodGet) GetPagination() *RestCollectMethodGetPaginationUnion {
 	if r == nil {
 		return nil
 	}
@@ -16299,6 +9344,13 @@ func (r *RestCollectMethodGet) GetHmacFunctionID() *string {
 		return nil
 	}
 	return r.HmacFunctionID
+}
+
+func (r *RestCollectMethodGet) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
 }
 
 type RestCollectorConfType string

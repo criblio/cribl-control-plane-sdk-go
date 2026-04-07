@@ -154,7 +154,7 @@ func main() {
             OauthType: operations.CreateOutputOauthTypeAuthenticationMethodClientSecret,
             ClientSecret: criblcontrolplanesdkgo.Pointer("client-secret"),
             Format: components.DataFormatOptionsJSON.ToPointer(),
-            Compress: components.CompressionOptions2Gzip,
+            Compress: components.CompressionOptionsHTTPGzip,
         },
     ))
     if err != nil {
@@ -365,9 +365,9 @@ func main() {
         operations.CreateOutputOutputCloudflareR2{
             ID: "cloudflare-r2-output",
             Type: operations.CreateOutputTypeCloudflareR2CloudflareR2,
-            Endpoint: "https://account-id.r2.cloudflarestorage.com",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
+            Endpoint: "https://account-id.r2.cloudflarestorage.com",
         },
     ))
     if err != nil {
@@ -575,7 +575,7 @@ func main() {
             },
             Streamtags: []string{},
             LoadBalanced: criblcontrolplanesdkgo.Pointer(false),
-            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
+            TLS: &components.TLSSettingsClientSideTypeCaPathCertPath{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
             TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60.0),
@@ -584,7 +584,7 @@ func main() {
                 "__metadata",
                 "__winEvent",
             },
-            Compression: components.CompressionOptions1Gzip.ToPointer(),
+            Compression: components.CompressionOptionsGzipNoneGzip.ToPointer(),
             Concurrency: criblcontrolplanesdkgo.Pointer[float64](5.0),
             MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096.0),
             MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0.0),
@@ -1032,7 +1032,7 @@ func main() {
             Type: operations.CreateOutputTypeDynatraceOtlpDynatraceOtlp,
             Protocol: operations.CreateOutputProtocolDynatraceOtlpHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             EndpointType: operations.CreateOutputEndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
@@ -1821,9 +1821,9 @@ func main() {
         operations.CreateOutputOutputMinio{
             ID: "minio-output",
             Type: operations.CreateOutputTypeMinioMinio,
-            Endpoint: "http://localhost:9000",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
+            Endpoint: "http://localhost:9000",
         },
     ))
     if err != nil {
@@ -2241,9 +2241,9 @@ func main() {
         operations.CreateOutputOutputSecurityLake{
             ID: "security-lake-output",
             Type: operations.CreateOutputTypeSecurityLakeSecurityLake,
+            AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
-            AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             StagePath: "/tmp/staging",
             AccountID: "123456789012",
             CustomSource: "my-custom-source",
@@ -2373,7 +2373,7 @@ func main() {
             Type: operations.CreateOutputTypeServiceNowServiceNow,
             Endpoint: "ingest.lightstep.com:443",
             TokenSecret: "your-token-secret",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             Protocol: components.ProtocolOptionsHTTP,
         },
     ))
@@ -2953,11 +2953,13 @@ func main() {
     )
 
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestWebhook(
-        operations.CreateOutputOutputWebhook{
-            ID: "webhook-output",
-            Type: operations.CreateOutputTypeWebhookWebhook,
-            URL: criblcontrolplanesdkgo.Pointer("https://example.com/webhook"),
-        },
+        operations.CreateCreateOutputOutputWebhookUnionCreateOutputOutputWebhookWebhook1(
+            operations.CreateOutputOutputWebhookWebhook1{
+                ID: "webhook-output",
+                Type: operations.CreateOutputOutputWebhookType1Webhook,
+                URL: "https://example.com/webhook",
+            },
+        ),
     ))
     if err != nil {
         log.Fatal(err)
@@ -3210,7 +3212,7 @@ func main() {
             OauthType: components.OutputAzureDataExplorerAuthenticationMethodClientSecret,
             ClientSecret: criblcontrolplanesdkgo.Pointer("client-secret"),
             Format: components.DataFormatOptionsJSON.ToPointer(),
-            Compress: components.CompressionOptions2Gzip,
+            Compress: components.CompressionOptionsHTTPGzip,
         },
     ))
     if err != nil {
@@ -3416,9 +3418,9 @@ func main() {
         components.OutputCloudflareR2{
             ID: criblcontrolplanesdkgo.Pointer("cloudflare-r2-output"),
             Type: components.OutputCloudflareR2TypeCloudflareR2,
-            Endpoint: "https://account-id.r2.cloudflarestorage.com",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
+            Endpoint: "https://account-id.r2.cloudflarestorage.com",
         },
     ))
     if err != nil {
@@ -3621,7 +3623,7 @@ func main() {
             },
             Streamtags: []string{},
             LoadBalanced: criblcontrolplanesdkgo.Pointer(false),
-            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
+            TLS: &components.TLSSettingsClientSideTypeCaPathCertPath{
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
             TokenTTLMinutes: criblcontrolplanesdkgo.Pointer[float64](60.0),
@@ -3630,7 +3632,7 @@ func main() {
                 "__metadata",
                 "__winEvent",
             },
-            Compression: components.CompressionOptions1Gzip.ToPointer(),
+            Compression: components.CompressionOptionsGzipNoneGzip.ToPointer(),
             Concurrency: criblcontrolplanesdkgo.Pointer[float64](5.0),
             MaxPayloadSizeKB: criblcontrolplanesdkgo.Pointer[float64](4096.0),
             MaxPayloadEvents: criblcontrolplanesdkgo.Pointer[float64](0.0),
@@ -4069,7 +4071,7 @@ func main() {
             Type: components.OutputDynatraceOtlpTypeDynatraceOtlp,
             Protocol: components.OutputDynatraceOtlpProtocolHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             EndpointType: components.EndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
@@ -4839,9 +4841,9 @@ func main() {
         components.OutputMinio{
             ID: criblcontrolplanesdkgo.Pointer("minio-output"),
             Type: components.OutputMinioTypeMinio,
-            Endpoint: "http://localhost:9000",
             Bucket: "my-bucket",
             StagePath: "/tmp/staging",
+            Endpoint: "http://localhost:9000",
         },
     ))
     if err != nil {
@@ -5249,9 +5251,9 @@ func main() {
         components.OutputSecurityLake{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-output"),
             Type: components.OutputSecurityLakeTypeSecurityLake,
+            AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
-            AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             StagePath: "/tmp/staging",
             AccountID: "123456789012",
             CustomSource: "my-custom-source",
@@ -5378,7 +5380,7 @@ func main() {
             Type: components.OutputServiceNowTypeServiceNow,
             Endpoint: "ingest.lightstep.com:443",
             TokenSecret: "your-token-secret",
-            OtlpVersion: components.OtlpVersionOptions1OneDot3Dot1,
+            OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
             Protocol: components.ProtocolOptionsHTTP,
         },
     ))
@@ -5944,11 +5946,13 @@ func main() {
     )
 
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputWebhook(
-        components.OutputWebhook{
-            ID: criblcontrolplanesdkgo.Pointer("webhook-output"),
-            Type: components.OutputWebhookTypeWebhook,
-            URL: criblcontrolplanesdkgo.Pointer("https://example.com/webhook"),
-        },
+        components.CreateOutputWebhookOutputWebhookWebhook1(
+            components.OutputWebhookWebhook1{
+                ID: criblcontrolplanesdkgo.Pointer("webhook-output"),
+                Type: components.OutputWebhookType1Webhook,
+                URL: "https://example.com/webhook",
+            },
+        ),
     ))
     if err != nil {
         log.Fatal(err)

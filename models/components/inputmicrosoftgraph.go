@@ -137,9 +137,9 @@ type InputMicrosoftGraph struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *LogLevelOptions `json:"logLevel,omitzero"`
-	RetryRules  *RetryRulesType1 `json:"retryRules,omitzero"`
-	Description *string          `json:"description,omitzero"`
+	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	Description *string                          `json:"description,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
@@ -356,14 +356,14 @@ func (i *InputMicrosoftGraph) GetMaxTaskReschedule() *float64 {
 	return i.MaxTaskReschedule
 }
 
-func (i *InputMicrosoftGraph) GetLogLevel() *LogLevelOptions {
+func (i *InputMicrosoftGraph) GetLogLevel() *LogLevelOptionsDebugError {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputMicrosoftGraph) GetRetryRules() *RetryRulesType1 {
+func (i *InputMicrosoftGraph) GetRetryRules() *RetryRulesTypeCodesEnableHeader {
 	if i == nil {
 		return nil
 	}

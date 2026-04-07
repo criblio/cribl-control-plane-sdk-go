@@ -136,27 +136,6 @@ func (e *EventBreakerExistingOrNewExisting) GetTimestamp() *TimestampFormatTypeE
 	return e.Timestamp
 }
 
-func (e *EventBreakerExistingOrNewExisting) GetTimestampAuto() *EventBreakerExistingOrNewNewTimestampTypeAuto {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeAuto
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewExisting) GetTimestampFormat() *EventBreakerExistingOrNewNewTimestampTypeFormat {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeFormat
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewExisting) GetTimestampCurrent() *EventBreakerExistingOrNewNewTimestampTypeCurrent {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeCurrent
-	}
-	return nil
-}
-
 func (e *EventBreakerExistingOrNewExisting) GetTimestampTimezone() *string {
 	if e == nil {
 		return nil
@@ -301,27 +280,6 @@ func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetTimestamp() *TimestampForma
 		return nil
 	}
 	return e.Timestamp
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetTimestampAuto() *EventBreakerExistingOrNewNewTimestampTypeAuto {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeAuto
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetTimestampFormat() *EventBreakerExistingOrNewNewTimestampTypeFormat {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeFormat
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetTimestampCurrent() *EventBreakerExistingOrNewNewTimestampTypeCurrent {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeCurrent
-	}
-	return nil
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetTimestampTimezone() *string {
@@ -493,27 +451,6 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetTimestamp() *TimestampFo
 	return e.Timestamp
 }
 
-func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetTimestampAuto() *EventBreakerExistingOrNewNewTimestampTypeAuto {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeAuto
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetTimestampFormat() *EventBreakerExistingOrNewNewTimestampTypeFormat {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeFormat
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetTimestampCurrent() *EventBreakerExistingOrNewNewTimestampTypeCurrent {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeCurrent
-	}
-	return nil
-}
-
 func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetTimestampTimezone() *string {
 	if e == nil {
 		return nil
@@ -581,6 +518,8 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
 	ParentFieldsToCopy []string `json:"parentFieldsToCopy,omitzero"`
 	// Automatically extract fields from JSON events. When disabled, only _raw and _time are defined on extracted events.
 	JSONExtractAll *bool `json:"jsonExtractAll,omitzero"`
+	// List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
+	FieldsToRemove []string `json:"fieldsToRemove,omitzero"`
 	// Optional path to timestamp field in extracted events, such as eventTime or level1.level2.eventTime.
 	JSONTimeField *string                                                    `json:"jsonTimeField,omitzero"`
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew `json:"existingOrNew"`
@@ -639,6 +578,13 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetJSONExtractAll() *boo
 	return e.JSONExtractAll
 }
 
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetFieldsToRemove() []string {
+	if e == nil {
+		return nil
+	}
+	return e.FieldsToRemove
+}
+
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetJSONTimeField() *string {
 	if e == nil {
 		return nil
@@ -672,27 +618,6 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestamp() *Timestam
 		return nil
 	}
 	return e.Timestamp
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestampAuto() *EventBreakerExistingOrNewNewTimestampTypeAuto {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeAuto
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestampFormat() *EventBreakerExistingOrNewNewTimestampTypeFormat {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeFormat
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestampCurrent() *EventBreakerExistingOrNewNewTimestampTypeCurrent {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeCurrent
-	}
-	return nil
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetTimestampTimezone() *string {
@@ -817,27 +742,6 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetTimestamp() *TimestampForm
 		return nil
 	}
 	return e.Timestamp
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetTimestampAuto() *EventBreakerExistingOrNewNewTimestampTypeAuto {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeAuto
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetTimestampFormat() *EventBreakerExistingOrNewNewTimestampTypeFormat {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeFormat
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetTimestampCurrent() *EventBreakerExistingOrNewNewTimestampTypeCurrent {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeCurrent
-	}
-	return nil
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetTimestampTimezone() *string {
@@ -971,27 +875,6 @@ func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetTimestamp() *TimestampFor
 		return nil
 	}
 	return e.Timestamp
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetTimestampAuto() *EventBreakerExistingOrNewNewTimestampTypeAuto {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeAuto
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetTimestampFormat() *EventBreakerExistingOrNewNewTimestampTypeFormat {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeFormat
-	}
-	return nil
-}
-
-func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetTimestampCurrent() *EventBreakerExistingOrNewNewTimestampTypeCurrent {
-	if v := e.GetTimestamp(); v != nil {
-		return v.EventBreakerExistingOrNewNewTimestampTypeCurrent
-	}
-	return nil
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeRegex) GetTimestampTimezone() *string {

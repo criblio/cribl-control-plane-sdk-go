@@ -5,13 +5,14 @@ package components
 type RbacResource string
 
 const (
-	RbacResourceGroups           RbacResource = "groups"
-	RbacResourceDatasets         RbacResource = "datasets"
-	RbacResourceDatasetProviders RbacResource = "dataset-providers"
-	RbacResourceProjects         RbacResource = "projects"
-	RbacResourceDashboards       RbacResource = "dashboards"
-	RbacResourceMacros           RbacResource = "macros"
-	RbacResourceNotebooks        RbacResource = "notebooks"
+	RbacResourceGroups            RbacResource = "groups"
+	RbacResourceDatasets          RbacResource = "datasets"
+	RbacResourceDatasetProviders  RbacResource = "dataset-providers"
+	RbacResourceProjects          RbacResource = "projects"
+	RbacResourceDashboards        RbacResource = "dashboards"
+	RbacResourceMacros            RbacResource = "macros"
+	RbacResourceNotebooks         RbacResource = "notebooks"
+	RbacResourceNotebookTemplates RbacResource = "notebook-templates"
 )
 
 func (e RbacResource) ToPointer() *RbacResource {
@@ -22,7 +23,7 @@ func (e RbacResource) ToPointer() *RbacResource {
 func (e *RbacResource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "groups", "datasets", "dataset-providers", "projects", "dashboards", "macros", "notebooks":
+		case "groups", "datasets", "dataset-providers", "projects", "dashboards", "macros", "notebooks", "notebook-templates":
 			return true
 		}
 	}

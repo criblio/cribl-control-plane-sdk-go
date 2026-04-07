@@ -12,6 +12,10 @@ type GetInputStatusSystemInputsByPackRequest struct {
 	Metrics *bool `queryParam:"style=form,explode=true,name=metrics"`
 	// Set to <code>true</code> to prefix the Source <code>id</code> with the Source type. Otherwise, <code>false</code> (default).
 	Type *bool `queryParam:"style=form,explode=true,name=type"`
+	// Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return in the response for this request. Use with <code>offset</code> to paginate the response into manageable batches.
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 	// The <code>id</code> of the Pack to list.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
@@ -30,6 +34,20 @@ func (g *GetInputStatusSystemInputsByPackRequest) GetType() *bool {
 	return g.Type
 }
 
+func (g *GetInputStatusSystemInputsByPackRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetInputStatusSystemInputsByPackRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 func (g *GetInputStatusSystemInputsByPackRequest) GetPack() string {
 	if g == nil {
 		return ""
@@ -41,6 +59,8 @@ type GetInputStatusSystemInputsByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source status objects
 	CountedInputStatus *components.CountedInputStatus
+
+	Next func() (*GetInputStatusSystemInputsByPackResponse, error)
 }
 
 func (g GetInputStatusSystemInputsByPackResponse) MarshalJSON() ([]byte, error) {

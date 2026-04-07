@@ -172,6 +172,10 @@ type InputSplunk struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+	TemplateMaxS2Sversion *string `json:"__template_maxS2Sversion,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (i InputSplunk) MarshalJSON() ([]byte, error) {
@@ -400,4 +404,18 @@ func (i *InputSplunk) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputSplunk) GetTemplateMaxS2Sversion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateMaxS2Sversion
+}
+
+func (i *InputSplunk) GetTemplateCompress() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateCompress
 }

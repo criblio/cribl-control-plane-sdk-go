@@ -131,10 +131,10 @@ type InputOffice365Service struct {
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitzero"`
-	RetryRules    *RetryRulesType1                     `json:"retryRules,omitzero"`
+	RetryRules    *RetryRulesTypeCodesEnableHeader     `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	Description *string                                  `json:"description,omitzero"`
 	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -305,14 +305,14 @@ func (i *InputOffice365Service) GetContentConfig() []InputOffice365ServiceConten
 	return i.ContentConfig
 }
 
-func (i *InputOffice365Service) GetRetryRules() *RetryRulesType1 {
+func (i *InputOffice365Service) GetRetryRules() *RetryRulesTypeCodesEnableHeader {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365Service) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputOffice365Service) GetAuthType() *AuthenticationMethodOptionsManualSecret {
 	if i == nil {
 		return nil
 	}

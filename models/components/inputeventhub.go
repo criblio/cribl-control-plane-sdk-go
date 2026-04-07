@@ -74,7 +74,7 @@ type InputEventhub struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *AuthenticationType1       `json:"sasl,omitzero"`
+	Sasl *AuthenticationTypeUse     `json:"sasl,omitzero"`
 	TLS  *TLSSettingsClientSideType `json:"tls,omitzero"`
 	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
@@ -271,7 +271,7 @@ func (i *InputEventhub) GetReauthenticationThreshold() *float64 {
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputEventhub) GetSasl() *AuthenticationType1 {
+func (i *InputEventhub) GetSasl() *AuthenticationTypeUse {
 	if i == nil {
 		return nil
 	}

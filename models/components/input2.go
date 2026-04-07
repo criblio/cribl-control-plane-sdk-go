@@ -72,6 +72,7 @@ const (
 	Input2TypeWizWebhook           Input2Type = "wiz_webhook"
 	Input2TypeNetflow              Input2Type = "netflow"
 	Input2TypeSecurityLake         Input2Type = "security_lake"
+	Input2TypeServicenowTable      Input2Type = "servicenow_table"
 	Input2TypeZscalerHec           Input2Type = "zscaler_hec"
 	Input2TypeCloudflareHec        Input2Type = "cloudflare_hec"
 )
@@ -137,6 +138,7 @@ type Input2 struct {
 	InputWizWebhook           *InputWizWebhook           `queryParam:"inline" union:"member"`
 	InputNetflow              *InputNetflow              `queryParam:"inline" union:"member"`
 	InputSecurityLake         *InputSecurityLake         `queryParam:"inline" union:"member"`
+	InputServicenowTable      *InputServicenowTable      `queryParam:"inline" union:"member"`
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
 	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
 
@@ -857,6 +859,18 @@ func CreateInput2SecurityLake(securityLake InputSecurityLake) Input2 {
 	}
 }
 
+func CreateInput2ServicenowTable(servicenowTable InputServicenowTable) Input2 {
+	typ := Input2TypeServicenowTable
+
+	typStr := InputServicenowTableType(typ)
+	servicenowTable.Type = typStr
+
+	return Input2{
+		InputServicenowTable: &servicenowTable,
+		Type:                 typ,
+	}
+}
+
 func CreateInput2ZscalerHec(zscalerHec InputZscalerHec) Input2 {
 	typ := Input2TypeZscalerHec
 
@@ -1433,6 +1447,15 @@ func (u *Input2) UnmarshalJSON(data []byte) error {
 		u.InputSecurityLake = inputSecurityLake
 		u.Type = Input2TypeSecurityLake
 		return nil
+	case "servicenow_table":
+		inputServicenowTable := new(InputServicenowTable)
+		if err := utils.UnmarshalJSON(data, &inputServicenowTable, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == servicenow_table) type InputServicenowTable within Input2: %w", string(data), err)
+		}
+
+		u.InputServicenowTable = inputServicenowTable
+		u.Type = Input2TypeServicenowTable
+		return nil
 	case "zscaler_hec":
 		inputZscalerHec := new(InputZscalerHec)
 		if err := utils.UnmarshalJSON(data, &inputZscalerHec, "", true, nil); err != nil {
@@ -1695,6 +1718,10 @@ func (u Input2) MarshalJSON() ([]byte, error) {
 
 	if u.InputSecurityLake != nil {
 		return utils.MarshalJSON(u.InputSecurityLake, "", true)
+	}
+
+	if u.InputServicenowTable != nil {
+		return utils.MarshalJSON(u.InputServicenowTable, "", true)
 	}
 
 	if u.InputZscalerHec != nil {

@@ -2,6 +2,8 @@
 
 ## Overview
 
+Actions related to DatabaseConnections
+
 ### Available Operations
 
 * [Create](#create) - Create Database Connection

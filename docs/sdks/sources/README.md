@@ -40,7 +40,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.List(ctx)
+    res, err := s.Sources.List(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -52,10 +52,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                                                                                   | Type                                                                                                                                                        | Required                                                                                                                                                    | Description                                                                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                       | [context.Context](https://pkg.go.dev/context#Context)                                                                                                       | :heavy_check_mark:                                                                                                                                          | The context to use for the request.                                                                                                                         |
+| `type_`                                                                                                                                                     | []`string`                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                          | Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
+| `opts`                                                                                                                                                      | [][operations.Option](../../models/operations/option.md)                                                                                                    | :heavy_minus_sign:                                                                                                                                          | The options for this request.                                                                                                                               |
 
 ### Response
 
@@ -1787,7 +1788,7 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: operations.CreateInputDiscoveryTypePrometheusStatic.ToPointer(),
             Interval: 60.0,
-            LogLevel: operations.CreateInputLogLevelPrometheusInfo,
+            LogLevel: components.LogLevelOptionsInfo,
             TargetList: []string{
                 "http://localhost:9090/metrics",
             },
@@ -2042,11 +2043,24 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestWinEventLogs(
-        operations.CreateInputInputWinEventLogs{
-            ID: "<id>",
-            Type: operations.CreateInputTypeWinEventLogsWinEventLogs,
-            LogNames: []string{},
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestServicenowTable(
+        operations.CreateInputInputServicenowTable{
+            ID: "servicenow-table-source",
+            Type: operations.CreateInputTypeServicenowTableServicenowTable,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Instance: "https://example.service-now.com",
+            TableName: "incident",
+            Fields: []string{
+                "sys_id",
+                "number",
+                "short_description",
+            },
+            DisplayValue: operations.CreateInputDisplayValueFalse.ToPointer(),
+            PageSize: criblcontrolplanesdkgo.Pointer[int64](10000),
+            CronSchedule: "0 * * * *",
+            Earliest: "-1d",
+            Latest: "now",
         },
     ))
     if err != nil {
@@ -2839,7 +2853,7 @@ func main() {
 
 ## Update
 
-Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
+Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 
 ### Example Usage: InputCreateExamplesAppscope
 
@@ -4517,7 +4531,7 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: components.InputPrometheusDiscoveryTypeStatic.ToPointer(),
             Interval: 60.0,
-            LogLevel: components.InputPrometheusLogLevelInfo,
+            LogLevel: components.LogLevelOptionsInfo,
             TargetList: []string{
                 "http://localhost:9090/metrics",
             },
@@ -4766,9 +4780,24 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2WindowsMetrics(
-        components.InputWindowsMetrics{
-            Type: components.InputWindowsMetricsTypeWindowsMetrics,
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2ServicenowTable(
+        components.InputServicenowTable{
+            ID: criblcontrolplanesdkgo.Pointer("servicenow-table-source"),
+            Type: components.InputServicenowTableTypeServicenowTable,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Instance: "https://example.service-now.com",
+            TableName: "incident",
+            Fields: []string{
+                "sys_id",
+                "number",
+                "short_description",
+            },
+            DisplayValue: components.DisplayValueFalse.ToPointer(),
+            PageSize: criblcontrolplanesdkgo.Pointer[int64](10000),
+            CronSchedule: "0 * * * *",
+            Earliest: "-1d",
+            Latest: "now",
         },
     ))
     if err != nil {

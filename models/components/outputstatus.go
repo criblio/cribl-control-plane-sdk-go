@@ -2,6 +2,7 @@
 
 package components
 
+// OutputStatus - Status of a Destination, aggregated across all Worker Processes.
 type OutputStatus struct {
 	// Unique identifier of the Source or Destination.
 	ID string `json:"id"`

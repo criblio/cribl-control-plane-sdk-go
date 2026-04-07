@@ -3,12 +3,18 @@
 package components
 
 type Commit struct {
+	// Email address of the commit author.
 	AuthorEmail *string `json:"author_email,omitzero"`
-	AuthorName  *string `json:"author_name,omitzero"`
-	Date        string  `json:"date"`
-	Hash        string  `json:"hash"`
-	Message     string  `json:"message"`
-	Short       string  `json:"short"`
+	// Name of the commit author.
+	AuthorName *string `json:"author_name,omitzero"`
+	// Date and time of the commit.
+	Date string `json:"date"`
+	// Full commit hash.
+	Hash string `json:"hash"`
+	// Commit message.
+	Message string `json:"message"`
+	// Abbreviated commit hash.
+	Short string `json:"short"`
 }
 
 func (c *Commit) GetAuthorEmail() *string {

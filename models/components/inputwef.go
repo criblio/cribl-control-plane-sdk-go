@@ -74,9 +74,9 @@ type MTLSSettings struct {
 	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
 	CaPath string `json:"caPath"`
 	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string                                         `json:"commonNameRegex,omitzero"`
-	MinVersion      *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitzero"`
-	MaxVersion      *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
+	CommonNameRegex *string                      `json:"commonNameRegex,omitzero"`
+	MinVersion      *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
+	MaxVersion      *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
 	// Enable OCSP check of certificate
 	OcspCheck *bool `json:"ocspCheck,omitzero"`
 	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
@@ -157,14 +157,14 @@ func (m *MTLSSettings) GetCommonNameRegex() *string {
 	return m.CommonNameRegex
 }
 
-func (m *MTLSSettings) GetMinVersion() *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
+func (m *MTLSSettings) GetMinVersion() *MinimumTLSVersionOptionsTLS {
 	if m == nil {
 		return nil
 	}
 	return m.MinVersion
 }
 
-func (m *MTLSSettings) GetMaxVersion() *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
+func (m *MTLSSettings) GetMaxVersion() *MaximumTLSVersionOptionsTLS {
 	if m == nil {
 		return nil
 	}

@@ -3,9 +3,12 @@
 package components
 
 type ConfigGroupLookupsLookup struct {
+	// Version of the lookup file currently deployed on the Worker or Node.
 	DeployedVersion *string `json:"deployedVersion,omitzero"`
-	File            string  `json:"file"`
-	Version         *string `json:"version,omitzero"`
+	// File name of the deployed lookup.
+	File string `json:"file"`
+	// Version of the lookup file currently staged for deployment.
+	Version *string `json:"version,omitzero"`
 }
 
 func (c *ConfigGroupLookupsLookup) GetDeployedVersion() *string {
@@ -30,7 +33,9 @@ func (c *ConfigGroupLookupsLookup) GetVersion() *string {
 }
 
 type ConfigGroupLookups struct {
-	Context string                     `json:"context"`
+	// The Worker or Node context for the lookup deployment.
+	Context string `json:"context"`
+	// List of lookup files deployed to this context.
 	Lookups []ConfigGroupLookupsLookup `json:"lookups"`
 }
 

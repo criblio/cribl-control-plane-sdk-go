@@ -8,8 +8,28 @@ import (
 )
 
 type GetInputSystemByPackRequest struct {
+	// Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
+	Type []string `queryParam:"style=form,explode=true,name=type"`
 	// The <code>id</code> of the Pack to list.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
+}
+
+func (g GetInputSystemByPackRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetInputSystemByPackRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GetInputSystemByPackRequest) GetType() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Type
 }
 
 func (g *GetInputSystemByPackRequest) GetPack() string {

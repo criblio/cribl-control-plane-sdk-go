@@ -214,35 +214,45 @@ func (u TargetConfigUnion3) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type TargetConfigUnion3: all fields are null")
 }
 
-type ConditionSpecificConfigs3 struct {
+// ConditionSpecificConfigurations3 - Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+type ConditionSpecificConfigurations3 struct {
 }
 
-func (c ConditionSpecificConfigs3) MarshalJSON() ([]byte, error) {
+func (c ConditionSpecificConfigurations3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *ConditionSpecificConfigs3) UnmarshalJSON(data []byte) error {
+func (c *ConditionSpecificConfigurations3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-// #region class-body-conditionspecificconfigs3
-// #endregion class-body-conditionspecificconfigs3
+// #region class-body-conditionspecificconfigurations3
+// #endregion class-body-conditionspecificconfigurations3
 
 type Notification3 struct {
 	// Notification mode: direct or policy-based
-	Mode      *NotificationMode3 `json:"mode,omitzero"`
-	ID        string             `json:"id"`
-	Disabled  *bool              `json:"disabled,omitzero"`
-	Condition string             `json:"condition"`
-	// Targets to send any Notifications to
-	Targets       []string                   `json:"targets,omitzero"`
-	TargetConfigs []TargetConfigUnion3       `json:"targetConfigs,omitzero"`
-	Conf          *ConditionSpecificConfigs3 `json:"conf,omitzero"`
+	Mode *NotificationMode3 `json:"mode,omitzero"`
+	// Unique identifier for the Notification.
+	ID string `json:"id"`
+	// If true, the Notification is disabled and the specified condition will not trigger it.
+	Disabled *bool `json:"disabled,omitzero"`
+	// The condition that triggers the Notification.
+	Condition string `json:"condition"`
+	// List of the IDs for the Notification targets to send the Notification to.
+	Targets []string `json:"targets,omitzero"`
+	// Override settings to apply for each referenced Notification target.
+	TargetConfigs []TargetConfigUnion3 `json:"targetConfigs,omitzero"`
+	// Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+	Conf *ConditionSpecificConfigurations3 `json:"conf,omitzero"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// The worker group/fleet this notification belongs to
+	Group *string `json:"group,omitzero"`
+	// The pack this notification belongs to
+	Pack *string `json:"pack,omitzero"`
 	// Pairs of templates and targets for notification routing
 	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs,omitzero"`
 }
@@ -300,7 +310,7 @@ func (n *Notification3) GetTargetConfigs() []TargetConfigUnion3 {
 	return n.TargetConfigs
 }
 
-func (n *Notification3) GetConf() *ConditionSpecificConfigs3 {
+func (n *Notification3) GetConf() *ConditionSpecificConfigurations3 {
 	if n == nil {
 		return nil
 	}
@@ -312,6 +322,20 @@ func (n *Notification3) GetMetadata() []ItemsTypeMetadata {
 		return nil
 	}
 	return n.Metadata
+}
+
+func (n *Notification3) GetGroup() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Group
+}
+
+func (n *Notification3) GetPack() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Pack
 }
 
 func (n *Notification3) GetTemplateTargetPairs() []ItemsTypePoliciesItemsTemplateTargetPairs {
@@ -530,37 +554,47 @@ func (u TargetConfigUnion2) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type TargetConfigUnion2: all fields are null")
 }
 
-type ConditionSpecificConfigs2 struct {
+// ConditionSpecificConfigurations2 - Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+type ConditionSpecificConfigurations2 struct {
 }
 
-func (c ConditionSpecificConfigs2) MarshalJSON() ([]byte, error) {
+func (c ConditionSpecificConfigurations2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *ConditionSpecificConfigs2) UnmarshalJSON(data []byte) error {
+func (c *ConditionSpecificConfigurations2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-// #region class-body-conditionspecificconfigs2
-// #endregion class-body-conditionspecificconfigs2
+// #region class-body-conditionspecificconfigurations2
+// #endregion class-body-conditionspecificconfigurations2
 
 type Notification2 struct {
 	// Notification mode: direct or policy-based
 	Mode NotificationMode2 `json:"mode"`
 	// Pairs of templates and targets for notification routing
 	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs,omitzero"`
-	ID                  string                                      `json:"id"`
-	Disabled            *bool                                       `json:"disabled,omitzero"`
-	Condition           string                                      `json:"condition"`
-	// Targets to send any Notifications to
-	Targets       []string                   `json:"targets,omitzero"`
-	TargetConfigs []TargetConfigUnion2       `json:"targetConfigs,omitzero"`
-	Conf          *ConditionSpecificConfigs2 `json:"conf,omitzero"`
+	// Unique identifier for the Notification.
+	ID string `json:"id"`
+	// If true, the Notification is disabled and the specified condition will not trigger it.
+	Disabled *bool `json:"disabled,omitzero"`
+	// The condition that triggers the Notification.
+	Condition string `json:"condition"`
+	// List of the IDs for the Notification targets to send the Notification to.
+	Targets []string `json:"targets,omitzero"`
+	// Override settings to apply for each referenced Notification target.
+	TargetConfigs []TargetConfigUnion2 `json:"targetConfigs,omitzero"`
+	// Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+	Conf *ConditionSpecificConfigurations2 `json:"conf,omitzero"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// The worker group/fleet this notification belongs to
+	Group *string `json:"group,omitzero"`
+	// The pack this notification belongs to
+	Pack *string `json:"pack,omitzero"`
 }
 
 func (n Notification2) MarshalJSON() ([]byte, error) {
@@ -623,7 +657,7 @@ func (n *Notification2) GetTargetConfigs() []TargetConfigUnion2 {
 	return n.TargetConfigs
 }
 
-func (n *Notification2) GetConf() *ConditionSpecificConfigs2 {
+func (n *Notification2) GetConf() *ConditionSpecificConfigurations2 {
 	if n == nil {
 		return nil
 	}
@@ -635,6 +669,20 @@ func (n *Notification2) GetMetadata() []ItemsTypeMetadata {
 		return nil
 	}
 	return n.Metadata
+}
+
+func (n *Notification2) GetGroup() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Group
+}
+
+func (n *Notification2) GetPack() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Pack
 }
 
 // #region class-body-notification2
@@ -846,37 +894,47 @@ func (u TargetConfigUnion1) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type TargetConfigUnion1: all fields are null")
 }
 
-type ConditionSpecificConfigs1 struct {
+// ConditionSpecificConfigurations1 - Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+type ConditionSpecificConfigurations1 struct {
 }
 
-func (c ConditionSpecificConfigs1) MarshalJSON() ([]byte, error) {
+func (c ConditionSpecificConfigurations1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *ConditionSpecificConfigs1) UnmarshalJSON(data []byte) error {
+func (c *ConditionSpecificConfigurations1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-// #region class-body-conditionspecificconfigs1
-// #endregion class-body-conditionspecificconfigs1
+// #region class-body-conditionspecificconfigurations1
+// #endregion class-body-conditionspecificconfigurations1
 
 type Notification1 struct {
 	// Notification mode: direct or policy-based
 	Mode NotificationMode1 `json:"mode"`
 	// Pairs of templates and targets for notification routing
 	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs"`
-	ID                  string                                      `json:"id"`
-	Disabled            *bool                                       `json:"disabled,omitzero"`
-	Condition           string                                      `json:"condition"`
-	// Targets to send any Notifications to
-	Targets       []string                   `json:"targets,omitzero"`
-	TargetConfigs []TargetConfigUnion1       `json:"targetConfigs,omitzero"`
-	Conf          *ConditionSpecificConfigs1 `json:"conf,omitzero"`
+	// Unique identifier for the Notification.
+	ID string `json:"id"`
+	// If true, the Notification is disabled and the specified condition will not trigger it.
+	Disabled *bool `json:"disabled,omitzero"`
+	// The condition that triggers the Notification.
+	Condition string `json:"condition"`
+	// List of the IDs for the Notification targets to send the Notification to.
+	Targets []string `json:"targets,omitzero"`
+	// Override settings to apply for each referenced Notification target.
+	TargetConfigs []TargetConfigUnion1 `json:"targetConfigs,omitzero"`
+	// Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+	Conf *ConditionSpecificConfigurations1 `json:"conf,omitzero"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// The worker group/fleet this notification belongs to
+	Group *string `json:"group,omitzero"`
+	// The pack this notification belongs to
+	Pack *string `json:"pack,omitzero"`
 }
 
 func (n Notification1) MarshalJSON() ([]byte, error) {
@@ -939,7 +997,7 @@ func (n *Notification1) GetTargetConfigs() []TargetConfigUnion1 {
 	return n.TargetConfigs
 }
 
-func (n *Notification1) GetConf() *ConditionSpecificConfigs1 {
+func (n *Notification1) GetConf() *ConditionSpecificConfigurations1 {
 	if n == nil {
 		return nil
 	}
@@ -951,6 +1009,20 @@ func (n *Notification1) GetMetadata() []ItemsTypeMetadata {
 		return nil
 	}
 	return n.Metadata
+}
+
+func (n *Notification1) GetGroup() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Group
+}
+
+func (n *Notification1) GetPack() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Pack
 }
 
 // #region class-body-notification1

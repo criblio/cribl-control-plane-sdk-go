@@ -92,6 +92,12 @@ type GoogleCloudStorageAuthTypeSecret struct {
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeSecret) MarshalJSON() ([]byte, error) {
@@ -196,6 +202,27 @@ func (g *GoogleCloudStorageAuthTypeSecret) GetServiceAccountCredentials() *strin
 	return g.ServiceAccountCredentials
 }
 
+func (g *GoogleCloudStorageAuthTypeSecret) GetTemplateBucket() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateBucket
+}
+
+func (g *GoogleCloudStorageAuthTypeSecret) GetTemplatePath() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplatePath
+}
+
+func (g *GoogleCloudStorageAuthTypeSecret) GetTemplateEndpoint() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateEndpoint
+}
+
 // GoogleCloudStorageAuthTypeManualAuthenticationMethod - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
 type GoogleCloudStorageAuthTypeManualAuthenticationMethod string
 
@@ -279,6 +306,12 @@ type GoogleCloudStorageAuthTypeManual struct {
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 	// Select or create a stored text secret that references your credentials
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -383,6 +416,27 @@ func (g *GoogleCloudStorageAuthTypeManual) GetTextSecret() *string {
 	return g.TextSecret
 }
 
+func (g *GoogleCloudStorageAuthTypeManual) GetTemplateBucket() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateBucket
+}
+
+func (g *GoogleCloudStorageAuthTypeManual) GetTemplatePath() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplatePath
+}
+
+func (g *GoogleCloudStorageAuthTypeManual) GetTemplateEndpoint() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateEndpoint
+}
+
 // GoogleCloudStorageAuthTypeAutoAuthenticationMethod - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
 type GoogleCloudStorageAuthTypeAutoAuthenticationMethod string
 
@@ -466,6 +520,12 @@ type GoogleCloudStorageAuthTypeAuto struct {
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create a stored text secret that references your credentials
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeAuto) MarshalJSON() ([]byte, error) {
@@ -568,6 +628,27 @@ func (g *GoogleCloudStorageAuthTypeAuto) GetTextSecret() *string {
 		return nil
 	}
 	return g.TextSecret
+}
+
+func (g *GoogleCloudStorageAuthTypeAuto) GetTemplateBucket() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateBucket
+}
+
+func (g *GoogleCloudStorageAuthTypeAuto) GetTemplatePath() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplatePath
+}
+
+func (g *GoogleCloudStorageAuthTypeAuto) GetTemplateEndpoint() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TemplateEndpoint
 }
 
 type GoogleCloudStorageCollectorConfType string

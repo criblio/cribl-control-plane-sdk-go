@@ -7,35 +7,44 @@ import (
 )
 
 type GroupCreateRequest struct {
-	Cloud                *ConfigGroupCloud `json:"cloud,omitzero"`
-	DeployingWorkerCount *float64          `json:"deployingWorkerCount,omitzero"`
-	Description          *string           `json:"description,omitzero"`
-	// Estimated ingest rate for Cloud Groups, in GB/sec.
-	EstimatedIngestRate     *EstimatedIngestRateOptionsConfigGroup `json:"estimatedIngestRate,omitzero"`
-	Git                     *GitTypeConfigGroup                    `json:"git,omitzero"`
-	ID                      string                                 `json:"id"`
-	IncompatibleWorkerCount *float64                               `json:"incompatibleWorkerCount,omitzero"`
-	Inherits                *string                                `json:"inherits,omitzero"`
-	// Indicates whether this is an Edge Fleet. This flag is deprecated — use to identify Edge Fleets.
+	Cloud *ConfigGroupCloud `json:"cloud,omitzero"`
+	// Brief description of the Worker Group, Outpost Group, or Edge Fleet.
+	Description *string `json:"description,omitzero"`
+	// Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
+	EstimatedIngestRate *EstimatedIngestRateOptionsConfigGroup `json:"estimatedIngestRate,omitzero"`
+	ID                  string                                 `json:"id"`
+	// The <code>id</code> of the parent Edge Fleet. If provided, this Fleet inherits configuration from the specified parent Fleet. Applies only to Edge Fleets.
+	Inherits *string `json:"inherits,omitzero"`
+	// Indicates whether this is an Edge Fleet. Deprecated. Use to identify Edge Fleets.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	IsFleet *bool `json:"isFleet,omitzero"`
-	// Indicates whether this is an internal Search Group. This flag is deprecated — use to identify Search Groups.
+	// Indicates whether this is an internal Search Group. Deprecated. Use to identify Search Groups.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	IsSearch           *bool                   `json:"isSearch,omitzero"`
-	LookupDeployments  []ConfigGroupLookups    `json:"lookupDeployments,omitzero"`
-	MaxWorkerAge       *string                 `json:"maxWorkerAge,omitzero"`
-	Name               *string                 `json:"name,omitzero"`
-	OnPrem             *bool                   `json:"onPrem,omitzero"`
-	Provisioned        *bool                   `json:"provisioned,omitzero"`
-	SourceGroupID      *string                 `json:"sourceGroupId,omitzero"`
-	Streamtags         []string                `json:"streamtags,omitzero"`
-	Tags               *string                 `json:"tags,omitzero"`
-	Type               *TypeOptionsConfigGroup `json:"type,omitzero"`
-	UpgradeVersion     *string                 `json:"upgradeVersion,omitzero"`
-	WorkerCount        *float64                `json:"workerCount,omitzero"`
-	WorkerRemoteAccess *bool                   `json:"workerRemoteAccess,omitzero"`
+	IsSearch *bool `json:"isSearch,omitzero"`
+	// Maximum duration a Worker or Node can remain disconnected before the Leader removes it. The value is a numeral with units, such as <code>8h</code>, <code>5d</code>, <code>1w</code>.
+	MaxWorkerAge *string `json:"maxWorkerAge,omitzero"`
+	// Name of the Worker Group, Outpost Group, or Edge Fleet.
+	Name *string `json:"name,omitzero"`
+	// If <code>true</code>, the Worker Group, Outpost Group, or Edge Fleet uses customer-hosted (on-prem) workers. If <code>false</code>, the Worker Group, Outpost Group, or Edge Fleet is managed in Cribl.Cloud.
+	OnPrem *bool `json:"onPrem,omitzero"`
+	// If <code>true</code>, the Cribl.Cloud Worker Group has active Workers provisioned. Applies only to Cribl.Cloud Worker Groups.
+	Provisioned *bool `json:"provisioned,omitzero"`
+	// The <code>id</code> of an existing Worker Group, Outpost Group, or Edge Fleet to copy configuration from when creating a new Group or Fleet.
+	SourceGroupID *string `json:"sourceGroupId,omitzero"`
+	// Metadata tags attached to the Worker Group, Outpost Group, or Edge Fleet for categorization, filtering, and tag-based routing and policy application. Useful for organizing Groups and Fleets and enabling tag-driven workflows in Cribl.
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Legacy system-level tags associated with the Worker Group, Outpost Group, or Edge Fleet. Use <code>streamtags</code> instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	Tags *string `json:"tags,omitzero"`
+	// Explicit type of the Worker Group, Outpost Group, or Edge Fleet.
+	Type *TypeOptionsConfigGroup `json:"type,omitzero"`
+	// Target software upgrade version. Applies only to Outpost Groups and Edge Fleets.
+	UpgradeVersion *string `json:"upgradeVersion,omitzero"`
+	// If <code>true</code>, the Leader allows remote access (teleporting) into the Workers or Nodes of the Worker Group, Outpost Group, or Edge Fleet.
+	WorkerRemoteAccess *bool `json:"workerRemoteAccess,omitzero"`
 }
 
 func (g GroupCreateRequest) MarshalJSON() ([]byte, error) {
@@ -56,13 +65,6 @@ func (g *GroupCreateRequest) GetCloud() *ConfigGroupCloud {
 	return g.Cloud
 }
 
-func (g *GroupCreateRequest) GetDeployingWorkerCount() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.DeployingWorkerCount
-}
-
 func (g *GroupCreateRequest) GetDescription() *string {
 	if g == nil {
 		return nil
@@ -77,25 +79,11 @@ func (g *GroupCreateRequest) GetEstimatedIngestRate() *EstimatedIngestRateOption
 	return g.EstimatedIngestRate
 }
 
-func (g *GroupCreateRequest) GetGit() *GitTypeConfigGroup {
-	if g == nil {
-		return nil
-	}
-	return g.Git
-}
-
 func (g *GroupCreateRequest) GetID() string {
 	if g == nil {
 		return ""
 	}
 	return g.ID
-}
-
-func (g *GroupCreateRequest) GetIncompatibleWorkerCount() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.IncompatibleWorkerCount
 }
 
 func (g *GroupCreateRequest) GetInherits() *string {
@@ -117,13 +105,6 @@ func (g *GroupCreateRequest) GetIsSearch() *bool {
 		return nil
 	}
 	return g.IsSearch
-}
-
-func (g *GroupCreateRequest) GetLookupDeployments() []ConfigGroupLookups {
-	if g == nil {
-		return nil
-	}
-	return g.LookupDeployments
 }
 
 func (g *GroupCreateRequest) GetMaxWorkerAge() *string {
@@ -187,13 +168,6 @@ func (g *GroupCreateRequest) GetUpgradeVersion() *string {
 		return nil
 	}
 	return g.UpgradeVersion
-}
-
-func (g *GroupCreateRequest) GetWorkerCount() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.WorkerCount
 }
 
 func (g *GroupCreateRequest) GetWorkerRemoteAccess() *bool {
