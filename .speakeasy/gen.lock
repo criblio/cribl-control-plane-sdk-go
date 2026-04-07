@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: b3040a741d066f6623f99f75f34da7ce
-  docVersion: 4.18.0-alpha.1775343982053-c9684c44
+  docChecksum: 7be8dbe5bcc7ec835bc3d6f97c1f9dae
+  docVersion: 4.18.0-alpha.1775516611127-facfe159
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 0.7.0-beta.17
-  configChecksum: eecb629b16cac283a856697cb76704d9
+  releaseVersion: 0.7.0-beta.18
+  configChecksum: 45645f8c4c784dd1bab28320673e25e5
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 27bf2eaa-29b2-4b98-9858-e33eb2cb4629
-  pristine_commit_hash: dca9b5ed5de5da132610c61de9ebd090d991e283
-  pristine_tree_hash: 6228b23a8f4ad23facca3c0c85155cbafab3cc7b
+  generation_id: cad9a813-9f02-4465-a0a2-99d55ef92d46
+  pristine_commit_hash: 40e9397607165722915ca8bfe2e697f188da88bf
+  pristine_tree_hash: 080a74d69832b8dfae1c044cf787d1c93dc029e9
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: d29238492b5ebce8b57c7600bc3242dafb30b8fd
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:854e922a52e24e98e3b5e4c261dc8eab9f384b2e
-    pristine_git_object: 60b6d8c476d23184226ccbe7e6f2727ccac74ffb
+    last_write_checksum: sha1:5a2418342b6ede8fed06397e0d8b919ecdea9434
+    pristine_git_object: 19a9573bbc7a22315e0f83dfb9fe368911c34a4a
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:f2922f4844c44986350b4a10214fd4cd344a7523
@@ -3485,8 +3485,8 @@ trackedFiles:
     pristine_git_object: 444f90daeed366ee22ba09723349823544809ba9
   docs/models/components/inputservicenowtable.md:
     id: 9df5401d233b
-    last_write_checksum: sha1:306bf935d7abdbafb4baa65d4e0cf6c25214630c
-    pristine_git_object: c8bbb03207268f6512ef2c6239ffdb46800866af
+    last_write_checksum: sha1:a3f8635090a157e66259eec3c7d74e7c7442b50f
+    pristine_git_object: d72c9ef2e40c88fcb7e27cee878e765ac656b56b
   docs/models/components/inputservicenowtableauthenticationtype.md:
     id: f904920be895
     last_write_checksum: sha1:5c970d38eeb2983a4a460df2a32873124a337451
@@ -9865,8 +9865,8 @@ trackedFiles:
     pristine_git_object: b439a46cf03994c19cdd1678c394c097e60535e6
   docs/models/operations/createinputinputservicenowtable.md:
     id: 09fe2ff38b91
-    last_write_checksum: sha1:76e63b891600343f9035602458e4d5516244f3d5
-    pristine_git_object: 4b7b41672e4d373f8cc1c4faa3cc591e7f011194
+    last_write_checksum: sha1:5500297b197e9216ee1fef645a4b726f28a68e65
+    pristine_git_object: 818895e7badfe0465193c2c4158839ce53cd5cd2
   docs/models/operations/createinputinputsnmp.md:
     id: ab314229c911
     last_write_checksum: sha1:fe10c1536790efc32f8b46c2fef025125e9d9cad
@@ -10581,8 +10581,8 @@ trackedFiles:
     pristine_git_object: 317049f8300d038bfa10d4e9df7c4178918f4608
   docs/models/operations/createinputsystembypackinputservicenowtable.md:
     id: d2312dd2364e
-    last_write_checksum: sha1:5e649349e170c68298eb897d2fe81bb3652c720f
-    pristine_git_object: 03b216cee2c7b7db020d3ddd3d8b58daa182af59
+    last_write_checksum: sha1:ab0231cc980171b97d6901052afce5ff6416cf16
+    pristine_git_object: e7649b39b4f06d2164868344c2c9618eac5b0b73
   docs/models/operations/createinputsystembypackinputsnmp.md:
     id: 6eb781b19f39
     last_write_checksum: sha1:115fd3bc98110c69e1e7d1244a0c5a41f82ab8d1
@@ -16037,8 +16037,8 @@ trackedFiles:
     pristine_git_object: f1231365785d504e8a0a7769c752b72e4fdfbcd0
   models/components/inputservicenowtable.go:
     id: dbff161f7db7
-    last_write_checksum: sha1:1bb4533f1ccd3001b06001b59d4766e5b9d80e0f
-    pristine_git_object: f181fb6b4f9b1ec861ec26b7693a03b542d039d1
+    last_write_checksum: sha1:19d2eb8405d110177fbd5d594692fd9e658a25c2
+    pristine_git_object: 1fa755c0831c967d81e7ddf5aa4f731b6013bfef
   models/components/inputsnmp.go:
     id: 059865d12590
     last_write_checksum: sha1:f85d1a084a5714526c9dacf269a41fa127a72124
@@ -17449,8 +17449,8 @@ trackedFiles:
     pristine_git_object: b8f0bc438224c1b7909ac7a132b04fbd9d3f8b71
   models/operations/createinputcontainerfilter.go:
     id: f1cb1139268f
-    last_write_checksum: sha1:9702b7a8f578aa6c0f17cf24b4d9e218be48d195
-    pristine_git_object: 249ffd3d1519edd4bb89ef76013433041da5ffd2
+    last_write_checksum: sha1:a8e10cd05f3a2fbf34b0f9daef30e47351092765
+    pristine_git_object: c78ce6729470e0b9d964d3d98c8241bfe59164f1
   models/operations/createinputhectokenbyid.go:
     id: cd5aa65c4690
     last_write_checksum: sha1:e081918f36d2400118d4efb88d8a15a4d0bab9cf
@@ -17461,8 +17461,8 @@ trackedFiles:
     pristine_git_object: c28b8d7080acee29bf6f92e43a4d24e93c81fee8
   models/operations/createinputsystembypackcontainerfilter.go:
     id: e93287ad880f
-    last_write_checksum: sha1:35c276397d1817524060da0da495e40a850c8d38
-    pristine_git_object: 824214d1569bb54d82d2281b4a82635f91ad2d72
+    last_write_checksum: sha1:919b09b5187d03bb9268f5f21e48b737d14db62f
+    pristine_git_object: 1162070fd7a7208ae007d58d974218a2bdbaf824
   models/operations/createinputsystembypackresponse.go:
     id: 7f6c1101c884
     last_write_checksum: sha1:19d2b64670957f909114133b51659672964ba096
@@ -28651,7 +28651,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Groups.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Create()`: \n  *  `request.GroupCreateRequest` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
