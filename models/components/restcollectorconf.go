@@ -2023,6 +2023,8 @@ type RestCollectMethodPostWithBody struct {
 	Authentication RestCollectMethodPostWithBodyAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
+	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
@@ -2182,6 +2184,13 @@ func (r *RestCollectMethodPostWithBody) GetTimeout() *float64 {
 		return nil
 	}
 	return r.Timeout
+}
+
+func (r *RestCollectMethodPostWithBody) GetMaxResponseBodySize() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MaxResponseBodySize
 }
 
 func (r *RestCollectMethodPostWithBody) GetUseRoundRobinDNS() *bool {
@@ -4576,6 +4585,8 @@ type RestCollectMethodPost struct {
 	Authentication RestCollectMethodPostAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
+	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
@@ -4735,6 +4746,13 @@ func (r *RestCollectMethodPost) GetTimeout() *float64 {
 		return nil
 	}
 	return r.Timeout
+}
+
+func (r *RestCollectMethodPost) GetMaxResponseBodySize() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MaxResponseBodySize
 }
 
 func (r *RestCollectMethodPost) GetUseRoundRobinDNS() *bool {
@@ -7129,6 +7147,8 @@ type RestCollectMethodGet struct {
 	Authentication RestCollectMethodGetAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
+	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
@@ -7288,6 +7308,13 @@ func (r *RestCollectMethodGet) GetTimeout() *float64 {
 		return nil
 	}
 	return r.Timeout
+}
+
+func (r *RestCollectMethodGet) GetMaxResponseBodySize() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MaxResponseBodySize
 }
 
 func (r *RestCollectMethodGet) GetUseRoundRobinDNS() *bool {
