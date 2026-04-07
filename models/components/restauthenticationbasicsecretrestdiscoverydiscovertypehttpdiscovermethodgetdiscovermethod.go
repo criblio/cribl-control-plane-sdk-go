@@ -726,6 +726,8 @@ type RestAuthenticationOauthSecret struct {
 	Pagination            *RestAuthenticationOauthSecretPaginationUnion       `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
+	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
@@ -934,6 +936,13 @@ func (r *RestAuthenticationOauthSecret) GetTimeout() *float64 {
 		return nil
 	}
 	return r.Timeout
+}
+
+func (r *RestAuthenticationOauthSecret) GetMaxResponseBodySize() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MaxResponseBodySize
 }
 
 func (r *RestAuthenticationOauthSecret) GetUseRoundRobinDNS() *bool {
@@ -3342,6 +3351,8 @@ type RestAuthenticationOauth struct {
 	Pagination            *RestAuthenticationOauthPaginationUnion             `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
+	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
@@ -3548,6 +3559,13 @@ func (r *RestAuthenticationOauth) GetTimeout() *float64 {
 		return nil
 	}
 	return r.Timeout
+}
+
+func (r *RestAuthenticationOauth) GetMaxResponseBodySize() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MaxResponseBodySize
 }
 
 func (r *RestAuthenticationOauth) GetUseRoundRobinDNS() *bool {
@@ -5949,6 +5967,8 @@ type RestAuthenticationLoginSecret struct {
 	Pagination            *RestAuthenticationLoginSecretPaginationUnion       `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
+	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
@@ -6157,6 +6177,13 @@ func (r *RestAuthenticationLoginSecret) GetTimeout() *float64 {
 		return nil
 	}
 	return r.Timeout
+}
+
+func (r *RestAuthenticationLoginSecret) GetMaxResponseBodySize() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MaxResponseBodySize
 }
 
 func (r *RestAuthenticationLoginSecret) GetUseRoundRobinDNS() *bool {
@@ -8565,6 +8592,8 @@ type RestAuthenticationLogin struct {
 	Pagination            *RestAuthenticationLoginPaginationUnion             `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
+	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Disable Collector event time filtering when a date range is specified
@@ -8780,6 +8809,13 @@ func (r *RestAuthenticationLogin) GetTimeout() *float64 {
 		return nil
 	}
 	return r.Timeout
+}
+
+func (r *RestAuthenticationLogin) GetMaxResponseBodySize() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MaxResponseBodySize
 }
 
 func (r *RestAuthenticationLogin) GetUseRoundRobinDNS() *bool {
