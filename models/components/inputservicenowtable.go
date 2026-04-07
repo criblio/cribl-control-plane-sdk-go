@@ -107,7 +107,7 @@ type InputServicenowTable struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
-	// ServiceNow instance base URL for Table API requests. Enter a literal URL (https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
+	// ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
 	Instance string `json:"instance"`
 	// ServiceNow table name to collect from.
 	TableName string `json:"tableName"`
