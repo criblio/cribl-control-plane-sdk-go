@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 5391dbb14f93f361ed76b593f74c5de5
-  docVersion: 4.17.1-alpha.1775260909420-0b566158
+  docChecksum: b3d51235bd2e0fbd42f46264d48ceb04
+  docVersion: 4.17.1-alpha.1775637237714-fd661549
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 0.7.0-rc.11
-  configChecksum: 6ba1f2969e934cca6ff106e5d794e02b
+  releaseVersion: 0.7.0-rc.12
+  configChecksum: abc43f3bda4e2ec563de559a89454b45
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 6d2d2080-08f9-4280-a210-eee0a5edfea1
-  pristine_commit_hash: 499356856f190b7b8097542b79a2eb2dc2c10e91
-  pristine_tree_hash: f79b6ff5bc6746caa1bd5285112440bd55c34b59
+  generation_id: 472396ba-4a7c-4065-9019-bd2a9e2d49ee
+  pristine_commit_hash: ea9b85567bfc50fb9534677603efa9d97f58f096
+  pristine_tree_hash: b770cbb4f352439dcf7f2d72d26650f61a6507e2
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: b7f5948a58b932c7bfe411533ebee678285e4d32
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:ab13ba62acb43b5811b7aec7078bf0b222754204
-    pristine_git_object: 656c19ee560c5058f5c861815c3a4bd2bc77bcd1
+    last_write_checksum: sha1:2b1d8ed2ca8a2baf89f8dc89a67be1bca1845610
+    pristine_git_object: 671bee1bd8b2e66c7dac98161d94963cdde7188f
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:e05a182b5a8d789d74e48e6f6c5f6af545c66d22
@@ -6153,8 +6153,8 @@ trackedFiles:
     pristine_git_object: 3748c2df7f552216fdeb2df33f852af61fc4b1be
   docs/models/components/restauthenticationbasic.md:
     id: ad2e6fff50b5
-    last_write_checksum: sha1:3c9842861dfd4973cbeba16d624b80b4fa970ec7
-    pristine_git_object: 4e3eacaede047279b0870e7ef74e59b4d7f9cba1
+    last_write_checksum: sha1:e469b668a7c0113a9ec22967ead6b4759b2b4997
+    pristine_git_object: 0b34b8b9b25dc047d99d65f6799fba911b9c2060
   docs/models/components/restauthenticationbasicauthentication.md:
     id: f29725402357
     last_write_checksum: sha1:1cba7812d0f9f3d33f1c3d1b4c3105b0f023e764
@@ -6277,8 +6277,8 @@ trackedFiles:
     pristine_git_object: 828b43c3ded9d677025446dc4e7bcefcfb168882
   docs/models/components/restauthenticationbasicsecret.md:
     id: ad57c9556735
-    last_write_checksum: sha1:e8a3edd1087fcc54365dac5beb17138e3fd7e2e0
-    pristine_git_object: e78c3c3de0eac9d824de1ad5200227401afe3d8b
+    last_write_checksum: sha1:f5573fcad40f6acf2b07a118ef8416cb90713ced
+    pristine_git_object: 1470e7b09781c853784ccf76cf552d3003bd0438
   docs/models/components/restauthenticationbasicsecretauthentication.md:
     id: 9c7d8359c2dc
     last_write_checksum: sha1:c19c7a9e4d0e963611ff1c5316ab236fc3237516
@@ -6409,8 +6409,8 @@ trackedFiles:
     pristine_git_object: cd078301b292e030a86672a02247cd7dcdf16736
   docs/models/components/restauthenticationgoogleoauth.md:
     id: fa1c1141bd89
-    last_write_checksum: sha1:2b9cbf4507e7abc51ed92e2a4c388440eb87d4d4
-    pristine_git_object: f4c0d7e1787ccf53be50a77d65cf290dd3f17c53
+    last_write_checksum: sha1:fd4e4c337e558efa48b48d9dd47f52bfcb875734
+    pristine_git_object: ce9c08b66647cc64a3fb505157e5f0ff81684ac2
   docs/models/components/restauthenticationgoogleoauthauthentication.md:
     id: 1b6f9a456a4c
     last_write_checksum: sha1:27edb56bad86f76095d95fa73ce1a19ac5ca1dcb
@@ -6533,8 +6533,8 @@ trackedFiles:
     pristine_git_object: ebb5b17c82387077b2c74577c8054b8e3993fd89
   docs/models/components/restauthenticationgoogleoauthsecret.md:
     id: 2973412481b0
-    last_write_checksum: sha1:14013bf32c6f35380db83ccc00956e56e15d8013
-    pristine_git_object: afb9c2f55302f59928c781abc88a164f67399b6c
+    last_write_checksum: sha1:0d876764176a58b095f9476469b6548a345e12cc
+    pristine_git_object: be30c7a10c44080ee03847779ab184c9b2b21392
   docs/models/components/restauthenticationgoogleoauthsecretauthentication.md:
     id: 7d85ab9b7263
     last_write_checksum: sha1:f857e8f062acf121fb2441c00e277cdc77a98173
@@ -6665,8 +6665,8 @@ trackedFiles:
     pristine_git_object: ca8caa29905dfba923def40a0763e8ffa3800e72
   docs/models/components/restauthenticationhmac.md:
     id: 485a76bcc973
-    last_write_checksum: sha1:b1e2681d909600ff07bb47261b06e1405ef3b555
-    pristine_git_object: f36773252ca34e4ac16914fe0ae9360bf8e3a035
+    last_write_checksum: sha1:4908500ff680e277ab434e50657dc4414fd950c5
+    pristine_git_object: 8504c1c8d14d68b640b360a630ff7d30dac7485a
   docs/models/components/restauthenticationhmacauthentication.md:
     id: ebfde6248199
     last_write_checksum: sha1:2e583c3d96818b71471e1649a41e325f88724856
@@ -6793,8 +6793,8 @@ trackedFiles:
     pristine_git_object: 910c231deec292d1133ea341f041ae863424046b
   docs/models/components/restauthenticationlogin.md:
     id: 26afccf2712d
-    last_write_checksum: sha1:ee596f39cb17e2cffae3885128aa6cd17b148dc5
-    pristine_git_object: ea2325675a8ffb9e249eccde1e42ae6c1c328c1f
+    last_write_checksum: sha1:b37bebe382cd0bfa27d229286a6ed3d2ee8a921d
+    pristine_git_object: f29114c434797d895391aa0f5a59d80ef2fc3be9
   docs/models/components/restauthenticationloginauthentication.md:
     id: 7cfb5f895c40
     last_write_checksum: sha1:5d0bbb7922007fe99409f0d228f80c19346a5731
@@ -6917,8 +6917,8 @@ trackedFiles:
     pristine_git_object: 19d064641dce4bce85bc2091ac9310fd8c991e7d
   docs/models/components/restauthenticationloginsecret.md:
     id: 8dfba99f5e2f
-    last_write_checksum: sha1:516b70ca0dc8df7b2f86fb814664020ec516bb31
-    pristine_git_object: 8f078b6090a0ac3b22528419e6f43f1c6d76ae30
+    last_write_checksum: sha1:01f835879dc03ae8a9b8f87c88a44d577e4e4ef3
+    pristine_git_object: 010e2f2429917d0256da5821ba67991442469b7c
   docs/models/components/restauthenticationloginsecretauthentication.md:
     id: cb08436f1d59
     last_write_checksum: sha1:1a1c96c23aa8791e7d1b5660c7bd785dcc8e8734
@@ -7049,8 +7049,8 @@ trackedFiles:
     pristine_git_object: 528ed4f9e5a1fd3389df2a50ea59bafb75839f6c
   docs/models/components/restauthenticationnone.md:
     id: e4db2f681885
-    last_write_checksum: sha1:a55f5f20d2e186a7f88aaf50b8665713fe1f7a33
-    pristine_git_object: 988d02326e08ac5db905154e2e77babadfdeb832
+    last_write_checksum: sha1:2876817d3774a98a6aff7777efd56115a5665385
+    pristine_git_object: 143354ae534e226ddae51caa9897c93052d307c1
   docs/models/components/restauthenticationnoneauthentication.md:
     id: eec03741cbd4
     last_write_checksum: sha1:4cba90c253f59a16d53c2e9ed946a3c7cc03ea16
@@ -7177,8 +7177,8 @@ trackedFiles:
     pristine_git_object: 34a8621ea48858b5a5398fcf44c33fbb8b8b25da
   docs/models/components/restauthenticationoauth.md:
     id: a8314eafb346
-    last_write_checksum: sha1:b21bcb54e2c2e6e64df2cdb323db7a3de6f60a5c
-    pristine_git_object: 1467cd200381f82e58a58391675eefd5fad94a17
+    last_write_checksum: sha1:7a3ec6ae21dbb82c5ca7f22e9a58e0ecea438690
+    pristine_git_object: cc1c40de6c4b3b2dc09d9e5384d7d1e43e7fba16
   docs/models/components/restauthenticationoauthauthentication.md:
     id: 70b98a57b025
     last_write_checksum: sha1:f0b9026701025e59be4824666a2f5281c974ae1b
@@ -7301,8 +7301,8 @@ trackedFiles:
     pristine_git_object: ccf7bc1283b0316a946c76c2330f0dfd26ce6fd3
   docs/models/components/restauthenticationoauthsecret.md:
     id: 92d913d6ac4e
-    last_write_checksum: sha1:9bc1320b18229ce2e40a444a011285abaa9c89b1
-    pristine_git_object: b9326795655d1108683246ec9e7213d7bf9bb1fb
+    last_write_checksum: sha1:e3f0ceceed020e38414bdc8c2fdee5b51fa83db8
+    pristine_git_object: 474fc574e9a6ef1a53d4668e3f3fc5d6fe9f92d1
   docs/models/components/restauthenticationoauthsecretauthentication.md:
     id: 358d2d797142
     last_write_checksum: sha1:7405d9f8fbf30134d2485f207e65bce63333fd1a
@@ -7433,8 +7433,8 @@ trackedFiles:
     pristine_git_object: 645bdd2af63a450456cb7568bd85f10a67e5a41d
   docs/models/components/restcollectmethodget.md:
     id: ce55b9540aa9
-    last_write_checksum: sha1:6ab29a407228fedde6fd09f0f579a8d8fd499c2d
-    pristine_git_object: 1a21b9489f2e506dc94156f86e66f996f2d5fbe7
+    last_write_checksum: sha1:c418c935711d4381bff660dc42e655ffea242931
+    pristine_git_object: 025fe30baad16bb803f833cd43f7101a49d2d3f3
   docs/models/components/restcollectmethodgetauthentication.md:
     id: a38cba5aa25f
     last_write_checksum: sha1:da87c8bfc6baca07e7cd3ed627b0203c8da0ea2a
@@ -7561,8 +7561,8 @@ trackedFiles:
     pristine_git_object: dc37e90a365ada46a5a917751bf7cdab6dd7fc45
   docs/models/components/restcollectmethodother.md:
     id: 97b5ddb9f5eb
-    last_write_checksum: sha1:83c32b6cbdf07782c7c34499552eaa93f5ecaa2a
-    pristine_git_object: 2cfdf19d430169d74cb51710914f5930d9f18613
+    last_write_checksum: sha1:bd7fe1b3cd450f4ab05d55b158df227b2e59541c
+    pristine_git_object: 2372fc0bdc61294093d371e5eb840b152f937aea
   docs/models/components/restcollectmethodotherauthentication.md:
     id: 1771806677a0
     last_write_checksum: sha1:f8246e3c5a05086eaab3cdcd393d108c5f0fdfec
@@ -7689,8 +7689,8 @@ trackedFiles:
     pristine_git_object: 70fa1660ee03eb2f0404aa66ed83aad7eff217ff
   docs/models/components/restcollectmethodpost.md:
     id: f6c200dd3572
-    last_write_checksum: sha1:a408c88e0e052f5295defc017f8d207c234a89d9
-    pristine_git_object: 3ffe311e0dc7ac16abe5fc788ee3a812a1fc6de8
+    last_write_checksum: sha1:77eb0413989f66731c8979496e22af65b43bd33c
+    pristine_git_object: ef021ea6807da2875fd09460258750afd486da19
   docs/models/components/restcollectmethodpostauthentication.md:
     id: 0e67bc37d51e
     last_write_checksum: sha1:675b6d134ee4b7f7a53427df6a5b4ad79ee44f4a
@@ -7817,8 +7817,8 @@ trackedFiles:
     pristine_git_object: 673f74eb6c0dfbd6df0029df8fa5117dce6f0a31
   docs/models/components/restcollectmethodpostwithbody.md:
     id: 949315628b30
-    last_write_checksum: sha1:bafa9229b8296906a96e743937edad8a072af84e
-    pristine_git_object: d3a205119b1c47a69f68d2fff6f5a4be70b0b131
+    last_write_checksum: sha1:ec0433179a6465c17c64102c4079f00939d847cc
+    pristine_git_object: 031dea17048449d3b80e9baeea39c4e976cea5c9
   docs/models/components/restcollectmethodpostwithbodyauthentication.md:
     id: fba18e59c764
     last_write_checksum: sha1:e2d40ce76e680329840278787320f2bea583b243
@@ -16461,16 +16461,16 @@ trackedFiles:
     pristine_git_object: 5e02358296e90309946b05ab7db2f29b447ade2a
   models/components/restauthenticationnonerestdiscoverydiscovertypehttpdiscovermethodpostdiscovertype.go:
     id: 32aed1b4e059
-    last_write_checksum: sha1:a6135fa28657c65823a56dd85972c98be8c9111f
-    pristine_git_object: 64718fcc7a7921b732612a6eb335d12d0e42b8d6
+    last_write_checksum: sha1:236122676ca82e859c4a9f739bf5d754ff37f684
+    pristine_git_object: 5a1ed21106b1a044714f4a0b1e6d6661687d703e
   models/components/restauthenticationoauthrestpaginationtyperesponseheader.go:
     id: 7e6ad62cd9a5
-    last_write_checksum: sha1:3d34385ca4f947d857dd5acd8dd27d4de815d508
-    pristine_git_object: 522aecd5a83dffddf8599e23cdd2c57887b5d683
+    last_write_checksum: sha1:e164150b8f07d66cbe0296b4956e9620f950fc27
+    pristine_git_object: e5f778b9c48c004f259758cd804be59771414e16
   models/components/restcollectorconf.go:
     id: cd2661dc84db
-    last_write_checksum: sha1:5ea0cf802b3b1a328f2fa152e8772fe21f70ca1e
-    pristine_git_object: 1d60975f232cc565ee2cf3574290ce4499155a1c
+    last_write_checksum: sha1:1df7e652eed4315da9e1c50bbe006af5a92382be
+    pristine_git_object: 6bd1fb94e53eb5e917ef4a43eafd6291608f69ab
   models/components/retryrulestype.go:
     id: 4e66ab623bbd
     last_write_checksum: sha1:9822d722781e16f7d17140f979cf4fabd06905dc
@@ -28205,7 +28205,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[].union(event_breaker).Conf.union(new).union(regex).Timestamp` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(header).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(event_breaker).Conf.union(new).union(json_array).Timestamp` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(regex).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request.union(SavedJobCollection).Collector` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(event_breaker).Conf.union(new).union(regex).Timestamp` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(header).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(csv).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(regex).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(header).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(existing).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(existing).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[].union(event_breaker).Conf.union(new).union(header).Timestamp` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[].union(event_breaker).Conf.union(new).union(regex).Timestamp` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(microsoft_graph).PlanType.Enum(china)` **Added**\n  *  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output.union(databricks).WorkspaceHost` **Added**\n  *  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.union(databricks).WorkspaceHost` **Added**\n  *  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.union(databricks).WorkspaceHost` **Added**\n  *  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody.union(databricks).WorkspaceHost` **Added**\n  *  `response.Items[].union(databricks).WorkspaceHost` **Added**\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(microsoft_graph).PlanType.Enum(china)` **Added**\n  *  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(microsoft_graph).PlanType.Enum(china)` **Added**\n  *  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(microsoft_graph).PlanType.Enum(china)` **Added**\n  *  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(microsoft_graph).PlanType.Enum(china)` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(rest).Conf` **Changed**\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(rest).Conf` **Changed**\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request.union(SavedJobCollection).Collector.union(rest).Conf` **Changed**\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed**\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed**\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed**\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed**\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector.union(rest).Conf` **Changed**\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
