@@ -3,43 +3,264 @@
 package components
 
 import (
+	"encoding/json"
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type TimestampFormatTypeEventBreakerExistingOrNewNew struct {
+type EventBreakerExistingOrNewNewTimestampTypeCurrent struct {
 	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
 	Length *float64                                                  `json:"length,omitzero"`
 	Format *string                                                   `json:"format,omitzero"`
 }
 
-func (t TimestampFormatTypeEventBreakerExistingOrNewNew) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
+func (e EventBreakerExistingOrNewNewTimestampTypeCurrent) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
 }
 
-func (t *TimestampFormatTypeEventBreakerExistingOrNewNew) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+func (e *EventBreakerExistingOrNewNewTimestampTypeCurrent) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (t *TimestampFormatTypeEventBreakerExistingOrNewNew) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
-	if t == nil {
+func (e *EventBreakerExistingOrNewNewTimestampTypeCurrent) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
+	if e == nil {
 		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
 	}
-	return t.Type
+	return e.Type
 }
 
-func (t *TimestampFormatTypeEventBreakerExistingOrNewNew) GetLength() *float64 {
-	if t == nil {
+func (e *EventBreakerExistingOrNewNewTimestampTypeCurrent) GetLength() *float64 {
+	if e == nil {
 		return nil
 	}
-	return t.Length
+	return e.Length
 }
 
-func (t *TimestampFormatTypeEventBreakerExistingOrNewNew) GetFormat() *string {
-	if t == nil {
+func (e *EventBreakerExistingOrNewNewTimestampTypeCurrent) GetFormat() *string {
+	if e == nil {
 		return nil
 	}
-	return t.Format
+	return e.Format
+}
+
+type EventBreakerExistingOrNewNewTimestampTypeFormat struct {
+	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
+	Format string                                                    `json:"format"`
+	Length *float64                                                  `json:"length,omitzero"`
+}
+
+func (e EventBreakerExistingOrNewNewTimestampTypeFormat) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EventBreakerExistingOrNewNewTimestampTypeFormat) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *EventBreakerExistingOrNewNewTimestampTypeFormat) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
+	if e == nil {
+		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
+	}
+	return e.Type
+}
+
+func (e *EventBreakerExistingOrNewNewTimestampTypeFormat) GetFormat() string {
+	if e == nil {
+		return ""
+	}
+	return e.Format
+}
+
+func (e *EventBreakerExistingOrNewNewTimestampTypeFormat) GetLength() *float64 {
+	if e == nil {
+		return nil
+	}
+	return e.Length
+}
+
+type EventBreakerExistingOrNewNewTimestampTypeAuto struct {
+	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
+	Length float64                                                   `json:"length"`
+	Format *string                                                   `json:"format,omitzero"`
+}
+
+func (e EventBreakerExistingOrNewNewTimestampTypeAuto) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EventBreakerExistingOrNewNewTimestampTypeAuto) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *EventBreakerExistingOrNewNewTimestampTypeAuto) GetType() TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp {
+	if e == nil {
+		return TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp("")
+	}
+	return e.Type
+}
+
+func (e *EventBreakerExistingOrNewNewTimestampTypeAuto) GetLength() float64 {
+	if e == nil {
+		return 0.0
+	}
+	return e.Length
+}
+
+func (e *EventBreakerExistingOrNewNewTimestampTypeAuto) GetFormat() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Format
+}
+
+type TimestampFormatTypeEventBreakerExistingOrNewNewType string
+
+const (
+	TimestampFormatTypeEventBreakerExistingOrNewNewTypeAuto    TimestampFormatTypeEventBreakerExistingOrNewNewType = "auto"
+	TimestampFormatTypeEventBreakerExistingOrNewNewTypeFormat  TimestampFormatTypeEventBreakerExistingOrNewNewType = "format"
+	TimestampFormatTypeEventBreakerExistingOrNewNewTypeCurrent TimestampFormatTypeEventBreakerExistingOrNewNewType = "current"
+	TimestampFormatTypeEventBreakerExistingOrNewNewTypeUnknown TimestampFormatTypeEventBreakerExistingOrNewNewType = "UNKNOWN"
+)
+
+type TimestampFormatTypeEventBreakerExistingOrNewNew struct {
+	EventBreakerExistingOrNewNewTimestampTypeAuto    *EventBreakerExistingOrNewNewTimestampTypeAuto    `queryParam:"inline" union:"member"`
+	EventBreakerExistingOrNewNewTimestampTypeFormat  *EventBreakerExistingOrNewNewTimestampTypeFormat  `queryParam:"inline" union:"member"`
+	EventBreakerExistingOrNewNewTimestampTypeCurrent *EventBreakerExistingOrNewNewTimestampTypeCurrent `queryParam:"inline" union:"member"`
+	UnknownRaw                                       json.RawMessage                                   `json:"-" union:"unknown"`
+
+	Type TimestampFormatTypeEventBreakerExistingOrNewNewType
+}
+
+func CreateTimestampFormatTypeEventBreakerExistingOrNewNewAuto(auto EventBreakerExistingOrNewNewTimestampTypeAuto) TimestampFormatTypeEventBreakerExistingOrNewNew {
+	typ := TimestampFormatTypeEventBreakerExistingOrNewNewTypeAuto
+
+	typStr := TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp(typ)
+	auto.Type = typStr
+
+	return TimestampFormatTypeEventBreakerExistingOrNewNew{
+		EventBreakerExistingOrNewNewTimestampTypeAuto: &auto,
+		Type: typ,
+	}
+}
+
+func CreateTimestampFormatTypeEventBreakerExistingOrNewNewFormat(format EventBreakerExistingOrNewNewTimestampTypeFormat) TimestampFormatTypeEventBreakerExistingOrNewNew {
+	typ := TimestampFormatTypeEventBreakerExistingOrNewNewTypeFormat
+
+	typStr := TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp(typ)
+	format.Type = typStr
+
+	return TimestampFormatTypeEventBreakerExistingOrNewNew{
+		EventBreakerExistingOrNewNewTimestampTypeFormat: &format,
+		Type: typ,
+	}
+}
+
+func CreateTimestampFormatTypeEventBreakerExistingOrNewNewCurrent(current EventBreakerExistingOrNewNewTimestampTypeCurrent) TimestampFormatTypeEventBreakerExistingOrNewNew {
+	typ := TimestampFormatTypeEventBreakerExistingOrNewNewTypeCurrent
+
+	typStr := TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp(typ)
+	current.Type = typStr
+
+	return TimestampFormatTypeEventBreakerExistingOrNewNew{
+		EventBreakerExistingOrNewNewTimestampTypeCurrent: &current,
+		Type: typ,
+	}
+}
+
+func CreateTimestampFormatTypeEventBreakerExistingOrNewNewUnknown(raw json.RawMessage) TimestampFormatTypeEventBreakerExistingOrNewNew {
+	return TimestampFormatTypeEventBreakerExistingOrNewNew{
+		UnknownRaw: raw,
+		Type:       TimestampFormatTypeEventBreakerExistingOrNewNewTypeUnknown,
+	}
+}
+
+func (u TimestampFormatTypeEventBreakerExistingOrNewNew) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u TimestampFormatTypeEventBreakerExistingOrNewNew) IsUnknown() bool {
+	return u.Type == TimestampFormatTypeEventBreakerExistingOrNewNewTypeUnknown
+}
+
+func (u *TimestampFormatTypeEventBreakerExistingOrNewNew) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = TimestampFormatTypeEventBreakerExistingOrNewNewTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = TimestampFormatTypeEventBreakerExistingOrNewNewTypeUnknown
+		return nil
+	}
+
+	switch dis.Type {
+	case "auto":
+		eventBreakerExistingOrNewNewTimestampTypeAuto := new(EventBreakerExistingOrNewNewTimestampTypeAuto)
+		if err := utils.UnmarshalJSON(data, &eventBreakerExistingOrNewNewTimestampTypeAuto, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == auto) type EventBreakerExistingOrNewNewTimestampTypeAuto within TimestampFormatTypeEventBreakerExistingOrNewNew: %w", string(data), err)
+		}
+
+		u.EventBreakerExistingOrNewNewTimestampTypeAuto = eventBreakerExistingOrNewNewTimestampTypeAuto
+		u.Type = TimestampFormatTypeEventBreakerExistingOrNewNewTypeAuto
+		return nil
+	case "format":
+		eventBreakerExistingOrNewNewTimestampTypeFormat := new(EventBreakerExistingOrNewNewTimestampTypeFormat)
+		if err := utils.UnmarshalJSON(data, &eventBreakerExistingOrNewNewTimestampTypeFormat, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == format) type EventBreakerExistingOrNewNewTimestampTypeFormat within TimestampFormatTypeEventBreakerExistingOrNewNew: %w", string(data), err)
+		}
+
+		u.EventBreakerExistingOrNewNewTimestampTypeFormat = eventBreakerExistingOrNewNewTimestampTypeFormat
+		u.Type = TimestampFormatTypeEventBreakerExistingOrNewNewTypeFormat
+		return nil
+	case "current":
+		eventBreakerExistingOrNewNewTimestampTypeCurrent := new(EventBreakerExistingOrNewNewTimestampTypeCurrent)
+		if err := utils.UnmarshalJSON(data, &eventBreakerExistingOrNewNewTimestampTypeCurrent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == current) type EventBreakerExistingOrNewNewTimestampTypeCurrent within TimestampFormatTypeEventBreakerExistingOrNewNew: %w", string(data), err)
+		}
+
+		u.EventBreakerExistingOrNewNewTimestampTypeCurrent = eventBreakerExistingOrNewNewTimestampTypeCurrent
+		u.Type = TimestampFormatTypeEventBreakerExistingOrNewNewTypeCurrent
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = TimestampFormatTypeEventBreakerExistingOrNewNewTypeUnknown
+		return nil
+	}
+
+}
+
+func (u TimestampFormatTypeEventBreakerExistingOrNewNew) MarshalJSON() ([]byte, error) {
+	if u.EventBreakerExistingOrNewNewTimestampTypeAuto != nil {
+		return utils.MarshalJSON(u.EventBreakerExistingOrNewNewTimestampTypeAuto, "", true)
+	}
+
+	if u.EventBreakerExistingOrNewNewTimestampTypeFormat != nil {
+		return utils.MarshalJSON(u.EventBreakerExistingOrNewNewTimestampTypeFormat, "", true)
+	}
+
+	if u.EventBreakerExistingOrNewNewTimestampTypeCurrent != nil {
+		return utils.MarshalJSON(u.EventBreakerExistingOrNewNewTimestampTypeCurrent, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type TimestampFormatTypeEventBreakerExistingOrNewNew: all fields are null")
 }
