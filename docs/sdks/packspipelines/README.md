@@ -892,10 +892,12 @@ func main() {
                                     ExistingOrNew: components.EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNewNew,
                                     MaxEventBytes: criblcontrolplanesdkgo.Pointer[float64](51200.0),
                                     TimestampAnchorRegex: criblcontrolplanesdkgo.Pointer("/^/"),
-                                    Timestamp: &components.TimestampFormatTypeEventBreakerExistingOrNewNew{
-                                        Type: components.TimestampTypeOptionsEventBreakerExistingOrNewNewTimestampAuto,
-                                        Length: criblcontrolplanesdkgo.Pointer[float64](150.0),
-                                    },
+                                    Timestamp: criblcontrolplanesdkgo.Pointer(components.CreateTimestampFormatTypeEventBreakerExistingOrNewNewAuto(
+                                        components.EventBreakerExistingOrNewNewTimestampTypeAuto{
+                                            Type: components.TimestampTypeOptionsEventBreakerExistingOrNewNewTimestampAuto,
+                                            Length: 150.0,
+                                        },
+                                    )),
                                     TimestampTimezone: criblcontrolplanesdkgo.Pointer("local"),
                                     TimestampEarliest: criblcontrolplanesdkgo.Pointer("-420weeks"),
                                     TimestampLatest: criblcontrolplanesdkgo.Pointer("+1week"),
@@ -3606,10 +3608,12 @@ func main() {
                                     ExistingOrNew: components.EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNewNew,
                                     MaxEventBytes: criblcontrolplanesdkgo.Pointer[float64](51200.0),
                                     TimestampAnchorRegex: criblcontrolplanesdkgo.Pointer("/^/"),
-                                    Timestamp: &components.TimestampFormatTypeEventBreakerExistingOrNewNew{
-                                        Type: components.TimestampTypeOptionsEventBreakerExistingOrNewNewTimestampAuto,
-                                        Length: criblcontrolplanesdkgo.Pointer[float64](150.0),
-                                    },
+                                    Timestamp: criblcontrolplanesdkgo.Pointer(components.CreateTimestampFormatTypeEventBreakerExistingOrNewNewAuto(
+                                        components.EventBreakerExistingOrNewNewTimestampTypeAuto{
+                                            Type: components.TimestampTypeOptionsEventBreakerExistingOrNewNewTimestampAuto,
+                                            Length: 150.0,
+                                        },
+                                    )),
                                     TimestampTimezone: criblcontrolplanesdkgo.Pointer("local"),
                                     TimestampEarliest: criblcontrolplanesdkgo.Pointer("-420weeks"),
                                     TimestampLatest: criblcontrolplanesdkgo.Pointer("+1week"),
