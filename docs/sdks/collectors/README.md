@@ -67,8 +67,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](7324.19),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6945.52),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        7324.19,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6945.52,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -146,8 +150,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        2728.52,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        4162.9,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -221,8 +229,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        432.8,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        2023.34,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -300,8 +312,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        432.8,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        2023.34,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -378,8 +394,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        2728.52,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        4162.9,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -453,8 +473,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        432.8,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        2023.34,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -570,8 +594,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        432.8,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        2023.34,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -644,8 +672,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        2728.52,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        4162.9,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -718,8 +750,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](2728.52),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](4162.9),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        2728.52,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        4162.9,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -988,8 +1024,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4891.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](5936.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4891.8,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        5936.75,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -1067,8 +1107,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        9142.96,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        521.08,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -1187,8 +1231,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        9142.96,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        521.08,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -1262,8 +1310,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4891.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](5936.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4891.8,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        5936.75,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -1341,8 +1393,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](6033.18),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6852.51),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        6033.18,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6852.51,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -1416,8 +1472,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        9142.96,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        521.08,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -1536,8 +1596,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        9142.96,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        521.08,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -1611,8 +1675,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4891.8),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](5936.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4891.8,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        5936.75,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),
@@ -1690,8 +1758,12 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("0"),
                     Mode: "list",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("relative"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        9142.96,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        521.08,
+                    )),
                     TimestampTimezone: "<value>",
                     TimeWarning: &components.MetricsStore{},
                     Expression: criblcontrolplanesdkgo.Pointer("true"),

@@ -3,6 +3,8 @@
 package components
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -50,6 +52,186 @@ func (e *TimeRange) IsExact() bool {
 		}
 	}
 	return false
+}
+
+type RunnableJobCollectionEarliestType string
+
+const (
+	RunnableJobCollectionEarliestTypeNumber RunnableJobCollectionEarliestType = "number"
+	RunnableJobCollectionEarliestTypeStr    RunnableJobCollectionEarliestType = "str"
+)
+
+// RunnableJobCollectionEarliest - Earliest time to collect data for the selected timezone
+type RunnableJobCollectionEarliest struct {
+	Number *float64 `queryParam:"inline" union:"member"`
+	Str    *string  `queryParam:"inline" union:"member"`
+
+	Type RunnableJobCollectionEarliestType
+}
+
+func CreateRunnableJobCollectionEarliestNumber(number float64) RunnableJobCollectionEarliest {
+	typ := RunnableJobCollectionEarliestTypeNumber
+
+	return RunnableJobCollectionEarliest{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func CreateRunnableJobCollectionEarliestStr(str string) RunnableJobCollectionEarliest {
+	typ := RunnableJobCollectionEarliestTypeStr
+
+	return RunnableJobCollectionEarliest{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RunnableJobCollectionEarliest) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var number float64 = float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RunnableJobCollectionEarliestTypeNumber,
+			Value: &number,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RunnableJobCollectionEarliestTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RunnableJobCollectionEarliest", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RunnableJobCollectionEarliest", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RunnableJobCollectionEarliestType)
+	switch best.Type {
+	case RunnableJobCollectionEarliestTypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	case RunnableJobCollectionEarliestTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RunnableJobCollectionEarliest", string(data))
+}
+
+func (u RunnableJobCollectionEarliest) MarshalJSON() ([]byte, error) {
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RunnableJobCollectionEarliest: all fields are null")
+}
+
+type RunnableJobCollectionLatestType string
+
+const (
+	RunnableJobCollectionLatestTypeNumber RunnableJobCollectionLatestType = "number"
+	RunnableJobCollectionLatestTypeStr    RunnableJobCollectionLatestType = "str"
+)
+
+// RunnableJobCollectionLatest - Latest time to collect data for the selected timezone
+type RunnableJobCollectionLatest struct {
+	Number *float64 `queryParam:"inline" union:"member"`
+	Str    *string  `queryParam:"inline" union:"member"`
+
+	Type RunnableJobCollectionLatestType
+}
+
+func CreateRunnableJobCollectionLatestNumber(number float64) RunnableJobCollectionLatest {
+	typ := RunnableJobCollectionLatestTypeNumber
+
+	return RunnableJobCollectionLatest{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func CreateRunnableJobCollectionLatestStr(str string) RunnableJobCollectionLatest {
+	typ := RunnableJobCollectionLatestTypeStr
+
+	return RunnableJobCollectionLatest{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RunnableJobCollectionLatest) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var number float64 = float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RunnableJobCollectionLatestTypeNumber,
+			Value: &number,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RunnableJobCollectionLatestTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RunnableJobCollectionLatest", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RunnableJobCollectionLatest", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RunnableJobCollectionLatestType)
+	switch best.Type {
+	case RunnableJobCollectionLatestTypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	case RunnableJobCollectionLatestTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RunnableJobCollectionLatest", string(data))
+}
+
+func (u RunnableJobCollectionLatest) MarshalJSON() ([]byte, error) {
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RunnableJobCollectionLatest: all fields are null")
 }
 
 type WhereToCapture int64
@@ -133,9 +315,9 @@ type RunnableJobCollectionRun struct {
 	Mode          RunnableJobCollectionMode `json:"mode"`
 	TimeRangeType *TimeRange                `json:"timeRangeType,omitzero"`
 	// Earliest time to collect data for the selected timezone
-	Earliest *float64 `json:"earliest,omitzero"`
+	Earliest *RunnableJobCollectionEarliest `json:"earliest,omitzero"`
 	// Latest time to collect data for the selected timezone
-	Latest *float64 `json:"latest,omitzero"`
+	Latest *RunnableJobCollectionLatest `json:"latest,omitzero"`
 	// Timezone to use for Earliest and Latest times
 	TimestampTimezone *string       `json:"timestampTimezone,omitzero"`
 	TimeWarning       *MetricsStore `json:"timeWarning,omitzero"`
@@ -209,14 +391,14 @@ func (r *RunnableJobCollectionRun) GetTimeRangeType() *TimeRange {
 	return r.TimeRangeType
 }
 
-func (r *RunnableJobCollectionRun) GetEarliest() *float64 {
+func (r *RunnableJobCollectionRun) GetEarliest() *RunnableJobCollectionEarliest {
 	if r == nil {
 		return nil
 	}
 	return r.Earliest
 }
 
-func (r *RunnableJobCollectionRun) GetLatest() *float64 {
+func (r *RunnableJobCollectionRun) GetLatest() *RunnableJobCollectionLatest {
 	if r == nil {
 		return nil
 	}
