@@ -10,6 +10,28 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputSystemByPackContainerFilter struct {
+	Expr string `json:"expr"`
+}
+
+func (c CreateInputSystemByPackContainerFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackContainerFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackContainerFilter) GetExpr() string {
+	if c == nil {
+		return ""
+	}
+	return c.Expr
+}
+
 type CreateInputSystemByPackContainer struct {
 	// Select the level of detail for container metrics
 	Mode *CreateInputSystemByPackContainerMode `json:"mode,omitzero"`

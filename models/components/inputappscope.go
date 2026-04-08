@@ -4,6 +4,7 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
@@ -171,6 +172,96 @@ func (i *InputAppscopePersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
+type UNIXSocketPermissionsType string
+
+const (
+	UNIXSocketPermissionsTypeStr    UNIXSocketPermissionsType = "str"
+	UNIXSocketPermissionsTypeNumber UNIXSocketPermissionsType = "number"
+)
+
+// UNIXSocketPermissions - Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+type UNIXSocketPermissions struct {
+	Str    *string  `queryParam:"inline" union:"member"`
+	Number *float64 `queryParam:"inline" union:"member"`
+
+	Type UNIXSocketPermissionsType
+}
+
+func CreateUNIXSocketPermissionsStr(str string) UNIXSocketPermissions {
+	typ := UNIXSocketPermissionsTypeStr
+
+	return UNIXSocketPermissions{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateUNIXSocketPermissionsNumber(number float64) UNIXSocketPermissions {
+	typ := UNIXSocketPermissionsTypeNumber
+
+	return UNIXSocketPermissions{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func (u *UNIXSocketPermissions) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  UNIXSocketPermissionsTypeStr,
+			Value: &str,
+		})
+	}
+
+	var number float64 = float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  UNIXSocketPermissionsTypeNumber,
+			Value: &number,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for UNIXSocketPermissions", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for UNIXSocketPermissions", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(UNIXSocketPermissionsType)
+	switch best.Type {
+	case UNIXSocketPermissionsTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case UNIXSocketPermissionsTypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for UNIXSocketPermissions", string(data))
+}
+
+func (u UNIXSocketPermissions) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type UNIXSocketPermissions: all fields are null")
+}
+
 type InputAppscope struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitzero"`
@@ -222,7 +313,7 @@ type InputAppscope struct {
 	// Path to the UNIX domain socket to listen on.
 	UnixSocketPath *string `json:"unixSocketPath,omitzero"`
 	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
-	UnixSocketPerms *string `json:"unixSocketPerms,omitzero"`
+	UnixSocketPerms *UNIXSocketPermissions `json:"unixSocketPerms,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
@@ -440,7 +531,7 @@ func (i *InputAppscope) GetUnixSocketPath() *string {
 	return i.UnixSocketPath
 }
 
-func (i *InputAppscope) GetUnixSocketPerms() *string {
+func (i *InputAppscope) GetUnixSocketPerms() *UNIXSocketPermissions {
 	if i == nil {
 		return nil
 	}

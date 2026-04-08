@@ -1553,10 +1553,100 @@ func (r *RestAuthenticationHmacRestPaginationTypeResponseHeaderLink) GetMaxPages
 	return r.MaxPages
 }
 
+type RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesType string
+
+const (
+	RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesType = "arrayOfAny"
+	RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesTypeStr        RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesType = "str"
+)
+
+// RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes - Names of attributes within the response that contain next-page information
+type RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesType
+}
+
+func CreateRestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesArrayOfAny(arrayOfAny []any) RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny
+
+	return RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func CreateRestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesStr(str string) RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesTypeStr
+
+	return RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesType)
+	switch best.Type {
+	case RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+}
+
+func (u RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes: all fields are null")
+}
+
 type RestAuthenticationHmacRestPaginationTypeResponseHeader struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 }
@@ -1579,9 +1669,9 @@ func (r *RestAuthenticationHmacRestPaginationTypeResponseHeader) GetType() Pagin
 	return r.Type
 }
 
-func (r *RestAuthenticationHmacRestPaginationTypeResponseHeader) GetAttribute() []string {
+func (r *RestAuthenticationHmacRestPaginationTypeResponseHeader) GetAttribute() RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -1593,10 +1683,100 @@ func (r *RestAuthenticationHmacRestPaginationTypeResponseHeader) GetMaxPages() f
 	return r.MaxPages
 }
 
+type RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesType string
+
+const (
+	RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesType = "arrayOfAny"
+	RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesTypeStr        RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesType = "str"
+)
+
+// RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes - Names of attributes within the response that contain next-page information
+type RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesType
+}
+
+func CreateRestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesArrayOfAny(arrayOfAny []any) RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny
+
+	return RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func CreateRestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesStr(str string) RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesTypeStr
+
+	return RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesType)
+	switch best.Type {
+	case RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes", string(data))
+}
+
+func (u RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes: all fields are null")
+}
+
 type RestAuthenticationHmacRestPaginationTypeResponseBody struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
@@ -1621,9 +1801,9 @@ func (r *RestAuthenticationHmacRestPaginationTypeResponseBody) GetType() Paginat
 	return r.Type
 }
 
-func (r *RestAuthenticationHmacRestPaginationTypeResponseBody) GetAttribute() []string {
+func (r *RestAuthenticationHmacRestPaginationTypeResponseBody) GetAttribute() RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -4107,10 +4287,100 @@ func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink
 	return r.MaxPages
 }
 
+type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesType string
+
+const (
+	RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesType = "arrayOfAny"
+	RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesTypeStr        RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesType = "str"
+)
+
+// RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes - Names of attributes within the response that contain next-page information
+type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesType
+}
+
+func CreateRestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesArrayOfAny(arrayOfAny []any) RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny
+
+	return RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func CreateRestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesStr(str string) RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesTypeStr
+
+	return RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesType)
+	switch best.Type {
+	case RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+}
+
+func (u RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes: all fields are null")
+}
+
 type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 }
@@ -4133,9 +4403,9 @@ func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader) Ge
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader) GetAttribute() []string {
+func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader) GetAttribute() RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -4147,10 +4417,100 @@ func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader) Ge
 	return r.MaxPages
 }
 
+type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesType string
+
+const (
+	RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesType = "arrayOfAny"
+	RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesTypeStr        RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesType = "str"
+)
+
+// RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes - Names of attributes within the response that contain next-page information
+type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesType
+}
+
+func CreateRestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesArrayOfAny(arrayOfAny []any) RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny
+
+	return RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func CreateRestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesStr(str string) RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesTypeStr
+
+	return RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesType)
+	switch best.Type {
+	case RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes", string(data))
+}
+
+func (u RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes: all fields are null")
+}
+
 type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
@@ -4175,9 +4535,9 @@ func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody) GetT
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody) GetAttribute() []string {
+func (r *RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody) GetAttribute() RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -6688,10 +7048,100 @@ func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink) GetM
 	return r.MaxPages
 }
 
+type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesType string
+
+const (
+	RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesType = "arrayOfAny"
+	RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesTypeStr        RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesType = "str"
+)
+
+// RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes - Names of attributes within the response that contain next-page information
+type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesType
+}
+
+func CreateRestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesArrayOfAny(arrayOfAny []any) RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny
+
+	return RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func CreateRestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesStr(str string) RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesTypeStr
+
+	return RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesType)
+	switch best.Type {
+	case RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes", string(data))
+}
+
+func (u RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes: all fields are null")
+}
+
 type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 }
@@ -6714,9 +7164,9 @@ func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader) GetType(
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader) GetAttribute() []string {
+func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader) GetAttribute() RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -6728,10 +7178,100 @@ func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader) GetMaxPa
 	return r.MaxPages
 }
 
+type RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesType string
+
+const (
+	RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesType = "arrayOfAny"
+	RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesTypeStr        RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesType = "str"
+)
+
+// RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes - Names of attributes within the response that contain next-page information
+type RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesType
+}
+
+func CreateRestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesArrayOfAny(arrayOfAny []any) RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny
+
+	return RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func CreateRestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesStr(str string) RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes {
+	typ := RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesTypeStr
+
+	return RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesType)
+	switch best.Type {
+	case RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes", string(data))
+}
+
+func (u RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes: all fields are null")
+}
+
 type RestAuthenticationGoogleOauthRestPaginationTypeResponseBody struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
@@ -6756,9 +7296,9 @@ func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseBody) GetType() 
 	return r.Type
 }
 
-func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseBody) GetAttribute() []string {
+func (r *RestAuthenticationGoogleOauthRestPaginationTypeResponseBody) GetAttribute() RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -8836,466 +9376,4 @@ func (u RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP) MarshalJSON(
 		return json.RawMessage(u.UnknownRaw), nil
 	}
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP: all fields are null")
-}
-
-type RestAuthenticationOauthSecretDiscoveryType string
-
-const (
-	RestAuthenticationOauthSecretDiscoveryTypeHTTP    RestAuthenticationOauthSecretDiscoveryType = "http"
-	RestAuthenticationOauthSecretDiscoveryTypeJSON    RestAuthenticationOauthSecretDiscoveryType = "json"
-	RestAuthenticationOauthSecretDiscoveryTypeList    RestAuthenticationOauthSecretDiscoveryType = "list"
-	RestAuthenticationOauthSecretDiscoveryTypeNone    RestAuthenticationOauthSecretDiscoveryType = "none"
-	RestAuthenticationOauthSecretDiscoveryTypeUnknown RestAuthenticationOauthSecretDiscoveryType = "UNKNOWN"
-)
-
-type RestAuthenticationOauthSecretDiscovery struct {
-	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP `queryParam:"inline" union:"member"`
-	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON `queryParam:"inline" union:"member"`
-	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList `queryParam:"inline" union:"member"`
-	RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone *RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone `queryParam:"inline" union:"member"`
-	UnknownRaw                                                 json.RawMessage                                             `json:"-" union:"unknown"`
-
-	Type RestAuthenticationOauthSecretDiscoveryType
-}
-
-func CreateRestAuthenticationOauthSecretDiscoveryHTTP(http RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP) RestAuthenticationOauthSecretDiscovery {
-	typ := RestAuthenticationOauthSecretDiscoveryTypeHTTP
-
-	return RestAuthenticationOauthSecretDiscovery{
-		RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP: &http,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationOauthSecretDiscoveryJSON(json RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON) RestAuthenticationOauthSecretDiscovery {
-	typ := RestAuthenticationOauthSecretDiscoveryTypeJSON
-
-	typStr := RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSONDiscoverType(typ)
-	json.DiscoverType = typStr
-
-	return RestAuthenticationOauthSecretDiscovery{
-		RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON: &json,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationOauthSecretDiscoveryList(list RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList) RestAuthenticationOauthSecretDiscovery {
-	typ := RestAuthenticationOauthSecretDiscoveryTypeList
-
-	typStr := RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeListDiscoverType(typ)
-	list.DiscoverType = typStr
-
-	return RestAuthenticationOauthSecretDiscovery{
-		RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList: &list,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationOauthSecretDiscoveryNone(none RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone) RestAuthenticationOauthSecretDiscovery {
-	typ := RestAuthenticationOauthSecretDiscoveryTypeNone
-
-	typStr := RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNoneDiscoverType(typ)
-	none.DiscoverType = typStr
-
-	return RestAuthenticationOauthSecretDiscovery{
-		RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone: &none,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationOauthSecretDiscoveryUnknown(raw json.RawMessage) RestAuthenticationOauthSecretDiscovery {
-	return RestAuthenticationOauthSecretDiscovery{
-		UnknownRaw: raw,
-		Type:       RestAuthenticationOauthSecretDiscoveryTypeUnknown,
-	}
-}
-
-func (u RestAuthenticationOauthSecretDiscovery) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u RestAuthenticationOauthSecretDiscovery) IsUnknown() bool {
-	return u.Type == RestAuthenticationOauthSecretDiscoveryTypeUnknown
-}
-
-func (u *RestAuthenticationOauthSecretDiscovery) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		DiscoverType string `json:"discoverType"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationOauthSecretDiscoveryTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationOauthSecretDiscoveryTypeUnknown
-		return nil
-	}
-
-	switch dis.DiscoverType {
-	case "http":
-		restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP := new(RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == http) type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP within RestAuthenticationOauthSecretDiscovery: %w", string(data), err)
-		}
-
-		u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP = restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP
-		u.Type = RestAuthenticationOauthSecretDiscoveryTypeHTTP
-		return nil
-	case "json":
-		restAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON := new(RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == json) type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON within RestAuthenticationOauthSecretDiscovery: %w", string(data), err)
-		}
-
-		u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON = restAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON
-		u.Type = RestAuthenticationOauthSecretDiscoveryTypeJSON
-		return nil
-	case "list":
-		restAuthenticationOauthSecretRestDiscoveryDiscoverTypeList := new(RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationOauthSecretRestDiscoveryDiscoverTypeList, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == list) type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList within RestAuthenticationOauthSecretDiscovery: %w", string(data), err)
-		}
-
-		u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList = restAuthenticationOauthSecretRestDiscoveryDiscoverTypeList
-		u.Type = RestAuthenticationOauthSecretDiscoveryTypeList
-		return nil
-	case "none":
-		restAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone := new(RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DiscoverType == none) type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone within RestAuthenticationOauthSecretDiscovery: %w", string(data), err)
-		}
-
-		u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone = restAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone
-		u.Type = RestAuthenticationOauthSecretDiscoveryTypeNone
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationOauthSecretDiscoveryTypeUnknown
-		return nil
-	}
-
-}
-
-func (u RestAuthenticationOauthSecretDiscovery) MarshalJSON() ([]byte, error) {
-	if u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP != nil {
-		return utils.MarshalJSON(u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP, "", true)
-	}
-
-	if u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON != nil {
-		return utils.MarshalJSON(u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON, "", true)
-	}
-
-	if u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList != nil {
-		return utils.MarshalJSON(u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList, "", true)
-	}
-
-	if u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone != nil {
-		return utils.MarshalJSON(u.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type RestAuthenticationOauthSecretDiscovery: all fields are null")
-}
-
-type RestAuthenticationOauthSecretCollectMethod string
-
-const (
-	// RestAuthenticationOauthSecretCollectMethodGet GET
-	RestAuthenticationOauthSecretCollectMethodGet RestAuthenticationOauthSecretCollectMethod = "get"
-	// RestAuthenticationOauthSecretCollectMethodPost POST
-	RestAuthenticationOauthSecretCollectMethodPost RestAuthenticationOauthSecretCollectMethod = "post"
-	// RestAuthenticationOauthSecretCollectMethodPostWithBody POST with Body
-	RestAuthenticationOauthSecretCollectMethodPostWithBody RestAuthenticationOauthSecretCollectMethod = "post_with_body"
-	// RestAuthenticationOauthSecretCollectMethodOther Other
-	RestAuthenticationOauthSecretCollectMethodOther RestAuthenticationOauthSecretCollectMethod = "other"
-)
-
-func (e RestAuthenticationOauthSecretCollectMethod) ToPointer() *RestAuthenticationOauthSecretCollectMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationOauthSecretCollectMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body", "other":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationOauthSecretRestPaginationTypeRequestPage struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField string `json:"pageField"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField string `json:"sizeField"`
-	// Maximum number of records to collect per page
-	Size float64 `json:"size"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
-	ZeroIndexed bool `json:"zeroIndexed"`
-}
-
-func (r RestAuthenticationOauthSecretRestPaginationTypeRequestPage) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) GetPageField() string {
-	if r == nil {
-		return ""
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) GetSizeField() string {
-	if r == nil {
-		return ""
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) GetSize() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) GetTotalRecordField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalRecordField
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestPage) GetZeroIndexed() bool {
-	if r == nil {
-		return false
-	}
-	return r.ZeroIndexed
-}
-
-type RestAuthenticationOauthSecretRestPaginationTypeRequestOffset struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField string `json:"offsetField"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField string `json:"limitField"`
-	// Maximum number of records to collect per request
-	Limit float64 `json:"limit"`
-	// Name of the attribute in the response that contains the total number of records for the query
-	TotalRecordField *string `json:"totalRecordField,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
-	ZeroIndexed bool `json:"zeroIndexed"`
-}
-
-func (r RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) GetOffsetField() string {
-	if r == nil {
-		return ""
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) GetLimitField() string {
-	if r == nil {
-		return ""
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) GetLimit() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) GetTotalRecordField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalRecordField
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeRequestOffset) GetZeroIndexed() bool {
-	if r == nil {
-		return false
-	}
-	return r.ZeroIndexed
-}
-
-type RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute string `json:"nextRelationAttribute"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-}
-
-func (r RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink) GetNextRelationAttribute() string {
-	if r == nil {
-		return ""
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-type RestAuthenticationOauthSecretRestPaginationTypeResponseHeader struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-}
-
-func (r RestAuthenticationOauthSecretRestPaginationTypeResponseHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeader) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeader) GetAttribute() []string {
-	if r == nil {
-		return []string{}
-	}
-	return r.Attribute
-}
-
-func (r *RestAuthenticationOauthSecretRestPaginationTypeResponseHeader) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
 }
