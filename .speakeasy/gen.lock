@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 7717ae2e34d63073893b02fba424d719
-  docVersion: 4.18.0-alpha.1775602990844-b0d7cac1
+  docChecksum: b703421f5f7b2870ec36ec9267a0e3f9
+  docVersion: 4.18.0-alpha.1775689481765-02ee0d8b
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 0.7.0-beta.19
-  configChecksum: cf5a2e13879627a08fa2d51bc394d54a
+  releaseVersion: 0.7.0-beta.20
+  configChecksum: 5eafcb3edfece31e79adbbc0cd9bfdf9
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 359110bd-8db1-4dde-8df3-39c7f1b41829
-  pristine_commit_hash: 5cb91d29d46da9dd6f4c1b96fc37987f4a0364f5
-  pristine_tree_hash: d32cd1fa644c52ebab5c01e9f36f960959a39662
+  generation_id: ea064a5d-677a-422b-80d9-5c058b5f51b2
+  pristine_commit_hash: 30e74ad159f965899b5c73b59d15d69e544095a2
+  pristine_tree_hash: 7d53d33e28894d022650c681c4d072fd1b370f4c
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: d29238492b5ebce8b57c7600bc3242dafb30b8fd
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:a8eb793a5f55ef799bebf228b617c78ab6e29994
-    pristine_git_object: d01ab4ecef678064eddf7441eec70a4ca212dd0f
+    last_write_checksum: sha1:66656fa818d9356ccc96472682da140d32768b53
+    pristine_git_object: 81757ca79af5c59ed63d749b2884ca4e2e6e78d8
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:f2922f4844c44986350b4a10214fd4cd344a7523
@@ -155,6 +155,14 @@ trackedFiles:
     id: d92050d8cc9e
     last_write_checksum: sha1:28711b9a33e18d5a1b914d8d7bf583630f883cae
     pristine_git_object: 6ccef07ae5c9de3b8aa8326807fea9be1ef7cdb6
+  docs/models/components/aggregatedinputoutputstatusbody.md:
+    id: 7276875e06f4
+    last_write_checksum: sha1:828b7082b11ae5cc5022f61c789d1621b30de473
+    pristine_git_object: 9dbbecb2e7308ab356e4680342b8a06aec914f70
+  docs/models/components/aggregatedpqstatus.md:
+    id: d0b1e7883e67
+    last_write_checksum: sha1:07303f184ca8e94cee6f8e48e021580735c38a14
+    pristine_git_object: acd8e9404b68e24aa083b616e68c82517dc93d4f
   docs/models/components/aggregation.md:
     id: b11d7b45ff28
     last_write_checksum: sha1:0e48854bc3f63c690d82101abb3bf5c5bf5f0b9d
@@ -967,14 +975,6 @@ trackedFiles:
     id: ea7a04812857
     last_write_checksum: sha1:6c9b87d3b2d282079d5913a6e12c88389d77a393
     pristine_git_object: c6a435253ff8dd77f7082281df68d9a3a58d603d
-  docs/models/components/errortypestatus.md:
-    id: 44402e39a1e5
-    last_write_checksum: sha1:43f8a951b54c7fa9a8b825eab4d16e839d5379f3
-    pristine_git_object: 0ab7c3749d67c141f2b1c74e24fe38d0b41548d1
-  docs/models/components/errortypestatuspq.md:
-    id: 4f211f0530a9
-    last_write_checksum: sha1:8c5d90b1c92900d359048fd2a12fdae6ceed7326
-    pristine_git_object: f97e318356941c8d71919076cb0a795ffe89bc81
   docs/models/components/estimatedingestrateoptionsconfiggroup.md:
     id: 4f58ead5b5a5
     last_write_checksum: sha1:73cb83865712c34a603d543bc6beb50f70268e7a
@@ -3565,8 +3565,8 @@ trackedFiles:
     pristine_git_object: 3a6fe8a9e2e2b717d6475aa22ad0a3fdc5db7b0d
   docs/models/components/inputstatus.md:
     id: ed538cfcee2c
-    last_write_checksum: sha1:e9b0a892399f179cf2a63c2390cda959db537ca1
-    pristine_git_object: f04c17548e06d44ce3d8adea7999ca80e3b21d62
+    last_write_checksum: sha1:9f3719bc10b93b861878744af363113a320e37a1
+    pristine_git_object: 4aa3a83d954bd58da389cd041cfb97733487b26b
   docs/models/components/inputsyslog.md:
     id: 5afdd739b417
     last_write_checksum: sha1:853b266040c4c44665d20401a13366f58c42d20d
@@ -3965,8 +3965,8 @@ trackedFiles:
     pristine_git_object: e39cc9e872d76a84f4e9b7ec369de556daaeea94
   docs/models/components/lakedatasetsearchconfig.md:
     id: d2cfd7d3aef0
-    last_write_checksum: sha1:5ddc81b8374cae2b9b50e27ca1f0f9354ec15d33
-    pristine_git_object: 423475b6e34a50d11cfa704c7c345b46e841106a
+    last_write_checksum: sha1:6a0ceac7cbaee952035bf1db36a509368aa53b74
+    pristine_git_object: 0a8de970aef8b3e8fa6f7a2875c50f444d0b27b2
   docs/models/components/lakeexportconfiguration.md:
     id: c76fb084bb31
     last_write_checksum: sha1:86dd8f03f3e4ee6b9fe32b887173d5ceb47913a5
@@ -4211,6 +4211,10 @@ trackedFiles:
     id: 02dbf99a0772
     last_write_checksum: sha1:1d8c6af7c5ab2b52d75eb960ff9c0c2074a0af4c
     pristine_git_object: 244659ccecf512e968d0c7b24c52eead0a3697ba
+  docs/models/components/objectstoragefilter.md:
+    id: "032458048451"
+    last_write_checksum: sha1:273d32b1c027e5f0bdb962916734841bcc4aee6e
+    pristine_git_object: fbeb2c04413b70f094d6a2178181460d53dde3e3
   docs/models/components/oldmode.md:
     id: c840b23ef6d4
     last_write_checksum: sha1:a50a88ac157cf0a276263b8839dd96bbc436b430
@@ -5109,8 +5113,8 @@ trackedFiles:
     pristine_git_object: 03ce125cefe75897582900bd9bb94b7a89cf671e
   docs/models/components/outputstatus.md:
     id: d0cf8b671f39
-    last_write_checksum: sha1:242954213c4808fa9f0a3ed4c63ba2c06e3a9667
-    pristine_git_object: 28a125415cb9d3b171055a5069545b65261ae6a5
+    last_write_checksum: sha1:2bfd809367e6eca71d4008f5f9efc8471e7a075c
+    pristine_git_object: d070e668da57589853979f79e0c82e920e4190f0
   docs/models/components/outputsumologic.md:
     id: d3b250947e43
     last_write_checksum: sha1:1e67113d8fd8402f7f21be0dc11126d806317d64
@@ -6027,10 +6031,6 @@ trackedFiles:
     id: e47311828daa
     last_write_checksum: sha1:f85f8a4b9ed0549404405a500ff463d45e8a9672
     pristine_git_object: 4e5ad661eba171c3a55617317be1e600404aa616
-  docs/models/components/pqtypestatus.md:
-    id: 03af4895c252
-    last_write_checksum: sha1:3d88dcb5b1c8e3addb21a3443a589ea96ea109a3
-    pristine_git_object: f551937a6f226bbdb9f45662ce53008013843433
   docs/models/components/prefixoptional.md:
     id: db559ec50460
     last_write_checksum: sha1:9fb7c1f04d756589eae054284840db2ecb0eecb7
@@ -8927,6 +8927,10 @@ trackedFiles:
     id: 960ee916aa49
     last_write_checksum: sha1:bf3329af8ff363d0b07398cd8bddd212b0c8b594
     pristine_git_object: cf9d4e8f2fac47f831fccf73b69d2001d5ab8501
+  docs/models/components/searchversion.md:
+    id: 146f75155732
+    last_write_checksum: sha1:0857130cf7cff799ff835413a0b4a0650ea67ebf
+    pristine_git_object: 80ab2aa036824c39de7fb6b7515033a51cbb44f2
   docs/models/components/security.md:
     id: 54906b49ea28
     last_write_checksum: sha1:add3952dddfb1957833ba978b02cf30b712494a6
@@ -9291,10 +9295,10 @@ trackedFiles:
     id: 5fd441411d8f
     last_write_checksum: sha1:449a1cf04540aa3e8873334c90f3c09429370fdc
     pristine_git_object: cf2181adc670b2b469c20f42e12e661cea14bcae
-  docs/models/components/statustype.md:
-    id: d524c6cb8733
-    last_write_checksum: sha1:4dd8fd5a3c502db540a03b7ac452c39378e3ce05
-    pristine_git_object: bc7add285770450b0cc16ad0b281be269cec7fc7
+  docs/models/components/statuserror.md:
+    id: 709c73971644
+    last_write_checksum: sha1:74e90f39a40c3513aba839f91c9620d75762201f
+    pristine_git_object: 7ce1fffcf4adb4204c455deaba62a4b0b1e3f365
   docs/models/components/storageclassoptions.md:
     id: ba50c8b06c16
     last_write_checksum: sha1:cf500eda0f8a16306fc51dc8ebf8a5e2852c5e4e
@@ -14943,6 +14947,14 @@ trackedFiles:
     id: d68347529a5f
     last_write_checksum: sha1:6c3651c2f82fd5269cb992e1e7ed64d90f851724
     pristine_git_object: 96c5fa8a576b1c27fd519f1fa8340bf11fcbfc6e
+  models/components/aggregatedinputoutputstatusbody.go:
+    id: 6c86c60071c4
+    last_write_checksum: sha1:5ecbee4ebf5015871096abcd2297e5d9d585e5a5
+    pristine_git_object: bbda2a01bf2c1f2db4a60ba4102a4525db63232d
+  models/components/aggregatedpqstatus.go:
+    id: b78ab624eaa3
+    last_write_checksum: sha1:903a92d035e9bbf164acb83b8845b15cbaa9d010
+    pristine_git_object: a0b3394277dded3037e0168a019de47ad5df513e
   models/components/apischeme.go:
     id: 164169a8211e
     last_write_checksum: sha1:58699b1b69f707460cef23601da561eb650b7cf1
@@ -15443,14 +15455,6 @@ trackedFiles:
     id: 951cf37866e3
     last_write_checksum: sha1:0a2b82761e0854fb6aa2b9663e1da13a29a2ae90
     pristine_git_object: c85aad67bd83fb2da9dc44d8dd588ed557410fd2
-  models/components/errortypestatus.go:
-    id: e0a03d57fcfc
-    last_write_checksum: sha1:bffd7fcd9c6e7638b3116f505a6362aa83db11d3
-    pristine_git_object: beb0c7993641d7c90e2a38c5db7efd88601727ef
-  models/components/errortypestatuspq.go:
-    id: ca10bca71a27
-    last_write_checksum: sha1:7713eab0677eceb82023f5ee7591a26bcc6923c4
-    pristine_git_object: 790fcbdf07a1240495c7fd55ef49e66265ae25df
   models/components/estimatedingestrateoptionsconfiggroup.go:
     id: bfde1a433b86
     last_write_checksum: sha1:dc8c9cf9e28f38dfb8fbccf29b3decb529f4fa64
@@ -16209,8 +16213,8 @@ trackedFiles:
     pristine_git_object: 2d58958c3e520936cb0609b75af401212b17bfe8
   models/components/inputstatus.go:
     id: 3906f13dd7f9
-    last_write_checksum: sha1:9bf954c64350565a0e86657f959b220bffab717a
-    pristine_git_object: 1b8a498b39283753fc5d33e8c0d1bdc4e9bfddd8
+    last_write_checksum: sha1:1d2c49381e12dc7983a487335d19531cd8b4bdb4
+    pristine_git_object: df188119166c1fcbc5c7861527835ba150991eac
   models/components/inputsyslog.go:
     id: 36fdb052df75
     last_write_checksum: sha1:f8f1c18f28c7e32621d5b616eb8a7424648c80b0
@@ -16405,8 +16409,8 @@ trackedFiles:
     pristine_git_object: 891211fbe4d0a56a76b29b3ee5466710b398059a
   models/components/lakedatasetsearchconfig.go:
     id: 1e08a07f5d5a
-    last_write_checksum: sha1:731e713324049d0a9ecf66053ad0447734dbde82
-    pristine_git_object: 68e31f642c39cfde2bce166c2b214f6bfa52164a
+    last_write_checksum: sha1:aa33c51a11a836974212bf3f923be3b7ec4a8f67
+    pristine_git_object: 0dc507083e7c626649b5735ddd12d7c9067fd4f6
   models/components/lakehouseconnectiontype.go:
     id: 6dc45577dd67
     last_write_checksum: sha1:6339f8e233d7311667ecf23d05c6feb49ceb7f0a
@@ -16527,6 +16531,10 @@ trackedFiles:
     id: 9651901c8bee
     last_write_checksum: sha1:bae4495076f01140ccc913d09b9983fabd36c68f
     pristine_git_object: 3e5405dd65b7d37bfe1fa49e1c4a01f809afaaae
+  models/components/objectstoragefilter.go:
+    id: faa35f790f61
+    last_write_checksum: sha1:f8878b58bdc319da3a482418ec5aee7367e19561
+    pristine_git_object: 1b2d20de95ed2c0a2bc75418ec2d1ef3c5657413
   models/components/otlpversionoptions.go:
     id: ca093391b6f3
     last_write_checksum: sha1:79f65f93ff3c740a61021fd3cfbef131e8a898d6
@@ -16809,8 +16817,8 @@ trackedFiles:
     pristine_git_object: 5cf9451a0426bc306c7f8628970cc29e13a1a704
   models/components/outputstatus.go:
     id: 110cc387ff76
-    last_write_checksum: sha1:f3c6d8333ad8931224381e7a6d475ad92f4b9d36
-    pristine_git_object: a644061e382664c9e607bbaee0d10402f3b7354c
+    last_write_checksum: sha1:d228dcfc259caf55ddb3ed59f86e5b5f22f9890b
+    pristine_git_object: abd136e2955bc6e6585078e8f393e47a90960821
   models/components/outputsumologic.go:
     id: d0f70eff7116
     last_write_checksum: sha1:d5d7f4a7e5b4dd451c5f30f26486dccee04a270a
@@ -17167,10 +17175,6 @@ trackedFiles:
     id: c6ac1bf8db5d
     last_write_checksum: sha1:e37989b33940d6cbf7c466bf4dff8cdb1681fd29
     pristine_git_object: d0ce712cdf0479e2dc37ac6f753aab28b3e198ae
-  models/components/pqtypestatus.go:
-    id: b33a6e5bcca8
-    last_write_checksum: sha1:25188102408c35f61e7639043c550934f0becb53
-    pristine_git_object: 0683343fd590b82451fe6fc006f52062576cae76
   models/components/preprocesstype.go:
     id: ece283012b37
     last_write_checksum: sha1:20e8c7150a76cabb92bacc83fedfe0ff4d12a90d
@@ -17383,6 +17387,10 @@ trackedFiles:
     id: 944915c0086d
     last_write_checksum: sha1:b2b62f677d3bc14beaec4008fb7b0d149c03832b
     pristine_git_object: 7a0c5e41037de0fd37adc017e2823a108a5372f5
+  models/components/searchversion.go:
+    id: 30d0eb742a9d
+    last_write_checksum: sha1:3c227aa0e4793d07a8ecb8b0961fb1328f3f3f2b
+    pristine_git_object: f5b5f5c56d2ad55735188848e35fc1c5bc84d273
   models/components/security.go:
     id: 3a5eba5fe9e0
     last_write_checksum: sha1:86880e580d434f4340a19878725c43ee33a1b9ef
@@ -17443,10 +17451,10 @@ trackedFiles:
     id: e29aacc6663e
     last_write_checksum: sha1:788a003f749e06e7b77ce81ae21d62ec04213b4c
     pristine_git_object: 3c27d2227c6acc69dc52e8769935a46093deed7f
-  models/components/statustype.go:
-    id: e3737b32ad63
-    last_write_checksum: sha1:7fb87235339baf3df22f837b3f05f43bce843f19
-    pristine_git_object: a89d502b83d27cf4e97dec78ab6ae1ab8d81c5d2
+  models/components/statuserror.go:
+    id: bfcbb7dcf711
+    last_write_checksum: sha1:a084a8d5fa57803939933686ed9506abc5b5f607
+    pristine_git_object: af7f985aa5c65bd9f067cc4d1f066f9cb51762da
   models/components/storageclassoptions.go:
     id: 8e9d8a6295fe
     last_write_checksum: sha1:fd0688b1dac72d8750bf1029de40b1c08f087424
@@ -28799,7 +28807,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(appscope).UnixSocketPerms` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Pq.Get()`:  `response.Items[].Args` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request.union(SavedJobCollection)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobResponseCollection)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobResponseCollection)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobResponseCollection)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobResponseCollection)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobResponseCollection)` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.LakeDatasets.Create()`: \n  *  `request.CriblLakeDataset.SearchConfig` **Changed**\n  *  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.List()`:  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.Delete()`:  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.Get()`:  `response.Items[].SearchConfig` **Changed**\n* `CriblControlPlane.LakeDatasets.Update()`: \n  *  `request.CriblLakeDatasetUpdate.SearchConfig` **Changed**\n  *  `response.Items[].SearchConfig` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
