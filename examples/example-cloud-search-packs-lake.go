@@ -80,7 +80,7 @@ func main() {
 	httpDAUsed := false
 	storageLocationID := "cribl_lake"
 
-	s.LakeDatasets.Create(ctx, LAKE_ID, components.CriblLakeDataset{
+	s.Lakes.Datasets.Create(ctx, LAKE_ID, components.CriblLakeDataset{
 		ID:                    DATASET_ID,
 		RetentionPeriodInDays: &retention,
 		HTTPDAUsed:            &httpDAUsed,
