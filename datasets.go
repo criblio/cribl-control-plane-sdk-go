@@ -16,14 +16,14 @@ import (
 	"net/http"
 )
 
-type LakeDatasets struct {
+type Datasets struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newLakeDatasets(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *LakeDatasets {
-	return &LakeDatasets{
+func newDatasets(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Datasets {
+	return &Datasets{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
@@ -32,7 +32,7 @@ func newLakeDatasets(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigurati
 
 // Create a Lake Dataset (Cribl.Cloud only)
 // Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
-func (s *LakeDatasets) Create(ctx context.Context, lakeID string, criblLakeDataset components.CriblLakeDataset, opts ...operations.Option) (*operations.CreateCriblLakeDatasetByLakeIDResponse, error) {
+func (s *Datasets) Create(ctx context.Context, lakeID string, criblLakeDataset components.CriblLakeDataset, opts ...operations.Option) (*operations.CreateCriblLakeDatasetByLakeIDResponse, error) {
 	request := operations.CreateCriblLakeDatasetByLakeIDRequest{
 		LakeID:           lakeID,
 		CriblLakeDataset: criblLakeDataset,
@@ -286,7 +286,7 @@ func (s *LakeDatasets) Create(ctx context.Context, lakeID string, criblLakeDatas
 
 // List all Lake Datasets (Cribl.Cloud only)
 // Get a list of all Lake Datasets in the specified Lake (Cribl.Cloud only).
-func (s *LakeDatasets) List(ctx context.Context, request operations.GetCriblLakeDatasetByLakeIDRequest, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDResponse, error) {
+func (s *Datasets) List(ctx context.Context, request operations.GetCriblLakeDatasetByLakeIDRequest, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -532,7 +532,7 @@ func (s *LakeDatasets) List(ctx context.Context, request operations.GetCriblLake
 
 // Delete a Lake Dataset (Cribl.Cloud only)
 // Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
-func (s *LakeDatasets) Delete(ctx context.Context, lakeID string, id string, opts ...operations.Option) (*operations.DeleteCriblLakeDatasetByLakeIDAndIDResponse, error) {
+func (s *Datasets) Delete(ctx context.Context, lakeID string, id string, opts ...operations.Option) (*operations.DeleteCriblLakeDatasetByLakeIDAndIDResponse, error) {
 	request := operations.DeleteCriblLakeDatasetByLakeIDAndIDRequest{
 		LakeID: lakeID,
 		ID:     id,
@@ -779,7 +779,7 @@ func (s *LakeDatasets) Delete(ctx context.Context, lakeID string, id string, opt
 
 // Get a Lake Dataset (Cribl.Cloud only)
 // Get the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
-func (s *LakeDatasets) Get(ctx context.Context, lakeID string, id string, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDAndIDResponse, error) {
+func (s *Datasets) Get(ctx context.Context, lakeID string, id string, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDAndIDResponse, error) {
 	request := operations.GetCriblLakeDatasetByLakeIDAndIDRequest{
 		LakeID: lakeID,
 		ID:     id,
@@ -1026,7 +1026,7 @@ func (s *LakeDatasets) Get(ctx context.Context, lakeID string, id string, opts .
 
 // Update a Lake Dataset (Cribl.Cloud only)
 // Update the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
-func (s *LakeDatasets) Update(ctx context.Context, lakeID string, id string, criblLakeDatasetUpdate components.CriblLakeDatasetUpdate, opts ...operations.Option) (*operations.UpdateCriblLakeDatasetByLakeIDAndIDResponse, error) {
+func (s *Datasets) Update(ctx context.Context, lakeID string, id string, criblLakeDatasetUpdate components.CriblLakeDatasetUpdate, opts ...operations.Option) (*operations.UpdateCriblLakeDatasetByLakeIDAndIDResponse, error) {
 	request := operations.UpdateCriblLakeDatasetByLakeIDAndIDRequest{
 		LakeID:                 lakeID,
 		ID:                     id,

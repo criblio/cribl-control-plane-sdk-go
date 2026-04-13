@@ -1,4 +1,4 @@
-# LakeDatasets
+# Lakes.Datasets
 
 ## Overview
 
@@ -38,7 +38,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
+    res, err := s.Lakes.Datasets.Create(ctx, "<id>", components.CriblLakeDataset{
         AcceleratedFields: []string{
             "host",
             "status",
@@ -81,7 +81,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
+    res, err := s.Lakes.Datasets.Create(ctx, "<id>", components.CriblLakeDataset{
         ID: "app_logs",
     })
     if err != nil {
@@ -116,7 +116,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
+    res, err := s.Lakes.Datasets.Create(ctx, "<id>", components.CriblLakeDataset{
         Description: criblcontrolplanesdkgo.Pointer("Security event data in Parquet format"),
         Format: components.FormatOptionsParquet.ToPointer(),
         ID: "security_events",
@@ -187,7 +187,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.List(ctx, operations.GetCriblLakeDatasetByLakeIDRequest{
+    res, err := s.Lakes.Datasets.List(ctx, operations.GetCriblLakeDatasetByLakeIDRequest{
         LakeID: "<id>",
         StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
         Format: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -252,7 +252,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Delete(ctx, "<id>", "<id>")
+    res, err := s.Lakes.Datasets.Delete(ctx, "<id>", "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -310,7 +310,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Get(ctx, "<id>", "<id>")
+    res, err := s.Lakes.Datasets.Get(ctx, "<id>", "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -368,7 +368,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
+    res, err := s.Lakes.Datasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
         AcceleratedFields: []string{
             "host",
             "status",
@@ -408,7 +408,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
+    res, err := s.Lakes.Datasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
         RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](180.0),
     })
     if err != nil {
