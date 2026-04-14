@@ -32,6 +32,7 @@ const (
 	Input1TypeOffice365MsgTrace    Input1Type = "office365_msg_trace"
 	Input1TypeMicrosoftGraph       Input1Type = "microsoft_graph"
 	Input1TypeEventhub             Input1Type = "eventhub"
+	Input1TypeEventhubAmqp         Input1Type = "eventhub_amqp"
 	Input1TypeExec                 Input1Type = "exec"
 	Input1TypeFirehose             Input1Type = "firehose"
 	Input1TypeGooglePubsub         Input1Type = "google_pubsub"
@@ -75,6 +76,7 @@ const (
 	Input1TypeServicenowTable      Input1Type = "servicenow_table"
 	Input1TypeZscalerHec           Input1Type = "zscaler_hec"
 	Input1TypeCloudflareHec        Input1Type = "cloudflare_hec"
+	Input1TypeOpenaiComplianceLogs Input1Type = "openai_compliance_logs"
 	Input1TypeUnknown              Input1Type = "UNKNOWN"
 )
 
@@ -99,6 +101,7 @@ type Input1 struct {
 	InputOffice365MsgTrace    *InputOffice365MsgTrace    `queryParam:"inline" union:"member"`
 	InputMicrosoftGraph       *InputMicrosoftGraph       `queryParam:"inline" union:"member"`
 	InputEventhub             *InputEventhub             `queryParam:"inline" union:"member"`
+	InputEventhubAmqp         *InputEventhubAmqp         `queryParam:"inline" union:"member"`
 	InputExec                 *InputExec                 `queryParam:"inline" union:"member"`
 	InputFirehose             *InputFirehose             `queryParam:"inline" union:"member"`
 	InputGooglePubsub         *InputGooglePubsub         `queryParam:"inline" union:"member"`
@@ -142,6 +145,7 @@ type Input1 struct {
 	InputServicenowTable      *InputServicenowTable      `queryParam:"inline" union:"member"`
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
 	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
+	InputOpenaiComplianceLogs *InputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
 	UnknownRaw                json.RawMessage            `json:"-" union:"unknown"`
 
 	Type Input1Type
@@ -381,6 +385,18 @@ func CreateInput1Eventhub(eventhub InputEventhub) Input1 {
 	return Input1{
 		InputEventhub: &eventhub,
 		Type:          typ,
+	}
+}
+
+func CreateInput1EventhubAmqp(eventhubAmqp InputEventhubAmqp) Input1 {
+	typ := Input1TypeEventhubAmqp
+
+	typStr := InputEventhubAmqpType(typ)
+	eventhubAmqp.Type = typStr
+
+	return Input1{
+		InputEventhubAmqp: &eventhubAmqp,
+		Type:              typ,
 	}
 }
 
@@ -897,6 +913,18 @@ func CreateInput1CloudflareHec(cloudflareHec InputCloudflareHec) Input1 {
 	}
 }
 
+func CreateInput1OpenaiComplianceLogs(openaiComplianceLogs InputOpenaiComplianceLogs) Input1 {
+	typ := Input1TypeOpenaiComplianceLogs
+
+	typStr := InputOpenaiComplianceLogsType(typ)
+	openaiComplianceLogs.Type = typStr
+
+	return Input1{
+		InputOpenaiComplianceLogs: &openaiComplianceLogs,
+		Type:                      typ,
+	}
+}
+
 func CreateInput1Unknown(raw json.RawMessage) Input1 {
 	return Input1{
 		UnknownRaw: raw,
@@ -1110,6 +1138,15 @@ func (u *Input1) UnmarshalJSON(data []byte) error {
 
 		u.InputEventhub = inputEventhub
 		u.Type = Input1TypeEventhub
+		return nil
+	case "eventhub_amqp":
+		inputEventhubAmqp := new(InputEventhubAmqp)
+		if err := utils.UnmarshalJSON(data, &inputEventhubAmqp, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == eventhub_amqp) type InputEventhubAmqp within Input1: %w", string(data), err)
+		}
+
+		u.InputEventhubAmqp = inputEventhubAmqp
+		u.Type = Input1TypeEventhubAmqp
 		return nil
 	case "exec":
 		inputExec := new(InputExec)
@@ -1498,6 +1535,15 @@ func (u *Input1) UnmarshalJSON(data []byte) error {
 		u.InputCloudflareHec = inputCloudflareHec
 		u.Type = Input1TypeCloudflareHec
 		return nil
+	case "openai_compliance_logs":
+		inputOpenaiComplianceLogs := new(InputOpenaiComplianceLogs)
+		if err := utils.UnmarshalJSON(data, &inputOpenaiComplianceLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openai_compliance_logs) type InputOpenaiComplianceLogs within Input1: %w", string(data), err)
+		}
+
+		u.InputOpenaiComplianceLogs = inputOpenaiComplianceLogs
+		u.Type = Input1TypeOpenaiComplianceLogs
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = Input1TypeUnknown
@@ -1585,6 +1631,10 @@ func (u Input1) MarshalJSON() ([]byte, error) {
 
 	if u.InputEventhub != nil {
 		return utils.MarshalJSON(u.InputEventhub, "", true)
+	}
+
+	if u.InputEventhubAmqp != nil {
+		return utils.MarshalJSON(u.InputEventhubAmqp, "", true)
 	}
 
 	if u.InputExec != nil {
@@ -1757,6 +1807,10 @@ func (u Input1) MarshalJSON() ([]byte, error) {
 
 	if u.InputCloudflareHec != nil {
 		return utils.MarshalJSON(u.InputCloudflareHec, "", true)
+	}
+
+	if u.InputOpenaiComplianceLogs != nil {
+		return utils.MarshalJSON(u.InputOpenaiComplianceLogs, "", true)
 	}
 
 	if u.UnknownRaw != nil {

@@ -125,6 +125,12 @@ createInputRequest := operations.CreateCreateInputRequestMicrosoftGraph(operatio
 createInputRequest := operations.CreateCreateInputRequestEventhub(operations.CreateInputInputEventhub{/* values here */})
 ```
 
+### CreateInputInputEventhubAmqp
+
+```go
+createInputRequest := operations.CreateCreateInputRequestEventhubAmqp(operations.CreateInputInputEventhubAmqp{/* values here */})
+```
+
 ### CreateInputInputExec
 
 ```go
@@ -383,6 +389,12 @@ createInputRequest := operations.CreateCreateInputRequestZscalerHec(operations.C
 createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operations.CreateInputInputCloudflareHec{/* values here */})
 ```
 
+### CreateInputInputOpenaiComplianceLogs
+
+```go
+createInputRequest := operations.CreateCreateInputRequestOpenaiComplianceLogs(operations.CreateInputInputOpenaiComplianceLogs{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -429,6 +441,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputMicrosoftGraph is populated
 	case operations.CreateInputRequestTypeEventhub:
 		// createInputRequest.CreateInputInputEventhub is populated
+	case operations.CreateInputRequestTypeEventhubAmqp:
+		// createInputRequest.CreateInputInputEventhubAmqp is populated
 	case operations.CreateInputRequestTypeExec:
 		// createInputRequest.CreateInputInputExec is populated
 	case operations.CreateInputRequestTypeFirehose:
@@ -515,5 +529,7 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputZscalerHec is populated
 	case operations.CreateInputRequestTypeCloudflareHec:
 		// createInputRequest.CreateInputInputCloudflareHec is populated
+	case operations.CreateInputRequestTypeOpenaiComplianceLogs:
+		// createInputRequest.CreateInputInputOpenaiComplianceLogs is populated
 }
 ```

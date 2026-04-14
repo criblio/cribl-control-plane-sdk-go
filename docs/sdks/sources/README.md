@@ -691,6 +691,49 @@ func main() {
     }
 }
 ```
+### Example Usage: InputCreateExamplesEventhubAmqp
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesEventhubAmqp" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestEventhubAmqp(
+        operations.CreateInputInputEventhubAmqp{
+            ID: "eventhub-amqp-source",
+            Type: operations.CreateInputTypeEventhubAmqpEventhubAmqp,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            EventHubName: criblcontrolplanesdkgo.Pointer("my-event-hub"),
+            ConsumerGroup: "$Default",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesExec
 
 <!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesExec" -->
@@ -1712,6 +1755,57 @@ func main() {
     }
 }
 ```
+### Example Usage: InputCreateExamplesOpenAIComplianceLogs
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesOpenAIComplianceLogs" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestOpenaiComplianceLogs(
+        operations.CreateInputInputOpenaiComplianceLogs{
+            ID: "openai-compliance-logs-source",
+            Type: operations.CreateInputTypeOpenaiComplianceLogsOpenaiComplianceLogs,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            TextSecret: "openai-api-key-secret",
+            AccountType: operations.CreateInputAccountTypeWorkspace,
+            CronSchedule: "*/15 * * * *",
+            Earliest: criblcontrolplanesdkgo.Pointer("-1h"),
+            Latest: criblcontrolplanesdkgo.Pointer("now"),
+            WorkspaceID: criblcontrolplanesdkgo.Pointer("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"),
+            WorkspaceEventTypes: []string{
+                "AUDIT_LOG",
+                "AUTH_LOG",
+            },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesOpenTelemetry
 
 <!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesOpenTelemetry" -->
@@ -2056,7 +2150,7 @@ func main() {
                 "number",
                 "short_description",
             },
-            DisplayValue: operations.CreateInputDisplayValueFalse.ToPointer(),
+            UseRawValues: criblcontrolplanesdkgo.Pointer(true),
             PageSize: criblcontrolplanesdkgo.Pointer[int64](10000),
             CronSchedule: "0 * * * *",
             Earliest: "-1d",
@@ -3459,6 +3553,48 @@ func main() {
     }
 }
 ```
+### Example Usage: InputCreateExamplesEventhubAmqp
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesEventhubAmqp" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2EventhubAmqp(
+        components.InputEventhubAmqp{
+            ID: criblcontrolplanesdkgo.Pointer("eventhub-amqp-source"),
+            Type: components.InputEventhubAmqpTypeEventhubAmqp,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            EventHubName: criblcontrolplanesdkgo.Pointer("my-event-hub"),
+            ConsumerGroup: "$Default",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesExec
 
 <!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesExec" -->
@@ -4457,6 +4593,56 @@ func main() {
     }
 }
 ```
+### Example Usage: InputCreateExamplesOpenAIComplianceLogs
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesOpenAIComplianceLogs" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2OpenaiComplianceLogs(
+        components.InputOpenaiComplianceLogs{
+            ID: criblcontrolplanesdkgo.Pointer("openai-compliance-logs-source"),
+            Type: components.InputOpenaiComplianceLogsTypeOpenaiComplianceLogs,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            TextSecret: "openai-api-key-secret",
+            AccountType: components.AccountTypeWorkspace,
+            CronSchedule: "*/15 * * * *",
+            Earliest: criblcontrolplanesdkgo.Pointer("-1h"),
+            Latest: criblcontrolplanesdkgo.Pointer("now"),
+            WorkspaceID: criblcontrolplanesdkgo.Pointer("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"),
+            WorkspaceEventTypes: []string{
+                "AUDIT_LOG",
+                "AUTH_LOG",
+            },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesOpenTelemetry
 
 <!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesOpenTelemetry" -->
@@ -4793,7 +4979,7 @@ func main() {
                 "number",
                 "short_description",
             },
-            DisplayValue: components.DisplayValueFalse.ToPointer(),
+            UseRawValues: criblcontrolplanesdkgo.Pointer(true),
             PageSize: criblcontrolplanesdkgo.Pointer[int64](10000),
             CronSchedule: "0 * * * *",
             Earliest: "-1d",

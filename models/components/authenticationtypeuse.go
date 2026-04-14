@@ -36,6 +36,10 @@ type AuthenticationTypeUse struct {
 	TenantID *string `json:"tenantId,omitzero"`
 	// Scope to pass in the OAuth request parameter
 	Scope *string `json:"scope,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
+	// Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
+	TemplateMechanism *string `json:"__template_mechanism,omitzero"`
 }
 
 func (a AuthenticationTypeUse) MarshalJSON() ([]byte, error) {
@@ -166,4 +170,18 @@ func (a *AuthenticationTypeUse) GetScope() *string {
 		return nil
 	}
 	return a.Scope
+}
+
+func (a *AuthenticationTypeUse) GetTemplatePassword() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePassword
+}
+
+func (a *AuthenticationTypeUse) GetTemplateMechanism() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateMechanism
 }

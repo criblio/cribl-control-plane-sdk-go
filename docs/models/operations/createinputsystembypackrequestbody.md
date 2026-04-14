@@ -125,6 +125,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyEventhub(operations.CreateInputSystemByPackInputEventhub{/* values here */})
 ```
 
+### CreateInputSystemByPackInputEventhubAmqp
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyEventhubAmqp(operations.CreateInputSystemByPackInputEventhubAmqp{/* values here */})
+```
+
 ### CreateInputSystemByPackInputExec
 
 ```go
@@ -383,6 +389,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyCloudflareHec(operations.CreateInputSystemByPackInputCloudflareHec{/* values here */})
 ```
 
+### CreateInputSystemByPackInputOpenaiComplianceLogs
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyOpenaiComplianceLogs(operations.CreateInputSystemByPackInputOpenaiComplianceLogs{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -429,6 +441,8 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputMicrosoftGraph is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeEventhub:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputEventhub is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeEventhubAmqp:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputEventhubAmqp is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeExec:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputExec is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeFirehose:
@@ -515,5 +529,7 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputZscalerHec is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeCloudflareHec:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCloudflareHec is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOpenaiComplianceLogs is populated
 }
 ```

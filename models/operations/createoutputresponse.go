@@ -10,6 +10,561 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+// CreateOutputAuthenticationTypeInfluxdb - InfluxDB authentication type
+type CreateOutputAuthenticationTypeInfluxdb string
+
+const (
+	// CreateOutputAuthenticationTypeInfluxdbNone None
+	CreateOutputAuthenticationTypeInfluxdbNone CreateOutputAuthenticationTypeInfluxdb = "none"
+	// CreateOutputAuthenticationTypeInfluxdbBasic Basic
+	CreateOutputAuthenticationTypeInfluxdbBasic CreateOutputAuthenticationTypeInfluxdb = "basic"
+	// CreateOutputAuthenticationTypeInfluxdbCredentialsSecret Basic (credentials secret)
+	CreateOutputAuthenticationTypeInfluxdbCredentialsSecret CreateOutputAuthenticationTypeInfluxdb = "credentialsSecret"
+	// CreateOutputAuthenticationTypeInfluxdbToken Token
+	CreateOutputAuthenticationTypeInfluxdbToken CreateOutputAuthenticationTypeInfluxdb = "token"
+	// CreateOutputAuthenticationTypeInfluxdbTextSecret Token (text secret)
+	CreateOutputAuthenticationTypeInfluxdbTextSecret CreateOutputAuthenticationTypeInfluxdb = "textSecret"
+)
+
+func (e CreateOutputAuthenticationTypeInfluxdb) ToPointer() *CreateOutputAuthenticationTypeInfluxdb {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateOutputAuthenticationTypeInfluxdb) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateOutputPqControlsInfluxdb struct {
+}
+
+func (c CreateOutputPqControlsInfluxdb) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputPqControlsInfluxdb) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type CreateOutputOutputInfluxdb struct {
+	// Unique ID for this output
+	ID   string                   `json:"id"`
+	Type CreateOutputTypeInfluxdb `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `json:"useV2API,omitzero"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *CreateOutputTimestampPrecision `json:"timestampPrecision,omitzero"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `json:"dynamicValueFieldName,omitzero"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `json:"valueFieldName,omitzero"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `json:"concurrency,omitzero"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
+	// Compress the payload body before sending
+	Compress *bool `json:"compress,omitzero"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	// InfluxDB authentication type
+	AuthType    *CreateOutputAuthenticationTypeInfluxdb `json:"authType,omitzero"`
+	Description *string                                 `json:"description,omitzero"`
+	// Database to write to.
+	Database *string `json:"database,omitzero"`
+	// Bucket to write to.
+	Bucket *string `json:"bucket,omitzero"`
+	// Organization ID for this bucket.
+	Org *string `json:"org,omitzero"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `json:"pqPath,omitzero"`
+	// Codec to use to compress the persisted data
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputPqControlsInfluxdb `json:"pqControls,omitzero"`
+	Username             *string                         `json:"username,omitzero"`
+	Password             *string                         `json:"password,omitzero"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitzero"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
+	TemplateDatabase *string `json:"__template_database,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+}
+
+func (c CreateOutputOutputInfluxdb) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputOutputInfluxdb) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputOutputInfluxdb) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateOutputOutputInfluxdb) GetType() CreateOutputTypeInfluxdb {
+	if c == nil {
+		return CreateOutputTypeInfluxdb("")
+	}
+	return c.Type
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateOutputOutputInfluxdb) GetSystemFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SystemFields
+}
+
+func (c *CreateOutputOutputInfluxdb) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateOutputOutputInfluxdb) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateOutputOutputInfluxdb) GetURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.URL
+}
+
+func (c *CreateOutputOutputInfluxdb) GetUseV2API() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseV2API
+}
+
+func (c *CreateOutputOutputInfluxdb) GetTimestampPrecision() *CreateOutputTimestampPrecision {
+	if c == nil {
+		return nil
+	}
+	return c.TimestampPrecision
+}
+
+func (c *CreateOutputOutputInfluxdb) GetDynamicValueFieldName() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DynamicValueFieldName
+}
+
+func (c *CreateOutputOutputInfluxdb) GetValueFieldName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ValueFieldName
+}
+
+func (c *CreateOutputOutputInfluxdb) GetConcurrency() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Concurrency
+}
+
+func (c *CreateOutputOutputInfluxdb) GetMaxPayloadSizeKB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxPayloadSizeKB
+}
+
+func (c *CreateOutputOutputInfluxdb) GetMaxPayloadEvents() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxPayloadEvents
+}
+
+func (c *CreateOutputOutputInfluxdb) GetCompress() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateOutputOutputInfluxdb) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputOutputInfluxdb) GetTimeoutSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.TimeoutSec
+}
+
+func (c *CreateOutputOutputInfluxdb) GetFlushPeriodSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.FlushPeriodSec
+}
+
+func (c *CreateOutputOutputInfluxdb) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.ExtraHTTPHeaders
+}
+
+func (c *CreateOutputOutputInfluxdb) GetUseRoundRobinDNS() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseRoundRobinDNS
+}
+
+func (c *CreateOutputOutputInfluxdb) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.FailedRequestLoggingMode
+}
+
+func (c *CreateOutputOutputInfluxdb) GetSafeHeaders() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SafeHeaders
+}
+
+func (c *CreateOutputOutputInfluxdb) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+	if c == nil {
+		return nil
+	}
+	return c.ResponseRetrySettings
+}
+
+func (c *CreateOutputOutputInfluxdb) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+	if c == nil {
+		return nil
+	}
+	return c.TimeoutRetrySettings
+}
+
+func (c *CreateOutputOutputInfluxdb) GetResponseHonorRetryAfterHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ResponseHonorRetryAfterHeader
+}
+
+func (c *CreateOutputOutputInfluxdb) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OnBackpressure
+}
+
+func (c *CreateOutputOutputInfluxdb) GetAuthType() *CreateOutputAuthenticationTypeInfluxdb {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CreateOutputOutputInfluxdb) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateOutputOutputInfluxdb) GetDatabase() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Database
+}
+
+func (c *CreateOutputOutputInfluxdb) GetBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputOutputInfluxdb) GetOrg() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Org
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqStrictOrdering() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqStrictOrdering
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqRatePerSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqRatePerSec
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqMode() *components.ModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqMode
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqMaxBufferSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSize
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqMaxBackpressureSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBackpressureSec
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqMaxFileSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxFileSize
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqMaxSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxSize
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqPath
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqCompress() *components.CompressionOptionsPq {
+	if c == nil {
+		return nil
+	}
+	return c.PqCompress
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPqControls() *CreateOutputPqControlsInfluxdb {
+	if c == nil {
+		return nil
+	}
+	return c.PqControls
+}
+
+func (c *CreateOutputOutputInfluxdb) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CreateOutputOutputInfluxdb) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CreateOutputOutputInfluxdb) GetToken() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Token
+}
+
+func (c *CreateOutputOutputInfluxdb) GetCredentialsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CreateOutputOutputInfluxdb) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CreateOutputOutputInfluxdb) GetTemplateURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateURL
+}
+
+func (c *CreateOutputOutputInfluxdb) GetTemplateFailedRequestLoggingMode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputOutputInfluxdb) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputOutputInfluxdb) GetTemplateDatabase() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDatabase
+}
+
+func (c *CreateOutputOutputInfluxdb) GetTemplateBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBucket
+}
+
+type CreateOutputTypeNewrelicEvents string
+
+const (
+	CreateOutputTypeNewrelicEventsNewrelicEvents CreateOutputTypeNewrelicEvents = "newrelic_events"
+)
+
+func (e CreateOutputTypeNewrelicEvents) ToPointer() *CreateOutputTypeNewrelicEvents {
+	return &e
+}
+func (e *CreateOutputTypeNewrelicEvents) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "newrelic_events":
+		*e = CreateOutputTypeNewrelicEvents(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateOutputTypeNewrelicEvents: %v", v)
+	}
+}
+
 type CreateOutputPqControlsNewrelicEvents struct {
 }
 
@@ -9485,10 +10040,14 @@ type CreateOutputOutputAzureBlob struct {
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
 	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
+	// Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+	TemplateStorageAccountName *string `json:"__template_storageAccountName,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
 	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+	TemplateAzureCloud *string `json:"__template_azureCloud,omitzero"`
 }
 
 func (c CreateOutputOutputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -9964,6 +10523,13 @@ func (c *CreateOutputOutputAzureBlob) GetTemplateConnectionString() *string {
 	return c.TemplateConnectionString
 }
 
+func (c *CreateOutputOutputAzureBlob) GetTemplateStorageAccountName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageAccountName
+}
+
 func (c *CreateOutputOutputAzureBlob) GetTemplateTenantID() *string {
 	if c == nil {
 		return nil
@@ -9976,6 +10542,13 @@ func (c *CreateOutputOutputAzureBlob) GetTemplateClientID() *string {
 		return nil
 	}
 	return c.TemplateClientID
+}
+
+func (c *CreateOutputOutputAzureBlob) GetTemplateAzureCloud() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAzureCloud
 }
 
 type CreateOutputTypeS3 string
@@ -17782,6 +18355,7 @@ const (
 	CreateOutputRequestTypeDatabricks             CreateOutputRequestType = "databricks"
 	CreateOutputRequestTypeMicrosoftFabric        CreateOutputRequestType = "microsoft_fabric"
 	CreateOutputRequestTypeCloudflareR2           CreateOutputRequestType = "cloudflare_r2"
+	CreateOutputRequestTypeNutanixObjects         CreateOutputRequestType = "nutanix_objects"
 )
 
 // CreateOutputRequest - Output object
@@ -17857,6 +18431,7 @@ type CreateOutputRequest struct {
 	CreateOutputOutputDatabricks             *CreateOutputOutputDatabricks             `queryParam:"inline" union:"member"`
 	CreateOutputOutputMicrosoftFabric        *CreateOutputOutputMicrosoftFabric        `queryParam:"inline" union:"member"`
 	CreateOutputOutputCloudflareR2           *CreateOutputOutputCloudflareR2           `queryParam:"inline" union:"member"`
+	CreateOutputOutputNutanixObjects         *CreateOutputOutputNutanixObjects         `queryParam:"inline" union:"member"`
 
 	Type CreateOutputRequestType
 }
@@ -18707,6 +19282,18 @@ func CreateCreateOutputRequestCloudflareR2(cloudflareR2 CreateOutputOutputCloudf
 	}
 }
 
+func CreateCreateOutputRequestNutanixObjects(nutanixObjects CreateOutputOutputNutanixObjects) CreateOutputRequest {
+	typ := CreateOutputRequestTypeNutanixObjects
+
+	typStr := CreateOutputTypeNutanixObjects(typ)
+	nutanixObjects.Type = typStr
+
+	return CreateOutputRequest{
+		CreateOutputOutputNutanixObjects: &nutanixObjects,
+		Type:                             typ,
+	}
+}
+
 func (u *CreateOutputRequest) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -19358,6 +19945,15 @@ func (u *CreateOutputRequest) UnmarshalJSON(data []byte) error {
 		u.CreateOutputOutputCloudflareR2 = createOutputOutputCloudflareR2
 		u.Type = CreateOutputRequestTypeCloudflareR2
 		return nil
+	case "nutanix_objects":
+		createOutputOutputNutanixObjects := new(CreateOutputOutputNutanixObjects)
+		if err := utils.UnmarshalJSON(data, &createOutputOutputNutanixObjects, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == nutanix_objects) type CreateOutputOutputNutanixObjects within CreateOutputRequest: %w", string(data), err)
+		}
+
+		u.CreateOutputOutputNutanixObjects = createOutputOutputNutanixObjects
+		u.Type = CreateOutputRequestTypeNutanixObjects
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputRequest", string(data))
@@ -19646,6 +20242,10 @@ func (u CreateOutputRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CreateOutputOutputCloudflareR2 != nil {
 		return utils.MarshalJSON(u.CreateOutputOutputCloudflareR2, "", true)
+	}
+
+	if u.CreateOutputOutputNutanixObjects != nil {
+		return utils.MarshalJSON(u.CreateOutputOutputNutanixObjects, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateOutputRequest: all fields are null")

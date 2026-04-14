@@ -21,7 +21,5 @@ custom := operations.CreateInputAuthenticationTypeServicenowTable("custom_value"
 | Name                                                      | Value                                                     |
 | --------------------------------------------------------- | --------------------------------------------------------- |
 | `CreateInputAuthenticationTypeServicenowTableNone`        | none                                                      |
-| `CreateInputAuthenticationTypeServicenowTableBasic`       | basic                                                     |
 | `CreateInputAuthenticationTypeServicenowTableBasicSecret` | basicSecret                                               |
-| `CreateInputAuthenticationTypeServicenowTableOauth`       | oauth                                                     |
 | `CreateInputAuthenticationTypeServicenowTableOauthSecret` | oauthSecret                                               |

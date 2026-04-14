@@ -108,6 +108,10 @@ func (u *UpdateInputByIDRequest) GetInputEventhub() *components.InputEventhub {
 	return u.GetInput().InputEventhub
 }
 
+func (u *UpdateInputByIDRequest) GetInputEventhubAmqp() *components.InputEventhubAmqp {
+	return u.GetInput().InputEventhubAmqp
+}
+
 func (u *UpdateInputByIDRequest) GetInputExec() *components.InputExec {
 	return u.GetInput().InputExec
 }
@@ -278,6 +282,10 @@ func (u *UpdateInputByIDRequest) GetInputZscalerHec() *components.InputZscalerHe
 
 func (u *UpdateInputByIDRequest) GetInputCloudflareHec() *components.InputCloudflareHec {
 	return u.GetInput().InputCloudflareHec
+}
+
+func (u *UpdateInputByIDRequest) GetInputOpenaiComplianceLogs() *components.InputOpenaiComplianceLogs {
+	return u.GetInput().InputOpenaiComplianceLogs
 }
 
 type UpdateInputByIDResponse struct {

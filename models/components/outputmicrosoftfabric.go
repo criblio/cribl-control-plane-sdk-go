@@ -77,6 +77,8 @@ type OutputMicrosoftFabricAuthentication struct {
 	TenantID *string `json:"tenantId,omitzero"`
 	// Scope to pass in the OAuth request parameter
 	Scope *string `json:"scope,omitzero"`
+	// Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
+	TemplateMechanism *string `json:"__template_mechanism,omitzero"`
 }
 
 func (o OutputMicrosoftFabricAuthentication) MarshalJSON() ([]byte, error) {
@@ -186,6 +188,13 @@ func (o *OutputMicrosoftFabricAuthentication) GetScope() *string {
 		return nil
 	}
 	return o.Scope
+}
+
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateMechanism() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateMechanism
 }
 
 type OutputMicrosoftFabricPqControls struct {

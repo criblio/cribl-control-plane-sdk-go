@@ -123,6 +123,12 @@ input1 := components.CreateInput1MicrosoftGraph(components.InputMicrosoftGraph{/
 input1 := components.CreateInput1Eventhub(components.InputEventhub{/* values here */})
 ```
 
+### InputEventhubAmqp
+
+```go
+input1 := components.CreateInput1EventhubAmqp(components.InputEventhubAmqp{/* values here */})
+```
+
 ### InputExec
 
 ```go
@@ -381,6 +387,12 @@ input1 := components.CreateInput1ZscalerHec(components.InputZscalerHec{/* values
 input1 := components.CreateInput1CloudflareHec(components.InputCloudflareHec{/* values here */})
 ```
 
+### InputOpenaiComplianceLogs
+
+```go
+input1 := components.CreateInput1OpenaiComplianceLogs(components.InputOpenaiComplianceLogs{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -427,6 +439,8 @@ switch input1.Type {
 		// input1.InputMicrosoftGraph is populated
 	case components.Input1TypeEventhub:
 		// input1.InputEventhub is populated
+	case components.Input1TypeEventhubAmqp:
+		// input1.InputEventhubAmqp is populated
 	case components.Input1TypeExec:
 		// input1.InputExec is populated
 	case components.Input1TypeFirehose:
@@ -513,6 +527,8 @@ switch input1.Type {
 		// input1.InputZscalerHec is populated
 	case components.Input1TypeCloudflareHec:
 		// input1.InputCloudflareHec is populated
+	case components.Input1TypeOpenaiComplianceLogs:
+		// input1.InputOpenaiComplianceLogs is populated
 	default:
 		// Unknown type - use input1.GetUnknownRaw() for raw JSON
 }

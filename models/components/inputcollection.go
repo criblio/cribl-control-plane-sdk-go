@@ -60,6 +60,8 @@ type InputCollection struct {
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Destination to send results to
 	Output *string `json:"output,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (i InputCollection) MarshalJSON() ([]byte, error) {
@@ -183,4 +185,11 @@ func (i *InputCollection) GetOutput() *string {
 		return nil
 	}
 	return i.Output
+}
+
+func (i *InputCollection) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }

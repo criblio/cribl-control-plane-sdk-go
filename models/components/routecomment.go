@@ -10,7 +10,7 @@ type RouteComment struct {
 	// Unique identifier for the comment.
 	ID string `json:"id"`
 	// Relative position of the comment among all comments for the Route.
-	Index float64 `json:"index"`
+	Index int64 `json:"index"`
 }
 
 func (r *RouteComment) GetComment() string {
@@ -34,9 +34,9 @@ func (r *RouteComment) GetID() string {
 	return r.ID
 }
 
-func (r *RouteComment) GetIndex() float64 {
+func (r *RouteComment) GetIndex() int64 {
 	if r == nil {
-		return 0.0
+		return 0
 	}
 	return r.Index
 }

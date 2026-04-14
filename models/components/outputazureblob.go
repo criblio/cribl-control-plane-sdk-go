@@ -188,10 +188,14 @@ type OutputAzureBlob struct {
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
 	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
+	// Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+	TemplateStorageAccountName *string `json:"__template_storageAccountName,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
 	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+	TemplateAzureCloud *string `json:"__template_azureCloud,omitzero"`
 }
 
 func (o OutputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -667,6 +671,13 @@ func (o *OutputAzureBlob) GetTemplateConnectionString() *string {
 	return o.TemplateConnectionString
 }
 
+func (o *OutputAzureBlob) GetTemplateStorageAccountName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStorageAccountName
+}
+
 func (o *OutputAzureBlob) GetTemplateTenantID() *string {
 	if o == nil {
 		return nil
@@ -679,4 +690,11 @@ func (o *OutputAzureBlob) GetTemplateClientID() *string {
 		return nil
 	}
 	return o.TemplateClientID
+}
+
+func (o *OutputAzureBlob) GetTemplateAzureCloud() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAzureCloud
 }

@@ -431,6 +431,12 @@ createOutputRequest := operations.CreateCreateOutputRequestMicrosoftFabric(opera
 createOutputRequest := operations.CreateCreateOutputRequestCloudflareR2(operations.CreateOutputOutputCloudflareR2{/* values here */})
 ```
 
+### CreateOutputOutputNutanixObjects
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestNutanixObjects(operations.CreateOutputOutputNutanixObjects{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -579,5 +585,7 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputMicrosoftFabric is populated
 	case operations.CreateOutputRequestTypeCloudflareR2:
 		// createOutputRequest.CreateOutputOutputCloudflareR2 is populated
+	case operations.CreateOutputRequestTypeNutanixObjects:
+		// createOutputRequest.CreateOutputOutputNutanixObjects is populated
 }
 ```
