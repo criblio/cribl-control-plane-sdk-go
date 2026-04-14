@@ -92,14 +92,20 @@ type InputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
 	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
 	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
+	// Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+	TemplateStorageAccountName *string `json:"__template_storageAccountName,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
 	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+	TemplateAzureCloud *string `json:"__template_azureCloud,omitzero"`
 }
 
 func (i InputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -344,6 +350,13 @@ func (i *InputAzureBlob) GetCertificate() *CertificateTypeAzureBlobAuthTypeClien
 	return i.Certificate
 }
 
+func (i *InputAzureBlob) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputAzureBlob) GetTemplateQueueName() *string {
 	if i == nil {
 		return nil
@@ -358,6 +371,13 @@ func (i *InputAzureBlob) GetTemplateConnectionString() *string {
 	return i.TemplateConnectionString
 }
 
+func (i *InputAzureBlob) GetTemplateStorageAccountName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStorageAccountName
+}
+
 func (i *InputAzureBlob) GetTemplateTenantID() *string {
 	if i == nil {
 		return nil
@@ -370,4 +390,11 @@ func (i *InputAzureBlob) GetTemplateClientID() *string {
 		return nil
 	}
 	return i.TemplateClientID
+}
+
+func (i *InputAzureBlob) GetTemplateAzureCloud() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAzureCloud
 }

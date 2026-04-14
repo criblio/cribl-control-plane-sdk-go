@@ -120,6 +120,8 @@ type InputWinEventLogs struct {
 	DisableJSONRendering *bool `json:"disableJsonRendering,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
 	DisableXMLRendering *bool `json:"disableXmlRendering,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
@@ -278,4 +280,11 @@ func (i *InputWinEventLogs) GetDisableXMLRendering() *bool {
 		return nil
 	}
 	return i.DisableXMLRendering
+}
+
+func (i *InputWinEventLogs) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }

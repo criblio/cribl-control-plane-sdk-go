@@ -2006,6 +2006,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesNutanixObjects
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesNutanixObjects" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestNutanixObjects(
+        operations.CreateOutputOutputNutanixObjects{
+            ID: "nutanix-objects-output",
+            Type: operations.CreateOutputTypeNutanixObjectsNutanixObjects,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://nutanix-objects.example.com",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesOpenTelemetry
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesOpenTelemetry" -->
@@ -5012,6 +5054,47 @@ func main() {
             AccountID: "123456",
             EventType: "CriblEvent",
             APIKey: criblcontrolplanesdkgo.Pointer("your-api-key"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesNutanixObjects
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesNutanixObjects" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputNutanixObjects(
+        components.OutputNutanixObjects{
+            ID: criblcontrolplanesdkgo.Pointer("nutanix-objects-output"),
+            Type: components.OutputNutanixObjectsTypeNutanixObjects,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://nutanix-objects.example.com",
         },
     ))
     if err != nil {

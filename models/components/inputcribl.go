@@ -53,6 +53,8 @@ type InputCribl struct {
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (i InputCribl) MarshalJSON() ([]byte, error) {
@@ -155,4 +157,11 @@ func (i *InputCribl) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputCribl) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }

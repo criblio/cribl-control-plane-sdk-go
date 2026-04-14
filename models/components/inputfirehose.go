@@ -81,6 +81,8 @@ type InputFirehose struct {
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -285,6 +287,13 @@ func (i *InputFirehose) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputFirehose) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }
 
 func (i *InputFirehose) GetTemplateHost() *string {

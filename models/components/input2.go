@@ -32,6 +32,7 @@ const (
 	Input2TypeOffice365MsgTrace    Input2Type = "office365_msg_trace"
 	Input2TypeMicrosoftGraph       Input2Type = "microsoft_graph"
 	Input2TypeEventhub             Input2Type = "eventhub"
+	Input2TypeEventhubAmqp         Input2Type = "eventhub_amqp"
 	Input2TypeExec                 Input2Type = "exec"
 	Input2TypeFirehose             Input2Type = "firehose"
 	Input2TypeGooglePubsub         Input2Type = "google_pubsub"
@@ -75,6 +76,7 @@ const (
 	Input2TypeServicenowTable      Input2Type = "servicenow_table"
 	Input2TypeZscalerHec           Input2Type = "zscaler_hec"
 	Input2TypeCloudflareHec        Input2Type = "cloudflare_hec"
+	Input2TypeOpenaiComplianceLogs Input2Type = "openai_compliance_logs"
 )
 
 type Input2 struct {
@@ -98,6 +100,7 @@ type Input2 struct {
 	InputOffice365MsgTrace    *InputOffice365MsgTrace    `queryParam:"inline" union:"member"`
 	InputMicrosoftGraph       *InputMicrosoftGraph       `queryParam:"inline" union:"member"`
 	InputEventhub             *InputEventhub             `queryParam:"inline" union:"member"`
+	InputEventhubAmqp         *InputEventhubAmqp         `queryParam:"inline" union:"member"`
 	InputExec                 *InputExec                 `queryParam:"inline" union:"member"`
 	InputFirehose             *InputFirehose             `queryParam:"inline" union:"member"`
 	InputGooglePubsub         *InputGooglePubsub         `queryParam:"inline" union:"member"`
@@ -141,6 +144,7 @@ type Input2 struct {
 	InputServicenowTable      *InputServicenowTable      `queryParam:"inline" union:"member"`
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
 	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
+	InputOpenaiComplianceLogs *InputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
 
 	Type Input2Type
 }
@@ -379,6 +383,18 @@ func CreateInput2Eventhub(eventhub InputEventhub) Input2 {
 	return Input2{
 		InputEventhub: &eventhub,
 		Type:          typ,
+	}
+}
+
+func CreateInput2EventhubAmqp(eventhubAmqp InputEventhubAmqp) Input2 {
+	typ := Input2TypeEventhubAmqp
+
+	typStr := InputEventhubAmqpType(typ)
+	eventhubAmqp.Type = typStr
+
+	return Input2{
+		InputEventhubAmqp: &eventhubAmqp,
+		Type:              typ,
 	}
 }
 
@@ -895,6 +911,18 @@ func CreateInput2CloudflareHec(cloudflareHec InputCloudflareHec) Input2 {
 	}
 }
 
+func CreateInput2OpenaiComplianceLogs(openaiComplianceLogs InputOpenaiComplianceLogs) Input2 {
+	typ := Input2TypeOpenaiComplianceLogs
+
+	typStr := InputOpenaiComplianceLogsType(typ)
+	openaiComplianceLogs.Type = typStr
+
+	return Input2{
+		InputOpenaiComplianceLogs: &openaiComplianceLogs,
+		Type:                      typ,
+	}
+}
+
 func (u *Input2) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1086,6 +1114,15 @@ func (u *Input2) UnmarshalJSON(data []byte) error {
 
 		u.InputEventhub = inputEventhub
 		u.Type = Input2TypeEventhub
+		return nil
+	case "eventhub_amqp":
+		inputEventhubAmqp := new(InputEventhubAmqp)
+		if err := utils.UnmarshalJSON(data, &inputEventhubAmqp, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == eventhub_amqp) type InputEventhubAmqp within Input2: %w", string(data), err)
+		}
+
+		u.InputEventhubAmqp = inputEventhubAmqp
+		u.Type = Input2TypeEventhubAmqp
 		return nil
 	case "exec":
 		inputExec := new(InputExec)
@@ -1474,6 +1511,15 @@ func (u *Input2) UnmarshalJSON(data []byte) error {
 		u.InputCloudflareHec = inputCloudflareHec
 		u.Type = Input2TypeCloudflareHec
 		return nil
+	case "openai_compliance_logs":
+		inputOpenaiComplianceLogs := new(InputOpenaiComplianceLogs)
+		if err := utils.UnmarshalJSON(data, &inputOpenaiComplianceLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openai_compliance_logs) type InputOpenaiComplianceLogs within Input2: %w", string(data), err)
+		}
+
+		u.InputOpenaiComplianceLogs = inputOpenaiComplianceLogs
+		u.Type = Input2TypeOpenaiComplianceLogs
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Input2", string(data))
@@ -1558,6 +1604,10 @@ func (u Input2) MarshalJSON() ([]byte, error) {
 
 	if u.InputEventhub != nil {
 		return utils.MarshalJSON(u.InputEventhub, "", true)
+	}
+
+	if u.InputEventhubAmqp != nil {
+		return utils.MarshalJSON(u.InputEventhubAmqp, "", true)
 	}
 
 	if u.InputExec != nil {
@@ -1730,6 +1780,10 @@ func (u Input2) MarshalJSON() ([]byte, error) {
 
 	if u.InputCloudflareHec != nil {
 		return utils.MarshalJSON(u.InputCloudflareHec, "", true)
+	}
+
+	if u.InputOpenaiComplianceLogs != nil {
+		return utils.MarshalJSON(u.InputOpenaiComplianceLogs, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Input2: all fields are null")

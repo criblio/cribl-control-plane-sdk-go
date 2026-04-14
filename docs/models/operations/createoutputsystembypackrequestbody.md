@@ -431,6 +431,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyCloudflareR2(operations.CreateOutputSystemByPackOutputCloudflareR2{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputNutanixObjects
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyNutanixObjects(operations.CreateOutputSystemByPackOutputNutanixObjects{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -579,5 +585,7 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputMicrosoftFabric is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeCloudflareR2:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputCloudflareR2 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeNutanixObjects:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputNutanixObjects is populated
 }
 ```

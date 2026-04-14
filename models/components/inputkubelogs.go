@@ -97,6 +97,8 @@ type InputKubeLogs struct {
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
 	Description         *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (i InputKubeLogs) MarshalJSON() ([]byte, error) {
@@ -241,4 +243,11 @@ func (i *InputKubeLogs) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputKubeLogs) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }

@@ -89,3 +89,4 @@ custom := components.DestinationType("custom_value")
 | `DestinationTypeDynatraceHTTP`          | dynatrace_http                          |
 | `DestinationTypeDatabricks`             | databricks                              |
 | `DestinationTypeWizHec`                 | wiz_hec                                 |
+| `DestinationTypeNutanixObjects`         | nutanix_objects                         |

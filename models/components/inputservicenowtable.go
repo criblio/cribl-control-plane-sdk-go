@@ -31,27 +31,25 @@ func (e *InputServicenowTableType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// DisplayValue - ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
-type DisplayValue string
+// SortDirection - Used only when Sort by field is set.
+type SortDirection string
 
 const (
-	// DisplayValueFalse Raw
-	DisplayValueFalse DisplayValue = "false"
-	// DisplayValueTrue Display
-	DisplayValueTrue DisplayValue = "true"
-	// DisplayValueAll All
-	DisplayValueAll DisplayValue = "all"
+	// SortDirectionAsc Ascending
+	SortDirectionAsc SortDirection = "asc"
+	// SortDirectionDesc Descending
+	SortDirectionDesc SortDirection = "desc"
 )
 
-func (e DisplayValue) ToPointer() *DisplayValue {
+func (e SortDirection) ToPointer() *SortDirection {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DisplayValue) IsExact() bool {
+func (e *SortDirection) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "false", "true", "all":
+		case "asc", "desc":
 			return true
 		}
 	}
@@ -64,13 +62,9 @@ type InputServicenowTableAuthenticationType string
 const (
 	// InputServicenowTableAuthenticationTypeNone None
 	InputServicenowTableAuthenticationTypeNone InputServicenowTableAuthenticationType = "none"
-	// InputServicenowTableAuthenticationTypeBasic Basic
-	InputServicenowTableAuthenticationTypeBasic InputServicenowTableAuthenticationType = "basic"
-	// InputServicenowTableAuthenticationTypeBasicSecret Basic (credentials secret)
+	// InputServicenowTableAuthenticationTypeBasicSecret Basic
 	InputServicenowTableAuthenticationTypeBasicSecret InputServicenowTableAuthenticationType = "basicSecret"
-	// InputServicenowTableAuthenticationTypeOauth OAuth
-	InputServicenowTableAuthenticationTypeOauth InputServicenowTableAuthenticationType = "oauth"
-	// InputServicenowTableAuthenticationTypeOauthSecret OAuth (text secret)
+	// InputServicenowTableAuthenticationTypeOauthSecret OAuth
 	InputServicenowTableAuthenticationTypeOauthSecret InputServicenowTableAuthenticationType = "oauthSecret"
 )
 
@@ -82,11 +76,25 @@ func (e InputServicenowTableAuthenticationType) ToPointer() *InputServicenowTabl
 func (e *InputServicenowTableAuthenticationType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "oauth", "oauthSecret":
+		case "none", "basicSecret", "oauthSecret":
 			return true
 		}
 	}
 	return false
+}
+
+type InputServicenowTableManageState struct {
+}
+
+func (i InputServicenowTableManageState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputServicenowTableManageState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 type InputServicenowTable struct {
@@ -113,10 +121,18 @@ type InputServicenowTable struct {
 	TableName string `json:"tableName"`
 	// Field names to return from the Table API (sysparm_fields). Leave empty to return all fields.
 	Fields []string `json:"fields,omitzero"`
-	// ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
-	DisplayValue *DisplayValue `json:"displayValue,omitzero"`
+	// Optional. Sort results by this field (for example sys_created_on or parent.name). Leave empty to use the server default order.
+	OrderByField *string `json:"orderByField,omitzero"`
+	// Used only when Sort by field is set.
+	OrderByDirection *SortDirection `json:"orderByDirection,omitzero"`
+	// Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
+	Query *string `json:"query,omitzero"`
+	// When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
+	UseRawValues *bool `json:"useRawValues,omitzero"`
 	// Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
 	PageSize *int64 `json:"pageSize,omitzero"`
+	// Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+	MaxPages *int64 `json:"maxPages,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// ServiceNow Table API authentication method
@@ -149,16 +165,14 @@ type InputServicenowTable struct {
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	RetryRules  *RetryRulesType     `json:"retryRules,omitzero"`
 	Description *string             `json:"description,omitzero"`
-	Username    *string             `json:"username,omitzero"`
-	Password    *string             `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// URL for OAuth
 	LoginURL *string `json:"loginUrl,omitzero"`
 	// Secret parameter name to pass in request body
 	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
+	// Select or create a stored text secret for the OAuth client secret parameter value
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
@@ -169,18 +183,21 @@ type InputServicenowTable struct {
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
-	// Select or create a stored text secret for the OAuth client secret parameter value
-	TextSecret *string `json:"textSecret,omitzero"`
-	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+	// JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
 	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
-	StateMergeExpression *string `json:"stateMergeExpression,omitzero"`
+	StateMergeExpression *string                          `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputServicenowTableManageState `json:"manageState,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
 	TemplateInstance *string `json:"__template_instance,omitzero"`
+	// Binds 'orderByField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'orderByField' at runtime.
+	TemplateOrderByField *string `json:"__template_orderByField,omitzero"`
+	// Binds 'query' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'query' at runtime.
+	TemplateQuery *string `json:"__template_query,omitzero"`
 	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitzero"`
 }
 
 func (i InputServicenowTable) MarshalJSON() ([]byte, error) {
@@ -285,11 +302,32 @@ func (i *InputServicenowTable) GetFields() []string {
 	return i.Fields
 }
 
-func (i *InputServicenowTable) GetDisplayValue() *DisplayValue {
+func (i *InputServicenowTable) GetOrderByField() *string {
 	if i == nil {
 		return nil
 	}
-	return i.DisplayValue
+	return i.OrderByField
+}
+
+func (i *InputServicenowTable) GetOrderByDirection() *SortDirection {
+	if i == nil {
+		return nil
+	}
+	return i.OrderByDirection
+}
+
+func (i *InputServicenowTable) GetQuery() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Query
+}
+
+func (i *InputServicenowTable) GetUseRawValues() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRawValues
 }
 
 func (i *InputServicenowTable) GetPageSize() *int64 {
@@ -297,6 +335,13 @@ func (i *InputServicenowTable) GetPageSize() *int64 {
 		return nil
 	}
 	return i.PageSize
+}
+
+func (i *InputServicenowTable) GetMaxPages() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxPages
 }
 
 func (i *InputServicenowTable) GetRejectUnauthorized() *bool {
@@ -418,20 +463,6 @@ func (i *InputServicenowTable) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputServicenowTable) GetUsername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Username
-}
-
-func (i *InputServicenowTable) GetPassword() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Password
-}
-
 func (i *InputServicenowTable) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
@@ -453,11 +484,11 @@ func (i *InputServicenowTable) GetSecretParamName() *string {
 	return i.SecretParamName
 }
 
-func (i *InputServicenowTable) GetSecret() *string {
+func (i *InputServicenowTable) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
-	return i.Secret
+	return i.TextSecret
 }
 
 func (i *InputServicenowTable) GetTokenAttributeName() *string {
@@ -495,13 +526,6 @@ func (i *InputServicenowTable) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	return i.OauthHeaders
 }
 
-func (i *InputServicenowTable) GetTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TextSecret
-}
-
 func (i *InputServicenowTable) GetStateUpdateExpression() *string {
 	if i == nil {
 		return nil
@@ -516,6 +540,20 @@ func (i *InputServicenowTable) GetStateMergeExpression() *string {
 	return i.StateMergeExpression
 }
 
+func (i *InputServicenowTable) GetManageState() *InputServicenowTableManageState {
+	if i == nil {
+		return nil
+	}
+	return i.ManageState
+}
+
+func (i *InputServicenowTable) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputServicenowTable) GetTemplateInstance() *string {
 	if i == nil {
 		return nil
@@ -523,16 +561,23 @@ func (i *InputServicenowTable) GetTemplateInstance() *string {
 	return i.TemplateInstance
 }
 
+func (i *InputServicenowTable) GetTemplateOrderByField() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateOrderByField
+}
+
+func (i *InputServicenowTable) GetTemplateQuery() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateQuery
+}
+
 func (i *InputServicenowTable) GetTemplateLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateLoginURL
-}
-
-func (i *InputServicenowTable) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
 }

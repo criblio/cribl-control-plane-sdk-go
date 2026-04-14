@@ -21,7 +21,5 @@ custom := components.InputServicenowTableAuthenticationType("custom_value")
 | Name                                                | Value                                               |
 | --------------------------------------------------- | --------------------------------------------------- |
 | `InputServicenowTableAuthenticationTypeNone`        | none                                                |
-| `InputServicenowTableAuthenticationTypeBasic`       | basic                                               |
 | `InputServicenowTableAuthenticationTypeBasicSecret` | basicSecret                                         |
-| `InputServicenowTableAuthenticationTypeOauth`       | oauth                                               |
 | `InputServicenowTableAuthenticationTypeOauthSecret` | oauthSecret                                         |

@@ -91,10 +91,14 @@ type InputLoki struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+	TemplateLokiAPI *string `json:"__template_lokiAPI,omitzero"`
 }
 
 func (i InputLoki) MarshalJSON() ([]byte, error) {
@@ -339,6 +343,13 @@ func (i *InputLoki) GetTextSecret() *string {
 	return i.TextSecret
 }
 
+func (i *InputLoki) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputLoki) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -351,4 +362,11 @@ func (i *InputLoki) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputLoki) GetTemplateLokiAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateLokiAPI
 }

@@ -115,6 +115,8 @@ type InputSecurityLake struct {
 	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
@@ -464,6 +466,13 @@ func (i *InputSecurityLake) GetProcessedTagValue() *string {
 		return nil
 	}
 	return i.ProcessedTagValue
+}
+
+func (i *InputSecurityLake) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }
 
 func (i *InputSecurityLake) GetTemplateQueueName() *string {

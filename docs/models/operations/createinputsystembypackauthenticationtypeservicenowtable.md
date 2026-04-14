@@ -21,7 +21,5 @@ custom := operations.CreateInputSystemByPackAuthenticationTypeServicenowTable("c
 | Name                                                                  | Value                                                                 |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `CreateInputSystemByPackAuthenticationTypeServicenowTableNone`        | none                                                                  |
-| `CreateInputSystemByPackAuthenticationTypeServicenowTableBasic`       | basic                                                                 |
 | `CreateInputSystemByPackAuthenticationTypeServicenowTableBasicSecret` | basicSecret                                                           |
-| `CreateInputSystemByPackAuthenticationTypeServicenowTableOauth`       | oauth                                                                 |
 | `CreateInputSystemByPackAuthenticationTypeServicenowTableOauthSecret` | oauthSecret                                                           |

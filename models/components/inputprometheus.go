@@ -170,6 +170,8 @@ type InputPrometheus struct {
 	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
 	TemplateDiscoveryType *string `json:"__template_discoveryType,omitzero"`
 	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
@@ -530,6 +532,13 @@ func (i *InputPrometheus) GetCredentialsSecret() *string {
 		return nil
 	}
 	return i.CredentialsSecret
+}
+
+func (i *InputPrometheus) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }
 
 func (i *InputPrometheus) GetTemplateDiscoveryType() *string {

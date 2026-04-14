@@ -83,6 +83,7 @@ const (
 	OutputTypeDatabricks             OutputType = "databricks"
 	OutputTypeMicrosoftFabric        OutputType = "microsoft_fabric"
 	OutputTypeCloudflareR2           OutputType = "cloudflare_r2"
+	OutputTypeNutanixObjects         OutputType = "nutanix_objects"
 	OutputTypeUnknown                OutputType = "UNKNOWN"
 )
 
@@ -158,6 +159,7 @@ type Output struct {
 	OutputDatabricks             *OutputDatabricks             `queryParam:"inline" union:"member"`
 	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline" union:"member"`
 	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
+	OutputNutanixObjects         *OutputNutanixObjects         `queryParam:"inline" union:"member"`
 	UnknownRaw                   json.RawMessage               `json:"-" union:"unknown"`
 
 	Type OutputType
@@ -1009,6 +1011,18 @@ func CreateOutputCloudflareR2(cloudflareR2 OutputCloudflareR2) Output {
 	}
 }
 
+func CreateOutputNutanixObjects(nutanixObjects OutputNutanixObjects) Output {
+	typ := OutputTypeNutanixObjects
+
+	typStr := OutputNutanixObjectsType(typ)
+	nutanixObjects.Type = typStr
+
+	return Output{
+		OutputNutanixObjects: &nutanixObjects,
+		Type:                 typ,
+	}
+}
+
 func CreateOutputUnknown(raw json.RawMessage) Output {
 	return Output{
 		UnknownRaw: raw,
@@ -1682,6 +1696,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputCloudflareR2 = outputCloudflareR2
 		u.Type = OutputTypeCloudflareR2
 		return nil
+	case "nutanix_objects":
+		outputNutanixObjects := new(OutputNutanixObjects)
+		if err := utils.UnmarshalJSON(data, &outputNutanixObjects, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == nutanix_objects) type OutputNutanixObjects within Output: %w", string(data), err)
+		}
+
+		u.OutputNutanixObjects = outputNutanixObjects
+		u.Type = OutputTypeNutanixObjects
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = OutputTypeUnknown
@@ -1973,6 +1996,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputCloudflareR2 != nil {
 		return utils.MarshalJSON(u.OutputCloudflareR2, "", true)
+	}
+
+	if u.OutputNutanixObjects != nil {
+		return utils.MarshalJSON(u.OutputNutanixObjects, "", true)
 	}
 
 	if u.UnknownRaw != nil {
