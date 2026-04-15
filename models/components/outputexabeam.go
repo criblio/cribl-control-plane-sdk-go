@@ -78,6 +78,7 @@ type OutputExabeam struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	RetrySettings          *RetrySettingsType          `json:"retrySettings,omitzero"`
+	Orphans                *OrphanFileRecoveryType     `json:"orphans,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Enter an encoded string containing Exabeam configurations
@@ -284,6 +285,13 @@ func (o *OutputExabeam) GetRetrySettings() *RetrySettingsType {
 		return nil
 	}
 	return o.RetrySettings
+}
+
+func (o *OutputExabeam) GetOrphans() *OrphanFileRecoveryType {
+	if o == nil {
+		return nil
+	}
+	return o.Orphans
 }
 
 func (o *OutputExabeam) GetMaxFileSizeMB() *float64 {
