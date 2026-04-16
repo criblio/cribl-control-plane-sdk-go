@@ -17,8 +17,8 @@ type KafkaSchemaRegistryAuthenticationType struct {
 	// Maximum number of times to try fetching schemas from the Schema Registry
 	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
-	Auth *AuthTypeKafkaSchemaRegistry                  `json:"auth,omitzero"`
-	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	Auth *AuthType                                `json:"auth,omitzero"`
+	TLS  *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 }
 
 func (k KafkaSchemaRegistryAuthenticationType) MarshalJSON() ([]byte, error) {
@@ -67,14 +67,14 @@ func (k *KafkaSchemaRegistryAuthenticationType) GetMaxRetries() *float64 {
 	return k.MaxRetries
 }
 
-func (k *KafkaSchemaRegistryAuthenticationType) GetAuth() *AuthTypeKafkaSchemaRegistry {
+func (k *KafkaSchemaRegistryAuthenticationType) GetAuth() *AuthType {
 	if k == nil {
 		return nil
 	}
 	return k.Auth
 }
 
-func (k *KafkaSchemaRegistryAuthenticationType) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (k *KafkaSchemaRegistryAuthenticationType) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if k == nil {
 		return nil
 	}

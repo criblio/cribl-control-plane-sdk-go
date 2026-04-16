@@ -13,6 +13,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 )
 
@@ -284,14 +285,8 @@ func (s *PacksDestinationsStatuses) Get(ctx context.Context, id string, pack str
 }
 
 // List the status of all Destinations within a Pack
-// List status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
-func (s *PacksDestinationsStatuses) List(ctx context.Context, pack string, metrics *bool, type_ *bool, opts ...operations.Option) (*operations.GetOutputStatusSystemOutputsByPackResponse, error) {
-	request := operations.GetOutputStatusSystemOutputsByPackRequest{
-		Metrics: metrics,
-		Type:    type_,
-		Pack:    pack,
-	}
-
+// List status information and optional metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
+func (s *PacksDestinationsStatuses) List(ctx context.Context, request operations.GetOutputStatusSystemOutputsByPackRequest, opts ...operations.Option) (*operations.GetOutputStatusSystemOutputsByPackResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -438,7 +433,7 @@ func (s *PacksDestinationsStatuses) List(ctx context.Context, pack string, metri
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"401", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"400", "401", "4XX", "500", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -458,6 +453,52 @@ func (s *PacksDestinationsStatuses) List(ctx context.Context, pack string, metri
 			Request:  req,
 			Response: httpRes,
 		},
+	}
+	res.Next = func() (*operations.GetOutputStatusSystemOutputsByPackResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if request.Offset != nil {
+			oS = int(*request.Offset)
+		}
+		r, err := ajson.Eval(b, "$.items")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if request.Limit != nil {
+			l = int(*request.Limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
+
+		return s.List(
+			ctx,
+			request,
+			opts...,
+		)
 	}
 
 	switch {
@@ -509,6 +550,8 @@ func (s *PacksDestinationsStatuses) List(ctx context.Context, pack string, metri
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 400:
+		fallthrough
 	case httpRes.StatusCode == 401:
 		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:

@@ -125,6 +125,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyEventhub(operations.CreateInputSystemByPackInputEventhub{/* values here */})
 ```
 
+### CreateInputSystemByPackInputEventhubAmqp
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyEventhubAmqp(operations.CreateInputSystemByPackInputEventhubAmqp{/* values here */})
+```
+
 ### CreateInputSystemByPackInputExec
 
 ```go
@@ -365,6 +371,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodySecurityLake(operations.CreateInputSystemByPackInputSecurityLake{/* values here */})
 ```
 
+### CreateInputSystemByPackInputServicenowTable
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyServicenowTable(operations.CreateInputSystemByPackInputServicenowTable{/* values here */})
+```
+
 ### CreateInputSystemByPackInputZscalerHec
 
 ```go
@@ -375,6 +387,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 
 ```go
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyCloudflareHec(operations.CreateInputSystemByPackInputCloudflareHec{/* values here */})
+```
+
+### CreateInputSystemByPackInputOpenaiComplianceLogs
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyOpenaiComplianceLogs(operations.CreateInputSystemByPackInputOpenaiComplianceLogs{/* values here */})
 ```
 
 ## Union Discrimination
@@ -423,6 +441,8 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputMicrosoftGraph is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeEventhub:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputEventhub is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeEventhubAmqp:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputEventhubAmqp is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeExec:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputExec is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeFirehose:
@@ -503,9 +523,13 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputNetflow is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeSecurityLake:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSecurityLake is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeServicenowTable:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputServicenowTable is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeZscalerHec:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputZscalerHec is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeCloudflareHec:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCloudflareHec is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOpenaiComplianceLogs is populated
 }
 ```

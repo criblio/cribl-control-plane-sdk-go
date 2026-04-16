@@ -462,10 +462,100 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink) GetTotal
 	return r.TotalPageField
 }
 
+type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesType string
+
+const (
+	RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesType = "arrayOfAny"
+	RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesTypeStr        RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesType = "str"
+)
+
+// RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes - Names of attributes within the response that contain next-page information
+type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesType
+}
+
+func CreateRestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesArrayOfAny(arrayOfAny []any) RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny
+
+	return RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func CreateRestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesStr(str string) RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes {
+	typ := RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesTypeStr
+
+	return RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesType)
+	switch best.Type {
+	case RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes", string(data))
+}
+
+func (u RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes: all fields are null")
+}
+
 type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve for the discover task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
@@ -512,9 +602,9 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader) GetType() Pa
 	return r.Type
 }
 
-func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader) GetAttribute() []string {
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader) GetAttribute() RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes{}
 	}
 	return r.Attribute
 }
@@ -610,10 +700,100 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader) GetTotalPage
 	return r.TotalPageField
 }
 
+type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesType string
+
+const (
+	RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesType = "arrayOfAny"
+	RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesTypeStr        RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesType = "str"
+)
+
+// RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes - Names of attributes within the response that contain next-page information
+type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes struct {
+	ArrayOfAny []any   `queryParam:"inline" union:"member"`
+	Str        *string `queryParam:"inline" union:"member"`
+
+	Type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesType
+}
+
+func CreateRestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesArrayOfAny(arrayOfAny []any) RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes {
+	typ := RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny
+
+	return RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func CreateRestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesStr(str string) RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes {
+	typ := RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesTypeStr
+
+	return RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesType)
+	switch best.Type {
+	case RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	case RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributesTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes", string(data))
+}
+
+func (u RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes) MarshalJSON() ([]byte, error) {
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes: all fields are null")
+}
+
 type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
-	Attribute []string `json:"attribute"`
+	Attribute RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
 	// Maximum number of pages to retrieve for the discover task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages float64 `json:"maxPages"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
@@ -660,9 +840,9 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody) GetType() Pagi
 	return r.Type
 }
 
-func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody) GetAttribute() []string {
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody) GetAttribute() RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes {
 	if r == nil {
-		return []string{}
+		return RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes{}
 	}
 	return r.Attribute
 }

@@ -125,6 +125,12 @@ createInputRequest := operations.CreateCreateInputRequestMicrosoftGraph(operatio
 createInputRequest := operations.CreateCreateInputRequestEventhub(operations.CreateInputInputEventhub{/* values here */})
 ```
 
+### CreateInputInputEventhubAmqp
+
+```go
+createInputRequest := operations.CreateCreateInputRequestEventhubAmqp(operations.CreateInputInputEventhubAmqp{/* values here */})
+```
+
 ### CreateInputInputExec
 
 ```go
@@ -365,6 +371,12 @@ createInputRequest := operations.CreateCreateInputRequestNetflow(operations.Crea
 createInputRequest := operations.CreateCreateInputRequestSecurityLake(operations.CreateInputInputSecurityLake{/* values here */})
 ```
 
+### CreateInputInputServicenowTable
+
+```go
+createInputRequest := operations.CreateCreateInputRequestServicenowTable(operations.CreateInputInputServicenowTable{/* values here */})
+```
+
 ### CreateInputInputZscalerHec
 
 ```go
@@ -375,6 +387,12 @@ createInputRequest := operations.CreateCreateInputRequestZscalerHec(operations.C
 
 ```go
 createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operations.CreateInputInputCloudflareHec{/* values here */})
+```
+
+### CreateInputInputOpenaiComplianceLogs
+
+```go
+createInputRequest := operations.CreateCreateInputRequestOpenaiComplianceLogs(operations.CreateInputInputOpenaiComplianceLogs{/* values here */})
 ```
 
 ## Union Discrimination
@@ -423,6 +441,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputMicrosoftGraph is populated
 	case operations.CreateInputRequestTypeEventhub:
 		// createInputRequest.CreateInputInputEventhub is populated
+	case operations.CreateInputRequestTypeEventhubAmqp:
+		// createInputRequest.CreateInputInputEventhubAmqp is populated
 	case operations.CreateInputRequestTypeExec:
 		// createInputRequest.CreateInputInputExec is populated
 	case operations.CreateInputRequestTypeFirehose:
@@ -503,9 +523,13 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputNetflow is populated
 	case operations.CreateInputRequestTypeSecurityLake:
 		// createInputRequest.CreateInputInputSecurityLake is populated
+	case operations.CreateInputRequestTypeServicenowTable:
+		// createInputRequest.CreateInputInputServicenowTable is populated
 	case operations.CreateInputRequestTypeZscalerHec:
 		// createInputRequest.CreateInputInputZscalerHec is populated
 	case operations.CreateInputRequestTypeCloudflareHec:
 		// createInputRequest.CreateInputInputCloudflareHec is populated
+	case operations.CreateInputRequestTypeOpenaiComplianceLogs:
+		// createInputRequest.CreateInputInputOpenaiComplianceLogs is populated
 }
 ```

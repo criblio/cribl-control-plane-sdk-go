@@ -11,10 +11,10 @@ Output object
 createOutputRequest := operations.CreateCreateOutputRequestDefault(operations.CreateOutputOutputDefault{/* values here */})
 ```
 
-### CreateOutputOutputWebhook
+### CreateOutputOutputWebhookUnion
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestWebhook(operations.CreateOutputOutputWebhook{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestWebhook(operations.CreateOutputOutputWebhookUnion{/* values here */})
 ```
 
 ### CreateOutputOutputSentinel
@@ -431,6 +431,12 @@ createOutputRequest := operations.CreateCreateOutputRequestMicrosoftFabric(opera
 createOutputRequest := operations.CreateCreateOutputRequestCloudflareR2(operations.CreateOutputOutputCloudflareR2{/* values here */})
 ```
 
+### CreateOutputOutputNutanixObjects
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestNutanixObjects(operations.CreateOutputOutputNutanixObjects{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -440,7 +446,7 @@ switch createOutputRequest.Type {
 	case operations.CreateOutputRequestTypeDefault:
 		// createOutputRequest.CreateOutputOutputDefault is populated
 	case operations.CreateOutputRequestTypeWebhook:
-		// createOutputRequest.CreateOutputOutputWebhook is populated
+		// createOutputRequest.CreateOutputOutputWebhookUnion is populated
 	case operations.CreateOutputRequestTypeSentinel:
 		// createOutputRequest.CreateOutputOutputSentinel is populated
 	case operations.CreateOutputRequestTypeDevnull:
@@ -579,5 +585,7 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputMicrosoftFabric is populated
 	case operations.CreateOutputRequestTypeCloudflareR2:
 		// createOutputRequest.CreateOutputOutputCloudflareR2 is populated
+	case operations.CreateOutputRequestTypeNutanixObjects:
+		// createOutputRequest.CreateOutputOutputNutanixObjects is populated
 }
 ```

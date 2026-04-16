@@ -72,14 +72,15 @@ type OutputDatabricks struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
 	WorkspaceID string `json:"workspaceId"`
 	// Hostname for the Databricks workspace. Override this to connect to government or secure cloud environments (e.g. cloud.databricks.us, cloud.databricks.mil, azuredatabricks.net).
@@ -100,7 +101,7 @@ type OutputDatabricks struct {
 	TimeoutSec  *int64  `json:"timeoutSec,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `json:"compress,omitzero"`
+	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -133,8 +134,18 @@ type OutputDatabricks struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (o OutputDatabricks) MarshalJSON() ([]byte, error) {
@@ -288,7 +299,7 @@ func (o *OutputDatabricks) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputDatabricks) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputDatabricks) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}
@@ -321,6 +332,13 @@ func (o *OutputDatabricks) GetRetrySettings() *RetrySettingsType {
 		return nil
 	}
 	return o.RetrySettings
+}
+
+func (o *OutputDatabricks) GetOrphans() *OrphanFileRecoveryType {
+	if o == nil {
+		return nil
+	}
+	return o.Orphans
 }
 
 func (o *OutputDatabricks) GetWorkspaceID() string {
@@ -393,7 +411,7 @@ func (o *OutputDatabricks) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputDatabricks) GetCompress() *CompressionOptions2 {
+func (o *OutputDatabricks) GetCompress() *CompressionOptionsHTTP {
 	if o == nil {
 		return nil
 	}
@@ -512,9 +530,44 @@ func (o *OutputDatabricks) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
+func (o *OutputDatabricks) GetTemplatePartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePartitionExpr
+}
+
 func (o *OutputDatabricks) GetTemplateFormat() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateFormat
+}
+
+func (o *OutputDatabricks) GetTemplateBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBaseFileName
+}
+
+func (o *OutputDatabricks) GetTemplateFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFileNameSuffix
+}
+
+func (o *OutputDatabricks) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputDatabricks) GetTemplateCompress() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCompress
 }

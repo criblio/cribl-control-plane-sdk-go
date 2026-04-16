@@ -7,22 +7,23 @@ import (
 )
 
 type PackInfo struct {
-	Author              *string                  `json:"author,omitzero"`
-	Collectors          *float64                 `json:"collectors,omitzero"`
-	Dependencies        map[string]string        `json:"dependencies,omitzero"`
-	Description         *string                  `json:"description,omitzero"`
-	DisplayName         *string                  `json:"displayName,omitzero"`
-	Exports             []string                 `json:"exports,omitzero"`
-	ID                  string                   `json:"id"`
-	Inputs              *float64                 `json:"inputs,omitzero"`
-	IsDisabled          *bool                    `json:"isDisabled,omitzero"`
-	MinLogStreamVersion *string                  `json:"minLogStreamVersion,omitzero"`
-	Outputs             *float64                 `json:"outputs,omitzero"`
-	Settings            map[string]any           `json:"settings,omitzero"`
-	Source              string                   `json:"source"`
-	Spec                *string                  `json:"spec,omitzero"`
-	Tags                *TagsTypePackInstallInfo `json:"tags,omitzero"`
-	Version             *string                  `json:"version,omitzero"`
+	Author              *string                            `json:"author,omitzero"`
+	Collectors          *float64                           `json:"collectors,omitzero"`
+	Dependencies        map[string]string                  `json:"dependencies,omitzero"`
+	Description         *string                            `json:"description,omitzero"`
+	DisplayName         *string                            `json:"displayName,omitzero"`
+	Exports             []string                           `json:"exports,omitzero"`
+	ID                  string                             `json:"id"`
+	Inputs              *float64                           `json:"inputs,omitzero"`
+	IsDisabled          *bool                              `json:"isDisabled,omitzero"`
+	MinLogStreamVersion *string                            `json:"minLogStreamVersion,omitzero"`
+	NavItems            []ItemsTypePackInstallInfoNavItems `json:"navItems,omitzero"`
+	Outputs             *float64                           `json:"outputs,omitzero"`
+	Settings            map[string]any                     `json:"settings,omitzero"`
+	Source              string                             `json:"source"`
+	Spec                *string                            `json:"spec,omitzero"`
+	Tags                *TagsTypePackInstallInfo           `json:"tags,omitzero"`
+	Version             *string                            `json:"version,omitzero"`
 }
 
 func (p PackInfo) MarshalJSON() ([]byte, error) {
@@ -104,6 +105,13 @@ func (p *PackInfo) GetMinLogStreamVersion() *string {
 		return nil
 	}
 	return p.MinLogStreamVersion
+}
+
+func (p *PackInfo) GetNavItems() []ItemsTypePackInstallInfoNavItems {
+	if p == nil {
+		return nil
+	}
+	return p.NavItems
 }
 
 func (p *PackInfo) GetOutputs() *float64 {

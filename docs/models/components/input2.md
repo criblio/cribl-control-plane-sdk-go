@@ -123,6 +123,12 @@ input2 := components.CreateInput2MicrosoftGraph(components.InputMicrosoftGraph{/
 input2 := components.CreateInput2Eventhub(components.InputEventhub{/* values here */})
 ```
 
+### InputEventhubAmqp
+
+```go
+input2 := components.CreateInput2EventhubAmqp(components.InputEventhubAmqp{/* values here */})
+```
+
 ### InputExec
 
 ```go
@@ -363,6 +369,12 @@ input2 := components.CreateInput2Netflow(components.InputNetflow{/* values here 
 input2 := components.CreateInput2SecurityLake(components.InputSecurityLake{/* values here */})
 ```
 
+### InputServicenowTable
+
+```go
+input2 := components.CreateInput2ServicenowTable(components.InputServicenowTable{/* values here */})
+```
+
 ### InputZscalerHec
 
 ```go
@@ -373,6 +385,12 @@ input2 := components.CreateInput2ZscalerHec(components.InputZscalerHec{/* values
 
 ```go
 input2 := components.CreateInput2CloudflareHec(components.InputCloudflareHec{/* values here */})
+```
+
+### InputOpenaiComplianceLogs
+
+```go
+input2 := components.CreateInput2OpenaiComplianceLogs(components.InputOpenaiComplianceLogs{/* values here */})
 ```
 
 ## Union Discrimination
@@ -421,6 +439,8 @@ switch input2.Type {
 		// input2.InputMicrosoftGraph is populated
 	case components.Input2TypeEventhub:
 		// input2.InputEventhub is populated
+	case components.Input2TypeEventhubAmqp:
+		// input2.InputEventhubAmqp is populated
 	case components.Input2TypeExec:
 		// input2.InputExec is populated
 	case components.Input2TypeFirehose:
@@ -501,9 +521,13 @@ switch input2.Type {
 		// input2.InputNetflow is populated
 	case components.Input2TypeSecurityLake:
 		// input2.InputSecurityLake is populated
+	case components.Input2TypeServicenowTable:
+		// input2.InputServicenowTable is populated
 	case components.Input2TypeZscalerHec:
 		// input2.InputZscalerHec is populated
 	case components.Input2TypeCloudflareHec:
 		// input2.InputCloudflareHec is populated
+	case components.Input2TypeOpenaiComplianceLogs:
+		// input2.InputOpenaiComplianceLogs is populated
 }
 ```

@@ -573,12 +573,15 @@ type InputWindowsMetrics struct {
 	Interval *float64                 `json:"interval,omitzero"`
 	Host     *InputWindowsMetricsHost `json:"host,omitzero"`
 	Process  *ProcessType             `json:"process,omitzero"`
+	Gpu      *GpuType                 `json:"gpu,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata             `json:"metadata,omitzero"`
 	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
 	DisableNativeModule *bool   `json:"disableNativeModule,omitzero"`
 	Description         *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (i InputWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -683,6 +686,13 @@ func (i *InputWindowsMetrics) GetProcess() *ProcessType {
 	return i.Process
 }
 
+func (i *InputWindowsMetrics) GetGpu() *GpuType {
+	if i == nil {
+		return nil
+	}
+	return i.Gpu
+}
+
 func (i *InputWindowsMetrics) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
@@ -709,4 +719,11 @@ func (i *InputWindowsMetrics) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputWindowsMetrics) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }

@@ -581,6 +581,8 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
 	ParentFieldsToCopy []string `json:"parentFieldsToCopy,omitzero"`
 	// Automatically extract fields from JSON events. When disabled, only _raw and _time are defined on extracted events.
 	JSONExtractAll *bool `json:"jsonExtractAll,omitzero"`
+	// List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
+	FieldsToRemove []string `json:"fieldsToRemove,omitzero"`
 	// Optional path to timestamp field in extracted events, such as eventTime or level1.level2.eventTime.
 	JSONTimeField *string                                                    `json:"jsonTimeField,omitzero"`
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew `json:"existingOrNew"`
@@ -637,6 +639,13 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetJSONExtractAll() *boo
 		return nil
 	}
 	return e.JSONExtractAll
+}
+
+func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetFieldsToRemove() []string {
+	if e == nil {
+		return nil
+	}
+	return e.FieldsToRemove
 }
 
 func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetJSONTimeField() *string {

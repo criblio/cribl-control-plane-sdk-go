@@ -94,12 +94,16 @@ type InputSyslogSyslog2 struct {
 	Description         *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
 	TemplateUDPPort *string `json:"__template_udpPort,omitzero"`
 	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
 	TemplateTCPPort *string `json:"__template_tcpPort,omitzero"`
+	// Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+	TemplateTimestampTimezone *string `json:"__template_timestampTimezone,omitzero"`
 }
 
 func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
@@ -344,6 +348,13 @@ func (i *InputSyslogSyslog2) GetEnableEnhancedProxyHeaderParsing() *bool {
 	return i.EnableEnhancedProxyHeaderParsing
 }
 
+func (i *InputSyslogSyslog2) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputSyslogSyslog2) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -363,6 +374,13 @@ func (i *InputSyslogSyslog2) GetTemplateTCPPort() *string {
 		return nil
 	}
 	return i.TemplateTCPPort
+}
+
+func (i *InputSyslogSyslog2) GetTemplateTimestampTimezone() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTimestampTimezone
 }
 
 // #region class-body-inputsyslogsyslog2
@@ -453,12 +471,16 @@ type InputSyslogSyslog1 struct {
 	Description         *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
 	TemplateUDPPort *string `json:"__template_udpPort,omitzero"`
 	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
 	TemplateTCPPort *string `json:"__template_tcpPort,omitzero"`
+	// Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+	TemplateTimestampTimezone *string `json:"__template_timestampTimezone,omitzero"`
 }
 
 func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
@@ -703,6 +725,13 @@ func (i *InputSyslogSyslog1) GetEnableEnhancedProxyHeaderParsing() *bool {
 	return i.EnableEnhancedProxyHeaderParsing
 }
 
+func (i *InputSyslogSyslog1) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputSyslogSyslog1) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -722,6 +751,13 @@ func (i *InputSyslogSyslog1) GetTemplateTCPPort() *string {
 		return nil
 	}
 	return i.TemplateTCPPort
+}
+
+func (i *InputSyslogSyslog1) GetTemplateTimestampTimezone() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTimestampTimezone
 }
 
 // #region class-body-inputsyslogsyslog1

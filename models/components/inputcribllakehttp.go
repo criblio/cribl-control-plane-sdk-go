@@ -212,10 +212,16 @@ type InputCriblLakeHTTP struct {
 	Metadata      []ItemsTypeMetadata `json:"metadata,omitzero"`
 	AuthTokensExt []AuthTokensExt     `json:"authTokensExt,omitzero"`
 	Description   *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
+	TemplateCriblAPI *string `json:"__template_criblAPI,omitzero"`
+	// Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+	TemplateElasticAPI *string `json:"__template_elasticAPI,omitzero"`
 	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
 	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
 }
@@ -455,6 +461,13 @@ func (i *InputCriblLakeHTTP) GetDescription() *string {
 	return i.Description
 }
 
+func (i *InputCriblLakeHTTP) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputCriblLakeHTTP) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -467,6 +480,20 @@ func (i *InputCriblLakeHTTP) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputCriblLakeHTTP) GetTemplateCriblAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateCriblAPI
+}
+
+func (i *InputCriblLakeHTTP) GetTemplateElasticAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateElasticAPI
 }
 
 func (i *InputCriblLakeHTTP) GetTemplateSplunkHecAPI() *string {

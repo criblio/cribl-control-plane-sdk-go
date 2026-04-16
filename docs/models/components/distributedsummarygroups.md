@@ -3,12 +3,12 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `Count`            | `float64`          | :heavy_check_mark: | N/A                |
-| `Destinations`     | `float64`          | :heavy_check_mark: | N/A                |
-| `Packs`            | `float64`          | :heavy_check_mark: | N/A                |
-| `Pipelines`        | `float64`          | :heavy_check_mark: | N/A                |
-| `QuickConnects`    | `float64`          | :heavy_check_mark: | N/A                |
-| `Routes`           | `float64`          | :heavy_check_mark: | N/A                |
-| `Sources`          | `float64`          | :heavy_check_mark: | N/A                |
+| Field                                         | Type                                          | Required                                      | Description                                   |
+| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| `Count`                                       | `int64`                                       | :heavy_check_mark:                            | Total number of Worker Groups or Edge Fleets. |
+| `Destinations`                                | `int64`                                       | :heavy_check_mark:                            | Total number of Destinations.                 |
+| `Packs`                                       | `int64`                                       | :heavy_check_mark:                            | Total number of Packs.                        |
+| `Pipelines`                                   | `int64`                                       | :heavy_check_mark:                            | Total number of Pipelines.                    |
+| `QuickConnects`                               | `int64`                                       | :heavy_check_mark:                            | Total number of QuickConnect configurations.  |
+| `Routes`                                      | `int64`                                       | :heavy_check_mark:                            | Total number of Routes.                       |
+| `Sources`                                     | `int64`                                       | :heavy_check_mark:                            | Total number of Sources.                      |

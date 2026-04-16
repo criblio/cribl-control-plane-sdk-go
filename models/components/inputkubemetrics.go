@@ -124,6 +124,8 @@ type InputKubeMetrics struct {
 	Metadata    []ItemsTypeMetadata          `json:"metadata,omitzero"`
 	Persistence *InputKubeMetricsPersistence `json:"persistence,omitzero"`
 	Description *string                      `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (i InputKubeMetrics) MarshalJSON() ([]byte, error) {
@@ -240,4 +242,11 @@ func (i *InputKubeMetrics) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputKubeMetrics) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }

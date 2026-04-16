@@ -30,7 +30,7 @@ func (d *DeleteInputSystemByPackAndIDRequest) GetPack() string {
 
 type DeleteInputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// the deleted Source object
 	CountedInput *components.CountedInput
 }
 

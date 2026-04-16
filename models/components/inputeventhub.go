@@ -74,7 +74,7 @@ type InputEventhub struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *AuthenticationType1       `json:"sasl,omitzero"`
+	Sasl *AuthenticationTypeUse     `json:"sasl,omitzero"`
 	TLS  *TLSSettingsClientSideType `json:"tls,omitzero"`
 	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
@@ -104,6 +104,10 @@ type InputEventhub struct {
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 }
 
 func (i InputEventhub) MarshalJSON() ([]byte, error) {
@@ -271,7 +275,7 @@ func (i *InputEventhub) GetReauthenticationThreshold() *float64 {
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputEventhub) GetSasl() *AuthenticationType1 {
+func (i *InputEventhub) GetSasl() *AuthenticationTypeUse {
 	if i == nil {
 		return nil
 	}
@@ -360,4 +364,18 @@ func (i *InputEventhub) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputEventhub) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputEventhub) GetTemplateGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateGroupID
 }

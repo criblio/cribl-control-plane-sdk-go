@@ -103,7 +103,7 @@ type InputFile struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	Description         *string  `json:"description,omitzero"`
-	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
+	// Directory path to search for files. Environment variables will be resolved (example: $CRIBL_HOME/log/).
 	Path *string `json:"path,omitzero"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
 	Depth                     *float64 `json:"depth,omitzero"`
@@ -112,8 +112,12 @@ type InputFile struct {
 	DeleteFiles *bool `json:"deleteFiles,omitzero"`
 	// Salt the file hash with the Source file path. Ensures that all files with the same header hash, such as CSV files, are ingested. Moving or renaming the file, or toggling this after starting the Source will cause re-ingestion.
 	SaltHash *bool `json:"saltHash,omitzero"`
-	// Stream binary files as Base64-encoded chunks.
+	// Skip rescans of unchanged directories based on directory modification time. Uses an exponential backoff strategy, reducing load on the filesystems, but possibly delaying detection of new data. This option is optimized for search paths where files exist in the leaf directories.
+	OptimizeLeafDirectories *bool `json:"optimizeLeafDirectories,omitzero"`
+	// Stream binary files as Base64-encoded chunks
 	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (i InputFile) MarshalJSON() ([]byte, error) {
@@ -337,9 +341,23 @@ func (i *InputFile) GetSaltHash() *bool {
 	return i.SaltHash
 }
 
+func (i *InputFile) GetOptimizeLeafDirectories() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.OptimizeLeafDirectories
+}
+
 func (i *InputFile) GetIncludeUnidentifiableBinary() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeUnidentifiableBinary
+}
+
+func (i *InputFile) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }

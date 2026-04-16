@@ -7,7 +7,7 @@ import (
 )
 
 type PrometheusAuthType struct {
-	AuthType *AuthenticationTypeOptionsPrometheusAuth1 `json:"authType,omitzero"`
+	AuthType *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret `json:"authType,omitzero"`
 	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
@@ -31,7 +31,7 @@ func (p *PrometheusAuthType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PrometheusAuthType) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth1 {
+func (p *PrometheusAuthType) GetAuthType() *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret {
 	if p == nil {
 		return nil
 	}

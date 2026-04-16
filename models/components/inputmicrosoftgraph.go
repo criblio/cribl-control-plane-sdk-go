@@ -137,9 +137,9 @@ type InputMicrosoftGraph struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *LogLevelOptions `json:"logLevel,omitzero"`
-	RetryRules  *RetryRulesType1 `json:"retryRules,omitzero"`
-	Description *string          `json:"description,omitzero"`
+	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	Description *string                          `json:"description,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
@@ -153,6 +153,8 @@ type InputMicrosoftGraph struct {
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string          `json:"textSecret,omitzero"`
 	CertOptions *CertOptionsType `json:"certOptions,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -161,6 +163,8 @@ type InputMicrosoftGraph struct {
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
 	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
 	TemplateResource *string `json:"__template_resource,omitzero"`
+	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+	TemplatePlanType *string `json:"__template_planType,omitzero"`
 }
 
 func (i InputMicrosoftGraph) MarshalJSON() ([]byte, error) {
@@ -356,14 +360,14 @@ func (i *InputMicrosoftGraph) GetMaxTaskReschedule() *float64 {
 	return i.MaxTaskReschedule
 }
 
-func (i *InputMicrosoftGraph) GetLogLevel() *LogLevelOptions {
+func (i *InputMicrosoftGraph) GetLogLevel() *LogLevelOptionsDebugError {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputMicrosoftGraph) GetRetryRules() *RetryRulesType1 {
+func (i *InputMicrosoftGraph) GetRetryRules() *RetryRulesTypeCodesEnableHeader {
 	if i == nil {
 		return nil
 	}
@@ -426,6 +430,13 @@ func (i *InputMicrosoftGraph) GetCertOptions() *CertOptionsType {
 	return i.CertOptions
 }
 
+func (i *InputMicrosoftGraph) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputMicrosoftGraph) GetTemplateURL() *string {
 	if i == nil {
 		return nil
@@ -452,4 +463,11 @@ func (i *InputMicrosoftGraph) GetTemplateResource() *string {
 		return nil
 	}
 	return i.TemplateResource
+}
+
+func (i *InputMicrosoftGraph) GetTemplatePlanType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePlanType
 }

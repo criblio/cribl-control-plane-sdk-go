@@ -137,9 +137,9 @@ type TLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
 	CertPath *string `json:"certPath,omitzero"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                                         `json:"caPath,omitzero"`
-	MinVersion *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitzero"`
-	MaxVersion *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitzero"`
+	CaPath     *string                      `json:"caPath,omitzero"`
+	MinVersion *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
+	MaxVersion *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
 }
 
 func (t TLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -216,14 +216,14 @@ func (t *TLSSettingsServerSide) GetCaPath() *string {
 	return t.CaPath
 }
 
-func (t *TLSSettingsServerSide) GetMinVersion() *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
+func (t *TLSSettingsServerSide) GetMinVersion() *MinimumTLSVersionOptionsTLS {
 	if t == nil {
 		return nil
 	}
 	return t.MinVersion
 }
 
-func (t *TLSSettingsServerSide) GetMaxVersion() *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
+func (t *TLSSettingsServerSide) GetMaxVersion() *MaximumTLSVersionOptionsTLS {
 	if t == nil {
 		return nil
 	}
@@ -292,6 +292,8 @@ type InputCloudflareHec struct {
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
 	Description      *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -538,6 +540,13 @@ func (i *InputCloudflareHec) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputCloudflareHec) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }
 
 func (i *InputCloudflareHec) GetTemplateHost() *string {

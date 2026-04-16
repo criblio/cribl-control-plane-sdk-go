@@ -63,7 +63,7 @@ type HBCriblInfo struct {
 	Pid               *float64                          `json:"pid,omitzero"`
 	SocksEnabled      *bool                             `json:"socksEnabled,omitzero"`
 	StartTime         float64                           `json:"startTime"`
-	Tags              []string                          `json:"tags"`
+	Tags              []string                          `json:"tags,omitzero"`
 	Version           *string                           `json:"version,omitzero"`
 }
 
@@ -171,7 +171,7 @@ func (h *HBCriblInfo) GetStartTime() float64 {
 
 func (h *HBCriblInfo) GetTags() []string {
 	if h == nil {
-		return []string{}
+		return nil
 	}
 	return h.Tags
 }

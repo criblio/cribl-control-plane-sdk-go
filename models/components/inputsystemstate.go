@@ -493,6 +493,8 @@ type InputSystemState struct {
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitzero"`
 	Description                *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (i InputSystemState) MarshalJSON() ([]byte, error) {
@@ -623,4 +625,11 @@ func (i *InputSystemState) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputSystemState) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }

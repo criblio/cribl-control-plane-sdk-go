@@ -30,7 +30,7 @@ func (g *GetInputSystemByPackAndIDRequest) GetPack() string {
 
 type GetInputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// a Source object
 	CountedInput *components.CountedInput
 }
 

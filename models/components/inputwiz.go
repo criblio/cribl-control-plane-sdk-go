@@ -45,32 +45,6 @@ func (i *InputWizManageState) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// InputWizLogLevel - Collector runtime log level
-type InputWizLogLevel string
-
-const (
-	InputWizLogLevelError InputWizLogLevel = "error"
-	InputWizLogLevelWarn  InputWizLogLevel = "warn"
-	InputWizLogLevelInfo  InputWizLogLevel = "info"
-	InputWizLogLevelDebug InputWizLogLevel = "debug"
-	InputWizLogLevelSilly InputWizLogLevel = "silly"
-)
-
-func (e InputWizLogLevel) ToPointer() *InputWizLogLevel {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWizLogLevel) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "warn", "info", "debug", "silly":
-			return true
-		}
-	}
-	return false
-}
-
 type InputWizContentConfig struct {
 	// The name of the Wiz query
 	ContentType        string  `json:"contentType"`
@@ -94,7 +68,7 @@ type InputWizContentConfig struct {
 	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Units default to seconds if not specified. Enter 0 for unlimited time.
 	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// Collector runtime log level
-	LogLevel *InputWizLogLevel `json:"logLevel,omitzero"`
+	LogLevel *LogLevelOptionsContentConfigItemsDebugError `json:"logLevel,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
 	MaxPages *float64 `json:"maxPages,omitzero"`
 }
@@ -194,7 +168,7 @@ func (i *InputWizContentConfig) GetJobTimeout() *string {
 	return i.JobTimeout
 }
 
-func (i *InputWizContentConfig) GetLogLevel() *InputWizLogLevel {
+func (i *InputWizContentConfig) GetLogLevel() *LogLevelOptionsContentConfigItemsDebugError {
 	if i == nil {
 		return nil
 	}
@@ -246,15 +220,21 @@ type InputWiz struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules *RetryRulesType     `json:"retryRules,omitzero"`
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64        `json:"staleChannelFlushMs,omitzero"`
+	RetryRules          *RetryRulesType `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	Description *string                                  `json:"description,omitzero"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
@@ -421,6 +401,20 @@ func (i *InputWiz) GetMetadata() []ItemsTypeMetadata {
 	return i.Metadata
 }
 
+func (i *InputWiz) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputWiz) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
 func (i *InputWiz) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
@@ -428,7 +422,7 @@ func (i *InputWiz) GetRetryRules() *RetryRulesType {
 	return i.RetryRules
 }
 
-func (i *InputWiz) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWiz) GetAuthType() *AuthenticationMethodOptionsManualSecret {
 	if i == nil {
 		return nil
 	}
@@ -454,6 +448,13 @@ func (i *InputWiz) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
+}
+
+func (i *InputWiz) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }
 
 func (i *InputWiz) GetTemplateEndpoint() *string {
