@@ -2,11 +2,16 @@
 
 package components
 
+// HBLeaderInfo - Connection parameters for the Leader node, as reported in a Worker heartbeat.
 type HBLeaderInfo struct {
-	Host       string  `json:"host"`
-	Port       float64 `json:"port"`
+	// Leader hostname or IP address.
+	Host string `json:"host"`
+	// Leader TCP port.
+	Port int64 `json:"port"`
+	// TLS server name (SNI) for the Leader connection.
 	Servername *string `json:"servername,omitzero"`
-	TLS        *bool   `json:"tls,omitzero"`
+	// If <code>true</code>, TLS is enabled for the Leader connection.
+	TLS *bool `json:"tls,omitzero"`
 }
 
 func (h *HBLeaderInfo) GetHost() string {
@@ -16,9 +21,9 @@ func (h *HBLeaderInfo) GetHost() string {
 	return h.Host
 }
 
-func (h *HBLeaderInfo) GetPort() float64 {
+func (h *HBLeaderInfo) GetPort() int64 {
 	if h == nil {
-		return 0.0
+		return 0
 	}
 	return h.Port
 }
