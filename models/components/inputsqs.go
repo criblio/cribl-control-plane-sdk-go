@@ -90,7 +90,7 @@ type InputSqs struct {
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing SQS requests
-	SignatureVersion *SignatureVersionOptions3 `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptionsSqs `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -117,14 +117,20 @@ type InputSqs struct {
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
+	// Binds 'queueType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueType' at runtime.
+	TemplateQueueType *string `json:"__template_queueType,omitzero"`
 	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
 	TemplateAwsAccountID *string `json:"__template_awsAccountId,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -270,7 +276,7 @@ func (i *InputSqs) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputSqs) GetSignatureVersion() *SignatureVersionOptions3 {
+func (i *InputSqs) GetSignatureVersion() *SignatureVersionOptionsSqs {
 	if i == nil {
 		return nil
 	}
@@ -375,11 +381,25 @@ func (i *InputSqs) GetNumReceivers() *float64 {
 	return i.NumReceivers
 }
 
+func (i *InputSqs) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputSqs) GetTemplateQueueName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateQueueName
+}
+
+func (i *InputSqs) GetTemplateQueueType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateQueueType
 }
 
 func (i *InputSqs) GetTemplateAwsAccountID() *string {
@@ -401,6 +421,13 @@ func (i *InputSqs) GetTemplateRegion() *string {
 		return nil
 	}
 	return i.TemplateRegion
+}
+
+func (i *InputSqs) GetTemplateEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEndpoint
 }
 
 func (i *InputSqs) GetTemplateAssumeRoleArn() *string {

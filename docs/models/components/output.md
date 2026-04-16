@@ -429,6 +429,12 @@ output := components.CreateOutputMicrosoftFabric(components.OutputMicrosoftFabri
 output := components.CreateOutputCloudflareR2(components.OutputCloudflareR2{/* values here */})
 ```
 
+### OutputNutanixObjects
+
+```go
+output := components.CreateOutputNutanixObjects(components.OutputNutanixObjects{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -577,6 +583,8 @@ switch output.Type {
 		// output.OutputMicrosoftFabric is populated
 	case components.OutputTypeCloudflareR2:
 		// output.OutputCloudflareR2 is populated
+	case components.OutputTypeNutanixObjects:
+		// output.OutputNutanixObjects is populated
 	default:
 		// Unknown type - use output.GetUnknownRaw() for raw JSON
 }

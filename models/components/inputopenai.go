@@ -343,6 +343,8 @@ type InputOpenai struct {
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	RetryRules  *RetryRulesType     `json:"retryRules,omitzero"`
 	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
 	TemplateOpenaiOrganization *string `json:"__template_openaiOrganization,omitzero"`
 	// Binds 'openaiProject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiProject' at runtime.
@@ -519,6 +521,13 @@ func (i *InputOpenai) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputOpenai) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }
 
 func (i *InputOpenai) GetTemplateOpenaiOrganization() *string {
@@ -746,6 +755,8 @@ type InputOpenaiInput struct {
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	RetryRules  *RetryRulesType     `json:"retryRules,omitzero"`
 	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
 	TemplateOpenaiOrganization *string `json:"__template_openaiOrganization,omitzero"`
 	// Binds 'openaiProject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiProject' at runtime.
@@ -922,6 +933,13 @@ func (i *InputOpenaiInput) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputOpenaiInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }
 
 func (i *InputOpenaiInput) GetTemplateOpenaiOrganization() *string {

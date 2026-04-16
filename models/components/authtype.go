@@ -6,18 +6,11 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// AuthType - Credentials to use when authenticating with the schema registry using basic HTTP authentication
 type AuthType struct {
-	Disabled bool    `json:"disabled"`
-	Username *string `json:"username,omitzero"`
-	Password *string `json:"password,omitzero"`
-	// Enter credentials directly, or select a stored secret
-	AuthType *AuthenticationMethodOptionsAuth `json:"authType,omitzero"`
+	Disabled bool `json:"disabled"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
-	// Enter API key directly
-	ManualAPIKey *string `json:"manualAPIKey,omitzero"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (a AuthType) MarshalJSON() ([]byte, error) {
@@ -38,44 +31,9 @@ func (a *AuthType) GetDisabled() bool {
 	return a.Disabled
 }
 
-func (a *AuthType) GetUsername() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Username
-}
-
-func (a *AuthType) GetPassword() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Password
-}
-
-func (a *AuthType) GetAuthType() *AuthenticationMethodOptionsAuth {
-	if a == nil {
-		return nil
-	}
-	return a.AuthType
-}
-
 func (a *AuthType) GetCredentialsSecret() *string {
 	if a == nil {
 		return nil
 	}
 	return a.CredentialsSecret
-}
-
-func (a *AuthType) GetManualAPIKey() *string {
-	if a == nil {
-		return nil
-	}
-	return a.ManualAPIKey
-}
-
-func (a *AuthType) GetTextSecret() *string {
-	if a == nil {
-		return nil
-	}
-	return a.TextSecret
 }

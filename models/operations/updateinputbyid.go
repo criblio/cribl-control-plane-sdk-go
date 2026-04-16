@@ -108,6 +108,10 @@ func (u *UpdateInputByIDRequest) GetInputEventhub() *components.InputEventhub {
 	return u.GetInput().InputEventhub
 }
 
+func (u *UpdateInputByIDRequest) GetInputEventhubAmqp() *components.InputEventhubAmqp {
+	return u.GetInput().InputEventhubAmqp
+}
+
 func (u *UpdateInputByIDRequest) GetInputExec() *components.InputExec {
 	return u.GetInput().InputExec
 }
@@ -268,6 +272,10 @@ func (u *UpdateInputByIDRequest) GetInputSecurityLake() *components.InputSecurit
 	return u.GetInput().InputSecurityLake
 }
 
+func (u *UpdateInputByIDRequest) GetInputServicenowTable() *components.InputServicenowTable {
+	return u.GetInput().InputServicenowTable
+}
+
 func (u *UpdateInputByIDRequest) GetInputZscalerHec() *components.InputZscalerHec {
 	return u.GetInput().InputZscalerHec
 }
@@ -276,9 +284,13 @@ func (u *UpdateInputByIDRequest) GetInputCloudflareHec() *components.InputCloudf
 	return u.GetInput().InputCloudflareHec
 }
 
+func (u *UpdateInputByIDRequest) GetInputOpenaiComplianceLogs() *components.InputOpenaiComplianceLogs {
+	return u.GetInput().InputOpenaiComplianceLogs
+}
+
 type UpdateInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// the updated Source object
 	CountedInput *components.CountedInput
 }
 

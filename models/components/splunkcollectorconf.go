@@ -463,6 +463,18 @@ type SplunkAuthenticationTokenSecret struct {
 	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationTokenSecretRetryRules `json:"retryRules,omitzero"`
 	Token              *string                                    `json:"token,omitzero"`
+	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
+	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+	TemplateSearch *string `json:"__template_search,omitzero"`
+	// Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+	TemplateEarliest *string `json:"__template_earliest,omitzero"`
+	// Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+	TemplateLatest *string `json:"__template_latest,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+	TemplateOutputMode *string `json:"__template_outputMode,omitzero"`
 }
 
 func (s SplunkAuthenticationTokenSecret) MarshalJSON() ([]byte, error) {
@@ -614,6 +626,48 @@ func (s *SplunkAuthenticationTokenSecret) GetToken() *string {
 		return nil
 	}
 	return s.Token
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetTemplateSearchHead() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearchHead
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetTemplateSearch() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearch
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetTemplateEarliest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEarliest
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetTemplateLatest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateLatest
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetTemplateOutputMode() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateOutputMode
 }
 
 // SplunkAuthenticationTokenAuthentication - Authentication method for Discover and Collect REST calls
@@ -1070,6 +1124,18 @@ type SplunkAuthenticationToken struct {
 	RetryRules         *SplunkAuthenticationTokenRetryRules `json:"retryRules,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
+	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+	TemplateSearch *string `json:"__template_search,omitzero"`
+	// Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+	TemplateEarliest *string `json:"__template_earliest,omitzero"`
+	// Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+	TemplateLatest *string `json:"__template_latest,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+	TemplateOutputMode *string `json:"__template_outputMode,omitzero"`
 }
 
 func (s SplunkAuthenticationToken) MarshalJSON() ([]byte, error) {
@@ -1221,6 +1287,48 @@ func (s *SplunkAuthenticationToken) GetTokenSecret() *string {
 		return nil
 	}
 	return s.TokenSecret
+}
+
+func (s *SplunkAuthenticationToken) GetTemplateSearchHead() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearchHead
+}
+
+func (s *SplunkAuthenticationToken) GetTemplateSearch() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearch
+}
+
+func (s *SplunkAuthenticationToken) GetTemplateEarliest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEarliest
+}
+
+func (s *SplunkAuthenticationToken) GetTemplateLatest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateLatest
+}
+
+func (s *SplunkAuthenticationToken) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *SplunkAuthenticationToken) GetTemplateOutputMode() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateOutputMode
 }
 
 // SplunkAuthenticationBasicSecretAuthentication - Authentication method for Discover and Collect REST calls
@@ -1679,6 +1787,18 @@ type SplunkAuthenticationBasicSecret struct {
 	Token              *string                                    `json:"token,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
+	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+	TemplateSearch *string `json:"__template_search,omitzero"`
+	// Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+	TemplateEarliest *string `json:"__template_earliest,omitzero"`
+	// Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+	TemplateLatest *string `json:"__template_latest,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+	TemplateOutputMode *string `json:"__template_outputMode,omitzero"`
 }
 
 func (s SplunkAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
@@ -1837,6 +1957,48 @@ func (s *SplunkAuthenticationBasicSecret) GetTokenSecret() *string {
 		return nil
 	}
 	return s.TokenSecret
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetTemplateSearchHead() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearchHead
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetTemplateSearch() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearch
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetTemplateEarliest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEarliest
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetTemplateLatest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateLatest
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetTemplateOutputMode() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateOutputMode
 }
 
 // SplunkAuthenticationBasicAuthentication - Authentication method for Discover and Collect REST calls
@@ -2297,6 +2459,18 @@ type SplunkAuthenticationBasic struct {
 	Token              *string                              `json:"token,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
+	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+	TemplateSearch *string `json:"__template_search,omitzero"`
+	// Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+	TemplateEarliest *string `json:"__template_earliest,omitzero"`
+	// Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+	TemplateLatest *string `json:"__template_latest,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+	TemplateOutputMode *string `json:"__template_outputMode,omitzero"`
 }
 
 func (s SplunkAuthenticationBasic) MarshalJSON() ([]byte, error) {
@@ -2462,6 +2636,48 @@ func (s *SplunkAuthenticationBasic) GetTokenSecret() *string {
 		return nil
 	}
 	return s.TokenSecret
+}
+
+func (s *SplunkAuthenticationBasic) GetTemplateSearchHead() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearchHead
+}
+
+func (s *SplunkAuthenticationBasic) GetTemplateSearch() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearch
+}
+
+func (s *SplunkAuthenticationBasic) GetTemplateEarliest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEarliest
+}
+
+func (s *SplunkAuthenticationBasic) GetTemplateLatest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateLatest
+}
+
+func (s *SplunkAuthenticationBasic) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *SplunkAuthenticationBasic) GetTemplateOutputMode() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateOutputMode
 }
 
 // SplunkAuthenticationNoneAuthentication - Authentication method for Discover and Collect REST calls
@@ -2918,6 +3134,18 @@ type SplunkAuthenticationNone struct {
 	Token              *string                             `json:"token,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
+	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+	TemplateSearch *string `json:"__template_search,omitzero"`
+	// Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+	TemplateEarliest *string `json:"__template_earliest,omitzero"`
+	// Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+	TemplateLatest *string `json:"__template_latest,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+	TemplateOutputMode *string `json:"__template_outputMode,omitzero"`
 }
 
 func (s SplunkAuthenticationNone) MarshalJSON() ([]byte, error) {
@@ -3069,6 +3297,48 @@ func (s *SplunkAuthenticationNone) GetTokenSecret() *string {
 		return nil
 	}
 	return s.TokenSecret
+}
+
+func (s *SplunkAuthenticationNone) GetTemplateSearchHead() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearchHead
+}
+
+func (s *SplunkAuthenticationNone) GetTemplateSearch() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateSearch
+}
+
+func (s *SplunkAuthenticationNone) GetTemplateEarliest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEarliest
+}
+
+func (s *SplunkAuthenticationNone) GetTemplateLatest() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateLatest
+}
+
+func (s *SplunkAuthenticationNone) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *SplunkAuthenticationNone) GetTemplateOutputMode() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateOutputMode
 }
 
 type SplunkCollectorConfType string

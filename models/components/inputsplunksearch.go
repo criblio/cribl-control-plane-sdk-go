@@ -223,6 +223,20 @@ type InputSplunkSearch struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
+	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+	TemplateSearch *string `json:"__template_search,omitzero"`
+	// Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+	TemplateEarliest *string `json:"__template_earliest,omitzero"`
+	// Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+	TemplateLatest *string `json:"__template_latest,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
+	TemplateLogLevel *string `json:"__template_logLevel,omitzero"`
 }
 
 func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
@@ -514,4 +528,53 @@ func (i *InputSplunkSearch) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
+}
+
+func (i *InputSplunkSearch) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputSplunkSearch) GetTemplateSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSearchHead
+}
+
+func (i *InputSplunkSearch) GetTemplateSearch() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSearch
+}
+
+func (i *InputSplunkSearch) GetTemplateEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEarliest
+}
+
+func (i *InputSplunkSearch) GetTemplateLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateLatest
+}
+
+func (i *InputSplunkSearch) GetTemplateEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEndpoint
+}
+
+func (i *InputSplunkSearch) GetTemplateLogLevel() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateLogLevel
 }

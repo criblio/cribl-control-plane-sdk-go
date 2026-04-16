@@ -287,8 +287,8 @@ type SavedJobResponseCollection struct {
 	// If enabled, tasks are created and run by the same Worker Node
 	WorkerAffinity *bool `json:"workerAffinity,omitzero"`
 	// Collector configuration
-	Collector Collector                                    `json:"collector"`
-	Input     *TypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	Collector Collector                                                         `json:"collector"`
+	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
 	// Runtime collection state.
 	SavedState map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
@@ -430,7 +430,7 @@ func (s *SavedJobResponseCollection) GetCollectorSplunk() *CollectorSplunk {
 	return s.GetCollector().CollectorSplunk
 }
 
-func (s *SavedJobResponseCollection) GetInput() *TypeCollectionWithBreakerRulesetsConstraint {
+func (s *SavedJobResponseCollection) GetInput() *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint {
 	if s == nil {
 		return nil
 	}

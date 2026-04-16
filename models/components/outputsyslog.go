@@ -250,8 +250,8 @@ type OutputSyslog struct {
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                      `json:"writeTimeout,omitzero"`
-	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	WriteTimeout *float64                                 `json:"writeTimeout,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
@@ -266,7 +266,7 @@ type OutputSyslog struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -280,11 +280,15 @@ type OutputSyslog struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputSyslogPqControls   `json:"pqControls,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                 `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputSyslogPqControls `json:"pqControls,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputSyslog) MarshalJSON() ([]byte, error) {
@@ -480,7 +484,7 @@ func (o *OutputSyslog) GetWriteTimeout() *float64 {
 	return o.WriteTimeout
 }
 
-func (o *OutputSyslog) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputSyslog) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if o == nil {
 		return nil
 	}
@@ -585,6 +589,13 @@ func (o *OutputSyslog) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	return o.PqOnBackpressure
 }
 
+func (o *OutputSyslog) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputSyslog) GetPqControls() *OutputSyslogPqControls {
 	if o == nil {
 		return nil
@@ -604,4 +615,11 @@ func (o *OutputSyslog) GetTemplatePort() *string {
 		return nil
 	}
 	return o.TemplatePort
+}
+
+func (o *OutputSyslog) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

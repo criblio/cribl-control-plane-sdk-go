@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `HTTPMeta`                                                            | [components.HTTPMetadata](../../models/components/httpmetadata.md)    | :heavy_check_mark:                                                    | N/A                                                                   |
-| `CountedObject`                                                       | [*components.CountedObject](../../models/components/countedobject.md) | :heavy_minus_sign:                                                    | a list of any objects                                                 |
+| Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `HTTPMeta`                                                              | [components.HTTPMetadata](../../models/components/httpmetadata.md)      | :heavy_check_mark:                                                      | N/A                                                                     |
+| `CountedJobInfo`                                                        | [*components.CountedJobInfo](../../models/components/countedjobinfo.md) | :heavy_minus_sign:                                                      | information about the latest job to clear the PQ for the Source         |

@@ -111,6 +111,8 @@ type InputCrowdstrike struct {
 	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
@@ -119,6 +121,8 @@ type InputCrowdstrike struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -446,6 +450,13 @@ func (i *InputCrowdstrike) GetProcessedTagValue() *string {
 	return i.ProcessedTagValue
 }
 
+func (i *InputCrowdstrike) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputCrowdstrike) GetTemplateQueueName() *string {
 	if i == nil {
 		return nil
@@ -472,6 +483,13 @@ func (i *InputCrowdstrike) GetTemplateRegion() *string {
 		return nil
 	}
 	return i.TemplateRegion
+}
+
+func (i *InputCrowdstrike) GetTemplateEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEndpoint
 }
 
 func (i *InputCrowdstrike) GetTemplateAssumeRoleArn() *string {

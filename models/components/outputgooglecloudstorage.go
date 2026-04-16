@@ -76,7 +76,7 @@ type OutputGoogleCloudStorage struct {
 	// Google Cloud Storage service endpoint
 	Endpoint string `json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion        *SignatureVersionOptions4                     `json:"signatureVersion,omitzero"`
+	SignatureVersion        *SignatureVersionOptionsGoogle                `json:"signatureVersion,omitzero"`
 	AwsAuthenticationMethod *OutputGoogleCloudStorageAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
@@ -85,9 +85,9 @@ type OutputGoogleCloudStorage struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions1 `json:"objectACL,omitzero"`
+	ObjectACL *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptions1 `json:"storageClass,omitzero"`
+	StorageClass *StorageClassOptionsArchiveColdline `json:"storageClass,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -117,17 +117,18 @@ type OutputGoogleCloudStorage struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
-	Description          *string            `json:"description,omitzero"`
+	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	Description          *string                 `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `json:"compress,omitzero"`
+	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -170,8 +171,20 @@ type OutputGoogleCloudStorage struct {
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (o OutputGoogleCloudStorage) MarshalJSON() ([]byte, error) {
@@ -248,7 +261,7 @@ func (o *OutputGoogleCloudStorage) GetEndpoint() string {
 	return o.Endpoint
 }
 
-func (o *OutputGoogleCloudStorage) GetSignatureVersion() *SignatureVersionOptions4 {
+func (o *OutputGoogleCloudStorage) GetSignatureVersion() *SignatureVersionOptionsGoogle {
 	if o == nil {
 		return nil
 	}
@@ -283,14 +296,14 @@ func (o *OutputGoogleCloudStorage) GetVerifyPermissions() *bool {
 	return o.VerifyPermissions
 }
 
-func (o *OutputGoogleCloudStorage) GetObjectACL() *ObjectACLOptions1 {
+func (o *OutputGoogleCloudStorage) GetObjectACL() *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputGoogleCloudStorage) GetStorageClass() *StorageClassOptions1 {
+func (o *OutputGoogleCloudStorage) GetStorageClass() *StorageClassOptionsArchiveColdline {
 	if o == nil {
 		return nil
 	}
@@ -395,7 +408,7 @@ func (o *OutputGoogleCloudStorage) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputGoogleCloudStorage) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputGoogleCloudStorage) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}
@@ -430,6 +443,13 @@ func (o *OutputGoogleCloudStorage) GetRetrySettings() *RetrySettingsType {
 	return o.RetrySettings
 }
 
+func (o *OutputGoogleCloudStorage) GetOrphans() *OrphanFileRecoveryType {
+	if o == nil {
+		return nil
+	}
+	return o.Orphans
+}
+
 func (o *OutputGoogleCloudStorage) GetDescription() *string {
 	if o == nil {
 		return nil
@@ -437,7 +457,7 @@ func (o *OutputGoogleCloudStorage) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputGoogleCloudStorage) GetCompress() *CompressionOptions2 {
+func (o *OutputGoogleCloudStorage) GetCompress() *CompressionOptionsHTTP {
 	if o == nil {
 		return nil
 	}
@@ -591,9 +611,51 @@ func (o *OutputGoogleCloudStorage) GetTemplateRegion() *string {
 	return o.TemplateRegion
 }
 
+func (o *OutputGoogleCloudStorage) GetTemplateDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateDestPath
+}
+
+func (o *OutputGoogleCloudStorage) GetTemplatePartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePartitionExpr
+}
+
 func (o *OutputGoogleCloudStorage) GetTemplateFormat() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateFormat
+}
+
+func (o *OutputGoogleCloudStorage) GetTemplateBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBaseFileName
+}
+
+func (o *OutputGoogleCloudStorage) GetTemplateFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFileNameSuffix
+}
+
+func (o *OutputGoogleCloudStorage) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputGoogleCloudStorage) GetTemplateCompress() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCompress
 }

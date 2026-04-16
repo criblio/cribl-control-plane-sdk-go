@@ -257,6 +257,8 @@ type HealthCheckAuthenticationNone struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationNone) MarshalJSON() ([]byte, error) {
@@ -408,6 +410,13 @@ func (h *HealthCheckAuthenticationNone) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckAuthenticationNone) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckCollectMethodPostWithBodyHealthCheckMethod - Health check HTTP method.
@@ -1768,6 +1777,8 @@ type HealthCheckCollectMethodPostWithBody struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -1926,6 +1937,13 @@ func (h *HealthCheckCollectMethodPostWithBody) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckCollectMethodPostWithBody) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckCollectMethodPostHealthCheckMethod - Health check HTTP method.
@@ -3286,6 +3304,8 @@ type HealthCheckCollectMethodPost struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPost) MarshalJSON() ([]byte, error) {
@@ -3444,6 +3464,13 @@ func (h *HealthCheckCollectMethodPost) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckCollectMethodPost) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckCollectMethodGetHealthCheckMethod - Health check HTTP method.
@@ -4836,6 +4863,8 @@ type HealthCheckCollectMethodGet struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckCollectMethodGet) MarshalJSON() ([]byte, error) {
@@ -4994,6 +5023,13 @@ func (h *HealthCheckCollectMethodGet) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckCollectMethodGet) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 type HealthCheckCollectorConfType string

@@ -224,10 +224,16 @@ type InputGrafanaGrafana2 struct {
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitzero"`
+	// Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+	TemplateLokiAPI *string `json:"__template_lokiAPI,omitzero"`
 }
 
 func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
@@ -451,6 +457,13 @@ func (i *InputGrafanaGrafana2) GetDescription() *string {
 	return i.Description
 }
 
+func (i *InputGrafanaGrafana2) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputGrafanaGrafana2) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -463,6 +476,20 @@ func (i *InputGrafanaGrafana2) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputGrafanaGrafana2) GetTemplatePrometheusAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePrometheusAPI
+}
+
+func (i *InputGrafanaGrafana2) GetTemplateLokiAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateLokiAPI
 }
 
 // #region class-body-inputgrafanagrafana2
@@ -683,10 +710,16 @@ type InputGrafanaGrafana1 struct {
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitzero"`
+	// Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+	TemplateLokiAPI *string `json:"__template_lokiAPI,omitzero"`
 }
 
 func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
@@ -910,6 +943,13 @@ func (i *InputGrafanaGrafana1) GetDescription() *string {
 	return i.Description
 }
 
+func (i *InputGrafanaGrafana1) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputGrafanaGrafana1) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -922,6 +962,20 @@ func (i *InputGrafanaGrafana1) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputGrafanaGrafana1) GetTemplatePrometheusAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePrometheusAPI
+}
+
+func (i *InputGrafanaGrafana1) GetTemplateLokiAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateLokiAPI
 }
 
 // #region class-body-inputgrafanagrafana1

@@ -89,9 +89,9 @@ type OutputOpenTelemetry struct {
 	// The version of OTLP Protobuf definitions to use when structuring data to send
 	OtlpVersion *OutputOpenTelemetryOTLPVersion `json:"otlpVersion,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *CompressionOptions4 `json:"compress,omitzero"`
+	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptions5 `json:"httpCompress,omitzero"`
+	HTTPCompress *CompressionOptionsMessages `json:"httpCompress,omitzero"`
 	// OpenTelemetry authentication type
 	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -143,15 +143,15 @@ type OutputOpenTelemetry struct {
 	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                       `json:"responseHonorRetryAfterHeader,omitzero"`
-	TLS                           *TLSSettingsClientSideType2 `json:"tls,omitzero"`
+	ResponseHonorRetryAfterHeader *bool                              `json:"responseHonorRetryAfterHeader,omitzero"`
+	TLS                           *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -164,8 +164,14 @@ type OutputOpenTelemetry struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputOpenTelemetryPqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputOpenTelemetryPqControls `json:"pqControls,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -242,14 +248,14 @@ func (o *OutputOpenTelemetry) GetOtlpVersion() *OutputOpenTelemetryOTLPVersion {
 	return o.OtlpVersion
 }
 
-func (o *OutputOpenTelemetry) GetCompress() *CompressionOptions4 {
+func (o *OutputOpenTelemetry) GetCompress() *CompressionOptionsDeflateGzip {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputOpenTelemetry) GetHTTPCompress() *CompressionOptions5 {
+func (o *OutputOpenTelemetry) GetHTTPCompress() *CompressionOptionsMessages {
 	if o == nil {
 		return nil
 	}
@@ -445,7 +451,7 @@ func (o *OutputOpenTelemetry) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputOpenTelemetry) GetTLS() *TLSSettingsClientSideType2 {
+func (o *OutputOpenTelemetry) GetTLS() *TLSSettingsClientSideTypeExtended {
 	if o == nil {
 		return nil
 	}
@@ -522,9 +528,30 @@ func (o *OutputOpenTelemetry) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	return o.PqOnBackpressure
 }
 
+func (o *OutputOpenTelemetry) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputOpenTelemetry) GetPqControls() *OutputOpenTelemetryPqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputOpenTelemetry) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetry) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

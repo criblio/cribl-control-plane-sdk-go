@@ -321,6 +321,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputCloudflareR2() *componen
 	return u.GetOutput().OutputCloudflareR2
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputNutanixObjects() *components.OutputNutanixObjects {
+	return u.GetOutput().OutputNutanixObjects
+}
+
 type UpdateOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object

@@ -152,7 +152,7 @@ type InputKinesis struct {
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *SignatureVersionOptions2 `json:"signatureVersion,omitzero"`
+	SignatureVersion *SignatureVersionOptionsKinesis `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -175,12 +175,20 @@ type InputKinesis struct {
 	AwsAPIKey   *string             `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
 	TemplateStreamName *string `json:"__template_streamName,omitzero"`
+	// Binds 'shardIteratorType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'shardIteratorType' at runtime.
+	TemplateShardIteratorType *string `json:"__template_shardIteratorType,omitzero"`
+	// Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+	TemplatePayloadFormat *string `json:"__template_payloadFormat,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -354,7 +362,7 @@ func (i *InputKinesis) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputKinesis) GetSignatureVersion() *SignatureVersionOptions2 {
+func (i *InputKinesis) GetSignatureVersion() *SignatureVersionOptionsKinesis {
 	if i == nil {
 		return nil
 	}
@@ -445,11 +453,32 @@ func (i *InputKinesis) GetAwsSecret() *string {
 	return i.AwsSecret
 }
 
+func (i *InputKinesis) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputKinesis) GetTemplateStreamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateStreamName
+}
+
+func (i *InputKinesis) GetTemplateShardIteratorType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateShardIteratorType
+}
+
+func (i *InputKinesis) GetTemplatePayloadFormat() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePayloadFormat
 }
 
 func (i *InputKinesis) GetTemplateAwsSecretKey() *string {
@@ -464,6 +493,13 @@ func (i *InputKinesis) GetTemplateRegion() *string {
 		return nil
 	}
 	return i.TemplateRegion
+}
+
+func (i *InputKinesis) GetTemplateEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEndpoint
 }
 
 func (i *InputKinesis) GetTemplateAssumeRoleArn() *string {

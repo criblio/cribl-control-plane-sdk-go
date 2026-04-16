@@ -729,10 +729,13 @@ type InputSystemMetrics struct {
 	Host      *InputSystemMetricsHost `json:"host,omitzero"`
 	Process   *ProcessType            `json:"process,omitzero"`
 	Container *Container              `json:"container,omitzero"`
+	Gpu       *GpuType                `json:"gpu,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata            `json:"metadata,omitzero"`
 	Persistence *InputSystemMetricsPersistence `json:"persistence,omitzero"`
 	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -844,6 +847,13 @@ func (i *InputSystemMetrics) GetContainer() *Container {
 	return i.Container
 }
 
+func (i *InputSystemMetrics) GetGpu() *GpuType {
+	if i == nil {
+		return nil
+	}
+	return i.Gpu
+}
+
 func (i *InputSystemMetrics) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
@@ -863,4 +873,11 @@ func (i *InputSystemMetrics) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputSystemMetrics) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
 }

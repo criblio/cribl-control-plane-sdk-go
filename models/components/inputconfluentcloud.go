@@ -50,8 +50,8 @@ type InputConfluentCloud struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
-	Brokers []string                                      `json:"brokers"`
-	TLS     *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	Brokers []string                                 `json:"brokers"`
+	TLS     *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
@@ -104,6 +104,10 @@ type InputConfluentCloud struct {
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 }
 
 func (i InputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -194,7 +198,7 @@ func (i *InputConfluentCloud) GetBrokers() []string {
 	return i.Brokers
 }
 
-func (i *InputConfluentCloud) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (i *InputConfluentCloud) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if i == nil {
 		return nil
 	}
@@ -360,4 +364,18 @@ func (i *InputConfluentCloud) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputConfluentCloud) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputConfluentCloud) GetTemplateGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateGroupID
 }

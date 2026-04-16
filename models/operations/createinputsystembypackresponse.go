@@ -10,6 +10,562 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputSystemByPackDiskSystemMetrics struct {
+	// Select the level of detail for disk metrics
+	Mode *CreateInputSystemByPackDiskModeSystemMetrics `json:"mode,omitzero"`
+	// Generate full disk metrics
+	Detail *bool `json:"detail,omitzero"`
+	// Generate filesystem inode metrics
+	Inodes *bool `json:"inodes,omitzero"`
+	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
+	Devices []string `json:"devices,omitzero"`
+	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
+	Mountpoints []string `json:"mountpoints,omitzero"`
+	// Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
+	Fstypes []string `json:"fstypes,omitzero"`
+	// Generate separate metrics for each device
+	PerDevice *bool `json:"perDevice,omitzero"`
+}
+
+func (c CreateInputSystemByPackDiskSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackDiskSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackDiskSystemMetrics) GetMode() *CreateInputSystemByPackDiskModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackDiskSystemMetrics) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+func (c *CreateInputSystemByPackDiskSystemMetrics) GetInodes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Inodes
+}
+
+func (c *CreateInputSystemByPackDiskSystemMetrics) GetDevices() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Devices
+}
+
+func (c *CreateInputSystemByPackDiskSystemMetrics) GetMountpoints() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Mountpoints
+}
+
+func (c *CreateInputSystemByPackDiskSystemMetrics) GetFstypes() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Fstypes
+}
+
+func (c *CreateInputSystemByPackDiskSystemMetrics) GetPerDevice() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerDevice
+}
+
+type CreateInputSystemByPackCustomSystemMetrics struct {
+	System  *CreateInputSystemByPackSystemSystemMetrics  `json:"system,omitzero"`
+	CPU     *CreateInputSystemByPackCPUSystemMetrics     `json:"cpu,omitzero"`
+	Memory  *CreateInputSystemByPackMemorySystemMetrics  `json:"memory,omitzero"`
+	Network *CreateInputSystemByPackNetworkSystemMetrics `json:"network,omitzero"`
+	Disk    *CreateInputSystemByPackDiskSystemMetrics    `json:"disk,omitzero"`
+}
+
+func (c CreateInputSystemByPackCustomSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackCustomSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackCustomSystemMetrics) GetSystem() *CreateInputSystemByPackSystemSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.System
+}
+
+func (c *CreateInputSystemByPackCustomSystemMetrics) GetCPU() *CreateInputSystemByPackCPUSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.CPU
+}
+
+func (c *CreateInputSystemByPackCustomSystemMetrics) GetMemory() *CreateInputSystemByPackMemorySystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Memory
+}
+
+func (c *CreateInputSystemByPackCustomSystemMetrics) GetNetwork() *CreateInputSystemByPackNetworkSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Network
+}
+
+func (c *CreateInputSystemByPackCustomSystemMetrics) GetDisk() *CreateInputSystemByPackDiskSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Disk
+}
+
+type CreateInputSystemByPackHostSystemMetrics struct {
+	// Select level of detail for host metrics
+	Mode   *components.ModeOptionsHost                 `json:"mode,omitzero"`
+	Custom *CreateInputSystemByPackCustomSystemMetrics `json:"custom,omitzero"`
+}
+
+func (c CreateInputSystemByPackHostSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackHostSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackHostSystemMetrics) GetMode() *components.ModeOptionsHost {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackHostSystemMetrics) GetCustom() *CreateInputSystemByPackCustomSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Custom
+}
+
+// CreateInputSystemByPackContainerMode - Select the level of detail for container metrics
+type CreateInputSystemByPackContainerMode string
+
+const (
+	// CreateInputSystemByPackContainerModeBasic Basic
+	CreateInputSystemByPackContainerModeBasic CreateInputSystemByPackContainerMode = "basic"
+	// CreateInputSystemByPackContainerModeAll All
+	CreateInputSystemByPackContainerModeAll CreateInputSystemByPackContainerMode = "all"
+	// CreateInputSystemByPackContainerModeCustom Custom
+	CreateInputSystemByPackContainerModeCustom CreateInputSystemByPackContainerMode = "custom"
+	// CreateInputSystemByPackContainerModeDisabled Disabled
+	CreateInputSystemByPackContainerModeDisabled CreateInputSystemByPackContainerMode = "disabled"
+)
+
+func (e CreateInputSystemByPackContainerMode) ToPointer() *CreateInputSystemByPackContainerMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackContainerMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateInputSystemByPackContainerFilter struct {
+	Expr string `json:"expr"`
+}
+
+func (c CreateInputSystemByPackContainerFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackContainerFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackContainerFilter) GetExpr() string {
+	if c == nil {
+		return ""
+	}
+	return c.Expr
+}
+
+type CreateInputSystemByPackContainer struct {
+	// Select the level of detail for container metrics
+	Mode *CreateInputSystemByPackContainerMode `json:"mode,omitzero"`
+	// Full paths for Docker's UNIX-domain socket
+	DockerSocket []string `json:"dockerSocket,omitzero"`
+	// Timeout, in seconds, for the Docker API
+	DockerTimeout *float64 `json:"dockerTimeout,omitzero"`
+	// Containers matching any of these will be included. All are included if no filters are added.
+	Filters []CreateInputSystemByPackContainerFilter `json:"filters,omitzero"`
+	// Include stopped and paused containers
+	AllContainers *bool `json:"allContainers,omitzero"`
+	// Generate separate metrics for each device
+	PerDevice *bool `json:"perDevice,omitzero"`
+	// Generate full container metrics
+	Detail *bool `json:"detail,omitzero"`
+}
+
+func (c CreateInputSystemByPackContainer) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackContainer) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackContainer) GetMode() *CreateInputSystemByPackContainerMode {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackContainer) GetDockerSocket() []string {
+	if c == nil {
+		return nil
+	}
+	return c.DockerSocket
+}
+
+func (c *CreateInputSystemByPackContainer) GetDockerTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DockerTimeout
+}
+
+func (c *CreateInputSystemByPackContainer) GetFilters() []CreateInputSystemByPackContainerFilter {
+	if c == nil {
+		return nil
+	}
+	return c.Filters
+}
+
+func (c *CreateInputSystemByPackContainer) GetAllContainers() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AllContainers
+}
+
+func (c *CreateInputSystemByPackContainer) GetPerDevice() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerDevice
+}
+
+func (c *CreateInputSystemByPackContainer) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+type CreateInputSystemByPackPersistenceSystemMetrics struct {
+	// Spool metrics to disk for Cribl Edge and Search
+	Enable *bool `json:"enable,omitzero"`
+	// Time span for each file bucket
+	TimeWindow *string `json:"timeWindow,omitzero"`
+	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
+	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
+	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
+	DestPath *string `json:"destPath,omitzero"`
+}
+
+func (c CreateInputSystemByPackPersistenceSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetTimeWindow() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TimeWindow
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetMaxDataSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxDataSize
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetMaxDataTime() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxDataTime
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetCompress() *components.DataCompressionFormatOptionsPersistence {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+type CreateInputSystemByPackInputSystemMetrics struct {
+	// Unique ID for this input
+	ID       string                                   `json:"id"`
+	Type     CreateInputSystemByPackTypeSystemMetrics `json:"type"`
+	Disabled *bool                                    `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval  *float64                                  `json:"interval,omitzero"`
+	Host      *CreateInputSystemByPackHostSystemMetrics `json:"host,omitzero"`
+	Process   *components.ProcessType                   `json:"process,omitzero"`
+	Container *CreateInputSystemByPackContainer         `json:"container,omitzero"`
+	Gpu       *components.GpuType                       `json:"gpu,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []components.ItemsTypeMetadata                   `json:"metadata,omitzero"`
+	Persistence *CreateInputSystemByPackPersistenceSystemMetrics `json:"persistence,omitzero"`
+	Description *string                                          `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+}
+
+func (c CreateInputSystemByPackInputSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetType() CreateInputSystemByPackTypeSystemMetrics {
+	if c == nil {
+		return CreateInputSystemByPackTypeSystemMetrics("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetInterval() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Interval
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetHost() *CreateInputSystemByPackHostSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Host
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetProcess() *components.ProcessType {
+	if c == nil {
+		return nil
+	}
+	return c.Process
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetContainer() *CreateInputSystemByPackContainer {
+	if c == nil {
+		return nil
+	}
+	return c.Container
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetGpu() *components.GpuType {
+	if c == nil {
+		return nil
+	}
+	return c.Gpu
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetPersistence() *CreateInputSystemByPackPersistenceSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Persistence
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputSystemByPackInputSystemMetrics) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+type CreateInputSystemByPackTypeTcpjson string
+
+const (
+	CreateInputSystemByPackTypeTcpjsonTcpjson CreateInputSystemByPackTypeTcpjson = "tcpjson"
+)
+
+func (e CreateInputSystemByPackTypeTcpjson) ToPointer() *CreateInputSystemByPackTypeTcpjson {
+	return &e
+}
+func (e *CreateInputSystemByPackTypeTcpjson) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "tcpjson":
+		*e = CreateInputSystemByPackTypeTcpjson(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeTcpjson: %v", v)
+	}
+}
+
 type CreateInputSystemByPackInputTcpjson struct {
 	// Unique ID for this input
 	ID       string                             `json:"id"`
@@ -56,6 +612,8 @@ type CreateInputSystemByPackInputTcpjson struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -246,6 +804,13 @@ func (c *CreateInputSystemByPackInputTcpjson) GetTextSecret() *string {
 		return nil
 	}
 	return c.TextSecret
+}
+
+func (c *CreateInputSystemByPackInputTcpjson) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
 }
 
 func (c *CreateInputSystemByPackInputTcpjson) GetTemplateHost() *string {
@@ -466,10 +1031,16 @@ type CreateInputSystemByPackInputCriblLakeHTTP struct {
 	Metadata      []components.ItemsTypeMetadata         `json:"metadata,omitzero"`
 	AuthTokensExt []CreateInputSystemByPackAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                                `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
+	TemplateCriblAPI *string `json:"__template_criblAPI,omitzero"`
+	// Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+	TemplateElasticAPI *string `json:"__template_elasticAPI,omitzero"`
 	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
 	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
 }
@@ -709,6 +1280,13 @@ func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -721,6 +1299,20 @@ func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateCriblAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCriblAPI
+}
+
+func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateElasticAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateElasticAPI
 }
 
 func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateSplunkHecAPI() *string {
@@ -803,6 +1395,8 @@ type CreateInputSystemByPackInputCriblHTTP struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -1009,6 +1603,13 @@ func (c *CreateInputSystemByPackInputCriblHTTP) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputCriblHTTP) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputCriblHTTP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -1086,6 +1687,8 @@ type CreateInputSystemByPackInputCriblTCP struct {
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
 	AuthTokens  []components.ItemsTypeAuthTokens `json:"authTokens,omitzero"`
 	Description *string                          `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -1257,6 +1860,13 @@ func (c *CreateInputSystemByPackInputCriblTCP) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputCriblTCP) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputCriblTCP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -1316,6 +1926,8 @@ type CreateInputSystemByPackInputCribl struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputCribl) MarshalJSON() ([]byte, error) {
@@ -1420,6 +2032,13 @@ func (c *CreateInputSystemByPackInputCribl) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputCribl) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 type CreateInputSystemByPackTypeGooglePubsub string
 
 const (
@@ -1490,6 +2109,8 @@ type CreateInputSystemByPackInputGooglePubsub struct {
 	Description *string                        `json:"description,omitzero"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
 	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
@@ -1684,6 +2305,13 @@ func (c *CreateInputSystemByPackInputGooglePubsub) GetOrderedDelivery() *bool {
 	return c.OrderedDelivery
 }
 
+func (c *CreateInputSystemByPackInputGooglePubsub) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputGooglePubsub) GetTemplateTopicName() *string {
 	if c == nil {
 		return nil
@@ -1778,6 +2406,8 @@ type CreateInputSystemByPackInputFirehose struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -1984,6 +2614,13 @@ func (c *CreateInputSystemByPackInputFirehose) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputFirehose) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputFirehose) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -2081,6 +2718,8 @@ type CreateInputSystemByPackInputExec struct {
 	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
 	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputExec) MarshalJSON() ([]byte, error) {
@@ -2234,6 +2873,602 @@ func (c *CreateInputSystemByPackInputExec) GetCronSchedule() *string {
 	return c.CronSchedule
 }
 
+func (c *CreateInputSystemByPackInputExec) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+type CreateInputSystemByPackTypeEventhubAmqp string
+
+const (
+	CreateInputSystemByPackTypeEventhubAmqpEventhubAmqp CreateInputSystemByPackTypeEventhubAmqp = "eventhub_amqp"
+)
+
+func (e CreateInputSystemByPackTypeEventhubAmqp) ToPointer() *CreateInputSystemByPackTypeEventhubAmqp {
+	return &e
+}
+func (e *CreateInputSystemByPackTypeEventhubAmqp) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "eventhub_amqp":
+		*e = CreateInputSystemByPackTypeEventhubAmqp(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeEventhubAmqp: %v", v)
+	}
+}
+
+type CreateInputSystemByPackAuthenticationMechanism string
+
+const (
+	// CreateInputSystemByPackAuthenticationMechanismConnectionString Connection String
+	CreateInputSystemByPackAuthenticationMechanismConnectionString CreateInputSystemByPackAuthenticationMechanism = "connection-string"
+)
+
+func (e CreateInputSystemByPackAuthenticationMechanism) ToPointer() *CreateInputSystemByPackAuthenticationMechanism {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackAuthenticationMechanism) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "connection-string":
+			return true
+		}
+	}
+	return false
+}
+
+// CreateInputSystemByPackAuthAuthenticationMethod - Enter connection string directly, or select a stored secret
+type CreateInputSystemByPackAuthAuthenticationMethod string
+
+const (
+	CreateInputSystemByPackAuthAuthenticationMethodManual CreateInputSystemByPackAuthAuthenticationMethod = "manual"
+	CreateInputSystemByPackAuthAuthenticationMethodSecret CreateInputSystemByPackAuthAuthenticationMethod = "secret"
+)
+
+func (e CreateInputSystemByPackAuthAuthenticationMethod) ToPointer() *CreateInputSystemByPackAuthAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackAuthAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateInputSystemByPackAuth struct {
+	Mechanism *CreateInputSystemByPackAuthenticationMechanism `json:"mechanism,omitzero"`
+	// Enter connection string directly, or select a stored secret
+	AuthType CreateInputSystemByPackAuthAuthenticationMethod `json:"authType"`
+	// Event Hubs namespace or Event Hub-level connection string
+	ConnectionString *string `json:"connectionString,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+}
+
+func (c CreateInputSystemByPackAuth) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackAuth) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackAuth) GetMechanism() *CreateInputSystemByPackAuthenticationMechanism {
+	if c == nil {
+		return nil
+	}
+	return c.Mechanism
+}
+
+func (c *CreateInputSystemByPackAuth) GetAuthType() CreateInputSystemByPackAuthAuthenticationMethod {
+	if c == nil {
+		return CreateInputSystemByPackAuthAuthenticationMethod("")
+	}
+	return c.AuthType
+}
+
+func (c *CreateInputSystemByPackAuth) GetConnectionString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ConnectionString
+}
+
+func (c *CreateInputSystemByPackAuth) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+// CreateInputSystemByPackCheckpointStore - The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
+type CreateInputSystemByPackCheckpointStore string
+
+const (
+	// CreateInputSystemByPackCheckpointStoreNone None
+	CreateInputSystemByPackCheckpointStoreNone CreateInputSystemByPackCheckpointStore = "none"
+	// CreateInputSystemByPackCheckpointStoreAzureBlob Azure Blob Storage
+	CreateInputSystemByPackCheckpointStoreAzureBlob CreateInputSystemByPackCheckpointStore = "azureBlob"
+)
+
+func (e CreateInputSystemByPackCheckpointStore) ToPointer() *CreateInputSystemByPackCheckpointStore {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackCheckpointStore) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "azureBlob":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateInputSystemByPackAzureBlobStorage struct {
+	// Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
+	ContainerName string                                  `json:"containerName"`
+	AuthType      *components.AuthenticationMethodOptions `json:"authType,omitzero"`
+	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// The name of your Azure storage account
+	StorageAccountName *string `json:"storageAccountName,omitzero"`
+	// The service principal's tenant ID
+	TenantID *string `json:"tenantId,omitzero"`
+	// The service principal's client ID
+	ClientID *string `json:"clientId,omitzero"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud *string `json:"azureCloud,omitzero"`
+	// Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitzero"`
+	// Select or create a stored text secret
+	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
+	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
+	// Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+	TemplateStorageAccountName *string `json:"__template_storageAccountName,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+	TemplateAzureCloud *string `json:"__template_azureCloud,omitzero"`
+}
+
+func (c CreateInputSystemByPackAzureBlobStorage) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetContainerName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContainerName
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetAuthType() *components.AuthenticationMethodOptions {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetConnectionString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ConnectionString
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetStorageAccountName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.StorageAccountName
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TenantID
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientID
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetAzureCloud() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AzureCloud
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetEndpointSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.EndpointSuffix
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetClientTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientTextSecret
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetCertificate() *components.CertificateTypeAzureBlobAuthTypeClientCert {
+	if c == nil {
+		return nil
+	}
+	return c.Certificate
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetTemplateConnectionString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateConnectionString
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetTemplateStorageAccountName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageAccountName
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetTemplateTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTenantID
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetTemplateClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateClientID
+}
+
+func (c *CreateInputSystemByPackAzureBlobStorage) GetTemplateAzureCloud() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAzureCloud
+}
+
+type CreateInputSystemByPackCheckpointing struct {
+	// The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
+	CheckpointStoreType *CreateInputSystemByPackCheckpointStore  `json:"checkpointStoreType,omitzero"`
+	BlobStore           *CreateInputSystemByPackAzureBlobStorage `json:"blobStore,omitzero"`
+}
+
+func (c CreateInputSystemByPackCheckpointing) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackCheckpointing) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackCheckpointing) GetCheckpointStoreType() *CreateInputSystemByPackCheckpointStore {
+	if c == nil {
+		return nil
+	}
+	return c.CheckpointStoreType
+}
+
+func (c *CreateInputSystemByPackCheckpointing) GetBlobStore() *CreateInputSystemByPackAzureBlobStorage {
+	if c == nil {
+		return nil
+	}
+	return c.BlobStore
+}
+
+type CreateInputSystemByPackInputEventhubAmqp struct {
+	// Unique ID for this input
+	ID       string                                  `json:"id"`
+	Type     CreateInputSystemByPackTypeEventhubAmqp `json:"type"`
+	Disabled *bool                                   `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	// The name of the Event Hub to consume from
+	EventHubName *string `json:"eventHubName,omitzero"`
+	// The consumer group this instance belongs to. Default is '$Default'.
+	ConsumerGroup string                                `json:"consumerGroup"`
+	Auth          *CreateInputSystemByPackAuth          `json:"auth,omitzero"`
+	Checkpointing *CreateInputSystemByPackCheckpointing `json:"checkpointing,omitzero"`
+	// Start reading from earliest available data; relevant only during initial subscription
+	FromBeginning *bool `json:"fromBeginning,omitzero"`
+	// Maximum number of events in each batch delivered to the consumer
+	MaxBatchSize *int64 `json:"maxBatchSize,omitzero"`
+	// Maximum time to wait for a batch of events before delivering a partial batch
+	MaxWaitTimeInSeconds *int64 `json:"maxWaitTimeInSeconds,omitzero"`
+	// Number of events to prefetch from the service for processing
+	PrefetchCount *int64 `json:"prefetchCount,omitzero"`
+	// Maximum number of retries per operation
+	MaxRetries *int64 `json:"maxRetries,omitzero"`
+	// Initial delay before the first retry, in milliseconds
+	InitialBackoff *int64 `json:"initialBackoff,omitzero"`
+	// Maximum delay between retries, in milliseconds
+	MaxBackoff *int64 `json:"maxBackoff,omitzero"`
+	// Maximum time to wait for a request to complete
+	TimeoutInMs *int64 `json:"timeoutInMs,omitzero"`
+	// Initial delay before the first reconnection attempt, in milliseconds
+	ConnectionInitialBackoff *int64 `json:"connectionInitialBackoff,omitzero"`
+	// Maximum delay between reconnection attempts, in milliseconds
+	ConnectionMaxBackoff *int64 `json:"connectionMaxBackoff,omitzero"`
+	// Maximum time to wait for a connection to complete
+	ConnectionTimeoutInMs *int64 `json:"connectionTimeoutInMs,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+}
+
+func (c CreateInputSystemByPackInputEventhubAmqp) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetType() CreateInputSystemByPackTypeEventhubAmqp {
+	if c == nil {
+		return CreateInputSystemByPackTypeEventhubAmqp("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetEventHubName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.EventHubName
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetConsumerGroup() string {
+	if c == nil {
+		return ""
+	}
+	return c.ConsumerGroup
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetAuth() *CreateInputSystemByPackAuth {
+	if c == nil {
+		return nil
+	}
+	return c.Auth
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetCheckpointing() *CreateInputSystemByPackCheckpointing {
+	if c == nil {
+		return nil
+	}
+	return c.Checkpointing
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetFromBeginning() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.FromBeginning
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetMaxBatchSize() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxBatchSize
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetMaxWaitTimeInSeconds() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxWaitTimeInSeconds
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetPrefetchCount() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.PrefetchCount
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetMaxRetries() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxRetries
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetInitialBackoff() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.InitialBackoff
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetMaxBackoff() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxBackoff
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetTimeoutInMs() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.TimeoutInMs
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetConnectionInitialBackoff() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.ConnectionInitialBackoff
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetConnectionMaxBackoff() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.ConnectionMaxBackoff
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetConnectionTimeoutInMs() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.ConnectionTimeoutInMs
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 type CreateInputSystemByPackTypeEventhub string
 
 const (
@@ -2300,7 +3535,7 @@ type CreateInputSystemByPackInputEventhub struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType1       `json:"sasl,omitzero"`
+	Sasl *components.AuthenticationTypeUse     `json:"sasl,omitzero"`
 	TLS  *components.TLSSettingsClientSideType `json:"tls,omitzero"`
 	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
@@ -2330,6 +3565,10 @@ type CreateInputSystemByPackInputEventhub struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputEventhub) MarshalJSON() ([]byte, error) {
@@ -2497,7 +3736,7 @@ func (c *CreateInputSystemByPackInputEventhub) GetReauthenticationThreshold() *f
 	return c.ReauthenticationThreshold
 }
 
-func (c *CreateInputSystemByPackInputEventhub) GetSasl() *components.AuthenticationType1 {
+func (c *CreateInputSystemByPackInputEventhub) GetSasl() *components.AuthenticationTypeUse {
 	if c == nil {
 		return nil
 	}
@@ -2586,6 +3825,20 @@ func (c *CreateInputSystemByPackInputEventhub) GetDescription() *string {
 		return nil
 	}
 	return c.Description
+}
+
+func (c *CreateInputSystemByPackInputEventhub) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputEventhub) GetTemplateGroupID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateGroupID
 }
 
 type CreateInputSystemByPackTypeMicrosoftGraph string
@@ -2717,9 +3970,9 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *components.LogLevelOptions `json:"logLevel,omitzero"`
-	RetryRules  *components.RetryRulesType1 `json:"retryRules,omitzero"`
-	Description *string                     `json:"description,omitzero"`
+	LogLevel    *components.LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules  *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	Description *string                                     `json:"description,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
@@ -2733,6 +3986,8 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string                     `json:"textSecret,omitzero"`
 	CertOptions *components.CertOptionsType `json:"certOptions,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -2741,6 +3996,8 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
 	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
 	TemplateResource *string `json:"__template_resource,omitzero"`
+	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+	TemplatePlanType *string `json:"__template_planType,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputMicrosoftGraph) MarshalJSON() ([]byte, error) {
@@ -2936,14 +4193,14 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetMaxTaskReschedule() *flo
 	return c.MaxTaskReschedule
 }
 
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetLogLevel() *components.LogLevelOptions {
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetLogLevel() *components.LogLevelOptionsDebugError {
 	if c == nil {
 		return nil
 	}
 	return c.LogLevel
 }
 
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetRetryRules() *components.RetryRulesType1 {
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetRetryRules() *components.RetryRulesTypeCodesEnableHeader {
 	if c == nil {
 		return nil
 	}
@@ -3006,6 +4263,13 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetCertOptions() *component
 	return c.CertOptions
 }
 
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateURL() *string {
 	if c == nil {
 		return nil
@@ -3032,6 +4296,13 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateResource() *stri
 		return nil
 	}
 	return c.TemplateResource
+}
+
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplatePlanType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePlanType
 }
 
 type CreateInputSystemByPackTypeOffice365MsgTrace string
@@ -3132,9 +4403,9 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *components.LogLevelOptions `json:"logLevel,omitzero"`
-	RetryRules  *components.RetryRulesType1 `json:"retryRules,omitzero"`
-	Description *string                     `json:"description,omitzero"`
+	LogLevel    *components.LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules  *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	Description *string                                     `json:"description,omitzero"`
 	// Username to run Message Trace API call.
 	Username *string `json:"username,omitzero"`
 	// Password to run Message Trace API call.
@@ -3154,6 +4425,8 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string                     `json:"textSecret,omitzero"`
 	CertOptions *components.CertOptionsType `json:"certOptions,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -3162,6 +4435,8 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
 	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
 	TemplateResource *string `json:"__template_resource,omitzero"`
+	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+	TemplatePlanType *string `json:"__template_planType,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
@@ -3350,14 +4625,14 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetMaxTaskReschedule() *
 	return c.MaxTaskReschedule
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetLogLevel() *components.LogLevelOptions {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetLogLevel() *components.LogLevelOptionsDebugError {
 	if c == nil {
 		return nil
 	}
 	return c.LogLevel
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetRetryRules() *components.RetryRulesType1 {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetRetryRules() *components.RetryRulesTypeCodesEnableHeader {
 	if c == nil {
 		return nil
 	}
@@ -3441,6 +4716,13 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetCertOptions() *compon
 	return c.CertOptions
 }
 
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetTemplateURL() *string {
 	if c == nil {
 		return nil
@@ -3467,6 +4749,13 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetTemplateResource() *s
 		return nil
 	}
 	return c.TemplateResource
+}
+
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetTemplatePlanType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePlanType
 }
 
 // #region class-body-createinputsystembypackinputoffice365msgtrace
@@ -3595,14 +4884,18 @@ type CreateInputSystemByPackInputOffice365Service struct {
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []CreateInputSystemByPackContentConfigOffice365Service `json:"contentConfig,omitzero"`
-	RetryRules    *components.RetryRulesType1                            `json:"retryRules,omitzero"`
+	RetryRules    *components.RetryRulesTypeCodesEnableHeader            `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType    *components.AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	Description *string                                             `json:"description,omitzero"`
 	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+	TemplatePlanType *string `json:"__template_planType,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
 	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
@@ -3769,14 +5062,14 @@ func (c *CreateInputSystemByPackInputOffice365Service) GetContentConfig() []Crea
 	return c.ContentConfig
 }
 
-func (c *CreateInputSystemByPackInputOffice365Service) GetRetryRules() *components.RetryRulesType1 {
+func (c *CreateInputSystemByPackInputOffice365Service) GetRetryRules() *components.RetryRulesTypeCodesEnableHeader {
 	if c == nil {
 		return nil
 	}
 	return c.RetryRules
 }
 
-func (c *CreateInputSystemByPackInputOffice365Service) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (c *CreateInputSystemByPackInputOffice365Service) GetAuthType() *components.AuthenticationMethodOptionsManualSecret {
 	if c == nil {
 		return nil
 	}
@@ -3802,6 +5095,20 @@ func (c *CreateInputSystemByPackInputOffice365Service) GetTextSecret() *string {
 		return nil
 	}
 	return c.TextSecret
+}
+
+func (c *CreateInputSystemByPackInputOffice365Service) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputOffice365Service) GetTemplatePlanType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePlanType
 }
 
 func (c *CreateInputSystemByPackInputOffice365Service) GetTemplateTenantID() *string {
@@ -3954,15 +5261,19 @@ type CreateInputSystemByPackInputOffice365Mgmt struct {
 	// Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []CreateInputSystemByPackContentConfigOffice365Mgmt `json:"contentConfig,omitzero"`
 	// Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Microsoft 365 events are available for retrieval.
-	IngestionLag *float64                    `json:"ingestionLag,omitzero"`
-	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitzero"`
+	IngestionLag *float64                                    `json:"ingestionLag,omitzero"`
+	RetryRules   *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType    *components.AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	Description *string                                             `json:"description,omitzero"`
 	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+	TemplatePlanType *string `json:"__template_planType,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
 	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
@@ -4145,14 +5456,14 @@ func (c *CreateInputSystemByPackInputOffice365Mgmt) GetIngestionLag() *float64 {
 	return c.IngestionLag
 }
 
-func (c *CreateInputSystemByPackInputOffice365Mgmt) GetRetryRules() *components.RetryRulesType1 {
+func (c *CreateInputSystemByPackInputOffice365Mgmt) GetRetryRules() *components.RetryRulesTypeCodesEnableHeader {
 	if c == nil {
 		return nil
 	}
 	return c.RetryRules
 }
 
-func (c *CreateInputSystemByPackInputOffice365Mgmt) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (c *CreateInputSystemByPackInputOffice365Mgmt) GetAuthType() *components.AuthenticationMethodOptionsManualSecret {
 	if c == nil {
 		return nil
 	}
@@ -4178,6 +5489,20 @@ func (c *CreateInputSystemByPackInputOffice365Mgmt) GetTextSecret() *string {
 		return nil
 	}
 	return c.TextSecret
+}
+
+func (c *CreateInputSystemByPackInputOffice365Mgmt) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputOffice365Mgmt) GetTemplatePlanType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePlanType
 }
 
 func (c *CreateInputSystemByPackInputOffice365Mgmt) GetTemplateTenantID() *string {
@@ -4429,7 +5754,7 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *components.SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
+	SignatureVersion *components.SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -4459,12 +5784,16 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -4706,7 +6035,7 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CreateInputSystemByPackInputEdgePrometheus) GetSignatureVersion() *components.SignatureVersionOptions1 {
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetSignatureVersion() *components.SignatureVersionOptionsV2V4 {
 	if c == nil {
 		return nil
 	}
@@ -4804,6 +6133,13 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetCredentialsSecret() *str
 	return c.CredentialsSecret
 }
 
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
@@ -4823,6 +6159,13 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateRegion() *string
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateAssumeRoleArn() *string {
@@ -4889,31 +6232,6 @@ func (e *CreateInputSystemByPackDiscoveryTypePrometheus) IsExact() bool {
 	return false
 }
 
-// CreateInputSystemByPackLogLevelPrometheus - Collector runtime log level
-type CreateInputSystemByPackLogLevelPrometheus string
-
-const (
-	CreateInputSystemByPackLogLevelPrometheusError CreateInputSystemByPackLogLevelPrometheus = "error"
-	CreateInputSystemByPackLogLevelPrometheusWarn  CreateInputSystemByPackLogLevelPrometheus = "warn"
-	CreateInputSystemByPackLogLevelPrometheusInfo  CreateInputSystemByPackLogLevelPrometheus = "info"
-	CreateInputSystemByPackLogLevelPrometheusDebug CreateInputSystemByPackLogLevelPrometheus = "debug"
-)
-
-func (e CreateInputSystemByPackLogLevelPrometheus) ToPointer() *CreateInputSystemByPackLogLevelPrometheus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSystemByPackLogLevelPrometheus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "warn", "info", "debug":
-			return true
-		}
-	}
-	return false
-}
-
 // CreateInputSystemByPackMetricsProtocol - Protocol to use when collecting metrics
 type CreateInputSystemByPackMetricsProtocol string
 
@@ -4962,7 +6280,7 @@ type CreateInputSystemByPackInputPrometheus struct {
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
 	Interval float64 `json:"interval"`
 	// Collector runtime log level
-	LogLevel CreateInputSystemByPackLogLevelPrometheus `json:"logLevel"`
+	LogLevel components.LogLevelOptions `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
@@ -5009,7 +6327,7 @@ type CreateInputSystemByPackInputPrometheus struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *components.SignatureVersionOptions1 `json:"signatureVersion,omitzero"`
+	SignatureVersion *components.SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Use Assume Role credentials to access EC2
@@ -5026,6 +6344,10 @@ type CreateInputSystemByPackInputPrometheus struct {
 	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
+	TemplateDiscoveryType *string `json:"__template_discoveryType,omitzero"`
 	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
 	TemplateLogLevel *string `json:"__template_logLevel,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
@@ -5034,10 +6356,16 @@ type CreateInputSystemByPackInputPrometheus struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputPrometheus) MarshalJSON() ([]byte, error) {
@@ -5142,9 +6470,9 @@ func (c *CreateInputSystemByPackInputPrometheus) GetInterval() float64 {
 	return c.Interval
 }
 
-func (c *CreateInputSystemByPackInputPrometheus) GetLogLevel() CreateInputSystemByPackLogLevelPrometheus {
+func (c *CreateInputSystemByPackInputPrometheus) GetLogLevel() components.LogLevelOptions {
 	if c == nil {
-		return CreateInputSystemByPackLogLevelPrometheus("")
+		return components.LogLevelOptions("")
 	}
 	return c.LogLevel
 }
@@ -5317,7 +6645,7 @@ func (c *CreateInputSystemByPackInputPrometheus) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CreateInputSystemByPackInputPrometheus) GetSignatureVersion() *components.SignatureVersionOptions1 {
+func (c *CreateInputSystemByPackInputPrometheus) GetSignatureVersion() *components.SignatureVersionOptionsV2V4 {
 	if c == nil {
 		return nil
 	}
@@ -5380,6 +6708,20 @@ func (c *CreateInputSystemByPackInputPrometheus) GetCredentialsSecret() *string 
 	return c.CredentialsSecret
 }
 
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateDiscoveryType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDiscoveryType
+}
+
 func (c *CreateInputSystemByPackInputPrometheus) GetTemplateLogLevel() *string {
 	if c == nil {
 		return nil
@@ -5408,6 +6750,13 @@ func (c *CreateInputSystemByPackInputPrometheus) GetTemplateRegion() *string {
 	return c.TemplateRegion
 }
 
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
 func (c *CreateInputSystemByPackInputPrometheus) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
@@ -5420,6 +6769,20 @@ func (c *CreateInputSystemByPackInputPrometheus) GetTemplateAssumeRoleExternalID
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateUsername
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplatePassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePassword
 }
 
 type CreateInputSystemByPackTypePrometheusRw string
@@ -5505,12 +6868,16 @@ type CreateInputSystemByPackInputPrometheusRw struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
 	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputPrometheusRw) MarshalJSON() ([]byte, error) {
@@ -5755,6 +7122,13 @@ func (c *CreateInputSystemByPackInputPrometheusRw) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -5774,6 +7148,13 @@ func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplatePrometheusAPI() *s
 		return nil
 	}
 	return c.TemplatePrometheusAPI
+}
+
+func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplateUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateUsername
 }
 
 type CreateInputSystemByPackTypeLoki string
@@ -5859,10 +7240,14 @@ type CreateInputSystemByPackInputLoki struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+	TemplateLokiAPI *string `json:"__template_lokiAPI,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputLoki) MarshalJSON() ([]byte, error) {
@@ -6107,6 +7492,13 @@ func (c *CreateInputSystemByPackInputLoki) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateInputSystemByPackInputLoki) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputLoki) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -6119,6 +7511,13 @@ func (c *CreateInputSystemByPackInputLoki) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputLoki) GetTemplateLokiAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLokiAPI
 }
 
 type CreateInputSystemByPackInputGrafanaType2 string
@@ -6336,10 +7735,16 @@ type CreateInputSystemByPackInputGrafanaGrafana2 struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitzero"`
+	// Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+	TemplateLokiAPI *string `json:"__template_lokiAPI,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
@@ -6563,6 +7968,13 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -6575,6 +7987,20 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplatePort() *string 
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplatePrometheusAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePrometheusAPI
+}
+
+func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplateLokiAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLokiAPI
 }
 
 // #region class-body-createinputsystembypackinputgrafanagrafana2
@@ -6795,10 +8221,16 @@ type CreateInputSystemByPackInputGrafanaGrafana1 struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitzero"`
+	// Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+	TemplateLokiAPI *string `json:"__template_lokiAPI,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
@@ -7022,6 +8454,13 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -7034,6 +8473,20 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetTemplatePort() *string 
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetTemplatePrometheusAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePrometheusAPI
+}
+
+func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetTemplateLokiAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLokiAPI
 }
 
 // #region class-body-createinputsystembypackinputgrafanagrafana1
@@ -7170,8 +8623,8 @@ type CreateInputSystemByPackInputConfluentCloud struct {
 	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
-	Brokers []string                                                 `json:"brokers"`
-	TLS     *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	Brokers []string                                            `json:"brokers"`
+	TLS     *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
@@ -7224,6 +8677,10 @@ type CreateInputSystemByPackInputConfluentCloud struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -7314,7 +8771,7 @@ func (c *CreateInputSystemByPackInputConfluentCloud) GetBrokers() []string {
 	return c.Brokers
 }
 
-func (c *CreateInputSystemByPackInputConfluentCloud) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (c *CreateInputSystemByPackInputConfluentCloud) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
@@ -7480,6 +8937,20 @@ func (c *CreateInputSystemByPackInputConfluentCloud) GetDescription() *string {
 		return nil
 	}
 	return c.Description
+}
+
+func (c *CreateInputSystemByPackInputConfluentCloud) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputConfluentCloud) GetTemplateGroupID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateGroupID
 }
 
 type CreateInputSystemByPackTypeElastic string
@@ -7750,6 +9221,8 @@ type CreateInputSystemByPackInputElastic struct {
 	AuthTokens []string `json:"authTokens,omitzero"`
 	// Custom version information to respond to requests
 	CustomAPIVersion *string `json:"customAPIVersion,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -8019,6 +9492,13 @@ func (c *CreateInputSystemByPackInputElastic) GetCustomAPIVersion() *string {
 	return c.CustomAPIVersion
 }
 
+func (c *CreateInputSystemByPackInputElastic) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputElastic) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -8117,14 +9597,20 @@ type CreateInputSystemByPackInputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
 	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
 	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
+	// Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+	TemplateStorageAccountName *string `json:"__template_storageAccountName,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
 	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+	TemplateAzureCloud *string `json:"__template_azureCloud,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -8369,6 +9855,13 @@ func (c *CreateInputSystemByPackInputAzureBlob) GetCertificate() *components.Cer
 	return c.Certificate
 }
 
+func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateQueueName() *string {
 	if c == nil {
 		return nil
@@ -8383,6 +9876,13 @@ func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateConnectionString() *s
 	return c.TemplateConnectionString
 }
 
+func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateStorageAccountName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageAccountName
+}
+
 func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateTenantID() *string {
 	if c == nil {
 		return nil
@@ -8395,6 +9895,13 @@ func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateClientID() *string {
 		return nil
 	}
 	return c.TemplateClientID
+}
+
+func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateAzureCloud() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAzureCloud
 }
 
 type CreateInputSystemByPackTypeSplunkHec string
@@ -8566,6 +10073,8 @@ type CreateInputSystemByPackInputSplunkHec struct {
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
 	Description      *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -8844,6 +10353,13 @@ func (c *CreateInputSystemByPackInputSplunkHec) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputSplunkHec) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputSplunkHec) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -9080,6 +10596,20 @@ type CreateInputSystemByPackInputSplunkSearch struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
+	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+	TemplateSearch *string `json:"__template_search,omitzero"`
+	// Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+	TemplateEarliest *string `json:"__template_earliest,omitzero"`
+	// Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+	TemplateLatest *string `json:"__template_latest,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
+	TemplateLogLevel *string `json:"__template_logLevel,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputSplunkSearch) MarshalJSON() ([]byte, error) {
@@ -9373,6 +10903,55 @@ func (c *CreateInputSystemByPackInputSplunkSearch) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateSearchHead() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSearchHead
+}
+
+func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateSearch() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSearch
+}
+
+func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateEarliest() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEarliest
+}
+
+func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateLatest() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLatest
+}
+
+func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
+func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateLogLevel() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLogLevel
+}
+
 type CreateInputSystemByPackTypeSplunk string
 
 const (
@@ -9533,10 +11112,16 @@ type CreateInputSystemByPackInputSplunk struct {
 	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
 	Compress *CreateInputSystemByPackCompression `json:"compress,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+	TemplateMaxS2Sversion *string `json:"__template_maxS2Sversion,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputSplunk) MarshalJSON() ([]byte, error) {
@@ -9753,6 +11338,13 @@ func (c *CreateInputSystemByPackInputSplunk) GetCompress() *CreateInputSystemByP
 	return c.Compress
 }
 
+func (c *CreateInputSystemByPackInputSplunk) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputSplunk) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -9765,6 +11357,20 @@ func (c *CreateInputSystemByPackInputSplunk) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputSplunk) GetTemplateMaxS2Sversion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateMaxS2Sversion
+}
+
+func (c *CreateInputSystemByPackInputSplunk) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
 }
 
 type CreateInputSystemByPackTypeHTTP string
@@ -9849,10 +11455,16 @@ type CreateInputSystemByPackInputHTTP struct {
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
+	TemplateCriblAPI *string `json:"__template_criblAPI,omitzero"`
+	// Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+	TemplateElasticAPI *string `json:"__template_elasticAPI,omitzero"`
 	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
 	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitzero"`
 }
@@ -10092,6 +11704,13 @@ func (c *CreateInputSystemByPackInputHTTP) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputHTTP) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 func (c *CreateInputSystemByPackInputHTTP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -10104,6 +11723,20 @@ func (c *CreateInputSystemByPackInputHTTP) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputHTTP) GetTemplateCriblAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCriblAPI
+}
+
+func (c *CreateInputSystemByPackInputHTTP) GetTemplateElasticAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateElasticAPI
 }
 
 func (c *CreateInputSystemByPackInputHTTP) GetTemplateSplunkHecAPI() *string {
@@ -10215,8 +11848,8 @@ type CreateInputSystemByPackInputMsk struct {
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                                 `json:"durationSeconds,omitzero"`
-	TLS             *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	DurationSeconds *float64                                            `json:"durationSeconds,omitzero"`
+	TLS             *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
 	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
@@ -10231,10 +11864,16 @@ type CreateInputSystemByPackInputMsk struct {
 	AwsAPIKey       *string  `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
@@ -10520,7 +12159,7 @@ func (c *CreateInputSystemByPackInputMsk) GetDurationSeconds() *float64 {
 	return c.DurationSeconds
 }
 
-func (c *CreateInputSystemByPackInputMsk) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (c *CreateInputSystemByPackInputMsk) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
@@ -10583,6 +12222,20 @@ func (c *CreateInputSystemByPackInputMsk) GetAwsSecret() *string {
 	return c.AwsSecret
 }
 
+func (c *CreateInputSystemByPackInputMsk) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputMsk) GetTemplateGroupID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateGroupID
+}
+
 func (c *CreateInputSystemByPackInputMsk) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
@@ -10595,6 +12248,13 @@ func (c *CreateInputSystemByPackInputMsk) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateInputSystemByPackInputMsk) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
 }
 
 func (c *CreateInputSystemByPackInputMsk) GetTemplateAssumeRoleArn() *string {
@@ -10685,8 +12345,8 @@ type CreateInputSystemByPackInputKafka struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType                           `json:"sasl,omitzero"`
-	TLS  *components.TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	Sasl *components.AuthenticationType                      `json:"sasl,omitzero"`
+	TLS  *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	//       Timeout used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires,
 	//       the broker will remove the client from the group and initiate a rebalance.
@@ -10714,6 +12374,10 @@ type CreateInputSystemByPackInputKafka struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputKafka) MarshalJSON() ([]byte, error) {
@@ -10895,7 +12559,7 @@ func (c *CreateInputSystemByPackInputKafka) GetSasl() *components.Authentication
 	return c.Sasl
 }
 
-func (c *CreateInputSystemByPackInputKafka) GetTLS() *components.TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (c *CreateInputSystemByPackInputKafka) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
@@ -10972,6 +12636,20 @@ func (c *CreateInputSystemByPackInputKafka) GetDescription() *string {
 	return c.Description
 }
 
+func (c *CreateInputSystemByPackInputKafka) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputKafka) GetTemplateGroupID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateGroupID
+}
+
 type CreateInputSystemByPackTypeCollection string
 
 const (
@@ -11024,6 +12702,8 @@ type CreateInputSystemByPackInputCollection struct {
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Destination to send results to
 	Output *string `json:"output,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputCollection) MarshalJSON() ([]byte, error) {
@@ -11149,6 +12829,13 @@ func (c *CreateInputSystemByPackInputCollection) GetOutput() *string {
 	return c.Output
 }
 
+func (c *CreateInputSystemByPackInputCollection) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
 type CreateInputSystemByPackRequestBodyType string
 
 const (
@@ -11172,6 +12859,7 @@ const (
 	CreateInputSystemByPackRequestBodyTypeOffice365MsgTrace    CreateInputSystemByPackRequestBodyType = "office365_msg_trace"
 	CreateInputSystemByPackRequestBodyTypeMicrosoftGraph       CreateInputSystemByPackRequestBodyType = "microsoft_graph"
 	CreateInputSystemByPackRequestBodyTypeEventhub             CreateInputSystemByPackRequestBodyType = "eventhub"
+	CreateInputSystemByPackRequestBodyTypeEventhubAmqp         CreateInputSystemByPackRequestBodyType = "eventhub_amqp"
 	CreateInputSystemByPackRequestBodyTypeExec                 CreateInputSystemByPackRequestBodyType = "exec"
 	CreateInputSystemByPackRequestBodyTypeFirehose             CreateInputSystemByPackRequestBodyType = "firehose"
 	CreateInputSystemByPackRequestBodyTypeGooglePubsub         CreateInputSystemByPackRequestBodyType = "google_pubsub"
@@ -11212,8 +12900,10 @@ const (
 	CreateInputSystemByPackRequestBodyTypeWizWebhook           CreateInputSystemByPackRequestBodyType = "wiz_webhook"
 	CreateInputSystemByPackRequestBodyTypeNetflow              CreateInputSystemByPackRequestBodyType = "netflow"
 	CreateInputSystemByPackRequestBodyTypeSecurityLake         CreateInputSystemByPackRequestBodyType = "security_lake"
+	CreateInputSystemByPackRequestBodyTypeServicenowTable      CreateInputSystemByPackRequestBodyType = "servicenow_table"
 	CreateInputSystemByPackRequestBodyTypeZscalerHec           CreateInputSystemByPackRequestBodyType = "zscaler_hec"
 	CreateInputSystemByPackRequestBodyTypeCloudflareHec        CreateInputSystemByPackRequestBodyType = "cloudflare_hec"
+	CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs CreateInputSystemByPackRequestBodyType = "openai_compliance_logs"
 )
 
 // CreateInputSystemByPackRequestBody - Input object
@@ -11238,6 +12928,7 @@ type CreateInputSystemByPackRequestBody struct {
 	CreateInputSystemByPackInputOffice365MsgTrace    *CreateInputSystemByPackInputOffice365MsgTrace    `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputMicrosoftGraph       *CreateInputSystemByPackInputMicrosoftGraph       `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputEventhub             *CreateInputSystemByPackInputEventhub             `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputEventhubAmqp         *CreateInputSystemByPackInputEventhubAmqp         `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputExec                 *CreateInputSystemByPackInputExec                 `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputFirehose             *CreateInputSystemByPackInputFirehose             `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputGooglePubsub         *CreateInputSystemByPackInputGooglePubsub         `queryParam:"inline" union:"member"`
@@ -11278,8 +12969,10 @@ type CreateInputSystemByPackRequestBody struct {
 	CreateInputSystemByPackInputWizWebhook           *CreateInputSystemByPackInputWizWebhook           `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputNetflow              *CreateInputSystemByPackInputNetflow              `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputSecurityLake         *CreateInputSystemByPackInputSecurityLake         `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputServicenowTable      *CreateInputSystemByPackInputServicenowTable      `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputZscalerHec           *CreateInputSystemByPackInputZscalerHec           `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputCloudflareHec        *CreateInputSystemByPackInputCloudflareHec        `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputOpenaiComplianceLogs *CreateInputSystemByPackInputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
 
 	Type CreateInputSystemByPackRequestBodyType
 }
@@ -11518,6 +13211,18 @@ func CreateCreateInputSystemByPackRequestBodyEventhub(eventhub CreateInputSystem
 	return CreateInputSystemByPackRequestBody{
 		CreateInputSystemByPackInputEventhub: &eventhub,
 		Type:                                 typ,
+	}
+}
+
+func CreateCreateInputSystemByPackRequestBodyEventhubAmqp(eventhubAmqp CreateInputSystemByPackInputEventhubAmqp) CreateInputSystemByPackRequestBody {
+	typ := CreateInputSystemByPackRequestBodyTypeEventhubAmqp
+
+	typStr := CreateInputSystemByPackTypeEventhubAmqp(typ)
+	eventhubAmqp.Type = typStr
+
+	return CreateInputSystemByPackRequestBody{
+		CreateInputSystemByPackInputEventhubAmqp: &eventhubAmqp,
+		Type:                                     typ,
 	}
 }
 
@@ -11998,6 +13703,18 @@ func CreateCreateInputSystemByPackRequestBodySecurityLake(securityLake CreateInp
 	}
 }
 
+func CreateCreateInputSystemByPackRequestBodyServicenowTable(servicenowTable CreateInputSystemByPackInputServicenowTable) CreateInputSystemByPackRequestBody {
+	typ := CreateInputSystemByPackRequestBodyTypeServicenowTable
+
+	typStr := CreateInputSystemByPackTypeServicenowTable(typ)
+	servicenowTable.Type = typStr
+
+	return CreateInputSystemByPackRequestBody{
+		CreateInputSystemByPackInputServicenowTable: &servicenowTable,
+		Type: typ,
+	}
+}
+
 func CreateCreateInputSystemByPackRequestBodyZscalerHec(zscalerHec CreateInputSystemByPackInputZscalerHec) CreateInputSystemByPackRequestBody {
 	typ := CreateInputSystemByPackRequestBodyTypeZscalerHec
 
@@ -12018,6 +13735,18 @@ func CreateCreateInputSystemByPackRequestBodyCloudflareHec(cloudflareHec CreateI
 
 	return CreateInputSystemByPackRequestBody{
 		CreateInputSystemByPackInputCloudflareHec: &cloudflareHec,
+		Type: typ,
+	}
+}
+
+func CreateCreateInputSystemByPackRequestBodyOpenaiComplianceLogs(openaiComplianceLogs CreateInputSystemByPackInputOpenaiComplianceLogs) CreateInputSystemByPackRequestBody {
+	typ := CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs
+
+	typStr := CreateInputSystemByPackTypeOpenaiComplianceLogs(typ)
+	openaiComplianceLogs.Type = typStr
+
+	return CreateInputSystemByPackRequestBody{
+		CreateInputSystemByPackInputOpenaiComplianceLogs: &openaiComplianceLogs,
 		Type: typ,
 	}
 }
@@ -12213,6 +13942,15 @@ func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 		u.CreateInputSystemByPackInputEventhub = createInputSystemByPackInputEventhub
 		u.Type = CreateInputSystemByPackRequestBodyTypeEventhub
+		return nil
+	case "eventhub_amqp":
+		createInputSystemByPackInputEventhubAmqp := new(CreateInputSystemByPackInputEventhubAmqp)
+		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputEventhubAmqp, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == eventhub_amqp) type CreateInputSystemByPackInputEventhubAmqp within CreateInputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateInputSystemByPackInputEventhubAmqp = createInputSystemByPackInputEventhubAmqp
+		u.Type = CreateInputSystemByPackRequestBodyTypeEventhubAmqp
 		return nil
 	case "exec":
 		createInputSystemByPackInputExec := new(CreateInputSystemByPackInputExec)
@@ -12574,6 +14312,15 @@ func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateInputSystemByPackInputSecurityLake = createInputSystemByPackInputSecurityLake
 		u.Type = CreateInputSystemByPackRequestBodyTypeSecurityLake
 		return nil
+	case "servicenow_table":
+		createInputSystemByPackInputServicenowTable := new(CreateInputSystemByPackInputServicenowTable)
+		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputServicenowTable, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == servicenow_table) type CreateInputSystemByPackInputServicenowTable within CreateInputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateInputSystemByPackInputServicenowTable = createInputSystemByPackInputServicenowTable
+		u.Type = CreateInputSystemByPackRequestBodyTypeServicenowTable
+		return nil
 	case "zscaler_hec":
 		createInputSystemByPackInputZscalerHec := new(CreateInputSystemByPackInputZscalerHec)
 		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputZscalerHec, "", true, nil); err != nil {
@@ -12591,6 +14338,15 @@ func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 		u.CreateInputSystemByPackInputCloudflareHec = createInputSystemByPackInputCloudflareHec
 		u.Type = CreateInputSystemByPackRequestBodyTypeCloudflareHec
+		return nil
+	case "openai_compliance_logs":
+		createInputSystemByPackInputOpenaiComplianceLogs := new(CreateInputSystemByPackInputOpenaiComplianceLogs)
+		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputOpenaiComplianceLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openai_compliance_logs) type CreateInputSystemByPackInputOpenaiComplianceLogs within CreateInputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateInputSystemByPackInputOpenaiComplianceLogs = createInputSystemByPackInputOpenaiComplianceLogs
+		u.Type = CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs
 		return nil
 	}
 
@@ -12676,6 +14432,10 @@ func (u CreateInputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 
 	if u.CreateInputSystemByPackInputEventhub != nil {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputEventhub, "", true)
+	}
+
+	if u.CreateInputSystemByPackInputEventhubAmqp != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputEventhubAmqp, "", true)
 	}
 
 	if u.CreateInputSystemByPackInputExec != nil {
@@ -12838,12 +14598,20 @@ func (u CreateInputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputSecurityLake, "", true)
 	}
 
+	if u.CreateInputSystemByPackInputServicenowTable != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputServicenowTable, "", true)
+	}
+
 	if u.CreateInputSystemByPackInputZscalerHec != nil {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputZscalerHec, "", true)
 	}
 
 	if u.CreateInputSystemByPackInputCloudflareHec != nil {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputCloudflareHec, "", true)
+	}
+
+	if u.CreateInputSystemByPackInputOpenaiComplianceLogs != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputOpenaiComplianceLogs, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateInputSystemByPackRequestBody: all fields are null")
@@ -12948,6 +14716,10 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyMicrosoftGraph() *CreateI
 
 func (c *CreateInputSystemByPackRequest) GetRequestBodyEventhub() *CreateInputSystemByPackInputEventhub {
 	return c.GetRequestBody().CreateInputSystemByPackInputEventhub
+}
+
+func (c *CreateInputSystemByPackRequest) GetRequestBodyEventhubAmqp() *CreateInputSystemByPackInputEventhubAmqp {
+	return c.GetRequestBody().CreateInputSystemByPackInputEventhubAmqp
 }
 
 func (c *CreateInputSystemByPackRequest) GetRequestBodyExec() *CreateInputSystemByPackInputExec {
@@ -13110,6 +14882,10 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodySecurityLake() *CreateInp
 	return c.GetRequestBody().CreateInputSystemByPackInputSecurityLake
 }
 
+func (c *CreateInputSystemByPackRequest) GetRequestBodyServicenowTable() *CreateInputSystemByPackInputServicenowTable {
+	return c.GetRequestBody().CreateInputSystemByPackInputServicenowTable
+}
+
 func (c *CreateInputSystemByPackRequest) GetRequestBodyZscalerHec() *CreateInputSystemByPackInputZscalerHec {
 	return c.GetRequestBody().CreateInputSystemByPackInputZscalerHec
 }
@@ -13118,9 +14894,13 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyCloudflareHec() *CreateIn
 	return c.GetRequestBody().CreateInputSystemByPackInputCloudflareHec
 }
 
+func (c *CreateInputSystemByPackRequest) GetRequestBodyOpenaiComplianceLogs() *CreateInputSystemByPackInputOpenaiComplianceLogs {
+	return c.GetRequestBody().CreateInputSystemByPackInputOpenaiComplianceLogs
+}
+
 type CreateInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// the created Source object
 	CountedInput *components.CountedInput
 }
 

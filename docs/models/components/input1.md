@@ -123,6 +123,12 @@ input1 := components.CreateInput1MicrosoftGraph(components.InputMicrosoftGraph{/
 input1 := components.CreateInput1Eventhub(components.InputEventhub{/* values here */})
 ```
 
+### InputEventhubAmqp
+
+```go
+input1 := components.CreateInput1EventhubAmqp(components.InputEventhubAmqp{/* values here */})
+```
+
 ### InputExec
 
 ```go
@@ -363,6 +369,12 @@ input1 := components.CreateInput1Netflow(components.InputNetflow{/* values here 
 input1 := components.CreateInput1SecurityLake(components.InputSecurityLake{/* values here */})
 ```
 
+### InputServicenowTable
+
+```go
+input1 := components.CreateInput1ServicenowTable(components.InputServicenowTable{/* values here */})
+```
+
 ### InputZscalerHec
 
 ```go
@@ -373,6 +385,12 @@ input1 := components.CreateInput1ZscalerHec(components.InputZscalerHec{/* values
 
 ```go
 input1 := components.CreateInput1CloudflareHec(components.InputCloudflareHec{/* values here */})
+```
+
+### InputOpenaiComplianceLogs
+
+```go
+input1 := components.CreateInput1OpenaiComplianceLogs(components.InputOpenaiComplianceLogs{/* values here */})
 ```
 
 ## Union Discrimination
@@ -421,6 +439,8 @@ switch input1.Type {
 		// input1.InputMicrosoftGraph is populated
 	case components.Input1TypeEventhub:
 		// input1.InputEventhub is populated
+	case components.Input1TypeEventhubAmqp:
+		// input1.InputEventhubAmqp is populated
 	case components.Input1TypeExec:
 		// input1.InputExec is populated
 	case components.Input1TypeFirehose:
@@ -501,10 +521,14 @@ switch input1.Type {
 		// input1.InputNetflow is populated
 	case components.Input1TypeSecurityLake:
 		// input1.InputSecurityLake is populated
+	case components.Input1TypeServicenowTable:
+		// input1.InputServicenowTable is populated
 	case components.Input1TypeZscalerHec:
 		// input1.InputZscalerHec is populated
 	case components.Input1TypeCloudflareHec:
 		// input1.InputCloudflareHec is populated
+	case components.Input1TypeOpenaiComplianceLogs:
+		// input1.InputOpenaiComplianceLogs is populated
 	default:
 		// Unknown type - use input1.GetUnknownRaw() for raw JSON
 }

@@ -8,6 +8,8 @@ import (
 
 type SupportTypeSystemSettingsConf struct {
 	FeatureFlagOverrides []ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides `json:"featureFlagOverrides,omitzero"`
+	LogFileMaxFiles      *float64                                                 `json:"logFileMaxFiles,omitzero"`
+	LogFileMaxSize       *string                                                  `json:"logFileMaxSize,omitzero"`
 }
 
 func (s SupportTypeSystemSettingsConf) MarshalJSON() ([]byte, error) {
@@ -26,4 +28,18 @@ func (s *SupportTypeSystemSettingsConf) GetFeatureFlagOverrides() []ItemsTypeSys
 		return nil
 	}
 	return s.FeatureFlagOverrides
+}
+
+func (s *SupportTypeSystemSettingsConf) GetLogFileMaxFiles() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.LogFileMaxFiles
+}
+
+func (s *SupportTypeSystemSettingsConf) GetLogFileMaxSize() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LogFileMaxSize
 }

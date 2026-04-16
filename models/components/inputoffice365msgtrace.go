@@ -106,9 +106,9 @@ type InputOffice365MsgTrace struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *LogLevelOptions `json:"logLevel,omitzero"`
-	RetryRules  *RetryRulesType1 `json:"retryRules,omitzero"`
-	Description *string          `json:"description,omitzero"`
+	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	Description *string                          `json:"description,omitzero"`
 	// Username to run Message Trace API call.
 	Username *string `json:"username,omitzero"`
 	// Password to run Message Trace API call.
@@ -128,6 +128,8 @@ type InputOffice365MsgTrace struct {
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string          `json:"textSecret,omitzero"`
 	CertOptions *CertOptionsType `json:"certOptions,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -136,6 +138,8 @@ type InputOffice365MsgTrace struct {
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
 	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
 	TemplateResource *string `json:"__template_resource,omitzero"`
+	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+	TemplatePlanType *string `json:"__template_planType,omitzero"`
 }
 
 func (i InputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
@@ -324,14 +328,14 @@ func (i *InputOffice365MsgTrace) GetMaxTaskReschedule() *float64 {
 	return i.MaxTaskReschedule
 }
 
-func (i *InputOffice365MsgTrace) GetLogLevel() *LogLevelOptions {
+func (i *InputOffice365MsgTrace) GetLogLevel() *LogLevelOptionsDebugError {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputOffice365MsgTrace) GetRetryRules() *RetryRulesType1 {
+func (i *InputOffice365MsgTrace) GetRetryRules() *RetryRulesTypeCodesEnableHeader {
 	if i == nil {
 		return nil
 	}
@@ -415,6 +419,13 @@ func (i *InputOffice365MsgTrace) GetCertOptions() *CertOptionsType {
 	return i.CertOptions
 }
 
+func (i *InputOffice365MsgTrace) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
 func (i *InputOffice365MsgTrace) GetTemplateURL() *string {
 	if i == nil {
 		return nil
@@ -441,6 +452,13 @@ func (i *InputOffice365MsgTrace) GetTemplateResource() *string {
 		return nil
 	}
 	return i.TemplateResource
+}
+
+func (i *InputOffice365MsgTrace) GetTemplatePlanType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePlanType
 }
 
 // #region class-body-inputoffice365msgtrace

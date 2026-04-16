@@ -1377,6 +1377,8 @@ type HealthCheckAuthenticationOauthSecret struct {
 	RetryRules  *HealthCheckAuthenticationOauthSecretRetryRules `json:"retryRules,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauthSecret) MarshalJSON() ([]byte, error) {
@@ -1570,6 +1572,13 @@ func (h *HealthCheckAuthenticationOauthSecret) GetClientSecretParamValue() *stri
 		return nil
 	}
 	return h.ClientSecretParamValue
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationOauthAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -2940,6 +2949,8 @@ type HealthCheckAuthenticationOauth struct {
 	RetryRules  *HealthCheckAuthenticationOauthRetryRules `json:"retryRules,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationOauth) MarshalJSON() ([]byte, error) {
@@ -3133,6 +3144,13 @@ func (h *HealthCheckAuthenticationOauth) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckAuthenticationOauth) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationLoginSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -4503,6 +4521,8 @@ type HealthCheckAuthenticationLoginSecret struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
@@ -4696,6 +4716,13 @@ func (h *HealthCheckAuthenticationLoginSecret) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationLoginAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -6068,6 +6095,8 @@ type HealthCheckAuthenticationLogin struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationLogin) MarshalJSON() ([]byte, error) {
@@ -6268,6 +6297,13 @@ func (h *HealthCheckAuthenticationLogin) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckAuthenticationLogin) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationBasicSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -7628,6 +7664,8 @@ type HealthCheckAuthenticationBasicSecret struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
@@ -7786,6 +7824,13 @@ func (h *HealthCheckAuthenticationBasicSecret) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationBasicAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -9148,6 +9193,8 @@ type HealthCheckAuthenticationBasic struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationBasic) MarshalJSON() ([]byte, error) {
@@ -9313,6 +9360,13 @@ func (h *HealthCheckAuthenticationBasic) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckAuthenticationBasic) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 // HealthCheckAuthenticationNoneAuthentication - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
