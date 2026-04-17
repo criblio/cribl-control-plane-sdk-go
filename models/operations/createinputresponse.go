@@ -10,6 +10,94 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputNetworkSystemMetrics struct {
+	// Select the level of detail for network metrics
+	Mode *CreateInputNetworkModeSystemMetrics `json:"mode,omitzero"`
+	// Generate full network metrics
+	Detail *bool `json:"detail,omitzero"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `json:"protocols,omitzero"`
+	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+	Devices []string `json:"devices,omitzero"`
+	// Generate separate metrics for each interface
+	PerInterface *bool `json:"perInterface,omitzero"`
+}
+
+func (c CreateInputNetworkSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputNetworkSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputNetworkSystemMetrics) GetMode() *CreateInputNetworkModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputNetworkSystemMetrics) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+func (c *CreateInputNetworkSystemMetrics) GetProtocols() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Protocols
+}
+
+func (c *CreateInputNetworkSystemMetrics) GetDevices() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Devices
+}
+
+func (c *CreateInputNetworkSystemMetrics) GetPerInterface() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerInterface
+}
+
+// CreateInputDiskModeSystemMetrics - Select the level of detail for disk metrics
+type CreateInputDiskModeSystemMetrics string
+
+const (
+	// CreateInputDiskModeSystemMetricsBasic Basic
+	CreateInputDiskModeSystemMetricsBasic CreateInputDiskModeSystemMetrics = "basic"
+	// CreateInputDiskModeSystemMetricsAll All
+	CreateInputDiskModeSystemMetricsAll CreateInputDiskModeSystemMetrics = "all"
+	// CreateInputDiskModeSystemMetricsCustom Custom
+	CreateInputDiskModeSystemMetricsCustom CreateInputDiskModeSystemMetrics = "custom"
+	// CreateInputDiskModeSystemMetricsDisabled Disabled
+	CreateInputDiskModeSystemMetricsDisabled CreateInputDiskModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputDiskModeSystemMetrics) ToPointer() *CreateInputDiskModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputDiskModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputDiskSystemMetrics struct {
 	// Select the level of detail for disk metrics
 	Mode *CreateInputDiskModeSystemMetrics `json:"mode,omitzero"`
@@ -12904,6 +12992,7 @@ const (
 	CreateInputRequestTypeZscalerHec           CreateInputRequestType = "zscaler_hec"
 	CreateInputRequestTypeCloudflareHec        CreateInputRequestType = "cloudflare_hec"
 	CreateInputRequestTypeOpenaiComplianceLogs CreateInputRequestType = "openai_compliance_logs"
+	CreateInputRequestTypeOkta                 CreateInputRequestType = "okta"
 )
 
 // CreateInputRequest - Input object
@@ -12973,6 +13062,7 @@ type CreateInputRequest struct {
 	CreateInputInputZscalerHec           *CreateInputInputZscalerHec           `queryParam:"inline" union:"member"`
 	CreateInputInputCloudflareHec        *CreateInputInputCloudflareHec        `queryParam:"inline" union:"member"`
 	CreateInputInputOpenaiComplianceLogs *CreateInputInputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
+	CreateInputInputOkta                 *CreateInputInputOkta                 `queryParam:"inline" union:"member"`
 
 	Type CreateInputRequestType
 }
@@ -13751,6 +13841,18 @@ func CreateCreateInputRequestOpenaiComplianceLogs(openaiComplianceLogs CreateInp
 	}
 }
 
+func CreateCreateInputRequestOkta(okta CreateInputInputOkta) CreateInputRequest {
+	typ := CreateInputRequestTypeOkta
+
+	typStr := CreateInputTypeOkta(typ)
+	okta.Type = typStr
+
+	return CreateInputRequest{
+		CreateInputInputOkta: &okta,
+		Type:                 typ,
+	}
+}
+
 func (u *CreateInputRequest) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -14348,6 +14450,15 @@ func (u *CreateInputRequest) UnmarshalJSON(data []byte) error {
 		u.CreateInputInputOpenaiComplianceLogs = createInputInputOpenaiComplianceLogs
 		u.Type = CreateInputRequestTypeOpenaiComplianceLogs
 		return nil
+	case "okta":
+		createInputInputOkta := new(CreateInputInputOkta)
+		if err := utils.UnmarshalJSON(data, &createInputInputOkta, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == okta) type CreateInputInputOkta within CreateInputRequest: %w", string(data), err)
+		}
+
+		u.CreateInputInputOkta = createInputInputOkta
+		u.Type = CreateInputRequestTypeOkta
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputRequest", string(data))
@@ -14612,6 +14723,10 @@ func (u CreateInputRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CreateInputInputOpenaiComplianceLogs != nil {
 		return utils.MarshalJSON(u.CreateInputInputOpenaiComplianceLogs, "", true)
+	}
+
+	if u.CreateInputInputOkta != nil {
+		return utils.MarshalJSON(u.CreateInputInputOkta, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateInputRequest: all fields are null")

@@ -393,6 +393,12 @@ input1 := components.CreateInput1CloudflareHec(components.InputCloudflareHec{/* 
 input1 := components.CreateInput1OpenaiComplianceLogs(components.InputOpenaiComplianceLogs{/* values here */})
 ```
 
+### InputOkta
+
+```go
+input1 := components.CreateInput1Okta(components.InputOkta{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -529,6 +535,8 @@ switch input1.Type {
 		// input1.InputCloudflareHec is populated
 	case components.Input1TypeOpenaiComplianceLogs:
 		// input1.InputOpenaiComplianceLogs is populated
+	case components.Input1TypeOkta:
+		// input1.InputOkta is populated
 	default:
 		// Unknown type - use input1.GetUnknownRaw() for raw JSON
 }

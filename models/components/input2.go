@@ -77,6 +77,7 @@ const (
 	Input2TypeZscalerHec           Input2Type = "zscaler_hec"
 	Input2TypeCloudflareHec        Input2Type = "cloudflare_hec"
 	Input2TypeOpenaiComplianceLogs Input2Type = "openai_compliance_logs"
+	Input2TypeOkta                 Input2Type = "okta"
 )
 
 type Input2 struct {
@@ -145,6 +146,7 @@ type Input2 struct {
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
 	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
 	InputOpenaiComplianceLogs *InputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
+	InputOkta                 *InputOkta                 `queryParam:"inline" union:"member"`
 
 	Type Input2Type
 }
@@ -923,6 +925,18 @@ func CreateInput2OpenaiComplianceLogs(openaiComplianceLogs InputOpenaiCompliance
 	}
 }
 
+func CreateInput2Okta(okta InputOkta) Input2 {
+	typ := Input2TypeOkta
+
+	typStr := InputOktaType(typ)
+	okta.Type = typStr
+
+	return Input2{
+		InputOkta: &okta,
+		Type:      typ,
+	}
+}
+
 func (u *Input2) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1520,6 +1534,15 @@ func (u *Input2) UnmarshalJSON(data []byte) error {
 		u.InputOpenaiComplianceLogs = inputOpenaiComplianceLogs
 		u.Type = Input2TypeOpenaiComplianceLogs
 		return nil
+	case "okta":
+		inputOkta := new(InputOkta)
+		if err := utils.UnmarshalJSON(data, &inputOkta, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == okta) type InputOkta within Input2: %w", string(data), err)
+		}
+
+		u.InputOkta = inputOkta
+		u.Type = Input2TypeOkta
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Input2", string(data))
@@ -1784,6 +1807,10 @@ func (u Input2) MarshalJSON() ([]byte, error) {
 
 	if u.InputOpenaiComplianceLogs != nil {
 		return utils.MarshalJSON(u.InputOpenaiComplianceLogs, "", true)
+	}
+
+	if u.InputOkta != nil {
+		return utils.MarshalJSON(u.InputOkta, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Input2: all fields are null")
