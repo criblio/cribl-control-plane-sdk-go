@@ -6522,7 +6522,7 @@ type CreateInputInputFile struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	Description         *string  `json:"description,omitzero"`
-	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
+	// Directory path to search for files. Environment variables will be resolved (example: $CRIBL_HOME/log/).
 	Path *string `json:"path,omitzero"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
 	Depth                     *float64 `json:"depth,omitzero"`
@@ -6533,7 +6533,7 @@ type CreateInputInputFile struct {
 	SaltHash *bool `json:"saltHash,omitzero"`
 	// Skip rescans of unchanged directories based on directory modification time. Uses an exponential backoff strategy, reducing load on the filesystems, but possibly delaying detection of new data. This option is optimized for search paths where files exist in the leaf directories.
 	OptimizeLeafDirectories *bool `json:"optimizeLeafDirectories,omitzero"`
-	// Stream binary files as Base64-encoded chunks.
+	// Stream binary files as Base64-encoded chunks
 	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
