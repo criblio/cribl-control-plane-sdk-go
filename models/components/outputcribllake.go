@@ -123,8 +123,9 @@ type OutputCriblLake struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -437,6 +438,13 @@ func (o *OutputCriblLake) GetRetrySettings() *RetrySettingsType {
 		return nil
 	}
 	return o.RetrySettings
+}
+
+func (o *OutputCriblLake) GetOrphans() *OrphanFileRecoveryType {
+	if o == nil {
+		return nil
+	}
+	return o.Orphans
 }
 
 func (o *OutputCriblLake) GetObjectACL() *ObjectACLOptions {

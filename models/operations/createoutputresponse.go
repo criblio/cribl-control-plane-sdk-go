@@ -4155,6 +4155,7 @@ type CreateOutputOutputExabeam struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	RetrySettings          *components.RetrySettingsType          `json:"retrySettings,omitzero"`
+	Orphans                *components.OrphanFileRecoveryType     `json:"orphans,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Enter an encoded string containing Exabeam configurations
@@ -4363,6 +4364,13 @@ func (c *CreateOutputOutputExabeam) GetRetrySettings() *components.RetrySettings
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputOutputExabeam) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputOutputExabeam) GetMaxFileSizeMB() *float64 {
@@ -5695,9 +5703,10 @@ type CreateOutputOutputGoogleCloudStorage struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	Description          *string                       `json:"description,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
+	Description          *string                            `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
@@ -6012,6 +6021,13 @@ func (c *CreateOutputOutputGoogleCloudStorage) GetRetrySettings() *components.Re
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputOutputGoogleCloudStorage) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputOutputGoogleCloudStorage) GetDescription() *string {
@@ -9064,8 +9080,9 @@ type CreateOutputOutputAzureDataExplorer struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool                         `json:"addIdToStagePath,omitzero"`
-	RetrySettings    *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	AddIDToStagePath *bool                              `json:"addIdToStagePath,omitzero"`
+	RetrySettings    *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans          *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Bypass the data management service's aggregation mechanism
@@ -9552,6 +9569,13 @@ func (c *CreateOutputOutputAzureDataExplorer) GetRetrySettings() *components.Ret
 	return c.RetrySettings
 }
 
+func (c *CreateOutputOutputAzureDataExplorer) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
+}
+
 func (c *CreateOutputOutputAzureDataExplorer) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
@@ -9968,6 +9992,7 @@ type CreateOutputOutputAzureBlob struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType           `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType      `json:"orphans,omitzero"`
 	AuthType             *components.AuthenticationMethodOptions `json:"authType,omitzero"`
 	StorageClass         *CreateOutputBlobAccessTier             `json:"storageClass,omitzero"`
 	Description          *string                                 `json:"description,omitzero"`
@@ -10255,6 +10280,13 @@ func (c *CreateOutputOutputAzureBlob) GetRetrySettings() *components.RetrySettin
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputOutputAzureBlob) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputOutputAzureBlob) GetAuthType() *components.AuthenticationMethodOptions {
@@ -10651,8 +10683,9 @@ type CreateOutputOutputS3 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -11029,6 +11062,13 @@ func (c *CreateOutputOutputS3) GetRetrySettings() *components.RetrySettingsType 
 	return c.RetrySettings
 }
 
+func (c *CreateOutputOutputS3) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
+}
+
 func (c *CreateOutputOutputS3) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
@@ -11396,9 +11436,10 @@ type CreateOutputOutputFilesystem struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	Description          *string                       `json:"description,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
+	Description          *string                            `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
@@ -11631,6 +11672,13 @@ func (c *CreateOutputOutputFilesystem) GetRetrySettings() *components.RetrySetti
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputOutputFilesystem) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputOutputFilesystem) GetDescription() *string {

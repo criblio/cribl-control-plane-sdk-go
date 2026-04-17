@@ -98,8 +98,9 @@ type OutputMinio struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// MinIO service url (e.g. http://minioHost:9000)
 	Endpoint string `json:"endpoint"`
 	// Object ACL to assign to uploaded objects
@@ -431,6 +432,13 @@ func (o *OutputMinio) GetRetrySettings() *RetrySettingsType {
 		return nil
 	}
 	return o.RetrySettings
+}
+
+func (o *OutputMinio) GetOrphans() *OrphanFileRecoveryType {
+	if o == nil {
+		return nil
+	}
+	return o.Orphans
 }
 
 func (o *OutputMinio) GetEndpoint() string {

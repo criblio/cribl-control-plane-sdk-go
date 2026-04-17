@@ -78,9 +78,10 @@ type OutputFilesystem struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
-	Description          *string            `json:"description,omitzero"`
+	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	Description          *string                 `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
@@ -313,6 +314,13 @@ func (o *OutputFilesystem) GetRetrySettings() *RetrySettingsType {
 		return nil
 	}
 	return o.RetrySettings
+}
+
+func (o *OutputFilesystem) GetOrphans() *OrphanFileRecoveryType {
+	if o == nil {
+		return nil
+	}
+	return o.Orphans
 }
 
 func (o *OutputFilesystem) GetDescription() *string {

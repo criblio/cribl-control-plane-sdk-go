@@ -148,8 +148,9 @@ type CreateOutputSystemByPackOutputNutanixObjects struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Nutanix Objects S3-compatible endpoint URL (example: https://objects.nutanix.local)
 	Endpoint    string  `json:"endpoint"`
 	Description *string `json:"description,omitzero"`
@@ -471,6 +472,13 @@ func (c *CreateOutputSystemByPackOutputNutanixObjects) GetRetrySettings() *compo
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputSystemByPackOutputNutanixObjects) GetEndpoint() string {
@@ -817,8 +825,9 @@ type CreateOutputSystemByPackOutputCloudflareR2 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
 	Endpoint string `json:"endpoint"`
 	// Storage class to select for uploaded objects
@@ -1133,6 +1142,13 @@ func (c *CreateOutputSystemByPackOutputCloudflareR2) GetRetrySettings() *compone
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputSystemByPackOutputCloudflareR2) GetEndpoint() string {
@@ -2012,8 +2028,9 @@ type CreateOutputSystemByPackOutputDatabricks struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
 	WorkspaceID string `json:"workspaceId"`
 	// Hostname for the Databricks workspace. Override this to connect to government or secure cloud environments (e.g. cloud.databricks.us, cloud.databricks.mil, azuredatabricks.net).
@@ -2265,6 +2282,13 @@ func (c *CreateOutputSystemByPackOutputDatabricks) GetRetrySettings() *component
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputDatabricks) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputSystemByPackOutputDatabricks) GetWorkspaceID() string {
@@ -7113,8 +7137,9 @@ type CreateOutputSystemByPackOutputCriblLake struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -7429,6 +7454,13 @@ func (c *CreateOutputSystemByPackOutputCriblLake) GetRetrySettings() *components
 	return c.RetrySettings
 }
 
+func (c *CreateOutputSystemByPackOutputCriblLake) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
+}
+
 func (c *CreateOutputSystemByPackOutputCriblLake) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
@@ -7725,8 +7757,9 @@ type CreateOutputSystemByPackOutputSecurityLake struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -8063,6 +8096,13 @@ func (c *CreateOutputSystemByPackOutputSecurityLake) GetRetrySettings() *compone
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputSystemByPackOutputSecurityLake) GetObjectACL() *components.ObjectACLOptions {
@@ -8422,8 +8462,9 @@ type CreateOutputSystemByPackOutputDlS3 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -8791,6 +8832,13 @@ func (c *CreateOutputSystemByPackOutputDlS3) GetRetrySettings() *components.Retr
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputDlS3) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputSystemByPackOutputDlS3) GetObjectACL() *components.ObjectACLOptions {
@@ -18506,8 +18554,9 @@ type CreateOutputSystemByPackOutputMinio struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// MinIO service url (e.g. http://minioHost:9000)
 	Endpoint string `json:"endpoint"`
 	// Object ACL to assign to uploaded objects
@@ -18839,6 +18888,13 @@ func (c *CreateOutputSystemByPackOutputMinio) GetRetrySettings() *components.Ret
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputSystemByPackOutputMinio) GetEndpoint() string {
