@@ -10,6 +10,94 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputSystemByPackNetworkSystemMetrics struct {
+	// Select the level of detail for network metrics
+	Mode *CreateInputSystemByPackNetworkModeSystemMetrics `json:"mode,omitzero"`
+	// Generate full network metrics
+	Detail *bool `json:"detail,omitzero"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `json:"protocols,omitzero"`
+	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+	Devices []string `json:"devices,omitzero"`
+	// Generate separate metrics for each interface
+	PerInterface *bool `json:"perInterface,omitzero"`
+}
+
+func (c CreateInputSystemByPackNetworkSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetMode() *CreateInputSystemByPackNetworkModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetProtocols() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Protocols
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetDevices() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Devices
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetPerInterface() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerInterface
+}
+
+// CreateInputSystemByPackDiskModeSystemMetrics - Select the level of detail for disk metrics
+type CreateInputSystemByPackDiskModeSystemMetrics string
+
+const (
+	// CreateInputSystemByPackDiskModeSystemMetricsBasic Basic
+	CreateInputSystemByPackDiskModeSystemMetricsBasic CreateInputSystemByPackDiskModeSystemMetrics = "basic"
+	// CreateInputSystemByPackDiskModeSystemMetricsAll All
+	CreateInputSystemByPackDiskModeSystemMetricsAll CreateInputSystemByPackDiskModeSystemMetrics = "all"
+	// CreateInputSystemByPackDiskModeSystemMetricsCustom Custom
+	CreateInputSystemByPackDiskModeSystemMetricsCustom CreateInputSystemByPackDiskModeSystemMetrics = "custom"
+	// CreateInputSystemByPackDiskModeSystemMetricsDisabled Disabled
+	CreateInputSystemByPackDiskModeSystemMetricsDisabled CreateInputSystemByPackDiskModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputSystemByPackDiskModeSystemMetrics) ToPointer() *CreateInputSystemByPackDiskModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackDiskModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputSystemByPackDiskSystemMetrics struct {
 	// Select the level of detail for disk metrics
 	Mode *CreateInputSystemByPackDiskModeSystemMetrics `json:"mode,omitzero"`
@@ -12904,6 +12992,7 @@ const (
 	CreateInputSystemByPackRequestBodyTypeZscalerHec           CreateInputSystemByPackRequestBodyType = "zscaler_hec"
 	CreateInputSystemByPackRequestBodyTypeCloudflareHec        CreateInputSystemByPackRequestBodyType = "cloudflare_hec"
 	CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs CreateInputSystemByPackRequestBodyType = "openai_compliance_logs"
+	CreateInputSystemByPackRequestBodyTypeOkta                 CreateInputSystemByPackRequestBodyType = "okta"
 )
 
 // CreateInputSystemByPackRequestBody - Input object
@@ -12973,6 +13062,7 @@ type CreateInputSystemByPackRequestBody struct {
 	CreateInputSystemByPackInputZscalerHec           *CreateInputSystemByPackInputZscalerHec           `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputCloudflareHec        *CreateInputSystemByPackInputCloudflareHec        `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputOpenaiComplianceLogs *CreateInputSystemByPackInputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputOkta                 *CreateInputSystemByPackInputOkta                 `queryParam:"inline" union:"member"`
 
 	Type CreateInputSystemByPackRequestBodyType
 }
@@ -13751,6 +13841,18 @@ func CreateCreateInputSystemByPackRequestBodyOpenaiComplianceLogs(openaiComplian
 	}
 }
 
+func CreateCreateInputSystemByPackRequestBodyOkta(okta CreateInputSystemByPackInputOkta) CreateInputSystemByPackRequestBody {
+	typ := CreateInputSystemByPackRequestBodyTypeOkta
+
+	typStr := CreateInputSystemByPackTypeOkta(typ)
+	okta.Type = typStr
+
+	return CreateInputSystemByPackRequestBody{
+		CreateInputSystemByPackInputOkta: &okta,
+		Type:                             typ,
+	}
+}
+
 func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -14348,6 +14450,15 @@ func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateInputSystemByPackInputOpenaiComplianceLogs = createInputSystemByPackInputOpenaiComplianceLogs
 		u.Type = CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs
 		return nil
+	case "okta":
+		createInputSystemByPackInputOkta := new(CreateInputSystemByPackInputOkta)
+		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputOkta, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == okta) type CreateInputSystemByPackInputOkta within CreateInputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateInputSystemByPackInputOkta = createInputSystemByPackInputOkta
+		u.Type = CreateInputSystemByPackRequestBodyTypeOkta
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackRequestBody", string(data))
@@ -14612,6 +14723,10 @@ func (u CreateInputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 
 	if u.CreateInputSystemByPackInputOpenaiComplianceLogs != nil {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputOpenaiComplianceLogs, "", true)
+	}
+
+	if u.CreateInputSystemByPackInputOkta != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputOkta, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateInputSystemByPackRequestBody: all fields are null")
@@ -14896,6 +15011,10 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyCloudflareHec() *CreateIn
 
 func (c *CreateInputSystemByPackRequest) GetRequestBodyOpenaiComplianceLogs() *CreateInputSystemByPackInputOpenaiComplianceLogs {
 	return c.GetRequestBody().CreateInputSystemByPackInputOpenaiComplianceLogs
+}
+
+func (c *CreateInputSystemByPackRequest) GetRequestBodyOkta() *CreateInputSystemByPackInputOkta {
+	return c.GetRequestBody().CreateInputSystemByPackInputOkta
 }
 
 type CreateInputSystemByPackResponse struct {

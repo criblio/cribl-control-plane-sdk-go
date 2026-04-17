@@ -393,6 +393,12 @@ input2 := components.CreateInput2CloudflareHec(components.InputCloudflareHec{/* 
 input2 := components.CreateInput2OpenaiComplianceLogs(components.InputOpenaiComplianceLogs{/* values here */})
 ```
 
+### InputOkta
+
+```go
+input2 := components.CreateInput2Okta(components.InputOkta{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -529,5 +535,7 @@ switch input2.Type {
 		// input2.InputCloudflareHec is populated
 	case components.Input2TypeOpenaiComplianceLogs:
 		// input2.InputOpenaiComplianceLogs is populated
+	case components.Input2TypeOkta:
+		// input2.InputOkta is populated
 }
 ```
