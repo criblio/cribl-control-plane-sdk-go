@@ -3201,8 +3201,6 @@ type RestAuthenticationHmac struct {
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Enable to add response headers to the resHeaders field under the __collectible object
 	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
-	// HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
-	EmitEventsForHTTPStatusCodes []string `json:"emitEventsForHttpStatusCodes,omitzero"`
 	// Stop pagination when the Event Breaker produces no events
 	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -3392,13 +3390,6 @@ func (r *RestAuthenticationHmac) GetCaptureHeaders() *bool {
 		return nil
 	}
 	return r.CaptureHeaders
-}
-
-func (r *RestAuthenticationHmac) GetEmitEventsForHTTPStatusCodes() []string {
-	if r == nil {
-		return nil
-	}
-	return r.EmitEventsForHTTPStatusCodes
 }
 
 func (r *RestAuthenticationHmac) GetStopOnEmptyResults() *bool {
@@ -6660,8 +6651,6 @@ type RestAuthenticationGoogleOauthSecret struct {
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Enable to add response headers to the resHeaders field under the __collectible object
 	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
-	// HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
-	EmitEventsForHTTPStatusCodes []string `json:"emitEventsForHttpStatusCodes,omitzero"`
 	// Stop pagination when the Event Breaker produces no events
 	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -6867,13 +6856,6 @@ func (r *RestAuthenticationGoogleOauthSecret) GetCaptureHeaders() *bool {
 		return nil
 	}
 	return r.CaptureHeaders
-}
-
-func (r *RestAuthenticationGoogleOauthSecret) GetEmitEventsForHTTPStatusCodes() []string {
-	if r == nil {
-		return nil
-	}
-	return r.EmitEventsForHTTPStatusCodes
 }
 
 func (r *RestAuthenticationGoogleOauthSecret) GetStopOnEmptyResults() *bool {
@@ -10142,8 +10124,6 @@ type RestAuthenticationGoogleOauth struct {
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Enable to add response headers to the resHeaders field under the __collectible object
 	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
-	// HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
-	EmitEventsForHTTPStatusCodes []string `json:"emitEventsForHttpStatusCodes,omitzero"`
 	// Stop pagination when the Event Breaker produces no events
 	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -10347,13 +10327,6 @@ func (r *RestAuthenticationGoogleOauth) GetCaptureHeaders() *bool {
 		return nil
 	}
 	return r.CaptureHeaders
-}
-
-func (r *RestAuthenticationGoogleOauth) GetEmitEventsForHTTPStatusCodes() []string {
-	if r == nil {
-		return nil
-	}
-	return r.EmitEventsForHTTPStatusCodes
 }
 
 func (r *RestAuthenticationGoogleOauth) GetStopOnEmptyResults() *bool {
@@ -13624,8 +13597,6 @@ type RestAuthenticationOauthSecret struct {
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Enable to add response headers to the resHeaders field under the __collectible object
 	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
-	// HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
-	EmitEventsForHTTPStatusCodes []string `json:"emitEventsForHttpStatusCodes,omitzero"`
 	// Stop pagination when the Event Breaker produces no events
 	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -13866,13 +13837,6 @@ func (r *RestAuthenticationOauthSecret) GetCaptureHeaders() *bool {
 		return nil
 	}
 	return r.CaptureHeaders
-}
-
-func (r *RestAuthenticationOauthSecret) GetEmitEventsForHTTPStatusCodes() []string {
-	if r == nil {
-		return nil
-	}
-	return r.EmitEventsForHTTPStatusCodes
 }
 
 func (r *RestAuthenticationOauthSecret) GetStopOnEmptyResults() *bool {
