@@ -128,6 +128,8 @@ type OutputFilesystem struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (o OutputFilesystem) MarshalJSON() ([]byte, error) {
@@ -489,4 +491,11 @@ func (o *OutputFilesystem) GetTemplateCompress() *string {
 		return nil
 	}
 	return o.TemplateCompress
+}
+
+func (o *OutputFilesystem) GetTemplateParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateParquetSchema
 }

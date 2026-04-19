@@ -79,6 +79,14 @@ type OutputMicrosoftFabricAuthentication struct {
 	Scope *string `json:"scope,omitzero"`
 	// Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
 	TemplateMechanism *string `json:"__template_mechanism,omitzero"`
+	// Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+	TemplateOauthEndpoint *string `json:"__template_oauthEndpoint,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+	TemplateScope *string `json:"__template_scope,omitzero"`
 }
 
 func (o OutputMicrosoftFabricAuthentication) MarshalJSON() ([]byte, error) {
@@ -197,6 +205,34 @@ func (o *OutputMicrosoftFabricAuthentication) GetTemplateMechanism() *string {
 	return o.TemplateMechanism
 }
 
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateOauthEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOauthEndpoint
+}
+
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateClientID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateClientID
+}
+
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateTenantID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTenantID
+}
+
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateScope
+}
+
 type OutputMicrosoftFabricPqControls struct {
 }
 
@@ -284,6 +320,8 @@ type OutputMicrosoftFabric struct {
 	PqControls           *OutputMicrosoftFabricPqControls `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.
@@ -565,6 +603,13 @@ func (o *OutputMicrosoftFabric) GetTemplateTopic() *string {
 		return nil
 	}
 	return o.TemplateTopic
+}
+
+func (o *OutputMicrosoftFabric) GetTemplateFormat() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFormat
 }
 
 func (o *OutputMicrosoftFabric) GetTemplateOnBackpressure() *string {

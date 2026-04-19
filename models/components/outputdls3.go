@@ -192,6 +192,8 @@ type OutputDlS3 struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (o OutputDlS3) MarshalJSON() ([]byte, error) {
@@ -777,6 +779,13 @@ func (o *OutputDlS3) GetTemplateCompress() *string {
 		return nil
 	}
 	return o.TemplateCompress
+}
+
+func (o *OutputDlS3) GetTemplateParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateParquetSchema
 }
 
 // #region class-body-outputdls3
