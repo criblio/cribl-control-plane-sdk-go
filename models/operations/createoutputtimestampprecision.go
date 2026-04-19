@@ -216,6 +216,8 @@ type CreateOutputOutputNutanixObjects struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (c CreateOutputOutputNutanixObjects) MarshalJSON() ([]byte, error) {
@@ -712,6 +714,13 @@ func (c *CreateOutputOutputNutanixObjects) GetTemplateCompress() *string {
 	return c.TemplateCompress
 }
 
+func (c *CreateOutputOutputNutanixObjects) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
 type CreateOutputTypeCloudflareR2 string
 
 const (
@@ -893,6 +902,8 @@ type CreateOutputOutputCloudflareR2 struct {
 	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (c CreateOutputOutputCloudflareR2) MarshalJSON() ([]byte, error) {
@@ -1382,6 +1393,13 @@ func (c *CreateOutputOutputCloudflareR2) GetTemplateCompress() *string {
 	return c.TemplateCompress
 }
 
+func (c *CreateOutputOutputCloudflareR2) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
 // #region class-body-createoutputoutputcloudflarer2
 // #endregion class-body-createoutputoutputcloudflarer2
 
@@ -1456,6 +1474,14 @@ type CreateOutputAuthentication struct {
 	Scope *string `json:"scope,omitzero"`
 	// Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
 	TemplateMechanism *string `json:"__template_mechanism,omitzero"`
+	// Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+	TemplateOauthEndpoint *string `json:"__template_oauthEndpoint,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+	TemplateScope *string `json:"__template_scope,omitzero"`
 }
 
 func (c CreateOutputAuthentication) MarshalJSON() ([]byte, error) {
@@ -1574,6 +1600,34 @@ func (c *CreateOutputAuthentication) GetTemplateMechanism() *string {
 	return c.TemplateMechanism
 }
 
+func (c *CreateOutputAuthentication) GetTemplateOauthEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOauthEndpoint
+}
+
+func (c *CreateOutputAuthentication) GetTemplateClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateClientID
+}
+
+func (c *CreateOutputAuthentication) GetTemplateTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTenantID
+}
+
+func (c *CreateOutputAuthentication) GetTemplateScope() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateScope
+}
+
 type CreateOutputPqControlsMicrosoftFabric struct {
 }
 
@@ -1661,6 +1715,8 @@ type CreateOutputOutputMicrosoftFabric struct {
 	PqControls           *CreateOutputPqControlsMicrosoftFabric `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.
@@ -1944,6 +2000,13 @@ func (c *CreateOutputOutputMicrosoftFabric) GetTemplateTopic() *string {
 	return c.TemplateTopic
 }
 
+func (c *CreateOutputOutputMicrosoftFabric) GetTemplateFormat() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFormat
+}
+
 func (c *CreateOutputOutputMicrosoftFabric) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
@@ -2096,6 +2159,8 @@ type CreateOutputOutputDatabricks struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (c CreateOutputOutputDatabricks) MarshalJSON() ([]byte, error) {
@@ -2522,6 +2587,13 @@ func (c *CreateOutputOutputDatabricks) GetTemplateCompress() *string {
 	return c.TemplateCompress
 }
 
+func (c *CreateOutputOutputDatabricks) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
 type CreateOutputTypeChronicle string
 
 const (
@@ -2718,6 +2790,16 @@ type CreateOutputOutputChronicle struct {
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'namespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'namespace' at runtime.
+	TemplateNamespace *string `json:"__template_namespace,omitzero"`
+	// Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
+	TemplateLogType *string `json:"__template_logType,omitzero"`
+	// Binds 'logTextField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logTextField' at runtime.
+	TemplateLogTextField *string `json:"__template_logTextField,omitzero"`
+	// Binds 'gcpProjectId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'gcpProjectId' at runtime.
+	TemplateGcpProjectID *string `json:"__template_gcpProjectId,omitzero"`
+	// Binds 'gcpInstance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'gcpInstance' at runtime.
+	TemplateGcpInstance *string `json:"__template_gcpInstance,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
@@ -3088,6 +3170,41 @@ func (c *CreateOutputOutputChronicle) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputOutputChronicle) GetTemplateNamespace() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateNamespace
+}
+
+func (c *CreateOutputOutputChronicle) GetTemplateLogType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLogType
+}
+
+func (c *CreateOutputOutputChronicle) GetTemplateLogTextField() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLogTextField
+}
+
+func (c *CreateOutputOutputChronicle) GetTemplateGcpProjectID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateGcpProjectID
+}
+
+func (c *CreateOutputOutputChronicle) GetTemplateGcpInstance() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateGcpInstance
 }
 
 func (c *CreateOutputOutputChronicle) GetTemplateEndpoint() *string {
@@ -7831,8 +7948,14 @@ type CreateOutputOutputSecurityLake struct {
 	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
 	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
+	// Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
+	TemplateAccountID *string `json:"__template_accountId,omitzero"`
+	// Binds 'customSource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customSource' at runtime.
+	TemplateCustomSource *string `json:"__template_customSource,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (c CreateOutputOutputSecurityLake) MarshalJSON() ([]byte, error) {
@@ -8357,11 +8480,32 @@ func (c *CreateOutputOutputSecurityLake) GetTemplateKmsKeyID() *string {
 	return c.TemplateKmsKeyID
 }
 
+func (c *CreateOutputOutputSecurityLake) GetTemplateAccountID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAccountID
+}
+
+func (c *CreateOutputOutputSecurityLake) GetTemplateCustomSource() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCustomSource
+}
+
 func (c *CreateOutputOutputSecurityLake) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
+}
+
+func (c *CreateOutputOutputSecurityLake) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
 }
 
 type CreateOutputTypeDlS3 string
@@ -8548,6 +8692,8 @@ type CreateOutputOutputDlS3 struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (c CreateOutputOutputDlS3) MarshalJSON() ([]byte, error) {
@@ -9133,6 +9279,13 @@ func (c *CreateOutputOutputDlS3) GetTemplateCompress() *string {
 		return nil
 	}
 	return c.TemplateCompress
+}
+
+func (c *CreateOutputOutputDlS3) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
 }
 
 // #region class-body-createoutputoutputdls3
@@ -18632,6 +18785,8 @@ type CreateOutputOutputMinio struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (c CreateOutputOutputMinio) MarshalJSON() ([]byte, error) {
@@ -19161,6 +19316,13 @@ func (c *CreateOutputOutputMinio) GetTemplateCompress() *string {
 		return nil
 	}
 	return c.TemplateCompress
+}
+
+func (c *CreateOutputOutputMinio) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
 }
 
 type CreateOutputTypeCloudwatch string

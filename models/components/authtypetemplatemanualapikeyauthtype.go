@@ -6,7 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type AuthTypeAuthTypeCredentialsSecret struct {
+type AuthTypeTemplatemanualAPIKeyAuthType struct {
 	Disabled bool    `json:"disabled"`
 	Username *string `json:"username,omitzero"`
 	Password *string `json:"password,omitzero"`
@@ -18,64 +18,73 @@ type AuthTypeAuthTypeCredentialsSecret struct {
 	ManualAPIKey *string `json:"manualAPIKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'manualAPIKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'manualAPIKey' at runtime.
+	TemplateManualAPIKey *string `json:"__template_manualAPIKey,omitzero"`
 }
 
-func (a AuthTypeAuthTypeCredentialsSecret) MarshalJSON() ([]byte, error) {
+func (a AuthTypeTemplatemanualAPIKeyAuthType) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(a, "", false)
 }
 
-func (a *AuthTypeAuthTypeCredentialsSecret) UnmarshalJSON(data []byte) error {
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AuthTypeAuthTypeCredentialsSecret) GetDisabled() bool {
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetDisabled() bool {
 	if a == nil {
 		return false
 	}
 	return a.Disabled
 }
 
-func (a *AuthTypeAuthTypeCredentialsSecret) GetUsername() *string {
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetUsername() *string {
 	if a == nil {
 		return nil
 	}
 	return a.Username
 }
 
-func (a *AuthTypeAuthTypeCredentialsSecret) GetPassword() *string {
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetPassword() *string {
 	if a == nil {
 		return nil
 	}
 	return a.Password
 }
 
-func (a *AuthTypeAuthTypeCredentialsSecret) GetAuthType() *AuthenticationMethodOptionsAuth {
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetAuthType() *AuthenticationMethodOptionsAuth {
 	if a == nil {
 		return nil
 	}
 	return a.AuthType
 }
 
-func (a *AuthTypeAuthTypeCredentialsSecret) GetCredentialsSecret() *string {
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetCredentialsSecret() *string {
 	if a == nil {
 		return nil
 	}
 	return a.CredentialsSecret
 }
 
-func (a *AuthTypeAuthTypeCredentialsSecret) GetManualAPIKey() *string {
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetManualAPIKey() *string {
 	if a == nil {
 		return nil
 	}
 	return a.ManualAPIKey
 }
 
-func (a *AuthTypeAuthTypeCredentialsSecret) GetTextSecret() *string {
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetTextSecret() *string {
 	if a == nil {
 		return nil
 	}
 	return a.TextSecret
+}
+
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetTemplateManualAPIKey() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateManualAPIKey
 }
