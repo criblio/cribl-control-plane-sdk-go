@@ -6,12 +6,18 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// Config - Configuration bundle and policy revision metadata for the node.
 type Config struct {
-	FeaturesRev     *string  `json:"featuresRev,omitzero"`
-	HbPeriodSeconds *float64 `json:"hbPeriodSeconds,omitzero"`
-	LogStreamEnv    *string  `json:"logStreamEnv,omitzero"`
-	PolicyRev       *string  `json:"policyRev,omitzero"`
-	Version         *string  `json:"version,omitzero"`
+	// Feature flags or feature revision string for the bundle.
+	FeaturesRev *string `json:"featuresRev,omitzero"`
+	// Worker-to-Leader heartbeat interval, in seconds.
+	HbPeriodSeconds *int64 `json:"hbPeriodSeconds,omitzero"`
+	// GitOps or LogStream environment label associated with the bundle.
+	LogStreamEnv *string `json:"logStreamEnv,omitzero"`
+	// Current policies revision string.
+	PolicyRev *string `json:"policyRev,omitzero"`
+	// Configuration bundle version.
+	Version *string `json:"version,omitzero"`
 }
 
 func (c *Config) GetFeaturesRev() *string {
@@ -21,7 +27,7 @@ func (c *Config) GetFeaturesRev() *string {
 	return c.FeaturesRev
 }
 
-func (c *Config) GetHbPeriodSeconds() *float64 {
+func (c *Config) GetHbPeriodSeconds() *int64 {
 	if c == nil {
 		return nil
 	}
@@ -49,22 +55,65 @@ func (c *Config) GetVersion() *string {
 	return c.Version
 }
 
+// DistMode - Distributed deployment mode for the instance.
+type DistMode string
+
+const (
+	DistModeEdge             DistMode = "edge"
+	DistModeManagedEdge      DistMode = "managed-edge"
+	DistModeMaster           DistMode = "master"
+	DistModeOutpost          DistMode = "outpost"
+	DistModeSearchSupervisor DistMode = "search-supervisor"
+	DistModeSingle           DistMode = "single"
+	DistModeWorker           DistMode = "worker"
+)
+
+func (e DistMode) ToPointer() *DistMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DistMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "edge", "managed-edge", "master", "outpost", "search-supervisor", "single", "worker":
+			return true
+		}
+	}
+	return false
+}
+
 type HBCriblInfo struct {
-	Config            Config                            `json:"config"`
-	DeploymentID      *string                           `json:"deploymentId,omitzero"`
-	DisableSNIRouting *bool                             `json:"disableSNIRouting,omitzero"`
-	DistMode          ModeOptionsInstanceSettingsSchema `json:"distMode"`
-	EdgeNodes         *float64                          `json:"edgeNodes,omitzero"`
-	Group             string                            `json:"group"`
-	GUID              string                            `json:"guid"`
-	InstallType       *string                           `json:"installType,omitzero"`
-	LookupVersions    map[string]map[string]string      `json:"lookupVersions,omitzero"`
-	Master            *HBLeaderInfo                     `json:"master,omitzero"`
-	Pid               *float64                          `json:"pid,omitzero"`
-	SocksEnabled      *bool                             `json:"socksEnabled,omitzero"`
-	StartTime         float64                           `json:"startTime"`
-	Tags              []string                          `json:"tags"`
-	Version           *string                           `json:"version,omitzero"`
+	// Configuration bundle and policy revision metadata for the node.
+	Config Config `json:"config"`
+	// Unique identifier for the deployment assigned for the node.
+	DeploymentID *string `json:"deploymentId,omitzero"`
+	// If <code>true</code>, SNI-based routing to the Leader is disabled for the connection.
+	DisableSNIRouting *bool `json:"disableSNIRouting,omitzero"`
+	// Distributed deployment mode for the instance.
+	DistMode DistMode `json:"distMode"`
+	// Count of Edge nodes reported in the Leader heartbeat.
+	EdgeNodes *int64 `json:"edgeNodes,omitzero"`
+	// Worker Group or Edge Fleet name.
+	Group string `json:"group"`
+	// Unique instance identifier for the Cribl node.
+	GUID string `json:"guid"`
+	// Value of the <code>CRIBL_INSTALL_TYPE</code> environment variable, relayed for upgrade decisions (since 4.5.0).
+	InstallType *string `json:"installType,omitzero"`
+	// Objects that map Lookup files to deployment versions.
+	LookupVersions map[string]map[string]string `json:"lookupVersions,omitzero"`
+	// Connection parameters for the Leader Node, as reported in a Worker heartbeat.
+	Master *HBLeaderInfo `json:"master,omitzero"`
+	// The process ID.
+	Pid *int64 `json:"pid,omitzero"`
+	// If <code>true</code>, SOCKS proxy connectivity is enabled for the node.
+	SocksEnabled *bool `json:"socksEnabled,omitzero"`
+	// Timestamp (in Unix time) when the Cribl server process started, in milliseconds.
+	StartTime int64 `json:"startTime"`
+	// Tags from the node.
+	Tags []string `json:"tags,omitzero"`
+	// Cribl software version string for the node.
+	Version *string `json:"version,omitzero"`
 }
 
 func (h HBCriblInfo) MarshalJSON() ([]byte, error) {
@@ -99,14 +148,14 @@ func (h *HBCriblInfo) GetDisableSNIRouting() *bool {
 	return h.DisableSNIRouting
 }
 
-func (h *HBCriblInfo) GetDistMode() ModeOptionsInstanceSettingsSchema {
+func (h *HBCriblInfo) GetDistMode() DistMode {
 	if h == nil {
-		return ModeOptionsInstanceSettingsSchema("")
+		return DistMode("")
 	}
 	return h.DistMode
 }
 
-func (h *HBCriblInfo) GetEdgeNodes() *float64 {
+func (h *HBCriblInfo) GetEdgeNodes() *int64 {
 	if h == nil {
 		return nil
 	}
@@ -148,7 +197,7 @@ func (h *HBCriblInfo) GetMaster() *HBLeaderInfo {
 	return h.Master
 }
 
-func (h *HBCriblInfo) GetPid() *float64 {
+func (h *HBCriblInfo) GetPid() *int64 {
 	if h == nil {
 		return nil
 	}
@@ -162,16 +211,16 @@ func (h *HBCriblInfo) GetSocksEnabled() *bool {
 	return h.SocksEnabled
 }
 
-func (h *HBCriblInfo) GetStartTime() float64 {
+func (h *HBCriblInfo) GetStartTime() int64 {
 	if h == nil {
-		return 0.0
+		return 0
 	}
 	return h.StartTime
 }
 
 func (h *HBCriblInfo) GetTags() []string {
 	if h == nil {
-		return []string{}
+		return nil
 	}
 	return h.Tags
 }

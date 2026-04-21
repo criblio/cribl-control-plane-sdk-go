@@ -1,12 +1,14 @@
 # Config
 
+Configuration bundle and policy revision metadata for the node.
+
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `FeaturesRev`      | `*string`          | :heavy_minus_sign: | N/A                |
-| `HbPeriodSeconds`  | `*float64`         | :heavy_minus_sign: | N/A                |
-| `LogStreamEnv`     | `*string`          | :heavy_minus_sign: | N/A                |
-| `PolicyRev`        | `*string`          | :heavy_minus_sign: | N/A                |
-| `Version`          | `*string`          | :heavy_minus_sign: | N/A                |
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `FeaturesRev`                                                     | `*string`                                                         | :heavy_minus_sign:                                                | Feature flags or feature revision string for the bundle.          |
+| `HbPeriodSeconds`                                                 | `*int64`                                                          | :heavy_minus_sign:                                                | Worker-to-Leader heartbeat interval, in seconds.                  |
+| `LogStreamEnv`                                                    | `*string`                                                         | :heavy_minus_sign:                                                | GitOps or LogStream environment label associated with the bundle. |
+| `PolicyRev`                                                       | `*string`                                                         | :heavy_minus_sign:                                                | Current policies revision string.                                 |
+| `Version`                                                         | `*string`                                                         | :heavy_minus_sign:                                                | Configuration bundle version.                                     |
