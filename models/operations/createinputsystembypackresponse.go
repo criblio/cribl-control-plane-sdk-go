@@ -10,6 +10,35 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+// CreateInputSystemByPackNetworkModeSystemMetrics - Select the level of detail for network metrics
+type CreateInputSystemByPackNetworkModeSystemMetrics string
+
+const (
+	// CreateInputSystemByPackNetworkModeSystemMetricsBasic Basic
+	CreateInputSystemByPackNetworkModeSystemMetricsBasic CreateInputSystemByPackNetworkModeSystemMetrics = "basic"
+	// CreateInputSystemByPackNetworkModeSystemMetricsAll All
+	CreateInputSystemByPackNetworkModeSystemMetricsAll CreateInputSystemByPackNetworkModeSystemMetrics = "all"
+	// CreateInputSystemByPackNetworkModeSystemMetricsCustom Custom
+	CreateInputSystemByPackNetworkModeSystemMetricsCustom CreateInputSystemByPackNetworkModeSystemMetrics = "custom"
+	// CreateInputSystemByPackNetworkModeSystemMetricsDisabled Disabled
+	CreateInputSystemByPackNetworkModeSystemMetricsDisabled CreateInputSystemByPackNetworkModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputSystemByPackNetworkModeSystemMetrics) ToPointer() *CreateInputSystemByPackNetworkModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackNetworkModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputSystemByPackNetworkSystemMetrics struct {
 	// Select the level of detail for network metrics
 	Mode *CreateInputSystemByPackNetworkModeSystemMetrics `json:"mode,omitzero"`

@@ -81,6 +81,37 @@ func (e *InputOpenTelemetryOTLPVersion) IsExact() bool {
 	return false
 }
 
+// InputOpenTelemetryAuthenticationType - OpenTelemetry authentication type
+type InputOpenTelemetryAuthenticationType string
+
+const (
+	// InputOpenTelemetryAuthenticationTypeNone None
+	InputOpenTelemetryAuthenticationTypeNone InputOpenTelemetryAuthenticationType = "none"
+	// InputOpenTelemetryAuthenticationTypeBasic Basic
+	InputOpenTelemetryAuthenticationTypeBasic InputOpenTelemetryAuthenticationType = "basic"
+	// InputOpenTelemetryAuthenticationTypeCredentialsSecret Basic (credentials secret)
+	InputOpenTelemetryAuthenticationTypeCredentialsSecret InputOpenTelemetryAuthenticationType = "credentialsSecret"
+	// InputOpenTelemetryAuthenticationTypeToken Token
+	InputOpenTelemetryAuthenticationTypeToken InputOpenTelemetryAuthenticationType = "token"
+	// InputOpenTelemetryAuthenticationTypeTextSecret Token (text secret)
+	InputOpenTelemetryAuthenticationTypeTextSecret InputOpenTelemetryAuthenticationType = "textSecret"
+)
+
+func (e InputOpenTelemetryAuthenticationType) ToPointer() *InputOpenTelemetryAuthenticationType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOpenTelemetryAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type InputOpenTelemetry struct {
 	// Unique ID for this input
 	ID       *string                `json:"id,omitzero"`
@@ -129,7 +160,7 @@ type InputOpenTelemetry struct {
 	// The version of OTLP Protobuf definitions to use when interpreting received data
 	OtlpVersion *InputOpenTelemetryOTLPVersion `json:"otlpVersion,omitzero"`
 	// OpenTelemetry authentication type
-	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
+	AuthType *InputOpenTelemetryAuthenticationType `json:"authType,omitzero"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -339,7 +370,7 @@ func (i *InputOpenTelemetry) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
 	return i.OtlpVersion
 }
 
-func (i *InputOpenTelemetry) GetAuthType() *AuthenticationTypeOptions {
+func (i *InputOpenTelemetry) GetAuthType() *InputOpenTelemetryAuthenticationType {
 	if i == nil {
 		return nil
 	}
