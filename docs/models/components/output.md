@@ -435,6 +435,12 @@ output := components.CreateOutputCloudflareR2(components.OutputCloudflareR2{/* v
 output := components.CreateOutputNutanixObjects(components.OutputNutanixObjects{/* values here */})
 ```
 
+### OutputAlphasocS3
+
+```go
+output := components.CreateOutputAlphasocS3(components.OutputAlphasocS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -585,6 +591,8 @@ switch output.Type {
 		// output.OutputCloudflareR2 is populated
 	case components.OutputTypeNutanixObjects:
 		// output.OutputNutanixObjects is populated
+	case components.OutputTypeAlphasocS3:
+		// output.OutputAlphasocS3 is populated
 	default:
 		// Unknown type - use output.GetUnknownRaw() for raw JSON
 }

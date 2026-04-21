@@ -437,6 +437,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyNutanixObjects(operations.CreateOutputSystemByPackOutputNutanixObjects{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputAlphasocS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAlphasocS3(operations.CreateOutputSystemByPackOutputAlphasocS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -587,5 +593,7 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputCloudflareR2 is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeNutanixObjects:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputNutanixObjects is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeAlphasocS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAlphasocS3 is populated
 }
 ```

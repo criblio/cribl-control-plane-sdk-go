@@ -8,43 +8,43 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputNutanixObjectsType string
+type OutputAlphasocS3Type string
 
 const (
-	OutputNutanixObjectsTypeNutanixObjects OutputNutanixObjectsType = "nutanix_objects"
+	OutputAlphasocS3TypeAlphasocS3 OutputAlphasocS3Type = "alphasoc_s3"
 )
 
-func (e OutputNutanixObjectsType) ToPointer() *OutputNutanixObjectsType {
+func (e OutputAlphasocS3Type) ToPointer() *OutputAlphasocS3Type {
 	return &e
 }
-func (e *OutputNutanixObjectsType) UnmarshalJSON(data []byte) error {
+func (e *OutputAlphasocS3Type) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
-	case "nutanix_objects":
-		*e = OutputNutanixObjectsType(v)
+	case "alphasoc_s3":
+		*e = OutputAlphasocS3Type(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputNutanixObjectsType: %v", v)
+		return fmt.Errorf("invalid value for OutputAlphasocS3Type: %v", v)
 	}
 }
 
-// OutputNutanixObjectsSignatureVersion - Signature version to use for signing Nutanix Objects requests
-type OutputNutanixObjectsSignatureVersion string
+// OutputAlphasocS3SignatureVersion - Signature version to use for signing AlphaSOC requests
+type OutputAlphasocS3SignatureVersion string
 
 const (
-	OutputNutanixObjectsSignatureVersionV2 OutputNutanixObjectsSignatureVersion = "v2"
-	OutputNutanixObjectsSignatureVersionV4 OutputNutanixObjectsSignatureVersion = "v4"
+	OutputAlphasocS3SignatureVersionV2 OutputAlphasocS3SignatureVersion = "v2"
+	OutputAlphasocS3SignatureVersionV4 OutputAlphasocS3SignatureVersion = "v4"
 )
 
-func (e OutputNutanixObjectsSignatureVersion) ToPointer() *OutputNutanixObjectsSignatureVersion {
+func (e OutputAlphasocS3SignatureVersion) ToPointer() *OutputAlphasocS3SignatureVersion {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputNutanixObjectsSignatureVersion) IsExact() bool {
+func (e *OutputAlphasocS3SignatureVersion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "v2", "v4":
@@ -54,10 +54,10 @@ func (e *OutputNutanixObjectsSignatureVersion) IsExact() bool {
 	return false
 }
 
-type OutputNutanixObjects struct {
+type OutputAlphasocS3 struct {
 	// Unique ID for this output
-	ID   *string                  `json:"id,omitzero"`
-	Type OutputNutanixObjectsType `json:"type"`
+	ID   *string              `json:"id,omitzero"`
+	Type OutputAlphasocS3Type `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -68,18 +68,16 @@ type OutputNutanixObjects struct {
 	Streamtags []string `json:"streamtags,omitzero"`
 	// AWS authentication method.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsa18be1 `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing Nutanix Objects requests
-	SignatureVersion *OutputNutanixObjectsSignatureVersion `json:"signatureVersion,omitzero"`
+	// Signature version to use for signing AlphaSOC requests
+	SignatureVersion *OutputAlphasocS3SignatureVersion `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// Name of the destination Nutanix Objects bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	// Name of the destination AlphaSOC bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
-	// Region where the Nutanix Objects bucket is located
-	Region *string `json:"region,omitzero"`
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
 	DestPath *string `json:"destPath,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
@@ -124,8 +122,8 @@ type OutputNutanixObjects struct {
 	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
-	// Nutanix Objects S3-compatible endpoint URL (example: https://objects.nutanix.local)
-	Endpoint    string  `json:"endpoint"`
+	// AlphaSOC S3-compatible endpoint URL (example: https://s3.alphasoc.net)
+	Endpoint    *string `json:"endpoint,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`
@@ -169,12 +167,8 @@ type OutputNutanixObjects struct {
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
 	TemplateDestPath *string `json:"__template_destPath,omitzero"`
-	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
-	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
 	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
@@ -193,503 +187,485 @@ type OutputNutanixObjects struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (o OutputNutanixObjects) MarshalJSON() ([]byte, error) {
+func (o OutputAlphasocS3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputNutanixObjects) UnmarshalJSON(data []byte) error {
+func (o *OutputAlphasocS3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputNutanixObjects) GetID() *string {
+func (o *OutputAlphasocS3) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *OutputNutanixObjects) GetType() OutputNutanixObjectsType {
+func (o *OutputAlphasocS3) GetType() OutputAlphasocS3Type {
 	if o == nil {
-		return OutputNutanixObjectsType("")
+		return OutputAlphasocS3Type("")
 	}
 	return o.Type
 }
 
-func (o *OutputNutanixObjects) GetPipeline() *string {
+func (o *OutputAlphasocS3) GetPipeline() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Pipeline
 }
 
-func (o *OutputNutanixObjects) GetSystemFields() []string {
+func (o *OutputAlphasocS3) GetSystemFields() []string {
 	if o == nil {
 		return nil
 	}
 	return o.SystemFields
 }
 
-func (o *OutputNutanixObjects) GetEnvironment() *string {
+func (o *OutputAlphasocS3) GetEnvironment() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Environment
 }
 
-func (o *OutputNutanixObjects) GetStreamtags() []string {
+func (o *OutputAlphasocS3) GetStreamtags() []string {
 	if o == nil {
 		return nil
 	}
 	return o.Streamtags
 }
 
-func (o *OutputNutanixObjects) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsa18be1 {
+func (o *OutputAlphasocS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsa18be1 {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputNutanixObjects) GetSignatureVersion() *OutputNutanixObjectsSignatureVersion {
+func (o *OutputAlphasocS3) GetSignatureVersion() *OutputAlphasocS3SignatureVersion {
 	if o == nil {
 		return nil
 	}
 	return o.SignatureVersion
 }
 
-func (o *OutputNutanixObjects) GetReuseConnections() *bool {
+func (o *OutputAlphasocS3) GetReuseConnections() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ReuseConnections
 }
 
-func (o *OutputNutanixObjects) GetRejectUnauthorized() *bool {
+func (o *OutputAlphasocS3) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RejectUnauthorized
 }
 
-func (o *OutputNutanixObjects) GetAwsSecretKey() *string {
+func (o *OutputAlphasocS3) GetAwsSecretKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecretKey
 }
 
-func (o *OutputNutanixObjects) GetBucket() string {
+func (o *OutputAlphasocS3) GetBucket() string {
 	if o == nil {
 		return ""
 	}
 	return o.Bucket
 }
 
-func (o *OutputNutanixObjects) GetRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
-func (o *OutputNutanixObjects) GetDestPath() *string {
+func (o *OutputAlphasocS3) GetDestPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DestPath
 }
 
-func (o *OutputNutanixObjects) GetMaxConcurrentFileParts() *float64 {
+func (o *OutputAlphasocS3) GetMaxConcurrentFileParts() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxConcurrentFileParts
 }
 
-func (o *OutputNutanixObjects) GetVerifyPermissions() *bool {
+func (o *OutputAlphasocS3) GetVerifyPermissions() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.VerifyPermissions
 }
 
-func (o *OutputNutanixObjects) GetMaxClosingFilesToBackpressure() *float64 {
+func (o *OutputAlphasocS3) GetMaxClosingFilesToBackpressure() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxClosingFilesToBackpressure
 }
 
-func (o *OutputNutanixObjects) GetStagePath() string {
+func (o *OutputAlphasocS3) GetStagePath() string {
 	if o == nil {
 		return ""
 	}
 	return o.StagePath
 }
 
-func (o *OutputNutanixObjects) GetAddIDToStagePath() *bool {
+func (o *OutputAlphasocS3) GetAddIDToStagePath() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AddIDToStagePath
 }
 
-func (o *OutputNutanixObjects) GetRemoveEmptyDirs() *bool {
+func (o *OutputAlphasocS3) GetRemoveEmptyDirs() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RemoveEmptyDirs
 }
 
-func (o *OutputNutanixObjects) GetPartitionExpr() *string {
+func (o *OutputAlphasocS3) GetPartitionExpr() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PartitionExpr
 }
 
-func (o *OutputNutanixObjects) GetFormat() *DataFormatOptions {
+func (o *OutputAlphasocS3) GetFormat() *DataFormatOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputNutanixObjects) GetBaseFileName() *string {
+func (o *OutputAlphasocS3) GetBaseFileName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.BaseFileName
 }
 
-func (o *OutputNutanixObjects) GetFileNameSuffix() *string {
+func (o *OutputAlphasocS3) GetFileNameSuffix() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FileNameSuffix
 }
 
-func (o *OutputNutanixObjects) GetMaxFileSizeMB() *float64 {
+func (o *OutputAlphasocS3) GetMaxFileSizeMB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileSizeMB
 }
 
-func (o *OutputNutanixObjects) GetMaxFileOpenTimeSec() *float64 {
+func (o *OutputAlphasocS3) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileOpenTimeSec
 }
 
-func (o *OutputNutanixObjects) GetMaxFileIdleTimeSec() *float64 {
+func (o *OutputAlphasocS3) GetMaxFileIdleTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileIdleTimeSec
 }
 
-func (o *OutputNutanixObjects) GetMaxOpenFiles() *float64 {
+func (o *OutputAlphasocS3) GetMaxOpenFiles() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxOpenFiles
 }
 
-func (o *OutputNutanixObjects) GetHeaderLine() *string {
+func (o *OutputAlphasocS3) GetHeaderLine() *string {
 	if o == nil {
 		return nil
 	}
 	return o.HeaderLine
 }
 
-func (o *OutputNutanixObjects) GetWriteHighWaterMark() *float64 {
+func (o *OutputAlphasocS3) GetWriteHighWaterMark() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputNutanixObjects) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
+func (o *OutputAlphasocS3) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputNutanixObjects) GetDeadletterEnabled() *bool {
+func (o *OutputAlphasocS3) GetDeadletterEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterEnabled
 }
 
-func (o *OutputNutanixObjects) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
+func (o *OutputAlphasocS3) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnDiskFullBackpressure
 }
 
-func (o *OutputNutanixObjects) GetForceCloseOnShutdown() *bool {
+func (o *OutputAlphasocS3) GetForceCloseOnShutdown() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
 }
 
-func (o *OutputNutanixObjects) GetRetrySettings() *RetrySettingsType {
+func (o *OutputAlphasocS3) GetRetrySettings() *RetrySettingsType {
 	if o == nil {
 		return nil
 	}
 	return o.RetrySettings
 }
 
-func (o *OutputNutanixObjects) GetOrphans() *OrphanFileRecoveryType {
+func (o *OutputAlphasocS3) GetOrphans() *OrphanFileRecoveryType {
 	if o == nil {
 		return nil
 	}
 	return o.Orphans
 }
 
-func (o *OutputNutanixObjects) GetEndpoint() string {
+func (o *OutputAlphasocS3) GetEndpoint() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.Endpoint
 }
 
-func (o *OutputNutanixObjects) GetDescription() *string {
+func (o *OutputAlphasocS3) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputNutanixObjects) GetAwsAPIKey() *string {
+func (o *OutputAlphasocS3) GetAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAPIKey
 }
 
-func (o *OutputNutanixObjects) GetAwsSecret() *string {
+func (o *OutputAlphasocS3) GetAwsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecret
 }
 
-func (o *OutputNutanixObjects) GetCompress() *CompressionOptionsHTTP {
+func (o *OutputAlphasocS3) GetCompress() *CompressionOptionsHTTP {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputNutanixObjects) GetCompressionLevel() *CompressionLevelOptions {
+func (o *OutputAlphasocS3) GetCompressionLevel() *CompressionLevelOptions {
 	if o == nil {
 		return nil
 	}
 	return o.CompressionLevel
 }
 
-func (o *OutputNutanixObjects) GetAutomaticSchema() *bool {
+func (o *OutputAlphasocS3) GetAutomaticSchema() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AutomaticSchema
 }
 
-func (o *OutputNutanixObjects) GetParquetSchema() *string {
+func (o *OutputAlphasocS3) GetParquetSchema() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetSchema
 }
 
-func (o *OutputNutanixObjects) GetParquetVersion() *ParquetVersionOptions {
+func (o *OutputAlphasocS3) GetParquetVersion() *ParquetVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputNutanixObjects) GetParquetDataPageVersion() *DataPageVersionOptions {
+func (o *OutputAlphasocS3) GetParquetDataPageVersion() *DataPageVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetDataPageVersion
 }
 
-func (o *OutputNutanixObjects) GetParquetRowGroupLength() *float64 {
+func (o *OutputAlphasocS3) GetParquetRowGroupLength() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetRowGroupLength
 }
 
-func (o *OutputNutanixObjects) GetParquetPageSize() *string {
+func (o *OutputAlphasocS3) GetParquetPageSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetPageSize
 }
 
-func (o *OutputNutanixObjects) GetShouldLogInvalidRows() *bool {
+func (o *OutputAlphasocS3) GetShouldLogInvalidRows() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputNutanixObjects) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputAlphasocS3) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
 	if o == nil {
 		return nil
 	}
 	return o.KeyValueMetadata
 }
 
-func (o *OutputNutanixObjects) GetEnableStatistics() *bool {
+func (o *OutputAlphasocS3) GetEnableStatistics() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableStatistics
 }
 
-func (o *OutputNutanixObjects) GetEnableWritePageIndex() *bool {
+func (o *OutputAlphasocS3) GetEnableWritePageIndex() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableWritePageIndex
 }
 
-func (o *OutputNutanixObjects) GetEnablePageChecksum() *bool {
+func (o *OutputAlphasocS3) GetEnablePageChecksum() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnablePageChecksum
 }
 
-func (o *OutputNutanixObjects) GetEmptyDirCleanupSec() *float64 {
+func (o *OutputAlphasocS3) GetEmptyDirCleanupSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
 }
 
-func (o *OutputNutanixObjects) GetDirectoryBatchSize() *float64 {
+func (o *OutputAlphasocS3) GetDirectoryBatchSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DirectoryBatchSize
 }
 
-func (o *OutputNutanixObjects) GetDeadletterPath() *string {
+func (o *OutputAlphasocS3) GetDeadletterPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterPath
 }
 
-func (o *OutputNutanixObjects) GetMaxRetryNum() *float64 {
+func (o *OutputAlphasocS3) GetMaxRetryNum() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRetryNum
 }
 
-func (o *OutputNutanixObjects) GetTemplateAwsSecretKey() *string {
+func (o *OutputAlphasocS3) GetTemplateAwsSecretKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateAwsSecretKey
 }
 
-func (o *OutputNutanixObjects) GetTemplateBucket() *string {
+func (o *OutputAlphasocS3) GetTemplateBucket() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateBucket
 }
 
-func (o *OutputNutanixObjects) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputNutanixObjects) GetTemplateDestPath() *string {
+func (o *OutputAlphasocS3) GetTemplateDestPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateDestPath
 }
 
-func (o *OutputNutanixObjects) GetTemplatePartitionExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplatePartitionExpr
-}
-
-func (o *OutputNutanixObjects) GetTemplateFormat() *string {
+func (o *OutputAlphasocS3) GetTemplateFormat() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateFormat
 }
 
-func (o *OutputNutanixObjects) GetTemplateBaseFileName() *string {
+func (o *OutputAlphasocS3) GetTemplateBaseFileName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateBaseFileName
 }
 
-func (o *OutputNutanixObjects) GetTemplateFileNameSuffix() *string {
+func (o *OutputAlphasocS3) GetTemplateFileNameSuffix() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateFileNameSuffix
 }
 
-func (o *OutputNutanixObjects) GetTemplateOnBackpressure() *string {
+func (o *OutputAlphasocS3) GetTemplateOnBackpressure() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateOnBackpressure
 }
 
-func (o *OutputNutanixObjects) GetTemplateEndpoint() *string {
+func (o *OutputAlphasocS3) GetTemplateEndpoint() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateEndpoint
 }
 
-func (o *OutputNutanixObjects) GetTemplateAwsAPIKey() *string {
+func (o *OutputAlphasocS3) GetTemplateAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateAwsAPIKey
 }
 
-func (o *OutputNutanixObjects) GetTemplateCompress() *string {
+func (o *OutputAlphasocS3) GetTemplateCompress() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateCompress
 }
 
-func (o *OutputNutanixObjects) GetTemplateParquetSchema() *string {
+func (o *OutputAlphasocS3) GetTemplateParquetSchema() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateParquetSchema
 }
+
+// #region class-body-outputalphasocs3
+// #endregion class-body-outputalphasocs3

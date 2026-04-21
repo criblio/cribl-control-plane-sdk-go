@@ -8627,6 +8627,37 @@ func (e *CreateInputOTLPVersion) IsExact() bool {
 	return false
 }
 
+// CreateInputAuthenticationTypeOpenTelemetry - OpenTelemetry authentication type
+type CreateInputAuthenticationTypeOpenTelemetry string
+
+const (
+	// CreateInputAuthenticationTypeOpenTelemetryNone None
+	CreateInputAuthenticationTypeOpenTelemetryNone CreateInputAuthenticationTypeOpenTelemetry = "none"
+	// CreateInputAuthenticationTypeOpenTelemetryBasic Basic
+	CreateInputAuthenticationTypeOpenTelemetryBasic CreateInputAuthenticationTypeOpenTelemetry = "basic"
+	// CreateInputAuthenticationTypeOpenTelemetryCredentialsSecret Basic (credentials secret)
+	CreateInputAuthenticationTypeOpenTelemetryCredentialsSecret CreateInputAuthenticationTypeOpenTelemetry = "credentialsSecret"
+	// CreateInputAuthenticationTypeOpenTelemetryToken Token
+	CreateInputAuthenticationTypeOpenTelemetryToken CreateInputAuthenticationTypeOpenTelemetry = "token"
+	// CreateInputAuthenticationTypeOpenTelemetryTextSecret Token (text secret)
+	CreateInputAuthenticationTypeOpenTelemetryTextSecret CreateInputAuthenticationTypeOpenTelemetry = "textSecret"
+)
+
+func (e CreateInputAuthenticationTypeOpenTelemetry) ToPointer() *CreateInputAuthenticationTypeOpenTelemetry {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputAuthenticationTypeOpenTelemetry) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputInputOpenTelemetry struct {
 	// Unique ID for this input
 	ID       string                       `json:"id"`
@@ -8675,7 +8706,7 @@ type CreateInputInputOpenTelemetry struct {
 	// The version of OTLP Protobuf definitions to use when interpreting received data
 	OtlpVersion *CreateInputOTLPVersion `json:"otlpVersion,omitzero"`
 	// OpenTelemetry authentication type
-	AuthType *components.AuthenticationTypeOptions `json:"authType,omitzero"`
+	AuthType *CreateInputAuthenticationTypeOpenTelemetry `json:"authType,omitzero"`
 	// Fields to add to events from this input
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -8885,7 +8916,7 @@ func (c *CreateInputInputOpenTelemetry) GetOtlpVersion() *CreateInputOTLPVersion
 	return c.OtlpVersion
 }
 
-func (c *CreateInputInputOpenTelemetry) GetAuthType() *components.AuthenticationTypeOptions {
+func (c *CreateInputInputOpenTelemetry) GetAuthType() *CreateInputAuthenticationTypeOpenTelemetry {
 	if c == nil {
 		return nil
 	}
@@ -14916,33 +14947,4 @@ func (c *CreateInputMemorySystemMetrics) GetDetail() *bool {
 		return nil
 	}
 	return c.Detail
-}
-
-// CreateInputNetworkModeSystemMetrics - Select the level of detail for network metrics
-type CreateInputNetworkModeSystemMetrics string
-
-const (
-	// CreateInputNetworkModeSystemMetricsBasic Basic
-	CreateInputNetworkModeSystemMetricsBasic CreateInputNetworkModeSystemMetrics = "basic"
-	// CreateInputNetworkModeSystemMetricsAll All
-	CreateInputNetworkModeSystemMetricsAll CreateInputNetworkModeSystemMetrics = "all"
-	// CreateInputNetworkModeSystemMetricsCustom Custom
-	CreateInputNetworkModeSystemMetricsCustom CreateInputNetworkModeSystemMetrics = "custom"
-	// CreateInputNetworkModeSystemMetricsDisabled Disabled
-	CreateInputNetworkModeSystemMetricsDisabled CreateInputNetworkModeSystemMetrics = "disabled"
-)
-
-func (e CreateInputNetworkModeSystemMetrics) ToPointer() *CreateInputNetworkModeSystemMetrics {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputNetworkModeSystemMetrics) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "basic", "all", "custom", "disabled":
-			return true
-		}
-	}
-	return false
 }

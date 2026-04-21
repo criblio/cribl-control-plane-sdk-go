@@ -8627,6 +8627,37 @@ func (e *CreateInputSystemByPackOTLPVersion) IsExact() bool {
 	return false
 }
 
+// CreateInputSystemByPackAuthenticationTypeOpenTelemetry - OpenTelemetry authentication type
+type CreateInputSystemByPackAuthenticationTypeOpenTelemetry string
+
+const (
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryNone None
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryNone CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "none"
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryBasic Basic
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryBasic CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "basic"
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryCredentialsSecret Basic (credentials secret)
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryCredentialsSecret CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "credentialsSecret"
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryToken Token
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryToken CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "token"
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryTextSecret Token (text secret)
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryTextSecret CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "textSecret"
+)
+
+func (e CreateInputSystemByPackAuthenticationTypeOpenTelemetry) ToPointer() *CreateInputSystemByPackAuthenticationTypeOpenTelemetry {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackAuthenticationTypeOpenTelemetry) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputSystemByPackInputOpenTelemetry struct {
 	// Unique ID for this input
 	ID       string                                   `json:"id"`
@@ -8675,7 +8706,7 @@ type CreateInputSystemByPackInputOpenTelemetry struct {
 	// The version of OTLP Protobuf definitions to use when interpreting received data
 	OtlpVersion *CreateInputSystemByPackOTLPVersion `json:"otlpVersion,omitzero"`
 	// OpenTelemetry authentication type
-	AuthType *components.AuthenticationTypeOptions `json:"authType,omitzero"`
+	AuthType *CreateInputSystemByPackAuthenticationTypeOpenTelemetry `json:"authType,omitzero"`
 	// Fields to add to events from this input
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -8885,7 +8916,7 @@ func (c *CreateInputSystemByPackInputOpenTelemetry) GetOtlpVersion() *CreateInpu
 	return c.OtlpVersion
 }
 
-func (c *CreateInputSystemByPackInputOpenTelemetry) GetAuthType() *components.AuthenticationTypeOptions {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetAuthType() *CreateInputSystemByPackAuthenticationTypeOpenTelemetry {
 	if c == nil {
 		return nil
 	}
@@ -14916,33 +14947,4 @@ func (c *CreateInputSystemByPackMemorySystemMetrics) GetDetail() *bool {
 		return nil
 	}
 	return c.Detail
-}
-
-// CreateInputSystemByPackNetworkModeSystemMetrics - Select the level of detail for network metrics
-type CreateInputSystemByPackNetworkModeSystemMetrics string
-
-const (
-	// CreateInputSystemByPackNetworkModeSystemMetricsBasic Basic
-	CreateInputSystemByPackNetworkModeSystemMetricsBasic CreateInputSystemByPackNetworkModeSystemMetrics = "basic"
-	// CreateInputSystemByPackNetworkModeSystemMetricsAll All
-	CreateInputSystemByPackNetworkModeSystemMetricsAll CreateInputSystemByPackNetworkModeSystemMetrics = "all"
-	// CreateInputSystemByPackNetworkModeSystemMetricsCustom Custom
-	CreateInputSystemByPackNetworkModeSystemMetricsCustom CreateInputSystemByPackNetworkModeSystemMetrics = "custom"
-	// CreateInputSystemByPackNetworkModeSystemMetricsDisabled Disabled
-	CreateInputSystemByPackNetworkModeSystemMetricsDisabled CreateInputSystemByPackNetworkModeSystemMetrics = "disabled"
-)
-
-func (e CreateInputSystemByPackNetworkModeSystemMetrics) ToPointer() *CreateInputSystemByPackNetworkModeSystemMetrics {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSystemByPackNetworkModeSystemMetrics) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "basic", "all", "custom", "disabled":
-			return true
-		}
-	}
-	return false
 }

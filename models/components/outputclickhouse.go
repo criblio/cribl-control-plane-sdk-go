@@ -149,9 +149,9 @@ type OutputClickHouse struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the ClickHouse instance. Example: http://localhost:8123/
-	URL      string                                           `json:"url"`
-	AuthType *AuthenticationTypeOptionsBasicCredentialsSecret `json:"authType,omitzero"`
-	Database string                                           `json:"database"`
+	URL      string                     `json:"url"`
+	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
+	Database string                     `json:"database"`
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
@@ -303,7 +303,7 @@ func (o *OutputClickHouse) GetURL() string {
 	return o.URL
 }
 
-func (o *OutputClickHouse) GetAuthType() *AuthenticationTypeOptionsBasicCredentialsSecret {
+func (o *OutputClickHouse) GetAuthType() *AuthenticationTypeOptions {
 	if o == nil {
 		return nil
 	}
