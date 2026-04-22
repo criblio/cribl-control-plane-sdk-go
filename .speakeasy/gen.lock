@@ -5,14 +5,14 @@ management:
   docVersion: 4.17.1-b862732f
   speakeasyVersion: 1.761.8
   generationVersion: 2.881.2
-  releaseVersion: 0.7.0-rc.22
-  configChecksum: 9954cf26bdde12d62ae35639a03b13ef
+  releaseVersion: 0.7.0
+  configChecksum: ddfbef66e75e22725835e2cd5163465c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 4f7dea09-fa29-4bdd-8fce-b9321306fc4c
-  pristine_commit_hash: dc9b8450ad11d5abd27a19252d75c0258607e140
-  pristine_tree_hash: 29e1d04a086b356bf17375085e348dbc683ff3e5
+  generation_id: 00018c1c-2acb-42b5-823b-0de452f6c65c
+  pristine_commit_hash: a868871cf1d2bf8da1c9b5c04cc3ed17affbf51b
+  pristine_tree_hash: 4ed38dbaef7dbc168794fbaa46e3333c975decca
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: a3acad670ea0d3339ed03eb40b091edd389ad7f5
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:6ea318cf623135214b48127f9870ce8cbd733648
-    pristine_git_object: 82404803f841fedae16eedbd527230c20261abd1
+    last_write_checksum: sha1:520abf2bfe4fe707c164e08c8c0a2bec97b244c0
+    pristine_git_object: 246bed02fa8e2f63f8b0e0004d140e523ef600d4
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:2d55d040fdab532c735d8a32055e6659016f3966
@@ -27931,7 +27931,32 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`: \n  *  `request.CriblPack` **Removed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Update()`:  `request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Health.Get()`: \n  *  `response.StartTime` **Changed** (Breaking ⚠️)\n  *  `error.StartTime` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.Update()`:  `request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Lakes.Datasets.Create()`: **Added**\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Routes.Append()`: \n  *  `request.RequestBody[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody` **Changed**\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Functions.List()`:  `response.Items[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.Functions.Get()`:  `response.Items[].union(local_search_schema_mapper)` **Added**\n* `CriblControlPlane.LakeDatasets.Update()`: **Removed** (Breaking ⚠️)\n* `CriblControlPlane.LakeDatasets.Get()`: **Removed** (Breaking ⚠️)\n* `CriblControlPlane.LakeDatasets.Delete()`: **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody[]` **Changed**\n* `CriblControlPlane.LakeDatasets.List()`: **Removed** (Breaking ⚠️)\n* `CriblControlPlane.LakeDatasets.Create()`: **Removed** (Breaking ⚠️)\n* `CriblControlPlane.Lakes.Datasets.Update()`: **Added**\n* `CriblControlPlane.Lakes.Datasets.Get()`: **Added**\n* `CriblControlPlane.Lakes.Datasets.Delete()`: **Added**\n* `CriblControlPlane.Lakes.Datasets.List()`: **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes
+
+  This version of the SDK is generated for Cribl version 4.17.1.
+
+  ### Lake datasets (Cribl.Cloud)
+
+  Lake dataset APIs are exposed under `Lakes.Datasets` instead of the previous root-level
+  `LakeDatasets` helpers. Update call sites accordingly.
+
+  **Removed**
+
+  * `CriblControlPlane.LakeDatasets.Create()`
+  * `CriblControlPlane.LakeDatasets.List()`
+  * `CriblControlPlane.LakeDatasets.Get()`
+  * `CriblControlPlane.LakeDatasets.Update()`
+  * `CriblControlPlane.LakeDatasets.Delete()`
+
+  **Use instead**
+
+  * `CriblControlPlane.Lakes.Datasets.Create()`
+  * `CriblControlPlane.Lakes.Datasets.List()`
+  * `CriblControlPlane.Lakes.Datasets.Get()`
+  * `CriblControlPlane.Lakes.Datasets.Update()`
+  * `CriblControlPlane.Lakes.Datasets.Delete()`
+
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
