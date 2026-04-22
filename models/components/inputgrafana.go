@@ -98,6 +98,9 @@ func (p *PrometheusAuth2) GetTextSecret() *string {
 	return p.TextSecret
 }
 
+// #region class-body-prometheusauth2
+// #endregion class-body-prometheusauth2
+
 type LokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
@@ -163,6 +166,9 @@ func (l *LokiAuth2) GetTextSecret() *string {
 	}
 	return l.TextSecret
 }
+
+// #region class-body-lokiauth2
+// #endregion class-body-lokiauth2
 
 type InputGrafanaGrafana2 struct {
 	// Unique ID for this input
@@ -459,6 +465,9 @@ func (i *InputGrafanaGrafana2) GetTemplatePort() *string {
 	return i.TemplatePort
 }
 
+// #region class-body-inputgrafanagrafana2
+// #endregion class-body-inputgrafanagrafana2
+
 type InputGrafanaType1 string
 
 const (
@@ -548,6 +557,9 @@ func (p *PrometheusAuth1) GetTextSecret() *string {
 	return p.TextSecret
 }
 
+// #region class-body-prometheusauth1
+// #endregion class-body-prometheusauth1
+
 type LokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
@@ -613,6 +625,9 @@ func (l *LokiAuth1) GetTextSecret() *string {
 	}
 	return l.TextSecret
 }
+
+// #region class-body-lokiauth1
+// #endregion class-body-lokiauth1
 
 type InputGrafanaGrafana1 struct {
 	// Unique ID for this input
@@ -908,6 +923,9 @@ func (i *InputGrafanaGrafana1) GetTemplatePort() *string {
 	}
 	return i.TemplatePort
 }
+
+// #region class-body-inputgrafanagrafana1
+// #endregion class-body-inputgrafanagrafana1
 
 type InputGrafanaType string
 

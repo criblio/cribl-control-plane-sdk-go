@@ -1,0 +1,47 @@
+# RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP
+
+
+## Supported Types
+
+### RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
+
+```go
+restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPGet(components.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet{/* values here */})
+```
+
+### RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost
+
+```go
+restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPPost(components.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost{/* values here */})
+```
+
+### RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody
+
+```go
+restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPPostWithBody(components.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody{/* values here */})
+```
+
+### RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
+
+```go
+restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP := components.CreateRestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPOther(components.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP.Type {
+	case components.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeGet:
+		// restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet is populated
+	case components.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypePost:
+		// restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost is populated
+	case components.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypePostWithBody:
+		// restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody is populated
+	case components.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPTypeOther:
+		// restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther is populated
+	default:
+		// Unknown type - use restAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTP.GetUnknownRaw() for raw JSON
+}
+```

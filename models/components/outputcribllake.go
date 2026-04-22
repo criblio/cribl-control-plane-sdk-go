@@ -31,6 +31,29 @@ func (e *OutputCriblLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type AwsAuthenticationMethod string
+
+const (
+	AwsAuthenticationMethodAuto    AwsAuthenticationMethod = "auto"
+	AwsAuthenticationMethodAutoRPC AwsAuthenticationMethod = "auto_rpc"
+	AwsAuthenticationMethodManual  AwsAuthenticationMethod = "manual"
+)
+
+func (e AwsAuthenticationMethod) ToPointer() *AwsAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AwsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "auto_rpc", "manual":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputCriblLake struct {
 	// Unique ID for this output
 	ID   *string             `json:"id,omitzero"`
@@ -99,8 +122,9 @@ type OutputCriblLake struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -108,9 +132,9 @@ type OutputCriblLake struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                        `json:"maxClosingFilesToBackpressure,omitzero"`
-	AwsAuthenticationMethod       *AwsAuthenticationMethodOptions `json:"awsAuthenticationMethod,omitzero"`
-	Format                        *FormatOptions                  `json:"format,omitzero"`
+	MaxClosingFilesToBackpressure *float64                 `json:"maxClosingFilesToBackpressure,omitzero"`
+	AwsAuthenticationMethod       *AwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	Format                        *FormatOptions           `json:"format,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	Description            *string  `json:"description,omitzero"`
@@ -399,6 +423,13 @@ func (o *OutputCriblLake) GetRetrySettings() *RetrySettingsType {
 	return o.RetrySettings
 }
 
+func (o *OutputCriblLake) GetOrphans() *OrphanFileRecoveryType {
+	if o == nil {
+		return nil
+	}
+	return o.Orphans
+}
+
 func (o *OutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
@@ -427,7 +458,7 @@ func (o *OutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
 	return o.MaxClosingFilesToBackpressure
 }
 
-func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethod {
 	if o == nil {
 		return nil
 	}

@@ -10,6 +10,20 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateOutputPqControlsNewrelicEvents struct {
+}
+
+func (c CreateOutputPqControlsNewrelicEvents) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputPqControlsNewrelicEvents) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type CreateOutputOutputNewrelicEvents struct {
 	// Unique ID for this output
 	ID   string                         `json:"id"`
@@ -60,7 +74,7 @@ type CreateOutputOutputNewrelicEvents struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
+	AuthType    *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
 	CustomURL   *string                                  `json:"customUrl,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -277,7 +291,7 @@ func (c *CreateOutputOutputNewrelicEvents) GetOnBackpressure() *components.Backp
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputNewrelicEvents) GetAuthType() *components.AuthenticationMethodOptions3 {
+func (c *CreateOutputOutputNewrelicEvents) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if c == nil {
 		return nil
 	}
@@ -561,7 +575,7 @@ type CreateOutputOutputNewrelic struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
+	AuthType *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -785,7 +799,7 @@ func (c *CreateOutputOutputNewrelic) GetOnBackpressure() *components.Backpressur
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputNewrelic) GetAuthType() *components.AuthenticationMethodOptions3 {
+func (c *CreateOutputOutputNewrelic) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if c == nil {
 		return nil
 	}
@@ -3361,6 +3375,7 @@ type CreateOutputOutputExabeam struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	RetrySettings          *components.RetrySettingsType          `json:"retrySettings,omitzero"`
+	Orphans                *components.OrphanFileRecoveryType     `json:"orphans,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Enter an encoded string containing Exabeam configurations
@@ -3567,6 +3582,13 @@ func (c *CreateOutputOutputExabeam) GetRetrySettings() *components.RetrySettings
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputOutputExabeam) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputOutputExabeam) GetMaxFileSizeMB() *float64 {
@@ -4856,9 +4878,10 @@ type CreateOutputOutputGoogleCloudStorage struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	Description          *string                       `json:"description,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
+	Description          *string                            `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
@@ -5161,6 +5184,13 @@ func (c *CreateOutputOutputGoogleCloudStorage) GetRetrySettings() *components.Re
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputOutputGoogleCloudStorage) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputOutputGoogleCloudStorage) GetDescription() *string {
@@ -6437,7 +6467,7 @@ type CreateOutputOutputHoneycomb struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions3 `json:"authType,omitzero"`
+	AuthType    *components.AuthenticationMethodOptions2 `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
@@ -6631,7 +6661,7 @@ func (c *CreateOutputOutputHoneycomb) GetOnBackpressure() *components.Backpressu
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputHoneycomb) GetAuthType() *components.AuthenticationMethodOptions3 {
+func (c *CreateOutputOutputHoneycomb) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if c == nil {
 		return nil
 	}
@@ -8045,8 +8075,9 @@ type CreateOutputOutputAzureDataExplorer struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool                         `json:"addIdToStagePath,omitzero"`
-	RetrySettings    *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	AddIDToStagePath *bool                              `json:"addIdToStagePath,omitzero"`
+	RetrySettings    *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans          *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Bypass the data management service's aggregation mechanism
@@ -8521,6 +8552,13 @@ func (c *CreateOutputOutputAzureDataExplorer) GetRetrySettings() *components.Ret
 	return c.RetrySettings
 }
 
+func (c *CreateOutputOutputAzureDataExplorer) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
+}
+
 func (c *CreateOutputOutputAzureDataExplorer) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
@@ -8895,6 +8933,7 @@ type CreateOutputOutputAzureBlob struct {
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType           `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType      `json:"orphans,omitzero"`
 	AuthType             *components.AuthenticationMethodOptions `json:"authType,omitzero"`
 	StorageClass         *CreateOutputBlobAccessTier             `json:"storageClass,omitzero"`
 	Description          *string                                 `json:"description,omitzero"`
@@ -9166,6 +9205,13 @@ func (c *CreateOutputOutputAzureBlob) GetRetrySettings() *components.RetrySettin
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputOutputAzureBlob) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputOutputAzureBlob) GetAuthType() *components.AuthenticationMethodOptions {
@@ -9503,8 +9549,9 @@ type CreateOutputOutputS3 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -9854,6 +9901,13 @@ func (c *CreateOutputOutputS3) GetRetrySettings() *components.RetrySettingsType 
 	return c.RetrySettings
 }
 
+func (c *CreateOutputOutputS3) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
+}
+
 func (c *CreateOutputOutputS3) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
@@ -10078,6 +10132,9 @@ func (c *CreateOutputOutputS3) GetTemplateAwsAPIKey() *string {
 	return c.TemplateAwsAPIKey
 }
 
+// #region class-body-createoutputoutputs3
+// #endregion class-body-createoutputoutputs3
+
 type CreateOutputTypeFilesystem string
 
 const (
@@ -10148,9 +10205,10 @@ type CreateOutputOutputFilesystem struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitzero"`
-	Description          *string                       `json:"description,omitzero"`
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
+	Description          *string                            `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *components.CompressionOptions2 `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
@@ -10373,6 +10431,13 @@ func (c *CreateOutputOutputFilesystem) GetRetrySettings() *components.RetrySetti
 		return nil
 	}
 	return c.RetrySettings
+}
+
+func (c *CreateOutputOutputFilesystem) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
 }
 
 func (c *CreateOutputOutputFilesystem) GetDescription() *string {

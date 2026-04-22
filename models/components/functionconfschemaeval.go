@@ -53,6 +53,8 @@ type FunctionConfSchemaEval struct {
 	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports * wildcards. Fields that match 'Keep fields' will not be removed. Enclose field names containing special characters in single or double quotes.
 	Remove []string `json:"remove,omitzero"`
+	// When enabled (e.g. for Cribl Search), convert undefined expression results to null so requested-but-missing fields appear in JSON output. When disabled (default), undefined is preserved.
+	PrintUndefineds *bool `json:"printUndefineds,omitzero"`
 }
 
 func (f FunctionConfSchemaEval) MarshalJSON() ([]byte, error) {
@@ -85,4 +87,11 @@ func (f *FunctionConfSchemaEval) GetRemove() []string {
 		return nil
 	}
 	return f.Remove
+}
+
+func (f *FunctionConfSchemaEval) GetPrintUndefineds() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.PrintUndefineds
 }

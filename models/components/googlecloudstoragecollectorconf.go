@@ -90,6 +90,8 @@ type GoogleCloudStorageAuthTypeSecret struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeSecret) MarshalJSON() ([]byte, error) {
@@ -187,6 +189,13 @@ func (g *GoogleCloudStorageAuthTypeSecret) GetParquetChunkDownloadTimeout() *flo
 	return g.ParquetChunkDownloadTimeout
 }
 
+func (g *GoogleCloudStorageAuthTypeSecret) GetServiceAccountCredentials() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ServiceAccountCredentials
+}
+
 // GoogleCloudStorageAuthTypeManualAuthenticationMethod - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
 type GoogleCloudStorageAuthTypeManualAuthenticationMethod string
 
@@ -268,6 +277,8 @@ type GoogleCloudStorageAuthTypeManual struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Select or create a stored text secret that references your credentials
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -365,6 +376,13 @@ func (g *GoogleCloudStorageAuthTypeManual) GetParquetChunkDownloadTimeout() *flo
 	return g.ParquetChunkDownloadTimeout
 }
 
+func (g *GoogleCloudStorageAuthTypeManual) GetTextSecret() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TextSecret
+}
+
 // GoogleCloudStorageAuthTypeAutoAuthenticationMethod - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
 type GoogleCloudStorageAuthTypeAutoAuthenticationMethod string
 
@@ -444,6 +462,10 @@ type GoogleCloudStorageAuthTypeAuto struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create a stored text secret that references your credentials
+	TextSecret *string `json:"textSecret,omitzero"`
 }
 
 func (g GoogleCloudStorageAuthTypeAuto) MarshalJSON() ([]byte, error) {
@@ -532,6 +554,20 @@ func (g *GoogleCloudStorageAuthTypeAuto) GetParquetChunkDownloadTimeout() *float
 		return nil
 	}
 	return g.ParquetChunkDownloadTimeout
+}
+
+func (g *GoogleCloudStorageAuthTypeAuto) GetServiceAccountCredentials() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ServiceAccountCredentials
+}
+
+func (g *GoogleCloudStorageAuthTypeAuto) GetTextSecret() *string {
+	if g == nil {
+		return nil
+	}
+	return g.TextSecret
 }
 
 type GoogleCloudStorageCollectorConfType string

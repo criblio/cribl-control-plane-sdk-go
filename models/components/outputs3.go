@@ -105,8 +105,9 @@ type OutputS3 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -456,6 +457,13 @@ func (o *OutputS3) GetRetrySettings() *RetrySettingsType {
 	return o.RetrySettings
 }
 
+func (o *OutputS3) GetOrphans() *OrphanFileRecoveryType {
+	if o == nil {
+		return nil
+	}
+	return o.Orphans
+}
+
 func (o *OutputS3) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
@@ -679,3 +687,6 @@ func (o *OutputS3) GetTemplateAwsAPIKey() *string {
 	}
 	return o.TemplateAwsAPIKey
 }
+
+// #region class-body-outputs3
+// #endregion class-body-outputs3

@@ -45,6 +45,8 @@ type NumerifyFormatNone struct {
 	IgnoreFields []string `json:"ignoreFields,omitzero"`
 	// Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
 	FilterExpr *string `json:"filterExpr,omitzero"`
+	// Number of digits after the decimal point, between 0 and 20. If left blank, defaults to 2.
+	Digits *float64 `json:"digits,omitzero"`
 }
 
 func (n NumerifyFormatNone) MarshalJSON() ([]byte, error) {
@@ -84,6 +86,13 @@ func (n *NumerifyFormatNone) GetFilterExpr() *string {
 		return nil
 	}
 	return n.FilterExpr
+}
+
+func (n *NumerifyFormatNone) GetDigits() *float64 {
+	if n == nil {
+		return nil
+	}
+	return n.Digits
 }
 
 type NumerifyFormatFixFormat string

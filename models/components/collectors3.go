@@ -93,3 +93,6 @@ func (c *CollectorS3) GetEncoding() *string {
 	}
 	return c.Encoding
 }
+
+// #region class-body-collectors3
+// #endregion class-body-collectors3

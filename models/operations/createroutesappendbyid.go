@@ -11,7 +11,7 @@ type CreateRoutesAppendByIDRequest struct {
 	// The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// RouteDefinitions object
-	RequestBody []components.RouteConf `request:"mediaType=application/json"`
+	RequestBody []components.RouteConfInput `request:"mediaType=application/json"`
 }
 
 func (c *CreateRoutesAppendByIDRequest) GetID() string {
@@ -21,9 +21,9 @@ func (c *CreateRoutesAppendByIDRequest) GetID() string {
 	return c.ID
 }
 
-func (c *CreateRoutesAppendByIDRequest) GetRequestBody() []components.RouteConf {
+func (c *CreateRoutesAppendByIDRequest) GetRequestBody() []components.RouteConfInput {
 	if c == nil {
-		return []components.RouteConf{}
+		return []components.RouteConfInput{}
 	}
 	return c.RequestBody
 }

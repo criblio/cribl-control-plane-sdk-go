@@ -135,7 +135,8 @@ func main() {
 		log.Fatal(err)
 	}
 	routes := routesListResponse.CountedRoutes
-	if routes != nil && len(routes.Items) > 0 && routes.Items[0].ID != nil {
+	if routes != nil && len(routes.Items) > 0 && routes.Items[0].ID != "" {
+		item := routes.Items[0]
 		var pipelineID string
 		if pipeline.CountedPipeline != nil && len(pipeline.CountedPipeline.Items) > 0 {
 			pipelineID = pipeline.CountedPipeline.Items[0].ID
@@ -144,19 +145,15 @@ func main() {
 		if destination.CountedOutput != nil && len(destination.CountedOutput.Items) > 0 {
 			destinationID = "my-fs-destination"
 		}
-		routes.Items[0].Routes = append([]components.RoutesRoute{{
+		_, err = s.Routes.Append(ctx, item.ID, []components.RouteConfInput{{
 			Final:       criblcontrolplanesdkgo.Bool(false),
 			ID:          criblcontrolplanesdkgo.String("my-route"),
 			Name:        "my-route",
 			Pipeline:    pipelineID,
-			Output:      destinationID,
+			Output:      criblcontrolplanesdkgo.String(destinationID),
 			Filter:      criblcontrolplanesdkgo.String("__inputId=='tcpjson:my-tcp-json'"),
 			Description: criblcontrolplanesdkgo.String("My new route"),
-		}}, routes.Items[0].Routes...)
-		_, err = s.Routes.Update(ctx, *routes.Items[0].ID, components.Routes{
-			ID:     routes.Items[0].ID,
-			Routes: routes.Items[0].Routes,
-		}, operations.WithServerURL(groupURL))
+		}}, operations.WithServerURL(groupURL))
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -304,15 +301,15 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Health](docs/sdks/health/README.md)
 
-* [Get](docs/sdks/health/README.md#get) - Retrieve health status of the server
+* [Get](docs/sdks/health/README.md#get) - Get the health status of the server
 
-### [LakeDatasets](docs/sdks/lakedatasets/README.md)
+### [Lakes.Datasets](docs/sdks/datasets/README.md)
 
-* [Create](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
-* [List](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets (Cribl.Cloud only)
-* [Delete](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset (Cribl.Cloud only)
-* [Get](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset (Cribl.Cloud only)
-* [Update](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset (Cribl.Cloud only)
+* [Create](docs/sdks/datasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
+* [List](docs/sdks/datasets/README.md#list) - List all Lake Datasets (Cribl.Cloud only)
+* [Delete](docs/sdks/datasets/README.md#delete) - Delete a Lake Dataset (Cribl.Cloud only)
+* [Get](docs/sdks/datasets/README.md#get) - Get a Lake Dataset (Cribl.Cloud only)
+* [Update](docs/sdks/datasets/README.md#update) - Update a Lake Dataset (Cribl.Cloud only)
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
@@ -610,7 +607,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
+	res, err := s.Lakes.Datasets.Create(ctx, "<id>", components.CriblLakeDataset{
 		AcceleratedFields: []string{
 			"<value 1>",
 			"<value 2>",
@@ -709,7 +706,7 @@ func main() {
 	)
 
 	res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-		Duration:  5,
+		Duration:  5.0,
 		Filter:    "sourcetype===\"pan:traffic\"",
 		Level:     components.CaptureLevelBeforePreProcessingPipeline,
 		MaxEvents: 100,

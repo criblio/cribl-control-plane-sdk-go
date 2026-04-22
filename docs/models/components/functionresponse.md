@@ -177,6 +177,12 @@ functionResponse := components.CreateFunctionResponseLocalSearchDatatypeParser(c
 functionResponse := components.CreateFunctionResponseLocalSearchRulesetRunner(components.FunctionLocalSearchRulesetRunner{/* values here */})
 ```
 
+### FunctionLocalSearchSchemaMapper
+
+```go
+functionResponse := components.CreateFunctionResponseLocalSearchSchemaMapper(components.FunctionLocalSearchSchemaMapper{/* values here */})
+```
+
 ### FunctionLocalSearchTransformer
 
 ```go
@@ -463,6 +469,8 @@ switch functionResponse.Type {
 		// functionResponse.FunctionLocalSearchDatatypeParser is populated
 	case components.FunctionResponseTypeLocalSearchRulesetRunner:
 		// functionResponse.FunctionLocalSearchRulesetRunner is populated
+	case components.FunctionResponseTypeLocalSearchSchemaMapper:
+		// functionResponse.FunctionLocalSearchSchemaMapper is populated
 	case components.FunctionResponseTypeLocalSearchTransformer:
 		// functionResponse.FunctionLocalSearchTransformer is populated
 	case components.FunctionResponseTypeLookup:

@@ -46,6 +46,9 @@ func (o *OutputGrafanaCloudPqControls2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// #region class-body-outputgrafanacloudpqcontrols2
+// #endregion class-body-outputgrafanacloudpqcontrols2
+
 type OutputGrafanaCloudGrafanaCloud2 struct {
 	// Unique ID for this output
 	ID   *string                 `json:"id,omitzero"`
@@ -443,6 +446,9 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplatePrometheusURL() *string {
 	return o.TemplatePrometheusURL
 }
 
+// #region class-body-outputgrafanacloudgrafanacloud2
+// #endregion class-body-outputgrafanacloudgrafanacloud2
+
 type OutputGrafanaCloudType1 string
 
 const (
@@ -479,6 +485,9 @@ func (o *OutputGrafanaCloudPqControls1) UnmarshalJSON(data []byte) error {
 	}
 	return nil
 }
+
+// #region class-body-outputgrafanacloudpqcontrols1
+// #endregion class-body-outputgrafanacloudpqcontrols1
 
 type OutputGrafanaCloudGrafanaCloud1 struct {
 	// Unique ID for this output
@@ -876,6 +885,9 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplatePrometheusURL() *string {
 	}
 	return o.TemplatePrometheusURL
 }
+
+// #region class-body-outputgrafanacloudgrafanacloud1
+// #endregion class-body-outputgrafanacloudgrafanacloud1
 
 type OutputGrafanaCloudType string
 
