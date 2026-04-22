@@ -5323,6 +5323,8 @@ type CreateInputSystemByPackInputFile struct {
 	DeleteFiles *bool `json:"deleteFiles,omitzero"`
 	// Salt the file hash with the Source file path. Ensures that all files with the same header hash, such as CSV files, are ingested. Moving or renaming the file, or toggling this after starting the Source will cause re-ingestion.
 	SaltHash *bool `json:"saltHash,omitzero"`
+	// Skip rescans of unchanged directories based on directory modification time. Uses an exponential backoff strategy, reducing load on the filesystems, but possibly delaying detection of new data. This option is optimized for search paths where files exist in the leaf directories.
+	OptimizeLeafDirectories *bool `json:"optimizeLeafDirectories,omitzero"`
 	// Stream binary files as Base64-encoded chunks.
 	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitzero"`
 }
@@ -5546,6 +5548,13 @@ func (c *CreateInputSystemByPackInputFile) GetSaltHash() *bool {
 		return nil
 	}
 	return c.SaltHash
+}
+
+func (c *CreateInputSystemByPackInputFile) GetOptimizeLeafDirectories() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.OptimizeLeafDirectories
 }
 
 func (c *CreateInputSystemByPackInputFile) GetIncludeUnidentifiableBinary() *bool {
@@ -5911,6 +5920,9 @@ func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTemplateTCPPort() *string
 	return c.TemplateTCPPort
 }
 
+// #region class-body-createinputsystembypackinputsyslogsyslog2
+// #endregion class-body-createinputsystembypackinputsyslogsyslog2
+
 type CreateInputSystemByPackInputSyslogType1 string
 
 const (
@@ -6266,6 +6278,9 @@ func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTemplateTCPPort() *string
 	}
 	return c.TemplateTCPPort
 }
+
+// #region class-body-createinputsystembypackinputsyslogsyslog1
+// #endregion class-body-createinputsystembypackinputsyslogsyslog1
 
 type CreateInputSystemByPackInputSyslogUnionType string
 
@@ -7465,6 +7480,9 @@ func (c *CreateInputSystemByPackV3User) GetPrivKey() *string {
 	return c.PrivKey
 }
 
+// #region class-body-createinputsystembypackv3user
+// #endregion class-body-createinputsystembypackv3user
+
 // CreateInputSystemByPackSNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 type CreateInputSystemByPackSNMPv3Authentication struct {
 	V3AuthEnabled bool `json:"v3AuthEnabled"`
@@ -7505,6 +7523,9 @@ func (c *CreateInputSystemByPackSNMPv3Authentication) GetV3Users() []CreateInput
 	}
 	return c.V3Users
 }
+
+// #region class-body-createinputsystembypacksnmpv3authentication
+// #endregion class-body-createinputsystembypacksnmpv3authentication
 
 type CreateInputSystemByPackInputSnmp struct {
 	// Unique ID for this input
@@ -8237,6 +8258,9 @@ func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateAwsAPIKey() *string
 	return c.TemplateAwsAPIKey
 }
 
+// #region class-body-createinputsystembypackinputs3inventory
+// #endregion class-body-createinputsystembypackinputs3inventory
+
 type CreateInputSystemByPackTypeS3 string
 
 const (
@@ -8742,6 +8766,9 @@ func (c *CreateInputSystemByPackInputS3) GetTemplateAwsAPIKey() *string {
 	}
 	return c.TemplateAwsAPIKey
 }
+
+// #region class-body-createinputsystembypackinputs3
+// #endregion class-body-createinputsystembypackinputs3
 
 type CreateInputSystemByPackTypeMetrics string
 

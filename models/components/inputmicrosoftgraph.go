@@ -31,6 +31,61 @@ func (e *InputMicrosoftGraphType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// InputMicrosoftGraphAuthenticationMethod - Select authentication method.
+type InputMicrosoftGraphAuthenticationMethod string
+
+const (
+	InputMicrosoftGraphAuthenticationMethodOauth       InputMicrosoftGraphAuthenticationMethod = "oauth"
+	InputMicrosoftGraphAuthenticationMethodOauthSecret InputMicrosoftGraphAuthenticationMethod = "oauthSecret"
+	InputMicrosoftGraphAuthenticationMethodOauthCert   InputMicrosoftGraphAuthenticationMethod = "oauthCert"
+)
+
+func (e InputMicrosoftGraphAuthenticationMethod) ToPointer() *InputMicrosoftGraphAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMicrosoftGraphAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "oauth", "oauthSecret", "oauthCert":
+			return true
+		}
+	}
+	return false
+}
+
+// SubscriptionPlan - Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+type SubscriptionPlan string
+
+const (
+	// SubscriptionPlanEnterpriseGcc Microsoft 365 Enterprise
+	SubscriptionPlanEnterpriseGcc SubscriptionPlan = "enterprise_gcc"
+	// SubscriptionPlanGcc Microsoft 365 GCC
+	SubscriptionPlanGcc SubscriptionPlan = "gcc"
+	// SubscriptionPlanGccHigh Microsoft 365 GCC High
+	SubscriptionPlanGccHigh SubscriptionPlan = "gcc_high"
+	// SubscriptionPlanDod Microsoft 365 DoD
+	SubscriptionPlanDod SubscriptionPlan = "dod"
+	// SubscriptionPlanChina Microsoft 365 China (21Vianet)
+	SubscriptionPlanChina SubscriptionPlan = "china"
+)
+
+func (e SubscriptionPlan) ToPointer() *SubscriptionPlan {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SubscriptionPlan) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "enterprise_gcc", "gcc", "gcc_high", "dod", "china":
+			return true
+		}
+	}
+	return false
+}
+
 type InputMicrosoftGraph struct {
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitzero"`
@@ -61,8 +116,10 @@ type InputMicrosoftGraph struct {
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Disables time filtering of events when a date range is specified.
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+	MaxPages *int64 `json:"maxPages,omitzero"`
 	// Select authentication method.
-	AuthType *AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType *InputMicrosoftGraphAuthenticationMethod `json:"authType,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
 	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
@@ -83,12 +140,6 @@ type InputMicrosoftGraph struct {
 	LogLevel    *LogLevelOptions `json:"logLevel,omitzero"`
 	RetryRules  *RetryRulesType1 `json:"retryRules,omitzero"`
 	Description *string          `json:"description,omitzero"`
-	// Username to run Microsoft Graph API call.
-	Username *string `json:"username,omitzero"`
-	// Password to run Microsoft Graph API call.
-	Password *string `json:"password,omitzero"`
-	// Select or create a secret that references your credentials.
-	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
@@ -97,8 +148,8 @@ type InputMicrosoftGraph struct {
 	ClientID *string `json:"clientId,omitzero"`
 	// Resource to pass in the OAuth request parameter.
 	Resource *string `json:"resource,omitzero"`
-	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
+	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+	PlanType *SubscriptionPlan `json:"planType,omitzero"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string          `json:"textSecret,omitzero"`
 	CertOptions *CertOptionsType `json:"certOptions,omitzero"`
@@ -235,7 +286,14 @@ func (i *InputMicrosoftGraph) GetDisableTimeFilter() *bool {
 	return i.DisableTimeFilter
 }
 
-func (i *InputMicrosoftGraph) GetAuthType() *AuthenticationMethodOptions2 {
+func (i *InputMicrosoftGraph) GetMaxPages() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxPages
+}
+
+func (i *InputMicrosoftGraph) GetAuthType() *InputMicrosoftGraphAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
@@ -319,27 +377,6 @@ func (i *InputMicrosoftGraph) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputMicrosoftGraph) GetUsername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Username
-}
-
-func (i *InputMicrosoftGraph) GetPassword() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Password
-}
-
-func (i *InputMicrosoftGraph) GetCredentialsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CredentialsSecret
-}
-
 func (i *InputMicrosoftGraph) GetClientSecret() *string {
 	if i == nil {
 		return nil
@@ -368,7 +405,7 @@ func (i *InputMicrosoftGraph) GetResource() *string {
 	return i.Resource
 }
 
-func (i *InputMicrosoftGraph) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputMicrosoftGraph) GetPlanType() *SubscriptionPlan {
 	if i == nil {
 		return nil
 	}

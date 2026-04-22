@@ -111,6 +111,9 @@ func (p *PackRequestBody2) GetForce() *bool {
 	return p.Force
 }
 
+// #region class-body-packrequestbody2
+// #endregion class-body-packrequestbody2
+
 type PackRequestBody1 struct {
 	ID                  string  `json:"id"`
 	Spec                *string `json:"spec,omitzero"`
@@ -213,6 +216,9 @@ func (p *PackRequestBody1) GetForce() *bool {
 	}
 	return p.Force
 }
+
+// #region class-body-packrequestbody1
+// #endregion class-body-packrequestbody1
 
 type PackRequestBodyUnionType string
 

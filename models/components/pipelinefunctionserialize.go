@@ -75,6 +75,12 @@ type SerializeTypeCsv struct {
 	SrcField *string `json:"srcField,omitzero"`
 	// Field to serialize data to
 	DstField *string `json:"dstField,omitzero"`
+	// Clean field names by replacing non-[a-zA-Z0-9] characters with _
+	CleanFields *bool `json:"cleanFields,omitzero"`
+	// Delimiter used to separate key=value pairs. Defaults to a single space character. Should not have common characters with key-value delimiter.
+	PairDelimiter *string `json:"pairDelimiter,omitzero"`
+	// Delimiter used to separate key and value in pair. Defaults to a '='. Should not have common characters with pair delimiter.
+	KeyValueDelimiter *string `json:"keyValueDelimiter,omitzero"`
 }
 
 func (s SerializeTypeCsv) MarshalJSON() ([]byte, error) {
@@ -114,6 +120,27 @@ func (s *SerializeTypeCsv) GetDstField() *string {
 		return nil
 	}
 	return s.DstField
+}
+
+func (s *SerializeTypeCsv) GetCleanFields() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.CleanFields
+}
+
+func (s *SerializeTypeCsv) GetPairDelimiter() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PairDelimiter
+}
+
+func (s *SerializeTypeCsv) GetKeyValueDelimiter() *string {
+	if s == nil {
+		return nil
+	}
+	return s.KeyValueDelimiter
 }
 
 // SerializeTypeDelimType - Data output format
@@ -166,6 +193,12 @@ type SerializeTypeDelim struct {
 	SrcField *string `json:"srcField,omitzero"`
 	// Field to serialize data to
 	DstField *string `json:"dstField,omitzero"`
+	// Clean field names by replacing non-[a-zA-Z0-9] characters with _
+	CleanFields *bool `json:"cleanFields,omitzero"`
+	// Delimiter used to separate key=value pairs. Defaults to a single space character. Should not have common characters with key-value delimiter.
+	PairDelimiter *string `json:"pairDelimiter,omitzero"`
+	// Delimiter used to separate key and value in pair. Defaults to a '='. Should not have common characters with pair delimiter.
+	KeyValueDelimiter *string `json:"keyValueDelimiter,omitzero"`
 }
 
 func (s SerializeTypeDelim) MarshalJSON() ([]byte, error) {
@@ -233,6 +266,27 @@ func (s *SerializeTypeDelim) GetDstField() *string {
 		return nil
 	}
 	return s.DstField
+}
+
+func (s *SerializeTypeDelim) GetCleanFields() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.CleanFields
+}
+
+func (s *SerializeTypeDelim) GetPairDelimiter() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PairDelimiter
+}
+
+func (s *SerializeTypeDelim) GetKeyValueDelimiter() *string {
+	if s == nil {
+		return nil
+	}
+	return s.KeyValueDelimiter
 }
 
 // SerializeTypeKvpType - Data output format

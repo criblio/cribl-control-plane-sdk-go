@@ -530,3 +530,6 @@ func (i *InputS3Inventory) GetTemplateAwsAPIKey() *string {
 	}
 	return i.TemplateAwsAPIKey
 }
+
+// #region class-body-inputs3inventory
+// #endregion class-body-inputs3inventory

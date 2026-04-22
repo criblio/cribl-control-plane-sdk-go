@@ -22,6 +22,9 @@ func (b *BackupsSettings2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// #region class-body-backupssettings2
+// #endregion class-body-backupssettings2
+
 type BackupsSettings1 struct {
 	BackupPersistence string `json:"backupPersistence"`
 	BackupsDirectory  string `json:"backupsDirectory"`
@@ -51,6 +54,9 @@ func (b *BackupsSettings1) GetBackupsDirectory() string {
 	}
 	return b.BackupsDirectory
 }
+
+// #region class-body-backupssettings1
+// #endregion class-body-backupssettings1
 
 type BackupsSettingsUnionType string
 

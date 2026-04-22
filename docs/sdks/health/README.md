@@ -6,15 +6,15 @@ Actions related to REST server health
 
 ### Available Operations
 
-* [Get](#get) - Retrieve health status of the server
+* [Get](#get) - Get the health status of the server
 
 ## Get
 
-Get the current health status of the server.
+Get the current health status of the server (Leader or Worker Node).
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getHealth" method="get" path="/health" -->
+<!-- UsageSnippet language="go" operationID="getHealth" method="get" path="/health" example="HealthExamplesHealthyPrimary" -->
 ```go
 package main
 

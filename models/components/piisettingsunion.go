@@ -22,6 +22,9 @@ func (p *PiiSettings2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// #region class-body-piisettings2
+// #endregion class-body-piisettings2
+
 type PiiSettings1 struct {
 	EnablePiiDetection bool `json:"enablePiiDetection"`
 }
@@ -43,6 +46,9 @@ func (p *PiiSettings1) GetEnablePiiDetection() bool {
 	}
 	return p.EnablePiiDetection
 }
+
+// #region class-body-piisettings1
+// #endregion class-body-piisettings1
 
 type PiiSettingsUnionType string
 

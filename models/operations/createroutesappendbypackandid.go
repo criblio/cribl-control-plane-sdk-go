@@ -13,7 +13,7 @@ type CreateRoutesAppendByPackAndIDRequest struct {
 	// The <code>id</code> of the Pack to append.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 	// RouteDefinitions object
-	RequestBody []components.RouteConf `request:"mediaType=application/json"`
+	RequestBody []components.RouteConfInput `request:"mediaType=application/json"`
 }
 
 func (c *CreateRoutesAppendByPackAndIDRequest) GetID() string {
@@ -30,9 +30,9 @@ func (c *CreateRoutesAppendByPackAndIDRequest) GetPack() string {
 	return c.Pack
 }
 
-func (c *CreateRoutesAppendByPackAndIDRequest) GetRequestBody() []components.RouteConf {
+func (c *CreateRoutesAppendByPackAndIDRequest) GetRequestBody() []components.RouteConfInput {
 	if c == nil {
-		return []components.RouteConf{}
+		return []components.RouteConfInput{}
 	}
 	return c.RequestBody
 }

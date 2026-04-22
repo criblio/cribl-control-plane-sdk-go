@@ -365,6 +365,9 @@ func (i *InputSyslogSyslog2) GetTemplateTCPPort() *string {
 	return i.TemplateTCPPort
 }
 
+// #region class-body-inputsyslogsyslog2
+// #endregion class-body-inputsyslogsyslog2
+
 type InputSyslogType1 string
 
 const (
@@ -720,6 +723,9 @@ func (i *InputSyslogSyslog1) GetTemplateTCPPort() *string {
 	}
 	return i.TemplateTCPPort
 }
+
+// #region class-body-inputsyslogsyslog1
+// #endregion class-body-inputsyslogsyslog1
 
 type InputSyslogType string
 
