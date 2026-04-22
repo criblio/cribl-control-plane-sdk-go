@@ -182,6 +182,10 @@ type InputOpenTelemetry struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'protocol' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'protocol' at runtime.
+	TemplateProtocol *string `json:"__template_protocol,omitzero"`
+	// Binds 'otlpVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'otlpVersion' at runtime.
+	TemplateOtlpVersion *string `json:"__template_otlpVersion,omitzero"`
 }
 
 func (i InputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -459,4 +463,18 @@ func (i *InputOpenTelemetry) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputOpenTelemetry) GetTemplateProtocol() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateProtocol
+}
+
+func (i *InputOpenTelemetry) GetTemplateOtlpVersion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateOtlpVersion
 }

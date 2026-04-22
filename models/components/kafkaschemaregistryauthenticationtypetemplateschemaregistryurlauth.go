@@ -6,7 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout struct {
+type KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth struct {
 	Disabled bool `json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `json:"schemaRegistryURL,omitzero"`
@@ -23,78 +23,87 @@ type KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout struct {
 	DefaultKeySchemaID *float64 `json:"defaultKeySchemaId,omitzero"`
 	// Used when __valueSchemaIdOut is not present, to transform _raw, leave blank if value transformation is not required by default.
 	DefaultValueSchemaID *float64 `json:"defaultValueSchemaId,omitzero"`
+	// Binds 'schemaRegistryURL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'schemaRegistryURL' at runtime.
+	TemplateSchemaRegistryURL *string `json:"__template_schemaRegistryURL,omitzero"`
 }
 
-func (k KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) MarshalJSON() ([]byte, error) {
+func (k KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(k, "", false)
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) UnmarshalJSON(data []byte) error {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &k, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) GetDisabled() bool {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetDisabled() bool {
 	if k == nil {
 		return false
 	}
 	return k.Disabled
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) GetSchemaRegistryURL() *string {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetSchemaRegistryURL() *string {
 	if k == nil {
 		return nil
 	}
 	return k.SchemaRegistryURL
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) GetConnectionTimeout() *float64 {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetConnectionTimeout() *float64 {
 	if k == nil {
 		return nil
 	}
 	return k.ConnectionTimeout
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) GetRequestTimeout() *float64 {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetRequestTimeout() *float64 {
 	if k == nil {
 		return nil
 	}
 	return k.RequestTimeout
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) GetMaxRetries() *float64 {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetMaxRetries() *float64 {
 	if k == nil {
 		return nil
 	}
 	return k.MaxRetries
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) GetAuth() *AuthType {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetAuth() *AuthType {
 	if k == nil {
 		return nil
 	}
 	return k.Auth
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if k == nil {
 		return nil
 	}
 	return k.TLS
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) GetDefaultKeySchemaID() *float64 {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetDefaultKeySchemaID() *float64 {
 	if k == nil {
 		return nil
 	}
 	return k.DefaultKeySchemaID
 }
 
-func (k *KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout) GetDefaultValueSchemaID() *float64 {
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetDefaultValueSchemaID() *float64 {
 	if k == nil {
 		return nil
 	}
 	return k.DefaultValueSchemaID
+}
+
+func (k *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth) GetTemplateSchemaRegistryURL() *string {
+	if k == nil {
+		return nil
+	}
+	return k.TemplateSchemaRegistryURL
 }
