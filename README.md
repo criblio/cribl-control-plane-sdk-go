@@ -610,7 +610,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
+	res, err := s.Lakes.Datasets.Create(ctx, "<id>", components.CriblLakeDataset{
 		AcceleratedFields: []string{
 			"<value 1>",
 			"<value 2>",
