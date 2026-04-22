@@ -22,6 +22,9 @@ func (s *SniSettings2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// #region class-body-snisettings2
+// #endregion class-body-snisettings2
+
 type SniSettings1 struct {
 	DisableSNIRouting bool `json:"disableSNIRouting"`
 }
@@ -43,6 +46,9 @@ func (s *SniSettings1) GetDisableSNIRouting() bool {
 	}
 	return s.DisableSNIRouting
 }
+
+// #region class-body-snisettings1
+// #endregion class-body-snisettings1
 
 type SniSettingsUnionType string
 

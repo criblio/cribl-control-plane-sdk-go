@@ -8,6 +8,7 @@ import (
 
 type SystemRestartResponse struct {
 	// Restart operation initiated.
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	restart bool `const:"true" json:"restart"`
 }
 

@@ -78,10 +78,13 @@ type OutputDatabricks struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
 	WorkspaceID string `json:"workspaceId"`
+	// Hostname for the Databricks workspace. Override this to connect to government or secure cloud environments (e.g. cloud.databricks.us, cloud.databricks.mil, azuredatabricks.net).
+	WorkspaceHost *string `json:"workspaceHost,omitzero"`
 	// OAuth scope for Unity Catalog authentication
 	Scope string `json:"scope"`
 	// OAuth client ID for Unity Catalog authentication
@@ -321,11 +324,25 @@ func (o *OutputDatabricks) GetRetrySettings() *RetrySettingsType {
 	return o.RetrySettings
 }
 
+func (o *OutputDatabricks) GetOrphans() *OrphanFileRecoveryType {
+	if o == nil {
+		return nil
+	}
+	return o.Orphans
+}
+
 func (o *OutputDatabricks) GetWorkspaceID() string {
 	if o == nil {
 		return ""
 	}
 	return o.WorkspaceID
+}
+
+func (o *OutputDatabricks) GetWorkspaceHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.WorkspaceHost
 }
 
 func (o *OutputDatabricks) GetScope() string {

@@ -100,6 +100,12 @@ type AzureBlobAuthTypeClientCert struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitzero"`
+	// Text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Text secret containing the client secret
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 }
 
 func (a AzureBlobAuthTypeClientCert) MarshalJSON() ([]byte, error) {
@@ -232,6 +238,27 @@ func (a *AzureBlobAuthTypeClientCert) GetParquetChunkDownloadTimeout() *float64 
 	return a.ParquetChunkDownloadTimeout
 }
 
+func (a *AzureBlobAuthTypeClientCert) GetConnectionString() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ConnectionString
+}
+
+func (a *AzureBlobAuthTypeClientCert) GetTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TextSecret
+}
+
+func (a *AzureBlobAuthTypeClientCert) GetClientTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientTextSecret
+}
+
 // AzureBlobAuthTypeClientSecretAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
 type AzureBlobAuthTypeClientSecretAuthenticationMethod string
 
@@ -324,6 +351,11 @@ type AzureBlobAuthTypeClientSecret struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitzero"`
+	// Text secret
+	TextSecret  *string                                     `json:"textSecret,omitzero"`
+	Certificate *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 }
 
 func (a AzureBlobAuthTypeClientSecret) MarshalJSON() ([]byte, error) {
@@ -456,6 +488,27 @@ func (a *AzureBlobAuthTypeClientSecret) GetParquetChunkDownloadTimeout() *float6
 	return a.ParquetChunkDownloadTimeout
 }
 
+func (a *AzureBlobAuthTypeClientSecret) GetConnectionString() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ConnectionString
+}
+
+func (a *AzureBlobAuthTypeClientSecret) GetTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TextSecret
+}
+
+func (a *AzureBlobAuthTypeClientSecret) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if a == nil {
+		return nil
+	}
+	return a.Certificate
+}
+
 // AzureBlobAuthTypeSecretAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
 type AzureBlobAuthTypeSecretAuthenticationMethod string
 
@@ -538,6 +591,11 @@ type AzureBlobAuthTypeSecret struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitzero"`
+	// Text secret containing the client secret
+	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
+	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 }
 
 func (a AzureBlobAuthTypeSecret) MarshalJSON() ([]byte, error) {
@@ -635,6 +693,27 @@ func (a *AzureBlobAuthTypeSecret) GetParquetChunkDownloadTimeout() *float64 {
 	return a.ParquetChunkDownloadTimeout
 }
 
+func (a *AzureBlobAuthTypeSecret) GetConnectionString() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ConnectionString
+}
+
+func (a *AzureBlobAuthTypeSecret) GetClientTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientTextSecret
+}
+
+func (a *AzureBlobAuthTypeSecret) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if a == nil {
+		return nil
+	}
+	return a.Certificate
+}
+
 // AzureBlobAuthTypeManualAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
 type AzureBlobAuthTypeManualAuthenticationMethod string
 
@@ -717,6 +796,11 @@ type AzureBlobAuthTypeManual struct {
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Text secret containing the client secret
+	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
+	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 }
 
 func (a AzureBlobAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -812,6 +896,27 @@ func (a *AzureBlobAuthTypeManual) GetParquetChunkDownloadTimeout() *float64 {
 		return nil
 	}
 	return a.ParquetChunkDownloadTimeout
+}
+
+func (a *AzureBlobAuthTypeManual) GetTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TextSecret
+}
+
+func (a *AzureBlobAuthTypeManual) GetClientTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientTextSecret
+}
+
+func (a *AzureBlobAuthTypeManual) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if a == nil {
+		return nil
+	}
+	return a.Certificate
 }
 
 type AzureBlobCollectorConfType string
