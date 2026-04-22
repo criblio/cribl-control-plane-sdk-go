@@ -135,7 +135,8 @@ func main() {
 		log.Fatal(err)
 	}
 	routes := routesListResponse.CountedRoutes
-	if routes != nil && len(routes.Items) > 0 && routes.Items[0].ID != nil {
+	if routes != nil && len(routes.Items) > 0 && routes.Items[0].ID != "" {
+		item := routes.Items[0]
 		var pipelineID string
 		if pipeline.CountedPipeline != nil && len(pipeline.CountedPipeline.Items) > 0 {
 			pipelineID = pipeline.CountedPipeline.Items[0].ID
@@ -144,19 +145,15 @@ func main() {
 		if destination.CountedOutput != nil && len(destination.CountedOutput.Items) > 0 {
 			destinationID = "my-fs-destination"
 		}
-		routes.Items[0].Routes = append([]components.RoutesRoute{{
+		_, err = s.Routes.Append(ctx, item.ID, []components.RouteConfInput{{
 			Final:       criblcontrolplanesdkgo.Bool(false),
 			ID:          criblcontrolplanesdkgo.String("my-route"),
 			Name:        "my-route",
 			Pipeline:    pipelineID,
-			Output:      destinationID,
+			Output:      criblcontrolplanesdkgo.String(destinationID),
 			Filter:      criblcontrolplanesdkgo.String("__inputId=='tcpjson:my-tcp-json'"),
 			Description: criblcontrolplanesdkgo.String("My new route"),
-		}}, routes.Items[0].Routes...)
-		_, err = s.Routes.Update(ctx, *routes.Items[0].ID, components.Routes{
-			ID:     routes.Items[0].ID,
-			Routes: routes.Items[0].Routes,
-		}, operations.WithServerURL(groupURL))
+		}}, operations.WithServerURL(groupURL))
 		if err != nil {
 			log.Fatal(err)
 		}

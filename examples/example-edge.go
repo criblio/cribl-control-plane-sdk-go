@@ -175,11 +175,11 @@ func main() {
 		// Get the first Routes configuration
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
-		// Create new Route
+		// Append a new Route to the routing table (does not require resending existing routes)
 		output := "my-s3-destination"
-		newRoute := components.RouteConf{
-			Final:                  false,
-			ID:                     "my-route",
+		newRoute := components.RouteConfInput{
+			Final:                  criblcontrolplanesdkgo.Bool(false),
+			ID:                     criblcontrolplanesdkgo.String("my-route"),
 			Name:                   "my-route",
 			Pipeline:               "my-pipeline",
 			Output:                 &output,
@@ -188,22 +188,13 @@ func main() {
 			Description:            criblcontrolplanesdkgo.String("This is my new Route"),
 		}
 
-		// Add new Route to existing Routes
-		updatedRoutes := append([]components.RouteConf{newRoute}, existingRoutes.Routes...)
-
-		// Update Routes configuration
 		if existingRoutes.ID != "" {
-			_, err = client.Routes.Update(ctx, existingRoutes.ID, components.Routes{
-				ID:      existingRoutes.ID,
-				Routes:  updatedRoutes,
-				Comments: existingRoutes.Comments,
-				Groups:  existingRoutes.Groups,
-			}, operations.WithServerURL(groupURL))
+			_, err = client.Routes.Append(ctx, existingRoutes.ID, []components.RouteConfInput{newRoute}, operations.WithServerURL(groupURL))
 
 			if err != nil {
-				log.Printf("Error updating Routes: %v", err)
+				log.Printf("Error appending Route: %v", err)
 			} else {
-				fmt.Printf("✅ Route inserted: my-route\n")
+				fmt.Printf("✅ Route added: my-route\n")
 			}
 		}
 	}
