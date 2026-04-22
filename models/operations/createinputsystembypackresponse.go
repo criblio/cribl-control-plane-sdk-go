@@ -10,6 +10,38 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputSystemByPackMemorySystemMetrics struct {
+	// Select the level of detail for memory metrics
+	Mode *CreateInputSystemByPackMemoryModeSystemMetrics `json:"mode,omitzero"`
+	// Generate metrics for all memory states
+	Detail *bool `json:"detail,omitzero"`
+}
+
+func (c CreateInputSystemByPackMemorySystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackMemorySystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackMemorySystemMetrics) GetMode() *CreateInputSystemByPackMemoryModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackMemorySystemMetrics) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
 // CreateInputSystemByPackNetworkModeSystemMetrics - Select the level of detail for network metrics
 type CreateInputSystemByPackNetworkModeSystemMetrics string
 
@@ -9344,6 +9376,8 @@ type CreateInputSystemByPackInputElastic struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+	TemplateElasticAPI *string `json:"__template_elasticAPI,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputElastic) MarshalJSON() ([]byte, error) {
@@ -9628,6 +9662,13 @@ func (c *CreateInputSystemByPackInputElastic) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputElastic) GetTemplateElasticAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateElasticAPI
 }
 
 type CreateInputSystemByPackTypeAzureBlob string

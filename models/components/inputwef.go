@@ -463,6 +463,10 @@ type InputWef struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'keytab' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'keytab' at runtime.
+	TemplateKeytab *string `json:"__template_keytab,omitzero"`
+	// Binds 'principal' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'principal' at runtime.
+	TemplatePrincipal *string `json:"__template_principal,omitzero"`
 }
 
 func (i InputWef) MarshalJSON() ([]byte, error) {
@@ -712,4 +716,18 @@ func (i *InputWef) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputWef) GetTemplateKeytab() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateKeytab
+}
+
+func (i *InputWef) GetTemplatePrincipal() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePrincipal
 }
