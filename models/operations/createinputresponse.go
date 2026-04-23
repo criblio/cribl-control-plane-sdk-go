@@ -10,6 +10,85 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputCPUSystemMetrics struct {
+	// Select the level of detail for CPU metrics
+	Mode *CreateInputCPUModeSystemMetrics `json:"mode,omitzero"`
+	// Generate metrics for each CPU
+	PerCPU *bool `json:"perCpu,omitzero"`
+	// Generate metrics for all CPU states
+	Detail *bool `json:"detail,omitzero"`
+	// Generate raw, monotonic CPU time counters
+	Time *bool `json:"time,omitzero"`
+}
+
+func (c CreateInputCPUSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputCPUSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputCPUSystemMetrics) GetMode() *CreateInputCPUModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputCPUSystemMetrics) GetPerCPU() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerCPU
+}
+
+func (c *CreateInputCPUSystemMetrics) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+func (c *CreateInputCPUSystemMetrics) GetTime() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Time
+}
+
+// CreateInputMemoryModeSystemMetrics - Select the level of detail for memory metrics
+type CreateInputMemoryModeSystemMetrics string
+
+const (
+	// CreateInputMemoryModeSystemMetricsBasic Basic
+	CreateInputMemoryModeSystemMetricsBasic CreateInputMemoryModeSystemMetrics = "basic"
+	// CreateInputMemoryModeSystemMetricsAll All
+	CreateInputMemoryModeSystemMetricsAll CreateInputMemoryModeSystemMetrics = "all"
+	// CreateInputMemoryModeSystemMetricsCustom Custom
+	CreateInputMemoryModeSystemMetricsCustom CreateInputMemoryModeSystemMetrics = "custom"
+	// CreateInputMemoryModeSystemMetricsDisabled Disabled
+	CreateInputMemoryModeSystemMetricsDisabled CreateInputMemoryModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputMemoryModeSystemMetrics) ToPointer() *CreateInputMemoryModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputMemoryModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputMemorySystemMetrics struct {
 	// Select the level of detail for memory metrics
 	Mode *CreateInputMemoryModeSystemMetrics `json:"mode,omitzero"`

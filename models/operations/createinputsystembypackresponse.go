@@ -10,6 +10,85 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputSystemByPackCPUSystemMetrics struct {
+	// Select the level of detail for CPU metrics
+	Mode *CreateInputSystemByPackCPUModeSystemMetrics `json:"mode,omitzero"`
+	// Generate metrics for each CPU
+	PerCPU *bool `json:"perCpu,omitzero"`
+	// Generate metrics for all CPU states
+	Detail *bool `json:"detail,omitzero"`
+	// Generate raw, monotonic CPU time counters
+	Time *bool `json:"time,omitzero"`
+}
+
+func (c CreateInputSystemByPackCPUSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) GetMode() *CreateInputSystemByPackCPUModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) GetPerCPU() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerCPU
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) GetTime() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Time
+}
+
+// CreateInputSystemByPackMemoryModeSystemMetrics - Select the level of detail for memory metrics
+type CreateInputSystemByPackMemoryModeSystemMetrics string
+
+const (
+	// CreateInputSystemByPackMemoryModeSystemMetricsBasic Basic
+	CreateInputSystemByPackMemoryModeSystemMetricsBasic CreateInputSystemByPackMemoryModeSystemMetrics = "basic"
+	// CreateInputSystemByPackMemoryModeSystemMetricsAll All
+	CreateInputSystemByPackMemoryModeSystemMetricsAll CreateInputSystemByPackMemoryModeSystemMetrics = "all"
+	// CreateInputSystemByPackMemoryModeSystemMetricsCustom Custom
+	CreateInputSystemByPackMemoryModeSystemMetricsCustom CreateInputSystemByPackMemoryModeSystemMetrics = "custom"
+	// CreateInputSystemByPackMemoryModeSystemMetricsDisabled Disabled
+	CreateInputSystemByPackMemoryModeSystemMetricsDisabled CreateInputSystemByPackMemoryModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputSystemByPackMemoryModeSystemMetrics) ToPointer() *CreateInputSystemByPackMemoryModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackMemoryModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputSystemByPackMemorySystemMetrics struct {
 	// Select the level of detail for memory metrics
 	Mode *CreateInputSystemByPackMemoryModeSystemMetrics `json:"mode,omitzero"`
