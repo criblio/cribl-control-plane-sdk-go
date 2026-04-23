@@ -204,6 +204,16 @@ type OutputChronicle struct {
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'namespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'namespace' at runtime.
+	TemplateNamespace *string `json:"__template_namespace,omitzero"`
+	// Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
+	TemplateLogType *string `json:"__template_logType,omitzero"`
+	// Binds 'logTextField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logTextField' at runtime.
+	TemplateLogTextField *string `json:"__template_logTextField,omitzero"`
+	// Binds 'gcpProjectId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'gcpProjectId' at runtime.
+	TemplateGcpProjectID *string `json:"__template_gcpProjectId,omitzero"`
+	// Binds 'gcpInstance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'gcpInstance' at runtime.
+	TemplateGcpInstance *string `json:"__template_gcpInstance,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
@@ -574,6 +584,41 @@ func (o *OutputChronicle) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return o.TemplateOnBackpressure
+}
+
+func (o *OutputChronicle) GetTemplateNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateNamespace
+}
+
+func (o *OutputChronicle) GetTemplateLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogType
+}
+
+func (o *OutputChronicle) GetTemplateLogTextField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogTextField
+}
+
+func (o *OutputChronicle) GetTemplateGcpProjectID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateGcpProjectID
+}
+
+func (o *OutputChronicle) GetTemplateGcpInstance() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateGcpInstance
 }
 
 func (o *OutputChronicle) GetTemplateEndpoint() *string {

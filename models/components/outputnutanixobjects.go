@@ -31,31 +31,6 @@ func (e *OutputNutanixObjectsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputNutanixObjectsAuthenticationMethod - AWS authentication method.
-type OutputNutanixObjectsAuthenticationMethod string
-
-const (
-	// OutputNutanixObjectsAuthenticationMethodManual Manual
-	OutputNutanixObjectsAuthenticationMethodManual OutputNutanixObjectsAuthenticationMethod = "manual"
-	// OutputNutanixObjectsAuthenticationMethodSecret Secret Key pair
-	OutputNutanixObjectsAuthenticationMethodSecret OutputNutanixObjectsAuthenticationMethod = "secret"
-)
-
-func (e OutputNutanixObjectsAuthenticationMethod) ToPointer() *OutputNutanixObjectsAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputNutanixObjectsAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputNutanixObjectsSignatureVersion - Signature version to use for signing Nutanix Objects requests
 type OutputNutanixObjectsSignatureVersion string
 
@@ -92,7 +67,7 @@ type OutputNutanixObjects struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// AWS authentication method.
-	AwsAuthenticationMethod *OutputNutanixObjectsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsa18be1 `json:"awsAuthenticationMethod,omitzero"`
 	// Signature version to use for signing Nutanix Objects requests
 	SignatureVersion *OutputNutanixObjectsSignatureVersion `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
@@ -214,6 +189,8 @@ type OutputNutanixObjects struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (o OutputNutanixObjects) MarshalJSON() ([]byte, error) {
@@ -269,7 +246,7 @@ func (o *OutputNutanixObjects) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputNutanixObjects) GetAwsAuthenticationMethod() *OutputNutanixObjectsAuthenticationMethod {
+func (o *OutputNutanixObjects) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsa18be1 {
 	if o == nil {
 		return nil
 	}
@@ -708,4 +685,11 @@ func (o *OutputNutanixObjects) GetTemplateCompress() *string {
 		return nil
 	}
 	return o.TemplateCompress
+}
+
+func (o *OutputNutanixObjects) GetTemplateParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateParquetSchema
 }

@@ -182,9 +182,9 @@ type OutputElastic struct {
 	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                              `json:"responseHonorRetryAfterHeader,omitzero"`
-	ExtraParams                   []ItemsTypeSaslSaslExtensions      `json:"extraParams,omitzero"`
-	Auth                          *AuthTypeAuthTypeCredentialsSecret `json:"auth,omitzero"`
+	ResponseHonorRetryAfterHeader *bool                                 `json:"responseHonorRetryAfterHeader,omitzero"`
+	ExtraParams                   []ItemsTypeSaslSaslExtensions         `json:"extraParams,omitzero"`
+	Auth                          *AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
 	ElasticVersion *ElasticVersion `json:"elasticVersion,omitzero"`
 	// Optional Elasticsearch destination pipeline
@@ -232,8 +232,14 @@ type OutputElastic struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                  `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputElasticPqControls `json:"pqControls,omitzero"`
+	// Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
+	TemplateIndex *string `json:"__template_index,omitzero"`
+	// Binds 'docType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'docType' at runtime.
+	TemplateDocType *string `json:"__template_docType,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'elasticPipeline' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticPipeline' at runtime.
+	TemplateElasticPipeline *string `json:"__template_elasticPipeline,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -412,7 +418,7 @@ func (o *OutputElastic) GetExtraParams() []ItemsTypeSaslSaslExtensions {
 	return o.ExtraParams
 }
 
-func (o *OutputElastic) GetAuth() *AuthTypeAuthTypeCredentialsSecret {
+func (o *OutputElastic) GetAuth() *AuthTypeTemplatemanualAPIKeyAuthType {
 	if o == nil {
 		return nil
 	}
@@ -594,11 +600,32 @@ func (o *OutputElastic) GetPqControls() *OutputElasticPqControls {
 	return o.PqControls
 }
 
+func (o *OutputElastic) GetTemplateIndex() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateIndex
+}
+
+func (o *OutputElastic) GetTemplateDocType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateDocType
+}
+
 func (o *OutputElastic) GetTemplateFailedRequestLoggingMode() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputElastic) GetTemplateElasticPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateElasticPipeline
 }
 
 func (o *OutputElastic) GetTemplateOnBackpressure() *string {

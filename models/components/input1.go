@@ -77,6 +77,7 @@ const (
 	Input1TypeZscalerHec           Input1Type = "zscaler_hec"
 	Input1TypeCloudflareHec        Input1Type = "cloudflare_hec"
 	Input1TypeOpenaiComplianceLogs Input1Type = "openai_compliance_logs"
+	Input1TypeOkta                 Input1Type = "okta"
 	Input1TypeUnknown              Input1Type = "UNKNOWN"
 )
 
@@ -146,6 +147,7 @@ type Input1 struct {
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
 	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
 	InputOpenaiComplianceLogs *InputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
+	InputOkta                 *InputOkta                 `queryParam:"inline" union:"member"`
 	UnknownRaw                json.RawMessage            `json:"-" union:"unknown"`
 
 	Type Input1Type
@@ -925,6 +927,18 @@ func CreateInput1OpenaiComplianceLogs(openaiComplianceLogs InputOpenaiCompliance
 	}
 }
 
+func CreateInput1Okta(okta InputOkta) Input1 {
+	typ := Input1TypeOkta
+
+	typStr := InputOktaType(typ)
+	okta.Type = typStr
+
+	return Input1{
+		InputOkta: &okta,
+		Type:      typ,
+	}
+}
+
 func CreateInput1Unknown(raw json.RawMessage) Input1 {
 	return Input1{
 		UnknownRaw: raw,
@@ -1544,6 +1558,15 @@ func (u *Input1) UnmarshalJSON(data []byte) error {
 		u.InputOpenaiComplianceLogs = inputOpenaiComplianceLogs
 		u.Type = Input1TypeOpenaiComplianceLogs
 		return nil
+	case "okta":
+		inputOkta := new(InputOkta)
+		if err := utils.UnmarshalJSON(data, &inputOkta, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == okta) type InputOkta within Input1: %w", string(data), err)
+		}
+
+		u.InputOkta = inputOkta
+		u.Type = Input1TypeOkta
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = Input1TypeUnknown
@@ -1811,6 +1834,10 @@ func (u Input1) MarshalJSON() ([]byte, error) {
 
 	if u.InputOpenaiComplianceLogs != nil {
 		return utils.MarshalJSON(u.InputOpenaiComplianceLogs, "", true)
+	}
+
+	if u.InputOkta != nil {
+		return utils.MarshalJSON(u.InputOkta, "", true)
 	}
 
 	if u.UnknownRaw != nil {

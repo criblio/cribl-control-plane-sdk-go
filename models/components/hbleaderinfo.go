@@ -2,7 +2,7 @@
 
 package components
 
-// HBLeaderInfo - Connection parameters for the Leader node, as reported in a Worker heartbeat.
+// HBLeaderInfo - Connection parameters for the Leader Node, as reported in a Worker heartbeat.
 type HBLeaderInfo struct {
 	// Leader hostname or IP address.
 	Host string `json:"host"`

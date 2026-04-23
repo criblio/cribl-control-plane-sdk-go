@@ -196,8 +196,14 @@ type OutputSecurityLake struct {
 	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
 	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
+	// Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
+	TemplateAccountID *string `json:"__template_accountId,omitzero"`
+	// Binds 'customSource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customSource' at runtime.
+	TemplateCustomSource *string `json:"__template_customSource,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (o OutputSecurityLake) MarshalJSON() ([]byte, error) {
@@ -722,9 +728,30 @@ func (o *OutputSecurityLake) GetTemplateKmsKeyID() *string {
 	return o.TemplateKmsKeyID
 }
 
+func (o *OutputSecurityLake) GetTemplateAccountID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAccountID
+}
+
+func (o *OutputSecurityLake) GetTemplateCustomSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCustomSource
+}
+
 func (o *OutputSecurityLake) GetTemplateAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateAwsAPIKey
+}
+
+func (o *OutputSecurityLake) GetTemplateParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateParquetSchema
 }

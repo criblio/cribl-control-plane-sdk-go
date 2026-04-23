@@ -298,6 +298,8 @@ type InputCloudflareHec struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
 }
 
 func (i InputCloudflareHec) MarshalJSON() ([]byte, error) {
@@ -561,4 +563,11 @@ func (i *InputCloudflareHec) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputCloudflareHec) GetTemplateHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHecAPI
 }

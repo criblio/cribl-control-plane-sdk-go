@@ -520,11 +520,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-		Duration:  5.0,
-		Filter:    "sourcetype===\"pan:traffic\"",
-		Level:     components.CaptureLevelBeforePreProcessingPipeline,
-		MaxEvents: 100,
+	res, err := s.System.Captures.Create(ctx, components.CaptureParamsReq{
+		Duration:  criblcontrolplanesdkgo.Pointer[int64](5),
+		Filter:    criblcontrolplanesdkgo.Pointer("sourcetype===\"pan:traffic\""),
+		Level:     components.CaptureLevelBeforePreProcessingPipeline.ToPointer(),
+		MaxEvents: criblcontrolplanesdkgo.Pointer[int64](100),
 	})
 	if err != nil {
 		log.Fatal(err)

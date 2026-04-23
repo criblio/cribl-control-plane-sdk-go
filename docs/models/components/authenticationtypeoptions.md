@@ -1,7 +1,5 @@
 # AuthenticationTypeOptions
 
-OpenTelemetry authentication type
-
 ## Example Usage
 
 ```go
@@ -18,10 +16,9 @@ custom := components.AuthenticationTypeOptions("custom_value")
 
 ## Values
 
-| Name                                         | Value                                        |
-| -------------------------------------------- | -------------------------------------------- |
-| `AuthenticationTypeOptionsNone`              | none                                         |
-| `AuthenticationTypeOptionsBasic`             | basic                                        |
-| `AuthenticationTypeOptionsCredentialsSecret` | credentialsSecret                            |
-| `AuthenticationTypeOptionsToken`             | token                                        |
-| `AuthenticationTypeOptionsTextSecret`        | textSecret                                   |
+| Name                                          | Value                                         |
+| --------------------------------------------- | --------------------------------------------- |
+| `AuthenticationTypeOptionsNone`               | none                                          |
+| `AuthenticationTypeOptionsBasic`              | basic                                         |
+| `AuthenticationTypeOptionsCredentialsSecret`  | credentialsSecret                             |
+| `AuthenticationTypeOptionsSslUserCertificate` | sslUserCertificate                            |
