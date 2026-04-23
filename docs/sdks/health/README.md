@@ -20,6 +20,8 @@ package main
 
 import(
 	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"log"
 )
@@ -29,6 +31,9 @@ func main() {
 
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
     )
 
     res, err := s.Health.Get(ctx)

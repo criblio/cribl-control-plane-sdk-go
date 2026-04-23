@@ -10,6 +10,485 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateOutputSystemByPackOutputCloudwatch struct {
+	// Unique ID for this output
+	ID   string                                 `json:"id"`
+	Type CreateOutputSystemByPackTypeCloudwatch `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// CloudWatch log group to associate events with
+	LogGroupName string `json:"logGroupName"`
+	// Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+	LogStreamName string `json:"logStreamName"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	AwsSecretKey            *string                                                `json:"awsSecretKey,omitzero"`
+	// Region where the CloudWatchLogs is located
+	Region string `json:"region"`
+	// CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Use Assume Role credentials to access CloudWatchLogs
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// Maximum number of queued batches before blocking
+	MaxQueueSize *float64 `json:"maxQueueSize,omitzero"`
+	// Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                                 `json:"description,omitzero"`
+	AwsAPIKey      *string                                 `json:"awsApiKey,omitzero"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `json:"pqPath,omitzero"`
+	// Codec to use to compress the persisted data
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                       `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsCloudwatch `json:"pqControls,omitzero"`
+	// Binds 'logGroupName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logGroupName' at runtime.
+	TemplateLogGroupName *string `json:"__template_logGroupName,omitzero"`
+	// Binds 'logStreamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logStreamName' at runtime.
+	TemplateLogStreamName *string `json:"__template_logStreamName,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+}
+
+func (c CreateOutputSystemByPackOutputCloudwatch) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetType() CreateOutputSystemByPackTypeCloudwatch {
+	if c == nil {
+		return CreateOutputSystemByPackTypeCloudwatch("")
+	}
+	return c.Type
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetSystemFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SystemFields
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetLogGroupName() string {
+	if c == nil {
+		return ""
+	}
+	return c.LogGroupName
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetLogStreamName() string {
+	if c == nil {
+		return ""
+	}
+	return c.LogStreamName
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAuthenticationMethod
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetRegion() string {
+	if c == nil {
+		return ""
+	}
+	return c.Region
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Endpoint
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetReuseConnections() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ReuseConnections
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetEnableAssumeRole() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableAssumeRole
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetAssumeRoleArn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AssumeRoleArn
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetAssumeRoleExternalID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AssumeRoleExternalID
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetDurationSeconds() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DurationSeconds
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetMaxQueueSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxQueueSize
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetMaxRecordSizeKB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxRecordSizeKB
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetFlushPeriodSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.FlushPeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAPIKey
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetAwsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecret
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqStrictOrdering() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqStrictOrdering
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqRatePerSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqRatePerSec
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqMode() *components.ModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqMode
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqMaxBufferSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSize
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqMaxBackpressureSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBackpressureSec
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqMaxFileSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxFileSize
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqMaxSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxSize
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqPath
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqCompress() *components.CompressionOptionsPq {
+	if c == nil {
+		return nil
+	}
+	return c.PqCompress
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqControls() *CreateOutputSystemByPackPqControlsCloudwatch {
+	if c == nil {
+		return nil
+	}
+	return c.PqControls
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateLogGroupName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLogGroupName
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateLogStreamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLogStreamName
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateAssumeRoleArn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAssumeRoleArn
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateAssumeRoleExternalID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAssumeRoleExternalID
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsAPIKey
+}
+
+type CreateOutputSystemByPackTypeInfluxdb string
+
+const (
+	CreateOutputSystemByPackTypeInfluxdbInfluxdb CreateOutputSystemByPackTypeInfluxdb = "influxdb"
+)
+
+func (e CreateOutputSystemByPackTypeInfluxdb) ToPointer() *CreateOutputSystemByPackTypeInfluxdb {
+	return &e
+}
+func (e *CreateOutputSystemByPackTypeInfluxdb) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = CreateOutputSystemByPackTypeInfluxdb(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeInfluxdb: %v", v)
+	}
+}
+
+// CreateOutputSystemByPackTimestampPrecision - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type CreateOutputSystemByPackTimestampPrecision string
+
+const (
+	// CreateOutputSystemByPackTimestampPrecisionNs Nanoseconds
+	CreateOutputSystemByPackTimestampPrecisionNs CreateOutputSystemByPackTimestampPrecision = "ns"
+	// CreateOutputSystemByPackTimestampPrecisionU Microseconds
+	CreateOutputSystemByPackTimestampPrecisionU CreateOutputSystemByPackTimestampPrecision = "u"
+	// CreateOutputSystemByPackTimestampPrecisionMs Milliseconds
+	CreateOutputSystemByPackTimestampPrecisionMs CreateOutputSystemByPackTimestampPrecision = "ms"
+	// CreateOutputSystemByPackTimestampPrecisionS Seconds
+	CreateOutputSystemByPackTimestampPrecisionS CreateOutputSystemByPackTimestampPrecision = "s"
+	// CreateOutputSystemByPackTimestampPrecisionM Minutes
+	CreateOutputSystemByPackTimestampPrecisionM CreateOutputSystemByPackTimestampPrecision = "m"
+	// CreateOutputSystemByPackTimestampPrecisionH Hours
+	CreateOutputSystemByPackTimestampPrecisionH CreateOutputSystemByPackTimestampPrecision = "h"
+)
+
+func (e CreateOutputSystemByPackTimestampPrecision) ToPointer() *CreateOutputSystemByPackTimestampPrecision {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateOutputSystemByPackTimestampPrecision) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ns", "u", "ms", "s", "m", "h":
+			return true
+		}
+	}
+	return false
+}
+
 // CreateOutputSystemByPackAuthenticationTypeInfluxdb - InfluxDB authentication type
 type CreateOutputSystemByPackAuthenticationTypeInfluxdb string
 
@@ -1624,8 +2103,8 @@ type CreateOutputSystemByPackOutputElasticCloud struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Extra parameters to use in HTTP requests
-	ExtraParams []components.ItemsTypeSaslSaslExtensions      `json:"extraParams,omitzero"`
-	Auth        *components.AuthTypeAuthTypeCredentialsSecret `json:"auth,omitzero"`
+	ExtraParams []components.ItemsTypeSaslSaslExtensions         `json:"extraParams,omitzero"`
+	Auth        *components.AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elastic Cloud Destination pipeline
 	ElasticPipeline *string `json:"elasticPipeline,omitzero"`
 	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
@@ -1661,8 +2140,14 @@ type CreateOutputSystemByPackOutputElasticCloud struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsElasticCloud `json:"pqControls,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
+	TemplateIndex *string `json:"__template_index,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'elasticPipeline' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticPipeline' at runtime.
+	TemplateElasticPipeline *string `json:"__template_elasticPipeline,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
@@ -1811,7 +2296,7 @@ func (c *CreateOutputSystemByPackOutputElasticCloud) GetExtraParams() []componen
 	return c.ExtraParams
 }
 
-func (c *CreateOutputSystemByPackOutputElasticCloud) GetAuth() *components.AuthTypeAuthTypeCredentialsSecret {
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetAuth() *components.AuthTypeTemplatemanualAPIKeyAuthType {
 	if c == nil {
 		return nil
 	}
@@ -1951,11 +2436,32 @@ func (c *CreateOutputSystemByPackOutputElasticCloud) GetPqControls() *CreateOutp
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateURL
+}
+
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateIndex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateIndex
+}
+
 func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateElasticPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateElasticPipeline
 }
 
 func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateOnBackpressure() *string {
@@ -2139,9 +2645,9 @@ type CreateOutputSystemByPackOutputElastic struct {
 	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                                         `json:"responseHonorRetryAfterHeader,omitzero"`
-	ExtraParams                   []components.ItemsTypeSaslSaslExtensions      `json:"extraParams,omitzero"`
-	Auth                          *components.AuthTypeAuthTypeCredentialsSecret `json:"auth,omitzero"`
+	ResponseHonorRetryAfterHeader *bool                                            `json:"responseHonorRetryAfterHeader,omitzero"`
+	ExtraParams                   []components.ItemsTypeSaslSaslExtensions         `json:"extraParams,omitzero"`
+	Auth                          *components.AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
 	ElasticVersion *CreateOutputSystemByPackElasticVersion `json:"elasticVersion,omitzero"`
 	// Optional Elasticsearch destination pipeline
@@ -2189,8 +2695,14 @@ type CreateOutputSystemByPackOutputElastic struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsElastic `json:"pqControls,omitzero"`
+	// Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
+	TemplateIndex *string `json:"__template_index,omitzero"`
+	// Binds 'docType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'docType' at runtime.
+	TemplateDocType *string `json:"__template_docType,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'elasticPipeline' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticPipeline' at runtime.
+	TemplateElasticPipeline *string `json:"__template_elasticPipeline,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -2369,7 +2881,7 @@ func (c *CreateOutputSystemByPackOutputElastic) GetExtraParams() []components.It
 	return c.ExtraParams
 }
 
-func (c *CreateOutputSystemByPackOutputElastic) GetAuth() *components.AuthTypeAuthTypeCredentialsSecret {
+func (c *CreateOutputSystemByPackOutputElastic) GetAuth() *components.AuthTypeTemplatemanualAPIKeyAuthType {
 	if c == nil {
 		return nil
 	}
@@ -2551,11 +3063,32 @@ func (c *CreateOutputSystemByPackOutputElastic) GetPqControls() *CreateOutputSys
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputElastic) GetTemplateIndex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateIndex
+}
+
+func (c *CreateOutputSystemByPackOutputElastic) GetTemplateDocType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDocType
+}
+
 func (c *CreateOutputSystemByPackOutputElastic) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
+}
+
+func (c *CreateOutputSystemByPackOutputElastic) GetTemplateElasticPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateElasticPipeline
 }
 
 func (c *CreateOutputSystemByPackOutputElastic) GetTemplateOnBackpressure() *string {
@@ -2636,8 +3169,8 @@ type CreateOutputSystemByPackOutputMsk struct {
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                                               `json:"flushPeriodSec,omitzero"`
-	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout `json:"kafkaSchemaRegistry,omitzero"`
+	FlushPeriodSec      *float64                                                                       `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -2840,7 +3373,7 @@ func (c *CreateOutputSystemByPackOutputMsk) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputMsk) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout {
+func (c *CreateOutputSystemByPackOutputMsk) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth {
 	if c == nil {
 		return nil
 	}
@@ -3248,8 +3781,8 @@ type CreateOutputSystemByPackOutputConfluentCloud struct {
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                                               `json:"flushPeriodSec,omitzero"`
-	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout `json:"kafkaSchemaRegistry,omitzero"`
+	FlushPeriodSec      *float64                                                                       `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -3424,7 +3957,7 @@ func (c *CreateOutputSystemByPackOutputConfluentCloud) GetFlushPeriodSec() *floa
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputConfluentCloud) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout {
+func (c *CreateOutputSystemByPackOutputConfluentCloud) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth {
 	if c == nil {
 		return nil
 	}
@@ -3698,8 +4231,8 @@ type CreateOutputSystemByPackOutputKafka struct {
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                                               `json:"flushPeriodSec,omitzero"`
-	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout `json:"kafkaSchemaRegistry,omitzero"`
+	FlushPeriodSec      *float64                                                                       `json:"flushPeriodSec,omitzero"`
+	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -3868,7 +4401,7 @@ func (c *CreateOutputSystemByPackOutputKafka) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputKafka) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout {
+func (c *CreateOutputSystemByPackOutputKafka) GetKafkaSchemaRegistry() *components.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth {
 	if c == nil {
 		return nil
 	}
@@ -4183,6 +4716,12 @@ type CreateOutputSystemByPackOutputExabeam struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
@@ -4469,6 +5008,27 @@ func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateRegion() *string {
 		return nil
 	}
 	return c.TemplateRegion
+}
+
+func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
+func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateObjectACL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateObjectACL
+}
+
+func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateStorageClass() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageClass
 }
 
 func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateOnBackpressure() *string {
@@ -5076,8 +5636,30 @@ type CreateOutputSystemByPackOutputGoogleCloudLogging struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                               `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsGoogleCloudLogging `json:"pqControls,omitzero"`
+	// Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
+	TemplateLogLocationType *string `json:"__template_logLocationType,omitzero"`
+	// Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
+	TemplateLogNameExpression *string `json:"__template_logNameExpression,omitzero"`
+	// Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+	TemplatePayloadFormat *string `json:"__template_payloadFormat,omitzero"`
+	// Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
+	TemplateResourceTypeExpression *string `json:"__template_resourceTypeExpression,omitzero"`
+	// Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
+	TemplateSeverityExpression *string `json:"__template_severityExpression,omitzero"`
+	// Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
+	TemplateInsertIDExpression *string `json:"__template_insertIdExpression,omitzero"`
+	// Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
+	TemplateTraceExpression *string `json:"__template_traceExpression,omitzero"`
+	// Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
+	TemplateSpanIDExpression *string `json:"__template_spanIdExpression,omitzero"`
+	// Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
+	TemplateTraceSampledExpression *string `json:"__template_traceSampledExpression,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
+	TemplateLogLocationExpression *string `json:"__template_logLocationExpression,omitzero"`
+	// Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
+	TemplatePayloadExpression *string `json:"__template_payloadExpression,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
@@ -5581,11 +6163,88 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetPqControls() *Crea
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateLogLocationType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLogLocationType
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateLogNameExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLogNameExpression
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplatePayloadFormat() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePayloadFormat
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateResourceTypeExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateResourceTypeExpression
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateSeverityExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSeverityExpression
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateInsertIDExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateInsertIDExpression
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateTraceExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTraceExpression
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateSpanIDExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateSpanIDExpression
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateTraceSampledExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTraceSampledExpression
+}
+
 func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateLogLocationExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateLogLocationExpression
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplatePayloadExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePayloadExpression
 }
 
 type CreateOutputSystemByPackTypeGoogleCloudStorage string
@@ -5751,8 +6410,14 @@ type CreateOutputSystemByPackOutputGoogleCloudStorage struct {
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
 	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
 	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
 	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -5765,6 +6430,12 @@ type CreateOutputSystemByPackOutputGoogleCloudStorage struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
+	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputGoogleCloudStorage) MarshalJSON() ([]byte, error) {
@@ -6191,11 +6862,32 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateRegion() *
 	return c.TemplateRegion
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
 func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateObjectACL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateObjectACL
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateStorageClass() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageClass
 }
 
 func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplatePartitionExpr() *string {
@@ -6238,6 +6930,27 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateCompress()
 		return nil
 	}
 	return c.TemplateCompress
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsAPIKey
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
 }
 
 type CreateOutputSystemByPackTypeGoogleChronicle string
@@ -7020,6 +7733,8 @@ type CreateOutputSystemByPackOutputAzureEventhub struct {
 	PqControls           *CreateOutputSystemByPackPqControlsAzureEventhub `json:"pqControls,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
@@ -7299,6 +8014,13 @@ func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateTopic() *string
 		return nil
 	}
 	return c.TemplateTopic
+}
+
+func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateFormat() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFormat
 }
 
 func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateOnBackpressure() *string {
@@ -9163,6 +9885,8 @@ type CreateOutputSystemByPackOutputAzureDataExplorer struct {
 	TemplateFormat *string `json:"__template_format,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 	// Binds 'mappingRef' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mappingRef' at runtime.
 	TemplateMappingRef *string `json:"__template_mappingRef,omitzero"`
 	// Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
@@ -9856,6 +10580,13 @@ func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateCompress() 
 	return c.TemplateCompress
 }
 
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
 func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateMappingRef() *string {
 	if c == nil {
 		return nil
@@ -10063,6 +10794,8 @@ type CreateOutputSystemByPackOutputAzureBlob struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
 	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
 	// Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
@@ -10548,6 +11281,13 @@ func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateCompress() *string 
 	return c.TemplateCompress
 }
 
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
 func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateConnectionString() *string {
 	if c == nil {
 		return nil
@@ -10769,6 +11509,8 @@ type CreateOutputSystemByPackOutputS3 struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputS3) MarshalJSON() ([]byte, error) {
@@ -11363,6 +12105,13 @@ func (c *CreateOutputSystemByPackOutputS3) GetTemplateCompress() *string {
 	return c.TemplateCompress
 }
 
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
 // #region class-body-createoutputsystembypackoutputs3
 // #endregion class-body-createoutputsystembypackoutputs3
 
@@ -11486,6 +12235,8 @@ type CreateOutputSystemByPackOutputFilesystem struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputFilesystem) MarshalJSON() ([]byte, error) {
@@ -11847,6 +12598,13 @@ func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplateCompress() *string
 		return nil
 	}
 	return c.TemplateCompress
+}
+
+func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
 }
 
 type CreateOutputSystemByPackTypeSignalfx string
@@ -18404,6 +19162,7 @@ const (
 	CreateOutputSystemByPackRequestBodyTypeMicrosoftFabric        CreateOutputSystemByPackRequestBodyType = "microsoft_fabric"
 	CreateOutputSystemByPackRequestBodyTypeCloudflareR2           CreateOutputSystemByPackRequestBodyType = "cloudflare_r2"
 	CreateOutputSystemByPackRequestBodyTypeNutanixObjects         CreateOutputSystemByPackRequestBodyType = "nutanix_objects"
+	CreateOutputSystemByPackRequestBodyTypeAlphasocS3             CreateOutputSystemByPackRequestBodyType = "alphasoc_s3"
 )
 
 // CreateOutputSystemByPackRequestBody - Output object
@@ -18480,6 +19239,7 @@ type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputMicrosoftFabric        *CreateOutputSystemByPackOutputMicrosoftFabric        `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputCloudflareR2           *CreateOutputSystemByPackOutputCloudflareR2           `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputNutanixObjects         *CreateOutputSystemByPackOutputNutanixObjects         `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputAlphasocS3             *CreateOutputSystemByPackOutputAlphasocS3             `queryParam:"inline" union:"member"`
 
 	Type CreateOutputSystemByPackRequestBodyType
 }
@@ -19342,6 +20102,18 @@ func CreateCreateOutputSystemByPackRequestBodyNutanixObjects(nutanixObjects Crea
 	}
 }
 
+func CreateCreateOutputSystemByPackRequestBodyAlphasocS3(alphasocS3 CreateOutputSystemByPackOutputAlphasocS3) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeAlphasocS3
+
+	typStr := CreateOutputSystemByPackTypeAlphasocS3(typ)
+	alphasocS3.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputAlphasocS3: &alphasocS3,
+		Type:                                     typ,
+	}
+}
+
 func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -20002,6 +20774,15 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateOutputSystemByPackOutputNutanixObjects = createOutputSystemByPackOutputNutanixObjects
 		u.Type = CreateOutputSystemByPackRequestBodyTypeNutanixObjects
 		return nil
+	case "alphasoc_s3":
+		createOutputSystemByPackOutputAlphasocS3 := new(CreateOutputSystemByPackOutputAlphasocS3)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputAlphasocS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == alphasoc_s3) type CreateOutputSystemByPackOutputAlphasocS3 within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputAlphasocS3 = createOutputSystemByPackOutputAlphasocS3
+		u.Type = CreateOutputSystemByPackRequestBodyTypeAlphasocS3
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackRequestBody", string(data))
@@ -20294,6 +21075,10 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 
 	if u.CreateOutputSystemByPackOutputNutanixObjects != nil {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputNutanixObjects, "", true)
+	}
+
+	if u.CreateOutputSystemByPackOutputAlphasocS3 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputAlphasocS3, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateOutputSystemByPackRequestBody: all fields are null")
@@ -20606,6 +21391,10 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyCloudflareR2() *CreateOu
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyNutanixObjects() *CreateOutputSystemByPackOutputNutanixObjects {
 	return c.GetRequestBody().CreateOutputSystemByPackOutputNutanixObjects
+}
+
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyAlphasocS3() *CreateOutputSystemByPackOutputAlphasocS3 {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputAlphasocS3
 }
 
 type CreateOutputSystemByPackResponse struct {

@@ -1690,6 +1690,52 @@ func main() {
     }
 }
 ```
+### Example Usage: InputCreateExamplesOkta
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesOkta" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestOkta(
+        operations.CreateInputInputOkta{
+            ID: "okta-source",
+            Type: operations.CreateInputTypeOktaOkta,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            OktaDomain: "your-org",
+            TextSecret: "okta-api-token-secret",
+            CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+            Earliest: criblcontrolplanesdkgo.Pointer("-7d@d"),
+            Latest: criblcontrolplanesdkgo.Pointer("now"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesOpenAI
 
 <!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesOpenAI" -->
@@ -4519,6 +4565,51 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TenantID: "tenant-id",
             AppID: "app-id",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesOkta
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesOkta" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Okta(
+        components.InputOkta{
+            ID: criblcontrolplanesdkgo.Pointer("okta-source"),
+            Type: components.InputOktaTypeOkta,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            OktaDomain: "your-org",
+            TextSecret: "okta-api-token-secret",
+            CronSchedule: criblcontrolplanesdkgo.Pointer("*/5 * * * *"),
+            Earliest: criblcontrolplanesdkgo.Pointer("-7d@d"),
+            Latest: criblcontrolplanesdkgo.Pointer("now"),
         },
     ))
     if err != nil {

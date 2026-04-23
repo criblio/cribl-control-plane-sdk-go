@@ -234,8 +234,30 @@ type OutputGoogleCloudLogging struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitzero"`
+	// Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
+	TemplateLogLocationType *string `json:"__template_logLocationType,omitzero"`
+	// Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
+	TemplateLogNameExpression *string `json:"__template_logNameExpression,omitzero"`
+	// Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+	TemplatePayloadFormat *string `json:"__template_payloadFormat,omitzero"`
+	// Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
+	TemplateResourceTypeExpression *string `json:"__template_resourceTypeExpression,omitzero"`
+	// Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
+	TemplateSeverityExpression *string `json:"__template_severityExpression,omitzero"`
+	// Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
+	TemplateInsertIDExpression *string `json:"__template_insertIdExpression,omitzero"`
+	// Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
+	TemplateTraceExpression *string `json:"__template_traceExpression,omitzero"`
+	// Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
+	TemplateSpanIDExpression *string `json:"__template_spanIdExpression,omitzero"`
+	// Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
+	TemplateTraceSampledExpression *string `json:"__template_traceSampledExpression,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
+	TemplateLogLocationExpression *string `json:"__template_logLocationExpression,omitzero"`
+	// Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
+	TemplatePayloadExpression *string `json:"__template_payloadExpression,omitzero"`
 }
 
 func (o OutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
@@ -739,9 +761,86 @@ func (o *OutputGoogleCloudLogging) GetPqControls() *OutputGoogleCloudLoggingPqCo
 	return o.PqControls
 }
 
+func (o *OutputGoogleCloudLogging) GetTemplateLogLocationType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogLocationType
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateLogNameExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogNameExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplatePayloadFormat() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePayloadFormat
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateSeverityExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateInsertIDExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTraceExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateSpanIDExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTraceSampledExpression
+}
+
 func (o *OutputGoogleCloudLogging) GetTemplateOnBackpressure() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateOnBackpressure
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateLogLocationExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogLocationExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplatePayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePayloadExpression
 }

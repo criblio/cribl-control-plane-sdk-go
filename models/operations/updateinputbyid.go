@@ -288,6 +288,10 @@ func (u *UpdateInputByIDRequest) GetInputOpenaiComplianceLogs() *components.Inpu
 	return u.GetInput().InputOpenaiComplianceLogs
 }
 
+func (u *UpdateInputByIDRequest) GetInputOkta() *components.InputOkta {
+	return u.GetInput().InputOkta
+}
+
 type UpdateInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Source object

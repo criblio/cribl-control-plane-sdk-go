@@ -395,6 +395,12 @@ createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operation
 createInputRequest := operations.CreateCreateInputRequestOpenaiComplianceLogs(operations.CreateInputInputOpenaiComplianceLogs{/* values here */})
 ```
 
+### CreateInputInputOkta
+
+```go
+createInputRequest := operations.CreateCreateInputRequestOkta(operations.CreateInputInputOkta{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -531,5 +537,7 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputCloudflareHec is populated
 	case operations.CreateInputRequestTypeOpenaiComplianceLogs:
 		// createInputRequest.CreateInputInputOpenaiComplianceLogs is populated
+	case operations.CreateInputRequestTypeOkta:
+		// createInputRequest.CreateInputInputOkta is populated
 }
 ```

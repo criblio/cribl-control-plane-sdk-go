@@ -84,8 +84,8 @@ type OutputElasticCloud struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Extra parameters to use in HTTP requests
-	ExtraParams []ItemsTypeSaslSaslExtensions      `json:"extraParams,omitzero"`
-	Auth        *AuthTypeAuthTypeCredentialsSecret `json:"auth,omitzero"`
+	ExtraParams []ItemsTypeSaslSaslExtensions         `json:"extraParams,omitzero"`
+	Auth        *AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elastic Cloud Destination pipeline
 	ElasticPipeline *string `json:"elasticPipeline,omitzero"`
 	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
@@ -121,8 +121,14 @@ type OutputElasticCloud struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                       `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputElasticCloudPqControls `json:"pqControls,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
+	TemplateIndex *string `json:"__template_index,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'elasticPipeline' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticPipeline' at runtime.
+	TemplateElasticPipeline *string `json:"__template_elasticPipeline,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
@@ -271,7 +277,7 @@ func (o *OutputElasticCloud) GetExtraParams() []ItemsTypeSaslSaslExtensions {
 	return o.ExtraParams
 }
 
-func (o *OutputElasticCloud) GetAuth() *AuthTypeAuthTypeCredentialsSecret {
+func (o *OutputElasticCloud) GetAuth() *AuthTypeTemplatemanualAPIKeyAuthType {
 	if o == nil {
 		return nil
 	}
@@ -411,11 +417,32 @@ func (o *OutputElasticCloud) GetPqControls() *OutputElasticCloudPqControls {
 	return o.PqControls
 }
 
+func (o *OutputElasticCloud) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
+}
+
+func (o *OutputElasticCloud) GetTemplateIndex() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateIndex
+}
+
 func (o *OutputElasticCloud) GetTemplateFailedRequestLoggingMode() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputElasticCloud) GetTemplateElasticPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateElasticPipeline
 }
 
 func (o *OutputElasticCloud) GetTemplateOnBackpressure() *string {

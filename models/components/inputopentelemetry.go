@@ -81,6 +81,155 @@ func (e *InputOpenTelemetryOTLPVersion) IsExact() bool {
 	return false
 }
 
+// InputOpenTelemetryAuthenticationType - OpenTelemetry authentication type
+type InputOpenTelemetryAuthenticationType string
+
+const (
+	// InputOpenTelemetryAuthenticationTypeNone None
+	InputOpenTelemetryAuthenticationTypeNone InputOpenTelemetryAuthenticationType = "none"
+	// InputOpenTelemetryAuthenticationTypeBasic Basic
+	InputOpenTelemetryAuthenticationTypeBasic InputOpenTelemetryAuthenticationType = "basic"
+	// InputOpenTelemetryAuthenticationTypeCredentialsSecret Basic (credentials secret)
+	InputOpenTelemetryAuthenticationTypeCredentialsSecret InputOpenTelemetryAuthenticationType = "credentialsSecret"
+	// InputOpenTelemetryAuthenticationTypeToken Token
+	InputOpenTelemetryAuthenticationTypeToken InputOpenTelemetryAuthenticationType = "token"
+	// InputOpenTelemetryAuthenticationTypeTextSecret Token (text secret)
+	InputOpenTelemetryAuthenticationTypeTextSecret InputOpenTelemetryAuthenticationType = "textSecret"
+)
+
+func (e InputOpenTelemetryAuthenticationType) ToPointer() *InputOpenTelemetryAuthenticationType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOpenTelemetryAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret":
+			return true
+		}
+	}
+	return false
+}
+
+type AuthMethodsExtAuthenticationType string
+
+const (
+	// AuthMethodsExtAuthenticationTypeToken Token
+	AuthMethodsExtAuthenticationTypeToken AuthMethodsExtAuthenticationType = "token"
+	// AuthMethodsExtAuthenticationTypeTokenSecret Token (secret)
+	AuthMethodsExtAuthenticationTypeTokenSecret AuthMethodsExtAuthenticationType = "tokenSecret"
+	// AuthMethodsExtAuthenticationTypeBasic Basic
+	AuthMethodsExtAuthenticationTypeBasic AuthMethodsExtAuthenticationType = "basic"
+	// AuthMethodsExtAuthenticationTypeBasicSecret Basic (credentials secret)
+	AuthMethodsExtAuthenticationTypeBasicSecret AuthMethodsExtAuthenticationType = "basicSecret"
+)
+
+func (e AuthMethodsExtAuthenticationType) ToPointer() *AuthMethodsExtAuthenticationType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AuthMethodsExtAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "token", "tokenSecret", "basic", "basicSecret":
+			return true
+		}
+	}
+	return false
+}
+
+type AuthMethodsExt struct {
+	AuthType AuthMethodsExtAuthenticationType `json:"authType"`
+	// Bearer token for Authorization header
+	Token       *string `json:"token,omitzero"`
+	Description *string `json:"description,omitzero"`
+	// Fields to add to events referencing this auth method
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Enabled  *bool               `json:"enabled,omitzero"`
+	// Select or create a stored text secret
+	TokenSecret *string `json:"tokenSecret,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+}
+
+func (a AuthMethodsExt) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AuthMethodsExt) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AuthMethodsExt) GetAuthType() AuthMethodsExtAuthenticationType {
+	if a == nil {
+		return AuthMethodsExtAuthenticationType("")
+	}
+	return a.AuthType
+}
+
+func (a *AuthMethodsExt) GetToken() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Token
+}
+
+func (a *AuthMethodsExt) GetDescription() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Description
+}
+
+func (a *AuthMethodsExt) GetMetadata() []ItemsTypeMetadata {
+	if a == nil {
+		return nil
+	}
+	return a.Metadata
+}
+
+func (a *AuthMethodsExt) GetEnabled() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.Enabled
+}
+
+func (a *AuthMethodsExt) GetTokenSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TokenSecret
+}
+
+func (a *AuthMethodsExt) GetUsername() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Username
+}
+
+func (a *AuthMethodsExt) GetPassword() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Password
+}
+
+func (a *AuthMethodsExt) GetCredentialsSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.CredentialsSecret
+}
+
 type InputOpenTelemetry struct {
 	// Unique ID for this input
 	ID       *string                `json:"id,omitzero"`
@@ -129,7 +278,9 @@ type InputOpenTelemetry struct {
 	// The version of OTLP Protobuf definitions to use when interpreting received data
 	OtlpVersion *InputOpenTelemetryOTLPVersion `json:"otlpVersion,omitzero"`
 	// OpenTelemetry authentication type
-	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
+	AuthType *InputOpenTelemetryAuthenticationType `json:"authType,omitzero"`
+	// Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
+	AuthMethodsExt []AuthMethodsExt `json:"authMethodsExt,omitzero"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -151,6 +302,10 @@ type InputOpenTelemetry struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'protocol' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'protocol' at runtime.
+	TemplateProtocol *string `json:"__template_protocol,omitzero"`
+	// Binds 'otlpVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'otlpVersion' at runtime.
+	TemplateOtlpVersion *string `json:"__template_otlpVersion,omitzero"`
 }
 
 func (i InputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -339,11 +494,18 @@ func (i *InputOpenTelemetry) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
 	return i.OtlpVersion
 }
 
-func (i *InputOpenTelemetry) GetAuthType() *AuthenticationTypeOptions {
+func (i *InputOpenTelemetry) GetAuthType() *InputOpenTelemetryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
+}
+
+func (i *InputOpenTelemetry) GetAuthMethodsExt() []AuthMethodsExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthMethodsExt
 }
 
 func (i *InputOpenTelemetry) GetMetadata() []ItemsTypeMetadata {
@@ -428,4 +590,18 @@ func (i *InputOpenTelemetry) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputOpenTelemetry) GetTemplateProtocol() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateProtocol
+}
+
+func (i *InputOpenTelemetry) GetTemplateOtlpVersion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateOtlpVersion
 }

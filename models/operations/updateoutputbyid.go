@@ -316,6 +316,10 @@ func (u *UpdateOutputByIDRequest) GetOutputNutanixObjects() *components.OutputNu
 	return u.GetOutput().OutputNutanixObjects
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputAlphasocS3() *components.OutputAlphasocS3 {
+	return u.GetOutput().OutputAlphasocS3
+}
+
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object

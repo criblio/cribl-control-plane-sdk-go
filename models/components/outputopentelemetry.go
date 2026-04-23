@@ -56,6 +56,38 @@ func (e *OutputOpenTelemetryOTLPVersion) IsExact() bool {
 	return false
 }
 
+type OutputOpenTelemetryAuthenticationType string
+
+const (
+	// OutputOpenTelemetryAuthenticationTypeNone None
+	OutputOpenTelemetryAuthenticationTypeNone OutputOpenTelemetryAuthenticationType = "none"
+	// OutputOpenTelemetryAuthenticationTypeBasic Basic
+	OutputOpenTelemetryAuthenticationTypeBasic OutputOpenTelemetryAuthenticationType = "basic"
+	// OutputOpenTelemetryAuthenticationTypeCredentialsSecret Basic (credentials secret)
+	OutputOpenTelemetryAuthenticationTypeCredentialsSecret OutputOpenTelemetryAuthenticationType = "credentialsSecret"
+	// OutputOpenTelemetryAuthenticationTypeToken Token
+	OutputOpenTelemetryAuthenticationTypeToken OutputOpenTelemetryAuthenticationType = "token"
+	// OutputOpenTelemetryAuthenticationTypeTextSecret Token (text secret)
+	OutputOpenTelemetryAuthenticationTypeTextSecret OutputOpenTelemetryAuthenticationType = "textSecret"
+	// OutputOpenTelemetryAuthenticationTypeOauthSecret OAuth (text secret)
+	OutputOpenTelemetryAuthenticationTypeOauthSecret OutputOpenTelemetryAuthenticationType = "oauthSecret"
+)
+
+func (e OutputOpenTelemetryAuthenticationType) ToPointer() *OutputOpenTelemetryAuthenticationType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauthSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputOpenTelemetryPqControls struct {
 }
 
@@ -91,9 +123,8 @@ type OutputOpenTelemetry struct {
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
 	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptionsMessages `json:"httpCompress,omitzero"`
-	// OpenTelemetry authentication type
-	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
+	HTTPCompress *CompressionOptionsMessages            `json:"httpCompress,omitzero"`
+	AuthType     *OutputOpenTelemetryAuthenticationType `json:"authType,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -129,6 +160,22 @@ type OutputOpenTelemetry struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitzero"`
+	// Select or create a stored text secret for the OAuth secret parameter value to pass in request body
+	OauthTextSecret *string `json:"oauthTextSecret,omitzero"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
@@ -172,6 +219,8 @@ type OutputOpenTelemetry struct {
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -262,7 +311,7 @@ func (o *OutputOpenTelemetry) GetHTTPCompress() *CompressionOptionsMessages {
 	return o.HTTPCompress
 }
 
-func (o *OutputOpenTelemetry) GetAuthType() *AuthenticationTypeOptions {
+func (o *OutputOpenTelemetry) GetAuthType() *OutputOpenTelemetryAuthenticationType {
 	if o == nil {
 		return nil
 	}
@@ -400,6 +449,62 @@ func (o *OutputOpenTelemetry) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetry) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetry) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetry) GetOauthTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.OauthTextSecret
+}
+
+func (o *OutputOpenTelemetry) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetry) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetry) GetOauthParams() []ItemsTypeOauthParams {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetry) GetOauthHeaders() []ItemsTypeOauthHeaders {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
 }
 
 func (o *OutputOpenTelemetry) GetRejectUnauthorized() *bool {
@@ -554,4 +659,11 @@ func (o *OutputOpenTelemetry) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return o.TemplateOnBackpressure
+}
+
+func (o *OutputOpenTelemetry) GetTemplateLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLoginURL
 }

@@ -34,7 +34,7 @@ func newCaptures(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 
 // Create - Capture live incoming data
 // Initiate a live data capture from Cribl Workers.Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
-func (s *Captures) Create(ctx context.Context, request components.CaptureParams, opts ...operations.Option) (*operations.CreateSystemCaptureResponse, error) {
+func (s *Captures) Create(ctx context.Context, request components.CaptureParamsReq, opts ...operations.Option) (*operations.CreateSystemCaptureResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -184,7 +184,7 @@ func (s *Captures) Create(ctx context.Context, request components.CaptureParams,
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"401", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err

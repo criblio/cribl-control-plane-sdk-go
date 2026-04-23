@@ -34,11 +34,11 @@ func main() {
         }),
     )
 
-    res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-        Duration: 5.0,
-        Filter: "true",
-        Level: components.CaptureLevelBeforePreProcessingPipeline,
-        MaxEvents: 100,
+    res, err := s.System.Captures.Create(ctx, components.CaptureParamsReq{
+        Duration: criblcontrolplanesdkgo.Pointer[int64](5),
+        Filter: criblcontrolplanesdkgo.Pointer("true"),
+        Level: components.CaptureLevelBeforePreProcessingPipeline.ToPointer(),
+        MaxEvents: criblcontrolplanesdkgo.Pointer[int64](100),
         StepDuration: criblcontrolplanesdkgo.Pointer[int64](571732),
         WorkerID: criblcontrolplanesdkgo.Pointer("<id>"),
         WorkerThreshold: criblcontrolplanesdkgo.Pointer[int64](609412),
@@ -79,11 +79,11 @@ func main() {
         }),
     )
 
-    res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-        Duration: 15.0,
-        Filter: "__inputId.startsWith(\"http:\") && status >= 400 && status < 500",
-        Level: components.CaptureLevelBeforeRoutes,
-        MaxEvents: 500,
+    res, err := s.System.Captures.Create(ctx, components.CaptureParamsReq{
+        Duration: criblcontrolplanesdkgo.Pointer[int64](15),
+        Filter: criblcontrolplanesdkgo.Pointer("__inputId.startsWith(\"http:\") && status >= 400 && status < 500"),
+        Level: components.CaptureLevelBeforeRoutes.ToPointer(),
+        MaxEvents: criblcontrolplanesdkgo.Pointer[int64](500),
     })
     if err != nil {
         log.Fatal(err)
@@ -121,11 +121,11 @@ func main() {
         }),
     )
 
-    res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-        Duration: 5.0,
-        Filter: "sourcetype===\"pan:traffic\" && src_zone===\"trusted\"",
-        Level: components.CaptureLevelBeforePreProcessingPipeline,
-        MaxEvents: 100,
+    res, err := s.System.Captures.Create(ctx, components.CaptureParamsReq{
+        Duration: criblcontrolplanesdkgo.Pointer[int64](5),
+        Filter: criblcontrolplanesdkgo.Pointer("sourcetype===\"pan:traffic\" && src_zone===\"trusted\""),
+        Level: components.CaptureLevelBeforePreProcessingPipeline.ToPointer(),
+        MaxEvents: criblcontrolplanesdkgo.Pointer[int64](100),
     })
     if err != nil {
         log.Fatal(err)
@@ -163,11 +163,11 @@ func main() {
         }),
     )
 
-    res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-        Duration: 5.0,
-        Filter: "sourcetype===\"pan:traffic\" && dest_geoip.country.iso_code === \"US\"",
-        Level: components.CaptureLevelBeforePreProcessingPipeline,
-        MaxEvents: 100,
+    res, err := s.System.Captures.Create(ctx, components.CaptureParamsReq{
+        Duration: criblcontrolplanesdkgo.Pointer[int64](5),
+        Filter: criblcontrolplanesdkgo.Pointer("sourcetype===\"pan:traffic\" && dest_geoip.country.iso_code === \"US\""),
+        Level: components.CaptureLevelBeforePreProcessingPipeline.ToPointer(),
+        MaxEvents: criblcontrolplanesdkgo.Pointer[int64](100),
     })
     if err != nil {
         log.Fatal(err)
@@ -205,11 +205,11 @@ func main() {
         }),
     )
 
-    res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-        Duration: 5.0,
-        Filter: "sourcetype===\"pan:traffic\"",
-        Level: components.CaptureLevelBeforePreProcessingPipeline,
-        MaxEvents: 100,
+    res, err := s.System.Captures.Create(ctx, components.CaptureParamsReq{
+        Duration: criblcontrolplanesdkgo.Pointer[int64](5),
+        Filter: criblcontrolplanesdkgo.Pointer("sourcetype===\"pan:traffic\""),
+        Level: components.CaptureLevelBeforePreProcessingPipeline.ToPointer(),
+        MaxEvents: criblcontrolplanesdkgo.Pointer[int64](100),
     })
     if err != nil {
         log.Fatal(err)
@@ -226,11 +226,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
-| `request`                                                            | [components.CaptureParams](../../models/components/captureparams.md) | :heavy_check_mark:                                                   | The request object to use for the request.                           |
-| `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
+| Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
+| `request`                                                                  | [components.CaptureParamsReq](../../models/components/captureparamsreq.md) | :heavy_check_mark:                                                         | The request object to use for the request.                                 |
+| `opts`                                                                     | [][operations.Option](../../models/operations/option.md)                   | :heavy_minus_sign:                                                         | The options for this request.                                              |
 
 ### Response
 

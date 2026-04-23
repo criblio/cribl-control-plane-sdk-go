@@ -77,9 +77,9 @@ func (e *InputEventhubAmqpAuthenticationMethod) IsExact() bool {
 }
 
 type Auth struct {
-	Mechanism *AuthenticationMechanism `json:"mechanism,omitzero"`
+	Mechanism AuthenticationMechanism `json:"mechanism"`
 	// Enter connection string directly, or select a stored secret
-	AuthType InputEventhubAmqpAuthenticationMethod `json:"authType"`
+	AuthType *InputEventhubAmqpAuthenticationMethod `json:"authType,omitzero"`
 	// Event Hubs namespace or Event Hub-level connection string
 	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
@@ -97,16 +97,16 @@ func (a *Auth) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (a *Auth) GetMechanism() *AuthenticationMechanism {
+func (a *Auth) GetMechanism() AuthenticationMechanism {
 	if a == nil {
-		return nil
+		return AuthenticationMechanism("")
 	}
 	return a.Mechanism
 }
 
-func (a *Auth) GetAuthType() InputEventhubAmqpAuthenticationMethod {
+func (a *Auth) GetAuthType() *InputEventhubAmqpAuthenticationMethod {
 	if a == nil {
-		return InputEventhubAmqpAuthenticationMethod("")
+		return nil
 	}
 	return a.AuthType
 }

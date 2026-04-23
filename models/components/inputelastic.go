@@ -282,6 +282,8 @@ type InputElastic struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+	TemplateElasticAPI *string `json:"__template_elasticAPI,omitzero"`
 }
 
 func (i InputElastic) MarshalJSON() ([]byte, error) {
@@ -566,4 +568,11 @@ func (i *InputElastic) GetTemplatePort() *string {
 		return nil
 	}
 	return i.TemplatePort
+}
+
+func (i *InputElastic) GetTemplateElasticAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateElasticAPI
 }
