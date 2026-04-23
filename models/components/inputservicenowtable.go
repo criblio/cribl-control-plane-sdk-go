@@ -83,6 +83,31 @@ func (e *InputServicenowTableAuthenticationType) IsExact() bool {
 	return false
 }
 
+// GrantType - ServiceNow OAuth grant type used for token requests
+type GrantType string
+
+const (
+	// GrantTypeClientCredentials Password
+	GrantTypeClientCredentials GrantType = "client_credentials"
+	// GrantTypePassword Client credentials
+	GrantTypePassword GrantType = "password"
+)
+
+func (e GrantType) ToPointer() *GrantType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GrantType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "client_credentials", "password":
+			return true
+		}
+	}
+	return false
+}
+
 type InputServicenowTableManageState struct {
 }
 
@@ -167,22 +192,21 @@ type InputServicenowTable struct {
 	Description *string             `json:"description,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Select or create a stored text secret for the OAuth client secret parameter value
+	// ServiceNow OAuth grant type used for token requests
+	OauthGrantType *GrantType `json:"oauthGrantType,omitzero"`
+	// ServiceNow username for the password grant type
+	Username *string `json:"username,omitzero"`
+	// Select or create a stored text secret for the ServiceNow password value
 	TextSecret *string `json:"textSecret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
+	// Enable custom OAuth request parameters or headers for advanced ServiceNow configurations. Leave disabled for standard ServiceNow OAuth flows.
+	UseCustomOAuthParamsOrHeaders *bool `json:"useCustomOAuthParamsOrHeaders,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	ClientID     *string                 `json:"clientId,omitzero"`
+	// Select or create a stored text secret for the OAuth client secret value
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
 	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
@@ -196,8 +220,10 @@ type InputServicenowTable struct {
 	TemplateOrderByField *string `json:"__template_orderByField,omitzero"`
 	// Binds 'query' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'query' at runtime.
 	TemplateQuery *string `json:"__template_query,omitzero"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
 }
 
 func (i InputServicenowTable) MarshalJSON() ([]byte, error) {
@@ -470,18 +496,18 @@ func (i *InputServicenowTable) GetCredentialsSecret() *string {
 	return i.CredentialsSecret
 }
 
-func (i *InputServicenowTable) GetLoginURL() *string {
+func (i *InputServicenowTable) GetOauthGrantType() *GrantType {
 	if i == nil {
 		return nil
 	}
-	return i.LoginURL
+	return i.OauthGrantType
 }
 
-func (i *InputServicenowTable) GetSecretParamName() *string {
+func (i *InputServicenowTable) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
-	return i.SecretParamName
+	return i.Username
 }
 
 func (i *InputServicenowTable) GetTextSecret() *string {
@@ -491,25 +517,11 @@ func (i *InputServicenowTable) GetTextSecret() *string {
 	return i.TextSecret
 }
 
-func (i *InputServicenowTable) GetTokenAttributeName() *string {
+func (i *InputServicenowTable) GetUseCustomOAuthParamsOrHeaders() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.TokenAttributeName
-}
-
-func (i *InputServicenowTable) GetAuthHeaderExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthHeaderExpr
-}
-
-func (i *InputServicenowTable) GetTokenTimeoutSecs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.TokenTimeoutSecs
+	return i.UseCustomOAuthParamsOrHeaders
 }
 
 func (i *InputServicenowTable) GetOauthParams() []ItemsTypeOauthParams {
@@ -524,6 +536,20 @@ func (i *InputServicenowTable) GetOauthHeaders() []ItemsTypeOauthHeaders {
 		return nil
 	}
 	return i.OauthHeaders
+}
+
+func (i *InputServicenowTable) GetClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientID
+}
+
+func (i *InputServicenowTable) GetClientTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientTextSecret
 }
 
 func (i *InputServicenowTable) GetStateUpdateExpression() *string {
@@ -575,9 +601,16 @@ func (i *InputServicenowTable) GetTemplateQuery() *string {
 	return i.TemplateQuery
 }
 
-func (i *InputServicenowTable) GetTemplateLoginURL() *string {
+func (i *InputServicenowTable) GetTemplateUsername() *string {
 	if i == nil {
 		return nil
 	}
-	return i.TemplateLoginURL
+	return i.TemplateUsername
+}
+
+func (i *InputServicenowTable) GetTemplateClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateClientID
 }

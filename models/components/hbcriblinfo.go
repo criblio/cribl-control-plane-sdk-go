@@ -6,9 +6,9 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// Config - Configuration bundle and policy revision metadata for this node.
+// Config - Configuration bundle and policy revision metadata for the node.
 type Config struct {
-	// Feature flags or feature revision string for this bundle.
+	// Feature flags or feature revision string for the bundle.
 	FeaturesRev *string `json:"featuresRev,omitzero"`
 	// Worker-to-Leader heartbeat interval, in seconds.
 	HbPeriodSeconds *int64 `json:"hbPeriodSeconds,omitzero"`
@@ -55,7 +55,7 @@ func (c *Config) GetVersion() *string {
 	return c.Version
 }
 
-// DistMode - Distributed deployment mode for this instance.
+// DistMode - Distributed deployment mode for the instance.
 type DistMode string
 
 const (
@@ -84,35 +84,35 @@ func (e *DistMode) IsExact() bool {
 }
 
 type HBCriblInfo struct {
-	// Configuration bundle and policy revision metadata for this node.
+	// Configuration bundle and policy revision metadata for the node.
 	Config Config `json:"config"`
-	// Deployment identifier for this node or fleet, when assigned.
+	// Unique identifier for the deployment assigned for the node.
 	DeploymentID *string `json:"deploymentId,omitzero"`
-	// If <code>true</code>, SNI-based routing to the Leader is disabled for this connection.
+	// If <code>true</code>, SNI-based routing to the Leader is disabled for the connection.
 	DisableSNIRouting *bool `json:"disableSNIRouting,omitzero"`
-	// Distributed deployment mode for this instance.
+	// Distributed deployment mode for the instance.
 	DistMode DistMode `json:"distMode"`
 	// Count of Edge nodes reported in the Leader heartbeat.
 	EdgeNodes *int64 `json:"edgeNodes,omitzero"`
-	// Worker group or fleet name.
+	// Worker Group or Edge Fleet name.
 	Group string `json:"group"`
-	// Unique instance identifier for this Cribl node.
+	// Unique instance identifier for the Cribl node.
 	GUID string `json:"guid"`
 	// Value of the <code>CRIBL_INSTALL_TYPE</code> environment variable, relayed for upgrade decisions (since 4.5.0).
 	InstallType *string `json:"installType,omitzero"`
-	// Lookup file deployment versions.
+	// Objects that map Lookup files to deployment versions.
 	LookupVersions map[string]map[string]string `json:"lookupVersions,omitzero"`
-	// Connection parameters for the Leader node, as reported in a Worker heartbeat.
+	// Connection parameters for the Leader Node, as reported in a Worker heartbeat.
 	Master *HBLeaderInfo `json:"master,omitzero"`
-	// PID.
+	// The process ID.
 	Pid *int64 `json:"pid,omitzero"`
-	// If <code>true</code>, SOCKS proxy connectivity is enabled for this node.
+	// If <code>true</code>, SOCKS proxy connectivity is enabled for the node.
 	SocksEnabled *bool `json:"socksEnabled,omitzero"`
-	// Unix epoch time in milliseconds when the Cribl server process started.
+	// Timestamp (in Unix time) when the Cribl server process started, in milliseconds.
 	StartTime int64 `json:"startTime"`
 	// Tags from the node.
 	Tags []string `json:"tags,omitzero"`
-	// Cribl software version string for this node.
+	// Cribl software version string for the node.
 	Version *string `json:"version,omitzero"`
 }
 

@@ -40,6 +40,14 @@ type AuthenticationTypeUse struct {
 	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
 	TemplateMechanism *string `json:"__template_mechanism,omitzero"`
+	// Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+	TemplateOauthEndpoint *string `json:"__template_oauthEndpoint,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+	TemplateScope *string `json:"__template_scope,omitzero"`
 }
 
 func (a AuthenticationTypeUse) MarshalJSON() ([]byte, error) {
@@ -184,4 +192,32 @@ func (a *AuthenticationTypeUse) GetTemplateMechanism() *string {
 		return nil
 	}
 	return a.TemplateMechanism
+}
+
+func (a *AuthenticationTypeUse) GetTemplateOauthEndpoint() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateOauthEndpoint
+}
+
+func (a *AuthenticationTypeUse) GetTemplateClientID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateClientID
+}
+
+func (a *AuthenticationTypeUse) GetTemplateTenantID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateTenantID
+}
+
+func (a *AuthenticationTypeUse) GetTemplateScope() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateScope
 }

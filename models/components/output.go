@@ -84,6 +84,7 @@ const (
 	OutputTypeMicrosoftFabric        OutputType = "microsoft_fabric"
 	OutputTypeCloudflareR2           OutputType = "cloudflare_r2"
 	OutputTypeNutanixObjects         OutputType = "nutanix_objects"
+	OutputTypeAlphasocS3             OutputType = "alphasoc_s3"
 	OutputTypeUnknown                OutputType = "UNKNOWN"
 )
 
@@ -160,6 +161,7 @@ type Output struct {
 	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline" union:"member"`
 	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
 	OutputNutanixObjects         *OutputNutanixObjects         `queryParam:"inline" union:"member"`
+	OutputAlphasocS3             *OutputAlphasocS3             `queryParam:"inline" union:"member"`
 	UnknownRaw                   json.RawMessage               `json:"-" union:"unknown"`
 
 	Type OutputType
@@ -1023,6 +1025,18 @@ func CreateOutputNutanixObjects(nutanixObjects OutputNutanixObjects) Output {
 	}
 }
 
+func CreateOutputAlphasocS3(alphasocS3 OutputAlphasocS3) Output {
+	typ := OutputTypeAlphasocS3
+
+	typStr := OutputAlphasocS3Type(typ)
+	alphasocS3.Type = typStr
+
+	return Output{
+		OutputAlphasocS3: &alphasocS3,
+		Type:             typ,
+	}
+}
+
 func CreateOutputUnknown(raw json.RawMessage) Output {
 	return Output{
 		UnknownRaw: raw,
@@ -1705,6 +1719,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputNutanixObjects = outputNutanixObjects
 		u.Type = OutputTypeNutanixObjects
 		return nil
+	case "alphasoc_s3":
+		outputAlphasocS3 := new(OutputAlphasocS3)
+		if err := utils.UnmarshalJSON(data, &outputAlphasocS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == alphasoc_s3) type OutputAlphasocS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputAlphasocS3 = outputAlphasocS3
+		u.Type = OutputTypeAlphasocS3
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = OutputTypeUnknown
@@ -2000,6 +2023,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputNutanixObjects != nil {
 		return utils.MarshalJSON(u.OutputNutanixObjects, "", true)
+	}
+
+	if u.OutputAlphasocS3 != nil {
+		return utils.MarshalJSON(u.OutputAlphasocS3, "", true)
 	}
 
 	if u.UnknownRaw != nil {

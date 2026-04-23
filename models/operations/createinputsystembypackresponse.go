@@ -10,6 +10,234 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputSystemByPackCPUSystemMetrics struct {
+	// Select the level of detail for CPU metrics
+	Mode *CreateInputSystemByPackCPUModeSystemMetrics `json:"mode,omitzero"`
+	// Generate metrics for each CPU
+	PerCPU *bool `json:"perCpu,omitzero"`
+	// Generate metrics for all CPU states
+	Detail *bool `json:"detail,omitzero"`
+	// Generate raw, monotonic CPU time counters
+	Time *bool `json:"time,omitzero"`
+}
+
+func (c CreateInputSystemByPackCPUSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) GetMode() *CreateInputSystemByPackCPUModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) GetPerCPU() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerCPU
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+func (c *CreateInputSystemByPackCPUSystemMetrics) GetTime() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Time
+}
+
+// CreateInputSystemByPackMemoryModeSystemMetrics - Select the level of detail for memory metrics
+type CreateInputSystemByPackMemoryModeSystemMetrics string
+
+const (
+	// CreateInputSystemByPackMemoryModeSystemMetricsBasic Basic
+	CreateInputSystemByPackMemoryModeSystemMetricsBasic CreateInputSystemByPackMemoryModeSystemMetrics = "basic"
+	// CreateInputSystemByPackMemoryModeSystemMetricsAll All
+	CreateInputSystemByPackMemoryModeSystemMetricsAll CreateInputSystemByPackMemoryModeSystemMetrics = "all"
+	// CreateInputSystemByPackMemoryModeSystemMetricsCustom Custom
+	CreateInputSystemByPackMemoryModeSystemMetricsCustom CreateInputSystemByPackMemoryModeSystemMetrics = "custom"
+	// CreateInputSystemByPackMemoryModeSystemMetricsDisabled Disabled
+	CreateInputSystemByPackMemoryModeSystemMetricsDisabled CreateInputSystemByPackMemoryModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputSystemByPackMemoryModeSystemMetrics) ToPointer() *CreateInputSystemByPackMemoryModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackMemoryModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateInputSystemByPackMemorySystemMetrics struct {
+	// Select the level of detail for memory metrics
+	Mode *CreateInputSystemByPackMemoryModeSystemMetrics `json:"mode,omitzero"`
+	// Generate metrics for all memory states
+	Detail *bool `json:"detail,omitzero"`
+}
+
+func (c CreateInputSystemByPackMemorySystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackMemorySystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackMemorySystemMetrics) GetMode() *CreateInputSystemByPackMemoryModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackMemorySystemMetrics) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+// CreateInputSystemByPackNetworkModeSystemMetrics - Select the level of detail for network metrics
+type CreateInputSystemByPackNetworkModeSystemMetrics string
+
+const (
+	// CreateInputSystemByPackNetworkModeSystemMetricsBasic Basic
+	CreateInputSystemByPackNetworkModeSystemMetricsBasic CreateInputSystemByPackNetworkModeSystemMetrics = "basic"
+	// CreateInputSystemByPackNetworkModeSystemMetricsAll All
+	CreateInputSystemByPackNetworkModeSystemMetricsAll CreateInputSystemByPackNetworkModeSystemMetrics = "all"
+	// CreateInputSystemByPackNetworkModeSystemMetricsCustom Custom
+	CreateInputSystemByPackNetworkModeSystemMetricsCustom CreateInputSystemByPackNetworkModeSystemMetrics = "custom"
+	// CreateInputSystemByPackNetworkModeSystemMetricsDisabled Disabled
+	CreateInputSystemByPackNetworkModeSystemMetricsDisabled CreateInputSystemByPackNetworkModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputSystemByPackNetworkModeSystemMetrics) ToPointer() *CreateInputSystemByPackNetworkModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackNetworkModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateInputSystemByPackNetworkSystemMetrics struct {
+	// Select the level of detail for network metrics
+	Mode *CreateInputSystemByPackNetworkModeSystemMetrics `json:"mode,omitzero"`
+	// Generate full network metrics
+	Detail *bool `json:"detail,omitzero"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `json:"protocols,omitzero"`
+	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+	Devices []string `json:"devices,omitzero"`
+	// Generate separate metrics for each interface
+	PerInterface *bool `json:"perInterface,omitzero"`
+}
+
+func (c CreateInputSystemByPackNetworkSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetMode() *CreateInputSystemByPackNetworkModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetProtocols() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Protocols
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetDevices() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Devices
+}
+
+func (c *CreateInputSystemByPackNetworkSystemMetrics) GetPerInterface() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerInterface
+}
+
+// CreateInputSystemByPackDiskModeSystemMetrics - Select the level of detail for disk metrics
+type CreateInputSystemByPackDiskModeSystemMetrics string
+
+const (
+	// CreateInputSystemByPackDiskModeSystemMetricsBasic Basic
+	CreateInputSystemByPackDiskModeSystemMetricsBasic CreateInputSystemByPackDiskModeSystemMetrics = "basic"
+	// CreateInputSystemByPackDiskModeSystemMetricsAll All
+	CreateInputSystemByPackDiskModeSystemMetricsAll CreateInputSystemByPackDiskModeSystemMetrics = "all"
+	// CreateInputSystemByPackDiskModeSystemMetricsCustom Custom
+	CreateInputSystemByPackDiskModeSystemMetricsCustom CreateInputSystemByPackDiskModeSystemMetrics = "custom"
+	// CreateInputSystemByPackDiskModeSystemMetricsDisabled Disabled
+	CreateInputSystemByPackDiskModeSystemMetricsDisabled CreateInputSystemByPackDiskModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputSystemByPackDiskModeSystemMetrics) ToPointer() *CreateInputSystemByPackDiskModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackDiskModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputSystemByPackDiskSystemMetrics struct {
 	// Select the level of detail for disk metrics
 	Mode *CreateInputSystemByPackDiskModeSystemMetrics `json:"mode,omitzero"`
@@ -2949,9 +3177,9 @@ func (e *CreateInputSystemByPackAuthAuthenticationMethod) IsExact() bool {
 }
 
 type CreateInputSystemByPackAuth struct {
-	Mechanism *CreateInputSystemByPackAuthenticationMechanism `json:"mechanism,omitzero"`
+	Mechanism CreateInputSystemByPackAuthenticationMechanism `json:"mechanism"`
 	// Enter connection string directly, or select a stored secret
-	AuthType CreateInputSystemByPackAuthAuthenticationMethod `json:"authType"`
+	AuthType *CreateInputSystemByPackAuthAuthenticationMethod `json:"authType,omitzero"`
 	// Event Hubs namespace or Event Hub-level connection string
 	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
@@ -2969,16 +3197,16 @@ func (c *CreateInputSystemByPackAuth) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CreateInputSystemByPackAuth) GetMechanism() *CreateInputSystemByPackAuthenticationMechanism {
+func (c *CreateInputSystemByPackAuth) GetMechanism() CreateInputSystemByPackAuthenticationMechanism {
 	if c == nil {
-		return nil
+		return CreateInputSystemByPackAuthenticationMechanism("")
 	}
 	return c.Mechanism
 }
 
-func (c *CreateInputSystemByPackAuth) GetAuthType() CreateInputSystemByPackAuthAuthenticationMethod {
+func (c *CreateInputSystemByPackAuth) GetAuthType() *CreateInputSystemByPackAuthAuthenticationMethod {
 	if c == nil {
-		return CreateInputSystemByPackAuthAuthenticationMethod("")
+		return nil
 	}
 	return c.AuthType
 }
@@ -9227,6 +9455,8 @@ type CreateInputSystemByPackInputElastic struct {
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+	TemplateElasticAPI *string `json:"__template_elasticAPI,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputElastic) MarshalJSON() ([]byte, error) {
@@ -9511,6 +9741,13 @@ func (c *CreateInputSystemByPackInputElastic) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputElastic) GetTemplateElasticAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateElasticAPI
 }
 
 type CreateInputSystemByPackTypeAzureBlob string
@@ -12904,6 +13141,7 @@ const (
 	CreateInputSystemByPackRequestBodyTypeZscalerHec           CreateInputSystemByPackRequestBodyType = "zscaler_hec"
 	CreateInputSystemByPackRequestBodyTypeCloudflareHec        CreateInputSystemByPackRequestBodyType = "cloudflare_hec"
 	CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs CreateInputSystemByPackRequestBodyType = "openai_compliance_logs"
+	CreateInputSystemByPackRequestBodyTypeOkta                 CreateInputSystemByPackRequestBodyType = "okta"
 )
 
 // CreateInputSystemByPackRequestBody - Input object
@@ -12973,6 +13211,7 @@ type CreateInputSystemByPackRequestBody struct {
 	CreateInputSystemByPackInputZscalerHec           *CreateInputSystemByPackInputZscalerHec           `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputCloudflareHec        *CreateInputSystemByPackInputCloudflareHec        `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputOpenaiComplianceLogs *CreateInputSystemByPackInputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputOkta                 *CreateInputSystemByPackInputOkta                 `queryParam:"inline" union:"member"`
 
 	Type CreateInputSystemByPackRequestBodyType
 }
@@ -13751,6 +13990,18 @@ func CreateCreateInputSystemByPackRequestBodyOpenaiComplianceLogs(openaiComplian
 	}
 }
 
+func CreateCreateInputSystemByPackRequestBodyOkta(okta CreateInputSystemByPackInputOkta) CreateInputSystemByPackRequestBody {
+	typ := CreateInputSystemByPackRequestBodyTypeOkta
+
+	typStr := CreateInputSystemByPackTypeOkta(typ)
+	okta.Type = typStr
+
+	return CreateInputSystemByPackRequestBody{
+		CreateInputSystemByPackInputOkta: &okta,
+		Type:                             typ,
+	}
+}
+
 func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -14348,6 +14599,15 @@ func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateInputSystemByPackInputOpenaiComplianceLogs = createInputSystemByPackInputOpenaiComplianceLogs
 		u.Type = CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs
 		return nil
+	case "okta":
+		createInputSystemByPackInputOkta := new(CreateInputSystemByPackInputOkta)
+		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputOkta, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == okta) type CreateInputSystemByPackInputOkta within CreateInputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateInputSystemByPackInputOkta = createInputSystemByPackInputOkta
+		u.Type = CreateInputSystemByPackRequestBodyTypeOkta
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackRequestBody", string(data))
@@ -14612,6 +14872,10 @@ func (u CreateInputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 
 	if u.CreateInputSystemByPackInputOpenaiComplianceLogs != nil {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputOpenaiComplianceLogs, "", true)
+	}
+
+	if u.CreateInputSystemByPackInputOkta != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputOkta, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateInputSystemByPackRequestBody: all fields are null")
@@ -14896,6 +15160,10 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyCloudflareHec() *CreateIn
 
 func (c *CreateInputSystemByPackRequest) GetRequestBodyOpenaiComplianceLogs() *CreateInputSystemByPackInputOpenaiComplianceLogs {
 	return c.GetRequestBody().CreateInputSystemByPackInputOpenaiComplianceLogs
+}
+
+func (c *CreateInputSystemByPackRequest) GetRequestBodyOkta() *CreateInputSystemByPackInputOkta {
+	return c.GetRequestBody().CreateInputSystemByPackInputOkta
 }
 
 type CreateInputSystemByPackResponse struct {
