@@ -3177,9 +3177,9 @@ func (e *CreateInputSystemByPackAuthAuthenticationMethod) IsExact() bool {
 }
 
 type CreateInputSystemByPackAuth struct {
-	Mechanism *CreateInputSystemByPackAuthenticationMechanism `json:"mechanism,omitzero"`
+	Mechanism CreateInputSystemByPackAuthenticationMechanism `json:"mechanism"`
 	// Enter connection string directly, or select a stored secret
-	AuthType CreateInputSystemByPackAuthAuthenticationMethod `json:"authType"`
+	AuthType *CreateInputSystemByPackAuthAuthenticationMethod `json:"authType,omitzero"`
 	// Event Hubs namespace or Event Hub-level connection string
 	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
@@ -3197,16 +3197,16 @@ func (c *CreateInputSystemByPackAuth) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CreateInputSystemByPackAuth) GetMechanism() *CreateInputSystemByPackAuthenticationMechanism {
+func (c *CreateInputSystemByPackAuth) GetMechanism() CreateInputSystemByPackAuthenticationMechanism {
 	if c == nil {
-		return nil
+		return CreateInputSystemByPackAuthenticationMechanism("")
 	}
 	return c.Mechanism
 }
 
-func (c *CreateInputSystemByPackAuth) GetAuthType() CreateInputSystemByPackAuthAuthenticationMethod {
+func (c *CreateInputSystemByPackAuth) GetAuthType() *CreateInputSystemByPackAuthAuthenticationMethod {
 	if c == nil {
-		return CreateInputSystemByPackAuthAuthenticationMethod("")
+		return nil
 	}
 	return c.AuthType
 }

@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 865c19e935a8fed5dd2c635208108df5
-  docVersion: 4.18.0-alpha.1776899118430-0a861897
+  docChecksum: 6909c531d488425a3869803af79112fc
+  docVersion: 4.18.0-alpha.1776985436024-4d6d9d19
   speakeasyVersion: 1.761.8
   generationVersion: 2.881.2
-  releaseVersion: 0.8.0-beta.1
-  configChecksum: 73689d5f0ac1359f7843fea6197f3acf
+  releaseVersion: 0.8.0-beta.2
+  configChecksum: b0149b6d431a266df326a2327dde5323
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: d584716d-0d77-4045-97e7-9dd8a72a9c04
-  pristine_commit_hash: 85392de5ad9e4561478b4bb7758a3c49e45f9208
-  pristine_tree_hash: 2806faba0f826c80f6918667cc3c1b6ed5a2ec1f
+  generation_id: 88c2e9ee-b28e-4ffd-a2eb-3bbcfd9ea4d8
+  pristine_commit_hash: c9d07bdb50380b3a28649cf17010f5558342dab2
+  pristine_tree_hash: f7038f17083887573d052efd443250c651072ce3
 features:
   go:
     additionalDependencies: 0.1.0
@@ -77,8 +77,8 @@ trackedFiles:
     pristine_git_object: 08a245567d914483707221c271fee555d8eba8eb
   captures.go:
     id: 0f5123ff80de
-    last_write_checksum: sha1:c5e547f1c89319f4d1a49939d5b44552e50af977
-    pristine_git_object: 1245e4e44daa2ccbfc272cef53d4687d7bf8fc36
+    last_write_checksum: sha1:1497545196a5d6bc736edfe68aeacb3eb69725d5
+    pristine_git_object: edb0c76c27345409d250ff660ef645e5b3bbbb84
   collectors.go:
     id: 7e88ffe1ef22
     last_write_checksum: sha1:fce44f1691b1a462feecc6c1dc57d642f9c1dceb
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: ac562c044b0a53981079f8cd327cbde917d0eca8
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:2c5882617ede77d403ab05fd6973d6a5ac39c633
-    pristine_git_object: 65c0ae2d21323ae16f0583a4216c29911a08b96d
+    last_write_checksum: sha1:7e9542c8e8e4724bad9c5b9ef0e74ffbe37e6b0d
+    pristine_git_object: dac75a3ab4e922053b6b33fffa2d68a3bbe7b3d9
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:427d5be4538b201a2f3c223f4d2f14a950d95a13
@@ -197,8 +197,8 @@ trackedFiles:
     pristine_git_object: 2b6dc6a3b9bf21038baf0c01aebc19ab0d8b111a
   docs/models/components/auth.md:
     id: 0ebbf2842567
-    last_write_checksum: sha1:ad99e4ccbbc80f5c1ed2da23ce1748d4a6aa863a
-    pristine_git_object: a406df910db7d4045e7809d1bbad1bc27cc22c48
+    last_write_checksum: sha1:16cd57635f32f8fd65dacfc17d742c23e22bcbea
+    pristine_git_object: 2abb00965d6907a3b1129dd2eabb03483574b82b
   docs/models/components/authenticationmechanism.md:
     id: 99efadc51e17
     last_write_checksum: sha1:1623b65596bd91f1455f2867b86487b25e04c98e
@@ -419,10 +419,10 @@ trackedFiles:
     id: b5c08e35e1c1
     last_write_checksum: sha1:cf0315b66051e9e2bb1e7d8127bbbb6b875e6cc7
     pristine_git_object: 1eaa60511f5e6b55d7e1fa62abb4fe982154d428
-  docs/models/components/captureparams.md:
-    id: f55343965623
-    last_write_checksum: sha1:a0f2774f9959877d3e241741d6485c71b9deb37a
-    pristine_git_object: ea32eba594e2f82c82acbd68ad5527d20343e443
+  docs/models/components/captureparamsreq.md:
+    id: "268526878213"
+    last_write_checksum: sha1:68b41767b4dc20055484a25aeed099c161bda5cf
+    pristine_git_object: bd7e69ca6ae1c6a5c9cd6d0e858133badb051366
   docs/models/components/capturesettings.md:
     id: 9e62b6cd079d
     last_write_checksum: sha1:d5a73764511c13b5b02bc21a68f3962f03856ba3
@@ -9193,8 +9193,8 @@ trackedFiles:
     pristine_git_object: c1c832d35646e0633b7efa4170079912226f589a
   docs/models/operations/createinputauth.md:
     id: a56e9aec38df
-    last_write_checksum: sha1:ea46fdb79b0043120a31ff8856069d8ea4b62df8
-    pristine_git_object: 1cf776005faf89caff15315aaecac3c9d72cae46
+    last_write_checksum: sha1:16a30fa422bf39d417e3e677c73e146b6fb0ced6
+    pristine_git_object: 04595d5df570df637b7845d81e260a8e2b1f5d4e
   docs/models/operations/createinputauthauthenticationmethod.md:
     id: 5cd33a258ee0
     last_write_checksum: sha1:721c29aa0a35ee83960014016068dd3f9d194090
@@ -9977,8 +9977,8 @@ trackedFiles:
     pristine_git_object: ffc710252117e71c633cecfc543f39c39770c0e3
   docs/models/operations/createinputsystembypackauth.md:
     id: bb77263d43b8
-    last_write_checksum: sha1:6085186c6c3c643d1080bba550ed56e95560e7d9
-    pristine_git_object: 0012dcccea9c664e7ad6b5e1aa10cc66f07c5232
+    last_write_checksum: sha1:1d7cb348f45a5a46fd5e02380a4d3de111ae3c39
+    pristine_git_object: 995808c2b17323fa8c9b6a8ef06e5efa648dd809
   docs/models/operations/createinputsystembypackauthauthenticationmethod.md:
     id: 9d0d9c9a60c4
     last_write_checksum: sha1:0fc040dbc60616ab2b207fc0b07d809b7f3c6f7a
@@ -14453,8 +14453,8 @@ trackedFiles:
     pristine_git_object: 9a4fa7fb316ca83ff559bbafe3ee23cab40b3286
   docs/sdks/captures/README.md:
     id: 7598191d8c6a
-    last_write_checksum: sha1:f6293831971d79ca66d267a0c46a64ed60423ad7
-    pristine_git_object: 8f721402c4c5e797b5a89dffb3af1df9f0946b86
+    last_write_checksum: sha1:5a312bac5a8c6e1e4e8cf5ae10767576440bd7cb
+    pristine_git_object: ab82f2c45fcc57adca3d011559467a763a159c05
   docs/sdks/collectors/README.md:
     id: b8ecaf222c71
     last_write_checksum: sha1:128162f1e34b634f19697ef9c443cdb747c87ee8
@@ -14505,8 +14505,8 @@ trackedFiles:
     pristine_git_object: 80210d6ac7bff28f0eeb52ea6e685a71bde09cd0
   docs/sdks/health/README.md:
     id: 5082c50d5e82
-    last_write_checksum: sha1:581439a9e38d9769e2c4ed929382ed3968c07bc3
-    pristine_git_object: 0b43fe25c36c2d477442cc4185205644166f29a9
+    last_write_checksum: sha1:89483d5a3900f16678e96871142990eaf59b092f
+    pristine_git_object: cf030ffa64e6ac18cc571aca0561b5597fce9d6a
   docs/sdks/hectokens/README.md:
     id: 341daeeec3d1
     last_write_checksum: sha1:42a216d5970936462dd4aa32b2e1d6a819fde48b
@@ -14629,8 +14629,8 @@ trackedFiles:
     pristine_git_object: 400a470ec1df2a48ad3317a35c7e6e0be38c8700
   health.go:
     id: ca291aa88e47
-    last_write_checksum: sha1:e9536207b664a2f7867b4c6012e8634ddcc9a610
-    pristine_git_object: 341a7e1679586d902d74e948f1517934b385f81b
+    last_write_checksum: sha1:827049d5b2ec975277c08885ebbfe7220efda72b
+    pristine_git_object: a8506b31aa264cb0799ab09d05327ce779b731de
   hectokens.go:
     id: 1ba8ebdf34be
     last_write_checksum: sha1:21b3cc73213be914f52d89da7c1807f8c4ad844f
@@ -14883,10 +14883,10 @@ trackedFiles:
     id: 5e3209a9368d
     last_write_checksum: sha1:a0d9922054265c8f3b1c459cb2402bf5be858755
     pristine_git_object: c5b132a2a8b00fdca92f73ecdb287bd7c37c0d10
-  models/components/captureparams.go:
-    id: d908e7c0ba7d
-    last_write_checksum: sha1:4c234b9970d8e4b276ac5e29540bb1e68a6a0c68
-    pristine_git_object: 95b5b1f7a8b4128ca5e876e369dac87cb2f562b1
+  models/components/captureparamsreq.go:
+    id: 2da1c00be81f
+    last_write_checksum: sha1:80a01ec49f0296e425bd5c0bf8fd2d70b0fb0a0a
+    pristine_git_object: 9302143d1086361b39589887e1934b1332c10d3e
   models/components/certificatetypeazureblobauthtypeclientcert.go:
     id: 9196e5fc4b85
     last_write_checksum: sha1:485d2892d587d0391c675607248d2812938e7d0c
@@ -15881,8 +15881,8 @@ trackedFiles:
     pristine_git_object: 009853309c81183732d34c4b29ec1ee0fa62a372
   models/components/inputeventhubamqp.go:
     id: 6923f35275e4
-    last_write_checksum: sha1:9d83af1d2756ce80091577e5f53ade3022c5a44b
-    pristine_git_object: 8cc12bb3d6378362fdc552f47555939a465d9ec4
+    last_write_checksum: sha1:a36099d3e5cf2273889611663b80ba3d7c885677
+    pristine_git_object: b1baf52fc57691a543f0cb6b18dbfdde6b755bf0
   models/components/inputexec.go:
     id: d2521ada50d0
     last_write_checksum: sha1:33851557c989bcb6255a62a19fef68733006568a
@@ -17457,16 +17457,16 @@ trackedFiles:
     pristine_git_object: 13958e4f0302eaa05899d0e5f41e9efbea6b84ba
   models/operations/createinputresponse.go:
     id: 4a65919a7957
-    last_write_checksum: sha1:a037fdd7c4178a5bca73ca9a0ba5164935da0eea
-    pristine_git_object: e92b2d918813b1d534cdfc7289d44e3b76ebb472
+    last_write_checksum: sha1:858bbab2dd4a95310d344522728c793ec81ac9a1
+    pristine_git_object: 88db39de3c170b7d046872ace4f3b6a77991fa0e
   models/operations/createinputsystembypackcpumodesystemmetrics.go:
     id: fabf8f27bbdd
     last_write_checksum: sha1:cfe7fb0b1d6f9eda1847daf5639d5006981b5e52
     pristine_git_object: 539090b347305c96d4fb2a6441de5ec55e5c4e03
   models/operations/createinputsystembypackresponse.go:
     id: 7f6c1101c884
-    last_write_checksum: sha1:dac98a66d79065104da1b5254fc8bc9f1953cc3a
-    pristine_git_object: a52e9fa8b794aee06f043bd1300f425a6f5b01e3
+    last_write_checksum: sha1:72df89afa401638d0a7c8c2cffed0addba8848bb
+    pristine_git_object: eac86d812cfaa410cb451429913cb4c975570368
   models/operations/createinputsystemhectokenbypackandid.go:
     id: 106b6f03830d
     last_write_checksum: sha1:d6e4005939c7910a3db71d1c838b390b99b91be0
@@ -23257,7 +23257,7 @@ examples:
           application/json: {}
     speakeasy-default-create-system-capture:
       requestBody:
-        application/json: {"duration": 9218.61, "filter": "<value>", "level": 0, "maxEvents": 198581}
+        application/json: {}
       responses:
         "500":
           application/json: {}
@@ -28861,7 +28861,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(open_telemetry).AuthMethodsExt` **Added**\n  *  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(open_telemetry).AuthMethodsExt` **Added**\n  *  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(open_telemetry).AuthMethodsExt` **Added**\n  *  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(open_telemetry).AuthMethodsExt` **Added**\n  *  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(open_telemetry).AuthMethodsExt` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(eventhub_amqp).Auth` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(eventhub_amqp).Auth` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(eventhub_amqp).Auth` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(eventhub_amqp).Auth` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n* `CriblControlPlane.System.Captures.Create()`:  `request.Request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(eventhub_amqp).Auth` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
