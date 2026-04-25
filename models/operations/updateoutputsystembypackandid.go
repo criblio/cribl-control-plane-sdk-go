@@ -325,8 +325,20 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputNutanixObjects() *compon
 	return u.GetOutput().OutputNutanixObjects
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputStorjS3() *components.OutputStorjS3 {
+	return u.GetOutput().OutputStorjS3
+}
+
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputAlphasocS3() *components.OutputAlphasocS3 {
 	return u.GetOutput().OutputAlphasocS3
+}
+
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputDellS3() *components.OutputDellS3 {
+	return u.GetOutput().OutputDellS3
+}
+
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputCloudianS3() *components.OutputCloudianS3 {
+	return u.GetOutput().OutputCloudianS3
 }
 
 type UpdateOutputSystemByPackAndIDResponse struct {

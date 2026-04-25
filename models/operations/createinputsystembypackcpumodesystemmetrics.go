@@ -2383,6 +2383,8 @@ type CreateInputSystemByPackInputSecurityLake struct {
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
+	// The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
+	FileConcurrency *float64 `json:"fileConcurrency,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
@@ -2624,6 +2626,13 @@ func (c *CreateInputSystemByPackInputSecurityLake) GetNumReceivers() *float64 {
 		return nil
 	}
 	return c.NumReceivers
+}
+
+func (c *CreateInputSystemByPackInputSecurityLake) GetFileConcurrency() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.FileConcurrency
 }
 
 func (c *CreateInputSystemByPackInputSecurityLake) GetSocketTimeout() *float64 {
@@ -9623,6 +9632,8 @@ type CreateInputSystemByPackInputS3Inventory struct {
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
+	// The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
+	FileConcurrency *float64 `json:"fileConcurrency,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
@@ -9868,6 +9879,13 @@ func (c *CreateInputSystemByPackInputS3Inventory) GetNumReceivers() *float64 {
 		return nil
 	}
 	return c.NumReceivers
+}
+
+func (c *CreateInputSystemByPackInputS3Inventory) GetFileConcurrency() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.FileConcurrency
 }
 
 func (c *CreateInputSystemByPackInputS3Inventory) GetSocketTimeout() *float64 {
@@ -10167,6 +10185,8 @@ type CreateInputSystemByPackInputS3 struct {
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
+	// The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
+	FileConcurrency *float64 `json:"fileConcurrency,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
@@ -10409,6 +10429,13 @@ func (c *CreateInputSystemByPackInputS3) GetNumReceivers() *float64 {
 		return nil
 	}
 	return c.NumReceivers
+}
+
+func (c *CreateInputSystemByPackInputS3) GetFileConcurrency() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.FileConcurrency
 }
 
 func (c *CreateInputSystemByPackInputS3) GetSocketTimeout() *float64 {
@@ -12503,6 +12530,8 @@ type CreateInputSystemByPackInputCrowdstrike struct {
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
+	// The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
+	FileConcurrency *float64 `json:"fileConcurrency,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
@@ -12740,6 +12769,13 @@ func (c *CreateInputSystemByPackInputCrowdstrike) GetNumReceivers() *float64 {
 		return nil
 	}
 	return c.NumReceivers
+}
+
+func (c *CreateInputSystemByPackInputCrowdstrike) GetFileConcurrency() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.FileConcurrency
 }
 
 func (c *CreateInputSystemByPackInputCrowdstrike) GetSocketTimeout() *float64 {

@@ -2848,6 +2848,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesStorjS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesStorjS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestStorjS3(
+        operations.CreateOutputOutputStorjS3{
+            ID: "storj-s3-output",
+            Type: operations.CreateOutputTypeStorjS3StorjS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://gateway.storjshare.io",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesSumoLogic
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesSumoLogic" -->
@@ -3126,6 +3168,90 @@ func main() {
         operations.CreateOutputOutputXsiam{
             ID: "xsiam-output",
             Type: operations.CreateOutputTypeXsiamXsiam,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplescloudianS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplescloudianS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCloudianS3(
+        operations.CreateOutputOutputCloudianS3{
+            ID: "cloudian-s3-output",
+            Type: operations.CreateOutputTypeCloudianS3CloudianS3,
+            Endpoint: "https://s3.hyperstore.example.com",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesdellS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesdellS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDellS3(
+        operations.CreateOutputOutputDellS3{
+            ID: "dell-s3-output",
+            Type: operations.CreateOutputTypeDellS3DellS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://powerscale.example.com:9021",
         },
     ))
     if err != nil {
@@ -5928,6 +6054,47 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesStorjS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesStorjS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputStorjS3(
+        components.OutputStorjS3{
+            ID: criblcontrolplanesdkgo.Pointer("storj-s3-output"),
+            Type: components.OutputStorjS3TypeStorjS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://gateway.storjshare.io",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesSumoLogic
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesSumoLogic" -->
@@ -6199,6 +6366,88 @@ func main() {
         components.OutputXsiam{
             ID: criblcontrolplanesdkgo.Pointer("xsiam-output"),
             Type: components.OutputXsiamTypeXsiam,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplescloudianS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplescloudianS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputCloudianS3(
+        components.OutputCloudianS3{
+            ID: criblcontrolplanesdkgo.Pointer("cloudian-s3-output"),
+            Type: components.OutputCloudianS3TypeCloudianS3,
+            Endpoint: "https://s3.hyperstore.example.com",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutput != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesdellS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesdellS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputDellS3(
+        components.OutputDellS3{
+            ID: criblcontrolplanesdkgo.Pointer("dell-s3-output"),
+            Type: components.OutputDellS3TypeDellS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://powerscale.example.com:9021",
         },
     ))
     if err != nil {

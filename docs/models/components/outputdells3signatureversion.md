@@ -1,0 +1,24 @@
+# OutputDellS3SignatureVersion
+
+Signature version to use for signing Dell PowerScale OneFS requests
+
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.OutputDellS3SignatureVersionV2
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.OutputDellS3SignatureVersion("custom_value")
+```
+
+
+## Values
+
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| `OutputDellS3SignatureVersionV2` | v2                               |
+| `OutputDellS3SignatureVersionV4` | v4                               |

@@ -316,8 +316,20 @@ func (u *UpdateOutputByIDRequest) GetOutputNutanixObjects() *components.OutputNu
 	return u.GetOutput().OutputNutanixObjects
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputStorjS3() *components.OutputStorjS3 {
+	return u.GetOutput().OutputStorjS3
+}
+
 func (u *UpdateOutputByIDRequest) GetOutputAlphasocS3() *components.OutputAlphasocS3 {
 	return u.GetOutput().OutputAlphasocS3
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDellS3() *components.OutputDellS3 {
+	return u.GetOutput().OutputDellS3
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputCloudianS3() *components.OutputCloudianS3 {
+	return u.GetOutput().OutputCloudianS3
 }
 
 type UpdateOutputByIDResponse struct {
