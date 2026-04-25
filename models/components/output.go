@@ -84,7 +84,10 @@ const (
 	OutputTypeMicrosoftFabric        OutputType = "microsoft_fabric"
 	OutputTypeCloudflareR2           OutputType = "cloudflare_r2"
 	OutputTypeNutanixObjects         OutputType = "nutanix_objects"
+	OutputTypeStorjS3                OutputType = "storj_s3"
 	OutputTypeAlphasocS3             OutputType = "alphasoc_s3"
+	OutputTypeDellS3                 OutputType = "dell_s3"
+	OutputTypeCloudianS3             OutputType = "cloudian_s3"
 	OutputTypeUnknown                OutputType = "UNKNOWN"
 )
 
@@ -161,7 +164,10 @@ type Output struct {
 	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline" union:"member"`
 	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
 	OutputNutanixObjects         *OutputNutanixObjects         `queryParam:"inline" union:"member"`
+	OutputStorjS3                *OutputStorjS3                `queryParam:"inline" union:"member"`
 	OutputAlphasocS3             *OutputAlphasocS3             `queryParam:"inline" union:"member"`
+	OutputDellS3                 *OutputDellS3                 `queryParam:"inline" union:"member"`
+	OutputCloudianS3             *OutputCloudianS3             `queryParam:"inline" union:"member"`
 	UnknownRaw                   json.RawMessage               `json:"-" union:"unknown"`
 
 	Type OutputType
@@ -1025,6 +1031,18 @@ func CreateOutputNutanixObjects(nutanixObjects OutputNutanixObjects) Output {
 	}
 }
 
+func CreateOutputStorjS3(storjS3 OutputStorjS3) Output {
+	typ := OutputTypeStorjS3
+
+	typStr := OutputStorjS3Type(typ)
+	storjS3.Type = typStr
+
+	return Output{
+		OutputStorjS3: &storjS3,
+		Type:          typ,
+	}
+}
+
 func CreateOutputAlphasocS3(alphasocS3 OutputAlphasocS3) Output {
 	typ := OutputTypeAlphasocS3
 
@@ -1033,6 +1051,30 @@ func CreateOutputAlphasocS3(alphasocS3 OutputAlphasocS3) Output {
 
 	return Output{
 		OutputAlphasocS3: &alphasocS3,
+		Type:             typ,
+	}
+}
+
+func CreateOutputDellS3(dellS3 OutputDellS3) Output {
+	typ := OutputTypeDellS3
+
+	typStr := OutputDellS3Type(typ)
+	dellS3.Type = typStr
+
+	return Output{
+		OutputDellS3: &dellS3,
+		Type:         typ,
+	}
+}
+
+func CreateOutputCloudianS3(cloudianS3 OutputCloudianS3) Output {
+	typ := OutputTypeCloudianS3
+
+	typStr := OutputCloudianS3Type(typ)
+	cloudianS3.Type = typStr
+
+	return Output{
+		OutputCloudianS3: &cloudianS3,
 		Type:             typ,
 	}
 }
@@ -1719,6 +1761,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputNutanixObjects = outputNutanixObjects
 		u.Type = OutputTypeNutanixObjects
 		return nil
+	case "storj_s3":
+		outputStorjS3 := new(OutputStorjS3)
+		if err := utils.UnmarshalJSON(data, &outputStorjS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == storj_s3) type OutputStorjS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputStorjS3 = outputStorjS3
+		u.Type = OutputTypeStorjS3
+		return nil
 	case "alphasoc_s3":
 		outputAlphasocS3 := new(OutputAlphasocS3)
 		if err := utils.UnmarshalJSON(data, &outputAlphasocS3, "", true, nil); err != nil {
@@ -1727,6 +1778,24 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 
 		u.OutputAlphasocS3 = outputAlphasocS3
 		u.Type = OutputTypeAlphasocS3
+		return nil
+	case "dell_s3":
+		outputDellS3 := new(OutputDellS3)
+		if err := utils.UnmarshalJSON(data, &outputDellS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == dell_s3) type OutputDellS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputDellS3 = outputDellS3
+		u.Type = OutputTypeDellS3
+		return nil
+	case "cloudian_s3":
+		outputCloudianS3 := new(OutputCloudianS3)
+		if err := utils.UnmarshalJSON(data, &outputCloudianS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cloudian_s3) type OutputCloudianS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputCloudianS3 = outputCloudianS3
+		u.Type = OutputTypeCloudianS3
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
@@ -2025,8 +2094,20 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputNutanixObjects, "", true)
 	}
 
+	if u.OutputStorjS3 != nil {
+		return utils.MarshalJSON(u.OutputStorjS3, "", true)
+	}
+
 	if u.OutputAlphasocS3 != nil {
 		return utils.MarshalJSON(u.OutputAlphasocS3, "", true)
+	}
+
+	if u.OutputDellS3 != nil {
+		return utils.MarshalJSON(u.OutputDellS3, "", true)
+	}
+
+	if u.OutputCloudianS3 != nil {
+		return utils.MarshalJSON(u.OutputCloudianS3, "", true)
 	}
 
 	if u.UnknownRaw != nil {

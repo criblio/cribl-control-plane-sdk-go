@@ -437,10 +437,28 @@ createOutputRequest := operations.CreateCreateOutputRequestCloudflareR2(operatio
 createOutputRequest := operations.CreateCreateOutputRequestNutanixObjects(operations.CreateOutputOutputNutanixObjects{/* values here */})
 ```
 
+### CreateOutputOutputStorjS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestStorjS3(operations.CreateOutputOutputStorjS3{/* values here */})
+```
+
 ### CreateOutputOutputAlphasocS3
 
 ```go
 createOutputRequest := operations.CreateCreateOutputRequestAlphasocS3(operations.CreateOutputOutputAlphasocS3{/* values here */})
+```
+
+### CreateOutputOutputDellS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestDellS3(operations.CreateOutputOutputDellS3{/* values here */})
+```
+
+### CreateOutputOutputCloudianS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestCloudianS3(operations.CreateOutputOutputCloudianS3{/* values here */})
 ```
 
 ## Union Discrimination
@@ -593,7 +611,13 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputCloudflareR2 is populated
 	case operations.CreateOutputRequestTypeNutanixObjects:
 		// createOutputRequest.CreateOutputOutputNutanixObjects is populated
+	case operations.CreateOutputRequestTypeStorjS3:
+		// createOutputRequest.CreateOutputOutputStorjS3 is populated
 	case operations.CreateOutputRequestTypeAlphasocS3:
 		// createOutputRequest.CreateOutputOutputAlphasocS3 is populated
+	case operations.CreateOutputRequestTypeDellS3:
+		// createOutputRequest.CreateOutputOutputDellS3 is populated
+	case operations.CreateOutputRequestTypeCloudianS3:
+		// createOutputRequest.CreateOutputOutputCloudianS3 is populated
 }
 ```

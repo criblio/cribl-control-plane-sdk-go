@@ -437,10 +437,28 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyNutanixObjects(operations.CreateOutputSystemByPackOutputNutanixObjects{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputStorjS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyStorjS3(operations.CreateOutputSystemByPackOutputStorjS3{/* values here */})
+```
+
 ### CreateOutputSystemByPackOutputAlphasocS3
 
 ```go
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAlphasocS3(operations.CreateOutputSystemByPackOutputAlphasocS3{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputDellS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyDellS3(operations.CreateOutputSystemByPackOutputDellS3{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputCloudianS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyCloudianS3(operations.CreateOutputSystemByPackOutputCloudianS3{/* values here */})
 ```
 
 ## Union Discrimination
@@ -593,7 +611,13 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputCloudflareR2 is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeNutanixObjects:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputNutanixObjects is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeStorjS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputStorjS3 is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeAlphasocS3:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAlphasocS3 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeDellS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputDellS3 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeCloudianS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputCloudianS3 is populated
 }
 ```
