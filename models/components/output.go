@@ -88,6 +88,7 @@ const (
 	OutputTypeAlphasocS3             OutputType = "alphasoc_s3"
 	OutputTypeDellS3                 OutputType = "dell_s3"
 	OutputTypeCloudianS3             OutputType = "cloudian_s3"
+	OutputTypeScalityS3              OutputType = "scality_s3"
 	OutputTypeUnknown                OutputType = "UNKNOWN"
 )
 
@@ -168,6 +169,7 @@ type Output struct {
 	OutputAlphasocS3             *OutputAlphasocS3             `queryParam:"inline" union:"member"`
 	OutputDellS3                 *OutputDellS3                 `queryParam:"inline" union:"member"`
 	OutputCloudianS3             *OutputCloudianS3             `queryParam:"inline" union:"member"`
+	OutputScalityS3              *OutputScalityS3              `queryParam:"inline" union:"member"`
 	UnknownRaw                   json.RawMessage               `json:"-" union:"unknown"`
 
 	Type OutputType
@@ -1079,6 +1081,18 @@ func CreateOutputCloudianS3(cloudianS3 OutputCloudianS3) Output {
 	}
 }
 
+func CreateOutputScalityS3(scalityS3 OutputScalityS3) Output {
+	typ := OutputTypeScalityS3
+
+	typStr := OutputScalityS3Type(typ)
+	scalityS3.Type = typStr
+
+	return Output{
+		OutputScalityS3: &scalityS3,
+		Type:            typ,
+	}
+}
+
 func CreateOutputUnknown(raw json.RawMessage) Output {
 	return Output{
 		UnknownRaw: raw,
@@ -1797,6 +1811,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputCloudianS3 = outputCloudianS3
 		u.Type = OutputTypeCloudianS3
 		return nil
+	case "scality_s3":
+		outputScalityS3 := new(OutputScalityS3)
+		if err := utils.UnmarshalJSON(data, &outputScalityS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == scality_s3) type OutputScalityS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputScalityS3 = outputScalityS3
+		u.Type = OutputTypeScalityS3
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = OutputTypeUnknown
@@ -2108,6 +2131,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputCloudianS3 != nil {
 		return utils.MarshalJSON(u.OutputCloudianS3, "", true)
+	}
+
+	if u.OutputScalityS3 != nil {
+		return utils.MarshalJSON(u.OutputScalityS3, "", true)
 	}
 
 	if u.UnknownRaw != nil {

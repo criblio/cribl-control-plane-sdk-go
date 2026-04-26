@@ -94,3 +94,4 @@ custom := components.DestinationType("custom_value")
 | `DestinationTypeAlphasocS3`             | alphasoc_s3                             |
 | `DestinationTypeDellS3`                 | dell_s3                                 |
 | `DestinationTypeCloudianS3`             | cloudian_s3                             |
+| `DestinationTypeScalityS3`              | scality_s3                              |

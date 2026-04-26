@@ -459,6 +459,12 @@ output := components.CreateOutputDellS3(components.OutputDellS3{/* values here *
 output := components.CreateOutputCloudianS3(components.OutputCloudianS3{/* values here */})
 ```
 
+### OutputScalityS3
+
+```go
+output := components.CreateOutputScalityS3(components.OutputScalityS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -617,6 +623,8 @@ switch output.Type {
 		// output.OutputDellS3 is populated
 	case components.OutputTypeCloudianS3:
 		// output.OutputCloudianS3 is populated
+	case components.OutputTypeScalityS3:
+		// output.OutputScalityS3 is populated
 	default:
 		// Unknown type - use output.GetUnknownRaw() for raw JSON
 }

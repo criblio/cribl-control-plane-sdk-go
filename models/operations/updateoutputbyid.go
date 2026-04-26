@@ -332,6 +332,10 @@ func (u *UpdateOutputByIDRequest) GetOutputCloudianS3() *components.OutputCloudi
 	return u.GetOutput().OutputCloudianS3
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputScalityS3() *components.OutputScalityS3 {
+	return u.GetOutput().OutputScalityS3
+}
+
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object
