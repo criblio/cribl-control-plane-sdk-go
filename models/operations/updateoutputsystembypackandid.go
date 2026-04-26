@@ -341,6 +341,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputCloudianS3() *components
 	return u.GetOutput().OutputCloudianS3
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputScalityS3() *components.OutputScalityS3 {
+	return u.GetOutput().OutputScalityS3
+}
+
 type UpdateOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object

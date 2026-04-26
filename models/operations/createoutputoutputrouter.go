@@ -10,6 +10,695 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateOutputTypeScalityS3 string
+
+const (
+	CreateOutputTypeScalityS3ScalityS3 CreateOutputTypeScalityS3 = "scality_s3"
+)
+
+func (e CreateOutputTypeScalityS3) ToPointer() *CreateOutputTypeScalityS3 {
+	return &e
+}
+func (e *CreateOutputTypeScalityS3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "scality_s3":
+		*e = CreateOutputTypeScalityS3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateOutputTypeScalityS3: %v", v)
+	}
+}
+
+// CreateOutputSignatureVersionScalityS3 - Signature version to use for signing Scality requests
+type CreateOutputSignatureVersionScalityS3 string
+
+const (
+	CreateOutputSignatureVersionScalityS3V2 CreateOutputSignatureVersionScalityS3 = "v2"
+	CreateOutputSignatureVersionScalityS3V4 CreateOutputSignatureVersionScalityS3 = "v4"
+)
+
+func (e CreateOutputSignatureVersionScalityS3) ToPointer() *CreateOutputSignatureVersionScalityS3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateOutputSignatureVersionScalityS3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateOutputOutputScalityS3 struct {
+	// Unique ID for this output
+	ID   string                    `json:"id"`
+	Type CreateOutputTypeScalityS3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Authentication method.
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionse9c778 `json:"awsAuthenticationMethod,omitzero"`
+	// Signature version to use for signing Scality requests
+	SignatureVersion *CreateOutputSignatureVersionScalityS3 `json:"signatureVersion,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Name of the destination Scality bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Scality bucket is located
+	Region *string `json:"region,omitzero"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `json:"destPath,omitzero"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath string `json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
+	// Format of the output data
+	Format *components.DataFormatOptions `json:"format,omitzero"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `json:"baseFileName,omitzero"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `json:"headerLine,omitzero"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
+	// How to handle events when disk space is below the global 'Min free disk space' limit
+	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
+	// Scality RING S3-compatible endpoint URL (example: https://s3.scality.example.com)
+	Endpoint    string  `json:"endpoint"`
+	Description *string `json:"description,omitzero"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Data compression format to apply to HTTP content before it is delivered
+	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitzero"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
+}
+
+func (c CreateOutputOutputScalityS3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputOutputScalityS3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputOutputScalityS3) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateOutputOutputScalityS3) GetType() CreateOutputTypeScalityS3 {
+	if c == nil {
+		return CreateOutputTypeScalityS3("")
+	}
+	return c.Type
+}
+
+func (c *CreateOutputOutputScalityS3) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateOutputOutputScalityS3) GetSystemFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SystemFields
+}
+
+func (c *CreateOutputOutputScalityS3) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateOutputOutputScalityS3) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateOutputOutputScalityS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionse9c778 {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAuthenticationMethod
+}
+
+func (c *CreateOutputOutputScalityS3) GetSignatureVersion() *CreateOutputSignatureVersionScalityS3 {
+	if c == nil {
+		return nil
+	}
+	return c.SignatureVersion
+}
+
+func (c *CreateOutputOutputScalityS3) GetReuseConnections() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ReuseConnections
+}
+
+func (c *CreateOutputOutputScalityS3) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputOutputScalityS3) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
+func (c *CreateOutputOutputScalityS3) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputOutputScalityS3) GetRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Region
+}
+
+func (c *CreateOutputOutputScalityS3) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+func (c *CreateOutputOutputScalityS3) GetMaxConcurrentFileParts() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxConcurrentFileParts
+}
+
+func (c *CreateOutputOutputScalityS3) GetVerifyPermissions() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.VerifyPermissions
+}
+
+func (c *CreateOutputOutputScalityS3) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
+}
+
+func (c *CreateOutputOutputScalityS3) GetStagePath() string {
+	if c == nil {
+		return ""
+	}
+	return c.StagePath
+}
+
+func (c *CreateOutputOutputScalityS3) GetAddIDToStagePath() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AddIDToStagePath
+}
+
+func (c *CreateOutputOutputScalityS3) GetRemoveEmptyDirs() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RemoveEmptyDirs
+}
+
+func (c *CreateOutputOutputScalityS3) GetPartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PartitionExpr
+}
+
+func (c *CreateOutputOutputScalityS3) GetFormat() *components.DataFormatOptions {
+	if c == nil {
+		return nil
+	}
+	return c.Format
+}
+
+func (c *CreateOutputOutputScalityS3) GetBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.BaseFileName
+}
+
+func (c *CreateOutputOutputScalityS3) GetFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.FileNameSuffix
+}
+
+func (c *CreateOutputOutputScalityS3) GetMaxFileSizeMB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileSizeMB
+}
+
+func (c *CreateOutputOutputScalityS3) GetMaxFileOpenTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileOpenTimeSec
+}
+
+func (c *CreateOutputOutputScalityS3) GetMaxFileIdleTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileIdleTimeSec
+}
+
+func (c *CreateOutputOutputScalityS3) GetMaxOpenFiles() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxOpenFiles
+}
+
+func (c *CreateOutputOutputScalityS3) GetHeaderLine() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HeaderLine
+}
+
+func (c *CreateOutputOutputScalityS3) GetWriteHighWaterMark() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.WriteHighWaterMark
+}
+
+func (c *CreateOutputOutputScalityS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+	if c == nil {
+		return nil
+	}
+	return c.OnBackpressure
+}
+
+func (c *CreateOutputOutputScalityS3) GetDeadletterEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DeadletterEnabled
+}
+
+func (c *CreateOutputOutputScalityS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OnDiskFullBackpressure
+}
+
+func (c *CreateOutputOutputScalityS3) GetForceCloseOnShutdown() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ForceCloseOnShutdown
+}
+
+func (c *CreateOutputOutputScalityS3) GetRetrySettings() *components.RetrySettingsType {
+	if c == nil {
+		return nil
+	}
+	return c.RetrySettings
+}
+
+func (c *CreateOutputOutputScalityS3) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
+}
+
+func (c *CreateOutputOutputScalityS3) GetEndpoint() string {
+	if c == nil {
+		return ""
+	}
+	return c.Endpoint
+}
+
+func (c *CreateOutputOutputScalityS3) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateOutputOutputScalityS3) GetAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAPIKey
+}
+
+func (c *CreateOutputOutputScalityS3) GetAwsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecret
+}
+
+func (c *CreateOutputOutputScalityS3) GetCompress() *components.CompressionOptionsHTTP {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateOutputOutputScalityS3) GetCompressionLevel() *components.CompressionLevelOptions {
+	if c == nil {
+		return nil
+	}
+	return c.CompressionLevel
+}
+
+func (c *CreateOutputOutputScalityS3) GetAutomaticSchema() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AutomaticSchema
+}
+
+func (c *CreateOutputOutputScalityS3) GetParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetSchema
+}
+
+func (c *CreateOutputOutputScalityS3) GetParquetVersion() *components.ParquetVersionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetVersion
+}
+
+func (c *CreateOutputOutputScalityS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetDataPageVersion
+}
+
+func (c *CreateOutputOutputScalityS3) GetParquetRowGroupLength() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetRowGroupLength
+}
+
+func (c *CreateOutputOutputScalityS3) GetParquetPageSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetPageSize
+}
+
+func (c *CreateOutputOutputScalityS3) GetShouldLogInvalidRows() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ShouldLogInvalidRows
+}
+
+func (c *CreateOutputOutputScalityS3) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.KeyValueMetadata
+}
+
+func (c *CreateOutputOutputScalityS3) GetEnableStatistics() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableStatistics
+}
+
+func (c *CreateOutputOutputScalityS3) GetEnableWritePageIndex() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableWritePageIndex
+}
+
+func (c *CreateOutputOutputScalityS3) GetEnablePageChecksum() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnablePageChecksum
+}
+
+func (c *CreateOutputOutputScalityS3) GetEmptyDirCleanupSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.EmptyDirCleanupSec
+}
+
+func (c *CreateOutputOutputScalityS3) GetDirectoryBatchSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DirectoryBatchSize
+}
+
+func (c *CreateOutputOutputScalityS3) GetDeadletterPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DeadletterPath
+}
+
+func (c *CreateOutputOutputScalityS3) GetMaxRetryNum() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxRetryNum
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBucket
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDestPath
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplatePartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePartitionExpr
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateFormat() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFormat
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBaseFileName
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFileNameSuffix
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsAPIKey
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
+}
+
+func (c *CreateOutputOutputScalityS3) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
+// #region class-body-createoutputoutputscalitys3
+// #endregion class-body-createoutputoutputscalitys3
+
 type CreateOutputTypeCloudianS3 string
 
 const (
@@ -20572,322 +21261,4 @@ func (c *CreateOutputOutputRouter) GetDescription() *string {
 		return nil
 	}
 	return c.Description
-}
-
-type CreateOutputTypeGraphite string
-
-const (
-	CreateOutputTypeGraphiteGraphite CreateOutputTypeGraphite = "graphite"
-)
-
-func (e CreateOutputTypeGraphite) ToPointer() *CreateOutputTypeGraphite {
-	return &e
-}
-func (e *CreateOutputTypeGraphite) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "graphite":
-		*e = CreateOutputTypeGraphite(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeGraphite: %v", v)
-	}
-}
-
-type CreateOutputPqControlsGraphite struct {
-}
-
-func (c CreateOutputPqControlsGraphite) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputPqControlsGraphite) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type CreateOutputOutputGraphite struct {
-	// Unique ID for this output
-	ID   string                   `json:"id"`
-	Type CreateOutputTypeGraphite `json:"type"`
-	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitzero"`
-	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitzero"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitzero"`
-	// Protocol to use when communicating with the destination.
-	Protocol components.DestinationProtocolOptions `json:"protocol"`
-	// The hostname of the destination.
-	Host string `json:"host"`
-	// Destination port.
-	Port float64 `json:"port"`
-	// When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
-	Mtu *float64 `json:"mtu,omitzero"`
-	// When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
-	// How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
-	Description         *string  `json:"description,omitzero"`
-	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
-	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
-	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64 `json:"writeTimeout,omitzero"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
-	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitzero"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitzero"`
-	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
-	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsGraphite `json:"pqControls,omitzero"`
-	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
-}
-
-func (c CreateOutputOutputGraphite) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputOutputGraphite) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateOutputOutputGraphite) GetID() string {
-	if c == nil {
-		return ""
-	}
-	return c.ID
-}
-
-func (c *CreateOutputOutputGraphite) GetType() CreateOutputTypeGraphite {
-	if c == nil {
-		return CreateOutputTypeGraphite("")
-	}
-	return c.Type
-}
-
-func (c *CreateOutputOutputGraphite) GetPipeline() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Pipeline
-}
-
-func (c *CreateOutputOutputGraphite) GetSystemFields() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SystemFields
-}
-
-func (c *CreateOutputOutputGraphite) GetEnvironment() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Environment
-}
-
-func (c *CreateOutputOutputGraphite) GetStreamtags() []string {
-	if c == nil {
-		return nil
-	}
-	return c.Streamtags
-}
-
-func (c *CreateOutputOutputGraphite) GetProtocol() components.DestinationProtocolOptions {
-	if c == nil {
-		return components.DestinationProtocolOptions("")
-	}
-	return c.Protocol
-}
-
-func (c *CreateOutputOutputGraphite) GetHost() string {
-	if c == nil {
-		return ""
-	}
-	return c.Host
-}
-
-func (c *CreateOutputOutputGraphite) GetPort() float64 {
-	if c == nil {
-		return 0.0
-	}
-	return c.Port
-}
-
-func (c *CreateOutputOutputGraphite) GetMtu() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Mtu
-}
-
-func (c *CreateOutputOutputGraphite) GetFlushPeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.FlushPeriodSec
-}
-
-func (c *CreateOutputOutputGraphite) GetDNSResolvePeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.DNSResolvePeriodSec
-}
-
-func (c *CreateOutputOutputGraphite) GetDescription() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Description
-}
-
-func (c *CreateOutputOutputGraphite) GetThrottleRatePerSec() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ThrottleRatePerSec
-}
-
-func (c *CreateOutputOutputGraphite) GetConnectionTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.ConnectionTimeout
-}
-
-func (c *CreateOutputOutputGraphite) GetWriteTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.WriteTimeout
-}
-
-func (c *CreateOutputOutputGraphite) GetOnBackpressure() *components.BackpressureBehaviorOptions {
-	if c == nil {
-		return nil
-	}
-	return c.OnBackpressure
-}
-
-func (c *CreateOutputOutputGraphite) GetPqStrictOrdering() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.PqStrictOrdering
-}
-
-func (c *CreateOutputOutputGraphite) GetPqRatePerSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqRatePerSec
-}
-
-func (c *CreateOutputOutputGraphite) GetPqMode() *components.ModeOptions {
-	if c == nil {
-		return nil
-	}
-	return c.PqMode
-}
-
-func (c *CreateOutputOutputGraphite) GetPqMaxBufferSize() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBufferSize
-}
-
-func (c *CreateOutputOutputGraphite) GetPqMaxBackpressureSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBackpressureSec
-}
-
-func (c *CreateOutputOutputGraphite) GetPqMaxFileSize() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxFileSize
-}
-
-func (c *CreateOutputOutputGraphite) GetPqMaxSize() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxSize
-}
-
-func (c *CreateOutputOutputGraphite) GetPqPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqPath
-}
-
-func (c *CreateOutputOutputGraphite) GetPqCompress() *components.CompressionOptionsPq {
-	if c == nil {
-		return nil
-	}
-	return c.PqCompress
-}
-
-func (c *CreateOutputOutputGraphite) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
-	if c == nil {
-		return nil
-	}
-	return c.PqOnBackpressure
-}
-
-func (c *CreateOutputOutputGraphite) GetPqMaxBufferSizeBytes() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBufferSizeBytes
-}
-
-func (c *CreateOutputOutputGraphite) GetPqControls() *CreateOutputPqControlsGraphite {
-	if c == nil {
-		return nil
-	}
-	return c.PqControls
-}
-
-func (c *CreateOutputOutputGraphite) GetTemplateOnBackpressure() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateOnBackpressure
 }
