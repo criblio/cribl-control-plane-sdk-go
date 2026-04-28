@@ -92,7 +92,8 @@ type InputJournalFiles struct {
 	// Skip log messages that are not part of the current boot session.
 	CurrentBoot *bool `json:"currentBoot,omitzero"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
-	MaxAgeDur *string `json:"maxAgeDur,omitzero"`
+	MaxAgeDur                 *string `json:"maxAgeDur,omitzero"`
+	SuppressMissingPathErrors *bool   `json:"suppressMissingPathErrors,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string             `json:"description,omitzero"`
@@ -221,6 +222,13 @@ func (i *InputJournalFiles) GetMaxAgeDur() *string {
 		return nil
 	}
 	return i.MaxAgeDur
+}
+
+func (i *InputJournalFiles) GetSuppressMissingPathErrors() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SuppressMissingPathErrors
 }
 
 func (i *InputJournalFiles) GetMetadata() []ItemsTypeMetadata {
