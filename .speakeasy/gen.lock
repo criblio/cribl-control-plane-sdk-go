@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 53bed7b2512f088efa62b73be5dc5288
-  docVersion: 4.17.2-alpha.1776455739868-9388be7a
+  docChecksum: 8a502ad83619a0add0fb45b0f62b36bb
+  docVersion: 4.17.2-alpha.1777331376265-2b887cf3
   speakeasyVersion: 1.761.8
   generationVersion: 2.881.2
-  releaseVersion: 0.7.0-alpha.22
-  configChecksum: fd13acfe75f472a2bbffacaba7e22432
+  releaseVersion: 0.8.0-alpha.1
+  configChecksum: 6aee4a69329aede434274467f6689cb4
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: d158fe10-b3bd-4b2f-8ad0-36ad7c30af6c
-  pristine_commit_hash: 5c5e2bd5d829c64ac824fae3cd4a13a3c8b2655d
-  pristine_tree_hash: d9266a1e64678bbd69e223df9f41135a6d4d4739
+  generation_id: 6e1cd7ab-b96c-4777-904e-9269a7c8bc9f
+  pristine_commit_hash: 9c463ade191f7c5e019c243e4800c1a880c52c5d
+  pristine_tree_hash: ca81a1cfe10cf6d6e8df90dc2bd4380c207e3609
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: a3acad670ea0d3339ed03eb40b091edd389ad7f5
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:a3b83d42216f3aa028cde155a171a7c12fe1d606
-    pristine_git_object: 565704a0e5dec1f09a09c580f8ef965419f22b03
+    last_write_checksum: sha1:b06084a8744bcccec64c1ed241e42636ba0adcd3
+    pristine_git_object: ee73acd50d7d4959c076597a3b4d5755c8274712
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:2d55d040fdab532c735d8a32055e6659016f3966
@@ -1249,8 +1249,8 @@ trackedFiles:
     pristine_git_object: d933543a01cde72babd743bc8e7c37f785f5c519
   docs/models/components/functionconfschemafoldkeys.md:
     id: 2f495f3b32fd
-    last_write_checksum: sha1:01757ea85270afb7c496f87cee83fb3118bb7d87
-    pristine_git_object: 96ca94a41bbed8ac151cdd9cddf516a137c1082f
+    last_write_checksum: sha1:5734c7ce84b6b351f46398dbb90976b7f51639eb
+    pristine_git_object: d3e38ef50ddf413b6191ee63b08161337b12bcb3
   docs/models/components/functionconfschemagenstats.md:
     id: 94ba803819b3
     last_write_checksum: sha1:edb0f445898dfe8850fda0038d2e2fb087052c1a
@@ -14793,8 +14793,8 @@ trackedFiles:
     pristine_git_object: 31aa40a3733336fb675647188a075468455bd50f
   models/components/functionconfschemafoldkeys.go:
     id: 6f640fcf98b8
-    last_write_checksum: sha1:03eb32dfffbcd7c05d5d1dccb52ee271dcaa1496
-    pristine_git_object: 07f1dbfdd70987d4fb8aa2c91a63b6eab705e3f7
+    last_write_checksum: sha1:07660c9219cc615b5db0f88fe0c9c7f225cfadb1
+    pristine_git_object: acc6340982660799b3fe4ea6ef7a71a9a942b28d
   models/components/functionconfschemagenstats.go:
     id: 819998c03101
     last_write_checksum: sha1:70477722da410bafc23731a6e6d95ea9a2ddf923
@@ -27931,7 +27931,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request.union(SavedJobCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(rest).Conf` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n  *  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n  *  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n  *  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n  *  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
