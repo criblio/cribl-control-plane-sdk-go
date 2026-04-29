@@ -10,7 +10,7 @@ import (
 type DeleteInputSystemPqByPackAndIDRequest struct {
 	// The <code>id</code> of the Source to clear the PQ for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to clear.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 

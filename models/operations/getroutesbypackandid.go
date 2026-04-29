@@ -10,7 +10,7 @@ import (
 type GetRoutesByPackAndIDRequest struct {
 	// The <code>id</code> of the Routing table to get. The supported value is <code>default</code>.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to get.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 
