@@ -10,7 +10,7 @@ import (
 type GetInputSystemByPackAndIDRequest struct {
 	// The <code>id</code> of the Source to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to get.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 

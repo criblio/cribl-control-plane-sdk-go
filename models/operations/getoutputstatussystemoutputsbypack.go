@@ -16,7 +16,7 @@ type GetOutputStatusSystemOutputsByPackRequest struct {
 	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of items to return in the response for this request. Use with <code>offset</code> to paginate the response into manageable batches.
 	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
-	// The <code>id</code> of the Pack to list.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 

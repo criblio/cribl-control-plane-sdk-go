@@ -10,7 +10,7 @@ import (
 type GetOutputSystemPqByPackAndIDRequest struct {
 	// The <code>id</code> of the Destination to get PQ job information for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to get.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 

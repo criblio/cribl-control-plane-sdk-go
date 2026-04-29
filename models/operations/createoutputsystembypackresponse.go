@@ -2963,7 +2963,7 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 }
 
 type CreateOutputSystemByPackRequest struct {
-	// The <code>id</code> of the Pack to create.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 	// Output object
 	RequestBody CreateOutputSystemByPackRequestBody `request:"mediaType=application/json"`

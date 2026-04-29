@@ -10,7 +10,7 @@ import (
 type DeleteOutputSystemByPackAndIDRequest struct {
 	// The <code>id</code> of the Destination to delete.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to delete.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 
